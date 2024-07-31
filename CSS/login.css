@@ -1,0 +1,16 @@
+.loginbody{
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    border-radius: 1rem;
+    margin-top: 1rem;
+}
+
+.login{
+    background-color: #F7C5B0;
+    margin-right: 5rem;
+    padding: 1rem;
+    border-radius: 1rem;
+
+    box-shadow: 0 0 0.5rem 0 rgba(0,0,0,0.1);
+}
