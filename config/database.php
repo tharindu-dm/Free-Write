@@ -1,13 +1,15 @@
 <?php
+// config/database.php
 
-return [
-    'driver' => 'mysql',
-    'host' => 'free-write-db.c5eaayaii022.eu-north-1.rds.amazonaws.com',
-    'database' => 'freewrite-db',
-    'username' => 'admin',
-    'password' => '5xIQI2XQaZZh9nzP',
-    'charset' => 'utf8mb4',
-    'strict' => true,
-];
+$dsn = 'mysql:host=free-write-db.c5eaayaii022.eu-north-1.rds.amazonaws.com;dbname=freewrite-db;charset=utf8mb4';
+$username = 'admin';
+$password = '5xIQI2XQaZZh9nzP';
+
+try {
+    $db = new PDO($dsn, $username, $password);
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die('Connection failed: ' . $e->getMessage());
+}
 
 ?>
