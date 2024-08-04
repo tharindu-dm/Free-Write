@@ -1,4 +1,5 @@
 <?php
+require 'config/database.php';
 class User {
     private $db;
 
@@ -7,7 +8,7 @@ class User {
     }
 
     public function authenticate($username, $password) {
-        $sql = "SELECT id, username, password FROM users WHERE username = ?";
+        $sql = "SELECT userID, username, `password` FROM User WHERE username = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$username]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
