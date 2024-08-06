@@ -19,4 +19,3 @@ class User {
         return false;
     }
 }
-?>

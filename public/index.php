@@ -1,27 +1,30 @@
 <?php
 
-require_once '../config/database.php';
-require_once '../controllers/UserController.php';
-require_once '../models/User.php';
+function show($stuff)
+{
+    echo "<pre>";
+    print_r($stuff);
+    echo "</pre>";
+}
 
-$db = new PDO($dsn, $username, $password);
-$userModel = new User($db);
-$userController = new UserController($userModel);
+function splitURL()
+{
+    $URL = $_GET['url'] ?? 'home';
+    $URL = explode('/', $URL);
+    return $URL;
+}
+//show(splitURL());
 
-$route = $_SERVER['REQUEST_URI'];
-
-switch ($route) {
-    case '/login':
-        $userController->showLoginForm();
-        break;
-    case '/dashboard':
-        // Assuming you have a DashboardController
-        $dashboardController->index();
-        break;
-    // Add more routes as needed
-    default:
-        // 404 page or redirect to home
-        // this is something
-        break;
-        //break2
+function loadController($controllerName)
+{
+    $URL = splitURL();
+    $filename = "../app/controllers/".ucfirst($URL[0])."Controller.php";
+    if(file_exists($filename))
+    {
+        require_once $filename;
+    }
+    else
+    {
+        echo "File not found";
+    }
 }
