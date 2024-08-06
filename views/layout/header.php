@@ -30,7 +30,6 @@
                 </div>
 
                 <div class="auth-buttons">
-                    <button onclick="location.href='./login.php?signup'">Signup</button>
                     <button onclick="location.href='./login.php'">Login</button>
                 </div>
             </div>

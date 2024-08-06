@@ -13,7 +13,7 @@
   position: sticky;
 }
 
-a {
+div > a {
   display: flex;
   color: #f5bcb9;
   text-decoration: none;
@@ -38,18 +38,28 @@ a > img {
   height: 5rem;
 }
 
-.dropdown{
+.dropdown {
   border-radius: 2rem;
   padding: 0.2rem;
 }
 
-.search{
+.search {
   border-radius: 2rem;
   padding: 0.2rem;
+}
+
+.search-bar>button {
+  border-radius: 2rem;
+  padding: 0.2rem;
+  margin-right: 2rem;
 }
 
 .auth-buttons > button {
   background-color: #001000;
   color: #f5bcb9;
   border-color: #f5bcb9;
+  
+  border-radius: 2rem;
+  padding: 0.2rem;
+  min-width: 10rem;
 }

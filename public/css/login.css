@@ -1,14 +1,18 @@
-.form-body{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 100vh;
+.form-body {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100vh;
 }
 
-.form-name{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.form-img>img {
+  width: 50rem;
+}
+
+.form-name {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .form-login {
@@ -19,11 +23,11 @@
 }
 
 .form-institution {
-    background-color: #845e52;
-    padding: 2rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
-  }
+  background-color: #845e52;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+}
 
 input {
   display: block;
@@ -58,4 +62,9 @@ input {
 .error {
   color: red;
   margin-bottom: 1rem;
+}
+
+form > p > a {
+  text-decoration: none;
+  color: #845e52;
 }
