@@ -22,3 +22,9 @@ User -> URL -----> router ------> controller <=======> model <=====> DB
 > robots.txt: tells the search engine what to index and what not to index (here we are telling do not index ajax and admin related pages)
 
 > if the php file does not contain any html element, then do not add the closing php tag "?>"
+
+> the video explains using CORE folder, but in here its "includes"
+> autoload.php is the init.php
+> why Controller in as php files for classes is that there might be functions that are used by every contoller so we can put them in a single file and include it in every controller
+
+> have a controller for each page

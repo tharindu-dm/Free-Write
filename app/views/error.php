@@ -1,4 +1,3 @@
-//an error page
 
 <!DOCTYPE html>
 <html>
@@ -8,7 +7,6 @@
     </title>
 </head>
 <body>
-    <h1>Error</h1>
-    <p>{{ message }}</p>
+    <h1>404 Error | Page view not found</h1>
 </body>
 </html>

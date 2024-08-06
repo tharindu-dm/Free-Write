@@ -1,5 +1,12 @@
 <?php
-// config/database.php
+
+function show($stuff)
+{
+    echo "<pre>";
+    print_r($stuff);
+    echo "</pre>";
+}
+
 
 $dsn = 'mysql:host=free-write-db.c5eaayaii022.eu-north-1.rds.amazonaws.com;dbname=freewrite-db;charset=utf8mb4';
 $username = 'admin';
@@ -11,5 +18,3 @@ try {
 } catch (PDOException $e) {
     die('Connection failed: ' . $e->getMessage());
 }
-
-?>
