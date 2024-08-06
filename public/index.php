@@ -21,5 +21,7 @@ switch ($route) {
     // Add more routes as needed
     default:
         // 404 page or redirect to home
+        // this is something
         break;
+        //break2
 }
