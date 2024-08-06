@@ -25,3 +25,8 @@ function swapSignup(forwardTo) {
     document.getElementById("inst-form").style.display = "block";
   }
 }
+
+function hashPassword(password) {
+  var hash = CryptoJS.SHA256.create(password).toString();
+  return hash;
+}
