@@ -33,14 +33,17 @@ a {
   padding: 0.5rem;
 }
 
-img {
+a > img {
   width: 6rem;
   height: 5rem;
 }
 
-button,
-select,
-input {
+.dropdown{
+  border-radius: 2rem;
+  padding: 0.2rem;
+}
+
+.search{
   border-radius: 2rem;
   padding: 0.2rem;
 }

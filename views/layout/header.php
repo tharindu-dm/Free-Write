@@ -25,13 +25,13 @@
                 </select>
 
                 <div class="search-bar">
-                    <input type="text" placeholder="Search...">
+                    <input class="search" type="text" placeholder="Search...">
                     <button type="submit">Search</button>
                 </div>
 
                 <div class="auth-buttons">
-                    <button onclick="location.href='signup.php'">Signup</button>
-                    <button onclick="location.href='login.php'">Login</button>
+                    <button onclick="location.href='./login.php?signup'">Signup</button>
+                    <button onclick="location.href='./login.php'">Login</button>
                 </div>
             </div>
         </div>

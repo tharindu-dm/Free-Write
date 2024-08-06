@@ -1,40 +1,61 @@
-/* public/css/login.css */
-body {
-    font-family: Arial, sans-serif;
+.form-body{
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     height: 100vh;
-    margin: 0;
-    background-color: #f0f0f0;
 }
 
-form {
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+.form-name{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
+.form-login {
+  background-color: #f7c5b0;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+}
+
+.form-institution {
+    background-color: #845e52;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+  }
 
 input {
-    display: block;
-    width: 100%;
-    margin-bottom: 10px;
-    padding: 10px;
-    box-sizing: border-box;
+  display: block;
+  width: 100%;
+  margin: 0.5rem;
+  padding: 1rem;
+  box-sizing: border-box;
+
+  border-radius: 1rem;
 }
 
-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.form-button {
+  width: 100%;
+  padding: 1rem;
+  background-color: #845e52;
+  color: #f7c5b0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.form-button-diff {
+  width: 100%;
+  padding: 1rem;
+  background-color: #f7c5b0;
+  color: #845e52;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .error {
-    color: red;
-    margin-bottom: 10px;
+  color: red;
+  margin-bottom: 1rem;
 }

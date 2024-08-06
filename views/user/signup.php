@@ -16,7 +16,7 @@ require 'layout/header.php';
 </head>
 
 <body>
-    <form action="/login" method="post">
+    <form action="/signup" method="post">
         <h2>Login</h2>
         <?php if (isset($error)) : ?>
             <p class="error"><?php echo htmlspecialchars($error); ?></p>
