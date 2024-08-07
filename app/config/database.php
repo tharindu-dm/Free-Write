@@ -33,7 +33,7 @@ trait Database
 
         $check = $statement->execute($data);
         if ($check) {
-            echo "Query successful";
+            //echo "Query successful";
             $result = $statement->fetchAll(PDO::FETCH_ASSOC);
             if (is_array($result) && count($result)) {
                 return $result;
@@ -50,7 +50,7 @@ trait Database
 
         $check = $statement->execute($data);
         if ($check) {
-            echo "Query successful";
+            //echo "Query successful";
             $result = $statement->fetchAll(PDO::FETCH_ASSOC);
             if (is_array($result) && count($result)) {
                 return $result[0];

@@ -1,12 +1,21 @@
 <?php
 
-class Model
+trait Model
 {
-    use Database; //using the Database trait
 
-    protected $table = 'User';
+    use Database; //using the Database trait
     protected $limit = 10;
     protected $offset = 0;
+    protected $orderBy = "desc";
+
+
+    public function findAll() //return multiple rows
+    {
+        $query = " select * from $this->table order by " . lcfirst($this->table) . "ID" . " $this->orderBy";
+
+        //$this->show( $this->query($query));
+        return $this->query($query);
+    }
 
     public function where($data, $data_not = []) //return multiple rows
     {
@@ -23,10 +32,11 @@ class Model
         }
 
         $query = rtrim($query, ' && ');
-        $query .= " limit $this->limit offset $this->offset";
+        $query .= " order by " . lcfirst($this->table) . "ID" . " $this->orderBy limit $this->limit offset $this->offset";
 
         $data = array_merge($data, $data_not);
 
+        //$this->show($this->query($query, $data));
         return $this->query($query, $data);
     }
 
@@ -67,11 +77,39 @@ class Model
 
     public function update($id, $data, $id_column = 'id')
     {
+        $keys = array_keys($data);
+        $query = "update $this->table set ";
 
+        foreach ($keys as $key) {
+            $query .= $key . ' = :' . $key . ', ';
+        }
+
+        $query = rtrim($query, ', ');
+        $query .= " where $id_column = :$id_column";
+        $data[$id_column] = $id;
+
+        if ($this->query($query, $data)) {
+            return true;
+        }
+        return false;
     }
 
     public function delete($id, $id_column = 'id')
     {
+        $data[$id_column] = $id;
+        $query = "delete from $this->table where $id_column = :$id_column";
 
+        if ($this->query($query, $data)) {
+            return true;
+        }
+        return false;
+    }
+
+    //testing
+    function show($stuff)
+    {
+        echo "<pre>";
+        print_r($stuff);
+        echo "</pre>";
     }
 }

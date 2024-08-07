@@ -12,17 +12,9 @@ class HomeController extends Controller
     public function index()
     {
         //echo "this is the Home Controller";
-        $model = new Model;
-        $arr['username'] = 'user1';
-        $arr['password'] = '0a041b9462caa4a31bac3567e0b6e6fd9100787db2ab433d96f6d178cabfce90';
-        $arr['userType'] = 'reader';
-        $arr['isPremium' ] = 0;
-        $arr['isActivated'] = 1;
-        $arr['loginAttempt'] = 0;
+        $user = new User;
 
-        $result = $model->insert($arr);
-
-        $this->show($result);
+        $result = $user->findAll();
 
         $this->view("home");
     }
