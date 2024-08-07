@@ -1,6 +1,6 @@
 <?php
 
-class Database
+trait Database
 {
     function show($stuff)
     {
@@ -37,6 +37,23 @@ class Database
             $result = $statement->fetchAll(PDO::FETCH_ASSOC);
             if (is_array($result) && count($result)) {
                 return $result;
+            }
+        } else {
+            echo "Query failed";
+            return false;
+        }
+    }
+    public function get_row($query, $data = []) //one row 
+    {
+        $con = $this->connect();
+        $statement = $con->prepare($query);
+
+        $check = $statement->execute($data);
+        if ($check) {
+            echo "Query successful";
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            if (is_array($result) && count($result)) {
+                return $result[0];
             }
         } else {
             echo "Query failed";
