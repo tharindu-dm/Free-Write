@@ -5,7 +5,9 @@ document.getElementById("joinLink").addEventListener("click", function () {
 document.getElementById("loginLink").addEventListener("click", function () {
   swapSignup("login");
 });
-
+document.getElementById("instTOread").addEventListener("click", function () {
+  swapSignup("login");
+});
 document.getElementById("instLog").addEventListener("click", function () {
   swapSignup("instLog");
 });

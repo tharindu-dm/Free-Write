@@ -64,7 +64,12 @@ input {
   margin-bottom: 1rem;
 }
 
+#instTOread{
+  color:#f7c5b0
+}
+
 form > p > a {
   text-decoration: none;
   color: #845e52;
 }
+

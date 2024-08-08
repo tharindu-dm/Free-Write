@@ -25,7 +25,7 @@ require_once 'layout/header.php';
             <div class="form-login" id="login-form">
                 <form action="/login" method="post">
                     <h2>Welcome Back!</h2>
-                    <?php if (isset($error)) : ?>
+                    <?php if (isset($error)): ?>
                         <p class="error"><?php echo htmlspecialchars($error); ?></p>
                     <?php endif; ?>
 
@@ -44,7 +44,7 @@ require_once 'layout/header.php';
             <div class="form-login" id="signup-form" style="display: none;">
                 <form action="/login" method="post">
                     <h2>Nice To Meet You!</h2>
-                    <?php if (isset($error)) : ?>
+                    <?php if (isset($error)): ?>
                         <p class="error"><?php echo htmlspecialchars($error); ?></p>
                     <?php endif; ?>
 
@@ -69,7 +69,7 @@ require_once 'layout/header.php';
             <div class="form-institution" id="inst-form" style="display: none;">
                 <form action="/login" method="post">
                     <h2>Library Access Login</h2>
-                    <?php if (isset($error)) : ?>
+                    <?php if (isset($error)): ?>
                         <p class="error"><?php echo htmlspecialchars($error); ?></p>
                     <?php endif; ?>
 
@@ -78,6 +78,8 @@ require_once 'layout/header.php';
                     <input type="password" name="password" placeholder="Password" required>
 
                     <button class="form-button-diff" type="submit">Login</button>
+
+                    <p>Reader <a id="instTOread" href="#">Login here</a></p>
                 </form>
             </div>
         </div>
