@@ -1,6 +1,6 @@
 <?php
 
-class Error extends Controller
+class _404Error extends Controller
 {
     public function index()
     {

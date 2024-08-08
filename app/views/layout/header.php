@@ -1,17 +1,21 @@
+<?php
+require_once "../app/controllers/UserController.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../public/css/index.css">
+    <link rel="stylesheet" href="/Free-Write/public/css/index.css">
 </head>
 
 <body>
     <nav class="navbar">
         <div class="navbar-container">
-            <a href="home.php">
-                <img src="../public/images/FeatherIcon.png" alt="Logo">
+            <a href="index.php">
+                <img src="/Free-Write/public/images/FeatherIcon.png" alt="Logo">
                 <h1>Freewrite</h1>
             </a>
 
@@ -30,7 +34,9 @@
                 </div>
 
                 <div class="auth-buttons">
-                    <button onclick="location.href='./UserController.php'">Login</button>
+                    <form action="User/handleLogin" method="post">
+                        <button id="loginBtn" type="submit">Login</button>
+                    </form>
                 </div>
             </div>
         </div>

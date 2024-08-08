@@ -105,11 +105,5 @@ trait Model
         return false;
     }
 
-    //testing
-    function show($stuff)
-    {
-        echo "<pre>";
-        print_r($stuff);
-        echo "</pre>";
-    }
+    
 }

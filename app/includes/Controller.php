@@ -4,7 +4,8 @@ class Controller
 {
     public function view($name)
     {
-        $filename = "../app/views/" . $name . ".php";
+        $filename ="../app/views/" . $name . ".php";
+        
         if (file_exists($filename)) {
             require $filename;
         } else {

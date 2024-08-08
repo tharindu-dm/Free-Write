@@ -29,6 +29,6 @@ User -> URL -----> router ------> controller <=======> model <=====> DB
 > autoload.php is the init.php
 > why Controller in as php files for classes is that there might be functions that are used by every contoller so we can put them in a single file and include it in every controller
 
-> have a controller for each page
+> have a controller for each page/view
 > have a model for each table in the database in models folder; 
         we can reuse the common functions in the includes/Model.php

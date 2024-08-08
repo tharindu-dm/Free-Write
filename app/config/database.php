@@ -2,13 +2,6 @@
 
 trait Database
 {
-    function show($stuff)
-    {
-        echo "<pre>";
-        print_r($stuff);
-        echo "</pre>";
-    }
-
     private function connect()
     {
         $dsn = 'mysql:host=free-write-db.c5eaayaii022.eu-north-1.rds.amazonaws.com;dbname=freewrite-db;charset=utf8mb4';
@@ -18,7 +11,7 @@ trait Database
         try {
             $con = new PDO($dsn, $username, $password);
             $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $this->show($con);
+            //$this->show($con);
 
             return $con;
         } catch (PDOException $e) {

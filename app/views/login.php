@@ -1,5 +1,5 @@
 <?php
-require 'layout/header.php';
+require_once 'layout/header.php';
 ?>
 
 <!DOCTYPE html>
@@ -11,13 +11,14 @@ require 'layout/header.php';
     <title>
         Login
     </title>
-    <link rel="stylesheet" href="../public/css/login.css">
+    <link rel="stylesheet" href="/Free-Write/public/css/index.css">
+    <link rel="stylesheet" href="/Free-Write/public/css/login.css">
 </head>
 
 <body>
     <div class="form-body">
         <div class="form-img">
-            <img src="../public/images/FeatherIcon.png" alt="Logo">
+            <img src="/Free-Write/public/images/FeatherIcon.png" alt="Logo">
         </div>
 
         <div class="form-container">
@@ -82,7 +83,7 @@ require 'layout/header.php';
         </div>
     </div>
 
-    <script src="../public/js/login.js"></script>
+    <script src="/Free-Write/public/js/login.js"></script>
 </body>
 
 </html>

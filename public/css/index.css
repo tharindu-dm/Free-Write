@@ -54,7 +54,7 @@ a > img {
   margin-right: 2rem;
 }
 
-.auth-buttons > button {
+#loginBtn {
   background-color: #001000;
   color: #f5bcb9;
   border-color: #f5bcb9;

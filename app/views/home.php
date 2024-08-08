@@ -1,5 +1,5 @@
 <?php
-require 'layout/header.php';
+require_once 'layout/header.php';
 ?>
 
 <!DOCTYPE html>

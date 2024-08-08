@@ -4,17 +4,13 @@ class App
     private $controller = 'HomeController';
     private $method = 'index';
 
-    private function splitURL()
-    {
-        $URL = $_GET['url'] ?? 'home';
-        $URL = explode('/', $URL);
-        return $URL;
-    }
+    
     //show(splitURL());
 
     public function loadController()
     {
-        $URL = $this->splitURL();
+        $URL = splitURL();
+        //show( $URL);
         $filename = "../app/controllers/" . ucfirst($URL[0]) . "Controller.php";
 
         if (file_exists($filename)) {
