@@ -13,6 +13,7 @@ class UserController extends Controller
         }
     }
 
+    //add a login validation thing, and create the session, and view the relevant page. utilize the read function below
     public function handleLogin()
     {
         
@@ -67,14 +68,19 @@ class UserController extends Controller
         }
     }
 
+    /*
+        parameters include the username and password and stuff
+        perform the insert in user.php
+        change the interface to login page
+    */
     public function create()
     {
-
+        
     }
 
     public function read()
     {
-
+        //use user.php and return 1 row
     }
 
     public function update($id)
