@@ -1,5 +1,5 @@
 <?php
-require_once "../app/controllers/UserController.php";
+require_once "/Free-Write/app/controllers/UserController.php";
 ?>
 
 <!DOCTYPE html>
