@@ -4,19 +4,19 @@ trait Database
 {
     private function connect()
     {
-        $dsn = 'mysql:host=free-write-db.c5eaayaii022.eu-north-1.rds.amazonaws.com;dbname=freewrite-db;charset=utf8mb4';
-        $username = 'admin';
-        $password = '5xIQI2XQaZZh9nzP';
-
         try {
-            $con = new PDO($dsn, $username, $password);
-            $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            //$this->show($con);
-
-            return $con;
-        } catch (PDOException $e) {
-            die('Connection failed: ' . $e->getMessage());
+            $conn = new PDO("sqlsrv:server = tcp:freewrite-server.database.windows.net,1433; Database = Freewrite_db", "CloudSAbf7941bd", "7d9UCx9jTxhk");
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
+        catch (PDOException $e) {
+            print("Error connecting to SQL Server.");
+            die(print_r($e));
+        }
+        
+        // SQL Server Extension Sample Code:
+        $connectionInfo = array("UID" => "CloudSAbf7941bd", "pwd" => "7d9UCx9jTxhk", "Database" => "Freewrite_db", "LoginTimeout" => 30, "Encrypt" => 1, "TrustServerCertificate" => 0);
+        $serverName = "tcp:freewrite-server.database.windows.net,1433";
+        $conn = sqlsrv_connect($serverName, $connectionInfo);
     }
 
     public function query($query, $data = []) //using sql prepared statement to avoid sql injections
