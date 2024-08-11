@@ -1,5 +1,5 @@
 <?php
-require_once "/Free-Write/app/controllers/UserController.php";
+require_once "/Free-Write/app/controllers/UserController.php"; //since this "navigation bar" contain login button
 ?>
 
 <!DOCTYPE html>
@@ -22,10 +22,10 @@ require_once "/Free-Write/app/controllers/UserController.php";
             <div class="navbar-menu">
                 <select class="dropdown">
                     <option value="" selected>Browse All</option>
-                    <option value="#">Stories</option>
-                    <option value="#">Spin-offs</option>
-                    <option value="#">Publisher</option>
-                    <option value="#">Cover Designs</option>
+                    <option value="Stories">Stories</option>
+                    <option value="Spin-offs">Spin-offs</option>
+                    <option value="Publisher">Publisher</option>
+                    <option value="Cover Designs">Cover Designs</option>
                 </select>
 
                 <div class="search-bar">

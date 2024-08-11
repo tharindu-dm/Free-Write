@@ -86,6 +86,7 @@ require_once 'layout/header.php';
     </div>
 
     <script src="/Free-Write/public/js/login.js"></script>
+    <!-- by adding the script at the very bottom we can guarentee that all the html elements are loaded -->
 </body>
 
 </html>

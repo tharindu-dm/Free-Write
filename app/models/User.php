@@ -2,17 +2,17 @@
 
 class User
 {
-    use Model;
+    use Model; // Use the Model trait
 
-    protected $table = 'User';
-    protected $allowedColumns = [
+    protected $table = 'User'; //when using the Model trait, this table name ise used 
+    /*protected $allowedColumns = [
         'username',
         'password',
         'userType',
         'isPremium',
         'isActivated',
         'loginAttempt',
-    ];
+    ];*/
 
     public function createUser($username, $password, $userType, $isPremium, $isActivated)
     {
