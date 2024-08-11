@@ -1,4 +1,5 @@
 <?php
+//contains common functions 
 
 //testing
     function show($stuff)

@@ -2,7 +2,7 @@
 
 trait Database
 {
-    private function connect()
+    private function connect() //connecting to azure sql server
     {
         try {
             $conn = new PDO("sqlsrv:server = tcp:freewrite-server.database.windows.net,1433; Database = Freewrite_db", "CloudSAbf7941bd", "7d9UCx9jTxhk");

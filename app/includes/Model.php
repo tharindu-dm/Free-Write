@@ -1,13 +1,16 @@
 <?php
 
 trait Model
-{
+{//traits are better than classes since they do not need to be instantiated
 
     use Database; //using the Database trait
+    //sql specifiers
     protected $limit = 10;
     protected $offset = 0;
     protected $orderBy = "desc";
 
+
+    //dyamically creating and executing sql queries based on the model(in /app/models) used 
 
     public function findAll() //return multiple rows
     {
@@ -68,14 +71,14 @@ trait Model
     }
 
 
-    public function insert($data)
+    public function insert($data) //insert data into the table
     {
         $keys = array_keys($data);
         $query = "insert into $this->table (" . implode(",", $keys) . ") values (:" . implode(",:", $keys) . ")";
         $this->query($query, $data);
     }
 
-    public function update($id, $data, $id_column = 'id')
+    public function update($id, $data, $id_column = 'id') //update data in the table
     {
         $keys = array_keys($data);
         $query = "update $this->table set ";
@@ -94,7 +97,7 @@ trait Model
         return false;
     }
 
-    public function delete($id, $id_column = 'id')
+    public function delete($id, $id_column = 'id') //delete data from the table
     {
         $data[$id_column] = $id;
         $query = "delete from $this->table where $id_column = :$id_column";
@@ -105,5 +108,5 @@ trait Model
         return false;
     }
 
-    
+
 }

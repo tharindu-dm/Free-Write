@@ -7,6 +7,6 @@ class HomeController extends Controller
         //echo "this is the Home Controller";
         $user = new User;
 
-        $this->view("home");
+        $this->view("home"); //calling the view function in /includes/Controller.php to view the homepage
     }
 }
