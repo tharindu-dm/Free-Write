@@ -23,7 +23,7 @@ require_once 'layout/header.php';
 
         <div class="form-container">
             <div class="form-login" id="login-form">
-                <form action="/login" method="post">
+                <form action="User/login/login" method="post">
                     <h2>Welcome Back!</h2>
                     <?php if (isset($error)): ?>
                         <p class="error"><?php echo htmlspecialchars($error); ?></p>
@@ -42,7 +42,7 @@ require_once 'layout/header.php';
             </div>
 
             <div class="form-login" id="signup-form" style="display: none;">
-                <form action="/login" method="post">
+                <form action="User/login/reg" method="post">
                     <h2>Nice To Meet You!</h2>
                     <?php if (isset($error)): ?>
                         <p class="error"><?php echo htmlspecialchars($error); ?></p>
@@ -62,12 +62,12 @@ require_once 'layout/header.php';
 
                     <p>Already a reader? <a href="#" id="loginLink">Login here</a></p>
 
-                    <button class="form-button" type="submit">Login</button>
+                    <button class="form-button" type="submit">Register Me</button>
                 </form>
             </div>
 
             <div class="form-institution" id="inst-form" style="display: none;">
-                <form action="/login" method="post">
+                <form action="User/login/inst" method="post">
                     <h2>Library Access Login</h2>
                     <?php if (isset($error)): ?>
                         <p class="error"><?php echo htmlspecialchars($error); ?></p>
