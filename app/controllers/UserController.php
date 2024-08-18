@@ -4,16 +4,14 @@ class UserController extends Controller
 {
     public function index()
     {
-        //echo "this is the User Controller";
+        echo "this is the User Controller";
         $URL = splitURL();
 
         if ($URL[1] == 'handleLogin') {
             //echo "this is the handleLogin function";
             $this->handleLogin();
-        }
-
-        if ($URL[2] == 'login') {
-            switch ($URL[3]) {
+        } else {
+            switch ($URL[1]) {
                 case 'login':
                     //echo "this is the login function";
                     $this->login();
@@ -97,12 +95,19 @@ class UserController extends Controller
     public function register()
     {
         //echo "inside the register function";
-        $URL = splitURL();
+        //$URL = splitURL();
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             //echo "inside the post request";
             $user = new User();
-            $user->create($_POST);
+            $result = $user->createUser($_POST['email'], $_POST['pw'], "reader", 0, 1);
+
+            if ($result) {
+                echo "User created successfully!";
+            } else {
+                echo "Failed to create user.";
+            }
+
             $this->view('login');
         } else {
             //echo "inside the get request";
@@ -110,18 +115,35 @@ class UserController extends Controller
         }
     }
 
-    public function read()
+    public function login()
     {
-        //use user.php and return 1 row
+        //echo "inside the login function";
+        $URL = splitURL();
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            //echo "inside the post request";
+            $user = new User();
+            $user->getUserByUsername($_POST['username']);
+            $this->view('login');
+        } else {
+            //echo "inside the get request";
+            $this->view('login');
+        }
     }
 
-    public function update($id)
+    public function inst()
     {
+        //echo "inside the inst function";
+        $URL = splitURL();
 
-    }
-
-    public function delete($id)
-    {
-
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            //echo "inside the post request";
+            $user = new User();
+            $user->getUserByUsername($_POST['username']);
+            $this->view('login');
+        } else {
+            //echo "inside the get request";
+            $this->view('login');
+        }
     }
 }

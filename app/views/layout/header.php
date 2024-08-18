@@ -8,39 +8,30 @@ require_once "../app/controllers/UserController.php"; //since this "navigation b
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/Free-Write/public/css/index.css">
+    <link rel="stylesheet" href="/Free-Write/public/css/home.css">
 </head>
 
 <body>
-    <nav class="navbar">
-        <div class="navbar-container">
-            <a href="index.php">
-                <img src="/Free-Write/public/images/FeatherIcon.png" alt="Logo">
-                <h1>Freewrite</h1>
-            </a>
-
-            <div class="navbar-menu">
-                <select class="dropdown">
-                    <option value="" selected>Browse All</option>
-                    <option value="Stories">Stories</option>
-                    <option value="Spin-offs">Spin-offs</option>
-                    <option value="Publisher">Publisher</option>
-                    <option value="Cover Designs">Cover Designs</option>
-                </select>
-
-                <div class="search-bar">
-                    <input class="search" type="text" placeholder="Search...">
-                    <button type="submit">Search</button>
-                </div>
-
-                <div class="auth-buttons">
-                    <form action="User/handleLogin" method="post">
-                        <button id="loginBtn" type="submit">Login</button>
-                    </form>
-                </div>
+    <header>
+        <nav>
+            <div class="logo">Free Write</div>
+            <ul>
+                <li><a href="#">Browse</a></li>
+                <li><a href="#">Designers</a></li>
+                <li><a href="#">Publishers</a></li>
+                <li><a href="#">Contests</a></li>
+            </ul>
+            <div class="search-container">
+                <input type="text" placeholder="Search">
             </div>
-        </div>
-    </nav>
+            <button class="publish-btn">Publish</button>
+
+            <form action="/Free-Write/public/User/handleLogin" method="post">
+                <button type="submit" class="sign-in-btn">Sign In</button>
+            </form>
+
+        </nav>
+    </header>
 </body>
 
 </html>

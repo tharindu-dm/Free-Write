@@ -74,8 +74,16 @@ trait Model
     public function insert($data) //insert data into the table
     {
         $keys = array_keys($data);
-        $query = "insert into $this->table (" . implode(",", $keys) . ") values (:" . implode(",:", $keys) . ")";
-        $this->query($query, $data);
+
+        // Enclose keys in brackets to handle reserved keywords
+        $bracketedKeys = array_map(function ($key) {
+            return "[" . $key . "]";
+        }, $keys);
+
+        // Build the query
+        $query = "INSERT INTO [{$this->table}] (" . implode(",", $bracketedKeys) . ") VALUES (:" . implode(",:", $keys) . ")";
+        
+        return $this->query($query, $data);
     }
 
     public function update($id, $data, $id_column = 'id') //update data in the table

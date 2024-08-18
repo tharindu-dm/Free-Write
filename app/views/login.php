@@ -1,5 +1,4 @@
 <?php
-require_once 'layout/header.php';
 ?>
 
 <!DOCTYPE html>
@@ -8,85 +7,65 @@ require_once 'layout/header.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        Login
-    </title>
-    <link rel="stylesheet" href="/Free-Write/public/css/index.css">
+    <title>Freewrite - Unleash Your Creativity</title>
     <link rel="stylesheet" href="/Free-Write/public/css/login.css">
 </head>
 
 <body>
-    <div class="form-body">
-        <div class="form-img">
-            <img src="/Free-Write/public/images/FeatherIcon.png" alt="Logo">
-        </div>
-
-        <div class="form-container">
-            <div class="form-login" id="login-form">
-                <form action="User/login/login" method="post">
-                    <h2>Welcome Back!</h2>
-                    <?php if (isset($error)): ?>
-                        <p class="error"><?php echo htmlspecialchars($error); ?></p>
-                    <?php endif; ?>
-
-                    <input type="text" name="username" placeholder="Username" required>
-
-                    <input type="password" name="password" placeholder="Password" required>
-
-                    <p>Not a reader yet? <a href="#" id="joinLink">Join here</a></p>
-
-                    <button class="form-button" type="submit">Login</button>
-
-                    <p><a href="#" id="instLog">Institution Login Here</a></p>
-                </form>
+    <?php
+    require_once "../app/views/layout/header.php";
+    ?>
+    <main>
+        <section class="login-container">
+            <h1>Unleash Your Creativity with Freewrite</h1>
+            <p>Join a community of passionate readers and writers.</p>
+            <div>
+                <div id="login-form-div">
+                    <form id="login-form">
+                        <input type="hidden" name="action" value="login">
+                        <input type="email" placeholder="Enter your email" required>
+                        <input type="password" placeholder="Password" required>
+                        <div class="button-group">
+                            <button type="button" class="sign-up-btn" id="sign-up-btn">Sign Up</button>
+                            <button type="button" class="institution-btn" id="institution-btn">Institution Log
+                                In</button>
+                            <button type="submit" class="login-btn" id="login-btn-submit">Login</button>
+                        </div>
+                    </form>
+                </div>
+                <div id="register-form-div">
+                    <form id="register-form" action="http://localhost/Free-Write/public/User/register" method="POST">
+                        <input type="hidden" name="action" value="register">
+                        <input type="text" name="fname" placeholder="Enter your first name" required>
+                        <input type="text" name="lname" placeholder="Enter your last name" required>
+                        <input type="email" name="email" placeholder="Enter your email" required>
+                        <input type="password" name="pw" placeholder="Password" required>
+                        <input type="password" name="confpw" placeholder="Confirm Password" required>
+                        <div class="button-group">
+                            <button type="submit" class="sign-up-btn" id="sign-up-btn-submit">Sign Up</button>
+                            <button type="button" class="login-btn" id="login-btn">Login</button>
+                        </div>
+                    </form>
+                </div>
+                <div id="institution-form-div">
+                    <form id="institution-form">
+                        <input type="hidden" name="action" value="institute">
+                        <input type="text" placeholder="Enter institution username" required>
+                        <input type="password" placeholder="Password" required>
+                        <div class="button-group">
+                            <button type="button" class="institution-btn" id="user-login-btn">User Log In</button>
+                            <button type="submit" class="login-btn" id="login-btn-inst">Login</button>
+                        </div>
+                    </form>
+                </div>
             </div>
+        </section>
+    </main>
+    <?php
+    require_once "../app/views/layout/footer.php";
+    ?>
 
-            <div class="form-login" id="signup-form" style="display: none;">
-                <form action="User/login/reg" method="post">
-                    <h2>Nice To Meet You!</h2>
-                    <?php if (isset($error)): ?>
-                        <p class="error"><?php echo htmlspecialchars($error); ?></p>
-                    <?php endif; ?>
-
-                    <div class="form-name">
-                        <input type="text" name="first-name" placeholder="First Name" required>
-                        <input type="text" name="last-name" placeholder="Last Name" required>
-                    </div>
-
-                    <input type="text" name="email" placeholder="Email" required>
-
-                    <input type="text" name="username" placeholder="Username" required>
-
-                    <input type="password" name="password" placeholder="Password" required oninput="">
-                    <input type="password" name="conf-password" placeholder="Confirm Password" required oninput="">
-
-                    <p>Already a reader? <a href="#" id="loginLink">Login here</a></p>
-
-                    <button class="form-button" type="submit">Register Me</button>
-                </form>
-            </div>
-
-            <div class="form-institution" id="inst-form" style="display: none;">
-                <form action="User/login/inst" method="post">
-                    <h2>Library Access Login</h2>
-                    <?php if (isset($error)): ?>
-                        <p class="error"><?php echo htmlspecialchars($error); ?></p>
-                    <?php endif; ?>
-
-                    <input type="text" name="username" placeholder="Institute Username" required>
-
-                    <input type="password" name="password" placeholder="Password" required>
-
-                    <button class="form-button-diff" type="submit">Login</button>
-
-                    <p>Reader <a id="instTOread" href="#">Login here</a></p>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <script src="/Free-Write/public/js/login.js"></script>
-    <!-- by adding the script at the very bottom we can guarentee that all the html elements are loaded -->
+    <script src="\Free-Write\public\js\login.js"></script>
 </body>
 
 </html>

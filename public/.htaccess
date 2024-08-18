@@ -1,6 +1,7 @@
 RewriteEngine On
 
 #accept loading of actual files and directories
+RewriteBase /Free-Write/public/
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
