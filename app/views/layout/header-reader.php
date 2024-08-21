@@ -1,41 +1,39 @@
+<?php
+require_once "../app/controllers/UserController.php"; //since this "navigation bar" contain login button
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../public/css/index.css">
+    <link rel="stylesheet" href="/Free-Write/public/css/home.css">
 </head>
 
 <body>
-    <nav class="navbar">
-        <div class="navbar-container">
-            <a href="home.php">
-                <img src="../public/images/FeatherIcon.png" alt="Logo">
-                <h1>Freewrite</h1>
-            </a>
-
-            <div class="navbar-menu">
-                <select class="dropdown">
-                    <option value="" selected>Browse All</option>
-                    <option value="#">Stories</option>
-                    <option value="#">Spin-offs</option>
-                    <option value="#">Publisher</option>
-                    <option value="#">Cover Designs</option>
-                </select>
-
-                <div class="search-bar">
-                    <input type="text" placeholder="Search...">
-                    <button type="submit">Search</button>
-                </div>
-
-                <div class="auth-buttons">
-                    <button onclick="location.href='signup.php'">Signup</button>
-                    <button onclick="location.href='login.php'">Login</button>
-                </div>
+    <header>
+        <nav>
+            <div class="logo">Free Write</div>
+            <ul>
+                <li><a href="#">Browse</a></li>
+                <li><a href="#">Designers</a></li>
+                <li><a href="#">Publishers</a></li>
+                <li><a href="#">Contests</a></li>
+            </ul>
+            <div class="search-container">
+                <input type="text" placeholder="Search">
             </div>
-        </div>
-    </nav>
+            <button class="publish-btn">Publish</button>
+
+            <form action="/Free-Write/public/User/logout" method="post">
+                <button type="submit" class="sign-out-btn">Sign out</button>
+            </form>
+            <form action="/Free-Write/public/User/Home" method="post">
+                <button type="submit" class="publish-btn">My Profile</button>
+            </form>
+        </nav>
+    </header>
 </body>
 
 </html>
