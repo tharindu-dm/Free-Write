@@ -1,6 +1,6 @@
 <?php
 
-class User
+class Feedback
 {
     use Model; // Use the Model trait
 

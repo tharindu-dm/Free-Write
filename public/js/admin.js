@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const descriptionInput = document.querySelector('.description-input');
     const checkboxes = document.querySelectorAll('.checkbox-group input[type="checkbox"]');
 
-    publishForm.addEventListener('submit', (e) => {
+    publishForm.addEventListener('submit', (e) => { // Add event listener to the form
         e.preventDefault();
 
         const subject = subjectInput.value;
@@ -19,20 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Description:', description);
             console.log('Selected Groups:', selectedGroups);
 
-            // Here you would typically send this data to your backend
-            // For now, we'll just reset the form
-            publishForm.reset();
+            // implement to send this data to the backend
         } else {
             alert('Please fill in all fields and select at least one group.');
         }
-    });
-
-    // Add active class to the clicked sidebar item
-    const sidebarItems = document.querySelectorAll('aside nav ul li');
-    sidebarItems.forEach(item => {
-        item.addEventListener('click', () => {
-            sidebarItems.forEach(i => i.classList.remove('active'));
-            item.classList.add('active');
-        });
     });
 });

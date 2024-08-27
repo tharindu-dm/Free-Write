@@ -8,26 +8,23 @@ body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
     color: #333;
-    background-color: #f8f8f8;
 }
 
 header {
     background-color: #fff;
     padding: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.logo {
+nav {
     display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
-.logo img {
-    width: 30px;
-    margin-right: 10px;
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 
 nav ul {
@@ -47,13 +44,14 @@ nav ul li a {
 .search-container input {
     padding: 0.5rem;
     border: 1px solid #ccc;
-    border-radius: 20px;
-    background-color: #f8f8f8;
+    border-radius: 4px;
 }
 
 .user-info {
     display: flex;
     align-items: center;
+    font-size: x-large;
+    font-weight: bold;
 }
 
 .user-info .icon {
@@ -76,7 +74,10 @@ aside {
 }
 
 aside nav ul {
+    display: flex;
+    flex-direction: column;
     list-style-type: none;
+    padding: 0;
 }
 
 aside nav ul li {
@@ -85,6 +86,8 @@ aside nav ul li {
     padding: 0.5rem;
     margin-bottom: 0.5rem;
     cursor: pointer;
+    border-bottom: 1px solid #ccc;
+    font-size: x-large;
 }
 
 aside nav ul li.active {
@@ -92,9 +95,18 @@ aside nav ul li.active {
     border-radius: 4px;
 }
 
-aside nav ul li img {
+aside nav ul li svg {
     width: 20px;
     margin-right: 10px;
+}
+
+.log-out-btn {
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 1rem;
+    font-size: medium;
+    border-radius: 1rem;
 }
 
 .dashboard {

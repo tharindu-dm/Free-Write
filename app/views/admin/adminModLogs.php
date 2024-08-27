@@ -17,7 +17,7 @@ require '../app/views/layout/header-admin.php';
         <aside>
             <nav>
                 <ul>
-                    <li class="active">
+                    <li>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -33,7 +33,7 @@ require '../app/views/layout/header-admin.php';
                         </svg>
                         Site Logs
                     </li>
-                    <li>
+                    <li class="active">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -76,34 +76,6 @@ require '../app/views/layout/header-admin.php';
                     <p>007</p>
                 </div>
             </div>
-
-            <div class="stats-grid secondary">
-                <div class="stat-card">
-                    <h3>Institutions</h3>
-                    <p>001</p>
-                </div>
-                <div class="stat-card">
-                    <h3>Premium Users</h3>
-                    <p>241</p>
-                </div>
-                <div class="stat-card">
-                    <h3>Moderators</h3>
-                    <p>012</p>
-                </div>
-            </div>
-
-            <form class="publish-form">
-                <input type="text" placeholder="Subject" class="subject-input">
-                <textarea placeholder="Descriptions" class="description-input"></textarea>
-                <div class="checkbox-group">
-                    <label><input type="checkbox"> All users</label>
-                    <label><input type="checkbox"> Writers</label>
-                    <label><input type="checkbox"> Cover Designers</label>
-                    <label><input type="checkbox"> Institutes</label>
-                    <label><input type="checkbox"> Publishers</label>
-                </div>
-                <button type="submit" class="publish-btn">Publish</button>
-            </form>
         </section>
     </main>
 

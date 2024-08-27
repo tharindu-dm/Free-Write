@@ -1,6 +1,6 @@
 <?php
 
-class User
+class Rating
 {
     use Model; // Use the Model trait
 

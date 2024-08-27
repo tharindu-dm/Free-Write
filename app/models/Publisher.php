@@ -1,6 +1,6 @@
 <?php
 
-class User
+class Publisher
 {
     use Model; // Use the Model trait
 

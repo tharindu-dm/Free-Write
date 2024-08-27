@@ -1,6 +1,6 @@
 <?php
 
-class User
+class CollectionBook
 {
     use Model; // Use the Model trait
 

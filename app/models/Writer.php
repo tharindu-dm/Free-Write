@@ -1,6 +1,6 @@
 <?php
 
-class User
+class Writer
 {
     use Model; // Use the Model trait
 

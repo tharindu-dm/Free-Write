@@ -1,6 +1,6 @@
 <?php
 
-class User
+class Report
 {
     use Model; // Use the Model trait
 

@@ -1,6 +1,6 @@
 <?php
 
-class User
+class Courier
 {
     use Model; // Use the Model trait
 

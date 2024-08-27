@@ -1,6 +1,6 @@
 <?php
 
-class User
+class UserNotification
 {
     use Model; // Use the Model trait
 

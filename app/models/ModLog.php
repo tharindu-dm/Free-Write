@@ -1,6 +1,6 @@
 <?php
 
-class User
+class ModLog
 {
     use Model; // Use the Model trait
 

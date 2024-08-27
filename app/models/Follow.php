@@ -1,6 +1,6 @@
 <?php
 
-class User
+class Follow
 {
     use Model; // Use the Model trait
 

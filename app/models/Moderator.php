@@ -1,6 +1,6 @@
 <?php
 
-class User
+class Moderator
 {
     use Model; // Use the Model trait
 

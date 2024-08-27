@@ -12,18 +12,14 @@ class UserController extends Controller
                 case 'handleLogin':
                     $this->handleLogin();
                 case 'login':
-                    //echo "this is the login function\n";
                     $this->login();
                     break;
                 case 'register':
-                    //echo "this is the register function \n";
                     $this->register();
                     break;
                 case 'profile':
                     $this->userProfile();
                     break;
-                case 'Admin':
-                    $this->adminDashboard();
                 case 'logout':
                     $this->logout();
                     break;
@@ -92,12 +88,11 @@ class UserController extends Controller
     */
     public function register()
     {
-        //echo "inside the register function\n";
-        //$URL = splitURL();
-
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             //echo "inside the post request\n";
             $user = new User();
+            $userDetails = new UserDetails();
+
             $result = $user->createUser($_POST['email'], $_POST['pw'], "reader", 0, 1);
 
             if ($result) {
@@ -178,11 +173,5 @@ class UserController extends Controller
     {
         echo "inside the userProfile function\n";
         $this->view('userProfile');
-    }
-
-    public function adminDashboard()
-    {
-        echo "inside the admin-dashboard function\n";
-        $this->view('admin');
     }
 }

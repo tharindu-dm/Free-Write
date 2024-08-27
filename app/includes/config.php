@@ -1,2 +1,1 @@
-<?
-//so far empty
+<?php

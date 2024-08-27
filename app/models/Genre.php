@@ -1,6 +1,6 @@
 <?php
 
-class User
+class Genre
 {
     use Model; // Use the Model trait
 

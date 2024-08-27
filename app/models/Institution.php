@@ -1,6 +1,6 @@
 <?php
 
-class User
+class Institution
 {
     use Model; // Use the Model trait
 

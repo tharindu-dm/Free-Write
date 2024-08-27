@@ -1,6 +1,6 @@
 <?php
 
-class User
+class Event
 {
     use Model; // Use the Model trait
 

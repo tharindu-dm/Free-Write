@@ -1,6 +1,6 @@
 <?php
 
-class User
+class OrderItem
 {
     use Model; // Use the Model trait
 

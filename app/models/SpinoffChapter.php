@@ -1,6 +1,6 @@
 <?php
 
-class User
+class SpinoffChapter
 {
     use Model; // Use the Model trait
 

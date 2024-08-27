@@ -26,10 +26,11 @@ require_once "../app/controllers/AdminController.php";
             </div>
 
             <div class="user-info">
-            <img src="settings-icon.png" alt="Settings" class="icon">
-            <img src="notifications-icon.png" alt="Notifications" class="icon">
-            <span>Administrator</span>
-        </div>
+                <span>Administrator</span>
+            </div>
+            <form action="/Free-Write/public/Admin/logout" method="post">
+                <button type="submit" class="log-out-btn">LogOut</button>
+            </form>
         </nav>
     </header>
 </body>

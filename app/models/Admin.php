@@ -1,6 +1,6 @@
 <?php
 
-class User
+class Admin
 {
     use Model; // Use the Model trait
 

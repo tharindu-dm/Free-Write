@@ -1,6 +1,6 @@
 <?php
 
-class User
+class Comment
 {
     use Model; // Use the Model trait
 

@@ -1,6 +1,6 @@
 <?php
 
-class User
+class Subscription
 {
     use Model; // Use the Model trait
 

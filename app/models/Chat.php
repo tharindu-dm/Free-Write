@@ -1,6 +1,6 @@
 <?php
 
-class User
+class Chat
 {
     use Model; // Use the Model trait
 

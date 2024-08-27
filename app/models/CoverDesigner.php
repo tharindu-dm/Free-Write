@@ -1,6 +1,6 @@
 <?php
 
-class User
+class CoverDesigner
 {
     use Model; // Use the Model trait
 

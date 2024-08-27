@@ -1,6 +1,6 @@
 <?php
 
-class User
+class Quote
 {
     use Model; // Use the Model trait
 

@@ -1,6 +1,6 @@
 <?php
 
-class User
+class Delivery
 {
     use Model; // Use the Model trait
 

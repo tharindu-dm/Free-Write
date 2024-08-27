@@ -1,6 +1,6 @@
 <?php
 
-class User
+class Advertisement
 {
     use Model; // Use the Model trait
 
