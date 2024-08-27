@@ -44,7 +44,13 @@ function checkpwMatch(){
 }
 
 function validateEmail(){
-
+  var email = document.getElementById("emailREG").value
+  var emailRegEx = /\S+@\S+\.\S+/;
+  if (!emailRegEx.test(email)){
+    document.getElementById("log-email").style.borderColor = "red"
+    return false
+  }
+  return true
 }
 
 function checkPassStrength(){

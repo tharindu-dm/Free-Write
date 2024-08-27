@@ -8,38 +8,35 @@ class UserController extends Controller
         $URL = splitURL();
 
         if (count($URL) == 2) {
-            if ($URL[1] == 'handleLogin') {
-                //echo "this is the handleLogin function\n";
-                $this->handleLogin();
-            } else {
-                switch ($URL[1]) {
-                    case 'login':
-                        //echo "this is the login function\n";
-                        $this->login();
-                        break;
-                    case 'register':
-                        //echo "this is the register function \n";
-                        $this->register();
-                        break;
-                    case 'profile':
-                        $this->userProfile();
-                        break;
-                    case 'logout':
-                        $this->logout();
-                        break;
-                    default:
-                        //echo "this is the default function \n";
-                        $this->view('login');
-                        break;
-                }
+            switch ($URL[1]) {
+                case 'handleLogin':
+                    $this->handleLogin();
+                case 'login':
+                    //echo "this is the login function\n";
+                    $this->login();
+                    break;
+                case 'register':
+                    //echo "this is the register function \n";
+                    $this->register();
+                    break;
+                case 'profile':
+                    $this->userProfile();
+                    break;
+                case 'Admin':
+                    $this->adminDashboard();
+                case 'logout':
+                    $this->logout();
+                    break;
+                default:
+                    $this->view('login');
+                    break;
             }
+
         } else {
-            //echo "this is the default function \n";
             $this->view('login');
         }
     }
 
-    //add a login validation thing, and create the session, and view the relevant page. utilize the read function below
     public function handleLogin()
     {
 
@@ -54,14 +51,13 @@ class UserController extends Controller
         // Checking if user is already logged in
         if (isset($_SESSION['user_id'])) {
             echo "user is already logged in \n";
-            ////////////////////////////check the user type efore redirecting (admin, mod, reader, writer, covdes, wricov, courier, publisher, inst)
 
             switch ($_SESSION['user_type']) {
                 case 'admin':
-                    header('Location: /admin');
+                    header('Location: /Free-Write/public/Admin');
                     break;
                 case 'mod':
-                    header('Location: /mod');
+                    header('Location: /Free-Write/public/Mod');
                     break;
                 case 'reader':
                 case 'writer':
@@ -70,13 +66,13 @@ class UserController extends Controller
                     header('Location: /Free-Write/public/User/profile');
                     break;
                 case 'courier':
-                    header('Location: /courier');
+                    header('Location: /Free-Write/public/User/courier');
                     break;
                 case 'publisher':
-                    header('Location: /publisher');
+                    header('Location: /Free-Write/public/User/publisher');
                     break;
                 case 'inst':
-                    header('Location: /inst');
+                    header('Location: /Free-Write/public/User/inst');
                     break;
                 default:
                     header('Location: /');
@@ -129,7 +125,6 @@ class UserController extends Controller
             show($userData);
 
             $pw = $_POST['log-password'];
-            //echo "pw: $pw\n";
 
             if ($userData) {
                 if ($pw == $userData['password']) {
@@ -183,5 +178,11 @@ class UserController extends Controller
     {
         echo "inside the userProfile function\n";
         $this->view('userProfile');
+    }
+
+    public function adminDashboard()
+    {
+        echo "inside the admin-dashboard function\n";
+        $this->view('admin');
     }
 }

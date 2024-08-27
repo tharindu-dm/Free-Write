@@ -20,7 +20,7 @@
                 <div id="login-form-div">
                     <form id="login-form" action="http://localhost/Free-Write/public/User/login" method="POST">
                         <input type="hidden" name="action" value="login">
-                        <input type="email" onchange="validateEmail()" name="log-email" placeholder="Enter your email" required>
+                        <input type="email" onchange="validateEmail()" name="log-email" id="log-email" placeholder="Enter your email" required>
                         <input type="password" name="log-password" placeholder="Password" required>
                         <div class="button-group">
                             <button type="button" class="sign-up-btn" id="sign-up-btn">Sign Up</button>
@@ -49,7 +49,7 @@
     require_once "../app/views/layout/footer.php";
     ?>
 
-    <script src="\Free-Write\public\js\login.js"></script>
+    <script src="/Free-Write/public/js/login.js"></script>
 </body>
 
 </html>
