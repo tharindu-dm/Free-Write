@@ -16,8 +16,8 @@ require '../app/views/layout/header-admin.php';
     <main>
         <aside>
             <nav>
-                <ul>
-                    <li>
+                <ul id="sidebar-nav">
+                    <li data-href="/Free-Write/public/Admin">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -25,7 +25,7 @@ require '../app/views/layout/header-admin.php';
                         </svg>
                         Dashboard
                     </li>
-                    <li class="active">
+                    <li class="active" data-href="/Free-Write/public/Admin/siteLogs">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -33,7 +33,7 @@ require '../app/views/layout/header-admin.php';
                         </svg>
                         Site Logs
                     </li>
-                    <li>
+                    <li data-href="/Free-Write/public/Admin/modLogs">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -41,7 +41,7 @@ require '../app/views/layout/header-admin.php';
                         </svg>
                         Mod Logs
                     </li>
-                    <li>
+                    <li data-href="/Free-Write/public/Admin/viewTable">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -54,32 +54,104 @@ require '../app/views/layout/header-admin.php';
         </aside>
 
         <section class="dashboard">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <h3>Total User Count</h3>
-                    <p>4098</p>
-                </div>
-                <div class="stat-card">
-                    <h3>Readers</h3>
-                    <p>4090</p>
-                </div>
-                <div class="stat-card">
-                    <h3>Writers</h3>
-                    <p>1054</p>
-                </div>
-                <div class="stat-card">
-                    <h3>Cover Designers</h3>
-                    <p>546</p>
-                </div>
-                <div class="stat-card">
-                    <h3>Publishers</h3>
-                    <p>007</p>
+            <div class="table-container">
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Site Log ID</th>
+                                <th>User</th>
+                                <th>Activity</th>
+                                <th>Occurrence</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Aether</td>
+                                <td>Logged in</td>
+                                <td>2024-09-01 12:00:00</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Lumine</td>
+                                <td>Logged out</td>
+                                <td>2024-09-01 12:05:00</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Aether</td>
+                                <td>Viewed Table</td>
+                                <td>2024-09-01 12:10:00</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Lumine</td>
+                                <td>Logged in</td>
+                                <td>2024-09-01 12:15:00</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>Aether</td>
+                                <td>Logged out</td>
+                                <td>2024-09-01 12:20:00</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>Lumine</td>
+                                <td>Viewed Table</td>
+                                <td>2024-09-01 12:25:00</td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td>Aether</td>
+                                <td>Logged in</td>
+                                <td>2024-09-01 12:30:00</td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td>Lumine</td>
+                                <td>Logged out</td>
+                                <td>2024-09-01 12:35:00</td>
+                            </tr>
+                            <tr>
+                                <td>9</td>
+                                <td>Aether</td>
+                                <td>Viewed Table</td>
+                                <td>2024-09-01 12:40:00</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>Lumine</td>
+                                <td>Logged in</td>
+                                <td>2024-09-01 12:45:00</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </section>
     </main>
 
-    <script src="/Free-Write/public/js/admin.js"></script>
+    <script src="/Free-Write/public/js/Admin/admin.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const sidebarNav = document.getElementById('sidebar-nav');
+            const navItems = sidebarNav.getElementsByTagName('li');
+
+            for (let item of navItems) {
+                item.addEventListener('click', function () {
+                    // Get the href from data-href attribute
+                    const href = this.getAttribute('data-href');
+
+                    // Redirect to the specified URL
+                    if (href) {
+                        window.location.href = href;
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>

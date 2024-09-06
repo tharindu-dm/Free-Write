@@ -16,8 +16,8 @@ require '../app/views/layout/header-admin.php';
     <main>
         <aside>
             <nav>
-                <ul>
-                    <li>
+                <ul id="sidebar-nav">
+                    <li data-href="/Free-Write/public/Admin">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -25,7 +25,7 @@ require '../app/views/layout/header-admin.php';
                         </svg>
                         Dashboard
                     </li>
-                    <li>
+                    <li data-href="/Free-Write/public/Admin/siteLogs">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -33,7 +33,7 @@ require '../app/views/layout/header-admin.php';
                         </svg>
                         Site Logs
                     </li>
-                    <li class="active">
+                    <li class="active" data-href="/Free-Write/public/Admin/modLogs">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -41,7 +41,7 @@ require '../app/views/layout/header-admin.php';
                         </svg>
                         Mod Logs
                     </li>
-                    <li>
+                    <li data-href="/Free-Write/public/Admin/viewTable">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -54,32 +54,104 @@ require '../app/views/layout/header-admin.php';
         </aside>
 
         <section class="dashboard">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <h3>Total User Count</h3>
-                    <p>4098</p>
-                </div>
-                <div class="stat-card">
-                    <h3>Readers</h3>
-                    <p>4090</p>
-                </div>
-                <div class="stat-card">
-                    <h3>Writers</h3>
-                    <p>1054</p>
-                </div>
-                <div class="stat-card">
-                    <h3>Cover Designers</h3>
-                    <p>546</p>
-                </div>
-                <div class="stat-card">
-                    <h3>Publishers</h3>
-                    <p>007</p>
+            <div class="table-container">
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Mod Log ID</th>
+                                <th>Mod</th>
+                                <th>Activity</th>
+                                <th>Occurrence</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Ayato</td>
+                                <td>Deleted user with ID 123</td>
+                                <td>2024-05-01 12:00:00</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Ayaka</td>
+                                <td>Deleted user with ID 456</td>
+                                <td>2024-05-01 12:30:00</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Ayato</td>
+                                <td>Deleted user with ID 789</td>
+                                <td>2024-05-01 13:00:00</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Ayaka</td>
+                                <td>Deleted user with ID 101112</td>
+                                <td>2024-05-01 13:30:00</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>Ayato</td>
+                                <td>Deleted user with ID 131415</td>
+                                <td>2024-05-01 14:00:00</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>Ayaka</td>
+                                <td>Deleted user with ID 161718</td>
+                                <td>2024-05-01 14:30:00</td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td>Ayato</td>
+                                <td>Deleted user with ID 192024</td>
+                                <td>2024-05-01 15:00:00</td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td>Ayaka</td>
+                                <td>Deleted user with ID 222324</td>
+                                <td>2024-05-11 15:30:00</td>
+                            </tr>
+                            <tr>
+                                <td>9</td>
+                                <td>Ayato</td>
+                                <td>Deleted user with ID 252627</td>
+                                <td>2024-05-12 16:00:00</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>Ayaka</td>
+                                <td>Deleted user with ID 282930</td>
+                                <td>2024-05-14 16:30:00</td>
+                            </tr>                            
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </section>
     </main>
 
-    <script src="/Free-Write/public/js/admin.js"></script>
+    <script src="/Free-Write/public/js/Admin/admin.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const sidebarNav = document.getElementById('sidebar-nav');
+            const navItems = sidebarNav.getElementsByTagName('li');
+
+            for (let item of navItems) {
+                item.addEventListener('click', function () {
+                    // Get the href from data-href attribute
+                    const href = this.getAttribute('data-href');
+
+                    // Redirect to the specified URL
+                    if (href) {
+                        window.location.href = href;
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>

@@ -13,16 +13,16 @@ class AdminController extends Controller
                     $this->logout();
                     break;
                 case 'viewTable':
-                    $this->view('adminViewTable');
+                    $this->view('admin/adminViewTable');
                     break;
                 case 'siteLogs':
-                    $this->view('adminSiteLogs');
+                    $this->view('admin/adminSiteLogs');
                     break;
                 case 'modLogs':
-                    $this->view('adminModLogs');
+                    $this->view('admin/adminModLogs');
                     break;
                 default:
-                    $this->view('adminDashboard');
+                    $this->view('admin/adminDashboard');
                     break;
             }
 

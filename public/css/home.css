@@ -22,6 +22,10 @@ nav {
     align-items: center;
 }
 
+a {
+    text-decoration: none;
+}
+
 .logo {
     font-size: 1.5rem;
     font-weight: bold;
@@ -45,6 +49,16 @@ nav ul li a {
     padding: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+
+.action-button-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;   
+}
+
+.action-button {
+    display: flex;
 }
 
 .publish-btn, .sign-in-btn {
