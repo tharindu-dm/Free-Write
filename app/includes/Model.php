@@ -47,18 +47,20 @@ trait Model
     {
         $keys = array_keys($data);
         $keys_not = array_keys($data_not);
-        $query = "select * from $this->table where";
+        $query = "SELECT * FROM [{$this->table}] WHERE [";
 
         foreach ($keys as $key) {
-            $query .= $key . ' = :' . $key . ' && ';
+            $query .= $key . '] = :' . $key . ' && [';
         }
 
         foreach ($keys_not as $key) {
-            $query .= $key . ' != :' . $key . ' && ';
+            $query .= $key . ' != :' . $key . ' && [';
         }
 
-        $query = rtrim($query, ' && ');
-        $query .= " limit $this->limit offset $this->offset";
+        $query = rtrim($query, ' && [');
+        //$query .= " limit $this->limit offset $this->offset";
+
+        echo "\n Query: ".$query."\n"; // <<<<<<<<<<<<<<<<<<<<<<
 
         $data = array_merge($data, $data_not);
         $result = $this->query($query, $data);
@@ -74,8 +76,16 @@ trait Model
     public function insert($data) //insert data into the table
     {
         $keys = array_keys($data);
-        $query = "insert into $this->table (" . implode(",", $keys) . ") values (:" . implode(",:", $keys) . ")";
-        $this->query($query, $data);
+
+        // Enclose keys in brackets to handle reserved keywords
+        $bracketedKeys = array_map(function ($key) {
+            return "[" . $key . "]";
+        }, $keys);
+
+        // Build the query
+        $query = "INSERT INTO [{$this->table}] (" . implode(",", $bracketedKeys) . ") VALUES (:" . implode(",:", $keys) . ")";
+        
+        return $this->query($query, $data);
     }
 
     public function update($id, $data, $id_column = 'id') //update data in the table

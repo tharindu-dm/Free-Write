@@ -4,92 +4,27 @@ class UserController extends Controller
 {
     public function index()
     {
-        //echo "this is the User Controller";
+        //echo "this is the User Controller\n";
         $URL = splitURL();
 
-        if ($URL[1] == 'handleLogin') {
-            //echo "this is the handleLogin function";
-            $this->handleLogin();
-        }
-    }
-
-    //add a login validation thing, and create the session, and view the relevant page. utilize the read function below
-    public function handleLogin()
-    {
-        
-        //echo "inside the handleLogin function";
-        // Start the session if it's not already started
-        if (session_status() == PHP_SESSION_NONE) {
-            
-            //echo "session is not started";
-            session_start();
-        }
-
-        // Checking if user is already logged in
-        if (isset($_SESSION['user_id'])) {
-            //echo "user is already logged in";
-            ////////////////////////////check the user type efore redirecting (admin, mod, reader, writer, covdes, wricov, courier, publisher, inst)
-            switch ($_SESSION['user_type']) {
-                case 'admin':
-                    header('Location: /admin');
-                    break;
-                case 'mod':
-                    header('Location: /mod');
-                    break;
-                case 'reader':
-                    header('Location: /reader');
-                    break;
-                case 'writer':
-                    header('Location: /writer');
-                    break;
-                case 'covdes':
-                    header('Location: /covdes');
-                    break;
-                case 'wricov':
-                    header('Location: /wricov');
-                    break;
-                case 'courier':
-                    header('Location: /courier');
-                    break;
-                case 'publisher':
-                    header('Location: /publisher');
-                    break;
-                case 'inst':
-                    header('Location: /inst');
+        if (count($URL) == 2) {
+            switch ($URL[1]) {
+                case 'profile':
+                    $this->userProfile();
                     break;
                 default:
-                    header('Location: /');
+                    $this->view('login');
                     break;
             }
-            exit;
+
         } else {
-            //echo "user is not logged in";
             $this->view('login');
         }
     }
 
-    /*
-        parameters include the username and password and stuff
-        perform the insert in user.php
-        change the interface to login page
-    */
-    public function create()
+    public function userProfile()
     {
-        
-    }
-
-    public function read()
-    {
-        //use user.php and return 1 row
-    }
-
-    public function update($id)
-    {
-
-    }
-
-    public function delete($id)
-    {
-
+        //echo "inside the userProfile function\n";
+        $this->view('userProfile');
     }
 }
