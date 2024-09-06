@@ -174,7 +174,7 @@ class LoginController extends Controller
         session_destroy();
 
         // Redirect to the login page
-        header('Location: /Free-Write/public/User/login');
+        header('Location: /Free-Write/public/');
         exit;
     }
 
