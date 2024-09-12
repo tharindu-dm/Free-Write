@@ -15,12 +15,22 @@ require_once "../app/controllers/UserController.php"; //since this "navigation b
     <header>
         <nav>
             <div class="logo"><a href="/Free-Write/public/">Free Write</a></div>
-            <ul>
-                <li><a href="/Free-Write/public/Browse">Browse</a></li>
-                <li><a href="/Free-Write/public/Designers">Designers</a></li>
-                <li><a href="/Free-Write/public/Publishers">Publishers</a></li>
-                <li><a href="/Free-Write/public/Contests">Contests</a></li>
-            </ul>
+            
+            <div class="nav-button-container">
+                <div class="nav-button">
+                    <a href="/Free-Write/public/Browse/">Browse</a>
+                </div>
+                <div class="nav-button">
+                    <a href="/Free-Write/public/Designers/">Designers</a>
+                </div>
+                <div class="nav-button">
+                    <a href="/Free-Write/public/Publishers/">Publishers</a>
+                </div>
+                <div class="nav-button">
+                    <a href="/Free-Write/public/Contests/">Contests</a>
+                </div>
+            </div>
+
             <div class="search-container">
                 <input type="text" placeholder="Search">
                 <button class="publish-btn">Search</button>
@@ -31,8 +41,8 @@ require_once "../app/controllers/UserController.php"; //since this "navigation b
                     <button class="publish-btn">Publish</button>
                 </div>
                 <div class="action-button">
-                    <form action="/Free-Write/public/Login" method="post">
-                        <button type="submit" class="sign-in-btn">Sign In</button>
+                    <form action="/Free-Write/public/Login/logout" method="post">
+                        <button type="submit" class="sign-in-btn">Log Out</button>
                     </form>
                 </div>
             </div>

@@ -15,12 +15,20 @@ require_once "../app/controllers/AdminController.php";
     <header>
         <nav>
             <div class="logo">Free Write</div>
-            <ul>
-                <li><a href="#">Browse</a></li>
-                <li><a href="#">Designers</a></li>
-                <li><a href="#">Publishers</a></li>
-                <li><a href="#">Contests</a></li>
-            </ul>
+            <div class="nav-button-container">
+                <div class="nav-button">
+                    <a href="/Free-Write/public/Browse/">Browse</a>
+                </div>
+                <div class="nav-button">
+                    <a href="/Free-Write/public/Designers/">Designers</a>
+                </div>
+                <div class="nav-button">
+                    <a href="/Free-Write/public/Publishers/">Publishers</a>
+                </div>
+                <div class="nav-button">
+                    <a href="/Free-Write/public/Contests/">Contests</a>
+                </div>
+            </div>
             <div class="search-container">
                 <input type="text" placeholder="Search">
             </div>
