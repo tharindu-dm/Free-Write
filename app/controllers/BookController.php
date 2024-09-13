@@ -1,6 +1,6 @@
 <?php
 
-class BrowseController extends Controller
+class BookController extends Controller
 {
     public function index()
     {
@@ -12,12 +12,12 @@ class BrowseController extends Controller
                     $this->viewBook();
                     break;
                 default:
-                    $this->view('browse');
+                    $this->view('book/bookOverview');
                     break;
             }
 
         } else {
-            $this->view('browse');
+            $this->view('book/bookOverview');
         }
     }
 

@@ -7,7 +7,8 @@ class Controller
         $filename = "../app/views/";
         switch ($name) {
             case "browse":
-                $filename .= "OpenUser/browse";
+            case "designers":
+                $filename .= "OpenUser/" . $name;
                 break;
             case "adminDashboard":
                 $filename .= "admin/" . $name;

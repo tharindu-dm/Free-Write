@@ -1,5 +1,5 @@
 main {
-    max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
     padding: 2rem;
 }
@@ -119,28 +119,4 @@ h1 {
 .plan ul li::before {
     content: "✓ ";
     color: #4CAF50;
-}
-
-footer {
-    background-color: #f4f4f4;
-    padding: 2rem;
-    text-align: center;
-}
-
-.footer-links a {
-    margin: 0 1rem;
-    color: #333;
-    text-decoration: none;
-}
-
-.social-icons {
-    margin-top: 1rem;
-}
-
-.social-icons a {
-    margin: 0 0.5rem;
-}
-
-.social-icons img {
-    width: 24px;
 }

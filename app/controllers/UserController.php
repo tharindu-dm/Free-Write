@@ -25,6 +25,7 @@ class UserController extends Controller
     public function userProfile()
     {
         //echo "inside the userProfile function\n";
+        $userDetails = new UserDetails();
         $this->view('userProfile');
     }
 }

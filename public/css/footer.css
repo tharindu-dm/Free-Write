@@ -1,0 +1,23 @@
+footer {
+  background-color: #f4f4f4;
+  padding: 2rem;
+  text-align: center;
+}
+
+.footer-links a {
+  margin: 0 1rem;
+  color: #333;
+  text-decoration: none;
+}
+
+.social-icons {
+  margin-top: 1rem;
+}
+
+.social-icons a {
+  margin: 0 0.5rem;
+}
+
+.social-icons img {
+  width: 24px;
+}

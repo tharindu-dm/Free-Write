@@ -13,6 +13,10 @@
     require_once "../app/views/layout/header.php";
     ?>
 
+    <!-- Page Title -->
+     <div id="title">
+    <h1>Browse Books</h1></div>
+
     <div class="browse-main-container">
         <!-- Ad image -->
         <div>
@@ -20,6 +24,7 @@
         </div>
 
         <main>
+
             <!-- Book Filters -->
             <aside>
                 <h2>Filters</h2>
