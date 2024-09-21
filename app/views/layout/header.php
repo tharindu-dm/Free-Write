@@ -18,7 +18,7 @@ require_once "../app/controllers/UserController.php"; //since this "navigation b
             <div class="logo"><a href="/Free-Write/public/">Free Write</a></div>
             <div class="nav-button-container">
                 <div class="nav-button">
-                    <a href="/Free-Write/public/Browse/">Browse</a>
+                    <a href="/Free-Write/public/Browse">Browse</a>
                 </div>
                 <div class="nav-button">
                     <a href="/Free-Write/public/Designers/">Designers</a>

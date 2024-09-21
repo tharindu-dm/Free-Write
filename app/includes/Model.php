@@ -5,8 +5,8 @@ trait Model
 
     use Database; //using the Database trait
     //sql specifiers
-    protected $limit = 10;
-    protected $offset = 0;
+    //protected $limit = 10;
+    //protected $offset = 0;
     protected $orderBy = "desc";
 
 
@@ -35,11 +35,11 @@ trait Model
         }
 
         $query = rtrim($query, ' && ');
-        $query .= " order by " . lcfirst($this->table) . "ID" . " $this->orderBy limit $this->limit offset $this->offset";
+        $query .= " order by " . lcfirst($this->table) . "ID" . " $this->orderBy";// offset $this->offset";
 
         $data = array_merge($data, $data_not);
 
-        //$this->show($this->query($query, $data));
+        //show($this->query($query, $data));
         return $this->query($query, $data);
     }
 

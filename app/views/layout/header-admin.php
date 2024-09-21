@@ -17,7 +17,7 @@ require_once "../app/controllers/AdminController.php";
             <div class="logo">Free Write</div>
             <div class="nav-button-container">
                 <div class="nav-button">
-                    <a href="/Free-Write/public/Browse/">Browse</a>
+                    <a href="/Free-Write/public/Browse">Browse</a>
                 </div>
                 <div class="nav-button">
                     <a href="/Free-Write/public/Designers/">Designers</a>
