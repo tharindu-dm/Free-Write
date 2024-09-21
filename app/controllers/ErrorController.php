@@ -1,5 +1,5 @@
 <?php
-class ErrorController
+class ErrorController extends Controller
 {
     public function index()
     {
@@ -8,6 +8,6 @@ class ErrorController
 
     public function notFound()
     {
-        echo "404 - Page not found";
+        $this->view('error');
     }
 }

@@ -21,3 +21,24 @@ footer {
 .social-icons img {
   width: 24px;
 }
+
+
+/* WebKit-based browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 1.3rem; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Background of the track (scroll area) */
+  border-radius: 1rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #ffe864; /* Scrollbar color */
+  border-radius: 1rem; /* Rounded corners on the scrollbar */
+  border: 0.4rem solid #f1f1f1; /* Adds padding around the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #ffd700; /* Darker on hover */
+}

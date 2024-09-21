@@ -17,7 +17,7 @@ class ChapterController extends Controller
             }
 
         } else {
-            $this->view('book/bookOverview');
+            $this->view('book/bookChapter');
         }
     }
 
