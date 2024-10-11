@@ -1,0 +1,95 @@
+.container {
+  max-width: 50rem;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.title-container {
+  margin: 1rem 1rem 2rem 1rem;
+}
+
+.title {
+  border: 1px solid #88888888;
+  border-radius: 0.5rem;
+  width: 100%;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 2rem;
+}
+
+.author {
+  font-style: italic;
+  color: #666;
+}
+
+.chapter-title {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.chapter-content {
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  margin-bottom: 2rem;
+  overflow-y: auto;
+  max-height: 60vh;
+  position: relative;
+}
+
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0.25rem;
+  background-color: #ffd700;
+  z-index: 1000;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.btn:hover {
+  background-color: #ffd700;
+  color: #000;
+}
+
+.comments {
+  border-top: 1px solid #ccc;
+  padding-top: 1rem;
+}
+
+.comment {
+  margin-bottom: 1rem;
+}
+
+.comment-form textarea {
+  width: 100%;
+  height: 5rem;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}

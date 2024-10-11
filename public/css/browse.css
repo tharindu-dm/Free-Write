@@ -1,0 +1,133 @@
+/* Main Browse Page Styles */
+.browse-main-container{
+  display: flex;
+  width: 100%;
+  padding: 2rem;
+}
+
+main {
+  display: flex;
+  width: 100%;
+  padding: 2rem 3rem 2rem 3rem;
+}
+
+#title {
+  display: flex;
+  font-size: 1.5rem;
+  justify-content: center;
+  margin: 1rem 0 0 0;
+}
+
+/* Search Section */
+.search-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 2.5rem;
+}
+
+#search-bar {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+}
+
+#search-btn {
+  padding: 8px 16px;
+  border: none;
+  background-color: #ffd700;
+  color: #000;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+#search-btn:hover {
+  background-color: #ffc400;
+}
+
+.genre-filter label {
+  margin-right: 10px;
+}
+
+/* Filter Section */
+aside {
+  width: 20rem;
+  background-color: #fff;
+  padding: 1rem;
+  margin-right: 2rem;
+  border-radius: 1rem;
+  border: 0.1rem solid #e0e0e0;
+}
+
+.filter-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* Book Category Section */
+.browse-body-section{
+  width: 100%;
+}
+.book-category {
+  margin-bottom: 30px;
+}
+
+.book-category h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+/* Book Grid */
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+}
+
+/* Book Card */
+.book-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border: 0.1rem solid #e0e0e0;
+  border-radius: 1.5rem;
+  padding: 0.5rem;
+  background-color: #fff;
+  transition: transform 0.5s, background-color 0.3s ease-in-out;
+}
+
+.book-card:hover {
+  transform: translateY(-5px);
+  background-color: #ffd700;
+}
+
+.book-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 1rem;
+  margin-bottom: 10px;
+}
+
+.book-card h3 {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.book-card p {
+  font-size: 14px;
+  color: #888;
+}
+
+/* Ad image */
+.ad-image {
+  margin-top: 2.5rem;
+  border-radius: 0.5rem;
+  object-fit: cover;
+  height: 80rem;
+  width: 10rem;
+}

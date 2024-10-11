@@ -1,0 +1,122 @@
+main {
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.feather-icon {
+    width: 100px;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.cta-buttons button {
+    padding: 0.5rem 1rem;
+    margin: 0.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.browse-btn, .share-designs-btn {
+    background-color: #ffd700;
+    color: #333;
+}
+
+.start-writing-btn {
+    background-color: #333;
+    color: #fff;
+}
+
+.why-freewrite {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.features {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+}
+
+.feature {
+    flex: 1;
+    padding: 1rem;
+}
+
+.feature svg {
+    width: 50px;
+    margin-bottom: 1rem;
+}
+
+.cta {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.join-btn {
+    background-color: #ffd700;
+    color: #333;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.pricing {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 4rem;
+}
+
+.plan {
+    flex: 1;
+    padding: 2rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.plan h3 {
+    margin-bottom: 1rem;
+}
+
+.price {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.price span {
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+.get-started-btn, .upgrade-btn {
+    background-color: #ffd700;
+    color: #333;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 1rem;
+}
+
+.plan ul {
+    list-style-type: none;
+    text-align: left;
+}
+
+.plan ul li::before {
+    content: "✓ ";
+    color: #4CAF50;
+}
