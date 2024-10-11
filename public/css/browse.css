@@ -8,7 +8,14 @@
 main {
   display: flex;
   width: 100%;
-  padding: 2rem;
+  padding: 2rem 3rem 2rem 3rem;
+}
+
+#title {
+  display: flex;
+  font-size: 1.5rem;
+  justify-content: center;
+  margin: 1rem 0 0 0;
 }
 
 /* Search Section */
@@ -16,7 +23,7 @@ main {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 2.5rem;
 }
 
 #search-bar {
@@ -45,7 +52,7 @@ main {
 
 /* Filter Section */
 aside {
-  width: 200px;
+  width: 20rem;
   background-color: #fff;
   padding: 1rem;
   margin-right: 2rem;

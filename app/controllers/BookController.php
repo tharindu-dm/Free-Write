@@ -1,6 +1,6 @@
 <?php
 
-class BrowseController extends Controller
+class BookController extends Controller
 {
     public function index()
     {
@@ -12,22 +12,16 @@ class BrowseController extends Controller
                     $this->viewBook();
                     break;
                 default:
-                    $this->loadBrowsePage();
+                    $this->view('book/bookOverview');
                     break;
             }
 
         } else {
-            $this->loadBrowsePage();
+            $this->view('book/bookOverview');
         }
     }
 
-    public function loadBrowsePage(){
-        $book = new Book();
-        $books = $book->getBooks();
-        
-        $this->view('browse', ['books' => $books]);
-    }
-    public function viewBook()//set as private
+    private function viewBook()//set as private
     {
        //change URL to 
        

@@ -13,6 +13,11 @@
     require_once "../app/views/layout/header.php";
     ?>
 
+    <!-- Page Title -->
+    <div id="title">
+        <h1>Browse Books</h1>
+    </div>
+
     <div class="browse-main-container">
         <!-- Ad image -->
         <div>
@@ -20,6 +25,7 @@
         </div>
 
         <main>
+
             <!-- Book Filters -->
             <aside>
                 <h2>Filters</h2>
@@ -73,9 +79,26 @@
                 </section>
 
                 <!-- Book Categories -->
+                <!-- Debug output -->
+
+
                 <section class="book-category">
                     <h2>Freewrite Originals For You</h2>
                     <div class="book-grid">
+
+                        <?php if (!empty($books) && is_array($books)): ?>
+                            <?php foreach ($books as $book): ?>
+                                <div class="book-card">
+                                    <img src="../public/images/sampleCover.jpg" alt="Day After">
+                                    <h3>Title:</h3> <?= htmlspecialchars($book['title']); ?><br>
+                                    <p>Author:</p> <?= htmlspecialchars($book['author']); ?><br>
+                                    <button class="select-book-btn" data-id="<?= htmlspecialchars($book['bookID']); ?>">Select Book</button>
+                                </div>
+                            <?php endforeach; ?>
+
+                        <?php else: ?>
+                            <p>No books available.</p>
+                        <?php endif; ?>
                         <div class="book-card">
                             <img src="../public/images/sampleCover.jpg" alt="Swallow">
                             <h3>Swallow</h3>
@@ -168,6 +191,7 @@
     <?php
     require_once "../app/views/layout/footer.php";
     ?>
+    <script src="../public/js/browse.js"></script>
 </body>
 
 </html>

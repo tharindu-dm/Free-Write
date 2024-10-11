@@ -8,7 +8,7 @@ require_once "../app/controllers/UserController.php"; //since this "navigation b
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/Free-Write/public/css/home.css">
+    <link rel="stylesheet" href="/Free-Write/public/css/header.css">
 </head>
 
 <body>
@@ -18,7 +18,7 @@ require_once "../app/controllers/UserController.php"; //since this "navigation b
             
             <div class="nav-button-container">
                 <div class="nav-button">
-                    <a href="/Free-Write/public/Browse/">Browse</a>
+                    <a href="/Free-Write/public/Browse">Browse</a>
                 </div>
                 <div class="nav-button">
                     <a href="/Free-Write/public/Designers/">Designers</a>
