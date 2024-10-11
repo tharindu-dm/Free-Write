@@ -4,146 +4,28 @@ class UserController extends Controller
 {
     public function index()
     {
-        echo "this is the User Controller";
+        //echo "this is the User Controller\n";
         $URL = splitURL();
 
-        if ($URL[1] == 'handleLogin') {
-            //echo "this is the handleLogin function";
-            $this->handleLogin();
-        } else {
+        if (count($URL) == 2) {
             switch ($URL[1]) {
-                case 'login':
-                    //echo "this is the login function";
-                    $this->login();
-                    break;
-                case 'register':
-                    //echo "this is the register function";
-                    $this->register();
-                    break;
-                case 'inst':
-                    //echo "this is the institution login function";
-                    $this->inst();
+                case 'profile':
+                    $this->userProfile();
                     break;
                 default:
-                    //echo "this is the default function";
                     $this->view('login');
                     break;
             }
-        }
-    }
 
-    //add a login validation thing, and create the session, and view the relevant page. utilize the read function below
-    public function handleLogin()
-    {
-
-        //echo "inside the handleLogin function";
-        // Start the session if it's not already started
-        if (session_status() == PHP_SESSION_NONE) {
-
-            //echo "session is not started";
-            session_start();
-        }
-
-        // Checking if user is already logged in
-        if (isset($_SESSION['user_id'])) {
-            //echo "user is already logged in";
-            ////////////////////////////check the user type efore redirecting (admin, mod, reader, writer, covdes, wricov, courier, publisher, inst)
-            switch ($_SESSION['user_type']) {
-                case 'admin':
-                    header('Location: /admin');
-                    break;
-                case 'mod':
-                    header('Location: /mod');
-                    break;
-                case 'reader':
-                    header('Location: /reader');
-                    break;
-                case 'writer':
-                    header('Location: /writer');
-                    break;
-                case 'covdes':
-                    header('Location: /covdes');
-                    break;
-                case 'wricov':
-                    header('Location: /wricov');
-                    break;
-                case 'courier':
-                    header('Location: /courier');
-                    break;
-                case 'publisher':
-                    header('Location: /publisher');
-                    break;
-                case 'inst':
-                    header('Location: /inst');
-                    break;
-                default:
-                    header('Location: /');
-                    break;
-            }
-            exit;
         } else {
-            //echo "user is not logged in";
             $this->view('login');
         }
     }
 
-    /*
-        parameters include the username and password and stuff
-        perform the insert in user.php
-        change the interface to login page
-    */
-    public function register()
+    public function userProfile()
     {
-        //echo "inside the register function";
-        //$URL = splitURL();
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            //echo "inside the post request";
-            $user = new User();
-            $result = $user->createUser($_POST['email'], $_POST['pw'], "reader", 0, 1);
-
-            if ($result) {
-                echo "User created successfully!";
-            } else {
-                echo "Failed to create user.";
-            }
-
-            $this->view('login');
-        } else {
-            //echo "inside the get request";
-            $this->view('login');
-        }
-    }
-
-    public function login()
-    {
-        //echo "inside the login function";
-        $URL = splitURL();
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            //echo "inside the post request";
-            $user = new User();
-            $user->getUserByUsername($_POST['username']);
-            $this->view('login');
-        } else {
-            //echo "inside the get request";
-            $this->view('login');
-        }
-    }
-
-    public function inst()
-    {
-        //echo "inside the inst function";
-        $URL = splitURL();
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            //echo "inside the post request";
-            $user = new User();
-            $user->getUserByUsername($_POST['username']);
-            $this->view('login');
-        } else {
-            //echo "inside the get request";
-            $this->view('login');
-        }
+        //echo "inside the userProfile function\n";
+        $userDetails = new UserDetails();
+        $this->view('userProfile');
     }
 }

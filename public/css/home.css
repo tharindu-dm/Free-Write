@@ -1,73 +1,5 @@
-/* styles.css */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    color: #333;
-}
-
-header {
-    background-color: #fff;
-    padding: 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-nav ul {
-    display: flex;
-    list-style-type: none;
-}
-
-nav ul li {
-    margin-right: 1rem;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: #333;
-}
-
-.search-container input {
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.publish-btn, .sign-in-btn {
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.publish-btn {
-    background-color: #ffd700;
-    color: #333;
-}
-
-.sign-in-btn {
-    background-color: #fff;
-    color: #333;
-    border: 1px solid #ccc;
-}
-
 main {
-    max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
     padding: 2rem;
 }
@@ -121,7 +53,7 @@ h1 {
     padding: 1rem;
 }
 
-.feature img {
+.feature svg {
     width: 50px;
     margin-bottom: 1rem;
 }
@@ -187,28 +119,4 @@ h1 {
 .plan ul li::before {
     content: "✓ ";
     color: #4CAF50;
-}
-
-footer {
-    background-color: #f4f4f4;
-    padding: 2rem;
-    text-align: center;
-}
-
-.footer-links a {
-    margin: 0 1rem;
-    color: #333;
-    text-decoration: none;
-}
-
-.social-icons {
-    margin-top: 1rem;
-}
-
-.social-icons a {
-    margin: 0 0.5rem;
-}
-
-.social-icons img {
-    width: 24px;
 }

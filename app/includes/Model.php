@@ -5,8 +5,8 @@ trait Model
 
     use Database; //using the Database trait
     //sql specifiers
-    protected $limit = 10;
-    protected $offset = 0;
+    //protected $limit = 10;
+    //protected $offset = 0;
     protected $orderBy = "desc";
 
 
@@ -35,11 +35,11 @@ trait Model
         }
 
         $query = rtrim($query, ' && ');
-        $query .= " order by " . lcfirst($this->table) . "ID" . " $this->orderBy limit $this->limit offset $this->offset";
+        $query .= " order by " . lcfirst($this->table) . "ID" . " $this->orderBy";// offset $this->offset";
 
         $data = array_merge($data, $data_not);
 
-        //$this->show($this->query($query, $data));
+        //show($this->query($query, $data));
         return $this->query($query, $data);
     }
 
@@ -47,18 +47,20 @@ trait Model
     {
         $keys = array_keys($data);
         $keys_not = array_keys($data_not);
-        $query = "select * from $this->table where";
+        $query = "SELECT * FROM [{$this->table}] WHERE [";
 
         foreach ($keys as $key) {
-            $query .= $key . ' = :' . $key . ' && ';
+            $query .= $key . '] = :' . $key . ' && [';
         }
 
         foreach ($keys_not as $key) {
-            $query .= $key . ' != :' . $key . ' && ';
+            $query .= $key . ' != :' . $key . ' && [';
         }
 
-        $query = rtrim($query, ' && ');
-        $query .= " limit $this->limit offset $this->offset";
+        $query = rtrim($query, ' && [');
+        //$query .= " limit $this->limit offset $this->offset";
+
+        //echo "\n Query: ".$query."\n"; // <<<<<<<<<<<<<<<<<<<<<<
 
         $data = array_merge($data, $data_not);
         $result = $this->query($query, $data);

@@ -23,9 +23,9 @@ class User
     public function getUserByUsername($username)
     {
         $arr = [
-            'username' => $username,
+            'email' => $username,
         ];
-        return $this->first(['username' => $username]);
+        return $this->first(['email' => $username]);
     }
 
 }

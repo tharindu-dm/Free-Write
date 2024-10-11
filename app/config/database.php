@@ -46,7 +46,7 @@ trait Database
                 return $result[0];
             }
         } else {
-            echo "Query failed";
+            echo "Query failed\n";
             return false;
         }
     }
