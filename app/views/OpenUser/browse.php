@@ -79,9 +79,6 @@
                 </section>
 
                 <!-- Book Categories -->
-                <!-- Debug output -->
-
-
                 <section class="book-category">
                     <h2>Freewrite Originals For You</h2>
                     <div class="book-grid">
@@ -90,9 +87,14 @@
                             <?php foreach ($books as $book): ?>
                                 <div class="book-card">
                                     <img src="../public/images/sampleCover.jpg" alt="Day After">
-                                    <h3>Title:</h3> <?= htmlspecialchars($book['title']); ?><br>
-                                    <p>Author:</p> <?= htmlspecialchars($book['author']); ?><br>
-                                    <button class="select-book-btn" data-id="<?= htmlspecialchars($book['bookID']); ?>">Select Book</button>
+                                    <h3> <?= htmlspecialchars($book['title']); ?></h3><br>
+                                    <p> <?= htmlspecialchars($book['author']); ?></p><br>
+                                    <h4>LKR.<?= htmlspecialchars($book['price']); ?></h4><br>
+                                    <a
+                                        href="http://localhost/Free-Write/public/book/Overview/<?= htmlspecialchars($book['bookID']); ?>">
+                                        <button class="select-book-btn"
+                                            data-id="<?= htmlspecialchars($book['bookID']); ?>">Select Book</button>
+                                    </a>
                                 </div>
                             <?php endforeach; ?>
 

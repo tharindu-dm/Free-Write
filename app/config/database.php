@@ -18,7 +18,6 @@ trait Database
     {
         $con = $this->connect();
         $statement = $con->prepare($query);
-
         $check = $statement->execute($data);
         if ($check) {
             // For SELECT queries, fetch results
