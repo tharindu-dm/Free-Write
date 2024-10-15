@@ -7,7 +7,7 @@ class ListController extends Controller
         //echo "this is the List Controller\n";
         $list = new BookList;
 
-        $this->view("List"); //calling the view function in /includes/Controller.php to view the Listpage
+        $this->view("BookList"); //calling the view function in /includes/Controller.php to view the Listpage
     }
 
     

@@ -35,7 +35,7 @@ trait Model
         }
 
         $query = rtrim($query, ' && ');
-        $query .= " order by " . lcfirst($this->table) . "ID" . " $this->orderBy";// offset $this->offset";
+        //$query .= " order by " . lcfirst($this->table) . "ID" . " $this->orderBy";// offset $this->offset";
 
         $data = array_merge($data, $data_not);
 

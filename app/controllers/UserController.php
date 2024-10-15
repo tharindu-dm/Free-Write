@@ -24,9 +24,14 @@ class UserController extends Controller
 
     public function userProfile()
     {
+        $uid = $_SESSION['user_id'];
         //echo "inside the userProfile function\n";
-        $userDetails = new UserDetails();
-        $list = new BookList(); //List Table
-        $this->view('userProfile', ['user' => $userDetails, 'list' => $list]);
+        $userDetailsTable = new UserDetails();
+        $Booklist = new BookList(); //List Table
+
+        $userDetails = $userDetailsTable->getUserDetails($uid);
+        $list = $Booklist->getBookListCount($uid);
+        
+        $this->view('userProfile', ['user' => $userDetails, 'listCounts' => $list]);
     }
 }

@@ -10,13 +10,28 @@
 
 <body>
     <?php
-    require_once "../app/views/layout/header.php";
+    if (isset($_SESSION['user_type'])) {
+        $userType = $_SESSION['user_type'];
+    } else {
+        $userType = 'guest';
+    }
+    switch ($userType) {
+        case 'admin':
+            require_once "../app/views/layout/header-admin.php";
+            break;
+        case 'reader':
+            require_once "../app/views/layout/header-reader.php";
+            break;
+        default:
+            require_once "../app/views/layout/header.php";
+    }
     ?>
+
     <?php if (!empty($book) && is_array($book)): ?>
         <div class="container">
             <div class="product-layout">
                 <div class="product-image">
-                    <img src="../public/images/<?= htmlspecialchars($book[0]['cover_image']); ?>" alt="Swallow">
+                    <img src="/Free-Write/public/images/<?= htmlspecialchars($book[0]['cover_image']); ?>" alt="Swallow">
                     <div class="author-details">
                         <h3>Other Details</h3>
                         <p><strong>Author:</strong><?= htmlspecialchars($book[0]['author']); ?></p>
