@@ -19,5 +19,7 @@
         "titleBar.inactiveForeground": "#15202b99"
     },
     "peacock.color": "#cacbf9",
-    "liveServer.settings.port": 5501
+"liveServer.settings.port": 5501,
+"files.watcherExclude": {
+    "**/target": true
 }

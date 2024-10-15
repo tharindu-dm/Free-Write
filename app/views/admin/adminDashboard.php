@@ -16,8 +16,8 @@ require '../app/views/layout/header-admin.php';
     <main>
         <aside>
             <nav>
-                <ul>
-                    <li class="active">
+                <ul id="sidebar-nav">
+                    <li class="active" data-href="/Free-Write/public/Admin">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -25,7 +25,7 @@ require '../app/views/layout/header-admin.php';
                         </svg>
                         Dashboard
                     </li>
-                    <li>
+                    <li data-href="/Free-Write/public/Admin/siteLogs">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -33,7 +33,7 @@ require '../app/views/layout/header-admin.php';
                         </svg>
                         Site Logs
                     </li>
-                    <li>
+                    <li data-href="/Free-Write/public/Admin/modLogs">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -41,7 +41,7 @@ require '../app/views/layout/header-admin.php';
                         </svg>
                         Mod Logs
                     </li>
-                    <li>
+                    <li data-href="/Free-Write/public/Admin/viewTable">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -107,7 +107,25 @@ require '../app/views/layout/header-admin.php';
         </section>
     </main>
 
-    <script src="/Free-Write/public/js/admin.js"></script>
+    <script src="/Free-Write/public/js/Admin/admin.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const sidebarNav = document.getElementById('sidebar-nav');
+            const navItems = sidebarNav.getElementsByTagName('li');
+
+            for (let item of navItems) {
+                item.addEventListener('click', function () {
+                    // Get the href from data-href attribute
+                    const href = this.getAttribute('data-href');
+
+                    // Redirect to the specified URL
+                    if (href) {
+                        window.location.href = href;
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>

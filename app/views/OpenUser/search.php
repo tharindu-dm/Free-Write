@@ -10,21 +10,7 @@
 
 <body>
     <?php
-    if(isset($_SESSION['userType'])){
-        $userType = $_SESSION['userType'];
-    } else {
-        $userType = 'guest';
-    }
-    switch ($userType) {
-        case 'admin':
-            require_once "../app/views/layout/adminHeader.php";
-            break;
-        case 'reader':
-            require_once "../app/views/layout/userHeader.php";
-            break;
-        default:
-            require_once "../app/views/layout/header.php";
-    }
+    require_once "../app/views/layout/header.php";
     ?>
 
     <main>
