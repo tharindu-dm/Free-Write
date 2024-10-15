@@ -22,7 +22,7 @@
         <section class="profile-container">
             <div class="profile-header">
                 <div class="profile-image">
-                    <img src="profile-image.jpg" alt="User Profile Image">
+                    <img src="../../public/images/profile-image.jpg" alt="User Profile Image">
                 </div>
                 <div class="profile-info">
                     <h1>@cloudedwithstories</h1>
@@ -33,8 +33,8 @@
 
             <div class="profile-details">
                 <div class="profile-section">
-                    <h2>Wattpad Creator <span class="verified">✓</span></h2>
-                    <p>My Watty Award-winning novel, Creatures of the Night, is now published! Pick it up at your local
+                    <h2>FreeWrite Creator <span class="verified">✓</span></h2>
+                    <p>My FreeWee Award-winning novel, Creatures of the Night, is now published! Pick it up at your local
                         book store or at the links below.</p>
                     <div class="book-list">
                         <div class="book-item">
@@ -42,7 +42,7 @@
                             <ul>
                                 <li>
                                     <span class="book-title">Creatures of the Night</span>
-                                    <span class="book-status">published, paid, Watty Award Winner</span>
+                                    <span class="book-status">published, paid, FreeWee Award Winner</span>
                                 </li>
                                 <li>
                                     <span class="book-title">Shadows of the Night</span>

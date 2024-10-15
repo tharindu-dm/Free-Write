@@ -26,6 +26,7 @@ class UserController extends Controller
     {
         //echo "inside the userProfile function\n";
         $userDetails = new UserDetails();
-        $this->view('userProfile');
+        $list = new BookList(); //List Table
+        $this->view('userProfile', ['user' => $userDetails, 'list' => $list]);
     }
 }
