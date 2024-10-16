@@ -6,24 +6,15 @@ class ChapterController extends Controller
     {
         $URL = splitURL();
         
-        if (count($URL) == 2) {
-            switch ($URL[1]) {
-                case 'book':
-                    $this->viewBook();
-                    break;
-                default:
-                    $this->view('book/bookOverview');
-                    break;
-            }
-
+        if ($URL[2] >=1) {
+            $this->viewChapter($URL[2]);
         } else {
-            $this->view('book/bookChapter');
+            $this->view('book/Chapter');
         }
     }
 
-    private function viewBook()//set as private
+    private function viewChapter($cID)//set as private
     {
-       //change URL to 
        
     }
 
