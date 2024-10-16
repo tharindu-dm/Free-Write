@@ -76,7 +76,11 @@ h1 {
 }
 
 .read-button:hover {
-  animation: read-color-appear 0.3s forwards;
+  animation: read-color-appear 0.2s forwards;
+}
+
+.read-button-container button {
+  min-height: 3rem;
 }
 
 @keyframes read-color-appear {
@@ -84,8 +88,58 @@ h1 {
     color: #000;
   }
   to {
-    color: #c0c0c0;
+    color: #fff;
   }
+}
+
+/*adding to my booklist */
+.add-to-list {
+  display: none;
+  position: fixed; /* Make it fixed to the viewport */
+  top: 0;
+  left: 0;
+  width: 100vw; /* Full width of the viewport */
+  height: 100vh; /* Full height of the viewport */
+  background: rgba(0, 0, 0, 0.6); /* Adjust the opacity of the background */
+
+  justify-content: center; /* Center the form horizontally */
+  align-items: center; /* Center the form vertically */
+  z-index: 1;
+}
+
+.list-add-container {
+  display: flex;
+  flex-direction: column;
+  max-width: fit-content;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  z-index: 2;
+}
+
+.list-add-radios {
+  display: flex;
+  gap: 10px;
+}
+
+.list-add-actionBtns {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.add-list-cancel-button {
+  background-color: #535353;
+  color: #fff;
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  border-radius: 0.5rem;
+}
+.add-list-submit-button {
+  background-color: #ffd700;
+  color: #000;
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  border-radius: 0.5rem;
 }
 
 /*buy button*/
@@ -99,6 +153,7 @@ h1 {
   border-radius: 0.5rem;
   cursor: pointer;
   transition: background-color 0.3s;
+  min-height: 3rem;
 
   display: flex;
   align-items: center;
@@ -114,12 +169,12 @@ h1 {
     color: #ffd700;
   }
   to {
-    color: #ff0000;
+    color: #fff;
   }
 }
 
 /*Table of Content*/
-td{
+td {
   padding-left: 5px;
   padding-right: 20px;
   text-decoration: none;

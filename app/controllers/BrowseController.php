@@ -23,9 +23,9 @@ class BrowseController extends Controller
 
     public function loadBrowsePage(){
         $book = new Book();
-        $books = $book->getBooks();
-        
-        $this->view('browse', ['books' => $books]);
+        $FWObooks = $book->getFWOBooks();
+        $paidBooks = $book->getPaidBooks();
+        $this->view('browse', ['FWObooks' => $FWObooks, 'paidBooks' => $paidBooks]);
     }
     public function viewBook()//set as private
     {

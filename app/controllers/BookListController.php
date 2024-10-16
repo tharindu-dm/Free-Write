@@ -1,6 +1,6 @@
 <?php
 
-class ListController extends Controller
+class BookListController extends Controller
 {
     public function index()
     {
