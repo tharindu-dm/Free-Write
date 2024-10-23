@@ -1,0 +1,112 @@
+/* Reset and general styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f8f8f8;
+}
+
+/* Header and navigation styles */
+header {
+  background-color: #fff;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* list container styles */
+main{
+  min-height: 100vh;
+}
+/* 2nd nav bar */
+
+.secondary-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+}
+
+.table-selector {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.table-selector button {
+  margin-inline: 2rem;
+  padding: 0.5rem 1rem;
+  background-color: #ffd700;
+  color: #000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/*table styles*/
+.table-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.table-set-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+table {
+  width: 100%;
+}
+
+th,
+td {
+  border-radius: 0.6rem;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+th {
+  background-color: #ffd700;
+
+  border-spacing: 1rem;
+}
+
+tbody tr {
+  background-color: #f7e78c;
+  border-radius: 0.6rem;
+  margin-bottom: 0.2rem;
+}
+
+tbody td {
+  background-color: inherit;
+  border-radius: 0.6rem;
+}
+
+img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 5rem;
+}
+
+table button {
+  padding: 0.5rem 1rem;
+  background-color: #000;
+  color: #ffd700;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

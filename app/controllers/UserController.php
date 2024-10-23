@@ -9,7 +9,7 @@ class UserController extends Controller
 
         if (count($URL) == 2) {
             switch ($URL[1]) {
-                case 'profile':
+                case 'Profile':
                     $this->userProfile();
                     break;
                 default:
