@@ -42,4 +42,23 @@ class BookList
 
         return $this->query($query);
     }
+
+
+    public function updateList($uid, $bid, $chaps, $status)
+    {
+        $query = "UPDATE [BookList] SET [chapterProgress] = $chaps, [status] = '$status' WHERE [user] = $uid AND [book] = $bid;";
+
+        //show($query);
+
+        return $this->query($query);
+    }
+
+    public function deleteFromList($uid, $bid)
+    {
+        $query = "DELETE FROM [BookList] WHERE [user] = $uid AND [book] = $bid;";
+
+        //show($query);
+
+        return $this->query($query);
+    }
 }

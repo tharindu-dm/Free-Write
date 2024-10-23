@@ -53,13 +53,17 @@
                                 <th style="width: 500px">Book</th>
                                 <th style="width: 90px">Chapter</th>
                                 <th style="width: 90px">Status</th>
-                                <th style="width: 90px">Action</th>
+                                <th colspan="2" style="width: 120px">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php if (!empty($readingList) && is_array($readingList)): ?>
                                 <?php foreach ($readingList as $book): ?>
-                                    <tr>
+                                    <tr data-book-id="<?= htmlspecialchars($book['bookID']); ?>"
+                                        data-book-title="<?= htmlspecialchars($book['title']); ?>"
+                                        data-chapter-Progress="<?= htmlspecialchars($book['chapterProgress'] === null ? '0' : $book['chapterProgress']); ?>"
+                                        data-status="<?= htmlspecialchars($book['status']); ?>">
+
                                         <td><img src="/Free-Write/public/images/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
                                                 alt="Cover Image of <?= htmlspecialchars($book['title']); ?>"></td>
                                         <td>
@@ -72,6 +76,7 @@
                                         </td>
                                         <td><?php echo $book['status']; ?></td>
                                         <td><button class="listEdit-btn">Edit</button></td>
+                                        <td><button class="listDelete-btn">Delete</button></td>
                                     </tr>
                                 <?php endforeach; ?>
 
@@ -90,13 +95,16 @@
                                 <th style="width: 500px">Book</th>
                                 <th style="width: 90px">Chapter</th>
                                 <th style="width: 90px">Status</th>
-                                <th style="width: 90px">Action</th>
+                                <th colspan="2" style="width: 120px">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php if (!empty($completedList) && is_array($completedList)): ?>
                                 <?php foreach ($completedList as $book): ?>
-                                    <tr>
+                                    <tr data-book-id="<?= htmlspecialchars($book['bookID']); ?>"
+                                        data-book-title="<?= htmlspecialchars($book['title']); ?>"
+                                        data-chapter-Progress="<?= htmlspecialchars($book['chapterProgress'] === null ? '0' : $book['chapterProgress']); ?>"
+                                        data-status="<?= htmlspecialchars($book['status']); ?>">
                                         <td><img src="/Free-Write/public/images/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
                                                 alt="Cover Image of <?= htmlspecialchars($book['title']); ?>"></td>
                                         <td>
@@ -109,6 +117,7 @@
                                         </td>
                                         <td><?php echo $book['status']; ?></td>
                                         <td><button class="listEdit-btn">Edit</button></td>
+                                        <td><button class="listDelete-btn">Delete</button></td>
                                     </tr>
                                 <?php endforeach; ?>
 
@@ -127,13 +136,16 @@
                                 <th style="width: 500px">Book</th>
                                 <th style="width: 90px">Chapter</th>
                                 <th style="width: 90px">Status</th>
-                                <th style="width: 90px">Action</th>
+                                <th colspan="2" style="width: 120px">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php if (!empty($onholdList) && is_array($onholdList)): ?>
                                 <?php foreach ($onholdList as $book): ?>
-                                    <tr>
+                                    <tr data-book-id="<?= htmlspecialchars($book['bookID']); ?>"
+                                        data-book-title="<?= htmlspecialchars($book['title']); ?>"
+                                        data-chapter-Progress="<?= htmlspecialchars($book['chapterProgress'] === null ? '0' : $book['chapterProgress']); ?>"
+                                        data-status="<?= htmlspecialchars($book['status']); ?>">
                                         <td><img src="/Free-Write/public/images/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
                                                 alt="Cover Image of <?= htmlspecialchars($book['title']); ?>"></td>
                                         <td>
@@ -146,6 +158,7 @@
                                         </td>
                                         <td><?php echo $book['status']; ?></td>
                                         <td><button class="listEdit-btn">Edit</button></td>
+                                        <td><button class="listDelete-btn">Delete</button></td>
                                     </tr>
                                 <?php endforeach; ?>
 
@@ -164,13 +177,16 @@
                                 <th style="width: 500px">Book</th>
                                 <th style="width: 90px">Chapter</th>
                                 <th style="width: 90px">Status</th>
-                                <th style="width: 90px">Action</th>
+                                <th colspan="2" style="width: 120px">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php if (!empty($droppedList) && is_array($droppedList)): ?>
                                 <?php foreach ($droppedList as $book): ?>
-                                    <tr>
+                                    <tr data-book-id="<?= htmlspecialchars($book['bookID']); ?>"
+                                        data-book-title="<?= htmlspecialchars($book['title']); ?>"
+                                        data-chapter-Progress="<?= htmlspecialchars($book['chapterProgress'] === null ? '0' : $book['chapterProgress']); ?>"
+                                        data-status="<?= htmlspecialchars($book['status']); ?>">
                                         <td><img src="/Free-Write/public/images/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
                                                 alt="Cover Image of <?= htmlspecialchars($book['title']); ?>"></td>
                                         <td>
@@ -183,6 +199,7 @@
                                         </td>
                                         <td><?php echo $book['status']; ?></td>
                                         <td><button class="listEdit-btn">Edit</button></td>
+                                        <td><button class="listDelete-btn">Delete</button></td>
                                     </tr>
                                 <?php endforeach; ?>
 
@@ -201,13 +218,16 @@
                                 <th style="width: 500px">Book</th>
                                 <th style="width: 90px">Chapter</th>
                                 <th style="width: 90px">Status</th>
-                                <th style="width: 90px">Action</th>
+                                <th colspan="2" style="width: 120px">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php if (!empty($plannedList) && is_array($plannedList)): ?>
                                 <?php foreach ($plannedList as $book): ?>
-                                    <tr>
+                                    <tr data-book-id="<?= htmlspecialchars($book['bookID']); ?>"
+                                        data-book-title="<?= htmlspecialchars($book['title']); ?>"
+                                        data-chapter-Progress="<?= htmlspecialchars($book['chapterProgress'] === null ? '0' : $book['chapterProgress']); ?>"
+                                        data-status="<?= htmlspecialchars($book['status']); ?>">
                                         <td><img src="/Free-Write/public/images/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
                                                 alt="Cover Image of <?= htmlspecialchars($book['title']); ?>"></td>
                                         <td>
@@ -220,6 +240,7 @@
                                         </td>
                                         <td><?php echo $book['status']; ?></td>
                                         <td><button class="listEdit-btn">Edit</button></td>
+                                        <td><button class="listDelete-btn">Delete</button></td>
                                     </tr>
                                 <?php endforeach; ?>
 
@@ -228,6 +249,60 @@
                             <?php endif; ?>
                         </tbody>
                     </table>
+                </div>
+            </div>
+
+            <div class="add-to-list">
+                <div class="list-add-container">
+                    <h3>Edit Record</h3>
+                    <h4 id="bookTitle-header">Title:</h4>
+
+                    <form id="add-to-list-form" action="http://localhost/Free-Write/public/Book/List/update"
+                        method="POST">
+                        <div class="form-content">
+                            <div class="chapter-counter">
+                                <label for="chapterCount">Edit Chapter Count</label>
+                                <input type="number" name="chapterCount" id="chapterCount" min="0">
+                            </div>
+                            <div class="status-content">
+                                <label for="status-select">Update Status</label>
+                                <select name="status" id="status-select">
+                                    <option value="reading">Reading</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="hold">On Hold</option>
+                                    <option value="dropped">Dropped</option>
+                                    <option value="planned">Planned</option>
+                                </select>
+                            </div>
+                            <input type="hidden" name="List_bid" id="List_bid">
+                        </div>
+                        <div class="list-add-actionBtns">
+                            <button id="cancel-button" type="button" class="add-list-cancel-button">
+                                Cancel
+                            </button>
+                            <button id="subBtn" type="submit" class="add-list-submit-button">Update Record</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="delete-from-list">
+                <div class="list-add-container">
+                    <h3 style="color:crimson;">You are about to delete</h3>
+                    <h4 id="bookTitle-header-delete">Title:</h4>
+
+                    <form id="add-to-list-form" action="http://localhost/Free-Write/public/Book/List/delete"
+                        method="POST">
+
+                        <input type="hidden" name="List_bid" id="List_bid_delete">
+                        
+                        <div class="list-add-actionBtns">
+                            <button id="cancel-delete-button" type="button" class="add-list-cancel-button">
+                                Cancel
+                            </button>
+                            <button id="subBtn" type="submit" class="delete-list-submit-button">Delete Record</button>
+                        </div>
+                    </form>
                 </div>
             </div>
 

@@ -12,6 +12,7 @@ body {
   background-color: #f8f8f8;
 }
 
+/* ------------------------------------------------------------------------------ */
 /* Header and navigation styles */
 header {
   background-color: #fff;
@@ -20,7 +21,7 @@ header {
 }
 
 /* list container styles */
-main{
+main {
   min-height: 100vh;
 }
 /* 2nd nav bar */
@@ -32,7 +33,6 @@ main{
   padding: 1rem;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
 }
 
 .table-selector {
@@ -51,6 +51,7 @@ main{
   cursor: pointer;
 }
 
+/* ------------------------------------------------------------------------------ */
 /*table styles*/
 .table-section {
   display: flex;
@@ -102,11 +103,108 @@ img {
   border-radius: 5rem;
 }
 
-table button {
+.listEdit-btn {
   padding: 0.5rem 1rem;
   background-color: #000;
   color: #ffd700;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.listDelete-btn {
+  padding: 0.5rem 1rem;
+  background-color: #ff0000;
+  color: #ffd700;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* ------------------------------------------------------------------------------ */
+/*EDITING to my booklist */
+.add-to-list {
+  display: none;
+  position: fixed; /* Make it fixed to the viewport */
+  top: 0;
+  left: 0;
+  width: 100vw; /* Full width of the viewport */
+  height: 100vh; /* Full height of the viewport */
+  background: rgba(0, 0, 0, 0.6); /* Adjust the opacity of the background */
+
+  justify-content: center; /* Center the form horizontally */
+  align-items: center; /* Center the form vertically */
+  z-index: 1;
+}
+
+.list-add-container {
+  display: flex;
+  flex-direction: column;
+  max-width: fit-content;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  z-index: 2;
+}
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chapter-counter {
+  display: flex;
+  gap: 10px;
+}
+
+.status-content {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 4rem;
+}
+
+.list-add-actionBtns {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.add-list-cancel-button {
+  background-color: #535353;
+  color: #fff;
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  border-radius: 0.5rem;
+}
+
+.add-list-submit-button {
+  background-color: #ffd700;
+  color: #000;
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  border-radius: 0.5rem;
+}
+
+/* ------------------------------------------------------------------------------ */
+/*DELETE Record*/
+.delete-from-list{  
+  display: none;
+  position: fixed; /* Make it fixed to the viewport */
+  top: 0;
+  left: 0;
+  width: 100vw; /* Full width of the viewport */
+  height: 100vh; /* Full height of the viewport */
+  background: rgba(0, 0, 0, 0.6); /* Adjust the opacity of the background */
+
+  justify-content: center; /* Center the form horizontally */
+  align-items: center; /* Center the form vertically */
+  z-index: 1;
+}
+
+.delete-list-submit-button {
+  background-color: #ff0000;
+  color: #000;
+  font-weight: 600;
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  border-radius: 0.5rem;
 }
