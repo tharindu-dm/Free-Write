@@ -19,7 +19,6 @@ class BookController extends Controller
                 } else {
                     $this->view('error');
                 }
-
                 break;
 
             case 'Chapter':
@@ -28,11 +27,20 @@ class BookController extends Controller
                 } else {
                     $this->view('error');
                 }
-
                 break;
 
             case 'List':
-                $this->addToList($_POST['List_uid'], $_POST['List_bid'], $_POST['list']);
+                switch ($URL[2]) {
+                    case 'update':
+                        $this->updateList($_POST['List_bid'], $_POST['chapterCount'], $_POST['status']);
+                        break;
+                    case 'delete':
+                        $this->deleteFromList($_POST['List_bid']);
+                        break;
+                    default:
+                        $this->addToList($_POST['List_uid'], $_POST['List_bid'], $_POST['list']);
+                        break;
+                }
                 break;
             default:
                 $this->view('error');
@@ -63,7 +71,25 @@ class BookController extends Controller
     private function addToList($uid, $bookID, $status)
     {
         $list = new BookList(); //get chapter to be added to the list
-        $list->addToList($uid,$bookID, $status);
+        $list->addToList($uid, $bookID, $status);
+        $this->viewBook($bookID);
+    }
+
+    private function updateList($bookID, $chapterCount, $BookStatus)
+    {
+        $list = new BookList();
+
+        $uid = $_SESSION['user_id'];
+        $list->updateList($uid, $bookID, $chapterCount, $BookStatus);
+        $this->viewBook($bookID);
+    }
+
+    private function deleteFromList($bookID)
+    {
+        $list = new BookList();
+
+        $uid = $_SESSION['user_id'];
+        $list->deleteFromList($uid, $bookID);
         $this->viewBook($bookID);
     }
 }

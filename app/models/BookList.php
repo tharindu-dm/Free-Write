@@ -28,4 +28,37 @@ class BookList
     { //$chapter to be added to the list : edit the query to add the chapter to the list
         return $this->insert(['user' => $userID, 'book' => $bookID, 'status' => $AddStatus]);
     }
+
+    public function getUserBookList($userID, $staus)
+    { //get the list of books of the user with the status
+
+        $query = "SELECT b.[bookID], b.[title], l.chapterProgress, l.[status], 
+        c.[name] AS cover_image FROM [Book] b 
+        LEFT JOIN [BookList] l ON b.bookID = l.[book] 
+        LEFT JOIN [CoverImage] c ON b.[coverImage] = c.covID 
+        WHERE l.[user] = $userID AND l.[status] = '$staus';";
+
+        //show($query);
+
+        return $this->query($query);
+    }
+
+
+    public function updateList($uid, $bid, $chaps, $status)
+    {
+        $query = "UPDATE [BookList] SET [chapterProgress] = $chaps, [status] = '$status' WHERE [user] = $uid AND [book] = $bid;";
+
+        //show($query);
+
+        return $this->query($query);
+    }
+
+    public function deleteFromList($uid, $bid)
+    {
+        $query = "DELETE FROM [BookList] WHERE [user] = $uid AND [book] = $bid;";
+
+        //show($query);
+
+        return $this->query($query);
+    }
 }

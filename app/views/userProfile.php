@@ -57,23 +57,33 @@
                     <?php if (!empty($listCounts) && is_array($listCounts)): ?>
                         <div class="stats-container">
                             <div class="stat-item">
-                                <h3>Reading</h3>
+                                <a href="/Free-Write/public/BookList/Reading">
+                                    <h3>Reading</h3>
+                                </a>
                                 <p id="reading-count"><?= htmlspecialchars($listCounts[0]['reading']); ?></p>
                             </div>
                             <div class="stat-item">
-                                <h3>Completed</h3>
+                                <a href="/Free-Write/public/BookList/Completed">
+                                    <h3>Completed</h3>
+                                </a>
                                 <p id="completed-count"><?= htmlspecialchars($listCounts[0]['completed']); ?></p>
                             </div>
                             <div class="stat-item">
-                                <h3>On-Hold</h3>
+                                <a href="/Free-Write/public/BookList/Onhold">
+                                    <h3>On-Hold</h3>
+                                </a>
                                 <p id="onhold-count"><?= htmlspecialchars($listCounts[0]['hold']); ?></p>
                             </div>
                             <div class="stat-item">
-                                <h3>Dropped</h3>
+                                <a href="/Free-Write/public/BookList/Dropped">
+                                    <h3>Dropped</h3>
+                                </a>
                                 <p id="dropped-count"><?= htmlspecialchars($listCounts[0]['dropped']); ?></p>
                             </div>
                             <div class="stat-item">
-                                <h3>Plan to Read</h3>
+                                <a href="/Free-Write/public/BookList/Planned">
+                                    <h3>Plan to Read</h3>
+                                </a>
                                 <p id="plan-to-read-count"><?= htmlspecialchars($listCounts[0]['planned']); ?></p>
                             </div>
                         </div>
