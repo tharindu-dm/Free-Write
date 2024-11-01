@@ -1,6 +1,3 @@
-<?php
-require '../app/views/layout/header-admin.php';
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,10 +6,25 @@ require '../app/views/layout/header-admin.php';
     <title>
         Administrator | Freewrite
     </title>
-
+    <link rel="stylesheet" href="/Free-Write/public/css/admin.css">
 </head>
 
 <body>
+
+    <?php
+    if (isset($_SESSION['user_type'])) {
+        $userType = $_SESSION['user_type'];
+    } else {
+        $userType = 'guest';
+    }
+    switch ($userType) {
+        case 'admin':
+            require_once "../app/views/layout/header-user.php";
+            break;
+        default:
+            require_once "../app/views/layout/header.php";
+    }
+    ?>
     <main>
         <aside>
             <nav>
