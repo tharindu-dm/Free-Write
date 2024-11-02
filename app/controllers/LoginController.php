@@ -44,8 +44,6 @@ class LoginController extends Controller
 
         // Checking if user is already logged in
         if (isset($_SESSION['user_id'])) {
-            echo "user is already logged in \n";
-
             switch ($_SESSION['user_type']) {
                 case 'admin':
                     header('Location: /Free-Write/public/Admin');
@@ -57,7 +55,7 @@ class LoginController extends Controller
                 case 'writer':
                 case 'covdes':
                 case 'wricov':
-                    header('Location: /Free-Write/public/User/profile');
+                    header('Location: /Free-Write/public/User/Profile');
                     break;
                 case 'courier':
                     header('Location: /Free-Write/public/courier');
@@ -73,10 +71,8 @@ class LoginController extends Controller
                     break;
             }
             exit;
-        }/* else {
-        //echo "user is not logged in";
-        $this->view('login');
-    }*/
+        }
+
     }
 
     /*
@@ -126,7 +122,7 @@ class LoginController extends Controller
             //echo "inside the post request\n";
             $user = new User();
             $userData = $user->getUserByUsername($_POST['log-email']);
-            show($userData);
+            //show($userData);
 
             $pw = $_POST['log-password'];
 
@@ -146,10 +142,12 @@ class LoginController extends Controller
                     $this->handleLogin();
                     exit;
                 } else {
-                    echo "Password is incorrect.";
+                    echo "<script>alert('Password is incorrect.')</script>";
                 }
-            } else {
-                echo "User not found.";
+            }
+            else {
+                //check for institution login
+                echo "<script>alert('User not found.')</script>";
             }
 
             $this->view('login');
@@ -166,9 +164,6 @@ class LoginController extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-
-        // Unset all of the session variables
-        $_SESSION = array();
 
         // Destroy the session
         session_destroy();

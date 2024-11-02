@@ -64,43 +64,44 @@
                 </ul>
             </nav>
         </aside>
-
+    
         <section class="dashboard">
             <div class="stats-grid">
                 <div class="stat-card">
+                    
                     <h3>Total User Count</h3>
-                    <p>4098</p>
+                    <p><?= htmlspecialchars($data[0]['totalUsers'] ?? '0'); ?></p>
                 </div>
                 <div class="stat-card">
                     <h3>Readers</h3>
-                    <p>4090</p>
+                    <p><?= htmlspecialchars($data[0]['readers'] ?? '0'); ?></p>
                 </div>
                 <div class="stat-card">
                     <h3>Writers</h3>
-                    <p>1054</p>
+                    <p><?= htmlspecialchars($data[0]['writers'] ?? '0'); ?></p>
                 </div>
                 <div class="stat-card">
                     <h3>Cover Designers</h3>
-                    <p>546</p>
+                    <p><?= htmlspecialchars($data[0]['covdes'] ?? '0'); ?></p>
                 </div>
                 <div class="stat-card">
                     <h3>Publishers</h3>
-                    <p>007</p>
+                    <p><?= htmlspecialchars($data[0]['pubs'] ?? '0'); ?></p>
                 </div>
             </div>
 
             <div class="stats-grid secondary">
                 <div class="stat-card">
                     <h3>Institutions</h3>
-                    <p>001</p>
+                    <p><?= htmlspecialchars($data[0]['inst'] ?? '0'); ?></p>
                 </div>
                 <div class="stat-card">
                     <h3>Premium Users</h3>
-                    <p>241</p>
+                    <p><?= htmlspecialchars(($data[0]['premium']) ?? '0'); ?></p>
                 </div>
                 <div class="stat-card">
                     <h3>Moderators</h3>
-                    <p>012</p>
+                    <p><?= htmlspecialchars($data[0]['mod'] ?? '0'); ?></p>
                 </div>
             </div>
 

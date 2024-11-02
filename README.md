@@ -1,8 +1,6 @@
 # Free-Write
 A Reader-Focused Social Storytelling Platform
 
-`admin` password: root
-
 Color Palette:
 black: 001000
 brown: 845E52
