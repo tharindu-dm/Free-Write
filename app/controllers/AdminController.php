@@ -13,7 +13,7 @@ class AdminController extends Controller
                     $this->view('admin/adminViewTable');
                     break;
                 case 'siteLogs':
-                    $this->view('admin/adminSiteLogs');
+                    $this->getSiteLogs();
                     break;
                 case 'modLogs':
                     $this->view('admin/adminModLogs');
@@ -33,6 +33,20 @@ class AdminController extends Controller
         $user = new User();
         $data = $user->getUserTypeCounts();
         $this->view('admin/adminDashboard', $data);
+    }
+
+    public function viewTable()
+    {
+        $modlog = new ModLog();
+        $tables = $modlog->getAllTables();
+        $this->view('admin/adminViewTable', $tables);
+    }
+
+    public function getSiteLogs()
+    {
+        $sitelog = new SiteLog();
+        $logs = $sitelog->findAll();
+        $this->view('admin/adminSiteLogs', $logs);
     }
 
 }

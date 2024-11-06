@@ -99,6 +99,19 @@ class LoginController extends Controller
 
                 if ($result) {
                     echo "User details created successfully!\n";
+                    $sitelog = new SiteLog();
+
+                    $useremail = array(
+                        'email' => $_POST['signup-email']
+                    );
+                    $userid = $user->first($useremail);
+
+                    $dataset = array(
+                        'user' => $userid['userID'],
+                        'activity' => 'Successfully registered',
+                        'occurrence' => $regDate
+                    );
+                    $sitelog->insert($dataset);
                 } else {
                     echo "<script>alert('Failed to create user details')</script>";
                 }
@@ -115,19 +128,14 @@ class LoginController extends Controller
 
     public function login()
     {
-        //echo "inside the login function\n";
-        //$URL = splitURL();
-
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            //echo "inside the post request\n";
             $user = new User();
             $userData = $user->getUserByUsername($_POST['log-email']);
-            //show($userData);
 
-            $pw = $_POST['log-password'];
+            $pw = $_POST['log-password']; //get login attempt count
 
             if ($userData) {
-                if ($pw == $userData['password']) {
+                if ($pw == $userData['password']) { // && logincount < 3
                     echo "<script> alert('Password is correct!'); </script>";
                     // Start the session if it's not already started
                     if (session_status() == PHP_SESSION_NONE) {
@@ -143,9 +151,14 @@ class LoginController extends Controller
                     exit;
                 } else {
                     echo "<script>alert('Password is incorrect.')</script>";
+                    //increase login attempt counter
+                    $newcount = $userData['loginAttempt']+1;
+                    $user->update($userData['userID'], ['loginAttempt' => $newcount], 'userID');
+
+                    //update sitelog with failed login attempt
+
                 }
-            }
-            else {
+            } else {
                 //check for institution login
                 echo "<script>alert('User not found.')</script>";
             }

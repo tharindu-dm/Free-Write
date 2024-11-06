@@ -14,6 +14,7 @@
 main {
   display: flex;
   padding: 2rem;
+  min-height: 100vh;
 }
 
 aside {
@@ -52,15 +53,11 @@ aside nav ul li svg {
   margin-right: 10px;
 }
 
-.log-out-btn {
-  background-color: #fff;
-  color: #333;
-  border: 1px solid #ccc;
-  padding: 1rem;
-  font-size: medium;
-  border-radius: 1rem;
+.active-menu-item {
+  background-color: #ffd700; /* Or any color you prefer */
 }
 
+/* Dashboard */
 .dashboard {
   flex: 1;
 }
