@@ -9,8 +9,6 @@
 </head>
 
 <body>
-    
-
     <!-- Main Content -->
     <main>
         <div class="dashboard">
@@ -23,12 +21,11 @@
 
             <!-- Navigation for Writer Options -->
             <nav class="writer-nav">
-                <a href="#">Books</a>
-                <a href="#">Quotes</a>
-                <a href="#">Spin-off requests</a>
-                <a href="#">Competitions</a>
+                <a href="/Free-Write/public/writer/books">Books</a>
+                <a href="/Free-Write/public/writer/quotes">Quotes</a>
+                <a href="/Free-Write/public/writer/spinoffs">Spin-off requests</a>
+                <a href="/Free-Write/public/writer/competitions">Competitions</a>
             </nav>
-
 
             <!-- Spin-off Requests Section -->
             <h3>Spin-off requests</h3>
@@ -62,9 +59,10 @@
     </main>
 
     <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 Free Write. All rights reserved.</p>
-    </footer>
+    <?php
+    // Including the footer
+    require_once "../app/views/layout/footer.php";
+    ?>
 
 </body>
 
