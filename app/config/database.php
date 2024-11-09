@@ -26,7 +26,7 @@ trait Database
         // Load the .env file using the method
         $this->loadEnv(__DIR__ . '/.env');
 
-        // Now you can access the environment variables
+        // Now can access the environment variables
         $dsn = getenv('DB_DSN');
         $username = getenv('DB_USERNAME');
         $password = getenv('DB_PASSWORD');
@@ -60,7 +60,7 @@ trait Database
     }
     public function get_row($query, $data = []) //one row 
     {
-        $con = $this->connect(__DIR__ . '/.env');
+        $con = $this->connect();
         $statement = $con->prepare($query);
 
         $check = $statement->execute($data);
