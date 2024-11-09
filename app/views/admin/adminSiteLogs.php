@@ -24,7 +24,6 @@
         default:
             require_once "../app/views/layout/header.php";
     }
-    show($data);
     ?>
     <main>
         <?php require_once "../app/views/layout/admin_aside_nav.php"; ?>
@@ -42,12 +41,14 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php foreach ($data as $log): ?>
                             <tr>
-                                <td>1</td>
-                                <td>Aether</td>
-                                <td>Logged in</td>
-                                <td>2024-09-01 12:00:00</td>
+                                <td><?= htmlspecialchars($log['siteLogID']); ?></td>
+                                <td><?= htmlspecialchars($log['user']); ?></td>
+                                <td><?= htmlspecialchars($log['activity']); ?></td>
+                                <td><?= htmlspecialchars($log['occurrence']); ?></td>
                             </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
