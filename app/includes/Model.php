@@ -14,9 +14,8 @@ trait Model
 
     public function findAll() //return multiple rows
     {
-        $query = " select * from $this->table order by " . lcfirst($this->table) . "ID" . " $this->orderBy";
-
-        //$this->show( $this->query($query));
+        $query = "select * from $this->table order by " . lcfirst($this->table) . "ID" . " $this->orderBy;";
+        
         return $this->query($query);
     }
 
@@ -35,7 +34,7 @@ trait Model
         }
 
         $query = rtrim($query, ' && ');
-        $query .= " order by " . lcfirst($this->table) . "ID" . " $this->orderBy";// offset $this->offset";
+        //$query .= " order by " . lcfirst($this->table) . "ID" . " $this->orderBy";// offset $this->offset";
 
         $data = array_merge($data, $data_not);
 
@@ -84,22 +83,22 @@ trait Model
 
         // Build the query
         $query = "INSERT INTO [{$this->table}] (" . implode(",", $bracketedKeys) . ") VALUES (:" . implode(",:", $keys) . ")";
-        
+
         return $this->query($query, $data);
     }
 
     public function update($id, $data, $id_column = 'id') //update data in the table
     {
         $keys = array_keys($data);
-        $query = "update $this->table set ";
+        $query = "UPDATE [{$this->table}] set ";
 
         foreach ($keys as $key) {
-            $query .= $key . ' = :' . $key . ', ';
+            $query .= "[{$key}] = :{$key}, ";
         }
 
         $query = rtrim($query, ', ');
-        $query .= " where $id_column = :$id_column";
-        $data[$id_column] = $id;
+        $query .= " WHERE [{$id_column}] = $id";
+        //show($query);
 
         if ($this->query($query, $data)) {
             return true;

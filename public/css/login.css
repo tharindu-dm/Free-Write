@@ -1,9 +1,3 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
@@ -11,25 +5,11 @@ body {
   background-color: #fff;
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-}
-
-.logo img {
-  width: 30px;
-  margin-right: 10px;
-}
-
-.logo span {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
 main {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
+  min-height: 100vh;
 }
 
 .login-container {
@@ -88,12 +68,6 @@ button {
 .login-btn {
   background-color: #ffd700;
   color: #333;
-}
-
-footer {
-  text-align: center;
-  padding: 1rem;
-  color: #666;
 }
 
 #institution-form-div, #register-form-div {

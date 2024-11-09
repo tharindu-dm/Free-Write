@@ -15,68 +15,80 @@
 
 <body>
     <?php
-    require_once "../app/views/layout/header-reader.php";
+    if (isset($_SESSION['user_type'])) {
+        $userType = $_SESSION['user_type'];
+    } else {
+        $userType = 'guest';
+    }
+    switch ($userType) {
+        case 'admin':
+        case 'writer':
+        case 'covdes':
+        case 'wricov':
+        case 'reader':
+            require_once "../app/views/layout/header-user.php";
+            break;
+        default:
+            require_once "../app/views/layout/header.php";
+    }
     ?>
 
     <main>
         <section class="profile-container">
             <div class="profile-header">
                 <div class="profile-image">
-                    <img src="profile-image.jpg" alt="User Profile Image">
+                    <img src="../../public/images/profile-image.jpg" alt="User Profile Image">
                 </div>
-                <div class="profile-info">
-                    <h1>@cloudedwithstories</h1>
-                    <p>Joined Dec 11, 2020</p>
-                    <p>~ Writer ~</p>
-                </div>
+                <?php if (!empty($user) && is_array($user)): ?>
+                    <div class="profile-info">
+                        <h1><?= htmlspecialchars($user[0]['fullName']); ?></h1>
+                        <p><?= explode(' ', $user[0]['regDate'])[0]; ?></p>
+                        <p>~ <?= htmlspecialchars($_SESSION['user_type']); ?> ~</p>
+                    </div>
+                <?php endif; ?>
             </div>
 
             <div class="profile-details">
                 <div class="profile-section">
-                    <h2>Wattpad Creator <span class="verified">✓</span></h2>
-                    <p>My Watty Award-winning novel, Creatures of the Night, is now published! Pick it up at your local
-                        book store or at the links below.</p>
-                    <div class="book-list">
-                        <div class="book-item">
-                            <h3>BOOKS:</h3>
-                            <ul>
-                                <li>
-                                    <span class="book-title">Creatures of the Night</span>
-                                    <span class="book-status">published, paid, Watty Award Winner</span>
-                                </li>
-                                <li>
-                                    <span class="book-title">Shadows of the Night</span>
-                                    <span class="book-status">book 2 draft, free</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    <p><?= htmlspecialchars($user[0]['bio']); ?></p>
                 </div>
 
                 <div class="profile-section">
                     <h2>Profile Statistics</h2>
-                    <div class="stats-container">
-                        <div class="stat-item">
-                            <h3>Reading</h3>
-                            <p id="reading-count">15</p>
+                    <?php if (!empty($listCounts) && is_array($listCounts)): ?>
+                        <div class="stats-container">
+                            <div class="stat-item">
+                                <a href="/Free-Write/public/BookList/Reading">
+                                    <h3>Reading</h3>
+                                </a>
+                                <p id="reading-count"><?= htmlspecialchars($listCounts[0]['reading']); ?></p>
+                            </div>
+                            <div class="stat-item">
+                                <a href="/Free-Write/public/BookList/Completed">
+                                    <h3>Completed</h3>
+                                </a>
+                                <p id="completed-count"><?= htmlspecialchars($listCounts[0]['completed']); ?></p>
+                            </div>
+                            <div class="stat-item">
+                                <a href="/Free-Write/public/BookList/Onhold">
+                                    <h3>On-Hold</h3>
+                                </a>
+                                <p id="onhold-count"><?= htmlspecialchars($listCounts[0]['hold']); ?></p>
+                            </div>
+                            <div class="stat-item">
+                                <a href="/Free-Write/public/BookList/Dropped">
+                                    <h3>Dropped</h3>
+                                </a>
+                                <p id="dropped-count"><?= htmlspecialchars($listCounts[0]['dropped']); ?></p>
+                            </div>
+                            <div class="stat-item">
+                                <a href="/Free-Write/public/BookList/Planned">
+                                    <h3>Plan to Read</h3>
+                                </a>
+                                <p id="plan-to-read-count"><?= htmlspecialchars($listCounts[0]['planned']); ?></p>
+                            </div>
                         </div>
-                        <div class="stat-item">
-                            <h3>Completed</h3>
-                            <p id="completed-count">11</p>
-                        </div>
-                        <div class="stat-item">
-                            <h3>On-Hold</h3>
-                            <p id="onhold-count">10</p>
-                        </div>
-                        <div class="stat-item">
-                            <h3>Dropped</h3>
-                            <p id="dropped-count">7</p>
-                        </div>
-                        <div class="stat-item">
-                            <h3>Plan to Read</h3>
-                            <p id="plan-to-read-count">12</p>
-                        </div>
-                    </div>
+                    <?php endif; ?>
                 </div>
             </div>
 

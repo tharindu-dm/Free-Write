@@ -5,45 +5,93 @@ class BookController extends Controller
     public function index()
     {
         $URL = splitURL();
-        
-        // Check the URL structure to determine if a specific book or overview is requested
-        if (count($URL) == 2) {
-            switch ($URL[1]) {
-                case 'view':
-                    $this->viewBook();
-                    break;
-                default:
-                    $this->view('book/bookOverview');
-                    break;
-            }
 
-        } else {
-            $this->view('book/bookOverview');
+        //show($URL);
+        /*Array
+            (
+                [0] => book
+                [1] => Overview
+                [2] => 4
+            )*/
+        switch ($URL[1]) {
+            case 'Overview':
+                if ($URL[2] >= 1) {
+                    $this->viewBook($URL[2]);
+                } else {
+                    $this->view('error');
+                }
+                break;
+
+            case 'Chapter':
+                if ($URL[2] >= 1) {
+                    $this->viewChapter($URL[2]);
+                } else {
+                    $this->view('error');
+                }
+                break;
+
+            case 'List':
+                switch ($URL[2]) {
+                    case 'update':
+                        $this->updateList($_POST['List_bid'], $_POST['chapterCount'], $_POST['status']);
+                        break;
+                    case 'delete':
+                        $this->deleteFromList($_POST['List_bid']);
+                        break;
+                    default:
+                        $this->addToList($_POST['List_uid'], $_POST['List_bid'], $_POST['list']);
+                        break;
+                }
+                break;
+            default:
+                $this->view('error');
+                break;
         }
+
+
     }
 
-    // Private function to handle specific book view
-    private function viewBook()
+    private function viewBook($bookID)//set as private
     {
-        $URL = splitURL();
-        
-        // Assuming that the book ID might be the third URL parameter (e.g., /book/view/123)
-        $bookId = isset($URL[2]) ? $URL[2] : null;
-        
-        if ($bookId) {
-            // Fetch book data based on ID
-            $bookModel = $this->model('BookModel');
-            $book = $bookModel->getBookById($bookId);
+        $book = new Book();
 
-            // If book found, display it; otherwise, show an error view or redirect
-            if ($book) {
-                $this->view('book/bookDetail', ['book' => $book]);
-            } else {
-                $this->view('errors/notFound');
-            }
-        } else {
-            // Redirect to overview if no valid book ID is provided
-            $this->view('book/bookOverview');
-        }
+        $bookFound = $book->getBookByID($bookID);
+        $bookChapters = $book->getBookChapters($bookID); //list of chapters related to the specific book
+
+        $this->view('book/Overview', ['book' => $bookFound, 'chapters' => $bookChapters]);
+    }
+
+    private function viewChapter($chapterID)
+    {
+        $chapter = new Chapter();
+        //$chapterFound = $chapter->getChapterByID($chapterID);
+
+        // $this->view('book/Chapter', ['chapter' => $chapterFound]);
+    }
+
+    private function addToList($uid, $bookID, $status)
+    {
+        $list = new BookList(); //get chapter to be added to the list
+        $list->addToList($uid, $bookID, $status);
+        $this->viewBook($bookID);
+    }
+
+
+    private function updateList($bookID, $chapterCount, $BookStatus)
+    {
+        $list = new BookList();
+
+        $uid = $_SESSION['user_id'];
+        $list->updateList($uid, $bookID, $chapterCount, $BookStatus);
+        $this->viewBook($bookID);
+    }
+
+    private function deleteFromList($bookID)
+    {
+        $list = new BookList();
+
+        $uid = $_SESSION['user_id'];
+        $list->deleteFromList($uid, $bookID);
+        $this->viewBook($bookID);
     }
 }

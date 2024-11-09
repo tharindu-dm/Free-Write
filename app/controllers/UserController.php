@@ -9,7 +9,7 @@ class UserController extends Controller
 
         if (count($URL) == 2) {
             switch ($URL[1]) {
-                case 'profile':
+                case 'Profile':
                     $this->userProfile();
                     break;
                 default:
@@ -24,8 +24,14 @@ class UserController extends Controller
 
     public function userProfile()
     {
+        $uid = $_SESSION['user_id'];
         //echo "inside the userProfile function\n";
-        $userDetails = new UserDetails();
-        $this->view('userProfile');
+        $userDetailsTable = new UserDetails();
+        $Booklist = new BookList(); //List Table
+
+        $userDetails = $userDetailsTable->getUserDetails($uid);
+        $list = $Booklist->getBookListCount($uid);
+        
+        $this->view('userProfile', ['user' => $userDetails, 'listCounts' => $list]);
     }
 }

@@ -24,7 +24,8 @@ trait Database
     private function connect() //connecting to azure sql server
     {
         // Load the .env file using the method
-        $this->loadEnv(_DIR_ . '/.env');
+
+        $this->loadEnv(__DIR__ . '/.env');
 
         // Now you can access the environment variables
         $dsn = getenv('DB_DSN');
@@ -60,7 +61,7 @@ trait Database
     }
     public function get_row($query, $data = []) //one row 
     {
-        $con = $this->connect(_DIR_ . '/.env');
+        $con = $this->connect();
         $statement = $con->prepare($query);
 
         $check = $statement->execute($data);
