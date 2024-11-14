@@ -58,7 +58,7 @@ trait Database
             return false;
         }
     }
-    public function get_row($query, $data = []) //one row 
+    /*public function get_row($query, $data = []) //one row 
     {
         $con = $this->connect();
         $statement = $con->prepare($query);
@@ -74,5 +74,5 @@ trait Database
             echo "Query failed\n";
             return false;
         }
-    }
+    }*/
 }
