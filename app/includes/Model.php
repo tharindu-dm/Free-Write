@@ -71,7 +71,6 @@ trait Model
         }
     }
 
-
     public function insert($data) //insert data into the table
     {
         $keys = array_keys($data);
@@ -84,6 +83,7 @@ trait Model
         // Build the query
         $query = "INSERT INTO [{$this->table}] (" . implode(",", $bracketedKeys) . ") VALUES (:" . implode(",:", $keys) . ")";
 
+        show($query);
         return $this->query($query, $data);
     }
 
