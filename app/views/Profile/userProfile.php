@@ -157,6 +157,9 @@
             ?>
             </div>
         </section>
+        <section>
+            <!-- Display  spinoff creation -->
+        </section>
     </main>
 
     <?php

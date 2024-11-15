@@ -24,12 +24,14 @@
             </div>
 
             <!-- Navigation for Writer Options -->
-            <nav>
-                <a href="/Free-Write/public/Writer/Dashboard">Books</a>
-                <a href="/Free-Write/public/Writer/Quotes">Quotes</a>
-                <a href="/Free-Write/public/Writer/Spinoffs">Spin-offs</a>
-                <a href="/Free-Write/public/Writer/Competitions">Competitions</a>
-            </nav>
+            <?php require_once "../app/views/writer/writerNav.php"; ?>
+
+            <!-- Other links to get to pages -->
+             <ul>
+                <li><a href="/Free-Write/public/Writer/ViewSpinoff">view spin off details</a></li>
+                <li><a href="/Free-Write/public/Writer/WriteStory">writeStory.php</a></li>
+                <li><a href="/Free-Write/public/Writer/EditStory">editStory.php</a></li>
+             </ul>
 
             <!-- Books Section -->
             <div class="books-section" id="books">

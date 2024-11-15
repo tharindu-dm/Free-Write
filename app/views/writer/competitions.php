@@ -43,33 +43,30 @@
             </div>
 
             <!-- Navigation for Writer Options -->
-            <nav class="writer-nav">
-                <a href="#">Books</a>
-                <a href="#">Quotes</a>
-                <a href="#">Spin-offs</a>
-                <a href="#">Competitions</a>
-            </nav>
+            <?php require_once "../app/views/writer/writerNav.php"; ?>
 
             <!-- Competitions Section -->
             <div>
                 <h3>Competitions</h3>
-                
-                <!-- Button to Add New Competition -->
-                <a href="#" class="button-new">+ New</a>
+                <a href="/Free-Write/public/Writer/ViewCompetitions">>>>>>>Competitions<<<<<< </a>
+                        <br /><!-- template button -->
 
-                <!-- Pending Competitions List -->
-                <div class="competitions-list">
-                    <h4>Pending</h4>
+                        <!-- Button to Add New Competition -->
+                        <a href="/Free-Write/public/Writer/NewCompetition" class="button-new">+ New</a>
 
-                    <?php foreach ($competitions as $competition): ?>
-                        <div class="competition-item">
-                            <p><strong><?php echo htmlspecialchars($competition['title']); ?></strong></p>
-                            <p>Genre: <?php echo htmlspecialchars($competition['genre']); ?></p>
-                            <button class="delete-btn">Delete</button>
-                            <button class="view-btn">View</button>
+                        <!-- Pending Competitions List -->
+                        <div class="competitions-list">
+                            <h4>Pending</h4>
+
+                            <?php foreach ($competitions as $competition): ?>
+                                <div class="competition-item">
+                                    <p><strong><?php echo htmlspecialchars($competition['title']); ?></strong></p>
+                                    <p>Genre: <?php echo htmlspecialchars($competition['genre']); ?></p>
+                                    <button class="delete-btn">Delete</button>
+                                    <button class="view-btn">View</button>
+                                </div>
+                            <?php endforeach; ?>
                         </div>
-                    <?php endforeach; ?>
-                </div>
             </div>
         </div>
     </main>

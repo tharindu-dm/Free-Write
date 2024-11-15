@@ -20,12 +20,7 @@
             </div>
 
             <!-- Navigation for Writer Options -->
-            <nav class="writer-nav">
-                <a href="/Free-Write/public/writer/books">Books</a>
-                <a href="/Free-Write/public/writer/quotes">Quotes</a>
-                <a href="/Free-Write/public/writer/spinoffs">Spin-offs</a>
-                <a href="/Free-Write/public/writer/competitions">Competitions</a>
-            </nav>
+            <?php require_once "../app/views/writer/writerNav.php"; ?>
 
             <!-- Spin-off  Section -->
             <h3>Spin-off requests</h3>

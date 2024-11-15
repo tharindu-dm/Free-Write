@@ -24,17 +24,12 @@
             </div>
 
             <!-- Navigation for Writer Options -->
-            <nav>
-                <a href="/books">Books</a>
-                <a href="/quotes">Quotes</a>
-                <a href="/spin-off-requests">Spin-offs</a>
-                <a href="/competitions">Competitions</a>
-            </nav>
+            <?php require_once "../app/views/writer/writerNav.php"; ?>
 
             <!-- Quotes Section -->
             <section class="quotes-section">
                 <h2>Quotes</h2>
-                <a href="/quotes/create" class="button-new">+ New</a>
+                <a href="/Free-Write/public/Writer/NewQuote" class="button-new">+ New</a>
                 
                 <!-- Quotes List -->
                 <ul class="quotes-list">
