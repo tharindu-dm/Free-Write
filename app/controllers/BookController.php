@@ -43,7 +43,10 @@ class BookController extends Controller
         $bookFound = $book->getBookByID($bookID);
         $bookChapters = $book->getBookChapters($bookID); //list of chapters related to the specific book
 
-        $this->view('book/Overview', ['book' => $bookFound, 'chapters' => $bookChapters]);
+        $spinoff = new Spinoff();
+        $spinoffs = $spinoff->where(['fromBook' => $bookID]);
+
+        $this->view('book/Overview', ['book' => $bookFound, 'chapters' => $bookChapters, 'spinoffs' => $spinoffs]);
     }
 
     public function Chapter($chapterID = 0)

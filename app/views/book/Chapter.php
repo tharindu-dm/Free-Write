@@ -66,19 +66,35 @@
 
         <!-- Comments Section -->
         <div class="comments">
-            <h3>Comments</h3>
+            <h3>Comments (cannot be edited or removed at the moment)</h3>
 
             <form action="/Free-Write/public/Chapter/Comment" method="post" class="comment-form">
                 <textarea name="commentText" placeholder="Add your comment"></textarea>
                 <input type="hidden" name="chapterID" value="<?= $chapter_content[0]['chapterID']; ?>">
                 <button class="btn" type="submit">Post Comment</button>
             </form>
-
+            <p></p>
             <?php if (!empty($chapter_comments) && is_array($chapter_comments)): ?>
                 <?php foreach ($chapter_comments as $comment): ?>
                     <div class="comment">
-                        <p><strong><?= htmlspecialchars($comment['UserName']); ?></strong>
-                            <?= htmlspecialchars($comment['CommentContent']); ?></p>
+                        <p>
+                            <strong><?= htmlspecialchars($comment['UserName']); ?></strong>
+                            <span>
+                                <?php
+                                $dateString = $comment['DateAdded'];
+
+                                // Create a DateTime object from the string
+                                $date = new DateTime($dateString);
+
+                                // Format the date to a more readable format, e.g., 'November 15, 2024, 10:22 AM'
+                                $formattedDate = $date->format('F j, Y, g:i A');
+
+                                // Output the formatted date safely using htmlspecialchars
+                                echo htmlspecialchars($formattedDate);
+                                ?>
+                            </span><br />
+                            <?= htmlspecialchars($comment['CommentContent']); ?>
+                        </p>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
