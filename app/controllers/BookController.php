@@ -2,32 +2,11 @@
 
 class BookController extends Controller
 {
+
     public function index()
     {
         $URL = splitURL();
-        //show($URL);
-        /*Array
-            (
-                [0] => book
-                [1] => Overview
-                [2] => 4
-            )*/
         switch ($URL[1]) {
-            case 'Overview':
-                if ($URL[2] >= 1) {
-                    $this->viewBook($URL[2]);
-                } else {
-                    $this->view('error');
-                }
-                break;
-
-            case 'Chapter':
-                if ($URL[2] >= 1) {
-                    $this->viewChapter($URL[2]);
-                } else {
-                    $this->view('error');
-                }
-                break;
 
             case 'List':
                 switch ($URL[2]) {
@@ -50,8 +29,13 @@ class BookController extends Controller
 
     }
 
-    private function viewBook($bookID)//set as private
+    public function Overview()
     {
+        $URL = splitURL();
+        if ($URL[2] < 1) {
+            $this->view('error');
+        }
+        $bookID = $URL[2]; //get the book id from the url
         $book = new Book();
 
         $bookFound = $book->getBookByID($bookID);
@@ -60,8 +44,15 @@ class BookController extends Controller
         $this->view('book/Overview', ['book' => $bookFound, 'chapters' => $bookChapters]);
     }
 
-    private function viewChapter($chapterID)
+    public function Chapter($chapterID)
     {
+        $URL = splitURL();
+
+        if ($URL[2] < 1) {
+            $this->view('error');
+        }
+
+        $chapterID = $URL[2]; //get the chapter id from the url
         $chapter = new Chapter();
         //$chapterFound = $chapter->getChapterByID($chapterID);
 
@@ -72,7 +63,7 @@ class BookController extends Controller
     {
         $list = new BookList(); //get chapter to be added to the list
         $list->addToList($uid, $bookID, $status);
-        $this->viewBook($bookID);
+        $this->Overview($bookID);
     }
 
     private function updateList($bookID, $chapterCount, $BookStatus)
@@ -81,7 +72,7 @@ class BookController extends Controller
 
         $uid = $_SESSION['user_id'];
         $list->updateList($uid, $bookID, $chapterCount, $BookStatus);
-        $this->viewBook($bookID);
+        $this->Overview($bookID);
     }
 
     private function deleteFromList($bookID)
@@ -90,6 +81,6 @@ class BookController extends Controller
 
         $uid = $_SESSION['user_id'];
         $list->deleteFromList($uid, $bookID);
-        $this->viewBook($bookID);
+        $this->Overview($bookID);
     }
 }

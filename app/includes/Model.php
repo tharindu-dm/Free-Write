@@ -14,9 +14,8 @@ trait Model
 
     public function findAll() //return multiple rows
     {
-        $query = " select * from $this->table order by " . lcfirst($this->table) . "ID" . " $this->orderBy;";
-
-        show($this->query($query));
+        $query = "select * from $this->table order by " . lcfirst($this->table) . "ID" . " $this->orderBy;";
+        
         return $this->query($query);
     }
 
@@ -24,22 +23,22 @@ trait Model
     {
         $keys = array_keys($data);
         $keys_not = array_keys($data_not);
-        $query = 'select * from ' . $this->table . ' where ';
+        $query = "SELECT * FROM [{$this->table}] WHERE [";
 
         foreach ($keys as $key) {
-            $query .= $key . ' = :' . $key . ' && ';
+            $query .= $key . '] = :' . $key . ' && [';
         }
 
         foreach ($keys_not as $key) {
-            $query .= $key . ' != :' . $key . ' && ';
+            $query .= $key . ' != :' . $key . ' && [';
         }
 
-        $query = rtrim($query, ' && ');
+        $query = rtrim($query, ' && [');
         //$query .= " order by " . lcfirst($this->table) . "ID" . " $this->orderBy";// offset $this->offset";
 
         $data = array_merge($data, $data_not);
 
-        //show($this->query($query, $data));
+        //show($query);
         return $this->query($query, $data);
     }
 
@@ -99,7 +98,7 @@ trait Model
 
         $query = rtrim($query, ', ');
         $query .= " WHERE [{$id_column}] = $id";
-        show($query);
+        //show($query);
 
         if ($this->query($query, $data)) {
             return true;

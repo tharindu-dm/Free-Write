@@ -22,12 +22,17 @@
     }
     switch ($userType) {
         case 'admin':
+        case 'writer':
+        case 'covdes':
+        case 'wricov':
         case 'reader':
             require_once "../app/views/layout/header-user.php";
             break;
         default:
             require_once "../app/views/layout/header.php";
     }
+
+    //show($data);
     ?>
 
     <main>
@@ -36,10 +41,10 @@
                 <div class="profile-image">
                     <img src="../../public/images/profile-image.jpg" alt="User Profile Image">
                 </div>
-                <?php if (!empty($user) && is_array($user)): ?>
+                <?php if (!empty($userDetails) && is_array($userDetails)): ?>
                     <div class="profile-info">
-                        <h1><?= htmlspecialchars($user[0]['fullName']); ?></h1>
-                        <p><?= explode(' ', $user[0]['regDate'])[0]; ?></p>
+                        <h1><?= htmlspecialchars($userDetails[0]['fullName']); ?></h1>
+                        <p><?= explode(' ', $userDetails[0]['regDate'])[0]; ?></p>
                         <p>~ <?= htmlspecialchars($_SESSION['user_type']); ?> ~</p>
                     </div>
                 <?php endif; ?>
@@ -47,7 +52,7 @@
 
             <div class="profile-details">
                 <div class="profile-section">
-                    <p><?= htmlspecialchars($user[0]['bio']); ?></p>
+                    <p><?= htmlspecialchars($userDetails[0]['bio']); ?></p>
                 </div>
 
                 <div class="profile-section">
@@ -89,10 +94,71 @@
                 </div>
             </div>
 
-            <div class="profile-actions">
-                <button class="edit-profile-btn">Edit Profile</button>
-                <button class="report-btn">Report</button>
+            <div class="edit-profile">
+                <div class="edit-profile-container">
+                    <form id="edit-profile-form" action="/Free-Write/public/User/EditProfile" method="POST">
+                        <div class="edit-profile-item">
+                            <label for="fullName">Full Name</label>
+                            <input type="text" name="fullName"
+                                value="<?= htmlspecialchars($userDetails[0]['fullName']); ?>">
+                        </div>
+                        <div class="edit-profile-item">
+                            <label for="bio">Bio</label>
+                            <textarea name="bio"><?= htmlspecialchars($userDetails[0]['bio']); ?></textarea>
+                        </div>
+                        <div class="edit-profile-item">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" value="<?= htmlspecialchars($userAccount['email']); ?>">
+                        </div>
+                        <div class="edit-profile-item">
+                            <button type="submit" name="submit">Save Changes</button>
+                        </div>
+                    </form>
+
+                    <hr class="horizontal-divider">
+
+                    <div class="danger-zone">
+                        <h3>Danger Zone</h3>
+                        <div class="warning-message">
+                            <p>Warning: Deleting your account will permanently remove:</p>
+                            <ul>
+                                <li>All your posts and writings</li>
+                                <li>Your profile information</li>
+                                <li>Your comments and interactions</li>
+                                <li>All associated data</li>
+                            </ul>
+                            <p>This action cannot be undone.</p>
+                        </div>
+                        <button class="delete-account-btn" onclick="confirmDelete()">Delete Account</button>
+                    </div>
+                </div>
+
             </div>
+
+            <div class="profile-actions">
+                <button id="reportBtn" class="report-btn">Report (this button is not funcitonal yet)</button>
+                <button id="profileEditBtn" class="edit-profile-btn">Edit Profile</button>
+            </div>
+
+            <div class="extra-profile-buttons">
+            <?php
+            switch ($userType) {
+                case 'writer':
+                    require_once "../app/views/Profile/writerComponent.php";
+                    break;
+                case 'covdes':
+                    require_once "../app/views/Profile/covdesComponent.php";
+                    break;
+                case 'wricov':
+                    require_once "../app/views/Profile/writerComponent.php";
+                    require_once "../app/views/Profile/covdesComponent.php";
+                    break;
+            }
+            ?>
+            </div>
+        </section>
+        <section>
+            <!-- Display  spinoff creation -->
         </section>
     </main>
 

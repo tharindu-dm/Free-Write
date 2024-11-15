@@ -29,29 +29,17 @@
         <?php require_once "../app/views/layout/admin_aside_nav.php"; ?>
 
         <section class="dashboard">
-            <div class="table-container">
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Site Log ID</th>
-                                <th>User</th>
-                                <th>Activity</th>
-                                <th>Occurrence</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($data as $log): ?>
-                            <tr>
-                                <td><?= htmlspecialchars($log['siteLogID']); ?></td>
-                                <td><?= htmlspecialchars($log['user']); ?></td>
-                                <td><?= htmlspecialchars($log['activity']); ?></td>
-                                <td><?= htmlspecialchars($log['occurrence']); ?></td>
-                            </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
+            <div class="stats-grid">
+                <?php if (!empty($data) && is_array($data)): ?>
+                    <?php for ($i = 0; $i < 36; $i++): ?>
+                        <div class="stat-card">
+                            <p><?= htmlspecialchars($data[$i]['name']); ?></p>
+                        </div>
+                    <?php endfor; ?>
+
+                <?php else: ?>
+                    <p>No table found</p>
+                <?php endif; ?>
             </div>
         </section>
     </main>
