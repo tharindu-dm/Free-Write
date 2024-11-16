@@ -72,7 +72,7 @@
                                                 alt="Cover Image of <?= htmlspecialchars($book['title']); ?>"></td>
                                         <td>
                                             <a
-                                                href="http://localhost/Free-Write/public/book/Overview/<?= htmlspecialchars($book['bookID']); ?>">
+                                                href="/Free-Write/public/book/Overview/<?= htmlspecialchars($book['bookID']); ?>">
                                                 <?php echo $book['title']; ?>
                                             </a>
                                         </td>
@@ -113,7 +113,7 @@
                                                 alt="Cover Image of <?= htmlspecialchars($book['title']); ?>"></td>
                                         <td>
                                             <a
-                                                href="http://localhost/Free-Write/public/book/Overview/<?= htmlspecialchars($book['bookID']); ?>">
+                                                href="/Free-Write/public/book/Overview/<?= htmlspecialchars($book['bookID']); ?>">
                                                 <?php echo $book['title']; ?>
                                             </a>
                                         </td>
@@ -154,7 +154,7 @@
                                                 alt="Cover Image of <?= htmlspecialchars($book['title']); ?>"></td>
                                         <td>
                                             <a
-                                                href="http://localhost/Free-Write/public/book/Overview/<?= htmlspecialchars($book['bookID']); ?>">
+                                                href="/Free-Write/public/book/Overview/<?= htmlspecialchars($book['bookID']); ?>">
                                                 <?php echo $book['title']; ?>
                                             </a>
                                         </td>
@@ -195,7 +195,7 @@
                                                 alt="Cover Image of <?= htmlspecialchars($book['title']); ?>"></td>
                                         <td>
                                             <a
-                                                href="http://localhost/Free-Write/public/book/Overview/<?= htmlspecialchars($book['bookID']); ?>">
+                                                href="/Free-Write/public/book/Overview/<?= htmlspecialchars($book['bookID']); ?>">
                                                 <?php echo $book['title']; ?>
                                             </a>
                                         </td>
@@ -236,7 +236,7 @@
                                                 alt="Cover Image of <?= htmlspecialchars($book['title']); ?>"></td>
                                         <td>
                                             <a
-                                                href="http://localhost/Free-Write/public/book/Overview/<?= htmlspecialchars($book['bookID']); ?>">
+                                                href="/Free-Write/public/book/Overview/<?= htmlspecialchars($book['bookID']); ?>">
                                                 <?php echo $book['title']; ?>
                                             </a>
                                         </td>
@@ -261,7 +261,7 @@
                     <h3>Edit Record</h3>
                     <h4 id="bookTitle-header">Title:</h4>
 
-                    <form id="add-to-list-form" action="http://localhost/Free-Write/public/Book/List/update"
+                    <form id="add-to-list-form" action="/Free-Write/public/Book/List/update"
                         method="POST">
                         <div class="form-content">
                             <div class="chapter-counter">
@@ -295,7 +295,7 @@
                     <h3 style="color:crimson;">You are about to delete</h3>
                     <h4 id="bookTitle-header-delete">Title:</h4>
 
-                    <form id="add-to-list-form" action="http://localhost/Free-Write/public/Book/List/delete"
+                    <form id="add-to-list-form" action="/Free-Write/public/Book/List/delete"
                         method="POST">
 
                         <input type="hidden" name="List_bid" id="List_bid_delete">
