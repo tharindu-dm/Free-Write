@@ -121,7 +121,7 @@
                                         <?= $book['price'] === null ? 'FREE' : 'LKR ' . number_format($book['price'], 2); ?>
                                     </h4>
                                     <a
-                                        href="http://localhost/Free-Write/public/book/Overview/<?= htmlspecialchars($book['bookID']); ?>">
+                                        href="/Free-Write/public/book/Overview/<?= htmlspecialchars($book['bookID']); ?>">
                                         <button class="select-book-btn"
                                             data-id="<?= htmlspecialchars($book['bookID']); ?>">Select Book</button>
                                     </a>
@@ -148,7 +148,7 @@
                                     <h4><?= $pbook['price'] === null ? 'FREE' : 'LKR ' . number_format($pbook['price'], 2); ?>
                                     </h4>
                                     <a
-                                        href="http://localhost/Free-Write/public/book/Overview/<?= htmlspecialchars($pbook['bookID']); ?>">
+                                        href="/Free-Write/public/book/Overview/<?= htmlspecialchars($pbook['bookID']); ?>">
                                         <button class="select-book-btn"
                                             data-id="<?= htmlspecialchars($pbook['bookID']); ?>">Select Book</button>
                                     </a>
