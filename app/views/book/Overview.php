@@ -26,7 +26,7 @@
         default:
             require_once "../app/views/layout/header.php";
     }
-    show($data);
+    //show($data);
     ?>
 
     <?php if (!empty($book) && is_array($book)): ?>
@@ -149,8 +149,7 @@
                             <p>No chapters found</p>
                         <?php endif; ?>
                     </div>
-
-                    <p><br /></p>
+                    
                     <div class="table-of-contents">
                         <h2>Try A Spinoff Made By Other Readers</h2>
                         <?php if (!empty($spinoffs) && is_array($spinoffs)): ?>
@@ -164,12 +163,13 @@
                                         <td><a
                                                 href="http://localhost/Free-Write/public/Spinoff/<?= htmlspecialchars($spinoff['spinoffID']); ?>"><?= htmlspecialchars($spinoff['title']); ?></a>
                                         </td>
-                                        <td><?= htmlspecialchars($spinoff['lastUpdated']); ?></td>
+                                        <td><?= date('Y-m-d', strtotime($spinoff['lastUpdated']));
+                                        ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </table>
                         <?php else: ?>
-                            <p>No chapters found</p>
+                            <p>No spinoffs found</p>
                         <?php endif; ?>
                     </div>
                 </div>

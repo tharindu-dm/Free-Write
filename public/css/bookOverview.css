@@ -173,9 +173,93 @@ h1 {
   }
 }
 
-/*Table of Content*/
-td {
-  padding-left: 5px;
-  padding-right: 20px;
+/* Table Container Styles */
+.table-of-contents {
+  margin: 2rem 0;
+  padding: 1rem;
+  border-radius: 8px;
+  background: rgba(255, 215, 0, 0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.table-of-contents h2 {
+  color: #333;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  border-bottom: 2px solid #ffd700;
+  padding-bottom: 0.5rem;
+}
+
+/* Table Styles */
+.table-of-contents table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 1rem 0;
+  border: none;
+}
+
+.table-of-contents th {
+  background-color: #ffd700;
+  color: #000;
+  font-weight: 600;
+  padding: 12px 16px;
+  text-align: left;
+  border: none;
+}
+
+.table-of-contents th:first-child {
+  border-top-left-radius: 6px;
+}
+
+.table-of-contents th:last-child {
+  border-top-right-radius: 6px;
+}
+
+.table-of-contents td {
+  padding: 12px 16px;
+  border: none;
+  background-color: #fff;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.table-of-contents tr:last-child td {
+  border-bottom: none;
+}
+
+.table-of-contents tr:hover td {
+  background-color: rgba(255, 215, 0, 0.1);
+}
+
+/* Link Styles */
+.table-of-contents a {
+  color: #333;
   text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.table-of-contents a:hover {
+  color: #ffd700;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .table-of-contents {
+      padding: 0.5rem;
+  }
+  
+  .table-of-contents td,
+  .table-of-contents th {
+      padding: 8px 12px;
+  }
+  
+  .button-container {
+      flex-direction: column;
+  }
+  
+  .btn {
+      width: 100%;
+      text-align: center;
+  }
 }

@@ -15,7 +15,7 @@ class SpinoffController extends Controller
         $book_chapter = new BookChapter();
 
         $bookDetails = $book->first(['bookID' => $bookID]);
-       $chapters = $book_chapter->getChapters($bookID);
+        $chapters = $book_chapter->getChapters($bookID);
 
         $this->view('Reader/writeSpinoff', ['book' => $bookDetails, 'chapters' => $chapters]);
     }
@@ -23,7 +23,7 @@ class SpinoffController extends Controller
     public function Create()
     {
         $spinoff = new Spinoff();
-        
+
         $title = $_POST['title'];
         $synopsis = $_POST['synopsis'];
         $bookID = $_POST['bookID'];
@@ -35,5 +35,18 @@ class SpinoffController extends Controller
         $spinoff->insert(['title' => $title, 'synopsis' => $synopsis, 'creator' => $user, 'fromBook' => $bookID, 'accessType' => $access, 'startingChapter' => $chapter, 'isAcknowledge' => 0, 'lastUpdated' => $datetime]);
 
         header('location: /Free-Write/public/Book/Overview/' . $bookID);
+    }
+
+    public function Overview()
+    {
+        $URL = splitURL();
+        $spinoffID = $URL[2];
+        $spinoff = new Spinoff();
+        $spinoff_chapter = new SpinoffChapter();
+
+        $content = $spinoff->where(['spinoffID' => $spinoffID]);
+        $chapters = $spinoff_chapter->where(['spinoff' => $spinoffID]);
+
+        $this->view('spinoff/Overview', ['content' => $content]);
     }
 }
