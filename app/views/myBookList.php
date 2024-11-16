@@ -28,6 +28,9 @@
         case 'reader':
             require_once "../app/views/layout/header-user.php";
             break;
+        case 'pub':
+            require_once "../app/views/layout/header-pub.php";
+            break;
         default:
             require_once "../app/views/layout/header.php";
     }
@@ -296,7 +299,7 @@
                         method="POST">
 
                         <input type="hidden" name="List_bid" id="List_bid_delete">
-                        
+
                         <div class="list-add-actionBtns">
                             <button id="cancel-delete-button" type="button" class="add-list-cancel-button">
                                 Cancel

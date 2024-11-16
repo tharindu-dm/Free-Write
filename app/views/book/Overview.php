@@ -23,6 +23,9 @@
         case 'reader':
             require_once "../app/views/layout/header-user.php";
             break;
+        case 'pub':
+            require_once "../app/views/layout/header-pub.php";
+            break;
         default:
             require_once "../app/views/layout/header.php";
     }
@@ -149,7 +152,7 @@
                             <p>No chapters found</p>
                         <?php endif; ?>
                     </div>
-                    
+
                     <div class="table-of-contents">
                         <h2>Try A Spinoff Made By Other Readers</h2>
                         <?php if (!empty($spinoffs) && is_array($spinoffs)): ?>

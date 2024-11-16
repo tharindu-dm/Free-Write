@@ -17,7 +17,7 @@ class SpinOff
                 FROM [dbo].[Spinoff] s
                 JOIN [dbo].[Book] b ON s.fromBook = b.bookID
                 LEFT JOIN  [dbo].[SpinoffChapter] sc ON s.spinoffID = sc.spinoff
-                WHERE s.[creator] = 27
+                WHERE s.[creator] = $uid
                 GROUP BY s.[spinoffID], s.title, b.title, s.accessType
                 ORDER BY  SpinoffName;";
 
