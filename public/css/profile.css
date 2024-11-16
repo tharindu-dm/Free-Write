@@ -118,7 +118,7 @@ main {
 
 /* EDIT PROFILE OVERLAY */
 .edit-profile {
-  display: none;/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+  display: none; /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
   position: fixed; /* Make it fixed to the viewport */
   top: 0;
   left: 0;
@@ -132,7 +132,7 @@ main {
 }
 
 .edit-profile-container {
-  display: flex; 
+  display: flex;
   flex-direction: column;
   max-height: 45rem;
   overflow-y: scroll;
@@ -224,4 +224,70 @@ main {
 
 .delete-account-btn:hover {
   background-color: #c82333;
+}
+
+/*SPINOFF SECTION*/
+.spinoff-container {
+  max-height: 50rem;
+  overflow-y: auto;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+.spinoff-item {
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  border: 0.2rem solid #ffc107;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.spinoff-item:hover {
+  transform: translateY(-2px);
+}
+
+.spinoff-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.spinoff-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.spinoff-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.book-title {
+  font-size: 0.95rem;
+  color: #666;
+  margin: 0;
+}
+
+.spinoff-meta {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.chapter-count, .access-type {
+  font-size: 0.85rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  background-color: #f0f0f0;
+  color: #555;
+}
+
+.access-type {
+  background-color: #e8f5e9;
+  color: #2e7d32;
 }

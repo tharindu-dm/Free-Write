@@ -21,13 +21,13 @@ require_once "../app/controllers/UserController.php"; //since this "navigation b
                         <a href="/Free-Write/public/Browse">Browse</a>
                     </div>
                     <div class="nav-button">
-                        <a href="/Free-Write/public/Designers/">Designers</a>
+                        <a href="/Free-Write/public/Designer/">Designers</a>
                     </div>
                     <div class="nav-button">
-                        <a href="/Free-Write/public/Publishers/">Publishers</a>
+                        <a href="/Free-Write/public/Publisher/">Publishers</a>
                     </div>
                     <div class="nav-button">
-                        <a href="/Free-Write/public/Contests/">Contests</a>
+                        <a href="/Free-Write/public/Competition/">Competitions</a>
                     </div>
                 </div>
             </div>

@@ -23,6 +23,9 @@
         case 'reader':
             require_once "../app/views/layout/header-user.php";
             break;
+        case 'pub':
+            require_once "../app/views/layout/header-pub.php";
+            break;
         default:
             require_once "../app/views/layout/header.php";
     }

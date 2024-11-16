@@ -28,6 +28,9 @@
         case 'reader':
             require_once "../app/views/layout/header-user.php";
             break;
+        case 'pub':
+            require_once "../app/views/layout/header-pub.php";
+            break;
         default:
             require_once "../app/views/layout/header.php";
     }
@@ -141,25 +144,55 @@
             </div>
 
             <div class="extra-profile-buttons">
-            <?php
-            switch ($userType) {
-                case 'writer':
-                    require_once "../app/views/Profile/writerComponent.php";
-                    break;
-                case 'covdes':
-                    require_once "../app/views/Profile/covdesComponent.php";
-                    break;
-                case 'wricov':
-                    require_once "../app/views/Profile/writerComponent.php";
-                    require_once "../app/views/Profile/covdesComponent.php";
-                    break;
-            }
-            ?>
+                <?php
+                switch ($userType) {
+                    case 'writer':
+                        require_once "../app/views/Profile/writerComponent.php";
+                        break;
+                    case 'covdes':
+                        require_once "../app/views/Profile/covdesComponent.php";
+                        break;
+                    case 'wricov':
+                        require_once "../app/views/Profile/writerComponent.php";
+                        require_once "../app/views/Profile/covdesComponent.php";
+                        break;
+                }
+                ?>
             </div>
         </section>
-        <section>
-            <!-- Display  spinoff creation -->
+
+        <section class="profile-container">
+            <?php if ($userType = 'pub') {
+                require_once "../app/views/Profile/publisherProfile.php";
+            } ?>
         </section>
+
+            <section class="profile-container">
+                <h1>My Spinoffs</h1>
+                <?php if (!empty($spinoffs) && is_array($spinoffs)): ?>
+                    <div class="spinoff-container">
+                        <?php foreach ($spinoffs as $spinoff): ?>
+                            <div class="spinoff-item">
+                                <div class="spinoff-content">
+                                    <a
+                                        href="/Free-Write/public/Spinoff/Overview/<?= htmlspecialchars($spinoff['spinoffID']); ?>">
+                                        <h2 class="spinoff-title"><?= htmlspecialchars($spinoff['SpinoffName']); ?></h2>
+                                    </a>
+                                    <div class="spinoff-details">
+                                        <p class="book-title"><?= htmlspecialchars($spinoff['BookTitle']); ?></p>
+                                        <div class="spinoff-meta">
+                                            <span
+                                                class="chapter-count"><?= htmlspecialchars($spinoff['SpinoffChapterCount']); ?>
+                                                chapters</span>
+                                            <span class="access-type"><?= htmlspecialchars($spinoff['AccessType']); ?></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+            </section>
     </main>
 
     <?php

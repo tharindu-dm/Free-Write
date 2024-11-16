@@ -23,9 +23,13 @@
         case 'reader':
             require_once "../app/views/layout/header-user.php";
             break;
+        case 'pub':
+            require_once "../app/views/layout/header-pub.php";
+            break;
         default:
             require_once "../app/views/layout/header.php";
     }
+    //show($data);
     ?>
 
     <?php if (!empty($book) && is_array($book)): ?>
@@ -51,19 +55,15 @@
                         <?= htmlspecialchars($book[0]['Synopsis']); ?>
                     </p>
                     <div class="read-button-container">
-                        <button id="btn-addToList" class="read-button">Add to List
+                        <button id="btn-addToList" class="read-button">Add To List
                         </button>
                         <div class="buy-button">
-                            <?= $book[0]['price'] === null ? 'Read for Free' : 'Purchase for LKR. ' . number_format($book[0]['price'], 2); ?>
-                            &nbsp;
-                            <svg style="height: 1.5rem; width: 1.5rem;" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
-                            </svg>
+                            <?= $book[0]['price'] === null ? 'Read for Free' : 'Buy LKR. ' . number_format($book[0]['price'], 2); ?>
                         </div>
-
+                        <button id="btn-create-spinoff" class="read-button">Create A Spinoff
+                        </button>
                     </div>
+
                     <div class="add-to-list">
                         <div class="list-add-container">
                             <h3>Add To Your List</h3>
@@ -110,7 +110,7 @@
                                             <input type="hidden" name="List_bid"
                                                 value="<?= htmlspecialchars($book[0]['bookID']); ?>">
                                         </label>
-                                    </div> 
+                                    </div>
                                 </div>
 
                                 <!-- Get the current chapter count and and show, edit JS to check all MAL conditions when selecting completed when not finished publishing
@@ -130,6 +130,7 @@
                             </form>
                         </div>
                     </div>
+
                     <div class="table-of-contents">
                         <h2>Table of Contents</h2>
                         <?php if (!empty($chapters) && is_array($chapters)): ?>
@@ -149,6 +150,29 @@
                             </table>
                         <?php else: ?>
                             <p>No chapters found</p>
+                        <?php endif; ?>
+                    </div>
+
+                    <div class="table-of-contents">
+                        <h2>Try A Spinoff Made By Other Readers</h2>
+                        <?php if (!empty($spinoffs) && is_array($spinoffs)): ?>
+                            <table border="1">
+                                <tr>
+                                    <th>Spinoff</th>
+                                    <th>Last Updated</th>
+                                </tr>
+                                <?php foreach ($spinoffs as $spinoff): ?>
+                                    <tr>
+                                        <td><a
+                                                href="http://localhost/Free-Write/public/Spinoff/<?= htmlspecialchars($spinoff['spinoffID']); ?>"><?= htmlspecialchars($spinoff['title']); ?></a>
+                                        </td>
+                                        <td><?= date('Y-m-d', strtotime($spinoff['lastUpdated']));
+                                        ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </table>
+                        <?php else: ?>
+                            <p>No spinoffs found</p>
                         <?php endif; ?>
                     </div>
                 </div>

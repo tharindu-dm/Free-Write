@@ -18,11 +18,13 @@ class UserController extends Controller
         $user = new User();
         $userDetailsTable = new UserDetails();
         $Booklist = new BookList(); //List Table
+        $spinoff = new Spinoff(); //get my spinoffs
 
         $userDetails = $userDetailsTable->getUserDetails($uid);
         $list = $Booklist->getBookListCount($uid);
         $userAcc = $user->first(['userID' => $uid]);
+        $myspinoffs = $spinoff->getUserSpinoff($uid);
 
-        $this->view('Profile/userProfile', ['userAccount' => $userAcc, 'userDetails' => $userDetails, 'listCounts' => $list]);
+        $this->view('Profile/userProfile', ['userAccount' => $userAcc, 'userDetails' => $userDetails, 'listCounts' => $list, 'spinoffs' => $myspinoffs]);
     }
 }
