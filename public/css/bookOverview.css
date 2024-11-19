@@ -243,6 +243,15 @@ h1 {
   color: #ffd700;
 }
 
+/*Chapter Edit Delete buttons*/
+.edit-btn-chap{
+  background-color: #ffd700;
+}
+
+.delete-btn-chap{
+  background-color: #ff0000;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .table-of-contents {

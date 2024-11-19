@@ -164,7 +164,7 @@
                                 <?php foreach ($spinoffs as $spinoff): ?>
                                     <tr>
                                         <td><a
-                                                href="/Free-Write/public/Spinoff/<?= htmlspecialchars($spinoff['spinoffID']); ?>"><?= htmlspecialchars($spinoff['title']); ?></a>
+                                                href="/Free-Write/public/Spinoff/Overview/<?= htmlspecialchars($spinoff['spinoffID']); ?>"><?= htmlspecialchars($spinoff['title']); ?></a>
                                         </td>
                                         <td><?= date('Y-m-d', strtotime($spinoff['lastUpdated']));
                                         ?></td>
