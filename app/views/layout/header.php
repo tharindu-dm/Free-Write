@@ -36,9 +36,9 @@ require_once "../app/controllers/UserController.php"; //since this "navigation b
             </div>
 
             <div class="action-button-container">
-                <div class="action-button">
+                <!--<div class="action-button">
                     <button class="publish-btn">Publish</button>
-                </div>
+                </div> -->
                 <div class="action-button">
                     <form action="/Free-Write/public/Login" method="post">
                         <button type="submit" class="sign-in-btn">Sign In</button>

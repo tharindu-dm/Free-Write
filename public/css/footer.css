@@ -19,10 +19,12 @@ footer {
 }
 
 .social-icons img {
-  width: 24px;
+  max-width: 24px;
 }
 
+/* Altering web default elements */
 
+/*altering scroll bar*/
 /* WebKit-based browsers (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
   width: 1.3rem; /* Width of the scrollbar */
@@ -41,4 +43,51 @@ footer {
 
 ::-webkit-scrollbar-thumb:hover {
   background-color: #ffd700; /* Darker on hover */
+}
+
+/* altering form radio button */
+/* Hide default radio button */
+input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 2px solid #ffd700; /* Primary color border */
+  border-radius: 50%;
+  outline: none;
+  transition: all 0.3s;
+}
+
+/* Checked state */
+input[type="radio"]:checked {
+  background-color: #ffd700; /* Primary color background */
+  border-color: #ffd700;
+  box-shadow: 0 0 0 3px white inset;
+}
+
+/* Hover effect */
+input[type="radio"]:hover {
+  border-color: #ffaa00;
+}
+
+/* altering form checkbox button */
+/* Hide default checkbox button */
+input[type="checkbox"] {
+  appearance: none;
+  height: 20px;
+  width: 20px;
+  -webkit-appearance: none;
+  border: 2px solid #ffd700; /* Primary color border */
+  outline: none;
+  transition: all 0.3s;
+}
+
+/* Checked state */
+input[type="checkbox"]:checked {
+  background-color: #ffd700; /* Primary color background */
+  border-color: #ffd700;
+  box-shadow: 0 0 0 3px white inset;
+}
+
+/* Hover effect */
+input[type="checkbox"]:hover {
+  border-color: #ffaa00;
 }

@@ -5,30 +5,11 @@ class AdminController extends Controller
     public function index()
     {
         //echo "this is the Admin Controller\n";
-        $URL = splitURL();
 
-        if (count($URL) == 2) {
-            switch ($URL[1]) {
-                case 'viewTable':
-                    $this->view('admin/adminViewTable');
-                    break;
-                case 'siteLogs':
-                    $this->getSiteLogs();
-                    break;
-                case 'modLogs':
-                    $this->view('admin/adminModLogs');
-                    break;
-                default:
-                    $this->retrieveDashboardData();
-                    break;
-            }
-
-        } else {
-            $this->retrieveDashboardData();
-        }
+        $this->Dashboard();
     }
 
-    public function retrieveDashboardData()
+    public function Dashboard()
     {
         $user = new User();
         $data = $user->getUserTypeCounts();
@@ -42,7 +23,7 @@ class AdminController extends Controller
         $this->view('admin/adminViewTable', $tables);
     }
 
-    public function getSiteLogs()
+    public function siteLogs()
     {
         $sitelog = new SiteLog();
         $logs = $sitelog->findAll();

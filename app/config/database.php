@@ -12,11 +12,18 @@ trait Database
                     continue;
                 }
                 // Split by '=' and trim whitespace
-                list($key, $value) = explode('=', $line, 2);
-                $key = trim($key);
-                $value = trim($value);
-                // Set the environment variable
-                putenv("$key=$value");
+                $parts = explode('=', $line, 2);
+                // Check if we have exactly 2 parts
+                if (count($parts) === 2) {
+                    $key = trim($parts[0]);
+                    $value = trim($parts[1]);
+                    // Set the environment variable
+                    putenv("$key=$value");
+                } else {
+                    // Handle the case where the line is not a valid key=value pair
+                    // You might want to log a warning or error here
+                    error_log("Invalid line in .env file: '$line'");
+                }
             }
         }
     }
@@ -39,6 +46,28 @@ trait Database
             die("Connection failed: " . $e->getMessage());
         }
     }
+
+    /*private function connect()
+     {
+         // Load the .env file using the method
+         $this->loadEnv(__DIR__ . '/.env');
+
+         // Define the DSN for SQL Server
+         $host = getenv('DB_HOST'); // e.g., "VICTUSTRIX\SQLEXPRESS"
+         $dbname = getenv('DB_NAME'); // e.g., "Free-Write"
+         $dsn = "sqlsrv:Server=$host;Database=$dbname";
+         $username = getenv('DB_USERNAME'); // Use the username or leave empty for Windows Authentication
+         $password = getenv('DB_PASSWORD'); // Use the password or leave empty for Windows Authentication
+
+         try {
+             $conn = new PDO($dsn, $username, $password);
+             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+             return $conn;
+         } catch (PDOException $e) {
+             die("Connection failed: " . $e->getMessage());
+         }
+     }
+ */
 
     public function query($query, $data = []) //using sql prepared statement to avoid sql injections
     {

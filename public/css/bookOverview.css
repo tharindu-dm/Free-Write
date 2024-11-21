@@ -146,7 +146,6 @@ h1 {
 .buy-button {
   background-color: #000000;
   border: none;
-  color: #ffd700;
   padding: 10px 20px;
   font-size: 1em;
   font-weight: bold;
@@ -160,7 +159,11 @@ h1 {
   justify-content: center;
 }
 
-.buy-button:hover {
+.buy-button a {
+  color: #ffd700;
+}
+
+.buy-button a:hover {
   animation: buy-color-appear 0.3s forwards;
 }
 
@@ -244,31 +247,31 @@ h1 {
 }
 
 /*Chapter Edit Delete buttons*/
-.edit-btn-chap{
+.edit-btn-chap {
   background-color: #ffd700;
 }
 
-.delete-btn-chap{
+.delete-btn-chap {
   background-color: #ff0000;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
   .table-of-contents {
-      padding: 0.5rem;
+    padding: 0.5rem;
   }
-  
+
   .table-of-contents td,
   .table-of-contents th {
-      padding: 8px 12px;
+    padding: 8px 12px;
   }
-  
+
   .button-container {
-      flex-direction: column;
+    flex-direction: column;
   }
-  
+
   .btn {
-      width: 100%;
-      text-align: center;
+    width: 100%;
+    text-align: center;
   }
 }

@@ -5,28 +5,7 @@ class BookController extends Controller
 
     public function index()
     {
-        $URL = splitURL();
-        switch ($URL[1]) {
-
-            case 'List':
-                switch ($URL[2]) {
-                    case 'update':
-                        $this->updateList($_POST['List_bid'], $_POST['chapterCount'], $_POST['status']);
-                        break;
-                    case 'delete':
-                        $this->deleteFromList($_POST['List_bid']);
-                        break;
-                    default:
-                        $this->addToList($_POST['List_uid'], $_POST['List_bid'], $_POST['list']);
-                        break;
-                }
-                break;
-            default:
-                $this->view('error');
-                break;
-        }
-
-
+        $this->view('error');
     }
 
     public function Overview($bookID = 0)
@@ -65,28 +44,4 @@ class BookController extends Controller
         $this->view('book/Chapter', $chapterFound);
     }
 
-    private function addToList($uid, $bookID, $status)
-    {
-        $list = new BookList(); //get chapter to be added to the list
-        $list->addToList($uid, $bookID, $status);
-        $this->Overview($bookID);
-    }
-
-    private function updateList($bookID, $chapterCount, $BookStatus)
-    {
-        $list = new BookList();
-
-        $uid = $_SESSION['user_id'];
-        $list->updateList($uid, $bookID, $chapterCount, $BookStatus);
-        $this->Overview($bookID);
-    }
-
-    private function deleteFromList($bookID)
-    {
-        $list = new BookList();
-
-        $uid = $_SESSION['user_id'];
-        $list->deleteFromList($uid, $bookID);
-        $this->Overview($bookID);
-    }
 }

@@ -83,7 +83,7 @@ trait Model
         // Build the query
         $query = "INSERT INTO [{$this->table}] (" . implode(",", $bracketedKeys) . ") VALUES (:" . implode(",:", $keys) . ")";
 
-        show($query);
+        //show($query);
         return $this->query($query, $data);
     }
 

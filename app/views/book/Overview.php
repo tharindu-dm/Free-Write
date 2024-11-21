@@ -17,6 +17,7 @@
     }
     switch ($userType) {
         case 'admin':
+        case 'mod':
         case 'writer':
         case 'covdes':
         case 'wricov':
@@ -58,7 +59,13 @@
                         <button id="btn-addToList" class="read-button">Add To List
                         </button>
                         <div class="buy-button">
-                            <?= $book[0]['price'] === null ? 'Read for Free' : 'Buy LKR. ' . number_format($book[0]['price'], 2); ?>
+                            <?php if ($book[0]['price'] === null): ?>
+                                <?= 'Read for Free'; ?>
+                            <?php else: ?>
+                                <a href='/Free-Write/public/Payment/Book/<?= htmlspecialchars($book[0]['bookID']); ?>'>
+                                    <?= 'Buy LKR. ' . number_format($book[0]['price'], 2); ?>
+                                </a>
+                            <?php endif; ?>
                         </div>
                         <button id="btn-create-spinoff" class="read-button">Create A Spinoff
                         </button>
@@ -69,7 +76,7 @@
                             <h3>Add To Your List</h3>
                             <h4>Title: <?= htmlspecialchars($book[0]['title']); ?> </h4>
 
-                            <form id="add-to-list-form" action="/Free-Write/public/Book/List" method="POST">
+                            <form id="add-to-list-form" action="/Free-Write/public/BookList/Add" method="POST">
                                 <div class="list-add-radios">
                                     <div>
                                         <label>
