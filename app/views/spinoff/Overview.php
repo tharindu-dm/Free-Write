@@ -30,7 +30,7 @@ case 'mod':
         default:
             require_once "../app/views/layout/header.php";
     }
-    show($data);
+    //show($data);
     ?>
 
     <?php if (!empty($content) && is_array($content)): ?>

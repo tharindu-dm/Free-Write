@@ -98,6 +98,7 @@
                 </div>
             </div>
 
+            <!-- Edit profile form --------------------------------------- -->
             <div class="edit-profile">
                 <div class="edit-profile-container">
                     <form id="edit-profile-form" action="/Free-Write/public/User/EditProfile" method="POST">

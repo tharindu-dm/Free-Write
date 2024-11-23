@@ -54,14 +54,37 @@ h1 {
 }
 
 /*RATING*/
+.rating-container{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+}
+
+select {
+  font-size: medium;
+  border: none;
+}
+
 .rating {
   display: inline-flex;
   align-items: center;
+  padding: 0.5rem;
   border: 2px solid #ffd700;
   border-radius: 20px;
-  padding: 10px;
   background-color: transparent;
   margin-bottom: 2rem;
+}
+
+.rating-select {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 1rem 0.25rem 1rem;
+  border: 2px solid #ffd700;
+  border-radius: 20px;
+  background-color: transparent;
+  margin-bottom: 2rem;
+  cursor: pointer;
 }
 
 .rating svg {
@@ -127,6 +150,13 @@ h1 {
   z-index: 1;
 }
 
+.add-list-radio-labels{
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
 .list-add-container {
   display: flex;
   flex-direction: column;
@@ -140,6 +170,7 @@ h1 {
 .list-add-radios {
   display: flex;
   gap: 10px;
+  padding: 0.5rem;
 }
 
 .list-add-actionBtns {

@@ -15,7 +15,7 @@ trait Model
     public function findAll() //return multiple rows
     {
         $query = "select * from $this->table order by " . lcfirst($this->table) . "ID" . " $this->orderBy;";
-        
+
         return $this->query($query);
     }
 
@@ -26,14 +26,14 @@ trait Model
         $query = "SELECT * FROM [{$this->table}] WHERE [";
 
         foreach ($keys as $key) {
-            $query .= $key . '] = :' . $key . ' && [';
+            $query .= $key . '] = :' . $key . ' AND [';
         }
 
         foreach ($keys_not as $key) {
-            $query .= $key . ' != :' . $key . ' && [';
+            $query .= $key . '] != :' . $key . ' AND [';
         }
 
-        $query = rtrim($query, ' && [');
+        $query = substr_replace($query, '', strrpos($query, ' AND ['), strlen(' AND ['));
         //$query .= " order by " . lcfirst($this->table) . "ID" . " $this->orderBy";// offset $this->offset";
 
         $data = array_merge($data, $data_not);
@@ -49,17 +49,18 @@ trait Model
         $query = "SELECT * FROM [{$this->table}] WHERE [";
 
         foreach ($keys as $key) {
-            $query .= $key . '] = :' . $key . ' && [';
+            $query .= $key . '] = :' . $key . ' AND [';
         }
 
         foreach ($keys_not as $key) {
-            $query .= $key . ' != :' . $key . ' && [';
+            $query .= $key . '] != :' . $key . ' AND [';
         }
 
-        $query = rtrim($query, ' && [');
+        $query = substr_replace($query, '', strrpos($query, ' AND ['), strlen(' AND ['));
+
         //$query .= " limit $this->limit offset $this->offset";
 
-        //echo "\n Query: ".$query."\n"; // <<<<<<<<<<<<<<<<<<<<<<
+        //echo "\n Query: " . $query . "\n"; // <<<<<<<<<<<<<<<<<<<<<<
 
         $data = array_merge($data, $data_not);
         $result = $this->query($query, $data);

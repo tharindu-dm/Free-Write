@@ -46,7 +46,6 @@ footer {
   font-size: 0.9rem; /* Slightly smaller text */
 }
 
-
 /* Altering web default elements */
 
 /*altering scroll bar*/
@@ -73,6 +72,8 @@ footer {
 /* altering form radio button */
 /* Hide default radio button */
 input[type="radio"] {
+  height: 20px;
+  width: 20px;
   appearance: none;
   -webkit-appearance: none;
   border: 2px solid #ffd700; /* Primary color border */

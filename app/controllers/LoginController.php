@@ -68,7 +68,7 @@ class LoginController extends Controller
             $user = new User();
             $userDetails = new UserDetails();
 
-            $result = $user->createUser($_POST['signup-email'], $_POST['pw'], "reader", 0, 0);
+            $result = $user->createUser($_POST['signup-email'], $_POST['pw'], "reader", 0, 1);
 
             if ($result) {
                 $newUserID = $user->getUserByUsername($_POST['signup-email']);
