@@ -40,10 +40,11 @@ require_once "../app/controllers/UserController.php"; //since this "navigation b
 
             <div class="nav-right-side-container">
                 <div class="search-container">
-                    <div>
-                        <input type="text" placeholder="Search">
-                    </div>
-                    <div><button class="publish-btn">Search</button></div>
+                    <!-- Search Bar Section -->
+                    <form action="/Free-Write/public/Browse/search" method="GET">
+                        <input type="text" id="search-bar" name="bookName" placeholder="Search books..." />
+                        <button type="submit" id="search-btn" class=".search-btn">Search</button>
+                    </form>
                 </div>
 
                 <div class="action-button-container">

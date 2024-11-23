@@ -18,14 +18,19 @@ class BookController extends Controller
             $bookID = $URL[2]; //get the book id from the url
 
         $book = new Book();
+        $chapter = new BookChapter();
+        $spinoff = new Spinoff();
+        $buybook = new BuyBook();
+        $rating = new Rating();
 
         $bookFound = $book->getBookByID($bookID);
-        $bookChapters = $book->getBookChapters($bookID); //list of chapters related to the specific book
-
-        $spinoff = new Spinoff();
+        $bookChapters = $chapter->getBookChapters($bookID); //list of chapters related to the specific book
         $spinoffs = $spinoff->where(['fromBook' => $bookID]);
+        $bookRating = $rating->getBookRating($bookID);
 
-        $this->view('book/Overview', ['book' => $bookFound, 'chapters' => $bookChapters, 'spinoffs' => $spinoffs]);
+        //check buy book with userID and bookID
+
+        $this->view('book/Overview', ['book' => $bookFound, 'chapters' => $bookChapters, 'spinoffs' => $spinoffs, '374' => $bookRating]);
     }
 
     public function Chapter($chapterID = 0)

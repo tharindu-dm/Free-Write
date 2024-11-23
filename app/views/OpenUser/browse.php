@@ -47,8 +47,8 @@
             <section class="browse-body-section">
                 <!-- Search Bar Section -->
                 <section class="search-section">
-                    <form>
-                        <input type="text" id="search-bar" placeholder="Search books..." />
+                    <form action="/Free-Write/public/Browse/search" method="GET">
+                        <input type="text" id="search-bar" name="bookName" placeholder="Search books..." />
                         <button type="submit" id="search-btn">Search</button>
                     </form>
                 </section>

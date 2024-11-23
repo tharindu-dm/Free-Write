@@ -14,9 +14,13 @@ class BrowseController extends Controller
         $paidBooks = $book->getPaidBooks();
         $this->view('OpenUser/browse', ['FWObooks' => $FWObooks, 'paidBooks' => $paidBooks]);
     }
-    public function book()//set as private
+    public function search()
     {
-        //change URL to 
+        $search = $_GET['bookName'];
+        $book = new Book();
+        $searchResult = $book->searchBook($search);
+
+        $this->view('OpenUser/bookSearch', ['searchResult' => $searchResult]);
     }
 
 }

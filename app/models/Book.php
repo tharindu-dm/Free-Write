@@ -6,7 +6,7 @@ class Book
 
     protected $table = 'Book'; //when using the Model trait, this table name ise used 
 
-    public function getFWOBooks()
+    public function getFWOBooks() //browse top page suggestions
     {
         $query = "SELECT TOP(5) b.bookID, b.title, b.price, CONCAT(u.firstName, ' ', u.lastName) AS author, c.[name] AS cover_image 
         FROM Book b 
@@ -15,7 +15,7 @@ class Book
 
         return $this->query($query);
     }
-    public function getPaidBooks()
+    public function getPaidBooks()//top paid books
     {
         $query = "SELECT TOP(5) b.bookID, b.title, b.price, CONCAT(u.firstName, ' ', u.lastName) AS author, c.[name] AS cover_image 
         FROM Book b 
@@ -25,7 +25,7 @@ class Book
         return $this->query($query);
     }
 
-    public function getBookByID($bid)
+    public function getBookByID($bid) //seeach for a book by given ID
     {
         $query = "SELECT b.[bookID], b.[author], b.[title], b.[Synopsis], b.[accessType], b.[lastUpdateDate], b.[isCompleted], b.[price], CONCAT(u.[firstName], ' ', u.[lastName]) AS author, c.[name] AS cover_image 
         FROM [Book] b 
@@ -36,14 +36,26 @@ class Book
         return $this->query($query);
     }
 
-    public function getBookChapters($bid)
+    public function searchBook($searchTitle)
     {
-        $query = "SELECT C.[chapterID],C.[title], C.[lastUpdated] 
-        FROM [dbo].[BookChapter] BC 
-        JOIN [dbo].[Chapter] C ON BC.[chapter] = C.[chapterID] 
-        WHERE BC.[book] = $bid 
-        ORDER BY C.[chapterID] ASC;";
-
+        $query = "SELECT TOP(10) [bookID]
+        ,b.[title]
+        ,b.[Synopsis]
+        ,b.[author]
+        ,b.[publisher]
+        ,b.[accessType]
+        ,b.[publishType]
+        ,b.[creationDate]
+        ,b.[lastUpdateDate]
+        ,b.[isCompleted]
+        ,b.[price]
+        ,CONCAT(u.[firstName], ' ', u.[lastName]) AS author, c.[name] AS cover_image 
+        FROM [Book] b 
+        JOIN [UserDetails] u ON b.author = u.[user] 
+        LEFT JOIN [CoverImage] c ON b.[coverImage] = c.covID 
+        WHERE [title] LIKE '%$searchTitle%'";
+        
         return $this->query($query);
     }
+
 }

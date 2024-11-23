@@ -1,5 +1,5 @@
 /* Main Browse Page Styles */
-.browse-main-container{
+.browse-main-container {
   display: flex;
   width: 100%;
   padding: 2rem;
@@ -22,6 +22,7 @@ main {
 .search-section {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   margin-bottom: 2.5rem;
 }
@@ -54,14 +55,11 @@ main {
   background-color: #ffc400;
 }
 
-.genre-filter label {
-  margin-right: 10px;
-}
-
 /* Book Category Section */
-.browse-body-section{
+.browse-body-section {
   width: 100%;
 }
+
 .book-category {
   margin-bottom: 30px;
 }

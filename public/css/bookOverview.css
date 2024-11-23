@@ -24,6 +24,7 @@
 .product-image img {
   width: 100%;
   height: auto;
+  
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -52,6 +53,25 @@ h1 {
   background-color: #f9f9f9;
 }
 
+/*RATING*/
+.rating {
+  display: inline-flex;
+  align-items: center;
+  border: 2px solid #ffd700;
+  border-radius: 20px;
+  padding: 10px;
+  background-color: transparent;
+  margin-bottom: 2rem;
+}
+
+.rating svg {
+  color: #ffd700;
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+}
+
+/*READ BUTTON*/
 .read-button-container {
   padding: 10px;
   display: flex;
