@@ -16,7 +16,8 @@
         $userType = 'guest';
     }
     switch ($userType) {
-        case 'admin':
+        case 'admin':            
+        case 'mod':
         case 'writer':
         case 'covdes':
         case 'wricov':

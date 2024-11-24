@@ -44,9 +44,19 @@ class SpinoffController extends Controller
         $spinoff = new Spinoff();
         $spinoff_chapter = new SpinoffChapter();
 
-        $content = $spinoff->where(['spinoffID' => $spinoffID]);
+        $content = $spinoff->getSpinoffDetails($spinoffID);
         $chapters = $spinoff_chapter->where(['spinoff' => $spinoffID]);
 
-        $this->view('spinoff/Overview', ['content' => $content]);
+        $this->view('spinoff/Overview', ['content' => $content, 'chapters' => $chapters]);
+    }
+
+    public function Edit()
+    {
+        //get spinoff content and the new writing page view values should be setted
+    }
+
+    public function Delete()
+    {
+        //delete the chapter
     }
 }

@@ -5,7 +5,7 @@ class DesignersController extends Controller
     public function index()
     {
 
-        $this->view('designers');
+        $this->view('OpenUser/designers');
     }
 
 }

@@ -5,28 +5,7 @@ class BookController extends Controller
 
     public function index()
     {
-        $URL = splitURL();
-        switch ($URL[1]) {
-
-            case 'List':
-                switch ($URL[2]) {
-                    case 'update':
-                        $this->updateList($_POST['List_bid'], $_POST['chapterCount'], $_POST['status']);
-                        break;
-                    case 'delete':
-                        $this->deleteFromList($_POST['List_bid']);
-                        break;
-                    default:
-                        $this->addToList($_POST['List_uid'], $_POST['List_bid'], $_POST['list']);
-                        break;
-                }
-                break;
-            default:
-                $this->view('error');
-                break;
-        }
-
-
+        $this->view('error');
     }
 
     public function Overview($bookID = 0)
@@ -39,14 +18,20 @@ class BookController extends Controller
             $bookID = $URL[2]; //get the book id from the url
 
         $book = new Book();
+        $BookChapter_table = new BookChapter();
+        $spinoff = new Spinoff();
+        $buybook = new BuyBook();
+        //addline to get place in BookLIst of user
+        $rating = new Rating();
 
         $bookFound = $book->getBookByID($bookID);
-        $bookChapters = $book->getBookChapters($bookID); //list of chapters related to the specific book
-
-        $spinoff = new Spinoff();
+        $bookChapters = $BookChapter_table->getBookChapters($bookID); //list of chapters related to the specific book
         $spinoffs = $spinoff->where(['fromBook' => $bookID]);
+        $bookRating = $rating->getBookRating($bookID);
 
-        $this->view('book/Overview', ['book' => $bookFound, 'chapters' => $bookChapters, 'spinoffs' => $spinoffs]);
+        //check buy book with userID and bookID
+
+        $this->view('book/Overview', ['book' => $bookFound, 'chapters' => $bookChapters, 'spinoffs' => $spinoffs, 'rating' => $bookRating]);
     }
 
     public function Chapter($chapterID = 0)
@@ -65,28 +50,23 @@ class BookController extends Controller
         $this->view('book/Chapter', $chapterFound);
     }
 
-    private function addToList($uid, $bookID, $status)
+    public function AddRating()
     {
-        $list = new BookList(); //get chapter to be added to the list
-        $list->addToList($uid, $bookID, $status);
-        $this->Overview($bookID);
+        $rating = new Rating();
+        $bookID = $_POST['book_id'];
+        $userID = $_SESSION['user_id'];
+        $ratingValue = $_POST['rating'];
+
+        $rating_exists = $rating->where(['book' => $bookID, 'user' => $userID]);
+
+        if ($rating_exists) {
+            $rating->updateRating($ratingValue, $bookID, $userID);
+
+        } else {
+            $rating->insert(['book' => $bookID, 'user' => $userID, 'rating' => $ratingValue]);
+        }
+
+        header('Location: /Free-Write/public/Book/Overview/' . $bookID);
     }
 
-    private function updateList($bookID, $chapterCount, $BookStatus)
-    {
-        $list = new BookList();
-
-        $uid = $_SESSION['user_id'];
-        $list->updateList($uid, $bookID, $chapterCount, $BookStatus);
-        $this->Overview($bookID);
-    }
-
-    private function deleteFromList($bookID)
-    {
-        $list = new BookList();
-
-        $uid = $_SESSION['user_id'];
-        $list->deleteFromList($uid, $bookID);
-        $this->Overview($bookID);
-    }
 }

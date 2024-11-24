@@ -17,6 +17,7 @@
     }
     switch ($userType) {
         case 'admin':
+        case 'mod':
         case 'writer':
         case 'covdes':
         case 'wricov':
@@ -52,14 +53,54 @@
 
                 <div class="product-info">
                     <h1><?= htmlspecialchars($book[0]['title']); ?></h1>
+                    <div class="rating-container">
+                        <div class="rating">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                                <path fill-rule="evenodd"
+                                    d="M9 4.5a.75.75 0 0 1 .721.544l.813 2.846a3.75 3.75 0 0 0 2.576 2.576l2.846.813a.75.75 0 0 1 0 1.442l-2.846.813a3.75 3.75 0 0 0-2.576 2.576l-.813 2.846a.75.75 0 0 1-1.442 0l-.813-2.846a3.75 3.75 0 0 0-2.576-2.576l-2.846-.813a.75.75 0 0 1 0-1.442l2.846-.813A3.75 3.75 0 0 0 7.466 7.89l.813-2.846A.75.75 0 0 1 9 4.5ZM18 1.5a.75.75 0 0 1 .728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 0 1 0 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 0 1-1.456 0l-.258-1.036a2.625 2.625 0 0 0-1.91-1.91l-1.036-.258a.75.75 0 0 1 0-1.456l1.036-.258a2.625 2.625 0 0 0 1.91-1.91l.258-1.036A.75.75 0 0 1 18 1.5ZM16.5 15a.75.75 0 0 1 .712.513l.394 1.183c.15.447.5.799.948.948l1.183.395a.75.75 0 0 1 0 1.422l-1.183.395c-.447.15-.799.5-.948.948l-.395 1.183a.75.75 0 0 1-1.422 0l-.395-1.183a1.5 1.5 0 0 0-.948-.948l-1.183-.395a.75.75 0 0 1 0-1.422l1.183-.395c.447-.15.799-.5.948-.948l.395-1.183A.75.75 0 0 1 16.5 15Z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            &nbsp;<?php if (!$rating): ?>
+                                <?= 'Be the first to rate!';?>
+                            <?php else: ?>
+                                <?= htmlspecialchars($rating[0]['AverageRating']); ?>
+                            | <?= htmlspecialchars($rating[0]['RatingCount']); ?> ratings
+                            <?php endif; ?>
+                        </div>
+                        <div class="rating-select">
+                            <form action="/Free-Write/public/Book/AddRating" method="POST">
+                                <input type="hidden" name="book_id" value="<?= htmlspecialchars($book[0]['bookID']); ?>">
+                                <select name="rating" id="rating">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                                <button type="submit" class="sign-in-btn">Rate</button>
+                            </form>
+                        </div>
+                    </div>
                     <p class="description">
                         <?= htmlspecialchars($book[0]['Synopsis']); ?>
                     </p>
                     <div class="read-button-container">
+
                         <button id="btn-addToList" class="read-button">Add To List
                         </button>
                         <div class="buy-button">
-                            <?= $book[0]['price'] === null ? 'Read for Free' : 'Buy LKR. ' . number_format($book[0]['price'], 2); ?>
+                            <?php if ($book[0]['price'] === null): ?>
+                                <?= 'Read for Free'; ?>
+                            <?php else: ?>
+                                <a href='/Free-Write/public/Payment/Book/<?= htmlspecialchars($book[0]['bookID']); ?>'>
+                                    <?= 'Buy LKR. ' . number_format($book[0]['price'], 2); ?>
+                                </a>
+                            <?php endif; ?>
                         </div>
                         <button id="btn-create-spinoff" class="read-button">Create A Spinoff
                         </button>
@@ -70,36 +111,37 @@
                             <h3>Add To Your List</h3>
                             <h4>Title: <?= htmlspecialchars($book[0]['title']); ?> </h4>
 
-                            <form id="add-to-list-form" action="/Free-Write/public/Book/List" method="POST">
+                            <form id="add-to-list-form" action="/Free-Write/public/BookList/Add" method="POST">
+
                                 <div class="list-add-radios">
                                     <div>
-                                        <label>
+                                        <label class="add-list-radio-labels">
                                             <input type="radio" name="list" value="reading">
-                                            Reading
+                                            <h5>Reading</h5>
                                         </label>
                                     </div>
                                     <div>
-                                        <label>
+                                        <label class="add-list-radio-labels">
                                             <input type="radio" name="list" value="completed">
-                                            Completed
+                                            <h5>Completed</h5>
                                         </label>
                                     </div>
                                     <div>
-                                        <label>
+                                        <label class="add-list-radio-labels">
                                             <input type="radio" name="list" value="hold">
-                                            On Hold
+                                            <h5>On Hold</h5>
                                         </label>
                                     </div>
                                     <div>
-                                        <label>
+                                        <label class="add-list-radio-labels">
                                             <input type="radio" name="list" value="dropped">
-                                            Dropped
+                                            <h5>Dropped</h5>
                                         </label>
                                     </div>
                                     <div>
-                                        <label>
+                                        <label class="add-list-radio-labels">
                                             <input require type="radio" name="list" value="planned">
-                                            Plan to read
+                                            <h5>Plan to read</h5>
                                         </label>
                                     </div>
                                     <div>
@@ -164,8 +206,8 @@
                                 </tr>
                                 <?php foreach ($spinoffs as $spinoff): ?>
                                     <tr>
-                                        <td><a
-                                                href="/Free-Write/public/Spinoff/<?= htmlspecialchars($spinoff['spinoffID']); ?>"><?= htmlspecialchars($spinoff['title']); ?></a>
+                                        <td><a href="/Free-Write/public/Spinoff/Overview/<?= htmlspecialchars($spinoff['spinoffID']); ?>"><?= htmlspecialchars($spinoff['title']); ?></a>
+
                                         </td>
                                         <td><?= date('Y-m-d', strtotime($spinoff['lastUpdated']));
                                         ?></td>

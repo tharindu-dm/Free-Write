@@ -6,6 +6,7 @@ class Institution
 
     protected $table = 'Institution'; //when using the Model trait, this table name ise used 
 
+
     public function addInstitution($data)
     {
         // Inserts a new institution into the database
