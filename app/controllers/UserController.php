@@ -7,31 +7,24 @@ class UserController extends Controller
         //echo "this is the User Controller\n";
         $URL = splitURL();
 
-        if (count($URL) == 2) {
-            switch ($URL[1]) {
-                case 'Profile':
-                    $this->userProfile();
-                    break;
-                default:
-                    $this->view('login');
-                    break;
-            }
-
-        } else {
             $this->view('login');
-        }
+       
     }
 
-    public function userProfile()
+    public function Profile()
     {
-        $uid = $_SESSION['user_id'];
+        $uid = $_SESSION['user_id']; 
         //echo "inside the userProfile function\n";
+        $user = new User();
         $userDetailsTable = new UserDetails();
         $Booklist = new BookList(); //List Table
+        $spinoff = new Spinoff(); //get my spinoffs
 
         $userDetails = $userDetailsTable->getUserDetails($uid);
         $list = $Booklist->getBookListCount($uid);
-        
-        $this->view('userProfile', ['user' => $userDetails, 'listCounts' => $list]);
+        $userAcc = $user->first(['userID' => $uid]);
+        $myspinoffs = $spinoff->getUserSpinoff($uid);
+
+        $this->view('Profile/userProfile', ['userAccount' => $userAcc, 'userDetails' => $userDetails, 'listCounts' => $list, 'spinoffs' => $myspinoffs]);
     }
 }

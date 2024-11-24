@@ -18,7 +18,7 @@
             <p>Join a community of passionate readers and writers.</p>
             <div>
                 <div id="login-form-div">
-                    <form id="login-form" action="http://localhost/Free-Write/public/Login/login" method="POST">
+                    <form id="login-form" action="/Free-Write/public/Login/login" method="POST">
 
                         <input type="hidden" name="action" value="login">
 
@@ -33,7 +33,7 @@
                     </form>
                 </div>
                 <div id="register-form-div">
-                    <form id="register-form" action="http://localhost/Free-Write/public/Login/register" method="POST">
+                    <form id="register-form" action="/Free-Write/public/Login/register" method="POST">
 
                         <input type="hidden" name="action" value="register">
 

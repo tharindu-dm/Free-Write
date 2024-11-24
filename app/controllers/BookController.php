@@ -2,32 +2,11 @@
 
 class BookController extends Controller
 {
+
     public function index()
     {
         $URL = splitURL();
-        //show($URL);
-        /*Array
-            (
-                [0] => book
-                [1] => Overview
-                [2] => 4
-            )*/
         switch ($URL[1]) {
-            case 'Overview':
-                if ($URL[2] >= 1) {
-                    $this->viewBook($URL[2]);
-                } else {
-                    $this->view('error');
-                }
-                break;
-
-            case 'Chapter':
-                if ($URL[2] >= 1) {
-                    $this->viewChapter($URL[2]);
-                } else {
-                    $this->view('error');
-                }
-                break;
 
             case 'List':
                 switch ($URL[2]) {
@@ -50,29 +29,47 @@ class BookController extends Controller
 
     }
 
-    private function viewBook($bookID)//set as private
+    public function Overview($bookID = 0)
     {
+        $URL = splitURL();
+        if ($URL[2] < 1)
+            $this->view('error');
+
+        if ($bookID < 1 || !is_numeric($bookID))
+            $bookID = $URL[2]; //get the book id from the url
+
         $book = new Book();
 
         $bookFound = $book->getBookByID($bookID);
         $bookChapters = $book->getBookChapters($bookID); //list of chapters related to the specific book
 
-        $this->view('book/Overview', ['book' => $bookFound, 'chapters' => $bookChapters]);
+        $spinoff = new Spinoff();
+        $spinoffs = $spinoff->where(['fromBook' => $bookID]);
+
+        $this->view('book/Overview', ['book' => $bookFound, 'chapters' => $bookChapters, 'spinoffs' => $spinoffs]);
     }
 
-    private function viewChapter($chapterID)
+    public function Chapter($chapterID = 0)
     {
-        $chapter = new Chapter();
-        //$chapterFound = $chapter->getChapterByID($chapterID);
+        $URL = splitURL();
 
-        // $this->view('book/Chapter', ['chapter' => $chapterFound]);
+        if ($URL[2] < 1) {
+            $this->view('error');
+        }
+        if ($chapterID < 1 || !is_numeric($chapterID))
+            $chapterID = $URL[2]; //get the chapter id from the url
+
+        $chapter = new Chapter();
+        $chapterFound = $chapter->getChapterByID($chapterID);
+
+        $this->view('book/Chapter', $chapterFound);
     }
 
     private function addToList($uid, $bookID, $status)
     {
         $list = new BookList(); //get chapter to be added to the list
         $list->addToList($uid, $bookID, $status);
-        $this->viewBook($bookID);
+        $this->Overview($bookID);
     }
 
     private function updateList($bookID, $chapterCount, $BookStatus)
@@ -81,7 +78,7 @@ class BookController extends Controller
 
         $uid = $_SESSION['user_id'];
         $list->updateList($uid, $bookID, $chapterCount, $BookStatus);
-        $this->viewBook($bookID);
+        $this->Overview($bookID);
     }
 
     private function deleteFromList($bookID)
@@ -90,6 +87,6 @@ class BookController extends Controller
 
         $uid = $_SESSION['user_id'];
         $list->deleteFromList($uid, $bookID);
-        $this->viewBook($bookID);
+        $this->Overview($bookID);
     }
 }
