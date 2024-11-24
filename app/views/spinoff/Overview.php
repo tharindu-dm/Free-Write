@@ -73,7 +73,7 @@
                                 <?php foreach ($chapters as $chap): ?>
                                     <tr>
                                         <td><a
-                                                href="http://localhost/Free-Write/public/book/Chapter/<?= htmlspecialchars($chap['chapterID']); ?>"><?= htmlspecialchars($chap['title']); ?></a>
+                                                href="/Free-Write/public/book/Chapter/<?= htmlspecialchars($chap['chapterID']); ?>"><?= htmlspecialchars($chap['title']); ?></a>
                                         </td>
                                         <td><?= htmlspecialchars($chap['lastUpdated']); ?></td>
                                     </tr>

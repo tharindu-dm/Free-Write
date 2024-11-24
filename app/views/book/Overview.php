@@ -29,7 +29,7 @@
         default:
             require_once "../app/views/layout/header.php";
     }
-    //show($data);
+    show($data);
     ?>
 
     <?php if (!empty($book) && is_array($book)): ?>
@@ -69,7 +69,7 @@
                             <h3>Add To Your List</h3>
                             <h4>Title: <?= htmlspecialchars($book[0]['title']); ?> </h4>
 
-                            <form id="add-to-list-form" action="http://localhost/Free-Write/public/Book/List" method="POST">
+                            <form id="add-to-list-form" action="/Free-Write/public/Book/List" method="POST">
                                 <div class="list-add-radios">
                                     <div>
                                         <label>
@@ -142,7 +142,7 @@
                                 <?php foreach ($chapters as $chap): ?>
                                     <tr>
                                         <td><a
-                                                href="http://localhost/Free-Write/public/book/Chapter/<?= htmlspecialchars($chap['chapterID']); ?>"><?= htmlspecialchars($chap['title']); ?></a>
+                                                href="/Free-Write/public/book/Chapter/<?= htmlspecialchars($chap['chapterID']); ?>"><?= htmlspecialchars($chap['title']); ?></a>
                                         </td>
                                         <td><?= htmlspecialchars($chap['lastUpdated']); ?></td>
                                     </tr>
@@ -164,7 +164,7 @@
                                 <?php foreach ($spinoffs as $spinoff): ?>
                                     <tr>
                                         <td><a
-                                                href="http://localhost/Free-Write/public/Spinoff/<?= htmlspecialchars($spinoff['spinoffID']); ?>"><?= htmlspecialchars($spinoff['title']); ?></a>
+                                                href="/Free-Write/public/Spinoff/<?= htmlspecialchars($spinoff['spinoffID']); ?>"><?= htmlspecialchars($spinoff['title']); ?></a>
                                         </td>
                                         <td><?= date('Y-m-d', strtotime($spinoff['lastUpdated']));
                                         ?></td>

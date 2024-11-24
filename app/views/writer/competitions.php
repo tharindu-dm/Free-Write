@@ -9,39 +9,47 @@
 </head>
 
 <body>
-    <?php
-    if (isset($_SESSION['userType'])) {
-        $userType = $_SESSION['userType'];
+<?php
+    if (isset($_SESSION['user_type'])) {
+        $userType = $_SESSION['user_type'];
     } else {
         $userType = 'guest';
     }
-
-    // Including different headers based on the user type
     switch ($userType) {
         case 'admin':
-            require_once "../app/views/layout/adminHeader.php";
-            break;
-        case 'reader':
-            require_once "../app/views/layout/userHeader.php";
-            break;
         case 'writer':
-            require_once "../app/views/layout/writerHeader.php";
+        case 'covdes':
+        case 'wricov':
+        case 'reader':
+            require_once "../app/views/layout/header-user.php";
+            break;
+        case 'pub':
+            require_once "../app/views/layout/header-pub.php";
             break;
         default:
             require_once "../app/views/layout/header.php";
     }
-    ?>
 
-    <!-- Main Content -->
+    //show($data);
+    ?>
     <main>
         <div class="dashboard">
             <!-- Profile Section -->
-            <div class="profile-section">
-                <img src="<?php echo htmlspecialchars($user['profile_image']); ?>" alt="User Profile">
-                <h2><?php echo htmlspecialchars($user['name']); ?></h2>
-                <p><?php echo htmlspecialchars($user['followers']); ?> followers</p>
-            </div>
+        <div class="profile-section">
+        <div class="profile-image">
+                    <img src="../../public/images/profile-image.jpg" alt="User Profile Image">
+                </div>
 
+        <?php if (!empty($userDetails) && is_array($userDetails)): ?>
+        <div class="profile-info">
+            <h2><?= htmlspecialchars($userDetails[0]['fullName'] ?? 'Unknown User'); ?></h2>
+            
+        </div>
+        <?php else: ?>
+            <h2>Michael Thompson</h2>
+            <p>250 followers</p>
+        <?php endif; ?>
+        </div>
             <!-- Navigation for Writer Options -->
             <?php require_once "../app/views/writer/writerNav.php"; ?>
 
