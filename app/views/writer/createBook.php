@@ -8,13 +8,11 @@
 </head>
 <body>
 
-   
-   
-
     <!-- Main Content -->
     <main class="book-section">
         <div class="book-form-container">
             <h2>Create a New Book</h2>
+
             <form action="/Free-Write/public/Writer/createBook" method="POST" enctype="multipart/form-data">
                 
                 <!-- Book Cover Section -->
@@ -33,12 +31,13 @@
                 <div class="book-info">
                     <div class="input-group">
                         <label for="title">Title</label>
+
                         <input type="text" id="title" name="title" placeholder="Enter a title for your story"  required>
-                        
-                    </div>
+                                            </div>
 
                     <div class="input-group">
                         <label for="synopsis">Synopsis</label>
+
                         <textarea id="synopsis" name="synopsis" placeholder="Enter a synopsis" required></textarea>
                         
                     </div>
@@ -70,6 +69,7 @@
                     <div class="input-group">
                         <label for="privacy">Privacy</label>
                         <div class="privacy-toggle">
+
                             <label><input type="radio" name="privacy" value="public" > Public</label>
                             <label><input type="radio" name="privacy" value="private" > Private</label>
                         </div>

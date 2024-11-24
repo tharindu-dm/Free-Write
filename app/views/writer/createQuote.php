@@ -17,6 +17,7 @@
         <p>Share your favorite passages from your books. Quotes can be up to 280 characters.</p>
 
         <!-- Form for Creating a Quote -->
+
         <form action="/Free-Write/public/Quote/NewQuote" method="post" class="quote-form">
             <textarea id="quote" name="quote" class="quote-input" placeholder="Enter your quote here..." maxlength="280" required></textarea>
             <input type="text" id="book_title" name="book_title" class="book-title-input" placeholder="Enter your book's title" required>

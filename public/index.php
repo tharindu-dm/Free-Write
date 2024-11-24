@@ -1,5 +1,7 @@
 <?php
+
 session_start(); //starting an empty session
+$_SESSION['user_id'] = 27; //remove this
 require "../app/includes/autoload.php"; // Require the autoload.php file to load all the necessary classes and traits while also configuring the database connection.
 
 $app = new App(); // Create a new instance of the App class in app/includes/App.php

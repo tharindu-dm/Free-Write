@@ -109,7 +109,7 @@ trait Model
     public function delete($id, $id_column = 'id') //delete data from the table
     {
         $data[$id_column] = $id;
-        $query = "delete from $this->table where $id_column = :$id_column";
+        $query = "DELETE FROM [{$this->table}] WHERE $id_column = :$id_column";
 
         if ($this->query($query, $data)) {
             return true;

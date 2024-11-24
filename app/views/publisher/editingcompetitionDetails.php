@@ -201,28 +201,49 @@
     default:
       require_once "../app/views/layout/header.php";
   }
+
+  // show($data);
   ?>
 
   <div class="form-container">
     <h2>Edit Competition</h2>
-    <form>
-      <label for="competition-name">Competition Name</label>
-      <input id="competition-name" type="text" placeholder="Enter new competition name" />
+    <form action="/Free-Write/public/Competition/editCompetition" method="POST">
+      <input type="hidden" name="compID" value="<?= htmlspecialchars($competitionDetails['competitionID']) ?>">      
+      
 
-      <label for="prize-amount">Prize Amount</label>
-      <input id="prize-amount" type="text" placeholder="Enter new prize amount" />
+      <label for="title">Competition Name</label>
+      <input type="text" id="title" name="title" placeholder="Enter competition name" value="<?= htmlspecialchars($competitionDetails['title']) ?>" required />
+
+      <label for="description">Competition Description</label>
+      <textarea id="description" name="description" placeholder="Describe your competition"  required ><?= htmlspecialchars($competitionDetails['description']) ?></textarea>
+
+
+      <label for="category">Category</label>
+      <input type="text" id="category" name="category" placeholder="Enter category" value="<?= htmlspecialchars($competitionDetails['category']) ?>" required />
+
+
+      <label for="rules">Rules</label>
+      <input type="text" id="rules" name="rules" placeholder="Enter competition rules" value="<?= htmlspecialchars($competitionDetails['rules'])??'' ?>" required />
+      
+    
+
+
+      <label for="prizes">Prize Amount</label>
+      <input type="number" id="prizes" name="prizes" placeholder="Enter prize amount" value="<?= htmlspecialchars($competitionDetails['prizes']) ?>" required min="0" step="0.01" />
 
       <div class="optional-section">
-        <h3>Change Competition Image</h3>
+        <h3>Add Competition Image</h3>
         <p>JPG or PNG, 2MB max</p>
-        <button type="button">Upload Image</button>
+        <input type="file" name="competition_image" accept="image/jpeg,image/png" />
       </div>
 
-      <label for="date-picker">Select Competition Dates (Calendar option to be added)</label>
-      <input id="date-picker" type="text" placeholder="Pick dates" readonly />
 
-      <button type="button" class="save-btn">Save Changes</button>
-      <button type="button" class="stop-btn">Stop Competition</button>
+
+      <label for="end_date">End Date</label>
+      <input type="date" id="end_date" name="end_date" value="<?= htmlspecialchars($competitionDetails['end_date']??'') ?>"required />
+
+      <button type="submit" class="save-btn">Save Changes</button>
+      <a href="/Free-Write/public/Competition/deleteCompetition/<?= htmlspecialchars($competitionDetails['competitionID']) ?>"><button type="button" class="stop-btn">Delete Competition</button> </a>
     </form>
   </div>
 

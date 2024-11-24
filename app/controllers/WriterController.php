@@ -2,12 +2,10 @@
 
 class WriterController extends Controller
 {
-public function index()
-{
-        $URL = splitURL();
-        $this->Dashboard();
-}
-
+    public function index()
+    {
+        $this->view('writer/writerDashboard');
+    }
 
     // DASHBOARD
 public function Dashboard()
@@ -60,13 +58,12 @@ public function NewQuote()
     }
 
 
-
-
     // SPINOFFS
 public function Spinoffs()
     {
         $this->view('writer/spin-offs');
     }
+
 
 public function ViewSpinoff()
     {
@@ -74,20 +71,24 @@ public function ViewSpinoff()
     }
 
     // COMPETITIONS
+
 public function Competitions()
     {
         $this->view('writer/competitions');
     }
 
-public function ViewCompetitions()
+    public function ViewCompetitions()
+
     {
         $this->view('writer/viewCompetitions');
     }
+
 
 public function NewCompetition()
     {
         $this->view('writer/createCompetition');
     }
+
 
 public function DeleteCompetition()
     {
@@ -207,10 +208,6 @@ public function Overview($bookID = 0)
         $this->view('writer/bookDetails', $chapterFound);
     }
 
-    
-
-    
-
 public function EditStory()
     {
         $this->view('writer/editStory');
@@ -246,6 +243,4 @@ public function Delete($bookID = 0)
             die('Failed to delete the book.'); // Handle failure case
         }
     }
-    
-
 }

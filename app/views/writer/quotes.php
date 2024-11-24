@@ -9,6 +9,7 @@
 </head>
 
 <body>
+
 <?php
     if (isset($_SESSION['user_type'])) {
         $userType = $_SESSION['user_type'];
@@ -50,7 +51,6 @@
             <p>250 followers</p>
         <?php endif; ?>
         </div>
-
             <!-- Navigation for Writer Options -->
             <?php require_once "../app/views/writer/writerNav.php"; ?>
 

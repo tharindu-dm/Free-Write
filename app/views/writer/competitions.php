@@ -9,6 +9,7 @@
 </head>
 
 <body>
+
 <?php
     if (isset($_SESSION['user_type'])) {
         $userType = $_SESSION['user_type'];
