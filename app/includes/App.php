@@ -12,7 +12,7 @@ class App
         if (file_exists($filename)) {
             require $filename;
             $this->controller = ucfirst($URL[0]) . "Controller";
-            
+
             // Check if a method is specified in the URL
             if(isset($URL[1])) {
                 if(method_exists($this->controller, $URL[1])) {
@@ -20,15 +20,16 @@ class App
                 }
             }
         } else {
-            $filename = "../app/controllers/ErrorController.php";
+            $filename = "../app/controllers/ErrorController.php";//shows the error page
             require $filename;
             $this->controller = "ErrorController";
-            $this->method = "notFound";  // Assume we have a notFound method in ErrorController
+            //$this->method = "notFound";  // Assume we have a not Found method in ErrorController
         }
 
         $controller = new $this->controller();
-        
-        if(method_exists($controller, $this->method)) {
+        //call_user_func_array([$controller, 'index'], []);
+
+        if(method_exists($controller, $this->method)) { //
             call_user_func_array([$controller, $this->method], []);
         } else {
             // Fallback to index method if the specified method doesn't exist
@@ -36,3 +37,4 @@ class App
         }
     }
 }
+//the method  get and finding is commented out since it is not used in the project. Thought that putting methods in url is not a good idea

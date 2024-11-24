@@ -14,9 +14,8 @@ trait Model
 
     public function findAll() //return multiple rows
     {
-        $query = " select * from $this->table order by " . lcfirst($this->table) . "ID" . " $this->orderBy";
-
-        //$this->show( $this->query($query));
+        $query = "select * from $this->table order by " . lcfirst($this->table) . "ID" . " $this->orderBy;";
+        
         return $this->query($query);
     }
 
@@ -24,22 +23,22 @@ trait Model
     {
         $keys = array_keys($data);
         $keys_not = array_keys($data_not);
-        $query = 'select * from ' . $this->table . ' where ';
+        $query = "SELECT * FROM [{$this->table}] WHERE [";
 
         foreach ($keys as $key) {
-            $query .= $key . ' = :' . $key . ' && ';
+            $query .= $key . '] = :' . $key . ' && [';
         }
 
         foreach ($keys_not as $key) {
-            $query .= $key . ' != :' . $key . ' && ';
+            $query .= $key . ' != :' . $key . ' && [';
         }
 
-        $query = rtrim($query, ' && ');
-        $query .= " order by " . lcfirst($this->table) . "ID" . " $this->orderBy";// offset $this->offset";
+        $query = rtrim($query, ' && [');
+        //$query .= " order by " . lcfirst($this->table) . "ID" . " $this->orderBy";// offset $this->offset";
 
         $data = array_merge($data, $data_not);
 
-        //show($this->query($query, $data));
+        //show($query);
         return $this->query($query, $data);
     }
 
@@ -72,7 +71,6 @@ trait Model
         }
     }
 
-
     public function insert($data) //insert data into the table
     {
         $keys = array_keys($data);
@@ -84,22 +82,23 @@ trait Model
 
         // Build the query
         $query = "INSERT INTO [{$this->table}] (" . implode(",", $bracketedKeys) . ") VALUES (:" . implode(",:", $keys) . ")";
-        
+
+        show($query);
         return $this->query($query, $data);
     }
 
     public function update($id, $data, $id_column = 'id') //update data in the table
     {
         $keys = array_keys($data);
-        $query = "update $this->table set ";
+        $query = "UPDATE [{$this->table}] set ";
 
         foreach ($keys as $key) {
-            $query .= $key . ' = :' . $key . ', ';
+            $query .= "[{$key}] = :{$key}, ";
         }
 
         $query = rtrim($query, ', ');
-        $query .= " where $id_column = :$id_column";
-        $data[$id_column] = $id;
+        $query .= " WHERE [{$id_column}] = $id";
+        //show($query);
 
         if ($this->query($query, $data)) {
             return true;
