@@ -6,8 +6,35 @@ class Institution
 
     protected $table = 'Institution'; //when using the Model trait, this table name ise used 
 
-    public function getInstByUsername($username)
+
+    public function addInstitution($data)
     {
-        return $this->first(['username' => $username]);
+        // Inserts a new institution into the database
+        return $this->insert($data);
+    }
+
+    public function fetchAllInstitutions()
+    {
+        // Retrieves all institutions from the database
+        return $this->findAll();
+    }
+
+    public function updateInstitution($id, $data)
+    {
+        // Updates an institution's details by ID
+        return $this->update($id, $data, 'institutionId');
+    }
+
+    public function deleteInstitution($id)
+    {
+        // Deletes an institution from the database by ID
+        return $this->delete($id, 'institutionId');
+    }
+
+    public function findInstitutionById($id)
+    {
+        // Retrieves a specific institution by ID
+        return $this->first(['institutionId' => $id]);
     }
 }
+

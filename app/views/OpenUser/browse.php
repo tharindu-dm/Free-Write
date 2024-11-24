@@ -76,6 +76,7 @@
                                         </h4>
                                     </div>
                                 </a>
+
                             <?php endforeach; ?>
 
                         <?php else: ?>
@@ -100,6 +101,7 @@
                                     <h4><?= $pbook['price'] === null ? 'FREE' : 'LKR ' . number_format($pbook['price'], 2); ?>
                                     </h4>
                                     <a href="/Free-Write/public/book/Overview/<?= htmlspecialchars($pbook['bookID']); ?>">
+
                                         <button class="select-book-btn"
                                             data-id="<?= htmlspecialchars($pbook['bookID']); ?>">Select Book</button>
                                     </a>

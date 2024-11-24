@@ -30,6 +30,7 @@ case 'mod':
         default:
             require_once "../app/views/layout/header.php";
     }
+    show($data);
     ?>
 
     <!-- Progress Bar -->

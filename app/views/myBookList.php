@@ -263,6 +263,7 @@ case 'mod':
                     <h4 id="bookTitle-header">Title:</h4>
 
                     <form id="add-to-list-form" action="/Free-Write/public/BookList/Update"
+
                         method="POST">
                         <div class="form-content">
                             <div class="chapter-counter">
@@ -297,6 +298,7 @@ case 'mod':
                     <h4 id="bookTitle-header-delete">Title:</h4>
 
                     <form id="add-to-list-form" action="/Free-Write/public/BookList/Delete"
+
                         method="POST">
 
                         <input type="hidden" name="List_bid" id="List_bid_delete">

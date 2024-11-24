@@ -30,7 +30,8 @@
         default:
             require_once "../app/views/layout/header.php";
     }
-    //show($data);
+
+    show($data);
     ?>
 
     <?php if (!empty($book) && is_array($book)): ?>
@@ -111,6 +112,7 @@
                             <h4>Title: <?= htmlspecialchars($book[0]['title']); ?> </h4>
 
                             <form id="add-to-list-form" action="/Free-Write/public/BookList/Add" method="POST">
+
                                 <div class="list-add-radios">
                                     <div>
                                         <label class="add-list-radio-labels">
@@ -204,8 +206,8 @@
                                 </tr>
                                 <?php foreach ($spinoffs as $spinoff): ?>
                                     <tr>
-                                        <td><a
-                                                href="/Free-Write/public/Spinoff/Overview/<?= htmlspecialchars($spinoff['spinoffID']); ?>"><?= htmlspecialchars($spinoff['title']); ?></a>
+                                        <td><a href="/Free-Write/public/Spinoff/Overview/<?= htmlspecialchars($spinoff['spinoffID']); ?>"><?= htmlspecialchars($spinoff['title']); ?></a>
+
                                         </td>
                                         <td><?= date('Y-m-d', strtotime($spinoff['lastUpdated']));
                                         ?></td>

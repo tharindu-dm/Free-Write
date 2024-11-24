@@ -1,0 +1,114 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+nav a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #333;
+}
+
+.search-bar {
+    padding: 8px;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    width: 200px;
+}
+
+.btn {
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #ffd54f;
+    color: white;
+}
+
+.btn-secondary {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.sidebar {
+    width: 200px;
+    float: left;
+}
+
+.main-content {
+    margin-left: 220px;
+}
+
+.institution-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.institution-icon {
+    width: 50px;
+    height: 50px;
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.menu-item {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.menu-item:hover, .menu-item.active {
+    background-color: #f0f0f0;
+}
+
+.dashboard-cards {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.card {
+    width: 30%;
+    padding: 20px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+}
+
+.feature-section {
+    display: flex;
+    align-items: center;
+}
+
+.feature-image {
+    width: 300px;
+    height: 200px;
+    background-color: #f0f0f0;
+    margin-right: 20px;
+}
