@@ -121,7 +121,7 @@
             <div class="plan premium">
                 <h3>Institution</h3>
                 <p class="price">LKR. 4,999 <span>per month</span></p>
-                <button class="upgrade-btn">Request Now</button>
+                <a href="/Free-Write/public/Institute/Register"><button class="upgrade-btn">Request Now</button></a>
                 <ul>
                     <li>Access to all public stories</li>
                     <li>Ad-free experience</li>

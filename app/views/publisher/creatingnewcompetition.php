@@ -172,6 +172,7 @@
         margin: 0.5rem 0;
       }
     }
+
     .error-message {
     background-color: #ffebee;
     color: #c62828;
@@ -205,6 +206,7 @@
     default:
       require_once "../app/views/layout/header.php";
   }
+
    show($data);
   ?>
   
@@ -259,6 +261,7 @@
         </div>
     </main>
     <?php require_once "../app/views/layout/footer.php"; ?>
+
 </body>
 
 </html>

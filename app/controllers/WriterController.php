@@ -8,6 +8,7 @@ class WriterController extends Controller
     }
 
     // DASHBOARD
+
 public function Dashboard()
 {
     $book = new Book();
@@ -64,14 +65,12 @@ public function Spinoffs()
         $this->view('writer/spin-offs');
     }
 
-
 public function ViewSpinoff()
     {
         $this->view('writer/spinoffDetails');
     }
 
     // COMPETITIONS
-
 public function Competitions()
     {
         $this->view('writer/competitions');
@@ -91,9 +90,10 @@ public function NewCompetition()
 
 
 public function DeleteCompetition()
-    {
+{
         //implement delete competition
     }
+
 
 public function viewCompetition()
     {
@@ -101,6 +101,7 @@ public function viewCompetition()
     }
 
     //new book
+
 public function New()
 {
     $this->view('writer/createBook');

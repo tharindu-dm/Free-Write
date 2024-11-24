@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Freewrite - Explore and Share Incredible Stories</title>
     <link rel="stylesheet" href="/Free-Write/public/css/writer.css">
+   </div>
+
     <link rel="stylesheet" href="/Free-Write/public/css/browse.css">
 </head>
 
@@ -70,6 +72,7 @@
                 <a href="/Free-Write/public/Writer/New" class="button-new">+ New</a>
 
                 <!-- Books List -->
+
     <div class="book-grid">
         <?php if (!empty($MyBooks) && is_array($MyBooks)): ?>
            <?php foreach ($MyBooks as $book): ?>

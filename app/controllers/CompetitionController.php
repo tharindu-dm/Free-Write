@@ -2,6 +2,7 @@
 
 class CompetitionController extends Controller
 {
+
     private $competitionModel;
     public function New()
     {
@@ -79,7 +80,6 @@ class CompetitionController extends Controller
     {
         $this->view('publisher/completedCompetition');
     }
-
 
     public function New()
     {

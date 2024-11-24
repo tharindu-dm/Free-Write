@@ -98,6 +98,7 @@ trait Model
 
         $query = rtrim($query, ', ');
         $query .= " WHERE [{$id_column}] = $id";
+
         show($query);
 
         if ($this->query($query, $data)) {

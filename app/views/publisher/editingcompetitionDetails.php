@@ -201,12 +201,12 @@
     default:
       require_once "../app/views/layout/header.php";
   }
-
   // show($data);
   ?>
 
   <div class="form-container">
     <h2>Edit Competition</h2>
+
     <form action="/Free-Write/public/Competition/editCompetition" method="POST">
       <input type="hidden" name="compID" value="<?= htmlspecialchars($competitionDetails['competitionID']) ?>">      
       

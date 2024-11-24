@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/Free-Write/public/css/writer.css">
 </head>
 <body>
+
 <?php
      require_once "../app/views/layout/header-user.php";
     ?>
@@ -17,6 +18,7 @@
         <p>Share your favorite passages from your books. Quotes can be up to 280 characters.</p>
 
         <!-- Form for Creating a Quote -->
+
 
         <form action="/Free-Write/public/Quote/NewQuote" method="post" class="quote-form">
             <textarea id="quote" name="quote" class="quote-input" placeholder="Enter your quote here..." maxlength="280" required></textarea>
