@@ -4,59 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 Error - Page Not Found</title>
-    <link rel="icon" type="image/x-icon" href="/images/FeatherIcon.ico">
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f0f2f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            color: #333;
-        }
-        .container {
-            text-align: center;
-            background-color: white;
-            padding: 3rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            max-width: 500px;
-        }
-        h1 {
-            font-size: 4rem;
-            margin: 0;
-            color: #e74c3c;
-        }
-        h2 {
-            font-size: 2rem;
-            margin-top: 0;
-        }
-        p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 2rem;
-        }
-        .btn {
-            display: inline-block;
-            padding: 0.8rem 1.5rem;
-            background-color: #ffd700;
-            color: #000;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-        .btn:hover {
-            background-color: #000;
-            color: #ffd700;
-        }
-        .feather {
-            width: 100px;
-            height: 100px;
-            margin-bottom: 2rem;
-        }
-    </style>
+    <link rel="icon" type="image/x-icon" href="/images/FeatherIcon.ico">    
+    <link rel="stylesheet" href="/Free-Write/public/css/error.css">
+    
 </head>
 <body>
     <div class="container">

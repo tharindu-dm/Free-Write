@@ -2,14 +2,40 @@
 
 trait Database
 {
+    private function loadEnv($filePath)
+    {
+        if (file_exists($filePath)) {
+            $lines = file($filePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+            foreach ($lines as $line) {
+                // Skip comments
+                if (strpos(trim($line), '#') === 0) {
+                    continue;
+                }
+                // Split by '=' and trim whitespace
+                list($key, $value) = explode('=', $line, 2);
+                $key = trim($key);
+                $value = trim($value);
+                // Set the environment variable
+                putenv("$key=$value");
+            }
+        }
+    }
+
     private function connect() //connecting to azure sql server
     {
+        // Load the .env file using the method
+        $this->loadEnv(__DIR__ . '/.env');
+
+        // Now can access the environment variables
+        $dsn = getenv('DB_DSN');
+        $username = getenv('DB_USERNAME');
+        $password = getenv('DB_PASSWORD');
+
         try {
-            $conn = new PDO("sqlsrv:server = tcp:freewrite-server.database.windows.net,1433; Database = Freewrite_db", "CloudSAbf7941bd", "7d9UCx9jTxhk");
+            $conn = new PDO($dsn, $username, $password);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $conn;
-        }
-        catch (PDOException $e) {
+        } catch (PDOException $e) {
             die("Connection failed: " . $e->getMessage());
         }
     }
@@ -18,7 +44,6 @@ trait Database
     {
         $con = $this->connect();
         $statement = $con->prepare($query);
-
         $check = $statement->execute($data);
         if ($check) {
             // For SELECT queries, fetch results
@@ -33,7 +58,7 @@ trait Database
             return false;
         }
     }
-    public function get_row($query, $data = []) //one row 
+    /*public function get_row($query, $data = []) //one row 
     {
         $con = $this->connect();
         $statement = $con->prepare($query);
@@ -49,5 +74,5 @@ trait Database
             echo "Query failed\n";
             return false;
         }
-    }
+    }*/
 }
