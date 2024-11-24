@@ -1,42 +1,89 @@
-body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  color: #333;
-  background-color: #fff;
-}
-
-main {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
+.login-page {
+  display: flex;
   min-height: 100vh;
 }
 
+.creativity-section {
+  flex: 1;
+  background: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  padding: 4rem;
+}
+
+.creativity-content {
+  max-width: 500px;
+}
+
+.creativity-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  font-weight: 800;
+}
+
+.creativity-content p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+.feature-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.feature svg {
+  width: 30px;
+  height: 30px;
+  color: white;
+}
+
+/*FORM SECTIONS*/
+.two-forms-container {
+  min-height: max-content;
+}
+
+.form-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  padding: 2rem;
+}
+
 .login-container {
-  text-align: center;
+  width: 100%;
   max-width: 400px;
-  margin: 0 auto;
 }
 
 h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  color: #1a1a1a;
-}
-
-p {
-  margin-bottom: 2rem;
-  color: #666;
+  font-size: xx-large;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 form {
   display: flex;
   flex-direction: column;
+  gap: 1rem;
 }
 
 input {
   padding: 0.8rem;
-  margin-bottom: 1rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 1rem;
@@ -56,13 +103,17 @@ button {
 }
 
 .sign-up-btn {
-  background-color: #e6f3ff;
-  color: #333;
+  background-color: #000;
+  color: #ffd700;
 }
 
-.institution-btn {
-  background-color: #1a1a1a;
-  color: #fff;
+.signup-names {
+  display: flex;
+  gap: 1rem;
+}
+
+.signup-names input {
+  width: 50%;
 }
 
 .login-btn {
@@ -70,7 +121,7 @@ button {
   color: #333;
 }
 
-#institution-form-div, #register-form-div {
-  
-  display: none;
+.return-btn {
+  background-color: #f0f0f0;
+  color: #333;
 }

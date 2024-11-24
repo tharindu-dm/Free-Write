@@ -1,5 +1,5 @@
 /* Main Browse Page Styles */
-.browse-main-container{
+.browse-main-container {
   display: flex;
   width: 100%;
   padding: 2rem;
@@ -22,6 +22,7 @@ main {
 .search-section {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   margin-bottom: 2.5rem;
 }
@@ -54,31 +55,11 @@ main {
   background-color: #ffc400;
 }
 
-.genre-filter label {
-  margin-right: 10px;
-}
-
-/* Filter / ASIDE Section need to search results page
-aside {
-  width: 20rem;
-  background-color: #fff;
-  padding: 1rem;
-  margin-right: 2rem;
-  border-radius: 1rem;
-  border: 0.1rem solid #e0e0e0;
-}
-
-.filter {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
-}*/
-
 /* Book Category Section */
-.browse-body-section{
+.browse-body-section {
   width: 100%;
 }
+
 .book-category {
   margin-bottom: 30px;
 }
@@ -115,7 +96,7 @@ aside {
 
 .book-card img {
   width: 100%;
-  height: 100%;
+  height: 400px;
   object-fit: cover;
   border-radius: 1rem;
   margin-bottom: 10px;

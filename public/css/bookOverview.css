@@ -24,6 +24,7 @@
 .product-image img {
   width: 100%;
   height: auto;
+  
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -52,6 +53,48 @@ h1 {
   background-color: #f9f9f9;
 }
 
+/*RATING*/
+.rating-container{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+}
+
+select {
+  font-size: medium;
+  border: none;
+}
+
+.rating {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem;
+  border: 2px solid #ffd700;
+  border-radius: 20px;
+  background-color: transparent;
+  margin-bottom: 2rem;
+}
+
+.rating-select {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 1rem 0.25rem 1rem;
+  border: 2px solid #ffd700;
+  border-radius: 20px;
+  background-color: transparent;
+  margin-bottom: 2rem;
+  cursor: pointer;
+}
+
+.rating svg {
+  color: #ffd700;
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+}
+
+/*READ BUTTON*/
 .read-button-container {
   padding: 10px;
   display: flex;
@@ -107,6 +150,13 @@ h1 {
   z-index: 1;
 }
 
+.add-list-radio-labels{
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
 .list-add-container {
   display: flex;
   flex-direction: column;
@@ -120,6 +170,7 @@ h1 {
 .list-add-radios {
   display: flex;
   gap: 10px;
+  padding: 0.5rem;
 }
 
 .list-add-actionBtns {
@@ -146,7 +197,6 @@ h1 {
 .buy-button {
   background-color: #000000;
   border: none;
-  color: #ffd700;
   padding: 10px 20px;
   font-size: 1em;
   font-weight: bold;
@@ -160,7 +210,11 @@ h1 {
   justify-content: center;
 }
 
-.buy-button:hover {
+.buy-button a {
+  color: #ffd700;
+}
+
+.buy-button a:hover {
   animation: buy-color-appear 0.3s forwards;
 }
 
@@ -243,23 +297,32 @@ h1 {
   color: #ffd700;
 }
 
+/*Chapter Edit Delete buttons*/
+.edit-btn-chap {
+  background-color: #ffd700;
+}
+
+.delete-btn-chap {
+  background-color: #ff0000;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .table-of-contents {
-      padding: 0.5rem;
+    padding: 0.5rem;
   }
-  
+
   .table-of-contents td,
   .table-of-contents th {
-      padding: 8px 12px;
+    padding: 8px 12px;
   }
-  
+
   .button-container {
-      flex-direction: column;
+    flex-direction: column;
   }
-  
+
   .btn {
-      width: 100%;
-      text-align: center;
+    width: 100%;
+    text-align: center;
   }
 }

@@ -4,9 +4,7 @@ class BrowseController extends Controller
 {
     public function index()
     {
-        $URL = splitURL();
         $this->loadBrowsePage();
-
     }
 
     public function loadBrowsePage()
@@ -14,12 +12,15 @@ class BrowseController extends Controller
         $book = new Book();
         $FWObooks = $book->getFWOBooks();
         $paidBooks = $book->getPaidBooks();
-        $this->view('browse', ['FWObooks' => $FWObooks, 'paidBooks' => $paidBooks]);
+        $this->view('OpenUser/browse', ['FWObooks' => $FWObooks, 'paidBooks' => $paidBooks]);
     }
-    public function book()//set as private
+    public function search()
     {
-        //change URL to 
+        $search = $_GET['bookName'];
+        $book = new Book();
+        $searchResult = $book->searchBook($search);
 
+        $this->view('OpenUser/bookSearch', ['searchResult' => $searchResult]);
     }
 
 }

@@ -23,11 +23,10 @@ class App
             $filename = "../app/controllers/ErrorController.php";//shows the error page
             require $filename;
             $this->controller = "ErrorController";
-            //$this->method = "notFound";  // Assume we have a not Found method in ErrorController
+            $this->method = "notFound";  // Assume we have a not Found method in ErrorController
         }
 
         $controller = new $this->controller();
-        //call_user_func_array([$controller, 'index'], []);
 
         if(method_exists($controller, $this->method)) { //
             call_user_func_array([$controller, $this->method], []);
@@ -37,4 +36,3 @@ class App
         }
     }
 }
-//the method  get and finding is commented out since it is not used in the project. Thought that putting methods in url is not a good idea
