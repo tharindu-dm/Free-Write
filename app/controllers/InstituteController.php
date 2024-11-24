@@ -11,6 +11,18 @@ class InstituteController extends Controller
         $this->view('Institute/InstituteDashboard');
     }
 
+    public function Library(){
+        $this->view('OpenUser/browse');
+    }
+
+    public function PurchasePackage(){
+        $this->view('Institute/InstitutePurchasePackage');
+    }
+
+    public function ManageUser(){
+        $this->view('Institute/InstituteManageUser');
+    }
+
     public function Register(){
         $user = new User();
         $email = $user->first(['userID'=>$_SESSION['user_id']]);

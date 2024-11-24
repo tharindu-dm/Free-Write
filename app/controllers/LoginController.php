@@ -44,7 +44,7 @@ class LoginController extends Controller
                     header('Location: /Free-Write/public/publisher');
                     break;
                 case 'inst':
-                    header('Location: /Free-Write/public/inst');
+                    header('Location: /Free-Write/public/Institute');
                     break;
                 default:
                     header('Location: /Free-Write/public/');
@@ -120,7 +120,7 @@ class LoginController extends Controller
             //attempt on institution
             if ($userData == null) {
                 $institution = new Institution();
-                $userData = $institution->getInstByUsername($_POST['log-email']);
+                //$userData = $institution->getInstByUsername($_POST['log-email']);
 
                 if ($userData) //if institution is found
                     $this->InstitutionLogin($userData);

@@ -4,7 +4,7 @@ class WriterController extends Controller
 {
     public function index()
     {
-        $this->view('writer/writerDashboard');
+        $this->Dashboard();
     }
 
     // DASHBOARD
@@ -13,6 +13,8 @@ public function Dashboard()
 {
     $book = new Book();
     $author = $_SESSION['user_id'];
+
+    //echo"<script>alert(".$_SESSION['user_id'].")</script>";
 
     $MyBooks = $book->getBookByAuthor($author);
     $this->view('writer/writerDashboard', ['MyBooks' => $MyBooks]);
@@ -185,9 +187,9 @@ public function Overview($bookID = 0)
         $bookID = $URL[2]; //get the book id from the url
 
     $book = new Book();
-
+    $bookChapter_table = new BookChapter();
     $bookFound = $book->getBookByID($bookID);
-    $bookChapters = $book->getBookChapters($bookID); //list of chapters related to the specific book
+    $bookChapters = $bookChapter_table->getBookChapters($bookID); //list of chapters related to the specific book
 
 
     $this->view('writer/bookDetail', ['book' => $bookFound, 'chapters' => $bookChapters]);

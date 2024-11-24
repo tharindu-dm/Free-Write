@@ -111,10 +111,11 @@
             <div id="popupForm" class="popup-overlay">
                 <div class="popup-content">
                     <span id="closePopupBtn" class="close-btn">&times;</span>
-                    <h2>Add New Institution</h2>
+                    <h2>Add New User</h2>
                     <form id="addInstitutionForm" method="POST">
                         <label for="institutionName">Institution Name:</label>
                         <input type="text" name="institutionName" id="institutionName" required>
+                        
 
                         <label for="username">Username:</label>
                         <input type="text" name="username" id="username" required>
@@ -131,8 +132,9 @@
                         <label for="subPlan">Subscription Plan (ID):</label>
                         <input type="number" name="subPlan" id="subPlan" required>
 
-                        <label for="Creater">Created By (ID):</label>
-                        <input type="number" name="Creater" id="Creater" required>
+                        <label for="Creater">Created By (email):</label>
+                        <!-- <input type="email" name="Creater" id="Creater" required> -->
+                        <input type="email" id="Creater" name="Creater" disabled value="<?= htmlspecialchars($user['email']) ?>" />
 
                         <button type="submit" class="submit-btn">Add Institution</button>
                     </form>
@@ -169,6 +171,27 @@
         </div>
     </div>
 
-    <script src="/CRUD_OOP/public/assets/js/Institute ManageUser.js"></script>
+    <script> //src="../public/js/Institute/Institute ManageUser.js">
+        // JavaScript for Popup Window
+        document.addEventListener("DOMContentLoaded", () => {
+            const openPopupBtn = document.getElementById("openPopupBtn");
+            const popupForm = document.getElementById("popupForm");
+            const closePopupBtn = document.getElementById("closePopupBtn");
+
+            openPopupBtn.addEventListener("click", () => {
+                popupForm.style.display = "flex";
+            });
+
+            closePopupBtn.addEventListener("click", () => {
+                popupForm.style.display = "none";
+            });
+
+            popupForm.addEventListener("click", (event) => {
+                if (event.target === popupForm) {
+                    popupForm.style.display = "none";
+                }
+            });
+        });
+    </script>
 </body>
 </html>

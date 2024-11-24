@@ -29,10 +29,10 @@
                     <small>Access Level: Administrator</small>
                 </div>
             </div>
-            <div class="menu-item active"><a href="Institute/index">Dashboard</a></div>
-            <div class="menu-item">Library</div>
-            <div class="menu-item">Packages</div>
-            <div class="menu-item">User Management</div>
+            <div class="menu-item active"><a href="/Free-Write/public/Institute/Dashboard">Dashboard</a></div>
+            <div class="menu-item"><a href="/Free-Write/public/Institute/Library">Library</a></div>
+            <div class="menu-item"><a href="/Free-Write/public/Institute/PurchasePackage">Packages</a></div>
+            <div class="menu-item"><a href="/Free-Write/public/Institute/ManageUser">User Management</a></div>
         </div>
         
         <div class="main-content">
@@ -69,6 +69,6 @@
         </div>
     </div>
 
-    <script src="institute dashboard.js"></script>
+    <script src="../public/js/Institute/institute dashboard.js"></script>
 </body>
 </html>
