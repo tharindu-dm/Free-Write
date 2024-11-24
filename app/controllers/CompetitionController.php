@@ -1,6 +1,5 @@
 <?php
 
-
 class CompetitionController extends Controller
 {
     private $competitionModel;
@@ -66,7 +65,6 @@ class CompetitionController extends Controller
         header('Location: /Free-Write/public/Competition');
     }
 
-
     public function ProfilePub()
     {
         $this->view('publisher/aCompetitionProfile4Publisher');
@@ -80,6 +78,17 @@ class CompetitionController extends Controller
     public function Completed()
     {
         $this->view('publisher/completedCompetition');
+    }
+
+
+    public function New()
+    {
+        $this->view('publisher/creatingnewcompetition');
+    }
+
+    public function Manage()
+    {
+        $this->view('publisher/editingcompetitiondetails');
     }
 
     public function Active()

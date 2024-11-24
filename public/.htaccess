@@ -1,9 +1,21 @@
-RewriteEngine On
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /Free-Write/public/
+    
+    # Prevent direct access to .htaccess file
+    <Files .htaccess>
+        Order Allow,Deny
+        Deny from all
+    </Files>
 
-#accept loading of actual files and directories
-RewriteBase /Free-Write/public/
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
+    # Ignore existing files and directories
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-l
 
-#send everythin else to the index page
-RewriteRule ^(.*)$ index.php?url=$1 [L,QSA]
+    # Redirect all other requests to index.php
+    RewriteRule ^(.*)$ index.php?url=$1 [L,QSA]
+</IfModule>
+
+# Disable directory browsing
+Options -Indexes

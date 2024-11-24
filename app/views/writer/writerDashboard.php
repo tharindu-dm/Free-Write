@@ -6,22 +6,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Freewrite - Explore and Share Incredible Stories</title>
     <link rel="stylesheet" href="/Free-Write/public/css/writer.css">
+    <link rel="stylesheet" href="/Free-Write/public/css/browse.css">
 </head>
 
 <body>
-    <!-- Header Section -->
-    <header>
-        <h2>Freewrite</h2>
-    </header>
+<?php
+    if (isset($_SESSION['user_type'])) {
+        $userType = $_SESSION['user_type'];
+    } else {
+        $userType = 'guest';
+    }
+    switch ($userType) {
+        case 'admin':
+        case 'writer':
+        case 'covdes':
+        case 'wricov':
+        case 'reader':
+            require_once "../app/views/layout/header-user.php";
+            break;
+        case 'pub':
+            require_once "../app/views/layout/header-pub.php";
+            break;
+        default:
+            require_once "../app/views/layout/header.php";
+    }
 
+    //show($data);
+    ?>
     <main>
         <div class="dashboard">
             <!-- Profile Section -->
-            <div class="profile-section">
-                <img src="/Free-Write/public/images/profile-image.jpg" alt="User Profile">
-                <h2><?= htmlspecialchars($writer['name']) ?></h2>
-                <p><?= htmlspecialchars($writer['followers']) ?> followers</p>
-            </div>
+        <div class="profile-section">
+        <div class="profile-image">
+                    <img src="../../public/images/profile-image.jpg" alt="User Profile Image">
+                </div>
+
+        <?php if (!empty($userDetails) && is_array($userDetails)): ?>
+        <div class="profile-info">
+            <h2><?= htmlspecialchars($userDetails[0]['fullName'] ?? 'Unknown User'); ?></h2>
+            
+        </div>
+        <?php else: ?>
+            <h2>Michael Thompson</h2>
+            <p>250 followers</p>
+        <?php endif; ?>
+        </div>
 
             <!-- Navigation for Writer Options -->
             <?php require_once "../app/views/writer/writerNav.php"; ?>
@@ -41,27 +70,34 @@
                 <a href="/Free-Write/public/Writer/New" class="button-new">+ New</a>
 
                 <!-- Books List -->
-                <div class="books-list">
-                    <!--remove this link-->
-                    <a href="/Free-Write/public/Writer/BookDetails/1" class="book-item">
-                        <img src="/Free-Write/public/images/sampleCover.jpg" alt="Book Cover">
-                        <div class="book-info">
-                            <h4>Book Title</h4>
-                            <p>Published on: 2021-01-01</p>
-                        </div>
-                    </a>
+    <div class="book-grid">
+        <?php if (!empty($MyBooks) && is_array($MyBooks)): ?>
+           <?php foreach ($MyBooks as $book): ?>
+            <div class="book-card">
+            <img src="../public/images/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                alt="Cover Image of <?= htmlspecialchars($book['title']); ?>">
 
+            <h3>
+                <?= htmlspecialchars($book['title']); ?>
+            </h3><br>
+            <p>
+                <?= htmlspecialchars($book['author']); ?>
+            </p>
+            <h4>
+                <?= $book['price'] === null ? 'FREE' : 'LKR ' . number_format($book['price'], 2); ?>
+            </h4>
+            <a
+                href="/Free-Write/public/writer/Overview/<?= htmlspecialchars($book['bookID']); ?>">
+                <button class="select-book-btn"
+                    data-id="<?= htmlspecialchars($book['bookID']); ?>">Select Book</button>
+            </a>
+            </div>
+             <?php endforeach; ?>
 
-                    <?php foreach ($books as $book): ?>
-                        <div class="book-item">
-                            <img src="<?= htmlspecialchars($book['cover_image'] ?? '/public/images/writer/cover.png') ?>" alt="Book Cover">
-                            <div class="book-info">
-                                <h4><?= htmlspecialchars($book['title']) ?></h4>
-                                <p>Published on: <?= htmlspecialchars($book['published_date']) ?></p>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
+                <?php else: ?>
+                    <p>No books available.</p>
+                <?php endif; ?>
+            </div>
             </div>
         </div>
     </main>

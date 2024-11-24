@@ -29,7 +29,7 @@
         default:
             require_once "../app/views/layout/header.php";
     }
-    //show($data);
+    show($data);
     ?>
 
     <?php if (!empty($book) && is_array($book)): ?>
