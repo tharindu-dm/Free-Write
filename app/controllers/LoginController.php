@@ -5,28 +5,8 @@ class LoginController extends Controller
     public function index()
     {
         //echo "this is the User Controller\n";
-        $URL = splitURL();
+        $this->view('login');
 
-        if (count($URL) == 2) {
-            switch ($URL[1]) {
-                case 'handleLogin':
-                    $this->handleLogin();
-                case 'login':
-                    $this->login();
-                    break;
-                case 'register':
-                    $this->register();
-                    break;
-                case 'logout':
-                    $this->logout();
-                    break;
-                default:
-                    $this->view('login');
-                    break;
-            }
-        } else {
-            $this->view('login');
-        }
     }
 
     //set expire
@@ -44,8 +24,6 @@ class LoginController extends Controller
 
         // Checking if user is already logged in
         if (isset($_SESSION['user_id'])) {
-            echo "user is already logged in \n";
-
             switch ($_SESSION['user_type']) {
                 case 'admin':
                     header('Location: /Free-Write/public/Admin');
@@ -57,7 +35,7 @@ class LoginController extends Controller
                 case 'writer':
                 case 'covdes':
                 case 'wricov':
-                    header('Location: /Free-Write/public/User/profile');
+                    header('Location: /Free-Write/public/User/Profile');
                     break;
                 case 'courier':
                     header('Location: /Free-Write/public/courier');
@@ -73,10 +51,8 @@ class LoginController extends Controller
                     break;
             }
             exit;
-        }/* else {
-        //echo "user is not logged in";
-        $this->view('login');
-    }*/
+        }
+
     }
 
     /*
@@ -92,7 +68,7 @@ class LoginController extends Controller
             $user = new User();
             $userDetails = new UserDetails();
 
-            $result = $user->createUser($_POST['signup-email'], $_POST['pw'], "reader", 0, 1);
+            $result = $user->createUser($_POST['signup-email'], $_POST['pw'], "reader", 0, 0);
 
 
 
@@ -103,6 +79,19 @@ class LoginController extends Controller
 
                 if ($result) {
                     echo "User details created successfully!\n";
+                    $sitelog = new SiteLog();
+
+                    $useremail = array(
+                        'email' => $_POST['signup-email']
+                    );
+                    $userid = $user->first($useremail);
+
+                    $dataset = array(
+                        'user' => $userid['userID'],
+                        'activity' => 'Successfully registered',
+                        'occurrence' => $regDate
+                    );
+                    $sitelog->insert($dataset);
                 } else {
                     echo "<script>alert('Failed to create user details')</script>";
                 }
@@ -119,42 +108,98 @@ class LoginController extends Controller
 
     public function login()
     {
-        //echo "inside the login function\n";
-        //$URL = splitURL();
+        // Start the session if it's not already started
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            //echo "inside the post request\n";
             $user = new User();
+            $sitelog = new SiteLog();
             $userData = $user->getUserByUsername($_POST['log-email']);
-            show($userData);
+
+            // Check if user is currently locked out
+            if ($userData && $userData['loginAttempt'] >= 3) {
+                // Check if lockout time has expired
+                if (isset($_SESSION['lockout_time']) && time() < $_SESSION['lockout_time']) {
+                    // User is still locked out
+                    echo "<script>alert('Account locked for 5 minutes due to multiple failed attempts.Lockout time is set to: " . date('Y-m-d H:i:s', $_SESSION['lockout_time']) . "\\nCurrent time is: " . date('Y-m-d H:i:s') . "');</script>";
+
+                    // Log the locked login attempt
+                    $dataset = array(
+                        'user' => $userData['userID'],
+                        'activity' => 'Locked Login',
+                        'occurrence' => date("Y-m-d H:i:s")
+                    );
+                    $sitelog->insert($dataset);
+
+                    //header("Location: /Free-Write/public/Login");
+                    $this->view('login');
+                    return;
+                } else {
+                    // Lockout period has expired, reset the login attempts and clear lockout_time
+                    $user->update($userData['userID'], ['loginAttempt' => 0], 'userID');
+                    unset($_SESSION['lockout_time']);
+                }
+            }
 
             $pw = $_POST['log-password'];
 
             if ($userData) {
-                if ($pw == $userData['password']) {
-                    echo "<script> alert('Password is correct!'); </script>";
-                    // Start the session if it's not already started
-                    if (session_status() == PHP_SESSION_NONE) {
-                        session_start();
-                    }
+
+                if (($pw == $userData['password']) && $userData['loginAttempt'] < 3) {
+                    echo "<script>alert('Password is correct!');</script>";
 
                     // Set session variables
                     $_SESSION['user_id'] = $userData['userID'];
                     $_SESSION['user_type'] = $userData['userType'];
 
+                    // Update sitelog with successful login attempt
+                    $dataset = array(
+                        'user' => $userData['userID'],
+                        'activity' => 'Successfully logged in',
+                        'occurrence' => date("Y-m-d H:i:s")
+                    );
+                    $sitelog->insert($dataset);
+
+                    // Reset login attempts on successful login
+                    $user->update($userData['userID'], ['loginAttempt' => 0], 'userID');
+
+                    // Set last login date
+                    $userDetails = new UserDetails();
+                    $userDetails->update($userData['userID'], ['lastLogDate' => date("Y-m-d H:i:s")], 'user');
+
                     // Redirect to the appropriate page based on user type
                     $this->handleLogin();
                     exit;
                 } else {
-                    echo "Password is incorrect.";
+                    echo "<script>alert('Password is incorrect.')</script>";
+
+                    // Increase login attempt counter
+                    $newcount = $userData['loginAttempt'] + 1;
+                    $user->update($userData['userID'], ['loginAttempt' => $newcount], 'userID');
+
+                    // Log the failed login attempt
+                    $dataset = array(
+                        'user' => $userData['userID'],
+                        'activity' => 'Failed login attempt',
+                        'occurrence' => date("Y-m-d H:i:s")
+                    );
+                    $sitelog->insert($dataset);
+
+                    // Set lockout time if attempts reach 3
+                    if ($newcount >= 3) {
+                        $_SESSION['lockout_time'] = time() + (5 * 60); // 5 minutes lockout
+                    }
+
+                    $this->view('login');
                 }
             } else {
-                echo "User not found.";
+                echo "<script>alert('User  not found.')</script>";
             }
 
             $this->view('login');
         } else {
-            //echo "inside the get request";
             $this->view('login');
         }
     }
@@ -167,9 +212,6 @@ class LoginController extends Controller
             session_start();
         }
 
-        // Unset all of the session variables
-        $_SESSION = array();
-
         // Destroy the session
         session_destroy();
 
@@ -181,6 +223,6 @@ class LoginController extends Controller
     public function userProfile()
     {
         echo "inside the userProfile function\n";
-        $this->view('userProfile');
+        $this->view('Profile/userProfile');
     }
 }
