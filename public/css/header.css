@@ -33,6 +33,7 @@ a {
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
+  display: flex;
 }
 
 .nav-button-container {
@@ -45,22 +46,39 @@ a {
   align-items: center;
   margin-left: 1rem;
   margin-right: 1rem;
+
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+/*RIGHT SIDE OF THE HEADER BAR*/
+.nav-right-side-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
 }
 
 .search-container input {
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
+  margin-right: 0.5rem;
 }
 
 .action-button-container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 
 .action-button {
   display: flex;
+  margin-right: 1rem;
 }
 
 .publish-btn,

@@ -26,6 +26,14 @@ main {
   margin-bottom: 2.5rem;
 }
 
+.search-section form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 80%;
+  gap: 10px;
+}
+
 #search-bar {
   flex: 1;
   padding: 8px;
@@ -50,7 +58,7 @@ main {
   margin-right: 10px;
 }
 
-/* Filter Section */
+/* Filter / ASIDE Section need to search results page
 aside {
   width: 20rem;
   background-color: #fff;
@@ -60,12 +68,12 @@ aside {
   border: 0.1rem solid #e0e0e0;
 }
 
-.filter-section {
+.filter {
   display: flex;
   align-items: center;
   gap: 10px;
   margin-bottom: 20px;
-}
+}*/
 
 /* Book Category Section */
 .browse-body-section{
