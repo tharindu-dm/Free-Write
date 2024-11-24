@@ -4,27 +4,20 @@ class ChapterController extends Controller
 {
     public function index()
     {
-        $URL = splitURL();
-        
-        if (count($URL) == 2) {
-            switch ($URL[1]) {
-                case 'book':
-                    $this->viewBook();
-                    break;
-                default:
-                    $this->view('book/bookOverview');
-                    break;
-            }
+        $this->view('book/Chapter');
 
-        } else {
-            $this->view('book/bookChapter');
-        }
     }
 
-    private function viewBook()//set as private
+    public function Comment()
     {
-       //change URL to 
-       
-    }
+        $chapID = $_POST['chapterID'];
+        $commentContent = $_POST['commentText'];
+        $user = $_SESSION['user_id'];
+        $datetime = date("Y-m-d H:i:s");
 
+        $comment = new Comment();
+        $comment->insert(['chapter' => $chapID, 'content' => $commentContent, 'user' => $user, 'dateAdded' => $datetime]);
+
+        header("Location: /Free-Write/public/book/Chapter/$chapID");
+    }
 }
