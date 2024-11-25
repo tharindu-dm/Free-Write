@@ -227,52 +227,54 @@
   }
   ?>
 
-<div class="content">
-        <h1>Competitions</h1>
+  <div class="content">
+    <h1>Competitions</h1>
 
-        <div class="search-container">
-            <div class="search-bar">
-                <svg width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
-                    <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
-                </svg>
-                <input type="text" placeholder="Search for competitions">
-            </div>
-            <a href="/Free-Write/public/Competition/New"><button class="new-competition-button">New Competition</button></a>
-        </div>
+    <div class="search-container">
+      <div class="search-bar">
+        <svg width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
+          <path
+            d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z">
+          </path>
+        </svg>
+        <input type="text" placeholder="Search for competitions">
+      </div>
+      <a href="/Free-Write/public/Competition/New"><button class="new-competition-button">New Competition</button></a>
+    </div>
 
-        <div class="tabs">
-            <a href="/Free-Write/public/Competition/" class="active">All</a>
-            <a href="/Free-Write/public/Competition/Active">Active</a>
-            <a href="/Free-Write/public/Competition/Completed">Completed</a>
-        </div>
+    <div class="tabs">
+      <a href="/Free-Write/public/Competition/" class="active">All</a>
+      <a href="/Free-Write/public/Competition/Active">Active</a>
+      <a href="/Free-Write/public/Competition/Completed">Completed</a>
+    </div>
 
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Competition</th>
-                        <th>Status</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Category</th>
-                        <th>Prize</th>
-                        <th>Participants</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-    <?php if (!empty($data['competitionDetails'])) : ?>
-        <?php foreach ($data['competitionDetails'] as $competitionDetails) : ?>
-            <tr>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Competition</th>
+            <th>Status</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Category</th>
+            <th>Prize</th>
+            <th>Participants</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php if (!empty($data['competitionDetails'])): ?>
+            <?php foreach ($data['competitionDetails'] as $competitionDetails): ?>
+              <tr>
                 <td>
-                    <a href="/Free-Write/public/Competition/Profile/<?php echo $competitionDetails['competitionID']; ?>">
-                        <?php echo htmlspecialchars($competitionDetails['title']); ?>
-                    </a>
+                  <a href="/Free-Write/public/Competition/Profile/<?php echo $competitionDetails['competitionID']; ?>">
+                    <?php echo htmlspecialchars($competitionDetails['title']); ?>
+                  </a>
                 </td>
                 <td>
-                    <span class="status-badge">
-                        Active
-                    </span>
+                  <span class="status-badge">
+                    Active
+                  </span>
                 </td>
                 <td><?php echo date('m/d/Y', strtotime($competitionDetails['start_date'])); ?></td>
                 <td><?php echo date('m/d/Y', strtotime($competitionDetails['end_date'])); ?></td>
@@ -280,19 +282,20 @@
                 <td><?php echo '$' . number_format($competitionDetails['prizes'], 2); ?></td>
                 <td>0</td>
                 <td>
-                    <a href="/Free-Write/public/Competition/Manage/<?php echo $competitionDetails['competitionID']; ?>" 
-                       class="action-link">Manage</a>
+                  <a href="/Free-Write/public/Competition/Manage/<?php echo $competitionDetails['competitionID']; ?>"
+                    class="action-link">Manage</a>
                 </td>
+              </tr>
+            <?php endforeach; ?>
+          <?php else: ?>
+            <tr>
+              <td colspan="8" style="text-align: center;">No competitions found</td>
             </tr>
-        <?php endforeach; ?>
-    <?php else : ?>
-        <tr>
-            <td colspan="8" style="text-align: center;">No competitions found</td>
-        </tr>
-    <?php endif; ?>
-</tbody>
-            </table>
-        </div>
+          <?php endif; ?>
+        </tbody>
+      </table>
     </div>
+  </div>
 </body>
+
 </html>

@@ -17,7 +17,7 @@
     }
     switch ($userType) {
         case 'admin':
-case 'mod':
+        case 'mod':
         case 'writer':
         case 'covdes':
         case 'wricov':
@@ -82,7 +82,8 @@ case 'mod':
                                 </tr>
                                 <?php foreach ($chapters as $chap): ?>
                                     <tr>
-                                        <td><a   href="/Free-Write/public/Spinoff/Chapter/<?= htmlspecialchars($chap['chapterID']); ?>"><?= htmlspecialchars($chap['title']); ?></a>
+                                        <td><a
+                                                href="/Free-Write/public/Spinoff/Chapter/<?= htmlspecialchars($chap['chapterID']); ?>"><?= htmlspecialchars($chap['title']); ?></a>
 
                                         </td>
                                         <td><?= htmlspecialchars($chap['lastUpdated']); ?></td>

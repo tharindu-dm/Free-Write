@@ -61,7 +61,8 @@
             <div class="form-row">
                 <div class="form-group">
                     <label for="Creater">Created By (email)</label>
-                    <input type="email" id="Creater" name="Creater" disabled value="<?= htmlspecialchars($user['email']) ?>" />
+                    <input type="email" id="Creater" name="Creater" disabled
+                        value="<?= htmlspecialchars($user['email']) ?>" />
                 </div>
             </div>
 

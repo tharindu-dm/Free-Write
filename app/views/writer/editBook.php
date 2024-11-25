@@ -49,34 +49,37 @@
                 </div>
 
                 <!-- Book Details Section -->
-                 <input type="hidden" name="bID" value="<?php echo $book['bookID']; ?>">
+                <input type="hidden" name="bID" value="<?php echo $book['bookID']; ?>">
                 <div class="book-info">
                     <div class="input-group">
                         <label for="title">Title</label>
-                        <input type="text" id="title" name="title" placeholder="Enter a title for your story" value="<?php echo htmlspecialchars($book['title']); ?>" required>
-                        
+                        <input type="text" id="title" name="title" placeholder="Enter a title for your story"
+                            value="<?php echo htmlspecialchars($book['title']); ?>" required>
+
                     </div>
 
                     <div class="input-group">
                         <label for="Synopsis">Synopsis</label>
-                        <textarea id="Synopsis" name="Synopsis" placeholder="Enter a synopsis" required><?php echo htmlspecialchars($book['Synopsis']); ?></textarea>
-                        
+                        <textarea id="Synopsis" name="Synopsis" placeholder="Enter a synopsis"
+                            required><?php echo htmlspecialchars($book['Synopsis']); ?></textarea>
+
                     </div>
 
                     <div class="input-group">
                         <label for="genre">Genre (Dummy)</label>
                         <select id="genre" name="genre" required>
                             <option value="" disabled selected>Select genre</option>
-                            <option value="Fiction" >Fiction</option>
-                            <option value="Fantasy" >Fantasy</option>
-                            <option value="Romance" >Romance</option>
+                            <option value="Fiction">Fiction</option>
+                            <option value="Fantasy">Fantasy</option>
+                            <option value="Romance">Romance</option>
                         </select>
-                    
+
                     </div>
 
                     <div class="input-group">
                         <label for="price">Price</label>
-                        <input type="text" id="price" name="price" placeholder="Free (Type to add a Price)" value="<?php echo htmlspecialchars($book['price'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+                        <input type="text" id="price" name="price" placeholder="Free (Type to add a Price)"
+                            value="<?php echo htmlspecialchars($book['price'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
                     </div>
 
                     <div class="input-group">
@@ -90,8 +93,8 @@
                     <div class="input-group">
                         <label for="privacy">Privacy</label>
                         <div class="privacy-toggle">
-                        <input type="radio" name="accessType" value="public" <?php ($book['accessType'] == 'public') ? 'checked' : ''; ?>> Public
-                        <input type="radio" name="accessType" value="private" <?php echo ($book['accessType'] == 'private') ? 'checked' : ''; ?>> Private</label>
+                            <input type="radio" name="accessType" value="public" <?php ($book['accessType'] == 'public') ? 'checked' : ''; ?>> Public
+                            <input type="radio" name="accessType" value="private" <?php echo ($book['accessType'] == 'private') ? 'checked' : ''; ?>> Private</label>
                         </div>
                     </div>
 

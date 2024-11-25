@@ -174,13 +174,13 @@
     }
 
     .error-message {
-    background-color: #ffebee;
-    color: #c62828;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    border-radius: 8px;
-    border: 1px solid #ef9a9a;
-}
+      background-color: #ffebee;
+      color: #c62828;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ef9a9a;
+    }
   </style>
 </head>
 
@@ -207,60 +207,61 @@
       require_once "../app/views/layout/header.php";
   }
 
-   show($data);
+  //show($data);
   ?>
-  
 
-<main>
-        <div class="form-container">
-            <h1>Create a New Competition</h1>
-            <h4>Set up the details for your competition</h4>
-            
-            <?php if(isset($_SESSION['error'])): ?>
-                <div class="error-message">
-                    <?php 
-                        echo $_SESSION['error'];
-                        unset($_SESSION['error']);
-                    ?>
-                </div>
-            <?php endif; ?>
 
-            
-            <form action="/Free-Write/public/Competition/CreateCompetition" method="POST">
-            <input type="hidden" name="compID" value="<?= htmlspecialchars($competitionDetails['competitionID']) ?>">  
-                <label for="title">Competition Name</label>
-                <input type="text" id="title" name="title" placeholder="Enter competition name" required />
-                
-                <label for="description">Competition Description</label>
-                <textarea id="description" name="description" placeholder="Describe your competition" required></textarea>
+  <main>
+    <div class="form-container">
+      <h1>Create a New Competition</h1>
+      <h4>Set up the details for your competition</h4>
 
-                <label for="title">Rules</label>
-                <input type="text" id="rules" name="rules" placeholder="Enter competition rules" required />
-                
-                <label for="category">Category</label>
-                <input type="text" id="category" name="category" placeholder="Enter category" required />
-                
-                <label for="prizes">Prize Amount</label>
-                <input type="number" id="prizes" name="prizes" placeholder="Enter prize amount" required min="0" step="0.01" />
-                
-                <label for="start_date">Start Date</label>
-                <input type="date" id="start_date" name="start_date" required />
-                
-                <label for="end_date">End Date</label>
-                <input type="date" id="end_date" name="end_date" required />
-                
-                <div class="optional-section">
-                    <h3>Add Competition Image</h3>
-                    <p>JPG or PNG, 2MB max</p>
-                    <input type="file" name="competition_image" accept="image/jpeg,image/png" />
-                </div>
-
-                <button type="submit" class="submit-btn" >Create Competition</button>
-                <button type="button" class="cancel-btn" onclick="location.href='/Free-Write/public/Competition/'">Cancel</button>
-            </form>
+      <?php if (isset($_SESSION['error'])): ?>
+        <div class="error-message">
+          <?php
+          echo $_SESSION['error'];
+          unset($_SESSION['error']);
+          ?>
         </div>
-    </main>
-    <?php require_once "../app/views/layout/footer.php"; ?>
+      <?php endif; ?>
+
+
+      <form action="/Free-Write/public/Competition/CreateCompetition" method="POST">
+        <input type="hidden" name="compID" value="<?= htmlspecialchars($competitionDetails['competitionID']) ?>">
+        <label for="title">Competition Name</label>
+        <input type="text" id="title" name="title" placeholder="Enter competition name" required />
+
+        <label for="description">Competition Description</label>
+        <textarea id="description" name="description" placeholder="Describe your competition" required></textarea>
+
+        <label for="title">Rules</label>
+        <input type="text" id="rules" name="rules" placeholder="Enter competition rules" required />
+
+        <label for="category">Category</label>
+        <input type="text" id="category" name="category" placeholder="Enter category" required />
+
+        <label for="prizes">Prize Amount</label>
+        <input type="number" id="prizes" name="prizes" placeholder="Enter prize amount" required min="0" step="0.01" />
+
+        <label for="start_date">Start Date</label>
+        <input type="date" id="start_date" name="start_date" required />
+
+        <label for="end_date">End Date</label>
+        <input type="date" id="end_date" name="end_date" required />
+
+        <div class="optional-section">
+          <h3>Add Competition Image</h3>
+          <p>JPG or PNG, 2MB max</p>
+          <input type="file" name="competition_image" accept="image/jpeg,image/png" />
+        </div>
+
+        <button type="submit" class="submit-btn">Create Competition</button>
+        <button type="button" class="cancel-btn"
+          onclick="location.href='/Free-Write/public/Competition/'">Cancel</button>
+      </form>
+    </div>
+  </main>
+  <?php require_once "../app/views/layout/footer.php"; ?>
 
 </body>
 

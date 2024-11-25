@@ -81,16 +81,6 @@ class CompetitionController extends Controller
         $this->view('publisher/completedCompetition');
     }
 
-    public function New()
-    {
-        $this->view('publisher/creatingnewcompetition');
-    }
-
-    public function Manage()
-    {
-        $this->view('publisher/editingcompetitiondetails');
-    }
-
     public function Active()
     {
         $this->view('publisher/activeCompetition');

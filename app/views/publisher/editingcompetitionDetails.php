@@ -208,28 +208,33 @@
     <h2>Edit Competition</h2>
 
     <form action="/Free-Write/public/Competition/editCompetition" method="POST">
-      <input type="hidden" name="compID" value="<?= htmlspecialchars($competitionDetails['competitionID']) ?>">      
-      
+      <input type="hidden" name="compID" value="<?= htmlspecialchars($competitionDetails['competitionID']) ?>">
+
 
       <label for="title">Competition Name</label>
-      <input type="text" id="title" name="title" placeholder="Enter competition name" value="<?= htmlspecialchars($competitionDetails['title']) ?>" required />
+      <input type="text" id="title" name="title" placeholder="Enter competition name"
+        value="<?= htmlspecialchars($competitionDetails['title']) ?>" required />
 
       <label for="description">Competition Description</label>
-      <textarea id="description" name="description" placeholder="Describe your competition"  required ><?= htmlspecialchars($competitionDetails['description']) ?></textarea>
+      <textarea id="description" name="description" placeholder="Describe your competition"
+        required><?= htmlspecialchars($competitionDetails['description']) ?></textarea>
 
 
       <label for="category">Category</label>
-      <input type="text" id="category" name="category" placeholder="Enter category" value="<?= htmlspecialchars($competitionDetails['category']) ?>" required />
+      <input type="text" id="category" name="category" placeholder="Enter category"
+        value="<?= htmlspecialchars($competitionDetails['category']) ?>" required />
 
 
       <label for="rules">Rules</label>
-      <input type="text" id="rules" name="rules" placeholder="Enter competition rules" value="<?= htmlspecialchars($competitionDetails['rules'])??'' ?>" required />
-      
-    
+      <input type="text" id="rules" name="rules" placeholder="Enter competition rules"
+        value="<?= htmlspecialchars($competitionDetails['rules']) ?? '' ?>" required />
+
+
 
 
       <label for="prizes">Prize Amount</label>
-      <input type="number" id="prizes" name="prizes" placeholder="Enter prize amount" value="<?= htmlspecialchars($competitionDetails['prizes']) ?>" required min="0" step="0.01" />
+      <input type="number" id="prizes" name="prizes" placeholder="Enter prize amount"
+        value="<?= htmlspecialchars($competitionDetails['prizes']) ?>" required min="0" step="0.01" />
 
       <div class="optional-section">
         <h3>Add Competition Image</h3>
@@ -240,10 +245,13 @@
 
 
       <label for="end_date">End Date</label>
-      <input type="date" id="end_date" name="end_date" value="<?= htmlspecialchars($competitionDetails['end_date']??'') ?>"required />
+      <input type="date" id="end_date" name="end_date"
+        value="<?= htmlspecialchars($competitionDetails['end_date'] ?? '') ?>" required />
 
       <button type="submit" class="save-btn">Save Changes</button>
-      <a href="/Free-Write/public/Competition/deleteCompetition/<?= htmlspecialchars($competitionDetails['competitionID']) ?>"><button type="button" class="stop-btn">Delete Competition</button> </a>
+      <a
+        href="/Free-Write/public/Competition/deleteCompetition/<?= htmlspecialchars($competitionDetails['competitionID']) ?>"><button
+          type="button" class="stop-btn">Delete Competition</button> </a>
     </form>
   </div>
 

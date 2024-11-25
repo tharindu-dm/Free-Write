@@ -97,7 +97,9 @@
                             <?php endforeach; ?>
 
                         <?php else: ?>
-                            <td><p>No users under the institute name.</p></td>
+                            <td>
+                                <p>No users under the institute name.</p>
+                            </td>
                         <?php endif; ?>
                     </tbody>
                 </table>
@@ -129,7 +131,8 @@
                     <h2>Add New User</h2>
                     <form id="addInstitutionForm" method="POST">
                         <label for="institutionName">Institution Name:</label>
-                        <input disabled type="text" name="institutionName" id="institutionName" value="<?= htmlspecialchars($instName)?>" required>
+                        <input disabled type="text" name="institutionName" id="institutionName"
+                            value="<?= htmlspecialchars($instName) ?>" required>
 
 
                         <label for="username">Username:</label>

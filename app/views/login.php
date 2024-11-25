@@ -77,7 +77,7 @@
                                     <input type="text" name="fname" placeholder="Enter your first name" required>
                                     <input type="text" name="lname" placeholder="Enter your last name" required>
                                 </div>
-                                
+
                                 <input type="email" name="signup-email" id="emailReg" placeholder="Enter your email"
                                     required>
                                 <input type="password" id="passwordReg" name="pw" placeholder="Password" required>

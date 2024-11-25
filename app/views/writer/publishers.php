@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Publishers - Free Write</title>
     <link rel="stylesheet" href="/Free-Write/public/css/writer.css">
 </head>
+
 <body>
 
     <!-- Publishers Section -->
     <main class="publishers-section">
         <h1>Publishers</h1>
-        
+
         <!-- Books Grid -->
         <div class="books-grid">
             <?php
@@ -25,7 +27,7 @@
             ];
 
             // Loop through each book and display it
-            foreach ($books as $book) : ?>
+            foreach ($books as $book): ?>
                 <div class="book-item">
                     <img src="<?= $book['image'] ?>" alt="<?= htmlspecialchars($book['title']) ?>">
                     <h3><?= htmlspecialchars($book['title']) ?></h3>
@@ -42,4 +44,5 @@
     ?>
 
 </body>
+
 </html>

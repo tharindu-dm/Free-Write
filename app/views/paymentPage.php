@@ -32,7 +32,7 @@
     }
     $URL = splitURL();
     $itemID = $URL[2];
-    show($data);
+    //show($data);
     ?>
 
     <main>

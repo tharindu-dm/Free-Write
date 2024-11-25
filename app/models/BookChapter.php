@@ -12,7 +12,7 @@ class BookChapter
                     FROM [dbo].[BookChapter] bc 
                     JOIN [dbo].[Chapter] ch ON ch.chapterID=bc.chapter
                     WHERE [book]=$bookID ORDER BY chapter ASC OFFSET 1 ROWS";
-        
+
         return $this->query($query);
     }
 
@@ -26,6 +26,6 @@ class BookChapter
 
         return $this->query($query);
     }
-    
-    
+
+
 }

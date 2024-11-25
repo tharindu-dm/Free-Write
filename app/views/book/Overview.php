@@ -31,7 +31,7 @@
             require_once "../app/views/layout/header.php";
     }
 
-    show($data);
+    //show($data);
     ?>
 
     <?php if (!empty($book) && is_array($book)): ?>
@@ -61,10 +61,10 @@
                                     clip-rule="evenodd" />
                             </svg>
                             &nbsp;<?php if (!$rating): ?>
-                                <?= 'Be the first to rate!';?>
+                                <?= 'Be the first to rate!'; ?>
                             <?php else: ?>
                                 <?= htmlspecialchars($rating[0]['AverageRating']); ?>
-                            | <?= htmlspecialchars($rating[0]['RatingCount']); ?> ratings
+                                | <?= htmlspecialchars($rating[0]['RatingCount']); ?> ratings
                             <?php endif; ?>
                         </div>
                         <div class="rating-select">
@@ -206,7 +206,8 @@
                                 </tr>
                                 <?php foreach ($spinoffs as $spinoff): ?>
                                     <tr>
-                                        <td><a href="/Free-Write/public/Spinoff/Overview/<?= htmlspecialchars($spinoff['spinoffID']); ?>"><?= htmlspecialchars($spinoff['title']); ?></a>
+                                        <td><a
+                                                href="/Free-Write/public/Spinoff/Overview/<?= htmlspecialchars($spinoff['spinoffID']); ?>"><?= htmlspecialchars($spinoff['title']); ?></a>
 
                                         </td>
                                         <td><?= date('Y-m-d', strtotime($spinoff['lastUpdated']));

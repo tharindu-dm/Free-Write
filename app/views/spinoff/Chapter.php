@@ -17,7 +17,7 @@
     }
     switch ($userType) {
         case 'admin':
-case 'mod':
+        case 'mod':
         case 'writer':
         case 'covdes':
         case 'wricov':
