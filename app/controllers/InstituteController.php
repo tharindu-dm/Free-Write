@@ -7,29 +7,49 @@ class InstituteController extends Controller
         $this->Dashboard();
     }
 
-    public function Dashboard(){
+    public function Dashboard()
+    {
         $this->view('Institute/InstituteDashboard');
     }
 
-    public function Library(){
+    public function Library()
+    {
         $this->view('OpenUser/browse');
     }
 
-    public function PurchasePackage(){
+    public function PurchasePackage()
+    {
         $this->view('Institute/InstitutePurchasePackage');
     }
 
-    public function ManageUser(){
-        $this->view('Institute/InstituteManageUser');
+    public function ManageUser()
+    {
+
+        $institute_table = new Institution();
+        $user_table = new User();
+        $instDetails = $institute_table->first(['creator' => $_SESSION['user_id']]); // to get institute name
+
+        $instName = explode('@', $instDetails['username'])[0]; //get the name from username
+        $instUsers = $user_table->getInstituteUsers($instName);
+
+        $data = [
+            'instName' => $instName,
+            'instDetails' => $instDetails,
+            'instUsers' => $instUsers
+        ];
+
+        $this->view('Institute/InstituteManageUser', $data);
     }
 
-    public function Register(){
+    public function Register()
+    {
         $user = new User();
-        $email = $user->first(['userID'=>$_SESSION['user_id']]);
-        $this->view('Institute/InstituteSignUpForm', ['user'=>$email]);
+        $email = $user->first(['userID' => $_SESSION['user_id']]);
+        $this->view('Institute/InstituteSignUpForm', ['user' => $email]);
     }
 
-    public function signup(){
+    public function signup()
+    {
         $institution_table = new Institution();
         echo "<script>alert('now in signup funct')</script>";
         $name = $_POST['institutionName'];
@@ -39,14 +59,14 @@ class InstituteController extends Controller
         //$subEndDate = nope
         //subplan is fixed
         $creator = $_SESSION['user_id'];
-        
+
         //add a new institution with its own login and pw
-        $institution_table->insert(['name'=>$name, 'username'=>$username, 'password'=>$password, 'subStartDate'=>$subStartDate, 'subPlan'=>5,'creator'=>$creator]);
+        $institution_table->insert(['name' => $name, 'username' => $username, 'password' => $password, 'subStartDate' => $subStartDate, 'subPlan' => 5, 'creator' => $creator]);
 
         $user = new User();//updating the user as a creator of an institution
-        $user->update($creator, ['userType'=>'inst'], 'userID');
+        $user->update($creator, ['userType' => 'inst'], 'userID');
 
-        $this->view('Institute/InstituteDasboard');
+        header('Location: /Free-Write/public/User/Profile');
     }
 
     public function read()

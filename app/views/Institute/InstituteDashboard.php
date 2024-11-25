@@ -1,25 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Freewrite Institution Dashboard</title>
     <link rel="stylesheet" href="/Free-Write/public/css/InstituteDashboard.css">
 </head>
+
 <body>
-    <header>
-    <a href="/" class="logo"><img src="logo.png" alt="Freewrite" class="logo-icon">
-        <nav>
-            <a href="#">Browse</a>
-            <a href="#">Contests</a>
-            <a href="#">For Publishers</a>
-            <a href="#">For Advertisers</a>
-        </nav>
-        <input type="text" class="search-bar" placeholder="Search">
-        <button class="btn btn-primary">Publish</button>
-        <button class="btn btn-secondary">Sign In</button>
-    </header>
-    
+    <?php
+    if (isset($_SESSION['user_type'])) {
+        $userType = $_SESSION['user_type'];
+    } else {
+        $userType = 'guest';
+    }
+    switch ($userType) {
+        case 'admin':
+        case 'mod':
+        case 'writer':
+        case 'covdes':
+        case 'wricov':
+        case 'reader':
+            require_once "../app/views/layout/header-user.php";
+            break;
+        case 'pub':
+            require_once "../app/views/layout/header-pub.php";
+            break;
+        case 'inst':
+            require_once "../app/views/layout/header-inst.php";
+            break;
+        default:
+            require_once "../app/views/layout/header.php";
+    }
+    //show($data);
+    ?>
+
     <div class="container">
         <div class="sidebar">
             <div class="institution-info">
@@ -34,14 +50,14 @@
             <div class="menu-item"><a href="/Free-Write/public/Institute/PurchasePackage">Packages</a></div>
             <div class="menu-item"><a href="/Free-Write/public/Institute/ManageUser">User Management</a></div>
         </div>
-        
+
         <div class="main-content">
             <h1>Welcome to Freewrite, Institution Name</h1>
             <p>Manage your institution's Freewrite experience</p>
-            
+
             <h2>Institution Dashboard</h2>
             <p>Access and manage your institution's Freewrite resources.</p>
-            
+
             <div class="dashboard-cards">
                 <div class="card">
                     <h3>Access Library</h3>
@@ -56,12 +72,13 @@
                     <p>Add, remove, or modify user accounts and permissions within your institution.</p>
                 </div>
             </div>
-            
+
             <div class="feature-section">
                 <div class="feature-image"></div>
                 <div>
                     <h2>Explore and Share Incredible Stories</h2>
-                    <p>Join a community of passionate writers and readers. Discover new narratives, participate in contests, and connect with fellow creatives.</p>
+                    <p>Join a community of passionate writers and readers. Discover new narratives, participate in
+                        contests, and connect with fellow creatives.</p>
                     <button class="btn btn-primary">Browse Stories</button>
                     <button class="btn btn-secondary">Start Writing</button>
                 </div>
@@ -71,4 +88,5 @@
 
     <script src="../public/js/Institute/institute dashboard.js"></script>
 </body>
+
 </html>

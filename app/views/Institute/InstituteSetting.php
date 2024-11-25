@@ -1,53 +1,44 @@
 <!-- views/settings.view.php -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings - Institution Dashboard</title>
     <link rel="stylesheet" href="/Free-Write/public/css/InstituteSetting.css">
-
-    <div class="logo">
-        <img src="freewrite-logo.png" alt="Freewrite">
-        Freewrite
-    </div>
-    <nav>
-        <a href="#">Browse</a>
-        <a href="#">Contests</a>
-        <a href="#">For Publishers</a>
-        <a href="#">For Advertisers</a>
-    </nav>
-    <div class="search-bar">
-        <input type="text" placeholder="Search">
-    </div>
-    <button class="btn btn-primary">Publish</button>
-    <button class="btn btn-secondary">Sign In</button>
-    <div class="user-avatar">
-        <img src="user-avatar.png" alt="User">
-    </div>
 </head>
-<body>
-    <div class="container">
-        <!-- Sidebar Navigation -->
-        <nav class="sidebar">
-            <div class="institution-info">
-                <div class="institution-icon">
-                    <img src="assets/images/institution-icon.png" alt="Institution">
-                </div>
-                <div class="institution-details">
-                    <h3><?php echo htmlspecialchars($institutionName); ?></h3>
-                    <p>Institution/Manage</p>
-                </div>
-            </div>
-            
-            <ul class="nav-links">
-                <li><a href="/library"><i class="icon-library"></i>Library</a></li>
-                <li><a href="/packages"><i class="icon-packages"></i>Purchase Packages</a></li>
-                <li><a href="/users"><i class="icon-users"></i>Manage Users</a></li>
-                <li class="active"><a href="/settings"><i class="icon-settings"></i>Settings</a></li>
-            </ul>
-        </nav>
 
+<body>
+    <!-- Sidebar Navigation -->
+    <?php
+    if (isset($_SESSION['user_type'])) {
+        $userType = $_SESSION['user_type'];
+    } else {
+        $userType = 'guest';
+    }
+    switch ($userType) {
+        case 'admin':
+        case 'mod':
+        case 'writer':
+        case 'covdes':
+        case 'wricov':
+        case 'reader':
+            require_once "../app/views/layout/header-user.php";
+            break;
+        case 'pub':
+            require_once "../app/views/layout/header-pub.php";
+            break;
+        case 'inst':
+            require_once "../app/views/layout/header-inst.php";
+            break;
+        default:
+            require_once "../app/views/layout/header.php";
+    }
+    //show($data);
+    ?>
+
+    <div class="container">
         <!-- Main Content -->
         <main class="main-content">
             <!-- <header>
@@ -128,4 +119,5 @@
 
     <script src="assets/js/settings.js"></script>
 </body>
+
 </html>

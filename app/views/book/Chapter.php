@@ -17,7 +17,7 @@
     }
     switch ($userType) {
         case 'admin':
-case 'mod':
+        case 'mod':
         case 'writer':
         case 'covdes':
         case 'wricov':
@@ -27,10 +27,13 @@ case 'mod':
         case 'pub':
             require_once "../app/views/layout/header-pub.php";
             break;
+        case 'inst':
+            require_once "../app/views/layout/header-inst.php";
+            break;
         default:
             require_once "../app/views/layout/header.php";
     }
-    show($data);
+    //show($data);
     ?>
 
     <!-- Progress Bar -->

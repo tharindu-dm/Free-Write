@@ -41,4 +41,12 @@ class User
         return $this->query(query: $query);
     }
 
+    public function getInstituteUsers($instName)
+    {
+        $query = "SELECT * FROM [dbo].[User]
+                    WHERE [email] LIKE '%@%.$instName.inst.fw'";
+
+        return $this->query($query);
+    }
+
 }

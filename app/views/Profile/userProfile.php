@@ -36,7 +36,7 @@
             require_once "../app/views/layout/header.php";
     }
 
-    show($data);
+    //show($data);
     ?>
 
     <main>
@@ -49,7 +49,7 @@
                     <div class="profile-info">
                         <h1><?= htmlspecialchars($userDetails[0]['fullName']); ?></h1>
                         <p><?= explode(' ', $userDetails[0]['regDate'])[0]; ?></p>
-                        <p>~ <?= htmlspecialchars($_SESSION['user_type']); ?> ~</p>
+                        <p>~ <?= htmlspecialchars($userDetails[0]['userType']); ?> ~</p>
                     </div>
                 <?php endif; ?>
             </div>
@@ -157,6 +157,9 @@
                     case 'wricov':
                         require_once "../app/views/Profile/writerComponent.php";
                         require_once "../app/views/Profile/covdesComponent.php";
+                        break;
+                    case 'inst':
+                        require_once "../app/views/Profile/instComponent.php";
                         break;
                 }
                 ?>

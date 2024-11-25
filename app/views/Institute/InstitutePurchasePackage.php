@@ -1,32 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Freewrite Institution - Purchase Packages</title>
     <link rel="stylesheet" href="/Free-Write/public/css/InstitutePurchasePackage.css">
 </head>
+
 <body>
-    <header>
-        <div class="logo">
-            <img src="/CRUD_OOP/public/assets/images/logo.png" alt="Freewrite">
-            Freewrite
-        </div>
-        <nav>
-            <a href="#">Browse</a>
-            <a href="#">Contests</a>
-            <a href="#">For Publishers</a>
-            <a href="#">For Advertisers</a>
-        </nav>
-        <div class="search-bar">
-            <input type="text" placeholder="Search">
-        </div>
-        <button class="btn btn-primary">Publish</button>
-        <button class="btn btn-secondary">Sign In</button>
-        <div class="user-avatar">
-            <img src="/CRUD_OOP/public/assets/images/profile-placeholder.jpg" alt="User">
-        </div>
-    </header>
+    <?php
+    if (isset($_SESSION['user_type'])) {
+        $userType = $_SESSION['user_type'];
+    } else {
+        $userType = 'guest';
+    }
+    switch ($userType) {
+        case 'admin':
+        case 'mod':
+        case 'writer':
+        case 'covdes':
+        case 'wricov':
+        case 'reader':
+            require_once "../app/views/layout/header-user.php";
+            break;
+        case 'pub':
+            require_once "../app/views/layout/header-pub.php";
+            break;
+        case 'inst':
+            require_once "../app/views/layout/header-inst.php";
+            break;
+        default:
+            require_once "../app/views/layout/header.php";
+    }
+    //show($data);
+    ?>
 
     <main>
         <aside class="sidebar">
@@ -36,7 +44,7 @@
                 <p>Access and Manage</p>
             </div>
             <nav>
-            <div class="menu-item" onclick="location.href='index.php?page=instituteDashboard'">Dashboard</div>
+                <div class="menu-item" onclick="location.href='index.php?page=instituteDashboard'">Dashboard</div>
                 <a href="#"><i class="icon-library"></i> Library</a>
                 <a href="#" class="active"><i class="icon-package"></i> Purchase Packages</a>
                 <a href="#"><i class="icon-users"></i> Manage Users</a>
@@ -112,4 +120,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>
