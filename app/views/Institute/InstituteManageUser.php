@@ -38,24 +38,21 @@
 
     <div class="inst-container">
         <!-- Sidebar Navigation -->
-        <nav class="inst-sidebar">
-            <div class="inst-nav-item active">
-                <i class="inst-icon-dashboard"></i>
-                <span>Dashboard</span>
+        <aside class="sidebar">
+            <div class="institution-info">
+                <div class="institution-icon"></div>
+                <div>
+                    <h3><?= htmlspecialchars($instDetails['name']) ?></h3>
+                </div>
             </div>
-            <div class="inst-nav-item">
-                <i class="inst-icon-institution"></i>
-                <span>Library</span>
-            </div>
-            <div class="inst-nav-item">
-                <i class="inst-icon-users"></i>
-                <span>Purchase Package</span>
-            </div>
-            <div class="inst-nav-item">
-                <i class="inst-icon-settings"></i>
-                <span>Manage Users</span>
-            </div>
-        </nav>
+            <nav class="menu">
+                <div class="menu-item"><a href="/Free-Write/public/Institute/Dashboard">Dashboard</a></div>
+                <div class="menu-item"><a href="/Free-Write/public/Institute/Library">Library</a></div>
+                <div class="menu-item"><a href="/Free-Write/public/Institute/PurchasePackage">Packages</a></div>
+                <div class="menu-item active"><a href="/Free-Write/public/Institute/ManageUser">User Management</a>
+                </div>
+            </nav>
+        </aside>
 
         <!-- Main Content -->
         <main class="inst-main-content">
@@ -79,27 +76,34 @@
                 <table id="usersTable">
                     <thead>
                         <tr>
-                            <th>Profile</th>
+                            <th>User ID</th>
+                            <th>Name</th>
                             <th>Username</th>
-                            <th>Join Date</th>
+                            <th>Last Login</th>
                             <th colspan="2">Operation</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
                         <?php if (!empty($instUsers) && is_array($instUsers)): ?>
                             <?php foreach ($instUsers as $user): ?>
-                                <tr>
-                                    <td><?php echo $user['userID'] ?> </td>
-                                    <td><?php echo $user['username'] ?> </td>
-                                    <td><button class="listEdit-btn">Edit</button></td>
-                                    <td><button class="listDelete-btn">Delete</button></td>
+                                <tr data-user-id="<?= htmlspecialchars($user['userID']); ?>"
+                                    data-user-firstname="<?= htmlspecialchars($user['firstName']); ?>"
+                                    data-user-lastname="<?= htmlspecialchars($user['lastName']); ?>"
+                                    data-user-email="<?= htmlspecialchars($user['email']); ?>">
+                                    <td><?= htmlspecialchars($user['userID']); ?> </td>
+                                    <td><?= htmlspecialchars($user['fullName']); ?> </td>
+                                    <td><?= htmlspecialchars($user['email']); ?> </td>
+                                    <td><?= htmlspecialchars($user['lastLogDate']); ?> </td>
+                                    <td><button id="btn_EditUser" class="listEdit-btn">Edit</button></td>
+                                    <td><button id="btn_DelteUser" class="listDelete-btn">Delete</button></td>
                                 </tr>
                             <?php endforeach; ?>
-
                         <?php else: ?>
-                            <td>
-                                <p>No users under the institute name.</p>
-                            </td>
+                            <tr>
+                                <td colspan="6">
+                                    <p>No users under the institute name.</p>
+                                </td>
+                            </tr>
                         <?php endif; ?>
                     </tbody>
                 </table>
@@ -129,22 +133,28 @@
                 <div class="inst-popup-content">
                     <span id="closePopupBtn" class="inst-close-btn">&times;</span>
                     <h2>Add New User</h2>
-                    <form id="addInstitutionForm" method="POST">
-                        <label for="institutionName">Institution Name:</label>
-                        <input disabled type="text" name="institutionName" id="institutionName"
-                            value="<?= htmlspecialchars($instName) ?>" required>
 
+                    <form id="addInstitutionForm" action="/Free-Write/public/Institute/addNewUser" method="POST">
+                        <label for="firstName">First Name:</label>
+                        <input type="text" name="firstName" id="firstName" required>
+
+                        <label for="lastName">Last Name:</label>
+                        <input type="text" name="lastName" id="lastName" required>
+
+                        <input type="hidden" name="instName" value="<?= htmlspecialchars($instDetails['name']) ?>">
+
+                        <label for="institutionName">Institute User Email Domain</label>
+                        <input disabled type="text"
+                            value="@usr.<?= htmlspecialchars(explode('@', $instDetails['username'])[0]) ?>.fw">
+                        <input type="hidden" name="instUserDomain" id="instUserDomain"
+                            value="@usr.<?= htmlspecialchars(explode('@', $instDetails['username'])[0]) ?>.fw" required>
 
                         <label for="username">Username:</label>
+                        <h6>Do not include the email domain</h6>
                         <input type="text" name="username" id="username" required>
 
                         <label for="password">Password:</label>
                         <input type="password" name="password" id="password" required>
-
-                        <!-- <label for="Creater">Created By (email):</label>
-                        <input type="email" name="Creater" id="Creater" required> 
-                        <input type="email" id="Creater" name="Creater" disabled
-                            value="<?= htmlspecialchars($user['email']) ?>" />-->
 
                         <button type="submit" class="inst-submit-btn">Add Institution</button>
                     </form>
@@ -154,55 +164,58 @@
         </main>
     </div>
 
-    <!-- Edit User Modal -->
-    <div id="editModal" class="inst-modal">
-        <div class="inst-modal-content">
-            <span class="inst-close">&times;</span>
-            <h2>Edit User</h2>
-            <form id="editUserForm">
-                <input type="hidden" id="userId">
-                <div class="inst-form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" required>
+    <!-- Edit User -->
+    <div class="update-to-list">
+        <div class="list-container">
+            <h3>Edit User</h3>
+            <h4 id="user-header">User:</h4>
+            <input type="input" disabled id="user_update">
+
+            <form id="editUserForm" action="/Free-Write/public/Institute/updateUser" method="POST">
+                <input type="hidden" name="userID" id="user_update_post">
+                <div class="form-content">
+                    <label for="user_firstName">First Name:</label>
+                    <input type="text" name="user_firstName" id="user_firstName" required>
+
+                    <label for="user_lastName">Last Name:</label>
+                    <input type="text" name="user_lastName" id="user_lastName" required>
+
+                    <label for="user_username">Username:</label>
+                    <input type="text" name="user_username" id="user_username" required>
                 </div>
-                <div class="inst-form-group">
-                    <label for="fullName">Full Name</label>
-                    <input type="text" id="fullName" required>
+                <div class="list-add-actionBtns">
+                    <button id="cancel-button" type="button" class="add-list-cancel-button">
+                        Cancel
+                    </button>
+                    <button id="subBtn" type="submit" class="add-list-submit-button">Update Record</button>
                 </div>
-                <div class="inst-form-group">
-                    <label for="role">Role</label>
-                    <select id="role" required>
-                        <option value="writer">Writer</option>
-                        <option value="reader">Reader</option>
-                    </select>
-                </div>
-                <button type="submit" class="inst-save-btn">Save Changes</button>
             </form>
         </div>
     </div>
 
-    <script> //src="../public/js/Institute/Institute ManageUser.js">
-        // JavaScript for Popup Window
-        document.addEventListener("DOMContentLoaded", () => {
-            const openPopupBtn = document.getElementById("openPopupBtn");
-            const popupForm = document.getElementById("popupForm");
-            const closePopupBtn = document.getElementById("closePopupBtn");
+    <!-- Delete User -->
+    <div class="delete-from-list">
+        <div class="list-container">
+            <h3 style="color:crimson;">You are about to delete a user!</h3>
+            <h4 id="user-header-delete">User:</h4>
 
-            openPopupBtn.addEventListener("click", () => {
-                popupForm.style.display = "flex";
-            });
+            <form id="deleteUserForm" action="/Free-Write/public/Institute/deleteUser" method="POST">
 
-            closePopupBtn.addEventListener("click", () => {
-                popupForm.style.display = "none";
-            });
+                <input type="input" disabled id="user_delete">
+                <input type="hidden" name="userID" id="user_delete_post">
 
-            popupForm.addEventListener("click", (event) => {
-                if (event.target === popupForm) {
-                    popupForm.style.display = "none";
-                }
-            });
-        });
-    </script>
+                <div class="list-add-actionBtns">
+                    <button id="cancel-delete-button" type="button" class="add-list-cancel-button">
+                        Cancel
+                    </button>
+                    <button id="subBtn" type="submit" class="delete-list-submit-button">Delete Record</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <script src="\Free-Write\public\js\Institute\InstituteManageUser.js"></script>
 </body>
 
 </html>

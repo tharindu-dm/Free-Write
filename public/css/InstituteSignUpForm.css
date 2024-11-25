@@ -1,74 +1,8 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-}
-
-body {
-    background-color: #FFFFFF;
-}
-
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    border-bottom: 1px solid #E5E5E5;
-}
-
-.logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #333;
-    text-decoration: none;
-}
-
-.nav-links {
-    display: flex;
-    gap: 2rem;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: #333;
-}
-
-.nav-actions {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-}
-
-.search-box {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.search-input {
-    padding: 0.5rem 1rem;
-    border: 1px solid #E5E5E5;
-    border-radius: 4px;
-}
-
 .btn {
     padding: 0.5rem 1rem;
     border-radius: 4px;
     cursor: pointer;
     border: none;
-}
-
-.btn-search {
-    background-color: #FFD700;
-}
-
-.btn-publish {
-    background-color: #FFD700;
-}
-
-.btn-signin {
-    background-color: transparent;
-    border: 1px solid #E5E5E5;
 }
 
 .signup-container {
@@ -103,6 +37,13 @@ body {
     gap: 0.5rem;
 }
 
+.form-group-username{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+}
+
 .form-group label {
     font-weight: 500;
     color: #333;
@@ -113,6 +54,7 @@ body {
     border: 1px solid #E5E5E5;
     border-radius: 4px;
     font-size: 1rem;
+    flex-grow: 100;
 }
 
 .form-row {

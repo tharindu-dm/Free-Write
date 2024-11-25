@@ -5,34 +5,55 @@
 }
 
 /* Sidebar Styles */
-.inst-sidebar {
-  width: 250px;
-  background-color: #fff;
+.sidebar {
+  width: 240px;
+  background-color: #000;
+  color: white;
   padding: 20px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
 }
 
-.inst-nav-item {
+.institution-info {
   display: flex;
   align-items: center;
-  padding: 12px;
-  margin-bottom: 8px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+  margin-bottom: 20px;
 }
 
-.inst-nav-item:hover {
-  background-color: #f0f2f5;
+.institution-icon {
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  border-radius: 50%;
+  margin-right: 15px;
 }
 
-.inst-nav-item.active {
-  background-color: #f0f2f5;
+.menu {
+  display: flex;
+  flex-direction: column !important;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+.menu-item {
+  margin: 10px 0;
+}
+
+.menu-item a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  display: block;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.menu-item.active a,
+.menu-item a:hover {
+  background-color: #ffd700;
+  color: #000;
 }
 
 /* Main Content Styles */
@@ -85,26 +106,31 @@ h1 {
 .inst-table-container {
   background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   margin-bottom: 24px;
 }
 
-tinst-able {
+#usersTable {
   width: 100%;
   border-collapse: collapse;
 }
 
 th,
-tinst-d {
+td {
   padding: 16px;
   text-align: left;
   border-bottom: 1px solid #e1e1e1;
 }
 
-tinst-h {
-  background-color: #f8f9fa;
+th {
+  background-color: #ffd700; /* Gold color for header */
+  color: #000; /* White text for contrast */
   font-weight: 600;
+}
+
+tbody tr {
+  background-color: #fff5b8; /* Lighter version of gold for body */
 }
 
 .inst-user-profile {
@@ -118,6 +144,26 @@ tinst-h {
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
+}
+
+button {
+  background-color: #000; /* Primary button color */
+  color: #ffd700;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgb(0, 0, 0); /* Focus ring */
 }
 
 /* Pagination Styles */
@@ -379,4 +425,91 @@ form button.submit-btn {
 
 form button.submit-btn:hover {
   background-color: #ffd54f;
+}
+
+/* UPDATE OVERLAY STYLES */
+.update-to-list {
+  display: none;
+  position: fixed; /* Make it fixed to the viewport */
+  top: 0;
+  left: 0;
+  width: 100vw; /* Full width of the viewport */
+  height: 100vh; /* Full height of the viewport */
+  background: rgba(0, 0, 0, 0.6); /* Adjust the opacity of the background */
+
+  justify-content: center; /* Center the form horizontally */
+  align-items: center; /* Center the form vertically */
+  z-index: 1;
+}
+
+.list-container {
+  display: flex;
+  flex-direction: column;
+  max-width: fit-content;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  z-index: 2;
+}
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.chapter-counter {
+  display: flex;
+  gap: 10px;
+}
+
+.status-content {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 4rem;
+}
+
+.list-add-actionBtns {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.add-list-cancel-button {
+  background-color: #535353;
+  color: #fff;
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  border-radius: 0.5rem;
+}
+
+.add-list-submit-button {
+  background-color: #ffd700;
+  color: #000;
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  border-radius: 0.5rem;
+}
+
+
+/* DELETE OVERLAY STYLES */
+.delete-from-list{  
+  display: none;
+  position: fixed; /* Make it fixed to the viewport */
+  top: 0;
+  left: 0;
+  width: 100vw; /* Full width of the viewport */
+  height: 100vh; /* Full height of the viewport */
+  background: rgba(0, 0, 0, 0.6); /* Adjust the opacity of the background */
+
+  justify-content: center; /* Center the form horizontally */
+  align-items: center; /* Center the form vertically */
+  z-index: 1;
+}
+
+.delete-list-submit-button {
+  background-color: #ff0000;
+  color: #000;
+  font-weight: 600;
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  border-radius: 0.5rem;
 }

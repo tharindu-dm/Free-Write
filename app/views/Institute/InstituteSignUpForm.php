@@ -34,7 +34,7 @@
 
     <div class="signup-container">
         <div class="signup-header">
-            <h1>Unleash Your Creativity with Freewrite</h1>
+            <h1>Accessibility For Everyone - Join Freewrite</h1>
             <p>Join our community of institutions fostering creativity in education.</p>
         </div>
 
@@ -45,8 +45,13 @@
             </div>
 
             <div class="form-group">
-                <label for="username">Username (@inst.fw)</label>
-                <input type="text" id="username" name="username" required>
+                <label for="username">Username</label>
+                <div class="form-group-username">
+                    <input type="text" id="username" name="username" required>
+                    <input type="text" value="@inst.fw" disabled minlength="10">
+                </div>
+                
+                <input type="hidden" id="emaildomain">
             </div>
 
             <div class="form-group">
@@ -74,42 +79,7 @@
     </div>
 
     <?php require_once "../app/views/layout/footer.php"; ?>
-    <script>
-        /*document.getElementById('institutionSignupForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            // Password validation
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-
-            if (password !== confirmPassword) {
-                alert('Passwords do not match!');
-                return;
-            }
-
-            // Date validation
-            const startDate = new Date(document.getElementById('subStartDate').value);
-            const endDate = new Date(document.getElementById('subEndDate').value);
-
-            if (endDate <= startDate) {
-                alert('End date must be after start date!');
-                return;
-            }
-
-            // Form submission logic here
-            console.log('Form submitted successfully');
-        });
-
-        // Set minimum date for subscription dates to today
-        const today = new Date().toISOString().split('T')[0];
-        document.getElementById('subStartDate').min = today;
-        document.getElementById('subEndDate').min = today;
-
-        // Update end date minimum when start date changes
-        document.getElementById('subStartDate').addEventListener('change', function(e) {
-            document.getElementById('subEndDate').min = e.target.value;
-        });*/
-    </script>
+    <script src="/Free-Write/public/js/Institute/InstituteSignUpForm.js"></script>
 </body>
 
 </html>

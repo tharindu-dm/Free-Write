@@ -71,7 +71,7 @@ class LoginController extends Controller
             $result = $user->createUser($_POST['signup-email'], $_POST['pw'], "reader", 0, 1);
 
             if ($result) {
-                $newUserID = $user->getUserByUsername($_POST['signup-email']);
+                $newUserID = $user->first(['email' => $_POST['signup-email']]);
                 $regDate = date("Y-m-d H:i:s");
                 $result = $userDetails->addUserDetails($newUserID["userID"], $_POST['fname'], $_POST['lname'], $regDate, $regDate);
 
@@ -107,6 +107,7 @@ class LoginController extends Controller
     public function login()
     {
         $sitelog = new SiteLog();
+        $user_email = $_POST['log-email'];
 
         // Start the session if it's not already started
         if (session_status() == PHP_SESSION_NONE) {
@@ -115,12 +116,12 @@ class LoginController extends Controller
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $user = new User();
-            $userData = $user->getUserByUsername($_POST['log-email']);
+            $userData = $user->first(['email' => $user_email]);
 
             //attempt on institution
             if ($userData == null) {
                 $institution = new Institution();
-                //$userData = $institution->getInstByUsername($_POST['log-email']);
+                $userData = $institution->first(['username' => $user_email]);
 
                 if ($userData) //if institution is found
                     $this->InstitutionLogin($userData);
@@ -216,63 +217,37 @@ class LoginController extends Controller
     public function InstitutionLogin($institutionData)
     {
         $sitelog = new SiteLog();
-        $institution = new Institution();
+        //$institution = new Institution();
+
         // Start the session if it's not already started
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
 
-
         $pw = $_POST['log-password'];
 
         if ($institutionData) {
 
-            if (($pw == $institutionData['password']) && $institutionData['loginAttempt'] < 3) {
-                echo "<script>alert('Password is correct!');</script>";
+            if (($pw == $institutionData['password'])) {
+                //echo "<script>alert('Password is correct!');</script>";
 
                 // Set session variables
-                $_SESSION['user_id'] = $institutionData['userID'];
-                $_SESSION['user_type'] = $institutionData['userType'];
+                $_SESSION['user_id'] = $institutionData['institutionID'];
+                $_SESSION['user_type'] = 'inst';
 
                 // Update sitelog with successful login attempt
                 $dataset = array(
-                    'user' => $institutionData['userID'],
-                    'activity' => 'Successfully logged in',
+                    'user' => $institutionData['creator'],
+                    'activity' => 'Institution ' . $institutionData['name'] . ' Successfully logged in',
                     'occurrence' => date("Y-m-d H:i:s")
                 );
                 $sitelog->insert($dataset);
-
-                // Reset login attempts on successful login
-                $institution->update($institutionData['userID'], ['loginAttempt' => 0], 'userID');
-
-                // Set last login date
-                //
-                ///
-                ////
 
                 // Redirect to the appropriate page based on user type
                 $this->handleLogin();
                 exit;
             } else {
                 echo "<script>alert('Password is incorrect.')</script>";
-
-                // Increase login attempt counter
-                $newcount = $institutionData['loginAttempt'] + 1;
-                $institution->update($institutionData['userID'], ['loginAttempt' => $newcount], 'userID');
-
-                // Log the failed login attempt
-                $dataset = array(
-                    'user' => $institutionData['userID'],
-                    'activity' => 'Failed login attempt',
-                    'occurrence' => date("Y-m-d H:i:s")
-                );
-                $sitelog->insert($dataset);
-
-                // Set lockout time if attempts reach 3
-                if ($newcount >= 3) {
-                    $_SESSION['lockout_time'] = time() + (5 * 60); // 5 minutes lockout
-                }
-
                 $this->view('login');
             }
         } else {

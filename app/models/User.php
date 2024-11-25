@@ -20,11 +20,6 @@ class User
         return $this->insert($arr);
     }
 
-    public function getUserByUsername($username)
-    {
-        return $this->first(['email' => $username]);
-    }
-
     public function getUserTypeCounts()
     {
         $query = "SELECT
@@ -43,8 +38,19 @@ class User
 
     public function getInstituteUsers($instName)
     {
-        $query = "SELECT * FROM [dbo].[User]
-                    WHERE [email] LIKE '%@%.$instName.inst.fw'";
+        $query = "SELECT
+            u.[userID], 
+            u.[email],
+            ud.[firstName],
+            ud.[lastName],
+            ud.[firstName] + ' ' + ud.[lastName] AS fullName,
+            ud.[lastLogDate]
+            FROM 
+            [dbo].[User] u
+            JOIN 
+            [Freewrite_db_v2].[dbo].[UserDetails] ud ON u.[userID] = ud.[user]
+            WHERE 
+            u.[email] LIKE '%@%usr.$instName.fw'";
 
         return $this->query($query);
     }
