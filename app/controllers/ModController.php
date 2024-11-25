@@ -52,7 +52,7 @@ class ModController extends Controller
     public function Users()
     {
         //query details
-        $this->view('moderator/modUserManagement' );
+        $this->view('moderator/modUserManagement');
     }
 
     public function Reports()

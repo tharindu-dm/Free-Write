@@ -14,8 +14,9 @@
     ?>
 
     <!-- Page Title -->
-     <div id="title">
-    <h1>Designers</h1></div>
+    <div id="title">
+        <h1>Designers</h1>
+    </div>
 
     <div class="browse-main-container">
         <!-- Ad image -->

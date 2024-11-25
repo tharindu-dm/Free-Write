@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create a Competition - Free Write</title>
     <link rel="stylesheet" href="/Free-Write/public/css/writer.css">
 </head>
+
 <body>
 
     <?php
@@ -53,21 +55,24 @@
         <!-- Form for Creating a Competition -->
         <form action="" method="POST" class="quote-form">
             <div class="input-group">
-                <textarea name="description" class="book-title-input" placeholder="Description" maxlength="280"><?php echo htmlspecialchars($description); ?></textarea>
+                <textarea name="description" class="book-title-input" placeholder="Description"
+                    maxlength="280"><?php echo htmlspecialchars($description); ?></textarea>
                 <?php if (!empty($errors['description'])): ?>
                     <p class="error"><?php echo $errors['description']; ?></p>
                 <?php endif; ?>
             </div>
 
             <div class="input-group">
-                <input type="text" name="bookTitle" class="book-title-input" placeholder="Enter your book's title" value="<?php echo htmlspecialchars($bookTitle); ?>">
+                <input type="text" name="bookTitle" class="book-title-input" placeholder="Enter your book's title"
+                    value="<?php echo htmlspecialchars($bookTitle); ?>">
                 <?php if (!empty($errors['bookTitle'])): ?>
                     <p class="error"><?php echo $errors['bookTitle']; ?></p>
                 <?php endif; ?>
             </div>
 
             <div class="input-group">
-                <input type="text" name="price" class="book-title-input" placeholder="Price" value="<?php echo htmlspecialchars($price); ?>">
+                <input type="text" name="price" class="book-title-input" placeholder="Price"
+                    value="<?php echo htmlspecialchars($price); ?>">
                 <?php if (!empty($errors['price'])): ?>
                     <p class="error"><?php echo $errors['price']; ?></p>
                 <?php endif; ?>
@@ -83,4 +88,5 @@
     require_once "../app/views/layout/footer.php";
     ?>
 </body>
+
 </html>

@@ -42,12 +42,12 @@
                         </thead>
                         <tbody>
                             <?php foreach ($data as $log): ?>
-                            <tr>
-                                <td><?= htmlspecialchars($log['siteLogID']); ?></td>
-                                <td><?= htmlspecialchars($log['user']); ?></td>
-                                <td><?= htmlspecialchars($log['activity']); ?></td>
-                                <td><?= htmlspecialchars($log['occurrence']); ?></td>
-                            </tr>
+                                <tr>
+                                    <td><?= htmlspecialchars($log['siteLogID']); ?></td>
+                                    <td><?= htmlspecialchars($log['user']); ?></td>
+                                    <td><?= htmlspecialchars($log['activity']); ?></td>
+                                    <td><?= htmlspecialchars($log['occurrence']); ?></td>
+                                </tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>

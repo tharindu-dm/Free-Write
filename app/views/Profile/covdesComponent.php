@@ -13,7 +13,7 @@
     </div>
 
     <script>
-        document.getElementById("covdesDashboard").addEventListener("click", function(){
+        document.getElementById("covdesDashboard").addEventListener("click", function () {
             window.location.href = '/Free-Write/public/CovDes/Dashboard';
         });
     </script>

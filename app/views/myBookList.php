@@ -22,7 +22,7 @@
     }
     switch ($userType) {
         case 'admin':
-case 'mod':
+        case 'mod':
         case 'writer':
         case 'covdes':
         case 'wricov':
@@ -262,8 +262,7 @@ case 'mod':
                     <h3>Edit Record</h3>
                     <h4 id="bookTitle-header">Title:</h4>
 
-                    <form id="add-to-list-form" action="/Free-Write/public/BookList/Update"
-                        method="POST">
+                    <form id="add-to-list-form" action="/Free-Write/public/BookList/Update" method="POST">
                         <div class="form-content">
                             <div class="chapter-counter">
                                 <label for="chapterCount">Edit Chapter Count</label>
@@ -296,8 +295,7 @@ case 'mod':
                     <h3 style="color:crimson;">You are about to delete from your list</h3>
                     <h4 id="bookTitle-header-delete">Title:</h4>
 
-                    <form id="add-to-list-form" action="/Free-Write/public/BookList/Delete"
-                        method="POST">
+                    <form id="add-to-list-form" action="/Free-Write/public/BookList/Delete" method="POST">
 
                         <input type="hidden" name="List_bid" id="List_bid_delete">
 

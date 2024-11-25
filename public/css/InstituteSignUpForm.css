@@ -1,0 +1,87 @@
+.btn {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+}
+
+.signup-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+}
+
+.signup-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.signup-header h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.signup-header p {
+    color: #666;
+}
+
+.signup-form {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group-username{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-weight: 500;
+    color: #333;
+}
+
+.form-group input {
+    padding: 0.75rem;
+    border: 1px solid #E5E5E5;
+    border-radius: 4px;
+    font-size: 1rem;
+    flex-grow: 100;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.btn-submit {
+    background-color: #FFD700;
+    padding: 0.75rem 2rem;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.login-link {
+    color: #333;
+    text-decoration: none;
+}
+
+.login-link:hover {
+    text-decoration: underline;
+}

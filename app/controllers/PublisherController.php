@@ -5,6 +5,7 @@ class PublisherController extends Controller
     public function index()
     {
 
+        $this->view('publisher/PublisherPage4UsersO');
     }
 
     public function BookDesign()
@@ -13,6 +14,12 @@ class PublisherController extends Controller
     }
 
     public function BookUpload()
+    {
+        $this->view('publisher/bookUploadForm4Publishers');
+    }
+
+
+    public function Profile()
     {
         $this->view('publisher/bookUploadForm4Publishers');
     }

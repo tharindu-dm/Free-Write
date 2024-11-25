@@ -12,7 +12,7 @@ class HomeController extends Controller
     private function checkLoggedUser()
     {
         if (session_status() == PHP_SESSION_NONE) {
-           echo "no session found";
+            echo "no session found";
         }
 
         if (isset($_SESSION['user_id'])) {

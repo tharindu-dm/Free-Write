@@ -256,19 +256,42 @@
             <th>Status</th>
             <th>Start Date</th>
             <th>End Date</th>
+            <th>Category</th>
+            <th>Prize</th>
             <th>Participants</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td><a href="/Free-Write/public/Competition/Profile">Kaggle Days - Paris</a></td>
-            <td><span class="status-badge">Active</span></td>
-            <td>3/14/2022</td>
-            <td>4/6/2022</td>
-            <td>8,000</td>
-            <td><a href="/Free-Write/public/Competition/Manage" class="action-link">Manage</a></td>
-          </tr>
+          <?php if (!empty($data['competitionDetails'])): ?>
+            <?php foreach ($data['competitionDetails'] as $competitionDetails): ?>
+              <tr>
+                <td>
+                  <a href="/Free-Write/public/Competition/Profile/<?php echo $competitionDetails['competitionID']; ?>">
+                    <?php echo htmlspecialchars($competitionDetails['title']); ?>
+                  </a>
+                </td>
+                <td>
+                  <span class="status-badge">
+                    Active
+                  </span>
+                </td>
+                <td><?php echo date('m/d/Y', strtotime($competitionDetails['start_date'])); ?></td>
+                <td><?php echo date('m/d/Y', strtotime($competitionDetails['end_date'])); ?></td>
+                <td><?php echo htmlspecialchars($competitionDetails['category'] ?? ''); ?></td>
+                <td><?php echo '$' . number_format($competitionDetails['prizes'], 2); ?></td>
+                <td>0</td>
+                <td>
+                  <a href="/Free-Write/public/Competition/Manage/<?php echo $competitionDetails['competitionID']; ?>"
+                    class="action-link">Manage</a>
+                </td>
+              </tr>
+            <?php endforeach; ?>
+          <?php else: ?>
+            <tr>
+              <td colspan="8" style="text-align: center;">No competitions found</td>
+            </tr>
+          <?php endif; ?>
         </tbody>
       </table>
     </div>

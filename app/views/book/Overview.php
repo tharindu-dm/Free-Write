@@ -30,6 +30,7 @@
         default:
             require_once "../app/views/layout/header.php";
     }
+
     //show($data);
     ?>
 
@@ -60,10 +61,10 @@
                                     clip-rule="evenodd" />
                             </svg>
                             &nbsp;<?php if (!$rating): ?>
-                                <?= 'Be the first to rate!';?>
+                                <?= 'Be the first to rate!'; ?>
                             <?php else: ?>
                                 <?= htmlspecialchars($rating[0]['AverageRating']); ?>
-                            | <?= htmlspecialchars($rating[0]['RatingCount']); ?> ratings
+                                | <?= htmlspecialchars($rating[0]['RatingCount']); ?> ratings
                             <?php endif; ?>
                         </div>
                         <div class="rating-select">
@@ -111,6 +112,7 @@
                             <h4>Title: <?= htmlspecialchars($book[0]['title']); ?> </h4>
 
                             <form id="add-to-list-form" action="/Free-Write/public/BookList/Add" method="POST">
+
                                 <div class="list-add-radios">
                                     <div>
                                         <label class="add-list-radio-labels">
@@ -206,6 +208,7 @@
                                     <tr>
                                         <td><a
                                                 href="/Free-Write/public/Spinoff/Overview/<?= htmlspecialchars($spinoff['spinoffID']); ?>"><?= htmlspecialchars($spinoff['title']); ?></a>
+
                                         </td>
                                         <td><?= date('Y-m-d', strtotime($spinoff['lastUpdated']));
                                         ?></td>

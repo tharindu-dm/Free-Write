@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const registerForm = document.getElementById("register-form");
   const logEmail = document.getElementById("log-email");
   const emailReg = document.getElementById("emailReg");
-  
+
   const passwordLogin = document.getElementById("log-password");
   const passwordReg = document.getElementById("passwordReg");
   const confpass = document.getElementById("confpass");
@@ -31,12 +31,12 @@ document.addEventListener("DOMContentLoaded", function () {
   function hashPassword(password) {
     let hash = 0;
     for (let i = 0; i < password.length; i++) {
-        const char = password.charCodeAt(i);
-        hash = ((hash << 5) - hash) + char;
-        hash = hash & hash; // Convert to 32-bit integer
+      const char = password.charCodeAt(i);
+      hash = (hash << 5) - hash + char;
+      hash = hash & hash; // Convert to 32-bit integer
     }
     return Math.abs(hash).toString(36);
-  }  
+  }
 
   function checkpwMatch() {
     if (passwordReg.value !== confpass.value) {

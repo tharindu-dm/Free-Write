@@ -128,25 +128,26 @@ const cancelBtn_delete = document.getElementById("cancel-delete-button"); //in t
 const overlay_delete = document.querySelector(".delete-from-list");
 
 document.addEventListener("click", function (e) {
-    if (e.target && e.target.classList.contains("listDelete-btn")) {
-      // Get the parent tr element
-      const row = e.target.closest("tr");
-  
-      // Get the data from data attributes
-      const bookId = row.dataset.bookId;
-      const bookTitle = row.dataset.bookTitle;
-  
-      // Set the values in the inputs
-      const bookID_input = document.getElementById("List_bid_delete");
-      const bookTitle_header = document.getElementById("bookTitle-header-delete");
-  
-      bookID_input.value = bookId;
-      bookTitle_header.innerHTML = bookTitle;
-  
-      // Toggle the overlay display
-      overlay_delete.style.display = overlay_delete.style.display !== "flex" ? "flex" : "none";
-    }
-  });
+  if (e.target && e.target.classList.contains("listDelete-btn")) {
+    // Get the parent tr element
+    const row = e.target.closest("tr");
+
+    // Get the data from data attributes
+    const bookId = row.dataset.bookId;
+    const bookTitle = row.dataset.bookTitle;
+
+    // Set the values in the inputs
+    const bookID_input = document.getElementById("List_bid_delete");
+    const bookTitle_header = document.getElementById("bookTitle-header-delete");
+
+    bookID_input.value = bookId;
+    bookTitle_header.innerHTML = bookTitle;
+
+    // Toggle the overlay display
+    overlay_delete.style.display =
+      overlay_delete.style.display !== "flex" ? "flex" : "none";
+  }
+});
 
 cancelBtn_delete.addEventListener("click", (e) => {
   e.preventDefault(); // Prevent the default action

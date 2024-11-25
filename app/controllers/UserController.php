@@ -7,13 +7,13 @@ class UserController extends Controller
         //echo "this is the User Controller\n";
         $URL = splitURL();
 
-            $this->view('login');
-       
+        $this->view('login');
+
     }
 
     public function Profile()
     {
-        $uid = $_SESSION['user_id']; 
+        $uid = $_SESSION['user_id'];
         //echo "inside the userProfile function\n";
         $user = new User();
         $userDetailsTable = new UserDetails();
