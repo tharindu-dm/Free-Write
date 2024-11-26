@@ -10,7 +10,23 @@
 
 <body>
 
-
+    <?php
+    if (isset($_SESSION['user_type'])) {
+        $userType = $_SESSION['user_type'];
+    } else {
+        $userType = 'guest';
+    }
+    switch ($userType) {
+        case 'admin':
+        case 'mod':
+        case 'writer':
+        case 'wricov':
+            require_once "../app/views/layout/header-user.php";
+            break;
+        default:
+            require_once "../app/views/layout/header.php";
+    }
+    ?>
     <!-- Main Content -->
     <main class="book-section">
         <div class="book-form-container">

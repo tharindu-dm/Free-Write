@@ -35,7 +35,7 @@
       display: flex;
       align-items: center;
       background-color: #FCFAF5;
-      border: 2px solid #E9DFCE;
+      border: 2px solid #FFD700;
       border-radius: 8px;
       padding: 0.75rem 1rem;
       transition: border-color 0.3s, box-shadow 0.3s;
@@ -56,7 +56,7 @@
     }
 
     .search-bar input::placeholder {
-      color: #8C805E;
+      color: #c47c15;
     }
 
     .filter-button {
@@ -105,7 +105,7 @@
     .order-table td {
       padding: 1rem;
       text-align: left;
-      border-bottom: 1px solid #E9DFCE;
+      border-bottom: 1px solid #FFD700;
     }
 
     .order-table th {
@@ -121,7 +121,7 @@
     .status-dropdown {
       width: 100%;
       padding: 0.5rem;
-      border: 2px solid #E9DFCE;
+      border: 2px solid #FFD700;
       border-radius: 8px;
       background-color: #FCFAF5;
       font-size: 1rem;
@@ -154,7 +154,7 @@
     }
 
     .action-button:disabled {
-      background-color: #E9DFCE;
+      background-color: #FFD700;
       cursor: not-allowed;
       transform: none;
       box-shadow: none;

@@ -90,22 +90,18 @@
                     <div class="book-grid">
                         <?php if (!empty($paidBooks) && is_array($paidBooks)): ?>
                             <?php foreach ($paidBooks as $pbook): ?>
+                                <a href="/Free-Write/public/book/Overview/<?= htmlspecialchars($pbook['bookID']); ?>">
                                 <div class="book-card">
                                     <img src="../public/images/<?= htmlspecialchars($pbook['cover_image'] ?? 'sampleCover.jpg'); ?>"
                                         alt="Cover Image of <?= htmlspecialchars($pbook['title']); ?>">
-
                                     <h3>
                                         <?= strlen($pbook['title']) > 20 ? htmlspecialchars(substr($pbook['title'], 0, 17)) . '...' : htmlspecialchars($pbook['title']); ?>
                                     </h3>
                                     <p> <?= htmlspecialchars($pbook['author']); ?></p>
                                     <h4><?= $pbook['price'] === null ? 'FREE' : 'LKR ' . number_format($pbook['price'], 2); ?>
                                     </h4>
-                                    <a href="/Free-Write/public/book/Overview/<?= htmlspecialchars($pbook['bookID']); ?>">
-
-                                        <button class="select-book-btn"
-                                            data-id="<?= htmlspecialchars($pbook['bookID']); ?>">Select Book</button>
-                                    </a>
                                 </div>
+                                </a>
                             <?php endforeach; ?>
 
                         <?php else: ?>

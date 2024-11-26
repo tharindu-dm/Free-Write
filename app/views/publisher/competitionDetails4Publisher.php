@@ -30,7 +30,6 @@
       display: flex;
       align-items: center;
       background-color: #FFFFFF;
-      border: 2px solid #E9DFCE;
       border-radius: 8px;
       padding: 0.75rem 1rem;
       transition: border-color 0.3s, box-shadow 0.3s;
@@ -42,7 +41,7 @@
     }
 
     .search-bar svg {
-      color: #8C805E;
+      color: #c47c15;
     }
 
     .search-bar input {
@@ -56,7 +55,7 @@
     }
 
     .search-bar input::placeholder {
-      color: #8C805E;
+      color: #c47c15;
     }
 
     .new-competition-button {
@@ -79,11 +78,11 @@
       display: flex;
       gap: 2rem;
       margin-bottom: 2rem;
-      border-bottom: 2px solid #E9DFCE;
+      border-bottom: 2px solid #FFD700;
     }
 
     .tabs a {
-      color: #8C805E;
+      color: #c47c15;
       text-decoration: none;
       font-weight: 600;
       padding: 0.5rem 0;
@@ -145,11 +144,11 @@
       background-color: #FCFAF5;
       color: #1C160C;
       font-weight: 600;
-      border-bottom: 2px solid #E9DFCE;
+      border-bottom: 2px solid #FFD700;
     }
 
     td {
-      border-bottom: 1px solid #E9DFCE;
+      border-bottom: 1px solid #FFD700;
     }
 
     tr:last-child td {
@@ -170,7 +169,7 @@
     .status-badge {
       display: inline-block;
       padding: 0.25rem 0.75rem;
-      background-color: #E9DFCE;
+      background-color: #FFD700;
       color: #1C160C;
       border-radius: 16px;
       font-size: 0.875rem;
@@ -178,7 +177,7 @@
     }
 
     .action-link {
-      color: #8C805E;
+      color: #c47c15;
       text-decoration: none;
       font-weight: 500;
       transition: color 0.3s;

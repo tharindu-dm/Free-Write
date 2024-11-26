@@ -70,7 +70,9 @@ class InstituteController extends Controller
         $user = new User();//updating the user as a creator of an institution
         $user->update($creator, ['userType' => 'inst'], 'userID');
 
-        header('Location: /Free-Write/public/Institute/Dashboard');
+        //end session
+        session_destroy();
+        header('Location: /Free-Write/public/Login');
     }
 
     public function read()

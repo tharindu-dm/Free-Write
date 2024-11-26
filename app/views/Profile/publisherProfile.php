@@ -86,7 +86,7 @@
         }
 
         .add-books {
-            background-color: #8C805E;
+            background-color: #c47c15;
             color: white;
             border: none;
             padding: 1rem 1.5rem;
@@ -123,7 +123,7 @@
         .contact p {
             display: flex;
             align-items: center;
-            color: #8C805E;
+            color: #c47c15;
         }
 
         .location img,

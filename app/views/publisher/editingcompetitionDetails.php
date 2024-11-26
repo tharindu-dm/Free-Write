@@ -34,7 +34,7 @@
       width: 100%;
       padding: 1rem;
       margin-bottom: 1.5rem;
-      border: 2px solid #E9DFCE;
+      border: 2px solid #FFD700;
       border-radius: 8px;
       font-size: 1rem;
       transition: border-color 0.3s, box-shadow 0.3s;
@@ -52,7 +52,7 @@
     input[type="file"] {
       padding: 0.8rem;
       background-color: #FCFAF5;
-      border: 2px dashed #E9DFCE;
+      border: 2px dashed #FFD700;
       cursor: pointer;
     }
 
@@ -91,7 +91,7 @@
     }
 
     .stop-btn {
-      background-color: #8C805E;
+      background-color: #c47c15;
       color: white;
     }
 
@@ -119,7 +119,7 @@
 
     .optional-section {
       padding: 1.5rem;
-      border: 2px dashed #E9DFCE;
+      border: 2px dashed #FFD700;
       border-radius: 8px;
       margin-bottom: 1.5rem;
       text-align: center;
@@ -134,13 +134,13 @@
     }
 
     .optional-section p {
-      color: #8C805E;
+      color: #c47c15;
       margin-bottom: 1rem;
     }
 
     .optional-section button {
       background-color: #FFFFFF;
-      border: 2px solid #E9DFCE;
+      border: 2px solid #FFD700;
       color: #1C160C;
     }
 
@@ -149,7 +149,7 @@
       text-align: center;
       padding: 1.5rem;
       background-color: #FFFFFF;
-      color: #8C805E;
+      color: #c47c15;
       box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
     }
 

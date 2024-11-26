@@ -23,7 +23,7 @@
     }
 
     .form-container h4 {
-      color: #8C805E;
+      color: #c47c15;
       margin-bottom: 2rem;
       font-weight: 500;
     }
@@ -41,7 +41,7 @@
       width: 100%;
       padding: 1rem;
       margin-bottom: 1.5rem;
-      border: 2px solid #E9DFCE;
+      border: 2px solid #FFD700;
       border-radius: 8px;
       font-size: 1rem;
       transition: border-color 0.3s, box-shadow 0.3s;
@@ -87,7 +87,7 @@
     }
 
     .cancel-btn {
-      background-color: #8C805E;
+      background-color: #c47c15;
       color: white;
     }
 
@@ -97,7 +97,7 @@
 
     .optional-section {
       padding: 1.5rem;
-      border: 2px dashed #E9DFCE;
+      border: 2px dashed #FFD700;
       border-radius: 8px;
       margin-bottom: 1.5rem;
       text-align: center;
@@ -112,13 +112,13 @@
     }
 
     .optional-section p {
-      color: #8C805E;
+      color: #c47c15;
       margin-bottom: 1rem;
     }
 
     .optional-section button {
       background-color: #FFFFFF;
-      border: 2px solid #E9DFCE;
+      border: 2px solid #FFD700;
       color: #1C160C;
     }
 
@@ -140,28 +140,7 @@
       border-radius: 50%;
     }
 
-    footer {
-      margin-top: auto;
-      text-align: center;
-      padding: 1.5rem;
-      background-color: #FFFFFF;
-      color: #8C805E;
-      box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-
     @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        padding: 1rem;
-      }
-
-      .nav-container {
-        margin: 1rem 0 0 0;
-      }
-
-
-
       .form-container {
         margin: 1rem;
         padding: 1rem;

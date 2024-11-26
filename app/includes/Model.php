@@ -100,7 +100,7 @@ trait Model
         $query = rtrim($query, ', ');
         $query .= " WHERE [{$id_column}] = $id";
 
-        show($query);
+        //show($query);
 
         if ($this->query($query, $data)) {
             return true;

@@ -33,13 +33,6 @@ require_once "../app/controllers/UserController.php"; //since this "navigation b
             </div>
 
             <div class="nav-right-side-container">
-                <div class="search-container">
-                    <!-- Search Bar Section -->
-                    <form action="/Free-Write/public/Browse/search" method="GET">
-                        <input type="text" id="search-bar" name="bookName" placeholder="Search books..." />
-                        <button type="submit" id="search-btn" class="sign-in-btn">Search</button>
-                    </form>
-                </div>
 
                 <div class="action-button-container">
                     <div class="action-button">

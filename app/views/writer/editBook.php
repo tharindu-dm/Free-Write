@@ -18,19 +18,15 @@
     }
     switch ($userType) {
         case 'admin':
+        case 'mod':
         case 'writer':
-        case 'covdes':
         case 'wricov':
-        case 'reader':
             require_once "../app/views/layout/header-user.php";
-            break;
-        case 'pub':
-            require_once "../app/views/layout/header-pub.php";
             break;
         default:
             require_once "../app/views/layout/header.php";
     }
-    show($data);
+    //show($data);
     ?>
 
     <!-- Main Content -->
@@ -41,7 +37,7 @@
 
                 <!-- Book Cover Section -->
                 <div class="book-cover">
-                    <img src="/public/images/cover-placeholder.jpg" alt="Cover Preview" class="cover-img">
+                    <img src="/Free-Write/public/images/sampleCover.jpg" alt="Cover Preview" class="cover-img">
                     <div class="cover-upload">
                         <input type="file" id="cover" name="cover" accept="image/*" class="file-input">
                         <button type="button" class="upload-btn">Upload Cover Photo</button>
