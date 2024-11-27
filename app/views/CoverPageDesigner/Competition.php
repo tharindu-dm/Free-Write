@@ -35,15 +35,16 @@
   }
   //show($data);
   ?>
+
   <main>
     <section class="user-profile">
-      <img src="thompson.avif" alt="Michael Thompson" class="profile-picture">
+      <img src="/Free-Write/public/images/profile-image.jpg" alt="Michael Thompson" class="profile-picture">
       <h1>Michael Thompson</h1>
       <p>250 followers</p>
     </section>
     <nav class="profile-nav">
       <ul>
-        <li><a href="#" class="inactive">Your Designs</a></li>
+        <li><a href="/Free-Write/public/Designer/Dashboard" class="inactive">Your Designs</a></li>
         <li><a href="#" class="active">Competitions</a></li>
       </ul>
     </nav>
@@ -60,7 +61,7 @@
             </tr>
           </thead>
           <tbody id="active-competitions-table">
-            <!-- Active competitions data will be dynamically added here -->
+            <!-- Active competitions data should get be added here -->
           </tbody>
         </table>
       </div>
@@ -77,7 +78,7 @@
             </tr>
           </thead>
           <tbody id="previous-competitions-table">
-            <!-- Previous competitions data will be dynamically added here -->
+            <!-- Previous competitions data should get be added here -->
           </tbody>
         </table>
       </div>
@@ -94,12 +95,14 @@
             </tr>
           </thead>
           <tbody id="upcoming-competitions-table">
-            <!-- Upcoming competitions data will be dynamically added here -->
+            <!-- Upcoming competitions data should get be added here -->
           </tbody>
         </table>
       </div>
     </section>
   </main>
+  
+  <?php require_once "../app/views/layout/footer.php"; ?>
   <script src="Competition.js"></script>
 </body>
 

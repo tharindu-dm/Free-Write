@@ -18,17 +18,10 @@
     switch ($userType) {
         case 'admin':
         case 'mod':
-        case 'writer':
         case 'covdes':
         case 'wricov':
         case 'reader':
             require_once "../app/views/layout/header-user.php";
-            break;
-        case 'pub':
-            require_once "../app/views/layout/header-pub.php";
-            break;
-        case 'inst':
-            require_once "../app/views/layout/header-inst.php";
             break;
         default:
             require_once "../app/views/layout/header.php";
@@ -38,37 +31,37 @@
 
     <main>
         <section class="user-profile">
-            <img src="thompson.avif" alt="Michael Thompson" class="profile-picture">
+            <img src="/Free-Write/public/images/profile-image.jpg" alt="Michael Thompson" class="profile-picture">
             <h1>Michael Thompson</h1>
             <p>250 followers</p>
         </section>
 
         <nav class="profile-nav">
             <a href="#" class="active">Your Designs</a>
-            <a href="#">Competitions</a>
+            <a href="/Free-Write/public/Designer/Competition">Competitions</a>
         </nav>
 
         <section class="designs">
 
             <div class="designs-header">
                 <h2>Your Designs</h2>
-                <button class="new-design-btn">+New</button>
+                <a href="/Free-Write/public/Designer/New"><button class="new-design-btn">+New</button></a>
             </div>
             <div class="design-grid">
                 <div class="design-item">
-                    <img src="design1.jpeg" alt="Flying bird design">
+                    <img src="/Free-Write/public/images/sampleCover.jpg" alt="Flying bird design">
                 </div>
                 <div class="design-item">
-                    <img src="design2.jpg" alt="Forest landscape design">
+                    <img src="/Free-Write/public/images/sampleCover.jpg" alt="Forest landscape design">
                 </div>
                 <div class="design-item">
-                    <img src="design3.webp" alt="Misty forest design">
+                    <img src="/Free-Write/public/images/sampleCover.jpg" alt="Misty forest design">
                 </div>
                 <div class="design-item">
-                    <img src="design4.webp" alt="Girl in moonlight design">
+                    <img src="/Free-Write/public/images/sampleCover.jpg" alt="Girl in moonlight design">
                 </div>
                 <div class="design-item">
-                    <img src="design5.webp" alt="Day after design">
+                    <img src="/Free-Write/public/images/sampleCover.jpg" alt="Day after design">
                 </div>
                 <div class="pagination">
                     <button>&lt;</button>
