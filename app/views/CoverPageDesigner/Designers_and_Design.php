@@ -43,8 +43,8 @@
         <p>Join a community of passionate writers and readers. Discover new fictions, participate in contests, and
           connect with fellow creatives.</p>
         <div class="hero-actions">
-          <a href="/Free-Write/public/Browse"><button class="btn btn-primary">Browse Stories</button></a>
-          <a href="#"><button class="btn btn-secondary">Start Writing</button></a>
+          <a href="/Free-Write/public/Browse"><button class="btn btn-primary">Browse For Design</button></a>
+          <a href="#"><button class="btn btn-secondary">Share Your Design</button></a>
         </div>
       </div>
       <div class="hero-image">

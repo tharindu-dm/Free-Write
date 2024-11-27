@@ -20,11 +20,11 @@ class UserDetails
         return $this->insert($arr);
     }
 
-    public function getUserDetails($userID)
+    /*public function getUserDetails($userID)
     {
         $query = "SELECT CONCAT(ud.firstName, ' ', ud.lastName) AS fullName, ud.dob, ud.regDate, ud.country, ud.bio, ud.lastLogDate, u.userType, u.isPremium FROM [dbo].[UserDetails] ud INNER JOIN [dbo].[User] u ON ud.[user] = u.[userID] WHERE u.userID = $userID";
 
         return $this->query($query);
-    }
+    }*/
 
 }

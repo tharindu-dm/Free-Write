@@ -24,13 +24,13 @@
       margin-bottom: 1.5rem;
     }
 
-    .search-container {
+    .order-search-container {
       display: flex;
       gap: 1rem;
       margin-bottom: 2rem;
     }
 
-    .search-bar {
+    .order-search-bar {
       flex: 1;
       display: flex;
       align-items: center;
@@ -41,12 +41,12 @@
       transition: border-color 0.3s, box-shadow 0.3s;
     }
 
-    .search-bar:focus-within {
+    .order-search-bar:focus-within {
       border-color: #FFD052;
       box-shadow: 0 0 0 3px rgba(255, 208, 82, 0.2);
     }
 
-    .search-bar input {
+    .order-search-bar input {
       width: 100%;
       border: none;
       background: none;
@@ -55,7 +55,7 @@
       outline: none;
     }
 
-    .search-bar input::placeholder {
+    .order-search-bar input::placeholder {
       color: #c47c15;
     }
 
@@ -136,7 +136,7 @@
       box-shadow: 0 0 0 3px rgba(255, 208, 82, 0.2);
     }
 
-    .action-button {
+    .order-action-button {
       padding: 0.5rem 1rem;
       background-color: #FFD052;
       color: #1C160C;
@@ -148,12 +148,12 @@
       transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .action-button:hover {
+    .order-action-button:hover {
       transform: translateY(-2px);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    .action-button:disabled {
+    .order-action-button:disabled {
       background-color: #FFD700;
       cursor: not-allowed;
       transform: none;
@@ -167,7 +167,7 @@
         margin: 1rem auto;
       }
 
-      .search-container {
+      .order-search-container {
         flex-direction: column;
       }
 
@@ -176,7 +176,7 @@
         overflow-x: auto;
       }
 
-      .action-button {
+      .order-action-button {
         width: 100%;
       }
     }
@@ -209,9 +209,9 @@
   <main class="main-content">
     <h1>Orders</h1>
 
-    <div class="search-container">
-      <div class="search-bar">
-        <input type="text" placeholder="Search by book title or customer name">
+    <div class="order-search-container">
+      <div class="order-search-bar">
+        <input type="text" placeholder="order-Search by book title or customer name">
       </div>
       <button class="filter-button">Filter</button>
     </div>
@@ -241,7 +241,7 @@
             </select>
           </td>
           <td>
-            <button class="action-button">Proceed</button>
+            <button class="order-action-button">Proceed</button>
           </td>
         </tr>
         <tr>
@@ -257,7 +257,7 @@
             </select>
           </td>
           <td>
-            <button class="action-button">Proceed</button>
+            <button class="order-action-button">Proceed</button>
           </td>
         </tr>
       </tbody>

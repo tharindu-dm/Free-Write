@@ -1,91 +1,88 @@
-
-:root {
-    --primary-color: #ffd700;
-}
-
 .container {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
 
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    border-bottom: 2px solid var(--primary-color);
-    padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ffd700;
+  padding-bottom: 10px;
 }
 
 .header-info {
-    font-size: 0.9em;
-    color: #666;
+  font-size: 0.9em;
+  color: #666;
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
+  width: 100%;
+  border-collapse: separate;
+  margin-bottom: 20px;
 }
 
-th, td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
+th,
+td {
+  border: none;
+  border-radius: 1rem;
+  padding: 10px;
+  text-align: left;
 }
 
 th {
-    background-color: var(--primary-color);
-    color: black;
+  background-color: #ffd700;
+  color: black;
 }
 
 tr:nth-child(even) {
-    background-color: #f9f9f9;
+  background-color: #f9f9f9;
 }
 
 .pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 .pagination button {
-    margin: 0 5px;
-    padding: 8px 12px;
-    background-color: var(--primary-color);
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+  margin: 0 5px;
+  padding: 8px 12px;
+  background-color: #ffd700;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .pagination button:hover {
-    opacity: 0.8;
+  opacity: 0.8;
 }
 
 .pagination button.active {
-    background-color: #333;
-    color: white;
+  background-color: #333;
+  color: white;
 }
 
 .user-details-form {
-    margin-top: 30px;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .user-details-form input,
 .user-details-form select {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 
 .user-details-form label {
-    font-weight: bold;
+  font-weight: bold;
 }

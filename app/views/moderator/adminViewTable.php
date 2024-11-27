@@ -44,6 +44,17 @@
                 <?php endif; ?>
             </div>
         </section>
+
+        <section style="display:none;">
+            <div>
+                <h1>Table Name</h1>
+            </div>
+            <div>
+                <table>
+
+                </table>
+            </div>
+        </section>
     </main>
     <?php
     require_once "../app/views/layout/footer.php";

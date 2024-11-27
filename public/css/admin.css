@@ -164,7 +164,7 @@ td {
 
 th {
   background-color: #ffd700;
-  position: sticky; /* Keeps headers in place */
+  position: static; /* Keeps headers in place */
   top: 0;
   z-index: 10; /* Ensures headers are above scrollable content */
 }

@@ -54,12 +54,12 @@ body {
 }
 
 .btn-secondary {
-  background-color: #ffd966;
-  color: #fff;
+  background-color: #ffd700;
+  color: #000;
 }
 
 .btn-secondary:hover {
-  background-color: #ffcc35;
+  background-color: #ddac18;
 }
 
 .hero-image {

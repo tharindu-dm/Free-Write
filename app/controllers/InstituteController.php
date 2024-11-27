@@ -47,6 +47,10 @@ class InstituteController extends Controller
 
     public function Register()
     {
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: /Free-Write/public/Login');
+        }
+
         $user = new User();
         $email = $user->first(['userID' => $_SESSION['user_id']]);
         $this->view('Institute/InstituteSignUpForm', ['user' => $email]);
