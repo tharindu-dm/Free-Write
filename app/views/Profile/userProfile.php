@@ -391,7 +391,7 @@
 
         <?php if ($userType == 'pub'): ?>
             <section class="profile-container">
-                require_once "../app/views/Profile/publisherProfile.php";
+                <?= require_once "../app/views/Profile/publisherProfile.php"; ?>
             </section>
         <?php endif; ?>
 

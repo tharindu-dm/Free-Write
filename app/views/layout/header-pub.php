@@ -49,7 +49,7 @@ require_once "../app/controllers/UserController.php"; //since this "navigation b
 
                 <div class="action-button-container">
                     <div class="action-button">
-                        <a href="/Free-Write/public/Publisher">
+                        <a href="/Free-Write/public/User/Profile">
                             <button class="search-btn">Profile</button></a>
                     </div>
                     <div class="action-button">
