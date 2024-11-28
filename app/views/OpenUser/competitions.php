@@ -72,7 +72,7 @@
         }
 
         .competition-details {
-            padding: 15px;
+            padding: 0.25rem;
         }
 
         .competition-details h2 {
@@ -88,6 +88,8 @@
 
         .competition-details .deadline {
             display: flex;
+            flex-direction: column;
+            gap:1rem;
             justify-content: space-between;
             align-items: center;
             margin-top: 10px;
@@ -163,7 +165,7 @@
             <div class="competition-card">
                 <img src="/Free-Write/public/images/bnw.jpg" alt="Competition Image">
                 <div class="competition-details">
-                    <h2>Summer Short Story Challenge</h2>
+                    <h2>Summer Short Story ...</h2>
                     <div class="publisher">By Creative Writers Hub</div>
                     <div class="deadline">
                         <span class="deadline-badge">Ends in 30 days</span>
@@ -175,7 +177,7 @@
             <div class="competition-card">
                 <img src="/Free-Write/public/images/bnw.jpg" alt="Competition Image">
                 <div class="competition-details">
-                    <h2>Sci-Fi Writing Marathon</h2>
+                    <h2>Sci-Fi Writing ...</h2>
                     <div class="publisher">By Galactic Writers</div>
                     <div class="deadline">
                         <span class="deadline-badge">Ends in 45 days</span>
@@ -255,6 +257,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </main>
 

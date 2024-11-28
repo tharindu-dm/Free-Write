@@ -33,7 +33,7 @@ class CompetitionController extends Controller
         $competitionID = $_POST['compID'];
         $competition_table = new Competition();
         $competition_table->insert(['title' => $title, 'description' => $desc, 'rules' => $rules, 'prizes' => $prizes, 'start_date' => $start_date, 'end_date' => $end_date, 'category' => $category]);
-        header('Location: /Free-Write/public/Competition');
+        header('Location: /Free-Write/public/Competition/MyCompetitions');
     }
 
     public function Manage()
@@ -58,7 +58,7 @@ class CompetitionController extends Controller
         $competition_table = new Competition();
         $competition_table->update($competitionID, ['title' => $var, 'description' => $desc, 'rules' => $rules, 'prizes' => $prize, 'category' => $category, 'end_date' => $date], 'competitionID');
         //above one has no need to pass , it just need to updated 
-        header('Location: /Free-Write/public/Competition');   //to navigate after updated 
+        header('Location: /Free-Write/public/Competition/MyCompetitions');   //to navigate after updated 
     }
 
     public function deleteCompetition()
@@ -67,7 +67,7 @@ class CompetitionController extends Controller
         $competitionID = $URL[2];
         $competition_table = new competition();
         $competition_table->delete($competitionID, 'competitionID');  //ensure what are id and id column
-        header('Location: /Free-Write/public/Competition');
+        header('Location: /Free-Write/public/Competition/MyCompetitions');
     }
 
     public function Profile()//shows the publisher's POV for a competition

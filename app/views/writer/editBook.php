@@ -62,17 +62,6 @@
                     </div>
 
                     <div class="input-group">
-                        <label for="genre">Genre (Dummy)</label>
-                        <select id="genre" name="genre" required>
-                            <option value="" disabled selected>Select genre</option>
-                            <option value="Fiction">Fiction</option>
-                            <option value="Fantasy">Fantasy</option>
-                            <option value="Romance">Romance</option>
-                        </select>
-
-                    </div>
-
-                    <div class="input-group">
                         <label for="price">Price</label>
                         <input type="text" id="price" name="price" placeholder="Free (Type to add a Price)"
                             value="<?php echo htmlspecialchars($book['price'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">

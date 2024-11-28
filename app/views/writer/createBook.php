@@ -37,7 +37,7 @@
 
                 <!-- Book Cover Section -->
                 <div class="book-cover">
-                    <img src="/public/images/cover-placeholder.jpg" alt="Cover Preview" class="cover-img">
+                    <img src="/Free-Write/public/images/sampleCover.jpg" alt="Cover Preview" class="cover-img">
                     <div class="cover-upload">
                         <input type="file" id="cover" name="cover" accept="image/*" class="file-input">
                         <button type="button" class="upload-btn">Upload Cover Photo</button>
@@ -59,17 +59,6 @@
                         <label for="synopsis">Synopsis</label>
 
                         <textarea id="synopsis" name="synopsis" placeholder="Enter a synopsis" required></textarea>
-
-                    </div>
-
-                    <div class="input-group">
-                        <label for="genre">Genre (Dummy)</label>
-                        <select id="genre" name="genre" required>
-                            <option value="" disabled selected>Select genre</option>
-                            <option value="Fiction">Fiction</option>
-                            <option value="Fantasy">Fantasy</option>
-                            <option value="Romance">Romance</option>
-                        </select>
 
                     </div>
 
