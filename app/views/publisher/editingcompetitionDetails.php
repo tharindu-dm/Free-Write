@@ -91,26 +91,9 @@
     }
 
     .stop-btn {
-      background-color: #c47c15;
+      margin-top: 1rem;
+      background-color: #FF0000;
       color: white;
-    }
-
-    .user-actions {
-      display: flex;
-      align-items: center;
-    }
-
-    .icon-button {
-      background: none;
-      border: none;
-      cursor: pointer;
-      margin: 0 10px;
-    }
-
-    .user-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
     }
 
     .stop-btn:hover {
@@ -134,7 +117,7 @@
     }
 
     .optional-section p {
-      color: #c47c15;
+      color: #FF0000;
       margin-bottom: 1rem;
     }
 
@@ -144,29 +127,42 @@
       color: #1C160C;
     }
 
-    footer {
-      margin-top: auto;
-      text-align: center;
-      padding: 1.5rem;
-      background-color: #FFFFFF;
-      color: #c47c15;
-      box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    .deleteOverlay-container {
+      display: none;
+      position: fixed;
+      /* Make it fixed to the viewport */
+      top: 0;
+      left: 0;
+      width: 100vw;
+      /* Full width of the viewport */
+      height: 100vh;
+      /* Full height of the viewport */
+      background: rgba(0, 0, 0, 0.6);
+      /* Adjust the opacity of the background */
+
+      justify-content: center;
+      /* Center the form horizontally */
+      align-items: center;
+      /* Center the form vertically */
+      z-index: 1;
+    }
+
+    .deleteOverlay {
+      display: flex;
+      flex-direction: column;
+      max-width: fit-content;
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 1rem;
+      z-index: 2;
+    }
+
+    #deleteCompetition {
+      background-color: #FF0000;
+      color: white;
     }
 
     @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        padding: 1rem;
-      }
-
-      .nav-container {
-        margin: 1rem 0 0 0;
-      }
-
-      nav {
-        gap: 1rem;
-      }
-
       .form-container {
         margin: 1rem;
         padding: 1rem;
@@ -204,60 +200,77 @@
   // show($data);
   ?>
 
-  <div class="form-container">
-    <h2>Edit Competition</h2>
+  <main>
+    <div class="form-container">
+      <h2>Edit Competition</h2>
 
-    <form action="/Free-Write/public/Competition/editCompetition" method="POST">
-      <input type="hidden" name="compID" value="<?= htmlspecialchars($competitionDetails['competitionID']) ?>">
-
-
-      <label for="title">Competition Name</label>
-      <input type="text" id="title" name="title" placeholder="Enter competition name"
-        value="<?= htmlspecialchars($competitionDetails['title']) ?>" required />
-
-      <label for="description">Competition Description</label>
-      <textarea id="description" name="description" placeholder="Describe your competition"
-        required><?= htmlspecialchars($competitionDetails['description']) ?></textarea>
+      <form action="/Free-Write/public/Competition/editCompetition" method="POST">
+        <input type="hidden" name="compID" value="<?= htmlspecialchars($competitionDetails['competitionID']) ?>">
 
 
-      <label for="category">Category</label>
-      <input type="text" id="category" name="category" placeholder="Enter category"
-        value="<?= htmlspecialchars($competitionDetails['category']) ?>" required />
+        <label for="title">Competition Name</label>
+        <input type="text" id="title" name="title" placeholder="Enter competition name"
+          value="<?= htmlspecialchars($competitionDetails['title']) ?>" required />
+
+        <label for="description">Competition Description</label>
+        <textarea id="description" name="description" placeholder="Describe your competition"
+          required><?= htmlspecialchars($competitionDetails['description']) ?></textarea>
 
 
-      <label for="rules">Rules</label>
-      <input type="text" id="rules" name="rules" placeholder="Enter competition rules"
-        value="<?= htmlspecialchars($competitionDetails['rules']) ?? '' ?>" required />
+        <label for="category">Category</label>
+        <input type="text" id="category" name="category" placeholder="Enter category"
+          value="<?= htmlspecialchars($competitionDetails['category']) ?>" required />
+
+
+        <label for="rules">Rules</label>
+        <input type="text" id="rules" name="rules" placeholder="Enter competition rules"
+          value="<?= htmlspecialchars($competitionDetails['rules']) ?? '' ?>" required />
 
 
 
 
-      <label for="prizes">Prize Amount</label>
-      <input type="number" id="prizes" name="prizes" placeholder="Enter prize amount"
-        value="<?= htmlspecialchars($competitionDetails['prizes']) ?>" required min="0" step="0.01" />
+        <label for="prizes">Prize Amount</label>
+        <input type="number" id="prizes" name="prizes" placeholder="Enter prize amount"
+          value="<?= htmlspecialchars($competitionDetails['prizes']) ?>" required min="0" step="0.01" />
 
-      <div class="optional-section">
+        <!--<div class="optional-section">
         <h3>Add Competition Image</h3>
         <p>JPG or PNG, 2MB max</p>
         <input type="file" name="competition_image" accept="image/jpeg,image/png" />
+      </div>-->
+
+        <label for="end_date">End Date</label>
+        <input type="date" id="end_date" name="end_date"
+          value="<?= htmlspecialchars($competitionDetails['end_date'] ?? '') ?>" required />
+
+        <button type="submit" class="save-btn">Save Changes</button>
+      </form> <button type="button" id="DeleteCompetition" class="stop-btn">Delete Competition</button> </a>
+
+    </div>
+
+    <div class="deleteOverlay-container">
+      <div class="deleteOverlay">
+        <h2>Are you sure you want to delete this competition?</h2>
+        <form action="/Free-Write/public/Competition/deleteCompetition" method="POST">
+          <input type="hidden" name="compID" value="<?= htmlspecialchars($competitionDetails['competitionID']) ?>">
+
+          <label for="compID-label">Competition ID</label>
+          <input type="text" id="compID-label" disabled
+            value="<?= htmlspecialchars($competitionDetails['competitionID']) ?>">
+          <label for="title">Competition Name</label><input id="title" type="text" disabled
+            value="<?= htmlspecialchars($competitionDetails['title']) ?>">
+          <button type="submit" id="deleteCompetition_Agree">Yes, Delete</button>
+          <button id="cancelDelete">Cancel</button>
+        </form>
       </div>
-
-
-
-      <label for="end_date">End Date</label>
-      <input type="date" id="end_date" name="end_date"
-        value="<?= htmlspecialchars($competitionDetails['end_date'] ?? '') ?>" required />
-
-      <button type="submit" class="save-btn">Save Changes</button>
-      <a
-        href="/Free-Write/public/Competition/deleteCompetition/<?= htmlspecialchars($competitionDetails['competitionID']) ?>"><button
-          type="button" class="stop-btn">Delete Competition</button> </a>
-    </form>
-  </div>
+    </div>
+  </main>
 
   <?php
   require_once "../app/views/layout/footer.php";
   ?>
+
+  <script src="/Free-Write/public/js/competition/editingCompetitionDetails.js"></script>
 </body>
 
 </html>

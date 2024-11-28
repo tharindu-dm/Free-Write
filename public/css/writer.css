@@ -71,6 +71,10 @@ main{
 /* Main Book Section */
 .book-grid{
     margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    
 }
 
 .book-section {

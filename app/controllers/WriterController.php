@@ -114,7 +114,7 @@ class WriterController extends Controller
 
 
         $title = $_POST['title'] ?? '';
-        $synopsis = $_POST['synopsis'] ?? '';
+        $synopsis = $_POST['Synopsis'] ?? '';
         $privacy = $_POST['privacy'] ?? 'public';
         $type = $_POST['type'] ?? 'book';
         //$coverFilePath = null;
@@ -222,19 +222,9 @@ class WriterController extends Controller
 
     }
 
-    public function Delete($bookID = 0)
+    public function Delete()
     {
-        $URL = splitURL(); // Extract the URL segments
-
-        // Validate the bookID, either from the parameter or the URL
-        if ($bookID < 1 || !is_numeric($bookID)) {
-            if (isset($URL[2]) && is_numeric($URL[2])) {
-                $bookID = $URL[2]; // Get the book ID from the URL
-            } else {
-                $this->view('error'); // Redirect to an error page if no valid book ID is provided
-                return;
-            }
-        }
+        $bookID = $_POST['bID'];
 
         $book = new Book(); // Instantiate the Book model
 

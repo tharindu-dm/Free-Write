@@ -48,7 +48,7 @@ class User
             FROM 
             [dbo].[User] u
             JOIN 
-            [Freewrite_db_v2].[dbo].[UserDetails] ud ON u.[userID] = ud.[user]
+            [dbo].[UserDetails] ud ON u.[userID] = ud.[user]
             WHERE 
             u.[email] LIKE '%@%usr.$instName.fw'";
 
