@@ -3,7 +3,19 @@
 class CompetitionController extends Controller
 {
 
-    private $competitionModel;
+    public function index(){
+        $this->view('OpenUser/competitions');
+    }
+
+    public function MyCompetitions()
+    {
+
+        $competition_table = new Competition();
+        $competitionDetails = $competition_table->findAll();
+
+        $this->view('publisher/competitionDetails4Publisher', ['competitionDetails' => $competitionDetails]);
+    }
+
     public function New()
     {
         $this->view('publisher/creatingnewcompetition');
@@ -22,14 +34,6 @@ class CompetitionController extends Controller
         $competition_table = new Competition();
         $competition_table->insert(['title' => $title, 'description' => $desc, 'rules' => $rules, 'prizes' => $prizes, 'start_date' => $start_date, 'end_date' => $end_date, 'category' => $category]);
         header('Location: /Free-Write/public/Competition');
-    }
-    public function index()
-    {
-
-        $competition_table = new Competition();
-        $competitionDetails = $competition_table->findAll();
-
-        $this->view('publisher/competitionDetails4Publisher', ['competitionDetails' => $competitionDetails]);
     }
 
     public function Manage()
@@ -66,7 +70,7 @@ class CompetitionController extends Controller
         header('Location: /Free-Write/public/Competition');
     }
 
-    public function ProfilePub()
+    public function Profile()//shows the publisher's POV for a competition
     {
         $this->view('publisher/aCompetitionProfile4Publisher');
     }
@@ -94,10 +98,5 @@ class CompetitionController extends Controller
     public function Test()
     {
         $this->view('publisher/bookUploadForm4Publishers');
-    }
-
-    public function Profile()
-    {
-        $this->view('publisher/aCompetitionProfile4Publisher');
     }
 }

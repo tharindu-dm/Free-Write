@@ -47,9 +47,6 @@
           <a href="#"><button class="btn btn-secondary">Share Your Design</button></a>
         </div>
       </div>
-      <div class="hero-image">
-        <img src="/Free-Write/public/images/hero.jpg" alt="Explore and Share Incredible Stories">
-      </div>
     </section>
 
     <section class="cover-page-designers">

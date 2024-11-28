@@ -78,7 +78,7 @@
             cursor: pointer;
 
 
-            width: 60%;
+            width: 100%;
             font-weight: 600;
             transition: transform 0.2s, box-shadow 0.2s;
         }
@@ -87,6 +87,14 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             background-color: #000;
+        }
+
+        .publisher-profile-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 2rem;
         }
 
         .location,
@@ -110,10 +118,11 @@
             color: #333;
         }
 
-        svg{
+        svg {
             max-width: 2rem;
             max-height: 2rem;
         }
+
         .location img,
         .contact img {
             width: 20px;
@@ -133,13 +142,6 @@
     <main>
         <div class="banner"></div>
 
-        <section class="profile">
-            <img src="/Free-Write/public/images/profile-image.jpg" alt="Alice Smith" class="profile-picture">
-            <div class="profile-info">
-                <h1>Alice Smith</h1>
-                <p>Sales Rep at Acme Inc</p>
-            </div>
-        </section>
 
         <section class="library">
             <h2>Library</h2>
@@ -150,8 +152,11 @@
                 <a href="link4.html"><img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 4"></a>
                 <a href="link5.html"><img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 5"></a>
             </div>
-
-            <button class="add-books">Add Books to Library</button>
+            <div class="publisher-profile-btn">
+                <a href="#"><button class="add-books">Add Books To Library</button></a>
+                <a href="/Free-Write/public/Competition/MyCompetitions"><button class="add-books">Manage My
+                        Competitions</button></a>
+            </div>
         </section>
 
         <section class="location">

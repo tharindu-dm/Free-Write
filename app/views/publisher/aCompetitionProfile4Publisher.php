@@ -4,145 +4,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CompetitionProfile4user</title>
+    <title>Storytellers' Challenge - CodeChamp's Most Wanted</title>
     <style>
-        /* Hero Section */
-        .hero {
-            position: relative;
-            height: 400px;
-            background-image: url('/office-background.jpg');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        :root {
+            --primary-color: #FFD700;
+            --secondary-color: #FFD700;
+            --text-color: #333;
+            --background-color: #F4F7F6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
             padding: 0 20px;
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
+        .header {
+            background-color: #FFD70055;
+            color: #000;
+            text-align: center;
+            padding: 40px 0;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
         }
 
-        .hero-content {
-            position: relative;
-            z-index: 1;
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 600;
         }
 
-        .hero h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-
-        .hero p {
-            font-size: 18px;
-            margin-bottom: 30px;
+        .header h2 {
+            font-size: 1.25rem;
+            font-weight: 300;
         }
 
         .enter-btn {
-            background-color: #FFD052;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: bold;
+            background-color: #000;
+            color: var(--primary-color);
+            padding: 1rem;
+            border-radius: 1rem;
         }
 
-        /* Prizes Section */
-        .prizes {
-            padding: 40px 20px;
+        .enter-btn button {
+            background-color: #000;
+            color: var(--primary-color);
+            font-size: larger;
+            padding: 1rem;
+            border-radius: 1rem;
+            border: none;
+            cursor: pointer;
+            margin-top: 2rem;
         }
 
-        .prizes h2 {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .prize-cards {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .prize-card {
+        .card {
             background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        .prize-card span {
-            font-size: 12px;
-            color: #666;
-        }
-
-        .prize-card h3 {
-            font-size: 32px;
-            margin: 10px 0;
-        }
-
-        /* Timeline Section */
-        .timeline {
-            padding: 40px 20px;
-            background-color: #f5f5f5;
-        }
-
-        .timeline h2 {
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px;
             margin-bottom: 20px;
         }
 
-        .user-actions {
+        .section-title {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .prize-list {
             display: flex;
-            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px;
         }
 
-        .icon-button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            margin: 0 10px;
+        .prize-item {
+            text-align: center;
+            padding: 15px;
+            background-color: #F9F9F9;
+            border-radius: 8px;
         }
 
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-        }
-
-        .timeline-item {
-            margin-bottom: 15px;
-        }
-
-        .timeline-item h4 {
-            margin-bottom: 5px;
-        }
-
-        .timeline-item p {
-            color: #666;
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            margin-top: 20px;
         }
 
         @media (max-width: 768px) {
-            header {
+            .prize-list {
                 flex-direction: column;
-                padding: 1rem;
             }
 
-            .nav-container {
-                margin: 1rem 0 0 0;
-            }
-
-            nav {
-                gap: 1rem;
+            .prize-item {
+                margin-bottom: 10px;
             }
         }
     </style>
@@ -159,10 +116,6 @@
     switch ($userType) {
         case 'admin':
         case 'mod':
-        case 'writer':
-        case 'covdes':
-        case 'wricov':
-        case 'reader':
             require_once "../app/views/layout/header-user.php";
             break;
         case 'pub':
@@ -172,52 +125,73 @@
             require_once "../app/views/layout/header.php";
     }
     ?>
+    <div class="header">
+        <div class="container">
+            <h1>Storytellers' Challenge</h1>
+            <h2>CodeChamp's Most Wanted</h2>
+        </div>
+        <a href="/Free-Write/public/Competition/ViewStats" class="enter-btn"><button>View Stats</button></a>
+    </div>
 
-    <div class="hero">
-        <div class="hero-content">
-            <h1>CodeChamp's Most Wanted</h1>
-            <p>In this challenge, you'll build a tool that helps us track down coding bugs. The top 3 tools will win a
-                total of $15,000 USD.</p>
-            <a href="/Free-Write/public/Competition/ViewStats" class="enter-btn">View Stats</a>
+    <div class="container">
+        <div class="card">
+            <p>Join us in this exciting competition where writers will craft captivating stories centered around the
+                theme of "CodeChamp's Most Wanted." Unleash your creativity and imagination as you delve into the world
+                of coding, technology, and adventure!</p>
+        </div>
+
+        <div class="card">
+            <h3 class="section-title">Challenge Details</h3>
+            <ul>
+                <li>Write an original story that explores the journey of a coder on a quest to uncover hidden bugs in a
+                    mysterious program.</li>
+                <li>Your story can be in any genre: thriller, sci-fi, fantasy, or even a romantic comedy!</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3 class="section-title">Prizes</h3>
+            <div class="prize-list">
+                <div class="prize-item">
+                    <h4>🥇 First Place</h4>
+                    <p>$5,000 USD</p>
+                </div>
+                <div class="prize-item">
+                    <h4>🥈 Second Place</h4>
+                    <p>$3,000 USD</p>
+                </div>
+                <div class="prize-item">
+                    <h4>🥉 Third Place</h4>
+                    <p>$2,000 USD</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3 class="section-title">Judging Criteria</h3>
+            <ul>
+                <li>Creativity and Originality (40%)</li>
+                <li>Writing Style and Voice (30%)</li>
+                <li>Engagement and Emotional Impact (20%)</li>
+                <li>Adherence to Theme (10%)</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3 class="section-title">Submission Details</h3>
+            <p><strong>Submission Deadline:</strong> August 15, 2024</p>
+            <p><strong>Eligibility:</strong> Open to all writers, ages 13 and older.</p>
         </div>
     </div>
 
-    <section class="prizes">
-        <h2>Prizes</h2>
-        <div class="prize-cards">
-            <div class="prize-card">
-                <span>1st Place</span>
-                <h3>$7,500</h3>
-                <span>USD</span>
-            </div>
-            <div class="prize-card">
-                <span>2nd Place</span>
-                <h3>$4,500</h3>
-                <span>USD</span>
-            </div>
-            <div class="prize-card">
-                <span>3rd Place</span>
-                <h3>$3,000</h3>
-                <span>USD</span>
-            </div>
-        </div>
-    </section>
+    <div class="footer">
+        <p>Get ready to write your story and join the adventure of a lifetime!</p>
+    </div>
 
-    <section class="timeline">
-        <h2>Competition Timeline</h2>
-        <div class="timeline-item">
-            <h4>Registration Opens</h4>
-            <p>June 20, 2023</p>
-        </div>
-        <div class="timeline-item">
-            <h4>Submission Deadline</h4>
-            <p>July 20, 2023</p>
-        </div>
-        <div class="timeline-item">
-            <h4>Winner Announcement</h4>
-            <p>August 20, 2023</p>
-        </div>
-    </section>
+    <?php
+    require_once "../app/views/layout/footer.php";
+    ?>
+
 </body>
 
 </html>
