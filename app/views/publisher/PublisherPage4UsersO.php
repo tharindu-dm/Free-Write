@@ -187,31 +187,32 @@
             <h1>Publishers</h1>
             <div class="publisher-search">
                 <input type="text" placeholder="Search publisher...">
-                <button>New Publisher</button>
+                <a href="/Free-Write/public/Publisher/regPage"><button>New Publisher</button></a>
             </div>
 
             <div class="publisher-list">
                 <!-- Publisher 1 -->
                 <div class="publisher">
                     <div class="publisher-header">
-                        <img src="/Free-Write/public/images/profile-image.jpg" alt="Wendy Xu">
+                    <a href="/Free-Write/public/Publisher/Profile">
+                        <img src="/api/placeholder/60/60" alt="Wendy Xu"></a>
                         <h2>Wendy Xu</h2>
                     </div>
                     <div class="books">
                         <div class="book">
-                            <img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 1">
+                        <a href="/Free-Write/public/Publisher/bookProfile"><img src="/api/placeholder/150/200" alt="Book 1"></a>
                             <p>Book 1</p>
                         </div>
                         <div class="book">
-                            <img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 2">
+                        <a href="/Free-Write/public/Publisher/bookProfile"><img src="/api/placeholder/150/200" alt="Book 2"></a>
                             <p>Book 2</p>
                         </div>
                         <div class="book">
-                            <img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 3">
+                        <a href="/Free-Write/public/Publisher/bookProfile"><img src="/api/placeholder/150/200" alt="Book 3"></a>
                             <p>Book 3</p>
                         </div>
                         <div class="book">
-                            <img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 4">
+                        <a href="/Free-Write/public/Publisher/bookProfile"><img src="/api/placeholder/150/200" alt="Book 4"></a>
                             <p>Book 4</p>
                         </div>
                     </div>
@@ -225,19 +226,19 @@
                     </div>
                     <div class="books">
                         <div class="book">
-                            <img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 1">
+                        <a href="/Free-Write/public/Publisher/bookProfile"><img src="/api/placeholder/150/200" alt="Book 1"></a>
                             <p>Book 1</p>
                         </div>
                         <div class="book">
-                            <img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 2">
+                            <a href="/Free-Write/public/Publisher/bookProfile"><img src="/api/placeholder/150/200" alt="Book 2"></a>
                             <p>Book 2</p>
                         </div>
                         <div class="book">
-                            <img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 3">
+                        <a href="/Free-Write/public/Publisher/bookProfile"><img src="/api/placeholder/150/200" alt="Book 3"></a>
                             <p>Book 3</p>
                         </div>
                         <div class="book">
-                            <img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 4">
+                        <a href="/Free-Write/public/Publisher/bookProfile"><img src="/api/placeholder/150/200" alt="Book 4"></a>
                             <p>Book 4</p>
                         </div>
                     </div>
@@ -251,19 +252,19 @@
                     </div>
                     <div class="books">
                         <div class="book">
-                            <img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 1">
+                        <a href="/Free-Write/public/Publisher/bookProfile"><img src="/api/placeholder/150/200" alt="Book 1"></a>
                             <p>Book 1</p>
                         </div>
                         <div class="book">
-                            <img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 2">
+                        <a href="/Free-Write/public/Publisher/bookProfile"><img src="/api/placeholder/150/200" alt="Book 2"></a>
                             <p>Book 2</p>
                         </div>
                         <div class="book">
-                            <img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 3">
+                        <a href="/Free-Write/public/Publisher/bookProfile"><img src="/api/placeholder/150/200" alt="Book 3"></a>
                             <p>Book 3</p>
                         </div>
                         <div class="book">
-                            <img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 4">
+                        <a href="/Free-Write/public/Publisher/bookProfile"><img src="/api/placeholder/150/200" alt="Book 4"></a>
                             <p>Book 4</p>
                         </div>
                     </div>
@@ -277,19 +278,19 @@
                     </div>
                     <div class="books">
                         <div class="book">
-                            <img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 1">
+                        <a href="/Free-Write/public/Publisher/bookProfile"><img src="/api/placeholder/150/200" alt="Book 1"></a>
                             <p>Book 1</p>
                         </div>
                         <div class="book">
-                            <img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 2">
+                        <a href="/Free-Write/public/Publisher/bookProfile"><img src="/api/placeholder/150/200" alt="Book 2"></a>
                             <p>Book 2</p>
                         </div>
                         <div class="book">
-                            <img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 3">
+                        <a href="/Free-Write/public/Publisher/bookProfile"><img src="/api/placeholder/150/200" alt="Book 3"></a>
                             <p>Book 3</p>
                         </div>
                         <div class="book">
-                            <img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 4">
+                        <a href="/Free-Write/public/Publisher/bookProfile"><img src="/api/placeholder/150/200" alt="Book 4"></a>
                             <p>Book 4</p>
                         </div>
                     </div>

@@ -118,7 +118,7 @@
       border-bottom: none;
     }
 
-    .status-dropdown {
+    /* .status-dropdown {
       width: 100%;
       padding: 0.5rem;
       border: 2px solid #FFD700;
@@ -134,7 +134,7 @@
       outline: none;
       border-color: #FFD052;
       box-shadow: 0 0 0 3px rgba(255, 208, 82, 0.2);
-    }
+    } */
 
     .order-action-button {
       padding: 0.5rem 1rem;
@@ -180,6 +180,37 @@
         width: 100%;
       }
     }
+
+    .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .stat-card h3 {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
   </style>
 </head>
 
@@ -205,6 +236,27 @@
       require_once "../app/views/layout/header.php";
   }
   ?>
+   
+   <div class="container">
+        <div class="stats-grid">
+        <a href="/Free-Write/public/Publisher/newOrder"><div class="stat-card">
+                <h3>New Orders</h3>
+                <div class="number">12</div>
+            </div></a>
+            <div class="stat-card">
+                <h3>Processing</h3>
+                <div class="number">8</div>
+            </div>
+            <div class="stat-card">
+                <h3>Shipped</h3>
+                <div class="number">45</div>
+            </div>
+            <div class="stat-card">
+                <h3>Completed</h3>
+                <div class="number">156</div>
+            </div>
+        </div>
+
 
   <main class="main-content">
     <h1>Orders</h1>
@@ -229,32 +281,24 @@
       </thead>
       <tbody>
         <tr>
-          <td>Designing Data-Intensive Applications</td>
+        <td><a href="/Free-Write/public/Publisher/orderDetail">Designing Data-Intensive Applications</a></td></a>
           <td>2024-10-20</td>
           <td>Jane Smith</td>
           <td>1234 Main St, Colombo</td>
           <td>
-            <select class="status-dropdown">
-              <option value="pending">Pending</option>
-              <option value="ready">Ready for Courier</option>
-              <option value="shipped">Shipped</option>
-            </select>
+            shipped
           </td>
           <td>
             <button class="order-action-button">Proceed</button>
           </td>
         </tr>
         <tr>
-          <td>Clean Code</td>
+          <td><a href="/Free-Write/public/Publisher/orderDetail">Clean Code</a></td>
           <td>2024-10-21</td>
           <td>John Doe</td>
           <td>5678 Market St, Galle</td>
           <td>
-            <select class="status-dropdown">
-              <option value="pending">Pending</option>
-              <option value="ready">Ready for Courier</option>
-              <option value="shipped">Shipped</option>
-            </select>
+            pending
           </td>
           <td>
             <button class="order-action-button">Proceed</button>
