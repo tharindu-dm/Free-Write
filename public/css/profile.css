@@ -143,7 +143,12 @@ main {
 }
 
 .edit-profile-item {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.edit-name {
+  display: flex;
+  gap: 0.5rem;
 }
 
 .edit-profile-item label {
@@ -154,6 +159,7 @@ main {
 }
 
 .edit-profile-item input,
+.edit-profile-item select,
 .edit-profile-item textarea {
   width: 100%;
   padding: 0.75rem;
@@ -194,7 +200,8 @@ main {
   border: 1px solid #ffebeb;
   border-radius: 8px;
   padding: 1.5rem;
-  margin-top: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
 }
 
 .danger-zone h3 {
@@ -224,6 +231,21 @@ main {
 
 .delete-account-btn:hover {
   background-color: #c82333;
+}
+
+.discard-change-btn {
+  background-color: #636262;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.discard-change-btn:hover {
+  background-color: #333;
 }
 
 /*SPINOFF SECTION*/
@@ -279,7 +301,8 @@ main {
   align-items: center;
 }
 
-.chapter-count, .access-type {
+.chapter-count,
+.access-type {
   font-size: 0.85rem;
   padding: 0.25rem 0.75rem;
   border-radius: 1rem;

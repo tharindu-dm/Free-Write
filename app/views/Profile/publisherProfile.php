@@ -32,7 +32,7 @@
 
         .banner {
             height: 200px;
-            background-image: url('/image/blank.webp');
+            background-image: url('/Free-Write/public/images/hero.jpg');
             background-size: cover;
             background-position: center;
             border-radius: 12px;
@@ -43,7 +43,7 @@
             display: flex;
             align-items: center;
             margin-bottom: 30px;
-            background-color: #F5F0E5;
+            background-color: #FFD70044;
             padding: 2rem;
             border-radius: 12px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -54,22 +54,6 @@
             height: 100px;
             border-radius: 50%;
             margin-right: 20px;
-        }
-
-        .edit-profile {
-            background-color: #FFD052;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .edit-profile:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            background-color: #E0B94A;
         }
 
         .book-grid {
@@ -86,7 +70,7 @@
         }
 
         .add-books {
-            background-color: #8C805E;
+            background-color: #444;
             color: white;
             border: none;
             padding: 1rem 1.5rem;
@@ -94,7 +78,7 @@
             cursor: pointer;
 
 
-            width: 60%;
+            width: 100%;
             font-weight: 600;
             transition: transform 0.2s, box-shadow 0.2s;
         }
@@ -102,7 +86,15 @@
         .add-books:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            background-color: #7A6F50;
+            background-color: #000;
+        }
+
+        .publisher-profile-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 2rem;
         }
 
         .location,
@@ -116,14 +108,19 @@
 
         h2 {
             margin-bottom: 1rem;
-            color: #1C160C;
+            color: #444;
         }
 
         .location p,
         .contact p {
             display: flex;
             align-items: center;
-            color: #8C805E;
+            color: #333;
+        }
+
+        svg {
+            max-width: 2rem;
+            max-height: 2rem;
         }
 
         .location img,
@@ -145,37 +142,43 @@
     <main>
         <div class="banner"></div>
 
-        <section class="profile">
-            <img src="image/blank.webp" alt="Alice Smith" class="profile-picture">
-            <div class="profile-info">
-                <h1>Alice Smith</h1>
-                <p>Sales Rep at Acme Inc</p>
-                <button class="edit-profile">Edit Profile</button>
-            </div>
-        </section>
 
         <section class="library">
             <h2>Library</h2>
             <div class="book-grid">
-                <a href="link1.html"><img src="image/blank.webp" alt="Book 1"></a>
-                <a href="link2.html"><img src="image/blank.webp" alt="Book 2"></a>
-                <a href="link3.html"><img src="image/blank.webp" alt="Book 3"></a>
-                <a href="link4.html"><img src="image/blank.webp" alt="Book 4"></a>
-                <a href="link5.html"><img src="image/blank.webp" alt="Book 5"></a>
+                <a href="link1.html"><img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 1"></a>
+                <a href="link2.html"><img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 2"></a>
+                <a href="link3.html"><img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 3"></a>
+                <a href="link4.html"><img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 4"></a>
+                <a href="link5.html"><img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 5"></a>
             </div>
-
-            <button class="add-books">Add Books to Library</button>
+            <div class="publisher-profile-btn">
+                <a href="#"><button class="add-books">Add Books To Library</button></a>
+                <a href="/Free-Write/public/Competition/MyCompetitions"><button class="add-books">Manage My
+                        Competitions</button></a>
+            </div>
         </section>
 
         <section class="location">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="size-1">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+            </svg>
             <h2>Location</h2>
-            <p><img src="image/loc.png" alt="Location icon"> San Francisco, CA</p>
+            <p>San Francisco, CA</p>
             <p>123 Main St</p>
         </section>
 
         <section class="contact">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="size-1">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
+            </svg>
             <h2>Contact</h2>
-            <p><img src="image/phone.png" alt="Phone icon"> Phone</p>
+            <p>Phone</p>
             <p>(123) 456-7890</p>
         </section>
     </main>

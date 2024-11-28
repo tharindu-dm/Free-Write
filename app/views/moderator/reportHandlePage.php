@@ -18,7 +18,7 @@
     }
     switch ($userType) {
         case 'mod':
-            require_once "../app/views/layout/header-pub.php";
+            require_once "../app/views/layout/header-user.php";
             break;
         default:
             require_once "../app/views/layout/header.php";
@@ -127,6 +127,11 @@
         </div>
 
     </main>
+
+    <?php
+    require_once "../app/views/layout/footer.php";
+    ?>
+
     <script src="\Free-Write\public\js\reportHandlePage.js">
     </script>
     <script src="/Free-Write/public/js/Admin/admin.js"></script>

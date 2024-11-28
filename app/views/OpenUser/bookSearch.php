@@ -42,7 +42,7 @@
     <div class="browse-main-container">
         <!-- Ad image -->
         <div>
-            <img src="../public/images/ad.png" alt="Ad" class="ad-image">
+            <img src="/Free-Write/public/images/ad.png" alt="Ad" class="ad-image">
         </div>
 
         <main>
@@ -65,7 +65,7 @@
                     <?php foreach ($searchResult as $book): ?>
                         <a href="/Free-Write/public/book/Overview/<?= htmlspecialchars($book['bookID']); ?>">
                             <div class="book-card">
-                                <img src="../public/images/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                                <img src="/Free-Write/public/images/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
                                     alt="Cover Image of <?= htmlspecialchars($book['title']); ?>" class="book-cover">
                                 <div class="book-info">
                                     <div class="book-title">
@@ -106,7 +106,7 @@
 
         <!-- Ad image -->
         <div>
-            <img src="../public/images/ad.png" alt="Ad" class="ad-image">
+            <img src="/Free-Write/public/images/ad.png" alt="Ad" class="ad-image">
         </div>
     </div>
 

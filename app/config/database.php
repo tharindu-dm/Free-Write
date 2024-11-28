@@ -28,7 +28,7 @@ trait Database
         }
     }
 
-    /*private function connect() //connecting to azure sql server
+   /* private function connect() //connecting to azure sql server
     {
         // Load the .env file using the method
         $this->loadEnv(__DIR__ . '/.env');

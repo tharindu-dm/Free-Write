@@ -1,122 +1,213 @@
+:root {
+  --primary-color: #ffd700;
+  --text-color: #333;
+  --background-color: #ffffff;
+  --accent-color: #f0f0f08c;
+}
+
 main {
-    width: 100%;
-    margin: 0 auto;
-    padding: 2rem;
+  max-width: 100vw;
+  padding: 2rem;
 }
 
 .hero {
-    text-align: center;
-    margin-bottom: 4rem;
+  text-align: center;
+  margin-bottom: 5rem;
+  padding: 3rem 0;
+  background-color: rgba(255, 215, 0, 0);
+  border-radius: 20px;
 }
 
 .feather-icon {
-    width: 100px;
-    margin-bottom: 1rem;
+  width: 120px;
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
 }
 
 h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.hero p {
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  color: rgba(51, 51, 51, 0.8);
+}
+
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .cta-buttons button {
-    padding: 0.5rem 1rem;
-    margin: 0.5rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.browse-btn, .share-designs-btn {
-    background-color: #ffd700;
-    color: #333;
+.browse-btn,
+.share-designs-btn {
+  background-color: var(--primary-color);
+  color: var(--text-color);
 }
 
 .start-writing-btn {
-    background-color: #333;
-    color: #fff;
+  background-color: var(--text-color);
+  color: var(--background-color);
+}
+
+.cta-buttons button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
 .why-freewrite {
-    text-align: center;
-    margin-bottom: 4rem;
+  text-align: center;
+  margin: 0 5rem 5rem 5rem;
+}
+
+.why-freewrite h2 {
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
 }
 
 .features {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 2rem;
+  display: flex;
+  justify-content: space-around;
+  gap: 2rem;
+
+  margin: 3rem 5rem 0 5rem;
 }
 
 .feature {
-    flex: 1;
-    padding: 1rem;
+  flex: 1;
+  padding: 2rem;
+  background-color: var(--accent-color);
+  border-radius: 15px;
+  transition: transform 0.3s ease;
+}
+
+.feature:hover {
+  transform: translateY(-10px);
 }
 
 .feature svg {
-    width: 50px;
-    margin-bottom: 1rem;
+  width: 60px;
+  margin-bottom: 1.5rem;
+  color: var(--primary-color);
+}
+
+.feature h3 {
+  margin-bottom: 1rem;
 }
 
 .cta {
-    text-align: center;
-    margin-bottom: 4rem;
+  text-align: center;
+  margin-bottom: 5rem;
+  background-color: rgba(255, 215, 0, 0.1);
+  padding: 3rem;
+  border-radius: 20px;
 }
 
 .join-btn {
-    background-color: #ffd700;
-    color: #333;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.join-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
 .pricing {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 4rem;
+  display: flex;
+  justify-content: space-around;
+  gap: 2rem;
+  margin-bottom: 4rem;
 }
 
 .plan {
-    flex: 1;
-    padding: 2rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    text-align: center;
+  flex: 1;
+  padding: 2.5rem;
+  border: 1px solid var(--accent-color);
+  border-radius: 15px;
+  text-align: center;
+  background-color: var(--background-color);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.plan:hover {
+  transform: translateY(-10px);
 }
 
 .plan h3 {
-    margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
 }
 
 .price {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
 }
 
 .price span {
-    font-size: 1rem;
-    font-weight: normal;
+  font-size: 1rem;
+  font-weight: normal;
+  color: rgba(51, 51, 51, 0.7);
 }
 
-.get-started-btn, .upgrade-btn {
-    background-color: #ffd700;
-    color: #333;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-bottom: 1rem;
+.get-started-btn,
+.upgrade-btn {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.get-started-btn:hover,
+.upgrade-btn:hover {
+  transform: translateY(-3px);
 }
 
 .plan ul {
-    list-style-type: none;
-    text-align: left;
+  list-style-type: none;
+  text-align: left;
+  margin-top: 1rem;
+}
+
+.plan ul li {
+  margin-bottom: 0.5rem;
+  padding-left: 1.5rem;
+  position: relative;
 }
 
 .plan ul li::before {
-    content: "✓ ";
-    color: #4CAF50;
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--primary-color);
+  font-weight: bold;
 }

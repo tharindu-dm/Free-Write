@@ -14,7 +14,7 @@
 
     <script>
         document.getElementById("covdesDashboard").addEventListener("click", function () {
-            window.location.href = '/Free-Write/public/CovDes/Dashboard';
+            window.location.href = '/Free-Write/public/Designer/Dashboard';
         });
     </script>
 </body>

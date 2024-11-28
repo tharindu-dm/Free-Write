@@ -19,8 +19,31 @@ class PublisherController extends Controller
     }
 
 
+    public function bookProfile()
+    {
+        $this->view('publisher/bookDesign4Users');
+    }
+
     public function Profile()
     {
-        $this->view('publisher/bookUploadForm4Publishers');
+        $this->view('publisher/publisherProfile4User');
     }
+    
+    public function bookList()
+    {
+        $this->view('publisher/allPublicationList');
+    }
+
+    public function regPage(){
+        $this->view('publisher/publisherRegistrationPage');
+    }
+     
+    public function orderDetail(){
+        $this->view('publisher/orderDetailPage');
+    }
+
+    public function newOrder(){
+        $this->view('publisher/newOrder');
+    }
+    
 }

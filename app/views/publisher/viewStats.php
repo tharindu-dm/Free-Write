@@ -17,7 +17,7 @@
     }
 
     .breadcrumb a {
-      color: #8C805E;
+      color: #c47c15;
       text-decoration: none;
     }
 
@@ -98,7 +98,7 @@
       height: 200px;
       background-color: #FCFAF5;
       border-radius: 8px;
-      border: 2px solid #E9DFCE;
+      border: 2px solid #FFD700;
       margin-bottom: 1rem;
       position: relative;
       overflow: hidden;
@@ -118,7 +118,7 @@
     .chart-labels {
       display: flex;
       justify-content: space-between;
-      color: #8C805E;
+      color: #c47c15;
       font-size: 0.9rem;
       margin-top: 1rem;
     }
@@ -134,7 +134,7 @@
       text-align: center;
       padding: 1.5rem;
       background-color: #FFFFFF;
-      color: #8C805E;
+      color: #c47c15;
       box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
     }
 

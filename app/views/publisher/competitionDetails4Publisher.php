@@ -19,33 +19,33 @@
       color: #1C160C;
     }
 
-    .search-container {
+    .competition-search-container {
       display: flex;
       gap: 1rem;
       margin-bottom: 2rem;
     }
 
-    .search-bar {
+    .competition-search-bar {
       flex: 1;
       display: flex;
       align-items: center;
       background-color: #FFFFFF;
-      border: 2px solid #E9DFCE;
+      border: 0.2rem solid #FFD700;
       border-radius: 8px;
       padding: 0.75rem 1rem;
       transition: border-color 0.3s, box-shadow 0.3s;
     }
 
-    .search-bar:focus-within {
+    .competition-search-bar:focus-within {
       border-color: #FFD052;
       box-shadow: 0 0 0 3px rgba(255, 208, 82, 0.2);
     }
 
-    .search-bar svg {
-      color: #8C805E;
+    .competition-search-bar svg {
+      color: #c47c15;
     }
 
-    .search-bar input {
+    .competition-search-bar input {
       flex: 1;
       margin-left: 0.75rem;
       border: none;
@@ -55,8 +55,8 @@
       outline: none;
     }
 
-    .search-bar input::placeholder {
-      color: #8C805E;
+    .competition-search-bar input::placeholder {
+      color: #c47c15;
     }
 
     .new-competition-button {
@@ -79,11 +79,11 @@
       display: flex;
       gap: 2rem;
       margin-bottom: 2rem;
-      border-bottom: 2px solid #E9DFCE;
+      border-bottom: 2px solid #FFD700;
     }
 
     .tabs a {
-      color: #8C805E;
+      color: #c47c15;
       text-decoration: none;
       font-weight: 600;
       padding: 0.5rem 0;
@@ -145,11 +145,11 @@
       background-color: #FCFAF5;
       color: #1C160C;
       font-weight: 600;
-      border-bottom: 2px solid #E9DFCE;
+      border-bottom: 2px solid #FFD700;
     }
 
     td {
-      border-bottom: 1px solid #E9DFCE;
+      border-bottom: 1px solid #FFD700;
     }
 
     tr:last-child td {
@@ -170,7 +170,7 @@
     .status-badge {
       display: inline-block;
       padding: 0.25rem 0.75rem;
-      background-color: #E9DFCE;
+      background-color: #FFD700;
       color: #1C160C;
       border-radius: 16px;
       font-size: 0.875rem;
@@ -178,7 +178,7 @@
     }
 
     .action-link {
-      color: #8C805E;
+      color: #c47c15;
       text-decoration: none;
       font-weight: 500;
       transition: color 0.3s;
@@ -193,7 +193,7 @@
         padding: 1rem;
       }
 
-      .search-container {
+      .competition-search-container {
         flex-direction: column;
       }
 
@@ -230,14 +230,14 @@
   <div class="content">
     <h1>Competitions</h1>
 
-    <div class="search-container">
-      <div class="search-bar">
+    <div class="competition-search-container">
+      <div class="competition-search-bar">
         <svg width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
           <path
             d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z">
           </path>
         </svg>
-        <input type="text" placeholder="Search for competitions">
+        <input type="text" placeholder="competition-Search for competitions">
       </div>
       <a href="/Free-Write/public/Competition/New"><button class="new-competition-button">New Competition</button></a>
     </div>

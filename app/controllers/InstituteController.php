@@ -47,6 +47,10 @@ class InstituteController extends Controller
 
     public function Register()
     {
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: /Free-Write/public/Login');
+        }
+
         $user = new User();
         $email = $user->first(['userID' => $_SESSION['user_id']]);
         $this->view('Institute/InstituteSignUpForm', ['user' => $email]);
@@ -70,7 +74,9 @@ class InstituteController extends Controller
         $user = new User();//updating the user as a creator of an institution
         $user->update($creator, ['userType' => 'inst'], 'userID');
 
-        header('Location: /Free-Write/public/Institute/Dashboard');
+        //end session
+        session_destroy();
+        header('Location: /Free-Write/public/Login');
     }
 
     public function read()
