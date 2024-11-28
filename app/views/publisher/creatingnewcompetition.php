@@ -228,15 +228,15 @@
         <label for="end_date">End Date</label>
         <input type="date" id="end_date" name="end_date" required />
 
-        <div class="optional-section">
+        <!--<div class="optional-section">
           <h3>Add Competition Image</h3>
           <p>JPG or PNG, 2MB max</p>
           <input type="file" name="competition_image" accept="image/jpeg,image/png" />
-        </div>
+        </div>-->
 
         <button type="submit" class="submit-btn">Create Competition</button>
         <button type="button" class="cancel-btn"
-          onclick="location.href='/Free-Write/public/Competition/'">Cancel</button>
+          onclick="location.href='/Free-Write/public/Competition/MyCompetitions'">Cancel</button>
       </form>
     </div>
   </main>

@@ -52,26 +52,28 @@
                     <div class="input-group">
                         <label for="title">Title</label>
 
-                        <input type="text" id="title" name="title" placeholder="Enter a title for your story" required>
+                        <input type="text" maxlength="45" rows="7" id="title" name="title"
+                            placeholder="Enter a title for your story" required>
                     </div>
 
                     <div class="input-group">
                         <label for="synopsis">Synopsis</label>
 
-                        <textarea id="synopsis" name="synopsis" placeholder="Enter a synopsis" required></textarea>
+                        <textarea id="Synopsis" maxlength="255" name="Synopsis" placeholder="Enter a Synopsis"
+                            required></textarea>
 
                     </div>
 
                     <div class="input-group">
                         <label for="price">Price</label>
-                        <input type="text" id="price" name="price" placeholder="Free (Type to add a Price)">
+                        <input type="number" min="0" id="price" name="price" placeholder="Free (Enter a Price)">
                     </div>
 
                     <div class="input-group">
                         <label for="type">Release Type</label>
                         <div class="privacy-toggle">
-                            <label><input type="radio" name="type" value="book"> Book Wise</label>
-                            <label><input type="radio" name="type" value="chapter"> Chapter Wise</label>
+                            <label><input required type="radio" name="type" value="book"> Book Wise</label>
+                            <label><input required type="radio" name="type" value="chapter"> Chapter Wise</label>
                         </div>
                     </div>
 
@@ -80,8 +82,8 @@
                         <div class="privacy-toggle">
 
 
-                            <label><input type="radio" name="privacy" value="public"> Public</label>
-                            <label><input type="radio" name="privacy" value="private"> Private</label>
+                            <label><input required type="radio" name="privacy" value="public"> Public</label>
+                            <label><input required type="radio" name="privacy" value="private"> Private</label>
                         </div>
                     </div>
 
@@ -96,6 +98,8 @@
     // Including the footer
     require_once "../app/views/layout/footer.php";
     ?>
+
+<script src="/Free-Write/public/js/writer/createBook.js"></script>
 
 
 </body>

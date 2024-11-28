@@ -135,98 +135,6 @@ select {
   }
 }
 
-/*adding to my booklist */
-.add-to-list {
-  display: none;
-  position: fixed; /* Make it fixed to the viewport */
-  top: 0;
-  left: 0;
-  width: 100vw; /* Full width of the viewport */
-  height: 100vh; /* Full height of the viewport */
-  background: rgba(0, 0, 0, 0.6); /* Adjust the opacity of the background */
-
-  justify-content: center; /* Center the form horizontally */
-  align-items: center; /* Center the form vertically */
-  z-index: 1;
-}
-
-.add-list-radio-labels {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-  justify-content: center;
-}
-
-.list-add-container {
-  display: flex;
-  flex-direction: column;
-  max-width: fit-content;
-  background-color: #fff;
-  padding: 2rem;
-  border-radius: 1rem;
-  z-index: 2;
-}
-
-.list-add-radios {
-  display: flex;
-  gap: 10px;
-  padding: 0.5rem;
-}
-
-.list-add-actionBtns {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-  justify-content: center;
-}
-
-.add-list-cancel-button {
-  background-color: #535353;
-  color: #fff;
-  padding: 0.5rem 2rem 0.5rem 2rem;
-  border-radius: 0.5rem;
-}
-.add-list-submit-button {
-  background-color: #ffd700;
-  color: #000;
-  padding: 0.5rem 2rem 0.5rem 2rem;
-  border-radius: 0.5rem;
-}
-
-/*buy button*/
-.buy-button {
-  background-color: #000000;
-  border: none;
-  padding: 10px 20px;
-  font-size: 1em;
-  font-weight: bold;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  min-height: 3rem;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.buy-button a {
-  color: #ffd700;
-}
-
-.buy-button a:hover {
-  animation: buy-color-appear 0.3s forwards;
-}
-
-@keyframes buy-color-appear {
-  from {
-    color: #ffd700;
-  }
-  to {
-    color: #fff;
-  }
-}
-
 /* Table Container Styles */
 .table-of-contents {
   margin: 2rem 0;
@@ -325,4 +233,48 @@ select {
     width: 100%;
     text-align: center;
   }
+}
+
+/*Delete overlay*/
+
+.deleteOverlay-container {
+  display: none;
+  position: fixed;
+  /* Make it fixed to the viewport */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  /* Full width of the viewport */
+  height: 100vh;
+  /* Full height of the viewport */
+  background: rgba(0, 0, 0, 0.6);
+  /* Adjust the opacity of the background */
+
+  justify-content: center;
+  /* Center the form horizontally */
+  align-items: center;
+  /* Center the form vertically */
+  z-index: 1;
+}
+
+.deleteOverlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: fit-content;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  z-index: 2;
+}
+
+.delete-btn {
+  background-color: #ff0000 !important;
+  color: white !important;
+}
+
+.del-overlay-items{
+  display: flex;
+  gap:1rem;
+  margin-bottom: 0.5rem;
 }

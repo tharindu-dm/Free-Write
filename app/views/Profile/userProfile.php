@@ -85,7 +85,7 @@
                             </div>
                             <div class="stat-item">
                                 <a href="/Free-Write/public/BookList/Planned">
-                                    <h3>Plan to Read</h3>
+                                    <h3>To Read</h3>
                                 </a>
                                 <p id="plan-to-read-count"><?= htmlspecialchars($listCounts[0]['planned']); ?></p>
                             </div>

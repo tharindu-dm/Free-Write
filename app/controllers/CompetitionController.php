@@ -64,7 +64,7 @@ class CompetitionController extends Controller
     public function deleteCompetition()
     {
         $URL = splitURL();
-        $competitionID = $URL[2];
+        $competitionID = $_POST['compID'];
         $competition_table = new competition();
         $competition_table->delete($competitionID, 'competitionID');  //ensure what are id and id column
         header('Location: /Free-Write/public/Competition/MyCompetitions');
