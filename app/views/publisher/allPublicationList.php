@@ -5,49 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Publications - Acme Publishing</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Plus Jakarta Sans', 'Noto Sans', sans-serif;
-            background-color: #F5F0E5;
-            color: #1C160C;
-            line-height: 1.6;
-        }
-
-        header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1rem 2rem;
-            background-color: #FFFFFF;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        /* .nav-container {
-            display: flex;
-            flex: 1;
-            margin-left: 3rem;
-        } */
-
-        nav {
-            display: flex;
-            gap: 2rem;
-        }
-
-        nav a {
-            color: #1C160C;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 0.5rem 0;
-        }
-
         main {
             max-width: 1400px;
             margin: 2rem auto;
@@ -209,10 +166,6 @@
         }
 
         @media (max-width: 768px) {
-            header {
-                padding: 1rem;
-            }
-
             main {
                 padding: 1rem;
             }
@@ -229,19 +182,6 @@
     </style>
 </head>
 <body>
-    <!-- <header>
-        <div>
-            <h1>Free Write</h1>
-        </div>
-        <div class="nav-container">
-            <nav>
-                <a href="#">Browse</a>
-                <a href="#">Designers</a>
-                <a href="#">Publishers</a>
-                <a href="#">Contests</a>
-            </nav>
-        </div>
-    </header> -->
     <?php
     if (isset($_SESSION['user_type'])) {
         $userType = $_SESSION['user_type'];
@@ -268,7 +208,7 @@
     <main>
         <div class="page-header">
             <div class="publisher-info">
-                <img src="image/blank.webp" alt="Acme Publishing" class="publisher-logo">
+                <img src="/Free-Write/public/images/profile-image.jpg" alt="Acme Publishing" class="publisher-logo">
                 <div>
                     <h1>All Publications</h1>
                     <p>Acme Publishing</p>
@@ -324,7 +264,7 @@
         <div class="publications-grid">
             <!-- Example book cards -->
             <a href="/Free-Write/public/Publisher/bookProfile">  <div class="book-card">
-                <img src="image/blank.webp" alt="Book Title" class="book-cover">
+                <img src="/Free-Write/public/images/sampleCover.jpg" alt="Book Title" class="book-cover">
                 <div class="book-info">
                     <div class="book-title">The Hidden Path</div>
                     <div class="book-author">by Sarah Johnson</div>
@@ -339,7 +279,7 @@
 
             <!-- Repeat book cards for demonstration -->
             <a href="/Free-Write/public/Publisher/bookProfile"> <div class="book-card">
-                <img src="image/blank.webp" alt="Book Title" class="book-cover">
+                <img src="/Free-Write/public/images/sampleCover.jpg" alt="Book Title" class="book-cover">
                 <div class="book-info">
                     <div class="book-title">Beyond the Horizon</div>
                     <div class="book-author">by Michael Chen</div>
