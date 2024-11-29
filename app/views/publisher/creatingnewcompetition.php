@@ -153,13 +153,12 @@
     }
 
     .error-message {
-      background-color: #ffebee;
-      color: #c62828;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      border-radius: 8px;
-      border: 1px solid #ef9a9a;
-    }
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: -1rem;
+    margin-bottom: 1rem;
+    display: none;
+}
   </style>
 </head>
 
@@ -205,43 +204,184 @@
       <?php endif; ?>
 
 
-      <form action="/Free-Write/public/Competition/CreateCompetition" method="POST">
-        <input type="hidden" name="compID" value="<?= htmlspecialchars($competitionDetails['competitionID']) ?>">
-        <label for="title">Competition Name</label>
-        <input type="text" id="title" name="title" placeholder="Enter competition name" required />
-
-        <label for="description">Competition Description</label>
-        <textarea id="description" name="description" placeholder="Describe your competition" required></textarea>
-
-        <label for="title">Rules</label>
-        <input type="text" id="rules" name="rules" placeholder="Enter competition rules" required />
-
-        <label for="category">Category</label>
-        <input type="text" id="category" name="category" placeholder="Enter category" required />
-
-        <label for="prizes">Prize Amount</label>
-        <input type="number" id="prizes" name="prizes" placeholder="Enter prize amount" required min="0" step="0.01" />
-
-        <label for="start_date">Start Date</label>
-        <input type="date" id="start_date" name="start_date" required />
-
-        <label for="end_date">End Date</label>
-        <input type="date" id="end_date" name="end_date" required />
-
-        <!--<div class="optional-section">
-          <h3>Add Competition Image</h3>
-          <p>JPG or PNG, 2MB max</p>
-          <input type="file" name="competition_image" accept="image/jpeg,image/png" />
-        </div>-->
-
-        <button type="submit" class="submit-btn">Create Competition</button>
-        <button type="button" class="cancel-btn"
-          onclick="location.href='/Free-Write/public/Competition/MyCompetitions'">Cancel</button>
-      </form>
+      <form action="/Free-Write/public/Competition/CreateCompetition" method="POST" onsubmit="return validateForm()">
+    <input type="hidden" name="compID" value="<?= htmlspecialchars($competitionDetails['competitionID']) ?>">
+    
+    <label for="title">Competition Name</label>
+    <input type="text" id="title" name="title" placeholder="Enter competition name" required />
+    <div id="title_error" class="error-message"></div>
+    
+    <label for="description">Competition Description</label>
+    <textarea id="description" name="description" placeholder="Describe your competition" required></textarea>
+    <div id="description_error" class="error-message"></div>
+    
+    <label for="rules">Rules</label>
+    <input type="text" id="rules" name="rules" placeholder="Enter competition rules" required />
+    <div id="rules_error" class="error-message"></div>
+    
+    <label for="category">Category</label>
+    <input type="text" id="category" name="category" placeholder="Enter category" required />
+    <div id="category_error" class="error-message"></div>
+    
+    <label for="prizes">Prize Amount</label>
+    <input type="number" id="prizes" name="prizes" placeholder="Enter prize amount" required min="0" step="0.01" />
+    
+    <label for="start_date">Start Date</label>
+    <input type="date" id="start_date" name="start_date" required />
+    <div id="start_date_error" class="error-message"></div>
+    
+    <label for="end_date">End Date</label>
+    <input type="date" id="end_date" name="end_date" required />
+    <div id="end_date_error" class="error-message"></div>
+    
+    <!-- <div class="optional-section">
+        <h3>Add Competition Image</h3>
+        <p>JPG or PNG, 2MB max</p>
+        <input type="file" name="competition_image" accept="image/jpeg,image/png" />
+    </div> -->
+    
+    <button type="submit" class="submit-btn">Create Competition</button>
+    <button type="button" class="cancel-btn" onclick="location.href='/Free-Write/public/Competition/'">Cancel</button>
+</form>
     </div>
   </main>
   <?php require_once "../app/views/layout/footer.php"; ?>
 
+  <script>
+function countWords(str) {
+    return str.trim().split(/\s+/).filter(word => word.length > 0).length;
+}
+
+function validateForm() {
+    let isValid = true;
+    const errorMessages = {
+        title: document.getElementById('title_error'),
+        category: document.getElementById('category_error'),
+        description: document.getElementById('description_error'),
+        rules: document.getElementById('rules_error'),
+        startDate: document.getElementById('start_date_error'),
+        endDate: document.getElementById('end_date_error')
+    };
+
+    // Reset all error messages
+    Object.values(errorMessages).forEach(elem => {
+        if (elem) elem.style.display = 'none';
+    });
+
+    // Competition Name Validation
+    const title = document.getElementById('title').value;
+    if (/\d/.test(title)) {
+        errorMessages.title.textContent = 'Competition name cannot contain numbers';
+        errorMessages.title.style.display = 'block';
+        isValid = false;
+    }
+
+    // Category Validation
+    const category = document.getElementById('category').value;
+    if (/\d/.test(category)) {
+        errorMessages.category.textContent = 'Category cannot contain numbers';
+        errorMessages.category.style.display = 'block';
+        isValid = false;
+    }
+
+    // Description Validation
+    const description = document.getElementById('description').value;
+    if (countWords(description) < 5) {
+        errorMessages.description.textContent = 'Description must be at least 10 words';
+        errorMessages.description.style.display = 'block';
+        isValid = false;
+    }
+
+    // Rules Validation
+    const rules = document.getElementById('rules').value;
+    if (countWords(rules) < 5) {
+        errorMessages.rules.textContent = 'Rules must be at least 10 words';
+        errorMessages.rules.style.display = 'block';
+        isValid = false;
+    }
+
+    // Date Validations
+    const startDate = new Date(document.getElementById('start_date').value);
+    const endDate = new Date(document.getElementById('end_date').value);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (startDate < today) {
+        errorMessages.startDate.textContent = 'Start date cannot be in the past';
+        errorMessages.startDate.style.display = 'block';
+        isValid = false;
+    }
+
+    if (endDate <= startDate) {
+        errorMessages.endDate.textContent = 'End date must be at least one day after start date';
+        errorMessages.endDate.style.display = 'block';
+        isValid = false;
+    }
+
+    return isValid;
+}
+
+// Real-time validation for text inputs
+document.getElementById('title').addEventListener('input', function() {
+    const errorElem = document.getElementById('title_error');
+    if (/\d/.test(this.value)) {
+        errorElem.textContent = 'Competition name cannot contain numbers';
+        errorElem.style.display = 'block';
+    } else {
+        errorElem.style.display = 'none';
+    }
+});
+
+document.getElementById('category').addEventListener('input', function() {
+    const errorElem = document.getElementById('category_error');
+    if (/\d/.test(this.value)) {
+        errorElem.textContent = 'Category cannot contain numbers';
+        errorElem.style.display = 'block';
+    } else {
+        errorElem.style.display = 'none';
+    }
+});
+
+document.getElementById('description').addEventListener('input', function() {
+    const errorElem = document.getElementById('description_error');
+    if (countWords(this.value) < 5) {
+        errorElem.textContent = 'Description must be at least 10 words';
+        errorElem.style.display = 'block';
+    } else {
+        errorElem.style.display = 'none';
+    }
+});
+
+document.getElementById('rules').addEventListener('input', function() {
+    const errorElem = document.getElementById('rules_error');
+    if (countWords(this.value) < 5) {
+        errorElem.textContent = 'Rules must be at least 10 words';
+        errorElem.style.display = 'block';
+    } else {
+        errorElem.style.display = 'none';
+    }
+});
+
+// Set minimum date for start date (today)
+const today = new Date();
+const todayFormatted = today.toISOString().split('T')[0];
+document.getElementById('start_date').setAttribute('min', todayFormatted);
+
+// Update minimum date for end date when start date changes
+document.getElementById('start_date').addEventListener('change', function() {
+    const startDate = new Date(this.value);
+    const minEndDate = new Date(startDate);
+    minEndDate.setDate(startDate.getDate() + 1);
+    const minEndDateFormatted = minEndDate.toISOString().split('T')[0];
+    
+    const endDateInput = document.getElementById('end_date');
+    endDateInput.setAttribute('min', minEndDateFormatted);
+    
+    if (endDateInput.value && new Date(endDateInput.value) <= startDate) {
+        endDateInput.value = '';
+    }
+});
+</script>
 </body>
 
 </html>
