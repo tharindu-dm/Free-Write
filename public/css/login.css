@@ -5,7 +5,9 @@
 
 .creativity-section {
   flex: 1;
-  background: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%);
+  /*background: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%);*/
+  background-image: url('/Free-Write/public/images/designer-hero.webp');
+  background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;

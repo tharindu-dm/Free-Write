@@ -53,7 +53,7 @@
         </aside>
         <main class="main-content">
             <header class="header">
-                <h1>Welcome to Freewrite, Institution Name</h1>
+                <h1>Welcome to Freewrite,  </h1>
                 <p>Manage your institution's Freewrite experience</p>
             </header>
             <section class="dashboard-overview">
