@@ -209,24 +209,22 @@
 
 
         <label for="title">Competition Name</label>
-        <input type="text" id="title" name="title" placeholder="Enter competition name"
+        <input type="text" id="title" name="title" maxlength="45" placeholder="Enter competition name"
           value="<?= htmlspecialchars($competitionDetails['title']) ?>" required />
 
         <label for="description">Competition Description</label>
-        <textarea id="description" name="description" placeholder="Describe your competition"
+        <textarea id="description" name="description" maxlength="255" placeholder="Describe your competition"
           required><?= htmlspecialchars($competitionDetails['description']) ?></textarea>
 
 
         <label for="category">Category</label>
-        <input type="text" id="category" name="category" placeholder="Enter category"
+        <input type="text" id="category" maxlength="45" name="category" placeholder="Enter category"
           value="<?= htmlspecialchars($competitionDetails['category']) ?>" required />
 
 
         <label for="rules">Rules</label>
-        <input type="text" id="rules" name="rules" placeholder="Enter competition rules"
+        <input type="text" id="rules" maxlength="25" name="rules" placeholder="Enter competition rules"
           value="<?= htmlspecialchars($competitionDetails['rules']) ?? '' ?>" required />
-
-
 
 
         <label for="prizes">Prize Amount</label>

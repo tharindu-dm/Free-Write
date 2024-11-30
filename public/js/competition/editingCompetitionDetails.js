@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
+  
+  
+  ////////////////////////////////////
   const deleteCompBtn = document.getElementById("DeleteCompetition");
   const cancelDeleteBtn = document.getElementById("cancelDelete");
   const deleteOverlay = document.querySelector(".deleteOverlay-container");

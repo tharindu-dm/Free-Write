@@ -208,19 +208,19 @@
     <input type="hidden" name="compID" value="<?= htmlspecialchars($competitionDetails['competitionID']) ?>">
     
     <label for="title">Competition Name</label>
-    <input type="text" id="title" name="title" placeholder="Enter competition name" required />
+    <input type="text" maxlength="45" id="title" name="title" placeholder="Enter competition name" required />
     <div id="title_error" class="error-message"></div>
     
     <label for="description">Competition Description</label>
-    <textarea id="description" name="description" placeholder="Describe your competition" required></textarea>
+    <textarea id="description" maxlength="255" name="description" placeholder="Describe your competition" required></textarea>
     <div id="description_error" class="error-message"></div>
     
     <label for="rules">Rules</label>
-    <input type="text" id="rules" name="rules" placeholder="Enter competition rules" required />
+    <input type="text" id="rules" maxlength="25" name="rules" placeholder="Enter competition rules" required />
     <div id="rules_error" class="error-message"></div>
     
     <label for="category">Category</label>
-    <input type="text" id="category" name="category" placeholder="Enter category" required />
+    <input type="text" id="category" maxlength="45" name="category" placeholder="Enter category" required />
     <div id="category_error" class="error-message"></div>
     
     <label for="prizes">Prize Amount</label>
