@@ -177,6 +177,7 @@ class LoginController extends Controller
 
                     // Set last login date
                     $userDetails = new UserDetails();
+
                     $userDetails->update($userData['userID'], ['lastLogDate' => date("Y-m-d H:i:s")], 'user');
 
                     // Redirect to the appropriate page based on user type
@@ -234,6 +235,7 @@ class LoginController extends Controller
                 // Set session variables
                 $_SESSION['user_id'] = $institutionData['institutionID'];
                 $_SESSION['user_type'] = 'inst';
+                $_SESSION['user_name'] = $institutionData['name']; 
 
                 // Update sitelog with successful login attempt
                 $dataset = array(

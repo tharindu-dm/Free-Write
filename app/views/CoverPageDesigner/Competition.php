@@ -38,7 +38,7 @@
 
   <main>
     <section class="user-profile">
-      <img src="/Free-Write/public/images/profile-image.jpg" alt="Michael Thompson" class="profile-picture">
+      <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="Michael Thompson" class="profile-picture">
       <h1>Michael Thompson</h1>
       <p>250 followers</p>
     </section>

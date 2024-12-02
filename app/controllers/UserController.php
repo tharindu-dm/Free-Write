@@ -58,13 +58,13 @@ class UserController extends Controller
 
         // Validate date of birth
         $dob = $_POST['dob'];
-        $dobDate = DateTime::createFromFormat('Y-m-d', $dob);
-        if ($dobDate === false || $dobDate > (new DateTime())->modify('-13 years')) {
-            // Handle invalid date of birth error
-            die('You must be at least 13 years old.');
+        if ($dob) {
+            $dobDate = DateTime::createFromFormat('Y-m-d', $dob);
+            if ($dobDate === false || $dobDate > (new DateTime())->modify('-13 years')) {
+                // Handle invalid date of birth error
+                die('You must be at least 13 years old.');
+            }
         }
-
-        // Validate country (if required, add your own validation logic here)
 
         // Validate bio
         if (strlen($_POST['bio']) > 255) {
@@ -72,13 +72,46 @@ class UserController extends Controller
             die('Bio must be 255 characters or less.');
         }
 
+        $country = $_POST['country'];
+        if ($country == '')
+            $country = null;
+
+
         $data = [
             'firstName' => $_POST['firstName'],
             'lastName' => $_POST['lastName'],
             'dob' => $dob,
             'country' => $_POST['country'],
-            'bio' => $_POST['bio']
+            'bio' => $_POST['bio'],
+            'profileImage' => null
         ];
+
+        // Handle profile image upload
+        if (isset($_FILES['profileImage']) && $_FILES['profileImage']['error'] == UPLOAD_ERR_OK) {
+            $profileImage = $_FILES['profileImage'];
+
+            // Get the file extension
+            $fileExtension = pathinfo($profileImage['name'], PATHINFO_EXTENSION);
+
+            // Generate a new filename
+            $dateTime = date('Y-m-d_H-i-s'); // Format: YYYY-MM-DD_HH-MM-SS
+            $newFileName = "PROFILE_{$uid}_{$dateTime}.{$fileExtension}";
+
+            // Define the target directory
+            $targetDirectory = 'D:/XAMPP/htdocs/Free-Write/app/images/profile/';
+
+            // Move the uploaded file to the target directory with the new name
+            if (move_uploaded_file($profileImage['tmp_name'], $targetDirectory . $newFileName)) {
+                // File uploaded successfully
+                $data['profileImage'] = $newFileName;
+            } else {
+                // Handle file upload error
+                die('Failed to move uploaded file.');
+            }
+        } else {
+            // No file uploaded or an error occurred, set the variable to null
+            //$newFileName = null; //by default the #$data at abouve regarding profile image is set to null
+        }
 
         $userDetailsTable->update($uid, $data, 'user');
 
@@ -91,8 +124,8 @@ class UserController extends Controller
         $user = new User();
         $userDetailsTable = new UserDetails();
 
-        $userDetailsTable->delete($uid, 'user');
-        $user->delete($uid, 'userID');
+        /*$userDetailsTable->delete($uid, 'user');
+        $user->delete($uid, 'userID');*/
 
         session_destroy();
         header('Location: /Free-Write/public/User/Login');

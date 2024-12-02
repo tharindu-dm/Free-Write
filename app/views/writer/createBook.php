@@ -37,7 +37,7 @@
 
                 <!-- Book Cover Section -->
                 <div class="book-cover">
-                    <img src="/Free-Write/public/images/sampleCover.jpg" alt="Cover Preview" class="cover-img">
+                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Cover Preview" class="cover-img">
                     <div class="cover-upload">
                         <input type="file" id="cover" name="cover" accept="image/*" class="file-input">
                         <button type="button" class="upload-btn">Upload Cover Photo</button>
