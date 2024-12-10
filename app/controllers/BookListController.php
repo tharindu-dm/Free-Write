@@ -5,24 +5,20 @@ class BookListController extends Controller
     public function index()
     {
         $URL = splitURL();
-        switch ($URL[1]) {
-            case 'Add':
-                $this->addToList($_POST['List_uid'], $_POST['List_bid'], $_POST['list']);
-                break;
-            case 'Update':
-                $this->updateList($_POST['List_bid'], $_POST['chapterCount'], $_POST['status']);
-                break;
-            case 'Delete':
-                $this->deleteFromList($_POST['List_bid']);
-
-            default:
-                $this->listPage();
-                break;
-        }
+        if (
+            $URL[2] == 'Reading' ||
+            $URL[2] == 'Completed' ||
+            $URL[2] == 'Onhold' ||
+            $URL[2] == 'Dropped' ||
+            $URL[2] == 'Planned'
+        )
+            $this->listPage();
+        else
+            $this->view('error');
 
     }
 
-    private function listPage()
+    public function listPage()
     {
         if (!isset($_SESSION['user_id'])) {
             $this->view('login');
@@ -47,24 +43,41 @@ class BookListController extends Controller
         ]);
     }
 
-    private function addToList($uid, $bookID, $status)
+    public function addToList()
     {
+        $uid = $_SESSION['user_id'];
+        $bookID = $_POST['List_bid'];
+        $status = $_POST['status'];
+
         $list = new BookList(); //get chapter to be added to the list
         $list->addToList($uid, $bookID, $status);
         header('Location: /Free-Write/public/Book/Overview/' . $bookID);
     }
 
-    private function updateList($bookID, $chapterCount, $BookStatus)
+    public function updateList()
     {
+        $bookID = $_POST['List_bid'];
+        $chapterCount = 0;
+
+        if (isset($_POST['chapterCount']))
+            $chapterCount = $_POST['chapterCount'];
+
+        $BookStatus = $_POST['status'];
+
         $list = new BookList();
 
         $uid = $_SESSION['user_id'];
         $list->updateList($uid, $bookID, $chapterCount, $BookStatus);
-        header('Location: /Free-Write/public/User/Profile');
+
+        if (!isset($_POST['chapterCount']))
+            header('Location: /Free-Write/public/Book/Overview/' . $bookID);
+        else
+            header('Location: /Free-Write/public/User/Profile');
     }
 
-    private function deleteFromList($bookID)
+    public function deleteFromList()
     {
+        $bookID = $_POST['List_bid'];
         $list = new BookList();
 
         $uid = $_SESSION['user_id'];

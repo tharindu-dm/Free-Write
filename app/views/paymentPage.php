@@ -31,7 +31,7 @@
             require_once "../app/views/layout/header.php";
     }
     $URL = splitURL();
-    $itemID = $URL[2];
+    //$itemID = $URL[2];
     //show($data);
     ?>
 
@@ -86,9 +86,9 @@
                             <input type="password" required name="cvv" id="cvv" placeholder="CVV" maxlength="4">
                         </div>
 
-                        <label for="saveCard" style="display: flex; align-items: center;">
+                       <!-- <label for="saveCard" style="display: flex; align-items: center;">
                             <input type="checkbox" name="saveCard" value="yes">&nbsp;Save Card for future payments
-                        </label>
+                        </label>-->
                         <input type="hidden" name="itemID" value="<?= htmlspecialchars($itemID) ?>">
                         <div id="cardValidation"></div>
                         <button type="submit">Pay Now</button>

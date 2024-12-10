@@ -27,7 +27,7 @@ class Book
 
     public function getBookByID($bid) //seeach for a book by given ID
     {
-        $query = "SELECT b.[bookID], b.[author], b.[title], b.[Synopsis], b.[accessType], b.[lastUpdateDate], b.[isCompleted], b.[price], CONCAT(u.[firstName], ' ', u.[lastName]) AS author, c.[name] AS cover_image 
+        $query = "SELECT b.[bookID], b.[author], b.[title], b.[Synopsis], b.[accessType], b.[lastUpdateDate], b.[isCompleted], b.[viewCount] ,b.[price], CONCAT(u.[firstName], ' ', u.[lastName]) AS authorName, c.[name] AS cover_image 
         FROM [Book] b 
         JOIN [UserDetails] u ON b.author = u.[user] 
         LEFT JOIN [CoverImage] c ON b.[coverImage] = c.covID 

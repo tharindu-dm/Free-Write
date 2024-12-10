@@ -294,7 +294,7 @@
                     <h3 style="color:crimson;">You are about to delete from your list</h3>
                     <h4 id="bookTitle-header-delete">Title:</h4>
 
-                    <form id="add-to-list-form" action="/Free-Write/public/BookList/Delete" method="POST">
+                    <form id="add-to-list-form" action="/Free-Write/public/BookList/deleteFromList" method="POST">
 
                         <input type="hidden" name="List_bid" id="List_bid_delete">
 

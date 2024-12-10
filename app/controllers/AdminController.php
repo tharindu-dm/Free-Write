@@ -9,6 +9,13 @@ class AdminController extends Controller
         $this->Dashboard();
     }
 
+    public function modLogs()
+    {
+        $modlog = new ModLog();
+        $logs = $modlog->findAll();
+        $this->view('admin/adminModLogs', $logs);
+    }
+
     public function Dashboard()
     {
         $user = new User();

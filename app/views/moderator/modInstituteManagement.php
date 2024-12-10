@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Moderator Panel - User Management</title>
+    <title>Moderator Panel - Institutes</title>
     <link rel="stylesheet" href="/Free-Write/public/css/modUserManagement.css">
     <link rel="stylesheet" href="/Free-Write/public/css/admin.css">
 
@@ -34,7 +34,7 @@
         <?php require_once "../app/views/layout/admin_aside_nav.php"; ?>
         <div class="container">
             <div class="mod-user-header">
-                <h2>User Management</h2>
+                <h2>Institute Management</h2>
                 <div class="mod-user-header-info">
                     <div><span id="currentDate"><?= htmlspecialchars(date('D M j, Y')) ?></span></div>
                     <div><span id="currentTime"><?= htmlspecialchars(date('H:i:s')) ?></span>&nbsp;UTC</div>
@@ -45,7 +45,7 @@
             <!-- Search Bar -->
             <div class="search-bar">
                 <form action="/Free-Write/public/Mod/Search" method="post" id="searchForm">
-                    <select id="searchCriteria" name="searchCriteria" required>
+                    <select id="searchCriteria" required>
                         <option value="" disabled selected>Select Criteria</option>
                         <option value="id">ID</option>
                         <option value="name">Name</option>
@@ -59,13 +59,13 @@
             <table>
                 <thead>
                     <tr>
-                        <th>UserID</th>
+                        <th>Institute ID</th>
                         <th>Email</th>
-                        <th>User Type</th>
+                        <th>Institute  Type</th>
                         <th>Premium</th>
                         <th>Activated</th>
                         <th>Login Attempts</th>
-                        <th>Select User</th>
+                        <th>Select Institute </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -76,22 +76,22 @@
                         <td>No</td>
                         <td>Yes</td>
                         <td>3</td>
-                        <td><button class="table-select-user-btn">Select User</button></td>
+                        <td><button class="table-select-user-btn">Select</button></td>
                     </tr>
                 </tbody>
             </table>
 
             <div class="special-btns">
-                <a href="/Free-Write/public/Mod/DeactivateUser ?usr_id="><button>Deactivate User</button></a>
+                <a href="/Free-Write/public/Mod/DeactivateUser ?usr_id="><button>Deactivate Institute</button></a>
                 <button id="edit_user_details">Edit Details</button>
                 <button>Delete</button>
             </div>
 
             <!-- User details form -->
             <div class="user-details-form">
-                <h3>User Details</h3>
+                <h3>Institute Details</h3>
                 <form id="userDetailsForm">
-                    <label for="userId">User ID</label>
+                    <label for="userId">Institute ID</label>
                     <input type="text" id="userId" name="userId" disabled>
 
                     <label for="email">Email</label>
@@ -99,17 +99,6 @@
 
                     <label for="password">Password</label>
                     <input type="text" id="password" name="password" disabled>
-
-                    <label for="userType">User Type</label>
-                    <select name="userType" required>
-                        <option value="" disabled selected>Select Type</option>
-                        <option value="reader">Reader</option>
-                        <option value="writer">Writer</option>
-                        <option value="covdes">Cover Page Designer</option>
-                    </select>
-
-                    <label for="premium">Premium</label>
-                    <input type="text" id="premium" name="premium" disabled>
 
                     <label for="activated">Activated</label>
                     <input type="text" id="activated" name="activated" disabled>

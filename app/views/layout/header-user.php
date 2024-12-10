@@ -37,11 +37,13 @@
 
                 <div class="action-button-container">
                     <div class="premium-notification-container">
-                        <div class="go-premium-button">
-                            <a href="/Free-Write/public/Premium">
-                                <button class="premium-btn">Go Premium</button>
-                            </a>
-                        </div>
+                        <?php if ($_SESSION['user_premium'] == false): ?>
+                            <div class="go-premium-button">
+                                <a href="/Free-Write/public#price-plans">
+                                    <button class="premium-btn">Go Premium</button>
+                                </a>
+                            </div>
+                        <?php endif; ?>
                         <div class="notification-button">
                             <a href="/Free-Write/public/Notifications">
                                 <button class="notification-btn">
@@ -59,7 +61,12 @@
                     <div class="action-button">
                         <a href="/Free-Write/public/User/Profile">
                             <div class="profile-btn">
-                                <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="Profile"> Profile
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                                </svg>
+                                <?= htmlspecialchars($_SESSION['user_name']) ?>
                             </div>
                         </a>
                     </div>

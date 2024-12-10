@@ -34,6 +34,7 @@
 
     //show($data);
     ?>
+
     <main>
         <div class="user-profile-container">
             <div class="user-profile-sidebar">
@@ -125,58 +126,115 @@
                         </div>
                     </div>
 
-                    <!-- My Book List Section -->
-                    <div class="my-book-list">
-                        <h3>My Book List</h3>
-                        <div class="book-list-stats">
-                            <a href="/Free-Write/public/BookList/Reading">
-                                <div class="book-list-item">
-                                    <span class="book-list-label">Reading</span>
-                                    <span
-                                        class="book-list-count"><?= htmlspecialchars($listCounts[0]['reading']) ?></span>
-                                </div>
-                            </a>
-                            <a href="/Free-Write/public/BookList/Completed">
-                                <div class="book-list-item">
-                                    <span class="book-list-label">Completed</span>
-                                    <span
-                                        class="book-list-count"><?= htmlspecialchars($listCounts[0]['completed']) ?></span>
-                                </div>
-                            </a>
-                            <a href="/Free-Write/public/BookList/Onhold">
-                                <div class="book-list-item">
-                                    <span class="book-list-label">On Hold</span>
-                                    <span class="book-list-count"><?= htmlspecialchars($listCounts[0]['hold']) ?></span>
-                                </div>
-                            </a>
-                            <a href="/Free-Write/public/BookList/Dropped">
-                                <div class="book-list-item">
-                                    <span class="book-list-label">Dropped</span>
-                                    <span
-                                        class="book-list-count"><?= htmlspecialchars($listCounts[0]['dropped']) ?></span>
-                                </div>
-                            </a>
-                            <a href="/Free-Write/public/BookList/Planned">
-                                <div class="book-list-item">
-                                    <span class="book-list-label">To Read</span>
-                                    <span
-                                        class="book-list-count"><?= htmlspecialchars($listCounts[0]['planned']) ?></span>
-                                </div>
-                            </a>
+                    <div class="book-lists-container">
+                        <!-- My Book List Section -->
+                        <div class="my-book-list">
+                            <h3>My Book List</h3>
+                            <div class="book-list-stats">
+                                <a href="/Free-Write/public/BookList/Reading">
+                                    <div class="book-list-item">
+                                        <span class="book-list-label">Reading</span>
+                                        <span
+                                            class="book-list-count"><?= htmlspecialchars($listCounts[0]['reading']) ?></span>
+                                    </div>
+                                </a>
+                                <a href="/Free-Write/public/BookList/Completed">
+                                    <div class="book-list-item">
+                                        <span class="book-list-label">Completed</span>
+                                        <span
+                                            class="book-list-count"><?= htmlspecialchars($listCounts[0]['completed']) ?></span>
+                                    </div>
+                                </a>
+                                <a href="/Free-Write/public/BookList/Onhold">
+                                    <div class="book-list-item">
+                                        <span class="book-list-label">On Hold</span>
+                                        <span
+                                            class="book-list-count"><?= htmlspecialchars($listCounts[0]['hold']) ?></span>
+                                    </div>
+                                </a>
+                                <a href="/Free-Write/public/BookList/Dropped">
+                                    <div class="book-list-item">
+                                        <span class="book-list-label">Dropped</span>
+                                        <span
+                                            class="book-list-count"><?= htmlspecialchars($listCounts[0]['dropped']) ?></span>
+                                    </div>
+                                </a>
+                                <a href="/Free-Write/public/BookList/Planned">
+                                    <div class="book-list-item">
+                                        <span class="book-list-label">To Read</span>
+                                        <span
+                                            class="book-list-count"><?= htmlspecialchars($listCounts[0]['planned']) ?></span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Spinoff Book List Section -->
+                        <div class="my-book-list spinoff-list">
+                            <h3>Spinoff List</h3>
+                            <div class="book-list-stats">
+                                <a href="/Free-Write/public/BookList/Spinoff/Reading">
+                                    <div class="book-list-item">
+                                        <span class="book-list-label">Reading</span>
+                                        <span class="book-list-count">0</span>
+                                    </div>
+                                </a>
+                                <a href="/Free-Write/public/BookList/Spinoff/Completed">
+                                    <div class="book-list-item">
+                                        <span class="book-list-label">Completed</span>
+                                        <span class="book-list-count">0</span>
+                                    </div>
+                                </a>
+                                <a href="/Free-Write/public/BookList/Spinoff/Onhold">
+                                    <div class="book-list-item">
+                                        <span class="book-list-label">On Hold</span>
+                                        <span class="book-list-count">0</span>
+                                    </div>
+                                </a>
+                                <a href="/Free-Write/public/BookList/Spinoff/Dropped">
+                                    <div class="book-list-item">
+                                        <span class="book-list-label">Dropped</span>
+                                        <span class="book-list-count">0</span>
+                                    </div>
+                                </a>
+                                <a href="/Free-Write/public/BookList/Spinoff/Planned">
+                                    <div class="book-list-item">
+                                        <span class="book-list-label">To Read</span>
+                                        <span class="book-list-count">0</span>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
 
                     <!-- My Book Collections Section -->
                     <div class="my-book-collections">
-                        <h3>My Book Collections</h3>
-                        <!-- Add book collection items here -->
-                        <div class="collection-item">
-                            <span>Favorite Sci-Fi</span>
-                            <span>5 Books</span>
+                        <div class="book-collection-heading">
+                            <h3>My Book Collections</h3>
+                            <button class="edit-profile-btn" id="createCollection">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 12"
+                                    stroke-width="0.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M6 2.25v7.5m3.75-3.75h-7.5" />
+                                </svg>
+                                New Collection
+                            </button>
                         </div>
-                        <div class="collection-item">
-                            <span>Romance Reads</span>
-                            <span>3 Books</span>
+                        <div class="collections-grid">
+                            <div class="collection-item">
+                                <img src="/Free-Write/public/images/collectionThumb.jpeg" alt="Collection Thumbnail">
+                                <div class="collection-details">
+                                    <span>Favorite Sci-Fi</span>
+                                    <span>5 Books</span>
+                                </div>
+                            </div>
+                            <div class="collection-item">
+                                <img src="/Free-Write/public/images/collectionThumb.jpeg" alt="Collection Thumbnail">
+                                <div class="collection-details">
+                                    <span>Romance Reads</span>
+                                    <span>3 Books</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -208,6 +266,7 @@
                     </div>
                 </div>
 
+                <!-- Spin-offs Section -->
                 <div id="spinoffs" class="view-section">
                     <h2>My Spin-offs</h2>
                     <?php if (!empty($spinoffs)): ?>
@@ -278,6 +337,16 @@
 
     <!-- Edit profile form --------------------------------------- -->
     <div class="edit-profile">
+        <div class="close-overlay-button">
+            <button id="cancelOverlayBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+                close
+            </button>
+        </div>
         <div class="edit-profile-container">
             <form enctype="multipart/form-data" id="edit-profile-form" action="/Free-Write/public/User/EditProfile"
                 method="POST" onsubmit="return validateForm()">
@@ -305,7 +374,7 @@
                 <div class="edit-profile-item">
                     <label for="profileImage" class="drop-zone" id="drop-zone">
                         <span>Drag & drop your profile image here or click to select</span>
-                        <input type="file" id="profileImage" name="profileImage" accept="image/*">
+                        <input type="file" id="PlaceImage" name="profileImage" accept="image/*">
                     </label>
                 </div>
 
@@ -553,7 +622,76 @@
         </div>
     </div>
 
+    <!-- Report user form --------------------------------------- -->
+    <div class="edit-profile">
+        <div class="close-overlay-button">
+            <button id="report-cancelOverlayBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+                close
+            </button>
+        </div>
+        <div class="edit-profile-container">
+            <form id="report-profile-form" action="/Free-Write/public/User/ReportProfile"
+                method="POST" onsubmit="return validateForm()">
+
+                <div class="edit-profile-item edit-name">
+                    <div>
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" name="firstName"
+                            value="<?= htmlspecialchars($userDetails['firstName']); ?>" required maxlength="45"
+                            pattern="[A-Za-z\s]+" title="First name can only contain letters and spaces" disabled>
+                    </div>
+                    <div>
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" name="lastName"
+                            value="<?= htmlspecialchars($userDetails['lastName']); ?>" required maxlength="45"
+                            pattern="[A-Za-z\s]+" title="Last name can only contain letters and spaces" disabled>
+                    </div>
+                </div>
+                <div class="edit-profile-item">
+                    <label for="bio">Bio</label>
+                    <textarea id="bio" rows="6" name="bio" maxlength="255"
+                        required><?= htmlspecialchars($userDetails['bio']); ?></textarea>
+                </div>
+                <div class="edit-profile-item">
+                    <label for="email">For further details we may contact you</label>
+                    <input type="email" id="email" name="email" value="<?= htmlspecialchars($userAccount['email']); ?>"
+                        required>
+                </div>
+                <div class="edit-profile-item">
+                    <button type="submit" name="submit">Save Changes</button>
+                </div>
+            </form>
+
+
+            <hr class="horizontal-divider">
+
+            <div class="danger-zone">
+                <h3>Danger Zone</h3>
+                <div class="warning-message">
+                    <p>Warning: Deleting your account will permanently remove:</p>
+                    <ul>
+                        <li>All your posts and writings</li>
+                        <li>Your profile information</li>
+                        <li>Your comments and interactions</li>
+                        <li>All associated data</li>
+                    </ul>
+                    <p>This action cannot be undone.</p>
+                </div>
+                <form action="/Free-Write/public/User/DeleteProfile" method="POST">
+                    <button class="delete-account-btn" type="submit">Delete Account</button>
+                </form>
+            </div>
+            <button class="discard-change-btn" id="cancelOverlay">Discard Changes</button>
+        </div>
+    </div>
+
     <script src="/Free-Write/public/js/profile.js"></script>
+    <script src="/Free-Write/public/js/imageAdd.js"></script>
     <script>
         //handle navigation button clicks
         document.querySelectorAll(".user-nav-button").forEach((button) => {

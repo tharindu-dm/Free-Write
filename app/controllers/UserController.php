@@ -13,7 +13,7 @@ class UserController extends Controller
 
     public function Profile()
     {
-        $uid = $_SESSION['user_id'];
+        $uid = isset($_GET['user']) ? $_GET['user'] : $_SESSION['user_id'];
         //echo "inside the userProfile function\n";
         $user = new User();
         $userDetailsTable = new UserDetails();

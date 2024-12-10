@@ -26,14 +26,14 @@ class PaymentController extends Controller
         $book = new Book();
 
         $bookDetails = $book->getBookByID($bookID);
-        $orderdetails = [
+        $orderDetails = [
             'Item' => $bookDetails[0]['title'],
             'Quantity' => 1,
             'Price' => $bookDetails[0]['price'],
             'Total' => $bookDetails[0]['price']
         ];
 
-        $this->view('paymentPage', ['type' => "Book", 'orderInfo' => $orderdetails]);
+        $this->view('paymentPage', ['type' => "Book", 'orderInfo' => $orderDetails]);
     }
 
     public function buy_Book()
@@ -77,6 +77,50 @@ class PaymentController extends Controller
         $URL = splitURL();
         $chapterID = $URL[2];
 
+    }
+
+    public function Premium()
+    { //premium account
+        if (!$this->loggedUserExists())
+            header('location:/Free-Write/public/Login');
+
+        $type = $_GET['type'];
+
+        switch ($type) {
+            case 'reader':
+                $orderDetails = ['Item' => "Premium Reader Account", 'Quantity' => 1, 'Price' => 899, 'Total' => 899];
+                $this->view('paymentPage', ['type' => "premium_reader", 'orderInfo' => $orderDetails]);
+
+                break;
+            case 'writer':
+                $orderDetails = ['Item' => "Premium Writer Account", 'Quantity' => 1, 'Price' => 1199, 'Total' => 1199];
+                $this->view('paymentPage', ['type' => "premium_writer", 'orderInfo' => $orderDetails]);
+                break;
+            default:
+                header('location:/Free-Write/public/Error404');
+        }
+    }
+
+    private function makePremium()
+    {
+        if (!$this->loggedUserExists())
+            header('location:/Free-Write/public/Login');
+
+        $userID = $_SESSION['user_id'];
+
+        $user = new User();
+        $user->update($userID, ['isPremium' => 1], 'userID');
+
+        header('location:/Free-Write/public/User/Profile');
+    }
+    public function buy_premium_reader()
+    {
+        $this->makePremium();
+    }
+
+    public function buy_premium_writer()
+    {
+        $this->makePremium();
     }
 
 }

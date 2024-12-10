@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const cancelOverlayBtn = document.getElementById("cancelOverlayBtn");
   const profileEditBtn = document.getElementById("profileEditBtn");
   const overlay = document.querySelector(".edit-profile");
   const cancelBtn = document.querySelector(".discard-change-btn");
@@ -10,36 +11,16 @@ document.addEventListener("DOMContentLoaded", () => {
     overlay.style.display = overlay.style.display != "flex" ? "flex" : "none";
   });
 
-  cancelBtn.addEventListener("click", (e) => {
+  // Close the overlay when the cancel/discard button is clicked
+  cancelOverlayBtn.addEventListener("click", (e) => {
     e.preventDefault(); // Prevent the default action
 
     overlay.style.display = "none";
   });
+  cancelBtn.addEventListener("click", (e) => {
+    e.preventDefault(); // Prevent the default action
 
-  /* Edit profile image drag n drop*/
-  const dropZone = document.getElementById("drop-zone");
-  const fileInput = document.getElementById("profileImage");
-
-
-
-  dropZone.addEventListener("dragover", (event) => {
-    event.preventDefault(); // Prevent default behavior (Prevent file from being opened)
-    dropZone.classList.add("drag-over"); // Add class for visual feedback
-  });
-
-  dropZone.addEventListener("dragleave", () => {
-    dropZone.classList.remove("drag-over"); // Remove class when dragging leaves
-  });
-
-  dropZone.addEventListener("drop", (event) => {
-    event.preventDefault(); // Prevent default behavior
-    dropZone.classList.remove("drag-over"); // Remove class on drop
-
-    const files = event.dataTransfer.files; // Get dropped files
-    if (files.length > 0) {
-      fileInput.files = files; // Assign files to the input element
-      // Optionally, you can show a preview of the image here
-    }
+    overlay.style.display = "none";
   });
 
   /* Edit profile front-end validation */
@@ -117,4 +98,6 @@ document.addEventListener("DOMContentLoaded", () => {
    *
    * Beginning of profile 2nd section My spinoffs, collections and bought books
    */
+
+
 });

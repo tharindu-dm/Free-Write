@@ -26,10 +26,11 @@ class LoginController extends Controller
         if (isset($_SESSION['user_id'])) {
             switch ($_SESSION['user_type']) {
                 case 'admin':
-                    header('Location: /Free-Write/public/Admin');
+                    header('Location: /Free-Write/public/Admin/Dashboard');
                     break;
                 case 'mod':
-                    header('Location: /Free-Write/public/Mod');
+                    $this->modLogUpdate();
+                    header('Location: /Free-Write/public/Mod/Dashboard');
                     break;
                 case 'reader':
                 case 'writer':
@@ -54,12 +55,6 @@ class LoginController extends Controller
         }
 
     }
-
-    /*
-        parameters include the username and password and stuff
-        perform the insert in user.php
-        change the interface to login page
-    */
 
     public function register()
     {
@@ -163,7 +158,7 @@ class LoginController extends Controller
                     // Set session variables
                     $_SESSION['user_id'] = $userData['userID'];
                     $_SESSION['user_type'] = $userData['userType'];
-
+                    $_SESSION['user_premium'] = $userData['isPremium'];
                     // Update sitelog with successful login attempt
                     $dataset = array(
                         'user' => $userData['userID'],
@@ -180,6 +175,9 @@ class LoginController extends Controller
 
                     $userDetails->update($userData['userID'], ['lastLogDate' => date("Y-m-d H:i:s")], 'user');
 
+                    // add a session variables
+                    $userFLnames = $userDetails->first(['user' => $userData['userID']]);
+                    $_SESSION['user_name'] = $userFLnames['firstName'] . " " . $userFLnames['lastName'];
                     // Redirect to the appropriate page based on user type
                     $this->handleLogin();
                     exit;
@@ -235,7 +233,7 @@ class LoginController extends Controller
                 // Set session variables
                 $_SESSION['user_id'] = $institutionData['institutionID'];
                 $_SESSION['user_type'] = 'inst';
-                $_SESSION['user_name'] = $institutionData['name']; 
+                $_SESSION['user_name'] = $institutionData['name'];
 
                 // Update sitelog with successful login attempt
                 $dataset = array(
@@ -261,10 +259,33 @@ class LoginController extends Controller
     public function logout()
     {
         //echo "inside the logout function\n";
-        // Start the session if it's not already started
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
+        $sitelog = new SiteLog();
+        $dataset = array();
+
+        if ($_SESSION['user_type'] == 'mod')
+            $dataset['mod'] = $_SESSION['user_id'];
+        else
+            $dataset['user'] = $_SESSION['user_id'];
+
+        if ($_SESSION['user_type'] == 'inst')
+            $dataset['activity'] = 'Institution ' . $_SESSION['user_name'] . ' Successfully logged out';
+        else
+            $dataset['activity'] = $_SESSION['user_type'] . ' ' . $_SESSION['user_name'] . ' Successfully logged out';
+        $dataset['occurrence'] = date("Y-m-d H:i:s");
+
+        if ($_SESSION['user_type'] == 'mod') {
+            $modLog = new ModLog();
+            $modLog->insert($dataset);
         }
+
+        // Change the key name from 'mod' to 'user'
+        // Check if the key exists
+        if (isset($dataset['mod'])) {
+            $dataset['user'] = $dataset['mod']; // Copy value to the new key
+            unset($dataset['mod']); // Remove the old key
+        }
+        $sitelog->insert($dataset);
+
 
         // Destroy the session
         session_destroy();
@@ -274,9 +295,23 @@ class LoginController extends Controller
         exit;
     }
 
-    public function userProfile()
+    public function modLogUpdate()
+    {
+        //echo "inside the modLogUpdate function\n";
+        $modLog = new ModLog();
+
+        $modLog->insert(
+            [
+                'mod' => $_SESSION['user_id'],
+                'activity' => 'Moderator ' . $_SESSION['user_name'] . ' Successfully logged in',
+                'occurrence' => date("Y-m-d H:i:s")
+            ]
+        );
+    }
+
+    /*public function userProfile()
     {
         echo "inside the userProfile function\n";
         $this->view('Profile/userProfile');
-    }
+    }*/
 }

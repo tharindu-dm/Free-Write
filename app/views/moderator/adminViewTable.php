@@ -60,7 +60,7 @@
     require_once "../app/views/layout/footer.php";
     ?>
 
-    <script src="/Free-Write/public/js/Admin/admin.js"></script>
+    <script src="/Free-Write/public/js/Moderator/viewTable.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const sidebarNav = document.getElementById('sidebar-nav');
