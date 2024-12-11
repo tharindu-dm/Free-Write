@@ -6,11 +6,11 @@ class BookListController extends Controller
     {
         $URL = splitURL();
         if (
-            $URL[2] == 'Reading' ||
-            $URL[2] == 'Completed' ||
-            $URL[2] == 'Onhold' ||
-            $URL[2] == 'Dropped' ||
-            $URL[2] == 'Planned'
+            $URL[1] == 'Reading' ||
+            $URL[1] == 'Completed' ||
+            $URL[1] == 'Onhold' ||
+            $URL[1] == 'Dropped' ||
+            $URL[1] == 'Planned'
         )
             $this->listPage();
         else
@@ -20,11 +20,12 @@ class BookListController extends Controller
 
     public function listPage()
     {
-        if (!isset($_SESSION['user_id'])) {
+        if (!isset($_GET['user']) && !isset($_SESSION['user_id'])) {
             $this->view('login');
             return;
         }
-        $uid = $_SESSION['user_id'];
+
+        $uid = $_GET['user'] ;
         $Booklist = new BookList(); //List Table
 
         $Reading = $Booklist->getUserBookList($uid, 'reading');

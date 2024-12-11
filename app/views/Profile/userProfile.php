@@ -167,35 +167,40 @@
                         <div class="my-book-list">
                             <h3>My Book List</h3>
                             <div class="book-list-stats">
-                                <a href="/Free-Write/public/BookList/Reading">
+                                <a
+                                    href="/Free-Write/public/BookList/Reading?user=<?= htmlspecialchars($userAccount['userID']); ?>">
                                     <div class="book-list-item">
                                         <span class="book-list-label">Reading</span>
                                         <span
                                             class="book-list-count"><?= htmlspecialchars($listCounts[0]['reading']) ?></span>
                                     </div>
                                 </a>
-                                <a href="/Free-Write/public/BookList/Completed">
+                                <a
+                                    href="/Free-Write/public/BookList/Completed?user=<?= htmlspecialchars($userAccount['userID']); ?>">
                                     <div class="book-list-item">
                                         <span class="book-list-label">Completed</span>
                                         <span
                                             class="book-list-count"><?= htmlspecialchars($listCounts[0]['completed']) ?></span>
                                     </div>
                                 </a>
-                                <a href="/Free-Write/public/BookList/Onhold">
+                                <a
+                                    href="/Free-Write/public/BookList/Onhold?user=<?= htmlspecialchars($userAccount['userID']); ?>">
                                     <div class="book-list-item">
                                         <span class="book-list-label">On Hold</span>
                                         <span
                                             class="book-list-count"><?= htmlspecialchars($listCounts[0]['hold']) ?></span>
                                     </div>
                                 </a>
-                                <a href="/Free-Write/public/BookList/Dropped">
+                                <a
+                                    href="/Free-Write/public/BookList/Dropped?user=<?= htmlspecialchars($userAccount['userID']); ?>">
                                     <div class="book-list-item">
                                         <span class="book-list-label">Dropped</span>
                                         <span
                                             class="book-list-count"><?= htmlspecialchars($listCounts[0]['dropped']) ?></span>
                                     </div>
                                 </a>
-                                <a href="/Free-Write/public/BookList/Planned">
+                                <a
+                                    href="/Free-Write/public/BookList/Planned?user=<?= htmlspecialchars($userAccount['userID']); ?>">
                                     <div class="book-list-item">
                                         <span class="book-list-label">To Read</span>
                                         <span
