@@ -41,13 +41,15 @@
                 <div class="user-profile-header">
                     <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>"
                         alt="Profile Picture" class="user-profile-picture">
-                    <div class="follower-stats">
-                        <span>Followers 250</span>
-                        <span>Following 100</span>
-                    </div>
+
                     <h2 style="color: var(--black);">
                         <?= htmlspecialchars($userDetails['firstName']) . " " . htmlspecialchars($userDetails['lastName']); ?>
                     </h2>
+                    <div class="follower-stats">
+                        <span>Followers <?= htmlspecialchars($follows['followers']) ?></span>
+                        <span>Following <?= htmlspecialchars($follows['following']) ?></span>
+                    </div>
+
 
                     <div class="user-profile-details">
                         <div class="user-profile-actions">
@@ -56,7 +58,41 @@
 
                             <?php endif; ?>
                             <?php if ($userAccount['userID'] != $_SESSION['user_id']): ?>
-                                <button id="reportBtn" class="report-profile-btn">Report</button>
+
+                                <?php if ($isFollowing): ?>
+                                    <form method="get" action="/Free-Write/public/User/unfollowUser">
+                                        <input hidden name="user" value="<?= $userAccount['userID'] ?>">
+                                        <button class="follower-btn">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M22 10.5h-6m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM4 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 10.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
+                                            </svg>
+                                            Unfollow
+                                        </button>
+                                    </form>
+                                <?php else: ?>
+                                    <form method="get" action="/Free-Write/public/User/followUser">
+                                        <input hidden name="user" value="<?= $userAccount['userID'] ?>">
+                                        <button class="follower-btn">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
+                                            </svg>
+                                            Follow
+                                        </button>
+                                    </form>
+                                <?php endif; ?>
+
+                                <button id="reportBtn" class="report-profile-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M3 3v1.5M3 21v-6m0 0 2.77-.693a9 9 0 0 1 6.208.682l.108.054a9 9 0 0 0 6.086.71l3.114-.732a48.524 48.524 0 0 1-.005-10.499l-3.11.732a9 9 0 0 1-6.085-.711l-.108-.054a9 9 0 0 0-6.208-.682L3 4.5M3 15V4.5" />
+                                    </svg>
+                                    Report
+                                </button>
                             <?php endif; ?>
                         </div>
                         <p>
@@ -635,8 +671,8 @@
             </button>
         </div>
         <div class="edit-profile-container">
-            <form id="report-profile-form" action="/Free-Write/public/User/ReportProfile"
-                method="POST" onsubmit="return validateForm()">
+            <form id="report-profile-form" action="/Free-Write/public/User/ReportProfile" method="POST"
+                onsubmit="return validateForm()">
 
                 <div class="edit-profile-item edit-name">
                     <div>

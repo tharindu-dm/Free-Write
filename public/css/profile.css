@@ -49,6 +49,28 @@ main {
   font-weight: bold;
 }
 
+.follower-btn {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+
+  background: none;
+  background-color: var(--primary-color);
+  color: var(--black);
+
+  width: 100%;
+  padding: 0.5rem 1rem; /* 1rem top and bottom, 1rem left and right*/
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+.follower-btn:hover {
+  background-color: rgba(255, 215, 0, 0.8);
+}
+
 /* Edit profile button */
 .user-profile-actions {
   text-align: center;
@@ -71,6 +93,12 @@ main {
 
 /* report profile button */
 .report-profile-btn {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+
   background-color: #ccc;
   color: var(--black);
   border: none;
@@ -92,7 +120,7 @@ main {
 }
 
 .my-book-list {
-  width: 48%; 
+  width: 48%;
 }
 
 .my-book-list,
@@ -135,17 +163,17 @@ main {
   margin-top: 30px;
 }
 
-.book-collection-heading{
+.book-collection-heading {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   margin-bottom: 1rem;
 }
 
-.book-collection-heading button{
+.book-collection-heading button {
   display: flex;
   max-width: fit-content;
-  gap:0.5rem;
+  gap: 0.5rem;
   align-items: center;
 }
 
@@ -280,7 +308,7 @@ h2 {
 }
 
 /* EDIT PROFILE OVERLAY */
-.close-overlay-button button{
+.close-overlay-button button {
   display: flex;
   justify-content: flex-end;
   align-items: center;

@@ -13,19 +13,37 @@ class UserController extends Controller
 
     public function Profile()
     {
+
+        if (isset($_GET['user']) && $_GET['user'] == $_SESSION['user_id'])
+            header('Location: /Free-Write/public/User/Profile'); //to avoid user to see his own public view profile.
+
         $uid = isset($_GET['user']) ? $_GET['user'] : $_SESSION['user_id'];
+
         //echo "inside the userProfile function\n";
         $user = new User();
         $userDetailsTable = new UserDetails();
         $Booklist = new BookList(); //List Table
         $spinoff = new Spinoff(); //get my spinoffs
+        $follow = new Follow(); //get my followers
 
         $userDetails = $userDetailsTable->first(['user' => $uid]);//getUserDetails($uid);
         $list = $Booklist->getBookListCount($uid);
         $userAcc = $user->first(['userID' => $uid]);
         $myspinoffs = $spinoff->getUserSpinoff($uid);
+        $myfollowers = $follow->getFollowCount($uid);
+        $isFollowing = $follow->first(['FollowedID' => $uid, 'FollowerID' => $_SESSION['user_id']]);
 
-        $this->view('Profile/userProfile', ['userAccount' => $userAcc, 'userDetails' => $userDetails, 'listCounts' => $list, 'spinoffs' => $myspinoffs]);
+        $this->view(
+            'Profile/userProfile',
+            [
+                'userAccount' => $userAcc,
+                'userDetails' => $userDetails,
+                'listCounts' => $list,
+                'spinoffs' => $myspinoffs,
+                'follows' => $myfollowers,
+                'isFollowing' => $isFollowing
+            ]
+        );
     }
 
     public function editProfile()
@@ -129,5 +147,18 @@ class UserController extends Controller
 
         session_destroy();
         header('Location: /Free-Write/public/User/Login');
+    }
+
+    public function followUser()
+    {
+        $follow = new Follow();
+        $follow->insert(['FollowerID' => $_SESSION['user_id'], 'FollowedID' => $_GET['user']]);
+        header('Location: /Free-Write/public/User/Profile?user=' . $_GET['user']);
+    }
+    public function unfollowUser()
+    {
+        $follow = new Follow();
+        $follow->delete( $_SESSION['user_id'], 'FollowerID');
+        header('Location: /Free-Write/public/User/Profile?user=' . $_GET['user']);
     }
 }
