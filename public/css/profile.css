@@ -568,3 +568,78 @@ h2 {
   background-color: #e8f5e9;
   color: #2e7d32;
 }
+
+/*MY FOLLOWERS STYLES*/
+.follower-container {
+  display: block;
+}
+.myfollow-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.myfollow-tab {
+  padding: 10px 20px;
+  margin: 0 10px;
+  background-color: #ffd700;
+  color: black;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.myfollow-tab.active {
+  background-color: black;
+  color: #ffd700;
+}
+
+.myfollow-user-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.myfollow-user-card {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.myfollow-user-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 15px;
+}
+
+.myfollow-user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.myfollow-user-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.myfollow-user-last-logged {
+  color: #666;
+  font-size: 0.8em;
+}
+
+@media (max-width: 768px) {
+  .myfollow-user-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .myfollow-user-grid {
+    grid-template-columns: 1fr;
+  }
+}

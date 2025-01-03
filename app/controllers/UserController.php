@@ -33,6 +33,9 @@ class UserController extends Controller
         $myfollowers = $follow->getFollowCount($uid);
         $isFollowing = $follow->first(['FollowedID' => $uid, 'FollowerID' => $_SESSION['user_id']]);
 
+        $followingList = $follow->getUserDetails(['FollowerID' => $uid]);
+        $followedByList = $follow->getUserDetails(['FollowedID' => $uid]);
+
         $this->view(
             'Profile/userProfile',
             [
@@ -41,7 +44,9 @@ class UserController extends Controller
                 'listCounts' => $list,
                 'spinoffs' => $myspinoffs,
                 'follows' => $myfollowers,
-                'isFollowing' => $isFollowing
+                'isFollowing' => $isFollowing,
+                'followingList' => $followingList,
+                'followedByList' => $followedByList
             ]
         );
     }
@@ -158,7 +163,7 @@ class UserController extends Controller
     public function unfollowUser()
     {
         $follow = new Follow();
-        $follow->delete( $_SESSION['user_id'], 'FollowerID');
+        $follow->unfollow(['followerID' => $_SESSION['user_id'], 'followedID' => $_GET['user']]);
         header('Location: /Free-Write/public/User/Profile?user=' . $_GET['user']);
     }
 }

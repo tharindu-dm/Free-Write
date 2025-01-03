@@ -129,6 +129,14 @@
                             </svg>
                             My Spin-offs
                         </button>
+                        <button class="user-nav-button" data-view="my-network">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
+                            </svg>
+                            My Network
+                        </button>
                         <?php if ($userAccount['userID'] == $_SESSION['user_id']): ?>
                             <button class="user-nav-button" data-view="purchased-books">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -336,6 +344,7 @@
                     <?php endif; ?>
                 </div>
 
+                <!-- Purchased Books Section -->
                 <div id="purchased-books" class="view-section">
                     <h2>Purchased Books</h2>
                     <?php if (!empty($purchasedBooks)): ?>
@@ -354,6 +363,7 @@
                     <?php endif; ?>
                 </div>
 
+                <!-- Orders Section -->
                 <div id="orders" class="view-section">
                     <h2>My Orders</h2>
                     <?php if (!empty($orders)): ?>
@@ -367,6 +377,56 @@
                     <?php else: ?>
                         <p>No orders yet.</p>
                     <?php endif; ?>
+                </div>
+
+                <!-- Followers Section -->
+                <div id="my-network" class="view-section">
+                    <div class="myfollow-tabs">
+                        <div class="myfollow-tab active" onclick="switchTab('followers')">Followers</div>
+                        <div class="myfollow-tab" onclick="switchTab('following')">Following</div>
+                    </div>
+
+                    <div id="followers-grid" class="myfollow-user-grid">
+                        <?php if ($followedByList): ?>
+                            <?php foreach ($followedByList as $follower): ?>
+                                <a href="/Free-Write/public/User/Profile?user=<?= htmlspecialchars($follower['user']) ?>">
+                                    <div class="myfollow-user-card">
+                                        <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($follower['profileImage'] ?? 'profile-image.jpg') ?>"
+                                            alt="John Doe" class="myfollow-user-image">
+                                        <div class="myfollow-user-info">
+                                            <div class="myfollow-user-name"><?= htmlspecialchars($follower['userName']) ?></div>
+                                            <div class="myfollow-user-last-logged">
+                                                <?= htmlspecialchars($follower['lastLogDate']) ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p>No followers yet.</p>
+                        <?php endif; ?>
+                    </div>
+
+                    <div id="following-grid" class="myfollow-user-grid" style="display: none;">
+                        <?php if ($followingList): ?>
+                            <?php foreach ($followingList as $follower): ?>
+                                <a href="/Free-Write/public/User/Profile?user=<?= htmlspecialchars($follower['user']) ?>">
+                                    <div class="myfollow-user-card">
+                                        <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($follower['profileImage'] ?? 'profile-image.jpg') ?>"
+                                            alt="Sarah Lee" class="myfollow-user-image">
+                                        <div class="myfollow-user-info">
+                                            <div class="myfollow-user-name"><?= htmlspecialchars($follower['userName']) ?></div>
+                                            <div class="myfollow-user-last-logged">
+                                                <?= htmlspecialchars($follower['lastLogDate']) ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p>Not following anyone yet.</p>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
         </div>
@@ -750,6 +810,25 @@
                 document.getElementById(button.dataset.view).classList.add("active");
             });
         });
+    </script>
+    <script>
+        //script for switching between followers and following tabs
+        function switchTab(tab) {
+            const followersGrid = document.getElementById('followers-grid');
+            const followingGrid = document.getElementById('following-grid');
+            const tabs = document.querySelectorAll('.myfollow-tab');
+
+            tabs.forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (tab === 'followers') {
+                followersGrid.style.display = 'grid';
+                followingGrid.style.display = 'none';
+            } else {
+                followersGrid.style.display = 'none';
+                followingGrid.style.display = 'grid';
+            }
+        }
     </script>
 </body>
 
