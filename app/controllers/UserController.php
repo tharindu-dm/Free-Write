@@ -14,8 +14,9 @@ class UserController extends Controller
     public function Profile()
     {
 
-        if (isset($_GET['user']) && $_GET['user'] == $_SESSION['user_id'])
-            header('Location: /Free-Write/public/User/Profile'); //to avoid user to see his own public view profile.
+        if (isset($_SESSION['user_id']))
+            if (isset($_GET['user']) && $_GET['user'] == $_SESSION['user_id'])
+                header('Location: /Free-Write/public/User/Profile'); //to avoid user to see his own public view profile.
 
         $uid = isset($_GET['user']) ? $_GET['user'] : $_SESSION['user_id'];
 
@@ -31,7 +32,10 @@ class UserController extends Controller
         $userAcc = $user->first(['userID' => $uid]);
         $myspinoffs = $spinoff->getUserSpinoff($uid);
         $myfollowers = $follow->getFollowCount($uid);
-        $isFollowing = $follow->first(['FollowedID' => $uid, 'FollowerID' => $_SESSION['user_id']]);
+
+        $isFollowing = null;
+        if (isset($_SESSION['user_id']))
+            $isFollowing = $follow->first(['FollowedID' => $uid, 'FollowerID' => $_SESSION['user_id']]);
 
         $followingList = $follow->getUserDetails(['FollowerID' => $uid]);
         $followedByList = $follow->getUserDetails(['FollowedID' => $uid]);
@@ -165,5 +169,52 @@ class UserController extends Controller
         $follow = new Follow();
         $follow->unfollow(['followerID' => $_SESSION['user_id'], 'followedID' => $_GET['user']]);
         header('Location: /Free-Write/public/User/Profile?user=' . $_GET['user']);
+    }
+
+    public function ReportProfile()
+    {
+        // Initialize an array to hold error messages
+        $errors = [];
+
+        // Validate email
+        if (empty($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+            $errors[] = "Please enter a valid email address.";
+        }
+
+        // Validate selectReason
+        if (empty($_POST['selectReason'])) {
+            $errors[] = "Please select a reason.";
+        }
+
+        // Validate description
+        if (empty($_POST['description']) || strlen($_POST['description']) > 600) {
+            $errors[] = "Description is required and cannot exceed 600 characters.";
+        }
+
+        // If there are validation errors, handle them
+        if (!empty($errors)) {
+            // You can either redirect back with errors or display them
+            // For example, redirecting back with error messages in the session
+            session_start();
+            $_SESSION['errors'] = $errors;
+            header('Location: /Free-Write/public/User/Profile?user=' . $_GET['user']);
+            exit; // Make sure to exit after header redirection
+        }
+
+        // If validation passes, proceed to insert the report
+        $report = new Report();
+        $data = [
+            "email" => $_POST['email'],
+            "type" => "User  with ID=" . $_POST['reportedUserID'] . " | " . $_POST['selectReason'],
+            "description" => $_POST['description'],
+            "submitTime" => date('Y-m-d H:i:s'),
+            "handler" => null,
+            "status" => "Pending"
+        ];
+        $report->insert($data);
+
+        // Redirect to the profile page after successful submission
+        header('Location: /Free-Write/public/User/Profile?user=' . $_POST['reportedUserID']);
+        exit; // Make sure to exit after header redirection
     }
 }
