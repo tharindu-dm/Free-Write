@@ -26,12 +26,14 @@ class UserController extends Controller
         $Booklist = new BookList(); //List Table
         $spinoff = new Spinoff(); //get my spinoffs
         $follow = new Follow(); //get my followers
+        $BuyBook = new BuyBook();
 
         $userDetails = $userDetailsTable->first(['user' => $uid]);//getUserDetails($uid);
         $list = $Booklist->getBookListCount($uid);
         $userAcc = $user->first(['userID' => $uid]);
         $myspinoffs = $spinoff->getUserSpinoff($uid);
         $myfollowers = $follow->getFollowCount($uid);
+        $myboughtBooks = $BuyBook->getBoughtBooks($uid);
 
         $isFollowing = null;
         if (isset($_SESSION['user_id']))
@@ -50,7 +52,8 @@ class UserController extends Controller
                 'follows' => $myfollowers,
                 'isFollowing' => $isFollowing,
                 'followingList' => $followingList,
-                'followedByList' => $followedByList
+                'followedByList' => $followedByList,
+                'purchasedBooks' => $myboughtBooks
             ]
         );
     }

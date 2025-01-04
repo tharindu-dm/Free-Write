@@ -328,7 +328,7 @@ h2 {
 }
 
 .edit-profile {
-  display: none; /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+  display: none; 
   position: fixed; /* Make it fixed to the viewport */
   top: 0;
   left: 0;
@@ -505,14 +505,32 @@ h2 {
 .spinoff-container {
   max-height: 50rem;
   overflow-y: auto;
-  margin: 2rem auto;
   padding: 2rem;
+}
+
+.spin-off-message {
+  background-color: #fffddf;
+  border-left: 4px solid #facc15;
+  color: #ca8a04;
+  margin-top: 1rem;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.spin-off-message h3 {
+  margin-bottom: 8px;
+}
+
+.spin-off-message p {
+  margin-bottom: 4px;
+  line-height: 1.5;
 }
 
 .spinoff-item {
   padding: 1.5rem;
   margin-bottom: 1rem;
-  border: 0.2rem solid #ffc107;
+  border-left: 0.2rem solid #ffc107;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
