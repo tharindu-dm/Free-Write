@@ -175,92 +175,155 @@
                         </div>
                     </div>
 
-                    <div class="book-lists-container">
-                        <!-- My Book List Section -->
-                        <div class="my-book-list">
-                            <h3>My Book List</h3>
-                            <div class="book-list-stats">
-                                <a
-                                    href="/Free-Write/public/BookList/Reading?user=<?= htmlspecialchars($userAccount['userID']); ?>">
-                                    <div class="book-list-item">
-                                        <span class="book-list-label">Reading</span>
-                                        <span
-                                            class="book-list-count"><?= htmlspecialchars($listCounts[0]['reading']) ?></span>
-                                    </div>
-                                </a>
-                                <a
-                                    href="/Free-Write/public/BookList/Completed?user=<?= htmlspecialchars($userAccount['userID']); ?>">
-                                    <div class="book-list-item">
-                                        <span class="book-list-label">Completed</span>
-                                        <span
-                                            class="book-list-count"><?= htmlspecialchars($listCounts[0]['completed']) ?></span>
-                                    </div>
-                                </a>
-                                <a
-                                    href="/Free-Write/public/BookList/Onhold?user=<?= htmlspecialchars($userAccount['userID']); ?>">
-                                    <div class="book-list-item">
-                                        <span class="book-list-label">On Hold</span>
-                                        <span
-                                            class="book-list-count"><?= htmlspecialchars($listCounts[0]['hold']) ?></span>
-                                    </div>
-                                </a>
-                                <a
-                                    href="/Free-Write/public/BookList/Dropped?user=<?= htmlspecialchars($userAccount['userID']); ?>">
-                                    <div class="book-list-item">
-                                        <span class="book-list-label">Dropped</span>
-                                        <span
-                                            class="book-list-count"><?= htmlspecialchars($listCounts[0]['dropped']) ?></span>
-                                    </div>
-                                </a>
-                                <a
-                                    href="/Free-Write/public/BookList/Planned?user=<?= htmlspecialchars($userAccount['userID']); ?>">
-                                    <div class="book-list-item">
-                                        <span class="book-list-label">To Read</span>
-                                        <span
-                                            class="book-list-count"><?= htmlspecialchars($listCounts[0]['planned']) ?></span>
-                                    </div>
-                                </a>
+                    <?php
+                    // Sample backend values
+                    $totalEntries = $listCounts[0]['reading'] + $listCounts[0]['completed'] + $listCounts[0]['hold'] + $listCounts[0]['dropped'] + $listCounts[0]['planned'];
+
+                    $readingPercentage = ($listCounts[0]['reading'] / $totalEntries) * 100;
+                    $completedPercentage = ($listCounts[0]['completed'] / $totalEntries) * 100;
+                    $onHoldPercentage = ($listCounts[0]['hold'] / $totalEntries) * 100;
+                    $droppedPercentage = ($listCounts[0]['dropped'] / $totalEntries) * 100;
+                    $plannedPercentage = ($listCounts[0]['planned'] / $totalEntries) * 100;
+                    ?>
+
+                    <div class="statistics-container">
+                        <!-- Book Lists Section -->
+                        <div class="book-lists-container">
+                            <div class="my-book-list">
+                                <h3>My Book List</h3>
+
+                                <!-- Progress Bar -->
+                                <div class="book-progress-bar">
+                                    <div class="book-progress-segment book-progress-reading"
+                                        style="width: <?= htmlspecialchars($readingPercentage) ?>%;"></div>
+                                    <div class="book-progress-segment book-progress-completed"
+                                        style="width: <?= htmlspecialchars($completedPercentage) ?>%;"></div>
+                                    <div class="book-progress-segment book-progress-onhold"
+                                        style="width: <?= htmlspecialchars($onHoldPercentage) ?>%;"></div>
+                                    <div class="book-progress-segment book-progress-dropped"
+                                        style="width: <?= htmlspecialchars($droppedPercentage) ?>%;"></div>
+                                    <div class="book-progress-segment book-progress-planned"
+                                        style="width: <?= htmlspecialchars($plannedPercentage) ?>%;"></div>
+                                </div>
+
+                                <!-- List Items -->
+                                <div class="book-list-stats">
+                                    <a
+                                        href="/Free-Write/public/BookList/Reading?user=<?= htmlspecialchars($userAccount['userID']); ?>">
+                                        <div class="book-list-item">
+                                            <span class="book-list-label">Reading</span>
+                                            <span
+                                                class="book-list-count"><?= htmlspecialchars($listCounts[0]['reading']) ?></span>
+                                        </div>
+                                    </a>
+                                    <a
+                                        href="/Free-Write/public/BookList/Completed?user=<?= htmlspecialchars($userAccount['userID']); ?>">
+                                        <div class="book-list-item">
+                                            <span class="book-list-label">Completed</span>
+                                            <span
+                                                class="book-list-count"><?= htmlspecialchars($listCounts[0]['completed']) ?></span>
+                                        </div>
+                                    </a>
+                                    <a
+                                        href="/Free-Write/public/BookList/Onhold?user=<?= htmlspecialchars($userAccount['userID']); ?>">
+                                        <div class="book-list-item">
+                                            <span class="book-list-label">On Hold</span>
+                                            <span
+                                                class="book-list-count"><?= htmlspecialchars($listCounts[0]['hold']) ?></span>
+                                        </div>
+                                    </a>
+                                    <a
+                                        href="/Free-Write/public/BookList/Dropped?user=<?= htmlspecialchars($userAccount['userID']); ?>">
+                                        <div class="book-list-item">
+                                            <span class="book-list-label">Dropped</span>
+                                            <span
+                                                class="book-list-count"><?= htmlspecialchars($listCounts[0]['dropped']) ?></span>
+                                        </div>
+                                    </a>
+                                    <a
+                                        href="/Free-Write/public/BookList/Planned?user=<?= htmlspecialchars($userAccount['userID']); ?>">
+                                        <div class="book-list-item">
+                                            <span class="book-list-label">To Read</span>
+                                            <span
+                                                class="book-list-count"><?= htmlspecialchars($listCounts[0]['planned']) ?></span>
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Spinoff Book List Section -->
-                        <div class="my-book-list spinoff-list">
-                            <h3>Spinoff List</h3>
-                            <div class="book-list-stats">
-                                <a href="/Free-Write/public/BookList/Spinoff/Reading">
-                                    <div class="book-list-item">
-                                        <span class="book-list-label">Reading</span>
-                                        <span class="book-list-count">0</span>
-                                    </div>
-                                </a>
-                                <a href="/Free-Write/public/BookList/Spinoff/Completed">
-                                    <div class="book-list-item">
-                                        <span class="book-list-label">Completed</span>
-                                        <span class="book-list-count">0</span>
-                                    </div>
-                                </a>
-                                <a href="/Free-Write/public/BookList/Spinoff/Onhold">
-                                    <div class="book-list-item">
-                                        <span class="book-list-label">On Hold</span>
-                                        <span class="book-list-count">0</span>
-                                    </div>
-                                </a>
-                                <a href="/Free-Write/public/BookList/Spinoff/Dropped">
-                                    <div class="book-list-item">
-                                        <span class="book-list-label">Dropped</span>
-                                        <span class="book-list-count">0</span>
-                                    </div>
-                                </a>
-                                <a href="/Free-Write/public/BookList/Spinoff/Planned">
-                                    <div class="book-list-item">
-                                        <span class="book-list-label">To Read</span>
-                                        <span class="book-list-count">0</span>
-                                    </div>
-                                </a>
+                        <!-- My Book Genre Section -->
+                        <div class="genre-section">
+                            <!-- Pie Chart Section -->
+                            <div class="chart-container">
+                                <canvas id="genrePieChart"></canvas>
+                            </div>
+
+                            <!-- Genre List Section -->
+                            <div class="genre-list-container">
+                                <ul id="genreList">
+                                    <!-- Genre list will be dynamically populated -->
+                                </ul>
                             </div>
                         </div>
+
+                        <!-- Include Chart.js -->
+                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                        <script>
+                            // Convert PHP array to JavaScript array
+                            const genreFrequency = <?php echo json_encode($genreFrequency); ?>;
+
+                            // Extract genre names and percentages for the chart
+                            const genreNames = genreFrequency.map(item => item.genre_name);
+                            const genrePercentages = genreFrequency.map(item => item.percentage);
+
+                            // Generate random colors for each genre
+                            const generateColors = (count) => {
+                                const colors = [];
+                                for (let i = 0; i < count; i++) {
+                                    const hue = (i * 360) / count;
+                                    colors.push(`hsl(${hue}, 70%, 60%)`);
+                                }
+                                return colors;
+                            };
+
+                            const backgroundColor = generateColors(genreNames.length);
+
+                            // Create pie chart
+                            const ctx = document.getElementById('genrePieChart').getContext('2d');
+                            const genrePieChart = new Chart(ctx, {
+                                type: 'pie',
+                                data: {
+                                    labels: genreNames,
+                                    datasets: [{
+                                        data: genrePercentages,
+                                        backgroundColor: backgroundColor,
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    plugins: {
+                                        legend: {
+                                            display: false // Hide default legend
+                                        }
+                                    }
+                                }
+                            });
+
+                            // Populate the genre list
+                            const genreList = document.getElementById('genreList');
+                            genreFrequency.forEach((item, index) => {
+                                const listItem = document.createElement('li');
+                                listItem.innerHTML = `
+            <span class="color-box" style="background-color: ${backgroundColor[index]};"></span>
+            ${item.genre_name}: ${parseFloat(item.percentage).toFixed(1)}%
+        `;
+                                genreList.appendChild(listItem);
+                            });
+                        </script>
+
                     </div>
-
                     <!-- My Book Collections Section -->
                     <div class="my-book-collections">
                         <div class="book-collection-heading">
@@ -326,16 +389,20 @@
                     <div class="spin-off-message">
                         <h3>Creating a Spin-off</h3>
                         <p>
-                            Spin-offs are stories that are based on existing stories. You can create a spin-off of your
-                            own story or any other story you like. Please note that you need to have read the chapter
+                            Spin-offs are stories that are based on existing stories. You can create a spin-off of
+                            your
+                            own story or any other story you like. Please note that you need to have read the
+                            chapter
                             you create a spin-off of, and you can only create spin-offs of chapters that are public
                             except the first chapter.
                         </p>
                         <p>
-                            Additionally, spin-offs are a great way to explore alternate storylines, character arcs, or
+                            Additionally, spin-offs are a great way to explore alternate storylines, character arcs,
+                            or
                             even dive deeper into untold backstories. Remember to give credit to the original story
                             where required,
-                            and ensure your spin-off aligns with the community guidelines to maintain a respectful and
+                            and ensure your spin-off aligns with the community guidelines to maintain a respectful
+                            and
                             engaging environment for all users.
                         </p>
                         <p>Access spinoff creation through the book overview.</p>
@@ -417,7 +484,8 @@
                                         <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($follower['profileImage'] ?? 'profile-image.jpg') ?>"
                                             alt="John Doe" class="myfollow-user-image">
                                         <div class="myfollow-user-info">
-                                            <div class="myfollow-user-name"><?= htmlspecialchars($follower['userName']) ?></div>
+                                            <div class="myfollow-user-name"><?= htmlspecialchars($follower['userName']) ?>
+                                            </div>
                                             <div class="myfollow-user-last-logged">
                                                 <?= htmlspecialchars($follower['lastLogDate']) ?>
                                             </div>
@@ -438,7 +506,8 @@
                                         <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($follower['profileImage'] ?? 'profile-image.jpg') ?>"
                                             alt="Sarah Lee" class="myfollow-user-image">
                                         <div class="myfollow-user-info">
-                                            <div class="myfollow-user-name"><?= htmlspecialchars($follower['userName']) ?></div>
+                                            <div class="myfollow-user-name"><?= htmlspecialchars($follower['userName']) ?>
+                                            </div>
                                             <div class="myfollow-user-last-logged">
                                                 <?= htmlspecialchars($follower['lastLogDate']) ?>
                                             </div>
