@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
     <link rel="stylesheet" href="/Free-Write/public/css/profile.css">
+    <link rel="stylesheet" href="/Free-Write/public/css/createCollection.css">
 </head>
 
 <body>
-
     <?php
     if (isset($_SESSION['user_type'])) {
         $userType = $_SESSION['user_type'];
@@ -176,14 +176,22 @@
                     </div>
 
                     <?php
-                    // Sample backend values
+                    //backend values
                     $totalEntries = $listCounts[0]['reading'] + $listCounts[0]['completed'] + $listCounts[0]['hold'] + $listCounts[0]['dropped'] + $listCounts[0]['planned'];
 
-                    $readingPercentage = ($listCounts[0]['reading'] / $totalEntries) * 100;
-                    $completedPercentage = ($listCounts[0]['completed'] / $totalEntries) * 100;
-                    $onHoldPercentage = ($listCounts[0]['hold'] / $totalEntries) * 100;
-                    $droppedPercentage = ($listCounts[0]['dropped'] / $totalEntries) * 100;
-                    $plannedPercentage = ($listCounts[0]['planned'] / $totalEntries) * 100;
+                    if ($totalEntries == 0) {
+                        $readingPercentage = 0;
+                        $completedPercentage = 0;
+                        $onHoldPercentage = 0;
+                        $droppedPercentage = 0;
+                        $plannedPercentage = 0;
+                    } else {
+                        $readingPercentage = ($listCounts[0]['reading'] / $totalEntries) * 100;
+                        $completedPercentage = ($listCounts[0]['completed'] / $totalEntries) * 100;
+                        $onHoldPercentage = ($listCounts[0]['hold'] / $totalEntries) * 100;
+                        $droppedPercentage = ($listCounts[0]['dropped'] / $totalEntries) * 100;
+                        $plannedPercentage = ($listCounts[0]['planned'] / $totalEntries) * 100;
+                    }
                     ?>
 
                     <div class="statistics-container">
@@ -279,6 +287,7 @@
 
                             // Generate random colors for each genre
                             const generateColors = (count) => {
+                                if (count === 0) return [];
                                 const colors = [];
                                 for (let i = 0; i < count; i++) {
                                     const hue = (i * 360) / count;
@@ -328,7 +337,7 @@
                     <div class="my-book-collections">
                         <div class="book-collection-heading">
                             <h3>My Book Collections</h3>
-                            <button class="edit-profile-btn" id="createCollection">
+                            <button class="edit-profile-btn" id="createCollectionBtn">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 12"
                                     stroke-width="0.5" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -338,20 +347,26 @@
                             </button>
                         </div>
                         <div class="collections-grid">
-                            <div class="collection-item">
-                                <img src="/Free-Write/public/images/collectionThumb.jpeg" alt="Collection Thumbnail">
-                                <div class="collection-details">
-                                    <span>Favorite Sci-Fi</span>
-                                    <span>5 Books</span>
-                                </div>
-                            </div>
-                            <div class="collection-item">
-                                <img src="/Free-Write/public/images/collectionThumb.jpeg" alt="Collection Thumbnail">
-                                <div class="collection-details">
-                                    <span>Romance Reads</span>
-                                    <span>3 Books</span>
-                                </div>
-                            </div>
+                            <!-- Collection items will be dynamically populated -->
+                            <?php if (!empty($collections)): ?>
+                                <?php foreach ($collections as $collection): ?>
+                                    <a
+                                        href="/Free-Write/public/Collection/view/<?= htmlspecialchars($collection['collectionID']); ?>">
+                                        
+                                        <div class="collection-item">
+                                            <img src="/Free-Write/public/images/collectionThumb.jpeg"
+                                                alt="Collection Thumbnail">
+                                            <div class="collection-details">
+                                                <span><?= htmlspecialchars($collection['title']) ?></span>
+                                                <span><?= htmlspecialchars($collection['BookCount']) ?></span>
+                                                <span><?= htmlspecialchars(($collection['isPublic'] == 1 ? 'public' : 'private')) ?></span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <p>No collections made.</p>
+                            <?php endif; ?>
                         </div>
                     </div>
 
@@ -577,7 +592,7 @@
                 </div>
                 <div class="edit-profile-item">
                     <label for="country">Country</label>
-                    <select type="date" id="country" name="country">
+                    <select id="country" name="country">
                         <!-- 195 main countries -->
                         <option value="">country</option>
                         <option value="Afghanistan">Afghanistan</option>
@@ -880,9 +895,9 @@
     </div>
 
     <!-- Create Collection Form --------------------------------------- -->
-    <div class="edit-profile">
+    <div class="edit-profile create-collection-overlay">
         <div class="close-overlay-button">
-            <button id="report-cancelOverlayBtn">
+            <button id="collection-cancelOverlayBtn">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -892,62 +907,39 @@
             </button>
         </div>
         <div class="edit-profile-container">
-            <form id="report-profile-form" action="/Free-Write/public/User/ReportProfile" method="POST"
-                onsubmit="return validateForm()">
+            <form id="collectionForm" action="/Free-Write/public/User/CreateCollection" method="post">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" id="title" name="title" placeholder="Enter a title for your collection">
+                    <span class="error-message" id="titleError"></span>
+                </div>
 
-                <div class="edit-profile-item edit-name">
-                    <div>
-                        <label for="firstName">First Name</label>
-                        <input type="text" id="firstName" name="firstName"
-                            value="<?= htmlspecialchars($userDetails['firstName']); ?>" required maxlength="45"
-                            pattern="[A-Za-z\s]+" title="First name can only contain letters and spaces" disabled>
-                    </div>
-                    <div>
-                        <label for="lastName">Last Name</label>
-                        <input type="text" id="lastName" name="lastName"
-                            value="<?= htmlspecialchars($userDetails['lastName']); ?>" required maxlength="45"
-                            pattern="[A-Za-z\s]+" title="Last name can only contain letters and spaces" disabled>
-                    </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="Collect_description" name="Collect_description"
+                        placeholder="Tell us about your collection..."></textarea>
+                    <span class="error-message" id="descriptionError"></span>
                 </div>
-                <div class="edit-profile-item">
-                    <label for="bio">Bio</label>
-                    <textarea id="bio" rows="6" name="bio" maxlength="255"
-                        required><?= htmlspecialchars($userDetails['bio']); ?></textarea>
+
+                <div class="form-group">
+                    <label for="visibility">Visibility</label>
+                    <select id="visibility" name="visibility">
+                        <option value="1">Public</option>
+                        <option value="0">Private</option>
+                    </select>
                 </div>
-                <div class="edit-profile-item">
-                    <label for="email">For further details we may contact you</label>
-                    <input type="email" id="email" name="email" value="<?= htmlspecialchars($userAccount['email']); ?>"
-                        required>
-                </div>
-                <div class="edit-profile-item">
-                    <button type="submit" name="submit">Save Changes</button>
-                </div>
+
+                <button class="create-btn" type="submit">
+                    <span>Create Collection</span>
+                    <i class="arrow-icon"></i>
+                </button>
             </form>
-
-
-            <hr class="horizontal-divider">
-
-            <div class="danger-zone">
-                <h3>Danger Zone</h3>
-                <div class="warning-message">
-                    <p>Warning: Deleting your account will permanently remove:</p>
-                    <ul>
-                        <li>All your posts and writings</li>
-                        <li>Your profile information</li>
-                        <li>Your comments and interactions</li>
-                        <li>All associated data</li>
-                    </ul>
-                    <p>This action cannot be undone.</p>
-                </div>
-                <form action="/Free-Write/public/User/DeleteProfile" method="POST">
-                    <button class="delete-account-btn" type="submit">Delete Account</button>
-                </form>
-            </div>
-            <button class="discard-change-btn" id="cancelOverlay">Discard Changes</button>
+            <button class="discard-change-btn-collection" id="cancelOverlay">Discard Changes</button>
         </div>
     </div>
 
     <script src="/Free-Write/public/js/user/profile.js"></script>
+    <script src="/Free-Write/public/js/user/createCollection.js"></script>
     <script src="/Free-Write/public/js/user/reportUser.js"></script>
     <script src="/Free-Write/public/js/imageAdd.js"></script>
     <script>

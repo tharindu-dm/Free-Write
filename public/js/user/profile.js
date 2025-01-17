@@ -99,6 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
   /**
    * End of Edit profile front-end validation
    */
+
   /*
    * Beginning of profile 2nd section My spinoffs, collections and bought books
    */

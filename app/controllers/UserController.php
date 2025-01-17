@@ -28,6 +28,7 @@ class UserController extends Controller
         $follow = new Follow(); //get my followers
         $BuyBook = new BuyBook();
         $bookGenre = new BookGenre();
+        $collection = new Collection();
 
         $userDetails = $userDetailsTable->first(['user' => $uid]);//getUserDetails($uid);
         $list = $Booklist->getBookListCount($uid);
@@ -36,6 +37,7 @@ class UserController extends Controller
         $myfollowers = $follow->getFollowCount($uid);
         $myboughtBooks = $BuyBook->getBoughtBooks($uid);
         $genreFrequency = $bookGenre->getGenreFrequency($uid);
+        $getUserCollections = $collection->getUserCollections($uid);
 
         $isFollowing = null;
         if (isset($_SESSION['user_id']))
@@ -56,7 +58,8 @@ class UserController extends Controller
                 'followingList' => $followingList,
                 'followedByList' => $followedByList,
                 'purchasedBooks' => $myboughtBooks,
-                'genreFrequency' => $genreFrequency
+                'genreFrequency' => $genreFrequency,
+                'collections' => $getUserCollections
             ]
         );
     }
@@ -157,8 +160,13 @@ class UserController extends Controller
         $user = new User();
         $userDetailsTable = new UserDetails();
 
-        /*$userDetailsTable->delete($uid, 'user');
-        $user->delete($uid, 'userID');*/
+        $userTableData = $user->first(['userID' => $uid]);
+        $userDetailsTableData = $userDetailsTable->first(['user' => $uid]);
+
+        //deleting the data from the user and userdetails table
+        $userDetailsTable->delete($uid, 'user');
+        $user->delete($uid, 'userID');
+        //this will activate the trigger to archive the data
 
         session_destroy();
         header('Location: /Free-Write/public/User/Login');
@@ -222,5 +230,56 @@ class UserController extends Controller
         // Redirect to the profile page after successful submission
         header('Location: /Free-Write/public/User/Profile?user=' . $_POST['reportedUserID']);
         exit; // Make sure to exit after header redirection
+    }
+
+    public function NewCollection()
+    {
+        $this->view('Profile/createCollection');
+    }
+
+    public function CreateCollection()
+    {
+        // Initialize an array to hold error messages
+        $errors = [];
+
+        // Validate title
+        if (empty($_POST['title'])) {
+            $errors['title'] = "Title is required";
+        } elseif (strlen($_POST['title']) < 3) {
+            $errors['title'] = "Title must be at least 3 characters long";
+        } elseif (strlen($_POST['title']) > 100) {
+            $errors['title'] = "Title must be less than 100 characters";
+        }
+
+        // Validate description
+        if (empty($_POST['Collect_description'])) {
+            $errors['description'] = "Description is required";
+        } elseif (strlen($_POST['Collect_description']) < 10) {
+            $errors['description'] = "Description must be at least 10 characters long";
+        } elseif (strlen($_POST['Collect_description']) > 500) {
+            $errors['description'] = "Description must be less than 500 characters";
+        }
+
+        // Check if there are any validation errors
+        if (!empty($errors)) {
+            $_SESSION['errors'] = $errors;
+            header('Location: /Free-Write/public/User/Profile');
+            exit;
+        }
+
+        // If validation passes, proceed to insert the collection
+        $collection = new Collection();
+        $data = [
+            'title' => $_POST['title'],
+            'user' => $_SESSION['user_id'],
+            'description' => $_POST['Collect_description'],
+            'isPublic' => $_POST['visibility'],
+        ];
+
+        $collection->insert($data);
+
+        // Redirect to the user's profile after successful creation
+        header('Location: /Free-Write/public/User/Profile');
+        exit;
     }
 }

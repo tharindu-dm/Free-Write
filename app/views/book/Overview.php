@@ -102,6 +102,26 @@
                                 <button type="submit" class="rate-btn">Rate</button>
                             </form>
                         </div>
+                        <div class="rating-select">
+                            <form action="/Free-Write/public/Book/AddToCollection" method="POST">
+                                <input type="hidden" name="book_id" value="<?= htmlspecialchars($book[0]['bookID']); ?>">
+
+                                <div class="dropdown">
+                                    <button type="button" class="dropbtn">Select Collection</button>
+                                    <div class="dropdown-content">
+                                        <?php foreach ($collections as $collection): ?>
+                                            <label>
+                                                <input type="checkbox" name="collections[]"
+                                                    value="<?= htmlspecialchars($collection['collectionID']); ?>">
+                                                <?= htmlspecialchars($collection['collectionName']); ?>
+                                            </label>
+                                        <?php endforeach; ?>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="rate-btn">Add Book</button>
+                            </form>
+                        </div>
                     </div>
                     <p class="description">
                         <?= htmlspecialchars($book[0]['Synopsis']); ?>
@@ -112,7 +132,7 @@
                             <?php if ($inList === null): ?>
                                 <p><?= 'Add To List'; ?></p>
                             <?php else: ?>
-                                <?= htmlspecialchars(ucfirst($inList)) ?>
+                                In <?= htmlspecialchars(ucfirst($inList)) ?> List
                             <?php endif; ?>
                         </button>
                         <div class="buy-button">
