@@ -24,7 +24,7 @@
     }
 
     .form-container h4 {
-      color: #8C805E;
+      color: #c47c15;
       margin-bottom: 2rem;
       font-weight: 500;
     }
@@ -50,7 +50,7 @@
     select {
       width: 100%;
       padding: 1rem;
-      border: 2px solid #E9DFCE;
+      border: 2px solid #FFD700;
       border-radius: 8px;
       font-size: 1rem;
       transition: border-color 0.3s, box-shadow 0.3s;
@@ -66,7 +66,7 @@
 
     .optional-section {
       padding: 1.5rem;
-      border: 2px dashed #E9DFCE;
+      border: 2px dashed #FFD700;
       border-radius: 8px;
       margin-bottom: 1.5rem;
       text-align: center;
@@ -81,7 +81,7 @@
     }
 
     .optional-section p {
-      color: #8C805E;
+      color: #c47c15;
       margin-bottom: 1rem;
     }
 
@@ -131,7 +131,7 @@
 
     .optional-section button {
       background-color: #FFFFFF;
-      border: 2px solid #E9DFCE;
+      border: 2px solid #FFD700;
       color: #1C160C;
     }
 
@@ -140,7 +140,7 @@
       text-align: center;
       padding: 1.5rem;
       background-color: #FFFFFF;
-      color: #8C805E;
+      color: #c47c15;
       box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
     }
 
@@ -187,26 +187,26 @@
     <h1>Add a New Book</h1>
     <h4>Enter the details for your book</h4>
 
-    <form>
+    <form action="/Free-Write/public/PublisherBooks/BookUpload" method="POST" onsubmit="return validateForm()">
       <div class="form-field">
         <label for="title">Title</label>
-        <input type="text" id="title" placeholder="Enter title" required>
+        <input type="text" id="title" name="title" placeholder="Enter title" required>
       </div>
 
       <div class="form-group">
         <div class="form-field">
-          <label for="author">Author</label>
-          <input type="text" id="author" placeholder="Enter author" required>
+          <label for="author_name">Author</label>
+          <input type="text" id="author_name" name="author_name" placeholder="Enter author" required>
         </div>
         <div class="form-field">
-          <label for="contributor">Contributor</label>
-          <input type="text" id="contributor" placeholder="Enter contributor">
+          <label for="contributor_name">Contributor</label>
+          <input type="text" id="contributor_name" name="contributor_name" placeholder="Enter contributor">
         </div>
       </div>
 
       <div class="form-field">
         <label for="genre">Genre</label>
-        <select id="genre" required>
+        <select id="genre" name="genre" required>
           <option value="">Select genre</option>
           <option value="fiction">Fiction</option>
           <option value="non-fiction">Non-fiction</option>
@@ -216,12 +216,12 @@
 
       <div class="form-group">
         <div class="form-field">
-          <label for="publication-year">Publication Year</label>
-          <input type="number" id="publication-year" placeholder="Enter publication year" required>
+          <label for="publication_year">Publication Year</label>
+          <input type="number" id="publication_year" name="publication_year" placeholder="Enter publication year" required>
         </div>
         <div class="form-field">
-          <label for="isbn">ISBN</label>
-          <input type="text" id="isbn" placeholder="Enter ISBN" required>
+          <label for="isbnID">ISBN</label>
+          <input type="text" id="isbnID" name="isbnID" placeholder="Enter ISBN" required>
         </div>
       </div>
 

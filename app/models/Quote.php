@@ -4,7 +4,6 @@ class Quote
 {
     use Model; // Use the Model trait for database interaction
 
-
     protected $table = 'Quote'; // Specify the table name
 
     public function addQuote($chapter, $quote)

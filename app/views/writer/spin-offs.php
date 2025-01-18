@@ -9,7 +9,7 @@
 </head>
 
 <body>
-<?php
+    <?php
     if (isset($_SESSION['user_type'])) {
         $userType = $_SESSION['user_type'];
     } else {
@@ -35,21 +35,21 @@
     <main>
         <div class="dashboard">
             <!-- Profile Section -->
-        <div class="profile-section">
-        <div class="profile-image">
-                    <img src="../../public/images/profile-image.jpg" alt="User Profile Image">
+            <div class="profile-section">
+                <div class="profile-image">
+                    <img src="../../app/images/profile/profile-image.jpg" alt="User Profile Image">
                 </div>
 
-        <?php if (!empty($userDetails) && is_array($userDetails)): ?>
-        <div class="profile-info">
-            <h2><?= htmlspecialchars($userDetails[0]['fullName'] ?? 'Unknown User'); ?></h2>
-            
-        </div>
-        <?php else: ?>
-            <h2>Michael Thompson</h2>
-            <p>250 followers</p>
-        <?php endif; ?>
-        </div>
+                <?php if (!empty($userDetails) && is_array($userDetails)): ?>
+                    <div class="profile-info">
+                        <h2><?= htmlspecialchars($userDetails[0]['fullName'] ?? 'Unknown User'); ?></h2>
+
+                    </div>
+                <?php else: ?>
+                    <h2>Michael Thompson</h2>
+                    <p>250 followers</p>
+                <?php endif; ?>
+            </div>
             <!-- Navigation for Writer Options -->
             <?php require_once "../app/views/writer/writerNav.php"; ?>
 
@@ -57,7 +57,7 @@
             <h3>Spin-off requests</h3>
 
             <div class="spinoff-list">
-                
+
 
                 <!-- Spin-off  items -->
                 <div class="spinoff-item">

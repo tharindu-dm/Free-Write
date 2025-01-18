@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Freewrite - Explore and Share Incredible Stories</title>
-    <link rel="stylesheet" href="/Free-Write/public/css/bookOverview.css">
+    <link rel="stylesheet" href="/Free-Write/public/css/bookDetail.css">
 </head>
 
 <body>
@@ -36,7 +36,7 @@
         <div class="container">
             <div class="product-layout">
                 <div class="product-image">
-                    <img src="/Free-Write/public/images/<?= htmlspecialchars($book[0]['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                    <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book[0]['cover_image'] ?? 'sampleCover.jpg'); ?>"
                         alt="Cover Image of <?= htmlspecialchars($book[0]['title']); ?>">
                     <div class="author-details">
                         <h3>Other Details</h3>
@@ -60,9 +60,8 @@
                             id="edit-details" class="read-button">Edit
                         </a>
 
-                        <a href="/Free-Write/public/Writer/Delete/<?= htmlspecialchars($book[0]['bookID']) ?>"
-                            id="delete-details" class="read-button">Delete
-                        </a>
+                        <button id="delete-details" class="read-button delete-btn">Delete</button>
+
                         <button id="btn-create-spinoff" class="read-button">Stat:/</button>
                     </div>
 
@@ -91,6 +90,30 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Delete Overlay -->
+            <div class="deleteOverlay-container">
+                <div class="deleteOverlay">
+                    <h2>Are you sure you want to delete this Book?</h2>
+                    <form action="/Free-Write/public/Writer/Delete/" method="POST">
+                        <input type="hidden" name="bID" value="<?= htmlspecialchars($book[0]['bookID']) ?>">
+
+                        <div class="del-overlay-items">
+                            <label for="bookID-label">Book ID</label>
+                            <input type="text" id="bookID-label" disabled
+                                value="<?= htmlspecialchars($book[0]['bookID']) ?>">
+                        </div>
+                        <div class="del-overlay-items">
+                            <label for="title">Book Title</label><input id="title" type="text" disabled
+                                value="<?= htmlspecialchars($book[0]['title']) ?>">
+                        </div>
+                        <div class="del-overlay-items">
+                            <button class="read-button delete-btn" type="submit" id="deleteBook_Agree">Yes, Delete</button>
+                            <button class="read-button" id="cancelDelete">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     <?php else: ?>
         <p>No book found.</p>
@@ -98,7 +121,7 @@
 
     <?php require_once "../app/views/layout/footer.php"; ?>
 
-    <script src="/Free-Write/public/js/Book/bookOverview.js"></script>
+    <script src="/Free-Write/public/js/writer/bookDetails.js"></script>
 </body>
 
 </html>

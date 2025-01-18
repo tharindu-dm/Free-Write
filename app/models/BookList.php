@@ -26,7 +26,8 @@ class BookList
     }
     public function addToList($userID, $bookID, $AddStatus)
     { //$chapter to be added to the list : edit the query to add the chapter to the list
-        return $this->insert(['user' => $userID, 'book' => $bookID, 'status' => $AddStatus]);
+        $this->insert(['user' => $userID, 'book' => $bookID, 'status' => $AddStatus]);
+        return;
     }
 
     public function getUserBookList($userID, $staus)
@@ -50,7 +51,8 @@ class BookList
 
         //show($query);
 
-        return $this->query($query);
+        $this->query($query);
+        return;
     }
 
     public function deleteFromList($uid, $bid)
@@ -59,6 +61,7 @@ class BookList
 
         //show($query);
 
-        return $this->query($query);
+        $this->query($query);
+        return;
     }
 }

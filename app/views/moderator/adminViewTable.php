@@ -18,7 +18,7 @@
         $userType = 'guest';
     }
     switch ($userType) {
-        case 'admin':
+        case 'mod':
             require_once "../app/views/layout/header-user.php";
             break;
         default:
@@ -32,9 +32,11 @@
             <div class="stats-grid">
                 <?php if (!empty($data) && is_array($data)): ?>
                     <?php for ($i = 0; $i < 36; $i++): ?>
-                        <div class="stat-card">
-                            <p><?= htmlspecialchars($data[$i]['name']); ?></p>
-                        </div>
+                        <a href="/Free-Write/public/Mod/<?= htmlspecialchars($data[$i]['name']); ?>">
+                            <div class="stat-card card-float">
+                                <p><?= htmlspecialchars($data[$i]['name']); ?></p>
+                            </div>
+                        </a>
                     <?php endfor; ?>
 
                 <?php else: ?>
@@ -42,12 +44,23 @@
                 <?php endif; ?>
             </div>
         </section>
+
+        <section style="display:none;">
+            <div>
+                <h1>Table Name</h1>
+            </div>
+            <div>
+                <table>
+
+                </table>
+            </div>
+        </section>
     </main>
     <?php
     require_once "../app/views/layout/footer.php";
     ?>
 
-    <script src="/Free-Write/public/js/Admin/admin.js"></script>
+    <script src="/Free-Write/public/js/Moderator/viewTable.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const sidebarNav = document.getElementById('sidebar-nav');

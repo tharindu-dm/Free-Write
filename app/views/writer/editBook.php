@@ -18,19 +18,15 @@
     }
     switch ($userType) {
         case 'admin':
+        case 'mod':
         case 'writer':
-        case 'covdes':
         case 'wricov':
-        case 'reader':
             require_once "../app/views/layout/header-user.php";
-            break;
-        case 'pub':
-            require_once "../app/views/layout/header-pub.php";
             break;
         default:
             require_once "../app/views/layout/header.php";
     }
-    show($data);
+    //show($data);
     ?>
 
     <!-- Main Content -->
@@ -41,7 +37,7 @@
 
                 <!-- Book Cover Section -->
                 <div class="book-cover">
-                    <img src="/public/images/cover-placeholder.jpg" alt="Cover Preview" class="cover-img">
+                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Cover Preview" class="cover-img">
                     <div class="cover-upload">
                         <input type="file" id="cover" name="cover" accept="image/*" class="file-input">
                         <button type="button" class="upload-btn">Upload Cover Photo</button>
@@ -49,49 +45,42 @@
                 </div>
 
                 <!-- Book Details Section -->
-                 <input type="hidden" name="bID" value="<?php echo $book['bookID']; ?>">
+                <input type="hidden" name="bID" value="<?php echo $book['bookID']; ?>">
                 <div class="book-info">
                     <div class="input-group">
                         <label for="title">Title</label>
-                        <input type="text" id="title" name="title" placeholder="Enter a title for your story" value="<?php echo htmlspecialchars($book['title']); ?>" required>
-                        
+                        <input type="text" id="title" maxlength="45" rows="7" name="title"
+                            placeholder="Enter a title for your story"
+                            value="<?php echo htmlspecialchars($book['title']); ?>" required>
+
                     </div>
 
                     <div class="input-group">
                         <label for="Synopsis">Synopsis</label>
-                        <textarea id="Synopsis" name="Synopsis" placeholder="Enter a synopsis" required><?php echo htmlspecialchars($book['Synopsis']); ?></textarea>
-                        
-                    </div>
+                        <textarea id="Synopsis" name="Synopsis" maxlength="255" placeholder="Enter a synopsis"
+                            required><?php echo htmlspecialchars($book['Synopsis']); ?></textarea>
 
-                    <div class="input-group">
-                        <label for="genre">Genre (Dummy)</label>
-                        <select id="genre" name="genre" required>
-                            <option value="" disabled selected>Select genre</option>
-                            <option value="Fiction" >Fiction</option>
-                            <option value="Fantasy" >Fantasy</option>
-                            <option value="Romance" >Romance</option>
-                        </select>
-                    
                     </div>
 
                     <div class="input-group">
                         <label for="price">Price</label>
-                        <input type="text" id="price" name="price" placeholder="Free (Type to add a Price)" value="<?php echo htmlspecialchars($book['price'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+                        <input type="number" min="0" step="0.01" id="price" name="price" placeholder="Free (Enter a Price)"
+                            value="<?php echo htmlspecialchars($book['price'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
                     </div>
 
                     <div class="input-group">
                         <label for="type">Release Type</label>
                         <div class="privacy-toggle">
-                            <input type="radio" name="publishType" value="book" <?php echo ($book['publishType'] == 'book') ? 'checked' : ''; ?>> Book Wise
-                            <label><input type="radio" name="publishType" value="chapter" <?php echo ($book['publishType'] == 'chapter') ? 'checked' : ''; ?>> Chapter Wise</label>
+                            <input required type="radio" name="publishType" value="book" <?php echo ($book['publishType'] == 'book') ? 'checked' : ''; ?>> Book Wise
+                            <label><input required type="radio" name="publishType" value="chapter" <?php echo ($book['publishType'] == 'chapter') ? 'checked' : ''; ?>> Chapter Wise</label>
                         </div>
                     </div>
 
                     <div class="input-group">
                         <label for="privacy">Privacy</label>
                         <div class="privacy-toggle">
-                        <input type="radio" name="accessType" value="public" <?php ($book['accessType'] == 'public') ? 'checked' : ''; ?>> Public
-                        <input type="radio" name="accessType" value="private" <?php echo ($book['accessType'] == 'private') ? 'checked' : ''; ?>> Private</label>
+                            <input required type="radio" name="accessType" value="public" <?php ($book['accessType'] == 'public') ? 'checked' : ''; ?>> Public
+                            <input required type="radio" name="accessType" value="private" <?php echo ($book['accessType'] == 'private') ? 'checked' : ''; ?>> Private</label>
                         </div>
                     </div>
 
@@ -107,6 +96,7 @@
     require_once "../app/views/layout/footer.php";
     ?>
 
+    <script src="/Free-Write/public/js/writer/editBook.js"></script>
 
 </body>
 

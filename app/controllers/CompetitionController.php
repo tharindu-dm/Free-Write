@@ -2,7 +2,20 @@
 
 class CompetitionController extends Controller
 {
-    private $competitionModel;
+
+    public function index(){
+        $this->view('OpenUser/competitions');
+    }
+
+    public function MyCompetitions()
+    {
+
+        $competition_table = new Competition();
+        $competitionDetails = $competition_table->where(['publisherID' => $_SESSION['user_id']]);
+
+        $this->view('publisher/competitionDetails4Publisher', ['competitionDetails' => $competitionDetails]);
+    }
+
     public function New()
     {
         $this->view('publisher/creatingnewcompetition');
@@ -19,16 +32,12 @@ class CompetitionController extends Controller
         $category = $_POST['category'];
         $competitionID = $_POST['compID'];
         $competition_table = new Competition();
+<<<<<<< HEAD
         $competition_table->insert(['title' => $title, 'description' => $desc, 'rules' => $rules, 'prizes' => $prizes, 'start_date' => $start_date, 'end_date' => $end_date, 'category' => $category]);
-        header('Location: /Free-Write/public/Competition');
-    }
-    public function index()
-    {
-
-        $competition_table = new Competition();
-        $competitionDetails = $competition_table->findAll();
-
-        $this->view('publisher/competitionDetails4Publisher', ['competitionDetails' => $competitionDetails]);
+=======
+        $competition_table->insert(['title' => $title, 'description' => $desc, 'rules' => $rules, 'prizes' => $prizes, 'start_date' => $start_date, 'end_date' => $end_date, 'category' => $category, 'publisherID' => $_SESSION['user_id']]);
+>>>>>>> 7a59bea (navigation changes , and competition CRUD based on publisherID, create for adding books)
+        header('Location: /Free-Write/public/Competition/MyCompetitions');
     }
 
     public function Manage()
@@ -53,19 +62,19 @@ class CompetitionController extends Controller
         $competition_table = new Competition();
         $competition_table->update($competitionID, ['title' => $var, 'description' => $desc, 'rules' => $rules, 'prizes' => $prize, 'category' => $category, 'end_date' => $date], 'competitionID');
         //above one has no need to pass , it just need to updated 
-        header('Location: /Free-Write/public/Competition');   //to navigate after updated 
+        header('Location: /Free-Write/public/Competition/MyCompetitions');   //to navigate after updated 
     }
 
     public function deleteCompetition()
     {
         $URL = splitURL();
-        $competitionID = $URL[2];
+        $competitionID = $_POST['compID'];
         $competition_table = new competition();
         $competition_table->delete($competitionID, 'competitionID');  //ensure what are id and id column
-        header('Location: /Free-Write/public/Competition');
+        header('Location: /Free-Write/public/Competition/MyCompetitions');
     }
 
-    public function ProfilePub()
+    public function Profile()//shows the publisher's POV for a competition
     {
         $this->view('publisher/aCompetitionProfile4Publisher');
     }
@@ -78,17 +87,6 @@ class CompetitionController extends Controller
     public function Completed()
     {
         $this->view('publisher/completedCompetition');
-    }
-
-
-    public function New()
-    {
-        $this->view('publisher/creatingnewcompetition');
-    }
-
-    public function Manage()
-    {
-        $this->view('publisher/editingcompetitiondetails');
     }
 
     public function Active()
@@ -104,10 +102,5 @@ class CompetitionController extends Controller
     public function Test()
     {
         $this->view('publisher/bookUploadForm4Publishers');
-    }
-
-    public function Profile()
-    {
-        $this->view('publisher/aCompetitionProfile4Publisher');
     }
 }

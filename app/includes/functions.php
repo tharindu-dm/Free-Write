@@ -15,3 +15,7 @@
         $URL = explode('/', $URL);
         return $URL;
     }
+
+    function splitCamelCase($text) {
+        return preg_split('/(?=[A-Z])/', $text);
+    }

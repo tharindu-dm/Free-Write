@@ -26,7 +26,18 @@ class SpinOff
 
     public function getSpinoffDetails($spinoffID)
     {
-        $query = "";
+        $query = "SELECT
+                    s.[spinoffID],
+                    s.[title],
+                    s.[synopsis],
+                    s.[creator] AS [creatorID],
+                    CONCAT(u.[firstName], ' ', u.[lastName]) AS [creator],
+                    b.[title] AS [fromBook],
+                    s.[accessType],
+                    s.[lastUpdated]
+                    FROM [dbo].[Spinoff] s
+                    JOIN [dbo].[UserDetails] u ON s.[creator] = u.[user] 
+                    JOIN [dbo].[Book] b ON s.[fromBook] = b.[bookID] WHERE s.[spinoffID] = $spinoffID;";
 
         return $this->query($query);
     }

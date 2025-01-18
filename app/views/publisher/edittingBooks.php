@@ -54,7 +54,7 @@
     .input-field input {
       width: 100%;
       padding: 1rem;
-      border: 2px solid #E9DFCE;
+      border: 2px solid #FFD700;
       border-radius: 8px;
       font-size: 1rem;
       transition: border-color 0.3s, box-shadow 0.3s;
@@ -91,7 +91,7 @@
       display: flex;
       gap: 1rem;
       padding: 1rem 0;
-      border-bottom: 1px solid #E9DFCE;
+      border-bottom: 1px solid #FFD700;
     }
 
     .review img {

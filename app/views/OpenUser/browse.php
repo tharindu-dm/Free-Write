@@ -17,6 +17,7 @@
     }
     switch ($userType) {
         case 'admin':
+        case 'mod':
         case 'writer':
         case 'covdes':
         case 'wricov':
@@ -43,59 +44,11 @@
         </div>
 
         <main>
-
-            <!-- Book Filters 
-            <aside>
-                <form>
-                <h2>Filters</h2>
-                <div class="filter">
-                    <h3>Genre</h3>
-                    <label>
-                        <input type="checkbox" name="genre" value="fiction" /> Fiction
-                    </label>
-                    <label>
-                        <input type="checkbox" name="genre" value="comedy" /> Comedy
-                    </label>
-                    <label>
-                        <input type="checkbox" name="genre" value="romance" /> Romance
-                    </label>
-                    <!-- Add more genres as needed ->
-                </div>
-                <div class="filter">
-                    <h3>Price</h3>
-                    <label>
-                        <input type="radio" name="price" value="free" /> Free
-                    </label>
-                    <label>
-                        <input type="radio" name="price" value="paid" /> Paid
-                    </label>
-                </div>
-                <div class="filter">
-                    <h3>Rating</h3>
-                    <label>
-                        <input type="radio" name="rating" value="1" /> 1 Star
-                    </label>
-                    <label>
-                        <input type="radio" name="rating" value="2" /> 2 Stars
-                    </label>
-                    <label>
-                        <input type="radio" name="rating" value="3" /> 3 Stars
-                    </label>
-                    <label>
-                        <input type="radio" name="rating" value="4" /> 4 Stars
-                    </label>
-                    <label>
-                        <input type="radio" name="rating" value="5" /> 5 Stars
-                    </label>
-                </div>
-            </form>
-            </aside>-->
-
             <section class="browse-body-section">
                 <!-- Search Bar Section -->
                 <section class="search-section">
-                    <form>
-                        <input type="text" id="search-bar" placeholder="Search books..." />
+                    <form action="/Free-Write/public/Browse/search" method="GET">
+                        <input type="text" id="search-bar" name="bookName" placeholder="Search books..." />
                         <button type="submit" id="search-btn">Search</button>
                     </form>
                 </section>
@@ -107,25 +60,23 @@
 
                         <?php if (!empty($FWObooks) && is_array($FWObooks)): ?>
                             <?php foreach ($FWObooks as $book): ?>
-                                <div class="book-card">
-                                    <img src="../public/images/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
-                                        alt="Cover Image of <?= htmlspecialchars($book['title']); ?>">
+                                <a href="/Free-Write/public/book/Overview/<?= htmlspecialchars($book['bookID']); ?>">
+                                    <div class="book-card">
+                                        <img src="../app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                                            alt="Cover Image of <?= htmlspecialchars($book['title']); ?>">
 
-                                    <h3>
-                                        <?= htmlspecialchars($book['title']); ?>
-                                    </h3><br>
-                                    <p>
-                                        <?= htmlspecialchars($book['author']); ?>
-                                    </p>
-                                    <h4>
-                                        <?= $book['price'] === null ? 'FREE' : 'LKR ' . number_format($book['price'], 2); ?>
-                                    </h4>
-                                    <a
-                                        href="/Free-Write/public/book/Overview/<?= htmlspecialchars($book['bookID']); ?>">
-                                        <button class="select-book-btn"
-                                            data-id="<?= htmlspecialchars($book['bookID']); ?>">Select Book</button>
-                                    </a>
-                                </div>
+                                        <h3>
+                                            <?= strlen($book['title']) > 20 ? htmlspecialchars(substr($book['title'], 0, 17)) . '...' : htmlspecialchars($book['title']); ?>
+                                        </h3>
+                                        <p>
+                                            <?= htmlspecialchars($book['author']); ?>
+                                        </p>
+                                        <h4>
+                                            <?= $book['price'] === null ? 'FREE' : 'LKR ' . number_format($book['price'], 2); ?>
+                                        </h4>
+                                    </div>
+                                </a>
+
                             <?php endforeach; ?>
 
                         <?php else: ?>
@@ -139,20 +90,18 @@
                     <div class="book-grid">
                         <?php if (!empty($paidBooks) && is_array($paidBooks)): ?>
                             <?php foreach ($paidBooks as $pbook): ?>
+                                <a href="/Free-Write/public/book/Overview/<?= htmlspecialchars($pbook['bookID']); ?>">
                                 <div class="book-card">
-                                    <img src="../public/images/<?= htmlspecialchars($pbook['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                                    <img src="../app/images/coverDesign/<?= htmlspecialchars($pbook['cover_image'] ?? 'sampleCover.jpg'); ?>"
                                         alt="Cover Image of <?= htmlspecialchars($pbook['title']); ?>">
-
-                                    <h3> <?= htmlspecialchars($pbook['title']); ?></h3><br>
+                                    <h3>
+                                        <?= strlen($pbook['title']) > 20 ? htmlspecialchars(substr($pbook['title'], 0, 17)) . '...' : htmlspecialchars($pbook['title']); ?>
+                                    </h3>
                                     <p> <?= htmlspecialchars($pbook['author']); ?></p>
                                     <h4><?= $pbook['price'] === null ? 'FREE' : 'LKR ' . number_format($pbook['price'], 2); ?>
                                     </h4>
-                                    <a
-                                        href="/Free-Write/public/book/Overview/<?= htmlspecialchars($pbook['bookID']); ?>">
-                                        <button class="select-book-btn"
-                                            data-id="<?= htmlspecialchars($pbook['bookID']); ?>">Select Book</button>
-                                    </a>
                                 </div>
+                                </a>
                             <?php endforeach; ?>
 
                         <?php else: ?>
@@ -165,17 +114,17 @@
                     <h2>Who Will Be Left Standing?</h2>
                     <div class="book-grid">
                         <div class="book-card">
-                            <img src="../public/images/sampleCover.jpg" alt="Heartless">
+                            <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Heartless">
                             <h3>Heartless</h3>
                             <p>Romance</p>
                         </div>
                         <div class="book-card">
-                            <img src="../public/images/sampleCover.jpg" alt="GroundBound">
+                            <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="GroundBound">
                             <h3>GroundBound</h3>
                             <p>Horror</p>
                         </div>
                         <div class="book-card">
-                            <img src="../public/images/sampleCover.jpg" alt="Comatose">
+                            <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Comatose">
                             <h3>Comatose</h3>
                             <p>Psychology</p>
                         </div>

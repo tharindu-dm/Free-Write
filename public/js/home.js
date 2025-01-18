@@ -28,6 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add click event to the "Join Freewrite" button
     const joinButton = document.querySelector('.join-btn');
     joinButton.addEventListener('click', () => {
-        alert('Thank you for your interest in joining Freewrite!');
+        window.location.href = '/Free-Write/public/Login';
     });
 });

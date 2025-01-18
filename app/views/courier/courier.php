@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Free Write - Applications</title>
+  <title>Free Write - Couriers</title>
   <style>
     .content {
       width: 100%;
@@ -25,7 +25,7 @@
     .search-bar {
       display: flex;
       align-items: center;
-      background-color: #F5EDD9;
+      border: 0.2rem solid #ffd700;
       border-radius: 8px;
       padding: 0.5rem 1rem;
       margin-bottom: 1rem;
@@ -42,8 +42,9 @@
     }
 
     .applications-list {
-      background-color: #FAF7F0;
-      border-radius: 8px;
+      background-color: #ffd70010;
+      border: 0.2rem solid #ffd700;
+      border-radius: 1rem;
       padding: 1rem;
     }
 
@@ -113,35 +114,35 @@
 
     <div class="applications-list">
       <div class="application-item">
-        <img src="./image/blank.webp" alt="Jonas">
+        <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="Jonas">
         <div class="application-details">
           <h3>Jonas</h3>
           <p>Colombo</p>
         </div>
       </div>
       <div class="application-item">
-        <img src="./image/blank.webp" alt="Molly">
+        <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="Molly">
         <div class="application-details">
           <h3>Molly</h3>
           <p>Galle</p>
         </div>
       </div>
       <div class="application-item">
-        <img src="./image/blank.webp" alt="Robert">
+        <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="Robert">
         <div class="application-details">
           <h3>Robert</h3>
           <p>Jaffna</p>
         </div>
       </div>
       <div class="application-item">
-        <img src="./image/blank.webp" alt="Emma">
+        <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="Emma">
         <div class="application-details">
           <h3>Emma</h3>
           <p>Matara</p>
         </div>
       </div>
       <div class="application-item">
-        <img src="./image/blank.webp" alt="David">
+        <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="David">
         <div class="application-details">
           <h3>David</h3>
           <p>Colombo</p>

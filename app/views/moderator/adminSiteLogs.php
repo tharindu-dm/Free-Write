@@ -18,7 +18,7 @@
         $userType = 'guest';
     }
     switch ($userType) {
-        case 'admin':
+        case 'mod':
             require_once "../app/views/layout/header-user.php";
             break;
         default:
@@ -42,12 +42,12 @@
                         </thead>
                         <tbody>
                             <?php foreach ($data as $log): ?>
-                            <tr>
-                                <td><?= htmlspecialchars($log['siteLogID']); ?></td>
-                                <td><?= htmlspecialchars($log['user']); ?></td>
-                                <td><?= htmlspecialchars($log['activity']); ?></td>
-                                <td><?= htmlspecialchars($log['occurrence']); ?></td>
-                            </tr>
+                                <tr>
+                                    <td><?= htmlspecialchars($log['siteLogID']); ?></td>
+                                    <td><?= htmlspecialchars($log['user']); ?></td>
+                                    <td><?= htmlspecialchars($log['activity']); ?></td>
+                                    <td><?= htmlspecialchars($log['occurrence']); ?></td>
+                                </tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>

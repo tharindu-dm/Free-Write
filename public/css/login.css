@@ -1,42 +1,91 @@
-body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  color: #333;
-  background-color: #fff;
-}
-
-main {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
+.login-page {
+  display: flex;
   min-height: 100vh;
 }
 
+.creativity-section {
+  flex: 1;
+  /*background: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%);*/
+  background-image: url("/Free-Write/public/images/designer-hero.webp");
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  padding: 4rem;
+}
+
+.creativity-content {
+  max-width: 500px;
+}
+
+.creativity-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  font-weight: 800;
+}
+
+.creativity-content p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+.feature-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.feature svg {
+  width: 30px;
+  height: 30px;
+  color: white;
+}
+
+/*FORM SECTIONS*/
+.two-forms-container {
+  min-height: max-content;
+}
+
+.form-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  padding: 2rem;
+}
+
 .login-container {
-  text-align: center;
+  width: 100%;
   max-width: 400px;
-  margin: 0 auto;
 }
 
 h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  color: #1a1a1a;
-}
-
-p {
-  margin-bottom: 2rem;
-  color: #666;
+  font-size: xx-large;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 form {
   display: flex;
   flex-direction: column;
+  gap: 1rem;
 }
 
 input {
   padding: 0.8rem;
-  margin-bottom: 1rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 1rem;
@@ -56,13 +105,17 @@ button {
 }
 
 .sign-up-btn {
-  background-color: #e6f3ff;
-  color: #333;
+  background-color: #000;
+  color: #ffd700;
 }
 
-.institution-btn {
-  background-color: #1a1a1a;
-  color: #fff;
+.signup-names {
+  display: flex;
+  gap: 1rem;
+}
+
+.signup-names input {
+  width: 50%;
 }
 
 .login-btn {
@@ -70,7 +123,91 @@ button {
   color: #333;
 }
 
-#institution-form-div, #register-form-div {
-  
+.return-btn {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+/*Login failed Styles*/
+.overlay {
   display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 400px;
+  position: relative;
+}
+
+.overlay-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #ffd700;
+}
+
+.overlay-header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666;
+  padding: 0 5px;
+}
+
+.close-btn:hover {
+  color: #333;
+}
+
+.overlay-body {
+  color: #444;
+}
+
+.timer {
+  text-align: center;
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #ffd70020;
+  border-radius: 4px;
+}
+
+#countdown {
+  font-weight: bold;
+  color: #333;
+}
+
+/* login faield Animation */
+.overlay.show {
+  display: flex;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

@@ -1,13 +1,26 @@
 footer {
-  background-color: #f4f4f4;
+  background-color: #f4f4f4; /* Light background for footer */
   padding: 2rem;
   text-align: center;
+  border-top: 2px solid #ffd700; /* Primary color border on top */
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .footer-links a {
   margin: 0 1rem;
-  color: #333;
+  color: #000; /* Black text color */
   text-decoration: none;
+  font-weight: bold; /* Bold text for links */
+}
+
+.footer-links a:hover {
+  color: #ffd700; /* Change color on hover */
 }
 
 .social-icons {
@@ -19,10 +32,23 @@ footer {
 }
 
 .social-icons img {
-  width: 24px;
+  max-width: 24px; /* Set a max width for icons */
+  transition: transform 0.3s; /* Smooth hover effect */
 }
 
+.social-icons a:hover img {
+  transform: scale(1.1); /* Scale effect on hover */
+}
 
+.footer-bottom {
+  margin-top: 2rem; /* Space above the copyright text */
+  color: #000; /* Black text for copyright */
+  font-size: 0.9rem; /* Slightly smaller text */
+}
+
+/* Altering web default elements */
+
+/*altering scroll bar*/
 /* WebKit-based browsers (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
   width: 1.3rem; /* Width of the scrollbar */
@@ -41,4 +67,53 @@ footer {
 
 ::-webkit-scrollbar-thumb:hover {
   background-color: #ffd700; /* Darker on hover */
+}
+
+/* altering form radio button */
+/* Hide default radio button */
+input[type="radio"] {
+  height: 20px;
+  width: 20px;
+  appearance: none;
+  -webkit-appearance: none;
+  border: 2px solid #ffd700; /* Primary color border */
+  border-radius: 50%;
+  outline: none;
+  transition: all 0.3s;
+}
+
+/* Checked state */
+input[type="radio"]:checked {
+  background-color: #ffd700; /* Primary color background */
+  border-color: #ffd700;
+  box-shadow: 0 0 0 3px white inset;
+}
+
+/* Hover effect */
+input[type="radio"]:hover {
+  border-color: #ffaa00;
+}
+
+/* altering form checkbox button */
+/* Hide default checkbox button */
+input[type="checkbox"] {
+  appearance: none;
+  height: 20px;
+  width: 20px;
+  -webkit-appearance: none;
+  border: 2px solid #ffd700; /* Primary color border */
+  outline: none;
+  transition: all 0.3s;
+}
+
+/* Checked state */
+input[type="checkbox"]:checked {
+  background-color: #ffd700; /* Primary color background */
+  border-color: #ffd700;
+  box-shadow: 0 0 0 3px white inset;
+}
+
+/* Hover effect */
+input[type="checkbox"]:hover {
+  border-color: #ffaa00;
 }

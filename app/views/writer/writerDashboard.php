@@ -10,7 +10,7 @@
 </head>
 
 <body>
-<?php
+    <?php
     if (isset($_SESSION['user_type'])) {
         $userType = $_SESSION['user_type'];
     } else {
@@ -36,68 +36,66 @@
     <main>
         <div class="dashboard">
             <!-- Profile Section -->
-        <div class="profile-section">
-        <div class="profile-image">
-                    <img src="../../public/images/profile-image.jpg" alt="User Profile Image">
+            <div class="profile-section">
+                <div class="profile-image">
+                    <img src="../../app/images/profile/profile-image.jpg" alt="User Profile Image">
                 </div>
 
-        <?php if (!empty($userDetails) && is_array($userDetails)): ?>
-        <div class="profile-info">
-            <h2><?= htmlspecialchars($userDetails[0]['fullName'] ?? 'Unknown User'); ?></h2>
-            
-        </div>
-        <?php else: ?>
-            <h2>Michael Thompson</h2>
-            <p>250 followers</p>
-        <?php endif; ?>
-        </div>
+                <?php if (!empty($userDetails) && is_array($userDetails)): ?>
+                    <div class="profile-info">
+                        <h2><?= htmlspecialchars($userDetails[0]['fullName'] ?? 'Unknown User'); ?></h2>
+
+                    </div>
+                <?php else: ?>
+                    <h2>Michael Thompson</h2>
+                    <p>250 followers</p>
+                <?php endif; ?>
+            </div>
 
             <!-- Navigation for Writer Options -->
             <?php require_once "../app/views/writer/writerNav.php"; ?>
 
             <!-- Other links to get to pages -->
-             <ul>
+            <!--<ul>
                 <li><a href="/Free-Write/public/Writer/ViewSpinoff">view spin off details</a></li>
                 <li><a href="/Free-Write/public/Writer/WriteStory">writeStory.php</a></li>
                 <li><a href="/Free-Write/public/Writer/EditStory">editStory.php</a></li>
-             </ul>
+            </ul>-->
 
             <!-- Books Section -->
             <div class="books-section" id="books">
                 <h3>Books</h3>
 
                 <!-- Button to Add New Book -->
-                <a href="/Free-Write/public/Writer/New" class="button-new">+ New</a>
+                <div>
+                    <a href="/Free-Write/public/Writer/New" class="button-new">+ New</a>
+                </div>
 
                 <!-- Books List -->
-    <div class="book-grid">
-        <?php if (!empty($MyBooks) && is_array($MyBooks)): ?>
-           <?php foreach ($MyBooks as $book): ?>
-            <div class="book-card">
-            <img src="../public/images/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
-                alt="Cover Image of <?= htmlspecialchars($book['title']); ?>">
+                <div class="book-grid">
+                    <?php if (!empty($MyBooks) && is_array($MyBooks)): ?>
+                        <?php foreach ($MyBooks as $book): ?>
+                            <a href="/Free-Write/public/writer/Overview/<?= htmlspecialchars($book['bookID']); ?>">
+                                <div class="book-card">
+                                    <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                                        alt="Cover Image of <?= htmlspecialchars($book['title']); ?>">
+                                    <h3>
+                                        <?= strlen($book['title']) > 20 ? htmlspecialchars(substr($book['title'], 0, 17)) . '...' : htmlspecialchars($book['title']); ?>
+                                    </h3>
+                                    <p>
+                                        <?= htmlspecialchars($book['author']); ?>
+                                    </p>
+                                    <h4>
+                                        <?= $book['price'] === null ? 'FREE' : 'LKR ' . number_format($book['price'], 2); ?>
+                                    </h4>
+                                </div>
+                            </a>
+                        <?php endforeach; ?>
 
-            <h3>
-                <?= htmlspecialchars($book['title']); ?>
-            </h3><br>
-            <p>
-                <?= htmlspecialchars($book['author']); ?>
-            </p>
-            <h4>
-                <?= $book['price'] === null ? 'FREE' : 'LKR ' . number_format($book['price'], 2); ?>
-            </h4>
-            <a
-                href="/Free-Write/public/writer/Overview/<?= htmlspecialchars($book['bookID']); ?>">
-                <button class="select-book-btn"
-                    data-id="<?= htmlspecialchars($book['bookID']); ?>">Select Book</button>
-            </a>
-            </div>
-             <?php endforeach; ?>
-
-                <?php else: ?>
-                    <p>No books available.</p>
-                <?php endif; ?>
-            </div>
+                    <?php else: ?>
+                        <p>No books available.</p>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
     </main>
