@@ -1,3 +1,4 @@
+*.swp
 loginDetails.md
 .env
 pagination implementation.md
