@@ -89,7 +89,7 @@
 
                             <?php endif; ?>
 
-                            <?php if (!isset($_SESSION['user_id'])): ?>
+                            <?php if (!isset($_SESSION['user_id']) || (isset($_GET['user']) && $_GET['user']!=$_SESSION['user_id'])): ?>
                                 <button id="reportBtn" class="report-profile-btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -910,14 +910,14 @@
             <form id="collectionForm" action="/Free-Write/public/User/CreateCollection" method="post">
                 <div class="form-group">
                     <label for="title">Title</label>
-                    <input type="text" id="title" name="title" placeholder="Enter a title for your collection">
+                    <input type="text" id="title" name="title" maxlength="45" placeholder="Enter a title for your collection">
                     <span class="error-message" id="titleError"></span>
                 </div>
 
                 <div class="form-group">
                     <label for="description">Description</label>
                     <textarea id="Collect_description" name="Collect_description"
-                        placeholder="Tell us about your collection..."></textarea>
+                        placeholder="Tell us about your collection..." maxlength="255"></textarea>
                     <span class="error-message" id="descriptionError"></span>
                 </div>
 

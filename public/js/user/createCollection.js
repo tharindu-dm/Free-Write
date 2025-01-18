@@ -54,6 +54,9 @@ document.addEventListener("DOMContentLoaded", function () {
       titleError.textContent = "Title must be less than 100 characters";
       return false;
     }
+    if (value.length > 45) {
+      titleError.textContent = "Title is getting long (over 45 characters)";
+    }
     titleError.textContent = "";
     return true;
   };
@@ -73,6 +76,10 @@ document.addEventListener("DOMContentLoaded", function () {
       descriptionError.textContent =
         "Description must be less than 500 characters";
       return false;
+    }
+    if (value.length > 255) {
+      descriptionError.textContent =
+        "Description is getting long (over 255 characters)";
     }
     descriptionError.textContent = "";
     return true;

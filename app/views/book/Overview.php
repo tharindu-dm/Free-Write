@@ -112,14 +112,14 @@
                                         <?php foreach ($collections as $collection): ?>
                                             <label>
                                                 <input type="checkbox" name="collections[]"
-                                                    value="<?= htmlspecialchars($collection['collectionID']); ?>">
-                                                <?= htmlspecialchars($collection['collectionName']); ?>
+                                                    value="<?= htmlspecialchars($collection['collectionID']); ?>"
+                                                    <?= ($collection['BookExist'] == 1) ? 'checked' : ''; ?>>
+                                                <?= htmlspecialchars($collection['title']); ?>
                                             </label>
                                         <?php endforeach; ?>
+                                        <button type="submit" class="addCollection-btn">Edit Collections</button>
                                     </div>
                                 </div>
-
-                                <button type="submit" class="rate-btn">Add Book</button>
                             </form>
                         </div>
                     </div>
