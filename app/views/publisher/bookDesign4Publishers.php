@@ -158,7 +158,7 @@
     ?>
     <div class="book-container">
         <div class="book-image">
-            <img src="/api/placeholder/300/450" alt="The Art of War Book Cover">
+            <img src="/Free-Write/public/images/sampleCover.jpg" alt="The Art of War Book Cover">
         </div>
         <div class="book-info">
             <div class="Names">
