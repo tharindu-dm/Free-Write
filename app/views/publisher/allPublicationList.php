@@ -263,7 +263,7 @@
 
         <div class="publications-grid">
             <!-- Example book cards -->
-            <a href="/Free-Write/public/Publisher/bookProfile">  <div class="book-card">
+            <a href="/Free-Write/public/PublisherBooks/bookProfile">  <div class="book-card">
                 <img src="/Free-Write/public/images/sampleCover.jpg" alt="Book Title" class="book-cover">
                 <div class="book-info">
                     <div class="book-title">The Hidden Path</div>
@@ -278,7 +278,7 @@
             </a>
 
             <!-- Repeat book cards for demonstration -->
-            <a href="/Free-Write/public/Publisher/bookProfile"> <div class="book-card">
+            <a href="/Free-Write/public/PublisherBooks/bookProfile"> <div class="book-card">
                 <img src="/Free-Write/public/images/sampleCover.jpg" alt="Book Title" class="book-cover">
                 <div class="book-info">
                     <div class="book-title">Beyond the Horizon</div>

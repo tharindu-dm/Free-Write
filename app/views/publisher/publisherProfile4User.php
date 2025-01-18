@@ -450,7 +450,7 @@
             </div>
         </div>
 
-        <a href="/Free-Write/public/Publisher/bookList" class="view-all-button">View All Publications</a>
+        <a href="/Free-Write/public/PublisherBooks/bookList" class="view-all-button">View All Publications</a>
     </section>
 
     <!-- Previous sections remain the same -->
