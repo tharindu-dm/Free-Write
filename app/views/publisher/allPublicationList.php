@@ -208,7 +208,7 @@
     <main>
         <div class="page-header">
             <div class="publisher-info">
-                <img src="/Free-Write/public/images/profile-image.jpg" alt="Acme Publishing" class="publisher-logo">
+                <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="Acme Publishing" class="publisher-logo">
                 <div>
                     <h1>All Publications</h1>
                     <p>Acme Publishing</p>
@@ -265,6 +265,7 @@
             <!-- Example book cards -->
             <a href="/Free-Write/public/PublisherBooks/bookProfile">  <div class="book-card">
                 <img src="/Free-Write/public/images/sampleCover.jpg" alt="Book Title" class="book-cover">
+
                 <div class="book-info">
                     <div class="book-title">The Hidden Path</div>
                     <div class="book-author">by Sarah Johnson</div>
@@ -280,6 +281,7 @@
             <!-- Repeat book cards for demonstration -->
             <a href="/Free-Write/public/PublisherBooks/bookProfile"> <div class="book-card">
                 <img src="/Free-Write/public/images/sampleCover.jpg" alt="Book Title" class="book-cover">
+
                 <div class="book-info">
                     <div class="book-title">Beyond the Horizon</div>
                     <div class="book-author">by Michael Chen</div>

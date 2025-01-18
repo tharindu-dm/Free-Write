@@ -24,12 +24,6 @@
             border-radius: 50%;
         }
 
-        main {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 20px;
-        }
-
         .banner {
             height: 200px;
             background-image: url('/Free-Write/public/images/hero.jpg');

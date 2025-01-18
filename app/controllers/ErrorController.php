@@ -3,7 +3,7 @@ class ErrorController extends Controller
 {
     public function index()
     {
-        echo "An error occurred";
+        $this->view('error');
     }
 
     public function notFound()

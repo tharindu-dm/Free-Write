@@ -37,7 +37,7 @@
             <!-- Profile Section -->
             <div class="profile-section">
                 <div class="profile-image">
-                    <img src="../../public/images/profile-image.jpg" alt="User Profile Image">
+                    <img src="../../app/images/profile/profile-image.jpg" alt="User Profile Image">
                 </div>
 
                 <?php if (!empty($userDetails) && is_array($userDetails)): ?>

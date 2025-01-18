@@ -1,3 +1,8 @@
+main {
+  display: flex;
+  justify-content: space-between;
+}
+
 .container {
   max-width: 50rem;
   margin: 0 auto;
@@ -9,8 +14,6 @@
 }
 
 .title {
-  border: 1px solid #88888888;
-  border-radius: 0.5rem;
   width: 100%;
   text-align: center;
 }
@@ -41,19 +44,7 @@ p {
   -moz-user-select: text;
   -ms-user-select: text;
   margin-bottom: 2rem;
-  overflow-y: auto;
-  max-height: 60vh;
   position: relative;
-}
-
-.progress-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 0.25rem;
-  background-color: #ffd700;
-  z-index: 1000;
 }
 
 .navigation {
@@ -92,4 +83,54 @@ p {
   margin-bottom: 0.5rem;
   padding: 0.5rem;
   border-radius: 0.5rem;
+}
+
+/* Layout */
+.chapter-menu {
+  width: 20%;
+  background-color: #000;
+  color: #fff;
+  padding: 1rem;
+  height: auto;
+  overflow-y: auto;
+}
+
+.chapter-menu h2 {
+  color: #ffd700;
+  margin-bottom: 1rem;
+}
+
+.chapter-menu ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.chapter-menu li {
+  margin-bottom: 0.5rem;
+}
+
+.chapter-menu a {
+  text-decoration: none;
+  color: #fff;
+  transition: color 0.3s;
+}
+
+.chapter-menu a:hover {
+  color: #ffd700;
+}
+
+.main-content {
+  width: 60%;
+  padding: 1rem;
+}
+
+.advertisement {
+  padding: 1rem;
+  background-color: #fff;
+}
+
+.advertisement img {
+  max-width: 100%;
+  object-fit: cover;
+  height: auto;
 }

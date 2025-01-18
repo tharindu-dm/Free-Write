@@ -114,35 +114,35 @@
 
     <div class="applications-list">
       <div class="application-item">
-        <img src="/Free-Write/public/images/profile-image.jpg" alt="Jonas">
+        <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="Jonas">
         <div class="application-details">
           <h3>Jonas</h3>
           <p>Colombo</p>
         </div>
       </div>
       <div class="application-item">
-        <img src="/Free-Write/public/images/profile-image.jpg" alt="Molly">
+        <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="Molly">
         <div class="application-details">
           <h3>Molly</h3>
           <p>Galle</p>
         </div>
       </div>
       <div class="application-item">
-        <img src="/Free-Write/public/images/profile-image.jpg" alt="Robert">
+        <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="Robert">
         <div class="application-details">
           <h3>Robert</h3>
           <p>Jaffna</p>
         </div>
       </div>
       <div class="application-item">
-        <img src="/Free-Write/public/images/profile-image.jpg" alt="Emma">
+        <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="Emma">
         <div class="application-details">
           <h3>Emma</h3>
           <p>Matara</p>
         </div>
       </div>
       <div class="application-item">
-        <img src="/Free-Write/public/images/profile-image.jpg" alt="David">
+        <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="David">
         <div class="application-details">
           <h3>David</h3>
           <p>Colombo</p>

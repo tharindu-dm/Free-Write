@@ -1,7 +1,6 @@
 .container {
-  max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 1rem 2rem;
 }
 
 .product-layout {
@@ -16,24 +15,56 @@
   }
 }
 
-.product-image,
-.product-info {
-  flex: 1;
+.product-image {
+  display: flex;
+  flex-direction: column;
+  width: 30vw; /* Adjust as needed */
 }
 
 .product-image img {
-  width: 100%;
-  height: auto;
-
+  aspect-ratio: 1/1.5; /* Maintain aspect ratio */
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.author-details {
-  background-color: #f0f0f0;
+.author-details,
+.other-details {
+  width: 100%; /* Make these elements take the full width of the parent */
+  background-color: #fff; /* Set background color for author details */
+  color: #000;
+  border: 0.2rem solid #ffd700;
   padding: 15px;
   margin-top: 20px;
   border-radius: 8px;
+}
+
+.author-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.author-detail-btns {
+  display: flex;
+  gap: 1rem;
+}
+
+.author-detail-btns button {
+  padding: 10px 20px;
+  background: none;
+  border: 0.1rem solid #ccc;
+  color: #000;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.author-detail-btns button:hover {
+  border: 0.1rem solid #000;
+  transition: ease-in 0.2s;
+}
+
+.other-details {
+  background-color: #f0f0f0;
 }
 
 h1 {
@@ -42,6 +73,7 @@ h1 {
 }
 
 .description {
+  width: 50vw;
   color: #666;
   margin-bottom: 20px;
 }
@@ -79,7 +111,7 @@ select {
 .rating-select {
   display: inline-flex;
   align-items: center;
-  padding: 0.25rem 1rem 0.25rem 1rem;
+  padding: 0.5rem 1rem;
   border: 2px solid #ffd700;
   border-radius: 20px;
   background-color: transparent;
@@ -87,11 +119,85 @@ select {
   cursor: pointer;
 }
 
+.rate-btn {
+  padding: 0.25rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 1rem;
+
+  background-color: #fff;
+  color: #333;
+}
+
+.rate-btn button {
+  background: none;
+  color: #333;
+  border: none;
+  cursor: pointer;
+}
+
+.rate-btn:hover {
+  background-color: #ffd700;
+}
+
 .rating svg {
   color: #ffd700;
   width: 24px;
   height: 24px;
   margin-right: 5px;
+}
+
+/*COLLECTION ADD BUTTON*/
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  padding: 0rem 1rem;
+  font-size: medium;
+  background: none;
+  color: #000;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 20rem;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 0.5rem;
+  z-index: 1;
+}
+
+.dropdown-content label {
+  padding: 12px 16px;
+  display: block;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content input {
+  margin-right: 8px;
+}
+
+.addCollection-btn {
+  margin-left: 10rem;
+  margin-bottom: 1rem;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 1rem;
+  background: none;
+  color: #333;
+  cursor: pointer;
+}
+
+.addCollection-btn:hover {
+  background-color: #ffd700;
 }
 
 /*READ BUTTON*/
@@ -185,12 +291,15 @@ select {
   color: #fff;
   padding: 0.5rem 2rem 0.5rem 2rem;
   border-radius: 0.5rem;
+  cursor: pointer;
 }
+
 .add-list-submit-button {
   background-color: #ffd700;
   color: #000;
   padding: 0.5rem 2rem 0.5rem 2rem;
   border-radius: 0.5rem;
+  cursor: pointer;
 }
 
 /*buy button*/
@@ -210,7 +319,8 @@ select {
   justify-content: center;
 }
 
-.buy-button a {
+.buy-button a,
+.buy-button p {
   color: #ffd700;
 }
 
@@ -247,7 +357,7 @@ select {
 
 /* Table Styles */
 .table-of-contents table {
-  width: 100%;
+  width: 50vw;
   border-collapse: separate;
   border-spacing: 0;
   margin: 1rem 0;

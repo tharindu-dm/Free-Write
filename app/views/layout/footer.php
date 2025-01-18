@@ -11,9 +11,9 @@
     <footer>
         <div class="footer-content">
             <div class="footer-links">
-                <a href="#">About</a>
-                <a href="#">Terms of Service</a>
-                <a href="#">Privacy Policy</a>
+                <a href="/Free-Write/public/Home/About">About</a>
+                <a href="/Free-Write/public/Home/Terms_of_Service">Terms of Service</a>
+                <a href="/Free-Write/public/Home/Privacy_Policy">Privacy Policy</a>
             </div>
             <div class="social-icons">
                 <a href="#" aria-label="Instagram">

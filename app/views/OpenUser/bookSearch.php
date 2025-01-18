@@ -65,7 +65,7 @@
                     <?php foreach ($searchResult as $book): ?>
                         <a href="/Free-Write/public/book/Overview/<?= htmlspecialchars($book['bookID']); ?>">
                             <div class="book-card">
-                                <img src="/Free-Write/public/images/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                                <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
                                     alt="Cover Image of <?= htmlspecialchars($book['title']); ?>" class="book-cover">
                                 <div class="book-info">
                                     <div class="book-title">

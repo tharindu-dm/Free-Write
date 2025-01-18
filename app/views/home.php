@@ -97,7 +97,7 @@
             <a href="/Free-Write/public/Login"><button class="join-btn">Join Free Write</button></a>
         </section>
 
-        <section class="pricing">
+        <section id="price-plans" class="pricing">
             <div class="plan">
                 <h3>Free Plan</h3>
                 <p class="price">LKR.&nbsp;0 <span>per month</span></p>
@@ -111,7 +111,7 @@
             <div class="plan premium">
                 <h3>Premium Reader</h3>
                 <p class="price">LKR.&nbsp;899 <span>per month</span></p>
-                <button class="upgrade-btn">Upgrade Now</button>
+                <a href="/Free-Write/public/Payment/Premium?type=reader"><button class="upgrade-btn">Upgrade Now</button></a>
                 <ul>
                     <li>10% Discount on virtual book/chapters</li>
                     <li>Ad-free experience</li>
@@ -121,7 +121,7 @@
             <div class="plan premium">
                 <h3>Premium Writer</h3>
                 <p class="price">LKR.&nbsp;1,199 <span>per month</span></p>
-                <button class="upgrade-btn">Upgrade Now</button>
+                <a href="/Free-Write/public/Payment/Premium?type=writer"><button class="upgrade-btn">Upgrade Now</button></a>
                 <ul>
                     <li>Ad-free experience</li>
                     <li>Create contests</li>
