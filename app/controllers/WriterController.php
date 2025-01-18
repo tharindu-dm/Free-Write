@@ -36,29 +36,26 @@ class WriterController extends Controller
 
     public function NewQuote()
     {
-        /* if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-             $quoteModel = new Quote();
-
-             $title = isset($_POST['book_title']) ? trim($_POST['book_title']) : '';
-             $quoteText = isset($_POST['quote']) ? trim($_POST['quote']) : '';
-
-
-             // Add the quote to the database
-             $success = $quoteModel->addQuote(['book_title' => $title, 'quote' => $quoteText]);
-
-             if ($success) {
-                 $_SESSION['success'] = 'Quote added successfully!';
-                 header('Location: /Free-Write/public/Writer/Quotes');
-                 exit;
-             } else {
-                 $_SESSION['error'] = 'Failed to add the quote. Please try again.';
-                 header('Location: /Free-Write/public/Writer/NewQuote');
-                 exit;
-             }
-         } else {
-             // Show the quote creation form */
+        
         $this->view('writer/createQuote');
     }
+
+    
+    
+public function saveQuote()
+    {
+        $chapter= $_POST['chapter_name'] ?? '';
+        $content = $_POST['quote'] ?? '';
+        
+
+        $quote = new Quote();
+
+        if ($quote->insert(['chapter' => $chapter, 'quote' => $content])) {
+        
+        header('Location: /Free-Write/public/Writer/quotes');
+    }
+
+}
 
 
     // SPINOFFS
@@ -216,13 +213,73 @@ class WriterController extends Controller
         $this->view('writer/editStory');
     }
 
-    public function WriteStory()
+    
+    public function GetChapters($bookID)
     {
-        $this->view('writer/writeStory');
+        if (!is_numeric($bookID)) {
+            http_response_code(400); // Bad Request
+            echo json_encode(['error' => 'Invalid book ID']);
+            exit;
+        }
+    
+        $Chapter = new Chapter();
+        $chapters = $Chapter->getChaptersByBookID($bookID);
+    
+        if ($chapters) {
+            header('Content-Type: application/json');
+            echo json_encode($chapters);
+            error_log(json_encode($chapters)); // Log the chapters for debugging
+
+        } else {
+            http_response_code(404); // Not Found
+            echo json_encode(['error' => 'No chapters found']);
+        }
+        exit;
+    }
+
+    public function saveChapter()
+    {
+        $title = $_POST['story-editor-chapter'] ?? '';
+        $content = $_POST['story-editor'] ?? '';
+        $datetime = date('Y-m-d H:i:s');
+        $bookID = $_POST['bID'] ?? null;
+
+        $chapter = new Chapter();
+
+        if ($chapter->insert(['title' => $title, 'content' => $content, 'lastUpdated' => $datetime])) {
+        /*    $chapterID = $chapter->lastInsertId();
+        // Data for BookChapter table
+        $data = [
+            'book' => $bookID,
+            'chapter' => $chapterID,
+        ];
+
+            $bookChapter = new BookChapter();
+
+            $bookChapter->insert($data);
+            exit;
+        */
+        header('Location: /Free-Write/public/Writer/');
+    }
+
+}
+
+    public function WriteStory($bookID = 0)
+    {
+        $URL = splitURL();
+        if ($URL[2] < 1)
+            $this->view('error');
+
+        if ($bookID < 1 || !is_numeric($bookID))
+            $bookID = $URL[2]; //get the book id from the url
+
+        $book = new Book();
+        $bookDetails = $book->first(['bookID' => $bookID]);
+        $this->view('writer/WriteStory', ['book' => $bookDetails]);
 
     }
 
-    public function Delete()
+    public function DeleteBook()
     {
         $bookID = $_POST['bID'];
 
@@ -230,6 +287,21 @@ class WriterController extends Controller
 
         // Attempt to delete the book
         if ($book->delete($bookID, 'bookID')) {
+            header('location: /Free-Write/public/Writer/'); // Redirect to the writer dashboard
+            exit;
+        } else {
+            die('Failed to delete the book.'); // Handle failure case
+        }
+    }
+
+    public function DeleteChapter()
+    {
+        $chapterID = $_POST['cID'];
+
+        $chapter = new Chapter(); 
+
+        
+        if ($chapter->delete($chapterID, 'chapterID')) {
             header('location: /Free-Write/public/Writer/'); // Redirect to the writer dashboard
             exit;
         } else {
