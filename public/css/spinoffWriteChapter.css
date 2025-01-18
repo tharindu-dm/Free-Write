@@ -1,0 +1,99 @@
+.container {
+  width: 90%;
+  max-width: 50vw;
+  min-height: 100vh;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+h3.synopsis {
+  font-size: 1.2rem;
+  color: #444;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+p.synopsis {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin: 15px 0 5px;
+  color: #333;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+textarea {
+  min-height: 60vh;
+  overflow: hidden;
+  resize: none;
+  overflow-y: hidden;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.error {
+  color: #ff6c6c;
+  font-size: 0.9rem;
+  margin-top: -10px;
+  margin-bottom: 15px;
+  display: none;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.buttons button {
+  padding: 12px 25px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.save-btn {
+  background-color: #ffd700;
+  color: #333;
+}
+
+.save-btn:hover {
+  background-color: #e6bf00;
+}
+
+.delete-btn {
+  background-color: #ff6c6c;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #e65a5a;
+}

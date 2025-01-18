@@ -54,31 +54,31 @@
       <div class="designer-profiles">
         <div class="designer-profile">
           <a href="#">
-            <img src="/Free-Write/public/images/profile-image.jpg" alt="Designer Name 1">
+            <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="Designer Name 1">
             <h3>San Hua</h3>
           </a>
         </div>
         <div class="designer-profile">
           <a href="#">
-            <img src="/Free-Write/public/images/profile-image.jpg" alt="Designer Name 2">
+            <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="Designer Name 2">
             <h3>Zhe Zhi</h3>
           </a>
         </div>
         <div class="designer-profile">
           <a href="#">
-            <img src="/Free-Write/public/images/profile-image.jpg" alt="Designer Name 3">
+            <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="Designer Name 3">
             <h3>Barbara Rose</h3>
           </a>
         </div>
         <div class="designer-profile">
           <a href="#">
-            <img src="/Free-Write/public/images/profile-image.jpg" alt="Designer Name 4">
+            <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="Designer Name 4">
             <h3>Jean Gunhilder</h3>
           </a>
         </div>
         <div class="designer-profile">
           <a href="#">
-            <img src="/Free-Write/public/images/profile-image.jpg" alt="Designer Name 5">
+            <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="Designer Name 5">
             <h3>Cappuccino Legaro</h3>
           </a>
         </div>
@@ -98,35 +98,35 @@
       <div class="cover-page-designs">
         <div class="cover-page-design">
           <a href="#">
-            <img src="/Free-Write/public/images/sampleCover.jpg" alt="Cover Page Design 1">
+            <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Cover Page Design 1">
             <h3>Cover Page Design 1</h3>
           </a>
         </div>
 
         <div class="cover-page-design">
           <a href="#">
-            <img src="/Free-Write/public/images/sampleCover.jpg" alt="Cover Page Design 2">
+            <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Cover Page Design 2">
             <h3>Cover Page Design 2</h3>
           </a>
         </div>
 
         <div class="cover-page-design">
           <a href="#">
-            <img src="/Free-Write/public/images/sampleCover.jpg" alt="Cover Page Design 3">
+            <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Cover Page Design 3">
             <h3>Cover Page Design 3</h3>
           </a>
         </div>
 
         <div class="cover-page-design">
           <a href="#">
-            <img src="/Free-Write/public/images/sampleCover.jpg" alt="Cover Page Design 4">
+            <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Cover Page Design 4">
             <h3>Cover Page Design 4</h3>
           </a>
         </div>
 
         <div class="cover-page-design">
           <a href="#">
-            <img src="/Free-Write/public/images/sampleCover.jpg" alt="Cover Page Design 5">
+            <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Cover Page Design 5">
             <h3>Cover Page Design 5</h3>
           </a>
         </div>

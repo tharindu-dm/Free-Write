@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Freewrite - Explore and Share Incredible Stories</title>
     <link rel="stylesheet" href="/Free-Write/public/css/bookOverview.css">
 </head>
 
@@ -35,14 +34,22 @@
     ?>
 
     <?php if (!empty($book) && is_array($book)): ?>
-        <div class="container">
+        <main class="container">
             <div class="product-layout">
                 <div class="product-image">
-                    <img src="/Free-Write/public/images/<?= htmlspecialchars($book[0]['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                    <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book[0]['cover_image'] ?? 'sampleCover.jpg'); ?>"
                         alt="Cover Image of <?= htmlspecialchars($book[0]['title']); ?>">
                     <div class="author-details">
+                        <h3><?= htmlspecialchars($book[0]['authorName']); ?></h3>
+                        <div class="author-detail-btns">
+                            <a
+                                href="/Free-Write/public/User/Profile?user=<?= htmlspecialchars($book[0]['author']); ?>"><button>Profile</button></a>
+                            <a
+                                href="/Free-Write/public/Writer/Donate?user=<?= htmlspecialchars($book[0]['author']); ?>"><button>Donate</button></a>
+                        </div>
+                    </div>
+                    <div class="other-details">
                         <h3>Other Details</h3>
-                        <p><strong>Author:</strong><?= htmlspecialchars($book[0]['author']); ?></p>
                         <p><strong>Last Updated:</strong> <?= explode(' ', $book[0]['lastUpdateDate'])[0]; ?></p>
                         <p><strong>Status:</strong>
                             <?= ($book[0]['isCompleted'] == 1) ? "Completed" : "Ongoing";
@@ -54,6 +61,16 @@
                 <div class="product-info">
                     <h1><?= htmlspecialchars($book[0]['title']); ?></h1>
                     <div class="rating-container">
+                        <div class="rating">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            </svg>
+                            &nbsp; <?= htmlspecialchars($book[0]['viewCount']); ?> Views
+                        </div>
                         <div class="rating">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                                 <path fill-rule="evenodd"
@@ -82,7 +99,27 @@
                                     <option value="9">9</option>
                                     <option value="10">10</option>
                                 </select>
-                                <button type="submit" class="sign-in-btn">Rate</button>
+                                <button type="submit" class="rate-btn">Rate</button>
+                            </form>
+                        </div>
+                        <div class="rating-select">
+                            <form action="/Free-Write/public/Book/AddToCollection" method="POST">
+                                <input type="hidden" name="book_id" value="<?= htmlspecialchars($book[0]['bookID']); ?>">
+
+                                <div class="dropdown">
+                                    <button type="button" class="dropbtn">Select Collection</button>
+                                    <div class="dropdown-content">
+                                        <?php foreach ($collections as $collection): ?>
+                                            <label>
+                                                <input type="checkbox" name="collections[]"
+                                                    value="<?= htmlspecialchars($collection['collectionID']); ?>"
+                                                    <?= ($collection['BookExist'] == 1) ? 'checked' : ''; ?>>
+                                                <?= htmlspecialchars($collection['title']); ?>
+                                            </label>
+                                        <?php endforeach; ?>
+                                        <button type="submit" class="addCollection-btn">Edit Collections</button>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -91,11 +128,19 @@
                     </p>
                     <div class="read-button-container">
 
-                        <button id="btn-addToList" class="read-button">Add To List
+                        <button id="btn-addToList" class="read-button">
+                            <?php if ($inList === null): ?>
+                                <p><?= 'Add To List'; ?></p>
+                            <?php else: ?>
+                                In <?= htmlspecialchars(ucfirst($inList)) ?> List
+                            <?php endif; ?>
                         </button>
                         <div class="buy-button">
                             <?php if ($book[0]['price'] === null): ?>
-                                <?= 'Read for Free'; ?>
+                                <p><?= 'Read for Free'; ?></p>
+                            <?php elseif ($bought): ?>
+                                <p> <?= 'Already Purchased'; ?></p>
+
                             <?php else: ?>
                                 <a href='/Free-Write/public/Payment/Book/<?= htmlspecialchars($book[0]['bookID']); ?>'>
                                     <?= 'Buy LKR. ' . number_format($book[0]['price'], 2); ?>
@@ -110,45 +155,44 @@
                         <div class="list-add-container">
                             <h3>Add To Your List</h3>
                             <h4>Title: <?= htmlspecialchars($book[0]['title']); ?> </h4>
+                            <?php
+                            $action = $inList === null ? '/Free-Write/public/BookList/addToList' : '/Free-Write/public/BookList/updateList';
+                            ?>
 
-                            <form id="add-to-list-form" action="/Free-Write/public/BookList/Add" method="POST">
+                            <form id="add-to-list-form" action="<?= $action ?>" method="POST">
 
                                 <div class="list-add-radios">
                                     <div>
                                         <label class="add-list-radio-labels">
-                                            <input type="radio" name="list" value="reading">
+                                            <input type="radio" name="status" value="reading">
                                             <h5>Reading</h5>
                                         </label>
                                     </div>
                                     <div>
                                         <label class="add-list-radio-labels">
-                                            <input type="radio" name="list" value="completed">
+                                            <input type="radio" name="status" value="completed">
                                             <h5>Completed</h5>
                                         </label>
                                     </div>
                                     <div>
                                         <label class="add-list-radio-labels">
-                                            <input type="radio" name="list" value="hold">
+                                            <input type="radio" name="status" value="hold">
                                             <h5>On Hold</h5>
                                         </label>
                                     </div>
                                     <div>
                                         <label class="add-list-radio-labels">
-                                            <input type="radio" name="list" value="dropped">
+                                            <input type="radio" name="status" value="dropped">
                                             <h5>Dropped</h5>
                                         </label>
                                     </div>
                                     <div>
                                         <label class="add-list-radio-labels">
-                                            <input require type="radio" name="list" value="planned">
+                                            <input require type="radio" name="status" value="planned">
                                             <h5>Plan to read</h5>
                                         </label>
                                     </div>
                                     <div>
-                                        <label>
-                                            <input type="hidden" name="List_uid"
-                                                value="<?= htmlspecialchars($_SESSION['user_id']); ?>">
-                                        </label>
                                         <label>
                                             <input type="hidden" name="List_bid"
                                                 value="<?= htmlspecialchars($book[0]['bookID']); ?>">
@@ -156,19 +200,13 @@
                                     </div>
                                 </div>
 
-                                <!-- Get the current chapter count and and show, edit JS to check all MAL conditions when selecting completed when not finished publishing
-                                <div>                                    
-                                    <label>
-                                        <input type="number"  name="List_bid"
-                                            value="">
-                                    </label>
-                                </div>-->
-
                                 <div class="list-add-actionBtns">
                                     <button id="cancel-button" type="button" class="add-list-cancel-button">
                                         Cancel
                                     </button>
-                                    <button id="subBtn" type="submit" class="add-list-submit-button">Add</button>
+                                    <button id="subBtn" type="submit" class="add-list-submit-button">
+                                        <?= htmlspecialchars(($inList === null) ? 'Add' : 'Update'); ?>
+                                    </button>
                                 </div>
                             </form>
                         </div>
@@ -221,7 +259,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
     <?php else: ?>
         <p>No book found.</p>
     <?php endif; ?>

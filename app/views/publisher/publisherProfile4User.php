@@ -14,7 +14,7 @@
 
         .banner {
             height: 200px;
-            background-image: url('//Free-Write/public/images/sampleCover.jpg');
+            background-image: url('//Free-Write/app/images/coverDesign/sampleCover.jpg');
             background-size: cover;
             background-position: center;
             border-radius: 12px;
@@ -315,7 +315,7 @@
 
       <section class="profile">
           <div class="profile-left">
-              <img src="/Free-Write/public/images/profile-image.jpg" alt="Acme Publishing" class="profile-picture">
+              <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="Acme Publishing" class="profile-picture">
               <div class="stats">
                   <div class="stat-item">
                       <div class="stat-number">245</div>
@@ -376,7 +376,7 @@
             </div>
             <div class="publications-grid">
                 <div class="book-card">
-                    <img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 1">
+                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 1">
                     <div class="book-info">
                         <div class="book-title">The Hidden Path</div>
                         <div class="book-author">by Sarah Johnson</div>
@@ -384,7 +384,7 @@
                     </div>
                 </div>
                 <div class="book-card">
-                    <img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 2">
+                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 2">
                     <div class="book-info">
                         <div class="book-title">Beyond the Horizon</div>
                         <div class="book-author">by Michael Chen</div>
@@ -392,7 +392,7 @@
                     </div>
                 </div>
                 <div class="book-card">
-                    <img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 3">
+                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 3">
                     <div class="book-info">
                         <div class="book-title">Midnight Tales</div>
                         <div class="book-author">by Emma Roberts</div>
@@ -400,7 +400,7 @@
                     </div>
                 </div>
                 <div class="book-card">
-                    <img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 4">
+                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 4">
                     <div class="book-info">
                         <div class="book-title">The Last Summer</div>
                         <div class="book-author">by David Miller</div>
@@ -416,7 +416,7 @@
             </div>
             <div class="publications-grid">
                 <div class="book-card">
-                    <img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 5">
+                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 5">
                     <div class="book-info">
                         <div class="book-title">Winter's Edge</div>
                         <div class="book-author">by Robert Frost</div>
@@ -424,7 +424,7 @@
                     </div>
                 </div>
                 <div class="book-card">
-                    <img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 6">
+                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 6">
                     <div class="book-info">
                         <div class="book-title">Silent Echo</div>
                         <div class="book-author">by Lisa Chang</div>
@@ -432,7 +432,7 @@
                     </div>
                 </div>
                 <div class="book-card">
-                    <img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 7">
+                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 7">
                     <div class="book-info">
                         <div class="book-title">The Dark Woods</div>
                         <div class="book-author">by James Black</div>
@@ -440,7 +440,7 @@
                     </div>
                 </div>
                 <div class="book-card">
-                    <img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 8">
+                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 8">
                     <div class="book-info">
                         <div class="book-title">Morning Light</div>
                         <div class="book-author">by Anna White</div>

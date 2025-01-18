@@ -62,7 +62,7 @@
                             <?php foreach ($FWObooks as $book): ?>
                                 <a href="/Free-Write/public/book/Overview/<?= htmlspecialchars($book['bookID']); ?>">
                                     <div class="book-card">
-                                        <img src="../public/images/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                                        <img src="../app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
                                             alt="Cover Image of <?= htmlspecialchars($book['title']); ?>">
 
                                         <h3>
@@ -92,7 +92,7 @@
                             <?php foreach ($paidBooks as $pbook): ?>
                                 <a href="/Free-Write/public/book/Overview/<?= htmlspecialchars($pbook['bookID']); ?>">
                                 <div class="book-card">
-                                    <img src="../public/images/<?= htmlspecialchars($pbook['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                                    <img src="../app/images/coverDesign/<?= htmlspecialchars($pbook['cover_image'] ?? 'sampleCover.jpg'); ?>"
                                         alt="Cover Image of <?= htmlspecialchars($pbook['title']); ?>">
                                     <h3>
                                         <?= strlen($pbook['title']) > 20 ? htmlspecialchars(substr($pbook['title'], 0, 17)) . '...' : htmlspecialchars($pbook['title']); ?>
@@ -114,17 +114,17 @@
                     <h2>Who Will Be Left Standing?</h2>
                     <div class="book-grid">
                         <div class="book-card">
-                            <img src="../public/images/sampleCover.jpg" alt="Heartless">
+                            <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Heartless">
                             <h3>Heartless</h3>
                             <p>Romance</p>
                         </div>
                         <div class="book-card">
-                            <img src="../public/images/sampleCover.jpg" alt="GroundBound">
+                            <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="GroundBound">
                             <h3>GroundBound</h3>
                             <p>Horror</p>
                         </div>
                         <div class="book-card">
-                            <img src="../public/images/sampleCover.jpg" alt="Comatose">
+                            <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Comatose">
                             <h3>Comatose</h3>
                             <p>Psychology</p>
                         </div>

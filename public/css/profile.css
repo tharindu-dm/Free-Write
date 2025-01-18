@@ -1,124 +1,426 @@
-/* Header and navigation styles */
+:root {
+  --primary-color: #ffd700;
+  --white: #ffffff;
+  --black: #121212;
+  --light-gray: #f4f4f4;
+}
+
 main {
   min-height: 100vh;
 }
 
-/* Profile container styles */
-.profile-container {
-  max-width: 800px;
-  margin: 2rem auto;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 2rem;
-}
-
-.profile-header {
+.user-profile-container {
   display: flex;
-  align-items: center;
-  margin-bottom: 2rem;
+  min-height: 100vh;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.profile-image img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  margin-right: 1.5rem;
-}
-
-.profile-info h1 {
-  font-size: 1.8rem;
-  margin-bottom: 0.5rem;
-}
-
-.profile-info p {
-  color: #666;
-}
-
-.profile-details {
-  border-top: 1px solid #e6e6e6;
-  padding-top: 2rem;
-}
-
-.profile-section {
-  margin-bottom: 2rem;
-}
-
-.profile-section h2 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-.verified {
-  color: #4caf50;
-  font-weight: bold;
-}
-
-.book-list ul {
-  list-style-type: none;
-}
-
-.book-item li {
+.user-profile-sidebar {
+  width: 250px;
+  background-color: var(--light-gray);
+  padding: 30px;
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.5rem;
+  flex-direction: column;
+  border-right: 2px solid var(--primary-color);
 }
 
-.book-title {
-  font-weight: bold;
-}
-
-.book-status {
-  color: #666;
-}
-
-.stats-container {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1rem;
-}
-
-.stat-item {
-  background-color: #f4f4f4;
-  padding: 1rem;
+.user-profile-header {
   text-align: center;
-  border-radius: 4px;
 }
 
-.stat-item h3 {
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
+.user-profile-picture {
+  width: 180px;
+  height: 180px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-bottom: 20px;
 }
 
-.profile-actions {
+/* Follower stats */
+.follower-stats {
   display: flex;
-  justify-content: end;
-  margin-top: 2rem;
-  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 10px;
 }
 
-.edit-profile-btn,
-.report-btn {
-  padding: 0.8rem 1.5rem;
+.follower-stats span {
+  margin: 0 10px;
+  font-weight: bold;
+}
+
+.follower-btn {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+
+  background: none;
+  background-color: var(--primary-color);
+  color: var(--black);
+
+  width: 100%;
+  padding: 0.5rem 1rem; /* 1rem top and bottom, 1rem left and right*/
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
   border: none;
-  border-radius: 4px;
   cursor: pointer;
-  font-size: 1rem;
+}
+
+.follower-btn:hover {
+  background-color: rgba(255, 215, 0, 0.8);
+}
+
+/* Edit profile button */
+.user-profile-actions {
+  text-align: center;
+  margin-bottom: 15px;
 }
 
 .edit-profile-btn {
-  background-color: #ffd700;
+  background-color: var(--primary-color);
+  color: var(--black);
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.edit-profile-btn:hover {
+  background-color: rgba(159, 136, 3, 0.8);
+}
+
+/* report profile button */
+.report-profile-btn {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #ccc;
+  color: var(--black);
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.report-profile-btn:hover {
+  background-color: #555;
+}
+
+/* User profile Statistics */
+/* Main Container */
+.statistics-container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 90vh;
+  margin: 2rem auto;
+  gap: 2rem;
+  padding: 0 1rem;
+  background-color: white;
+}
+
+/* Book List Card */
+.my-book-list {
+  flex: 1;
+  min-width: 20rem;
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+}
+
+.my-book-list h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
   color: #333;
 }
 
-.report-btn {
-  background-color: #e6f3ff;
+/* Progress Bar */
+.book-progress-bar {
+  display: flex;
+  height: 8px;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  background-color: #f3f4f6;
+}
+
+.book-progress-segment {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.book-progress-reading { background-color: #ffd700; }  /* Primary Gold */
+.book-progress-completed { background-color: #4a90e2; }  /* Blue */
+.book-progress-onhold { background-color: #f5a623; }  /* Orange */
+.book-progress-dropped { background-color: #d0021b; }  /* Red */
+.book-progress-planned { background-color: #9b9b9b; }  /* Gray */
+
+/* Book List Items */
+.book-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 8px;
+  background-color: white;
+  border: 1px solid #eee;
+  transition: all 0.2s ease;
+}
+
+.book-list-item:hover {
+  border-color: #ffd700;
+  transform: translateX(4px);
+  box-shadow: 0 2px 4px rgba(255, 215, 0, 0.1);
+}
+
+.book-list-label {
+  font-weight: 500;
   color: #333;
+}
+
+.book-list-value {
+  font-weight: 600;
+  color: #ffd700;
+}
+
+/* Genre Section */
+.genre-section {
+  min-width: 40rem;
+  display: flex;
+  gap: 3rem;
+  flex: 1;
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+}
+
+/* Chart Container */
+.chart-container {
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+/* Genre List */
+.genre-list-container {
+  margin-top: 1.5rem;
+}
+
+#genreList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#genreList li {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0;
+  color: #333;
+  font-size: 0.875rem;
+}
+
+.color-box {
+  width: 12px;
+  height: 12px;
+  margin-right: 0.75rem;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .statistics-container {
+    flex-direction: column;
+  }
+  
+  .chart-container {
+    max-width: 250px;
+  }
+}
+
+/*BOOK COLLECTION SYTLES*/
+.my-book-collections {
+  margin-top: 30px;
+}
+
+.book-collection-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.book-collection-heading button {
+  display: flex;
+  max-width: fit-content;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.collections-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.collection-item {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--light-gray);
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.collection-item:hover {
+  transform: scale(1.05);
+}
+
+.collection-item img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.collection-details {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+.user-profile-details {
+  text-align: left;
+  margin-top: 20px;
+}
+
+.user-profile-divider {
+  border: none;
+  border-top: 2px solid var(--primary-color);
+  margin: 25px 0;
+}
+
+.user-profile-navigation {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-nav-button {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 0.5rem;
+
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 12px 15px;
+  margin: 5px 0;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  border-radius: 5px;
+  color: var(--black);
+}
+
+.user-nav-button:hover {
+  background-color: rgba(255, 215, 0, 0.1);
+  color: var(--primary-color);
+}
+
+.user-nav-button.active {
+  background-color: var(--primary-color);
+  color: var(--black);
+  font-weight: bold;
+}
+
+.user-profile-content {
+  flex-grow: 1;
+  padding: 40px;
+  background-color: var(--white);
+}
+
+.view-section {
+  display: none;
+}
+
+.view-section.active {
+  display: block;
+}
+
+.dashboard-stats {
+  display: flex;
+  justify-content: space-between;
+}
+
+.stat-card {
+  background-color: rgba(255, 215, 0, 0.1);
+  padding: 20px;
+  margin: 10px;
+  border-radius: 10px;
+  text-align: center;
+  flex: 1;
+  transition: transform 0.3s ease;
+}
+
+.book-item,
+.spinoff-item,
+.order-item {
+  display: flex;
+  margin: 15px 0;
+  padding: 15px;
+  background-color: var(--light-gray);
+  border-radius: 8px;
+  align-items: center;
+}
+
+.book-item img {
+  width: 80px;
+  height: 120px;
+  margin-right: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  color: black;
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 10px;
 }
 
 /* EDIT PROFILE OVERLAY */
+.close-overlay-button button {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: #555;
+  color: var(--white);
+  position: absolute;
+
+  top: 7rem;
+  right: 38rem;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  padding: 0.2rem 0.5rem;
+  margin-bottom: 2rem;
+  border-radius: 1rem;
+  font-size: smaller;
+  z-index: 3;
+}
+
 .edit-profile {
-  display: none; /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+  display: none;
   position: fixed; /* Make it fixed to the viewport */
   top: 0;
   left: 0;
@@ -140,10 +442,53 @@ main {
   padding: 2rem;
   border-radius: 1rem;
   z-index: 2;
+  margin-top: 1rem;
 }
 
 .edit-profile-item {
   margin-bottom: 1rem;
+}
+
+.edit-profile-item input[type="file"] {
+  padding: 0.25rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  width: 100%;
+}
+
+/* for better ux hinting aboutfile upload */
+.edit-profile-item input[type="file"]::file-selector-button {
+  background-color: #ffd700;
+  color: #000;
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.edit-profile-item input[type="file"]::file-selector-button:hover {
+  background-color: #e6c200;
+}
+
+.drop-zone {
+  border: 2px dashed #ddd; /* Dashed border */
+  border-radius: 4px;
+  padding: 2rem;
+  text-align: center;
+  background-color: #f9f9f9; /* Light background */
+  cursor: pointer; /* Change cursor to pointer */
+  transition: background-color 0.2s;
+}
+
+.drop-zone:hover {
+  background-color: #f0f0f0; /* Change background on hover */
+}
+
+.drop-zone.drag-over {
+  border-color: #ffd700; /* Change border color when dragging over */
+  background-color: #fff; /* Change background when dragging over */
 }
 
 .edit-name {
@@ -252,14 +597,32 @@ main {
 .spinoff-container {
   max-height: 50rem;
   overflow-y: auto;
-  margin: 2rem auto;
   padding: 2rem;
+}
+
+.spin-off-message {
+  background-color: #fffddf;
+  border-left: 4px solid #facc15;
+  color: #ca8a04;
+  margin-top: 1rem;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.spin-off-message h3 {
+  margin-bottom: 8px;
+}
+
+.spin-off-message p {
+  margin-bottom: 4px;
+  line-height: 1.5;
 }
 
 .spinoff-item {
   padding: 1.5rem;
   margin-bottom: 1rem;
-  border: 0.2rem solid #ffc107;
+  border-left: 0.2rem solid #ffc107;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -313,4 +676,79 @@ main {
 .access-type {
   background-color: #e8f5e9;
   color: #2e7d32;
+}
+
+/*MY FOLLOWERS STYLES*/
+.follower-container {
+  display: block;
+}
+.myfollow-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.myfollow-tab {
+  padding: 10px 20px;
+  margin: 0 10px;
+  background-color: #ffd700;
+  color: black;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.myfollow-tab.active {
+  background-color: black;
+  color: #ffd700;
+}
+
+.myfollow-user-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.myfollow-user-card {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.myfollow-user-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 15px;
+}
+
+.myfollow-user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.myfollow-user-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.myfollow-user-last-logged {
+  color: #666;
+  font-size: 0.8em;
+}
+
+@media (max-width: 768px) {
+  .myfollow-user-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .myfollow-user-grid {
+    grid-template-columns: 1fr;
+  }
 }

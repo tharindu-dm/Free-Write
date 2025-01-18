@@ -31,7 +31,7 @@
 
     <main>
         <section class="user-profile">
-            <img src="/Free-Write/public/images/profile-image.jpg" alt="Michael Thompson" class="profile-picture">
+            <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="Michael Thompson" class="profile-picture">
             <h1>Michael Thompson</h1>
             <p>250 followers</p>
         </section>
@@ -49,19 +49,19 @@
             </div>
             <div class="design-grid">
                 <div class="design-item">
-                    <img src="/Free-Write/public/images/sampleCover.jpg" alt="Flying bird design">
+                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Flying bird design">
                 </div>
                 <div class="design-item">
-                    <img src="/Free-Write/public/images/sampleCover.jpg" alt="Forest landscape design">
+                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Forest landscape design">
                 </div>
                 <div class="design-item">
-                    <img src="/Free-Write/public/images/sampleCover.jpg" alt="Misty forest design">
+                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Misty forest design">
                 </div>
                 <div class="design-item">
-                    <img src="/Free-Write/public/images/sampleCover.jpg" alt="Girl in moonlight design">
+                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Girl in moonlight design">
                 </div>
                 <div class="design-item">
-                    <img src="/Free-Write/public/images/sampleCover.jpg" alt="Day after design">
+                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Day after design">
                 </div>
                 <div class="pagination">
                     <button>&lt;</button>

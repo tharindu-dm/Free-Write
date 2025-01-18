@@ -38,7 +38,7 @@
             <!-- Profile Section -->
             <div class="profile-section">
                 <div class="profile-image">
-                    <img src="../../public/images/profile-image.jpg" alt="User Profile Image">
+                    <img src="../../app/images/profile/profile-image.jpg" alt="User Profile Image">
                 </div>
 
                 <?php if (!empty($userDetails) && is_array($userDetails)): ?>
@@ -77,7 +77,7 @@
                         <?php foreach ($MyBooks as $book): ?>
                             <a href="/Free-Write/public/writer/Overview/<?= htmlspecialchars($book['bookID']); ?>">
                                 <div class="book-card">
-                                    <img src="/Free-Write/public/images/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                                    <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
                                         alt="Cover Image of <?= htmlspecialchars($book['title']); ?>">
                                     <h3>
                                         <?= strlen($book['title']) > 20 ? htmlspecialchars(substr($book['title'], 0, 17)) . '...' : htmlspecialchars($book['title']); ?>

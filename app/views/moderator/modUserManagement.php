@@ -12,6 +12,8 @@
 <body>
 
     <?php
+    date_default_timezone_set('UTC'); // Set timezone to UTC
+    
     if (isset($_SESSION['user_type'])) {
         $userType = $_SESSION['user_type'];
     } else {
@@ -25,19 +27,33 @@
             require_once "../app/views/layout/header.php";
     }
 
-    //show($data);
+    show($data);
     ?>
     <main>
 
         <?php require_once "../app/views/layout/admin_aside_nav.php"; ?>
         <div class="container">
-            <div class="header">
+            <div class="mod-user-header">
                 <h2>User Management</h2>
-                <div class="header-info">
-                    <div>Date: <span id="currentDate"></span></div>
-                    <div>Time: <span id="currentTime"></span></div>
-                    <div>Moderator: John Doe</div>
+                <div class="mod-user-header-info">
+                    <div><span id="currentDate"><?= htmlspecialchars(date('D M j, Y')) ?></span></div>
+                    <div><span id="currentTime"><?= htmlspecialchars(date('H:i:s')) ?></span>&nbsp;UTC</div>
+                    <div>Moderator: <?= htmlspecialchars($_SESSION['user_name']) ?></div>
                 </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-bar">
+                <form action="/Free-Write/public/Mod/Search" method="post" id="searchForm">
+                    <select id="searchCriteria" name="searchCriteria" required>
+                        <option value="" disabled selected>Select Criteria</option>
+                        <option value="id">ID</option>
+                        <option value="name">Name</option>
+                        <option value="email">Email</option>
+                    </select>
+                    <input type="text" id="searchInput" placeholder="Search..." required>
+                    <button type="submit">Search</button>
+                </form>
             </div>
 
             <table>
@@ -45,49 +61,37 @@
                     <tr>
                         <th>UserID</th>
                         <th>Email</th>
-                        <th>Password</th>
                         <th>User Type</th>
                         <th>Premium</th>
                         <th>Activated</th>
                         <th>Login Attempts</th>
+                        <th>Select User</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr onclick="fillForm(1, 'user1@example.com', '********', 'Regular', 'No', 'Yes', 3)">
                         <td>1</td>
                         <td>user1@example.com</td>
-                        <td>********</td>
                         <td>Regular</td>
                         <td>No</td>
                         <td>Yes</td>
                         <td>3</td>
+                        <td><button class="table-select-user-btn">Select User</button></td>
                     </tr>
-                    <tr onclick="fillForm(2, 'user2@example.com', '********', 'Admin', 'Yes', 'Yes', 1)">
-                        <td>2</td>
-                        <td>user2@example.com</td>
-                        <td>********</td>
-                        <td>Admin</td>
-                        <td>Yes</td>
-                        <td>Yes</td>
-                        <td>1</td>
-                    </tr>
-                    <!-- More rows can be added here -->
                 </tbody>
             </table>
 
-            <div class="pagination">
-                <button>1</button>
-                <button class="active">2</button>
-                <button>3</button>
-                <button>4</button>
-                <button>5</button>
+            <div class="special-btns">
+                <a href="/Free-Write/public/Mod/DeactivateUser ?usr_id="><button>Deactivate User</button></a>
+                <button id="edit_user_details">Edit Details</button>
+                <button>Delete</button>
             </div>
 
             <!-- User details form -->
             <div class="user-details-form">
                 <h3>User Details</h3>
                 <form id="userDetailsForm">
-                    <label for="userId">UserID</label>
+                    <label for="userId">User ID</label>
                     <input type="text" id="userId" name="userId" disabled>
 
                     <label for="email">Email</label>
@@ -97,7 +101,12 @@
                     <input type="text" id="password" name="password" disabled>
 
                     <label for="userType">User Type</label>
-                    <input type="text" id="userType" name="userType" disabled>
+                    <select name="userType" required>
+                        <option value="" disabled selected>Select Type</option>
+                        <option value="reader">Reader</option>
+                        <option value="writer">Writer</option>
+                        <option value="covdes">Cover Page Designer</option>
+                    </select>
 
                     <label for="premium">Premium</label>
                     <input type="text" id="premium" name="premium" disabled>
