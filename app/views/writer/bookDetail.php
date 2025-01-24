@@ -29,7 +29,6 @@
         default:
             require_once "../app/views/layout/header.php";
     }
-    //show($data);
     ?>
 
     <?php if (!empty($book) && is_array($book)): ?>
@@ -44,8 +43,7 @@
                         </p>
                         <p><strong>Last Updated:</strong> <?= explode(' ', $book[0]['lastUpdateDate'])[0]; ?></p>
                         <p><strong>Status:</strong>
-                            <?= ($book[0]['isCompleted'] == 1) ? "Completed" : "Ongoing";
-                            ?>
+                            <?= ($book[0]['isCompleted'] == 1) ? "Completed" : "Ongoing"; ?>
                         </p>
                     </div>
                 </div>
@@ -59,13 +57,9 @@
                         <a href="/Free-Write/public/Writer/Edit/<?= htmlspecialchars($book[0]['bookID']) ?>"
                             id="edit-details" class="read-button">Edit
                         </a>
-
                         <button id="delete-details" class="read-button delete-btn">Delete</button>
-
                         <button id="btn-create-spinoff" class="read-button">Stat:/</button>
                     </div>
-
-
 
                     <div class="table-of-contents">
                         <h2>Table of Contents</h2>
@@ -74,6 +68,7 @@
                                 <tr>
                                     <th>Chapter</th>
                                     <th>Last Updated</th>
+                                    <th>Action</th>
                                 </tr>
                                 <?php foreach ($chapters as $chap): ?>
                                     <tr>
@@ -81,12 +76,27 @@
                                                 href="/Free-Write/public/book/Chapter/<?= htmlspecialchars($chap['chapterID']); ?>"><?= htmlspecialchars($chap['title']); ?></a>
                                         </td>
                                         <td><?= htmlspecialchars($chap['lastUpdated']); ?></td>
+                                        <td>
+                                            <button class="read-button"
+                                                onclick="window.location.href='/Free-Write/public/Writer/editChapter/<?= htmlspecialchars($chapter[0]['chapterID']); ?>'">Edit
+                                            </button>
+                                            <button class="read-button"
+                                                onclick="window.location.href='/Free-Write/public/Writer/deleteChapter/<?= htmlspecialchars($chapter[0]['chapterID']); ?>'">Delete
+                                            </button>
+                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
                             </table>
                         <?php else: ?>
                             <p>No chapters found</p>
                         <?php endif; ?>
+
+                        <div class="add-chapter">
+                            <button class="read-button" 
+                             onclick="window.location.href='/Free-Write/public/Writer/writeStory/<?= htmlspecialchars($book[0]['bookID']); ?>'">Add New Chapter
+                            </button>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -95,7 +105,7 @@
             <div class="deleteOverlay-container">
                 <div class="deleteOverlay">
                     <h2>Are you sure you want to delete this Book?</h2>
-                    <form action="/Free-Write/public/Writer/Delete/" method="POST">
+                    <form action="/Free-Write/public/Writer/DeleteBook/" method="POST">
                         <input type="hidden" name="bID" value="<?= htmlspecialchars($book[0]['bookID']) ?>">
 
                         <div class="del-overlay-items">

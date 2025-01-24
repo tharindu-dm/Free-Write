@@ -11,7 +11,7 @@ class CompetitionController extends Controller
     {
 
         $competition_table = new Competition();
-        $competitionDetails = $competition_table->findAll();
+        $competitionDetails = $competition_table->where(['publisherID' => $_SESSION['user_id']]);
 
         $this->view('publisher/competitionDetails4Publisher', ['competitionDetails' => $competitionDetails]);
     }
@@ -32,7 +32,11 @@ class CompetitionController extends Controller
         $category = $_POST['category'];
         $competitionID = $_POST['compID'];
         $competition_table = new Competition();
+<<<<<<< HEAD
         $competition_table->insert(['title' => $title, 'description' => $desc, 'rules' => $rules, 'prizes' => $prizes, 'start_date' => $start_date, 'end_date' => $end_date, 'category' => $category]);
+=======
+        $competition_table->insert(['title' => $title, 'description' => $desc, 'rules' => $rules, 'prizes' => $prizes, 'start_date' => $start_date, 'end_date' => $end_date, 'category' => $category, 'publisherID' => $_SESSION['user_id']]);
+>>>>>>> 7a59bea (navigation changes , and competition CRUD based on publisherID, create for adding books)
         header('Location: /Free-Write/public/Competition/MyCompetitions');
     }
 

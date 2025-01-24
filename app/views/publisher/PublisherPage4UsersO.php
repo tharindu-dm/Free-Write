@@ -194,25 +194,28 @@
                 <!-- Publisher 1 -->
                 <div class="publisher">
                     <div class="publisher-header">
+
                     <a href="/Free-Write/public/Publisher/Profile">
                         <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="Wendy Xu"></a>
+
                         <h2>Wendy Xu</h2>
                     </div>
                     <div class="books">
                         <div class="book">
-                        <a href="/Free-Write/public/Publisher/bookProfile"><img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 1"></a>
+
+                        <a href="/Free-Write/public/PublisherBooks/bookProfile"><img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 1"></a>
                             <p>Book 1</p>
                         </div>
                         <div class="book">
-                        <a href="/Free-Write/public/Publisher/bookProfile"><img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 2"></a>
+                        <a href="/Free-Write/public/PublisherBooks/bookProfile"><img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 2"></a>
                             <p>Book 2</p>
                         </div>
                         <div class="book">
-                        <a href="/Free-Write/public/Publisher/bookProfile"><img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 3"></a>
+                        <a href="/Free-Write/public/PublisherBooks/bookProfile"><img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 3"></a>
                             <p>Book 3</p>
                         </div>
                         <div class="book">
-                        <a href="/Free-Write/public/Publisher/bookProfile"><img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 4"></a>
+                        <a href="/Free-Write/public/PublisherBooks/bookProfile"><img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 4"></a>
                             <p>Book 4</p>
                         </div>
                     </div>
@@ -226,19 +229,19 @@
                     </div>
                     <div class="books">
                         <div class="book">
-                        <a href="/Free-Write/public/Publisher/bookProfile"><img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 1"></a>
+                        <a href="/Free-Write/public/PublisherBooks/bookProfile"><img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 1"></a>
                             <p>Book 1</p>
                         </div>
                         <div class="book">
-                            <a href="/Free-Write/public/Publisher/bookProfile"><img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 2"></a>
+                            <a href="/Free-Write/public/PublisherBooks/bookProfile"><img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 2"></a>
                             <p>Book 2</p>
                         </div>
                         <div class="book">
-                        <a href="/Free-Write/public/Publisher/bookProfile"><img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 3"></a>
+                        <a href="/Free-Write/public/PublisherBooks/bookProfile"><img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 3"></a>
                             <p>Book 3</p>
                         </div>
                         <div class="book">
-                        <a href="/Free-Write/public/Publisher/bookProfile"><img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 4"></a>
+                        <a href="/Free-Write/public/PublisherBooks/bookProfile"><img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 4"></a>
                             <p>Book 4</p>
                         </div>
                     </div>
