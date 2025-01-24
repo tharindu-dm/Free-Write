@@ -3,4 +3,6 @@ loginDetails.md
 .env
 pagination implementation.md
 moderator page.md
-email activation steps.txt.DS_Store
+email activation steps.txt
+.DS_Store
+app/.DS_Store
