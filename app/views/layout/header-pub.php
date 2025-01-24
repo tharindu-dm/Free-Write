@@ -24,7 +24,7 @@ require_once "../app/controllers/UserController.php"; //since this "navigation b
                         <a href="/Free-Write/public/Designer/">Designers</a>
                     </div>
                     <div class="nav-button">
-                        <a href="/Free-Write/public/Publisher/">Publishers</a>
+                        <a href="/Free-Write/public/PublisherBooks/">Publishers</a>
                     </div>
                     <div class="nav-button">
                         <a href="/Free-Write/public/Courier/">Couriers</a>

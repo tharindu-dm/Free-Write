@@ -1,0 +1,40 @@
+.edit-btn-spinoff {
+  background-color: #ffd700;
+  color: #333;
+  border: 1px solid #e0e0e0;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.del-btn-spinoff {
+  background-color: #ff6c6c;
+  color: #333;
+  border: 1px solid #e0e0e0;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.toc-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.toc-title h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.toc-title button {
+  padding: 0.75rem 1.5rem;
+  background-color: #ffd700;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}

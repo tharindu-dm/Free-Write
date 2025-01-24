@@ -26,7 +26,6 @@ main {
 
 .user-profile-header {
   text-align: center;
-  margin-bottom: 30px;
 }
 
 .user-profile-picture {
@@ -112,53 +111,145 @@ main {
   background-color: #555;
 }
 
-/* My Book List Styles */
-.book-lists-container {
+/* User profile Statistics */
+/* Main Container */
+.statistics-container {
   display: flex;
   justify-content: space-between;
-  margin-top: 30px;
+  max-width: 90vh;
+  margin: 2rem auto;
+  gap: 2rem;
+  padding: 0 1rem;
+  background-color: white;
 }
 
+/* Book List Card */
 .my-book-list {
-  width: 48%;
+  flex: 1;
+  min-width: 20rem;
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
 }
 
-.my-book-list,
-.spinoff-list {
-  margin-inline: auto; /* Pushes the spinoff list to the right */
+.my-book-list h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #333;
 }
 
-.book-list-stats {
+/* Progress Bar */
+.book-progress-bar {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background-color: var(--light-gray);
-  padding: 1rem 2rem;
-  border-radius: 1rem;
+  height: 8px;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  background-color: #f3f4f6;
 }
 
+.book-progress-segment {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.book-progress-reading { background-color: #ffd700; }  /* Primary Gold */
+.book-progress-completed { background-color: #4a90e2; }  /* Blue */
+.book-progress-onhold { background-color: #f5a623; }  /* Orange */
+.book-progress-dropped { background-color: #d0021b; }  /* Red */
+.book-progress-planned { background-color: #9b9b9b; }  /* Gray */
+
+/* Book List Items */
 .book-list-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  cursor: pointer;
-  transition: transform 0.3s ease;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 8px;
+  background-color: white;
+  border: 1px solid #eee;
+  transition: all 0.2s ease;
 }
 
 .book-list-item:hover {
-  transform: scale(1.05);
+  border-color: #ffd700;
+  transform: translateX(4px);
+  box-shadow: 0 2px 4px rgba(255, 215, 0, 0.1);
 }
 
 .book-list-label {
-  font-weight: bold;
-  margin-bottom: 5px;
+  font-weight: 500;
+  color: #333;
 }
 
-.book-list-count {
-  padding: 5px 10px;
-  border-radius: 15px;
+.book-list-value {
+  font-weight: 600;
+  color: #ffd700;
 }
 
+/* Genre Section */
+.genre-section {
+  min-width: 40rem;
+  display: flex;
+  gap: 3rem;
+  flex: 1;
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+}
+
+/* Chart Container */
+.chart-container {
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+/* Genre List */
+.genre-list-container {
+  margin-top: 1.5rem;
+}
+
+#genreList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#genreList li {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0;
+  color: #333;
+  font-size: 0.875rem;
+}
+
+.color-box {
+  width: 12px;
+  height: 12px;
+  margin-right: 0.75rem;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .statistics-container {
+    flex-direction: column;
+  }
+  
+  .chart-container {
+    max-width: 250px;
+  }
+}
+
+/*BOOK COLLECTION SYTLES*/
 .my-book-collections {
   margin-top: 30px;
 }
@@ -329,7 +420,7 @@ h2 {
 }
 
 .edit-profile {
-  display: none; /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+  display: none;
   position: fixed; /* Make it fixed to the viewport */
   top: 0;
   left: 0;
@@ -506,14 +597,32 @@ h2 {
 .spinoff-container {
   max-height: 50rem;
   overflow-y: auto;
-  margin: 2rem auto;
   padding: 2rem;
+}
+
+.spin-off-message {
+  background-color: #fffddf;
+  border-left: 4px solid #facc15;
+  color: #ca8a04;
+  margin-top: 1rem;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.spin-off-message h3 {
+  margin-bottom: 8px;
+}
+
+.spin-off-message p {
+  margin-bottom: 4px;
+  line-height: 1.5;
 }
 
 .spinoff-item {
   padding: 1.5rem;
   margin-bottom: 1rem;
-  border: 0.2rem solid #ffc107;
+  border-left: 0.2rem solid #ffc107;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -567,4 +676,79 @@ h2 {
 .access-type {
   background-color: #e8f5e9;
   color: #2e7d32;
+}
+
+/*MY FOLLOWERS STYLES*/
+.follower-container {
+  display: block;
+}
+.myfollow-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.myfollow-tab {
+  padding: 10px 20px;
+  margin: 0 10px;
+  background-color: #ffd700;
+  color: black;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.myfollow-tab.active {
+  background-color: black;
+  color: #ffd700;
+}
+
+.myfollow-user-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.myfollow-user-card {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.myfollow-user-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 15px;
+}
+
+.myfollow-user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.myfollow-user-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.myfollow-user-last-logged {
+  color: #666;
+  font-size: 0.8em;
+}
+
+@media (max-width: 768px) {
+  .myfollow-user-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .myfollow-user-grid {
+    grid-template-columns: 1fr;
+  }
 }

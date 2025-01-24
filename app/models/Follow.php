@@ -20,4 +20,36 @@ class Follow
 
         return $result;
     }
+
+    public function getUserDetails($data)
+    {
+        // Get the first (and only) key from the input array
+        $key = key($data);
+        $value = $data[$key];
+
+        // get the appropriate column based on the key
+        $columnName = ($key === 'FollowerID') ? 'f.[FollowerID]' : 'f.[FollowedID]';
+        $joinColumn = ($key === 'FollowerID') ? 'f.[FollowedID]' : 'f.[FollowerID]';
+        $query = "SELECT 
+                CONCAT(ud.[firstName], ' ', ud.[lastName]) AS userName, 
+                ud.[lastLogDate],
+                ud.[profileImage],
+                ud.[user] 
+              FROM Follow f 
+              JOIN UserDetails ud ON $joinColumn = ud.[user]
+              WHERE $columnName = :value";
+
+        $params = [':value' => $value];
+        $resultSet = $this->query($query, $params);
+
+        return $resultSet;
+    }
+
+    public function unfollow($data = [])
+    {
+        $query = "DELETE FROM Follow WHERE FollowerID = :followerID AND FollowedID = :followedID";
+
+        $this->query($query, $data);
+        return;
+    }
 }
