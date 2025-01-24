@@ -34,4 +34,18 @@ class Chapter
         return ['chapter_content' => $chapter_content, 'title_author' => $title_author, 'chapter_comments' => $chapter_comments];
     }
 
+    public function getChaptersByBookID($bookID)
+    {
+        // Prepare the SQL query to select chapters for the given book
+        $query = "SELECT c.chapterID, c.title
+                  FROM Chapter c
+                  JOIN BookChapter bc ON bc.chapter = c.chapterID
+                  WHERE bc.book = :bookID";
+    
+        // Execute the query and return the results
+        return $this->query($query, ['bookID' => $bookID]);
+    }
+    
+
+    
 }
