@@ -55,4 +55,12 @@ class User
         return $this->query($query);
     }
 
+    public function getUserByName($name)
+    {
+        $query = "SELECT u.* FROM [dbo].[User] u
+        RIGHT JOIN [dbo].[UserDetails] ud ON u.[userID] = ud.[user]
+        WHERE ud.[firstName] LIKE '%$name%' OR ud.[lastName] LIKE '%$name%'";
+        return $this->query($query);
+    }
+
 }

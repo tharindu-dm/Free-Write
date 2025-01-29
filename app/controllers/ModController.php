@@ -39,9 +39,9 @@ class ModController extends Controller
     public function Users()
     {
         $userTable = new User();
-        $userDetailsTable = new UserDetails();
+        $users = $userTable->findAll();
 
-        $this->view('moderator/modUserManagement');
+        $this->view('moderator/modUserManagement', ['users' => $users]);
     }
 
     public function Search()
@@ -49,21 +49,41 @@ class ModController extends Controller
         $user = new User();
         $userDetails = new UserDetails();
 
-        $criteria = $_POST['searchCriteria'];
-        $input = $_POST['searchInput'];
+        $criteria = '';
+        if (isset($_GET['filter'])) {
+            $criteria = $_GET['filter'];
+        } else {
+            $criteria = 'id';
+        }
+
+        $input = '';
+        if (isset($_POST['searchInput'])) {
+            $input = $_POST['searchInput'];
+        } else if (isset($_GET['uid'])) {
+            $input = $_GET['uid'];
+        } else {
+            header('location: /Free-Write/public/Mod/Users');
+        }
 
         switch ($criteria) {
             case 'id':
                 $data = $user->WHERE(['userID' => $input]);
                 break;
             case 'name':
-                $data = $userDetails->WHERE(['' => $input]);
+                $data = $user->getUserByName($input);
                 break;
             case 'email':
                 $data = $user->WHERE(['email' => $input]);
                 break;
             default:
                 header('location: /Free-Write/public/Mod/Users');
+        }
+
+        if (sizeof($data) == 1) {
+            $userDetails = $userDetails->WHERE(['user' => $data[0]['userID']]);
+            $this->view('moderator/modUserManagement', ['users' => $data, 'userDetails' => $userDetails]);
+        } else {
+            $this->view('moderator/modUserManagement', ['users' => $data]);
         }
     }
 
@@ -72,6 +92,12 @@ class ModController extends Controller
         //deactivate user
         $user = new User();
         $user->update($_GET['usr_id'], ['isActivated' => 0], 'userID');
+    }
+
+    public function DeleteUser()
+    {
+        //delete user
+        $user = new User();
     }
 
     //INSTIUTION MANAGEMENT

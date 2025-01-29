@@ -27,7 +27,7 @@
             require_once "../app/views/layout/header.php";
     }
 
-    show($data);
+    //show($data);
     ?>
     <main>
 
@@ -51,9 +51,15 @@
                         <option value="name">Name</option>
                         <option value="email">Email</option>
                     </select>
-                    <input type="text" id="searchInput" placeholder="Search..." required>
+                    <input type="text" name="searchInput" placeholder="Search..." required>
                     <button type="submit">Search</button>
                 </form>
+            </div>
+
+            <div class="tabs">
+                <a href="/Free-Write/public/Mod/Users"><button class="tab">All Users</button></a>
+                <a href="/Free-Write/public/Mod/Users?filter=normal"><button class="tab">Regular Users</button></a>
+                <a href="/Free-Write/public/Mod/Users?filter=premium"><button class="tab">Premium Users</button></a>
             </div>
 
             <table>
@@ -69,74 +75,179 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr onclick="fillForm(1, 'user1@example.com', '********', 'Regular', 'No', 'Yes', 3)">
-                        <td>1</td>
-                        <td>user1@example.com</td>
-                        <td>Regular</td>
-                        <td>No</td>
-                        <td>Yes</td>
-                        <td>3</td>
-                        <td><button class="table-select-user-btn">Select User</button></td>
-                    </tr>
+                    <?php foreach ($data['users'] as $user): ?>
+                        <tr>
+                            <td><?= $user['userID'] ?></td>
+                            <td><?= $user['email'] ?></td>
+                            <td><?= $user['userType'] ?></td>
+                            <td><?= $user['isPremium'] ?></td>
+                            <td><?= $user['isActivated'] ?></td>
+                            <td><?= $user['loginAttempt'] ?></td>
+                            <td>
+                                <a href="/Free-Write/public/Mod/Users?filter=premium">
+                                    <a href="/Free-Write/public/Mod/Search?uid=<?= htmlspecialchars($user['userID']) ?>"><button
+                                            class="table-select-user-btn">Select User</button></a>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
 
             <div class="special-btns">
                 <a href="/Free-Write/public/Mod/DeactivateUser ?usr_id="><button>Deactivate User</button></a>
-                <button id="edit_user_details">Edit Details</button>
-                <button>Delete</button>
+                <a href="/Free-Write/public/Mod/DeleteUser"><button>Delete User</button></a>
             </div>
 
             <!-- User details form -->
             <div class="user-details-form">
                 <h3>User Details</h3>
                 <form id="userDetailsForm">
-                    <label for="userId">User ID</label>
-                    <input type="text" id="userId" name="userId" disabled>
+                    <!-- Row 1: User ID and Email -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="userId">User ID</label>
+                            <input type="text" id="userId" name="userId" <?php
+                            if (isset($userDetails)) {
+                                echo 'value="' . htmlspecialchars($userDetails[0]['user']) . '"';
+                            }
+                            ?> disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" <?php
+                            if (isset($userDetails)) {
+                                echo 'value="' . htmlspecialchars($users[0]['email']) . '"';
+                            }
+                            ?> disabled>
+                        </div>
+                    </div>
 
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" disabled>
+                    <!-- Row 2: Log attempts and User Type -->
+                    <div class="form-row">
 
-                    <label for="password">Password</label>
-                    <input type="text" id="password" name="password" disabled>
+                        <div class="form-group">
+                            <label for="loginAttempts">Login Attempts</label>
+                            <input type="text" id="loginAttempts" name="loginAttempts" <?php
+                            if (isset($userDetails)) {
+                                echo 'value="' . htmlspecialchars($users[0]['loginAttempt']) . '"';
+                            }
+                            ?> disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="userType">User Type</label>
+                            <select name="userType" required>
+                                <option value="" disabled <?php echo !isset($userDetails) ? 'selected' : ''; ?>>Select
+                                    Type</option>
+                                <option value="reader" <?php echo (isset($userDetails) && $users[0]['userType'] == 'reader') ? 'selected' : ''; ?>>Reader</option>
+                                <option value="writer" <?php echo (isset($userDetails) && $users[0]['userType'] == 'writer') ? 'selected' : ''; ?>>Writer</option>
+                                <option value="covdes" <?php echo (isset($userDetails) && $users[0]['userType'] == 'covdes') ? 'selected' : ''; ?>>Cover Page Designer</option>
+                                <option value="wricov" <?php echo (isset($userDetails) && $users[0]['userType'] == 'wricov') ? 'selected' : ''; ?>>Writer and Cover Page
+                                    Designer</option>
+                                <option value="pub" <?php echo (isset($userDetails) && $users[0]['userType'] == 'pub') ? 'selected' : ''; ?>>Publisher</option>
+                                <option value="mod" <?php echo (isset($userDetails) && $users[0]['userType'] == 'mod') ? 'selected' : ''; ?>>Moderator</option>
+                                <option value="inst" <?php echo (isset($userDetails) && $users[0]['userType'] == 'inst') ? 'selected' : ''; ?>>Institute</option>
+                            </select>
+                        </div>
+                    </div>
 
-                    <label for="userType">User Type</label>
-                    <select name="userType" required>
-                        <option value="" disabled selected>Select Type</option>
-                        <option value="reader">Reader</option>
-                        <option value="writer">Writer</option>
-                        <option value="covdes">Cover Page Designer</option>
-                    </select>
+                    <!-- Row 3: Premium and Activated -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="premium">Premium</label>
+                            <select id="premium" name="premium" <?php echo isset($userDetails) ? '' : 'disabled'; ?>>
+                                <option value="" disabled <?php echo !isset($userDetails) ? 'selected' : ''; ?>>Select
+                                    Premium Status</option>
+                                <option value="true" <?php echo (isset($userDetails) && $users[0]['isPremium'] === '1') ? 'selected' : ''; ?>>True</option>
+                                <option value="false" <?php echo (isset($userDetails) && $users[0]['isPremium'] === '0') ? 'selected' : ''; ?>>False</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="activated">Activated</label>
+                            <select id="activated" name="activated" <?php echo isset($userDetails) ? '' : 'disabled'; ?>>
+                                <option value="" disabled <?php echo !isset($userDetails) ? 'selected' : ''; ?>>Select
+                                    Activation Status</option>
+                                <option value="true" <?php echo (isset($userDetails) && $users[0]['isActivated'] === '1') ? 'selected' : ''; ?>>True</option>
+                                <option value="false" <?php echo (isset($userDetails) && $users[0]['isActivated'] === '0') ? 'selected' : ''; ?>>False</option>
+                            </select>
+                        </div>
+                    </div>
 
-                    <label for="premium">Premium</label>
-                    <input type="text" id="premium" name="premium" disabled>
+                    <!-- Row 4: First last Name -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" name="firstName" <?php
+                            if (isset($userDetails)) {
+                                echo 'value="' . htmlspecialchars($userDetails[0]['firstName']) . '"';
+                            }
+                            ?>>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" <?php
+                            if (isset($userDetails)) {
+                                echo 'value="' . htmlspecialchars($userDetails[0]['lastName']) . '"';
+                            }
+                            ?>>
+                        </div>
+                    </div>
 
-                    <label for="activated">Activated</label>
-                    <input type="text" id="activated" name="activated" disabled>
+                    <!-- Row 5: dob log Country -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="country">Country</label>
+                            <input type="text" id="country" name="country" <?php
+                            if (isset($userDetails)) {
+                                echo 'value="' . htmlspecialchars($userDetails[0]['country']) . '"';
+                            }
+                            ?>>
+                        </div>
+                        <div class="form-group">
+                            <label for="dob">Date of Birth</label>
+                            <input type="date" id="dob" name="dob" <?php
+                            if (isset($userDetails) && !empty($userDetails[0]['dob'])) {
+                                // Convert the date to the format YYYY-MM-DD if it's not already in that format
+                                $dob = date('Y-m-d', strtotime($userDetails[0]['dob']));
+                                echo 'value="' . htmlspecialchars($dob) . '"';
+                            }
+                            ?>>
+                        </div>
+                    </div>
 
-                    <label for="loginAttempts">Login Attempts</label>
-                    <input type="text" id="loginAttempts" name="loginAttempts" disabled>
+                    <!-- Row 6: last log and Registration Date -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="lastLogin">Last Login Date</label>
+                            <input type="text" disabled id="lastLogin" name="lastLogin" <?php
+                            if (isset($userDetails)) {
+                                echo 'value="' . htmlspecialchars($userDetails[0]['lastLogDate']) . '"';
+                            }
+                            ?>>
+                        </div>
+                        <div class="form-group">
+                            <label for="regDate">Registration Date</label>
+                            <input type="text" disabled id="regDate" name="regDate" <?php
+                            if (isset($userDetails)) {
+                                echo 'value="' . htmlspecialchars($userDetails[0]['regDate']) . '"';
+                            }
+                            ?>>
+                        </div>
+                    </div>
 
-                    <label for="firstName">First Name</label>
-                    <input type="text" id="firstName" name="firstName">
-
-                    <label for="lastName">Last Name</label>
-                    <input type="text" id="lastName" name="lastName">
-
-                    <label for="dob">Date of Birth</label>
-                    <input type="date" id="dob" name="dob">
-
-                    <label for="regDate">Registration Date</label>
-                    <input type="date" id="regDate" name="regDate">
-
-                    <label for="country">Country</label>
-                    <input type="text" id="country" name="country">
-
-                    <label for="bio">Bio</label>
-                    <textarea id="bio" name="bio"></textarea>
-
-                    <label for="lastLogin">Last Login Date</label>
-                    <input type="date" id="lastLogin" name="lastLogin">
+                    <!-- Row 7: Bio -->
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="bio">Bio</label>
+                            <textarea id="bio" name="bio">
+                            <?php
+                            if (isset($userDetails)) {
+                                echo $userDetails[0]['bio'];
+                            }
+                            ?>
+                            </textarea>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
