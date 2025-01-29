@@ -37,12 +37,21 @@
 
                 <div class="action-button-container">
                     <div class="premium-notification-container">
-                        <?php if ($_SESSION['user_premium'] == false): ?>
+                        <?php if ($_SESSION['user_type'] != 'admin' && $_SESSION['user_type'] != 'mod'): ?>
+                            <?php if ($_SESSION['user_premium'] == false): ?>
+                                <div class="go-premium-button">
+                                    <a href="/Free-Write/public#price-plans">
+                                        <button class="premium-btn">Go Premium</button>
+                                    </a>
+                                </div>
+                            <?php endif; ?>
+                        <?php else: ?>
                             <div class="go-premium-button">
-                                <a href="/Free-Write/public#price-plans">
-                                    <button class="premium-btn">Go Premium</button>
+                                <a href="/Free-Write/public/<?= ucfirst($_SESSION['user_type'])?>">
+                                    <button class="premium-btn">Dashboard</button>
                                 </a>
                             </div>
+
                         <?php endif; ?>
                         <div class="notification-button">
                             <a href="/Free-Write/public/Notifications">

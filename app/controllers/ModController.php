@@ -1,11 +1,10 @@
 <?php
-
 class ModController extends Controller
 {
     public function index()
     {
         //echo "this is the Mod Controller\n";
-        $this->view('error');
+        header('location: /Free-Write/public/Mod/Dashboard');
     }
 
     public function modLogs()
@@ -39,8 +38,8 @@ class ModController extends Controller
     //USER MANAGEMENT
     public function Users()
     {
-        //query details
-        //getting mod name
+        $userTable = new User();
+        $userDetailsTable = new UserDetails();
 
         $this->view('moderator/modUserManagement');
     }
@@ -86,7 +85,69 @@ class ModController extends Controller
     public function Reports()
     {
         //query details
-        $this->view('moderator/reportHandlePage');
+        $reportTable = new Report();
+        $reports = null;
+
+        if (isset($_GET['filter']) && $_GET['filter'] == 'unhandled') {
+            $reports = $reportTable->where(['status' => 'Pending']);
+            $unfinishedReports = $reportTable->where(['status' => 'Unfinished']);
+
+            // Merge the two arrays
+            $reports = array_merge($reports, $unfinishedReports);
+        } elseif (isset($_GET['filter']) && $_GET['filter'] == 'handled') {
+            $reports = $reportTable->where(['status' => 'Handled']);
+        } elseif (isset($_GET['filter']) && $_GET['filter'] == 'escalated') {
+            $reports = $reportTable->where(['status' => 'Escalated']);
+        } else {
+            $reports = $reportTable->findAll();
+        }
+
+        $this->view('moderator/reportHandlePage', ['reports' => $reports]);
     }
 
+    public function HandleReport()
+    {
+        error_log("Handling report"); // Add server-side logging
+        echo "<script>console.log('Handling report - Function reached');</script>";
+
+        // Debug POST data
+        error_log("POST data: " . print_r($_POST, true));
+
+        if (!isset($_POST['reportID'], $_POST['reportstatus'], $_POST['newstatus'], $_POST['modResponse'])) {
+            error_log("Missing required fields");
+            echo "<script>console.log('Missing required fields:', " .
+                json_encode($_POST) . ");</script>";
+            return;
+        }
+
+        $reportTable = new Report();
+
+        $reportID = $_POST['reportID'];
+        $reportOldStatus = $_POST['reportstatus'];
+        $reportStatus = $_POST['newstatus'];
+        $modResponse = $_POST['modResponse'];
+
+        //validations
+        if (($reportStatus == 'handled' || $reportStatus == 'Escalated') && $modResponse == '') {
+            echo "<script>console.log(Please provide a response to the report)</script>";
+            return;
+        }
+
+        if ($reportID == '' || $reportStatus == '') {
+            echo "<script>console.log(please refresh the site)</script>";
+            return;
+        }
+
+        //update report
+        $reportTable->update($reportID, ['status' => $reportStatus, 'modResponse' => $modResponse, 'handler' => $_SESSION['user_id']], 'reportID');
+
+        //moglog update
+        $modlog = new ModLog();
+        $ModLogActivity = 'Accessed REPORT: ' . $reportID . ' status changed from: ' . $reportOldStatus . ' to: ' . $reportStatus;
+
+        $modlog->insert(['mod' => $_SESSION['user_id'], 'activity' => $ModLogActivity, 'occurrence' => date('Y-m-d H:i:s')]);
+
+        header('location: /Free-Write/public/Mod/Reports');
+        exit();
+    }
 }

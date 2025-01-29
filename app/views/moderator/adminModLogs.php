@@ -17,13 +17,19 @@
     } else {
         $userType = 'guest';
     }
+
     switch ($userType) {
         case 'admin':
+        case 'mod':
             require_once "../app/views/layout/header-user.php";
             break;
         default:
             require_once "../app/views/layout/header.php";
+            header('location: /Free-Write/public/'); // Redirect to the home page if the user is not an admin/mod
+            break;
     }
+
+    //show($data);
     ?>
     <main>
         <?php require_once "../app/views/layout/admin_aside_nav.php"; ?>
@@ -43,8 +49,8 @@
                         <tbody>
                             <?php foreach ($data as $log): ?>
                                 <tr>
-                                    <td><?= htmlspecialchars($log['siteLogID']); ?></td>
-                                    <td><?= htmlspecialchars($log['user']); ?></td>
+                                    <td><?= htmlspecialchars($log['modlogID']); ?></td>
+                                    <td><?= htmlspecialchars($log['mod']); ?></td>
                                     <td><?= htmlspecialchars($log['activity']); ?></td>
                                     <td><?= htmlspecialchars($log['occurrence']); ?></td>
                                 </tr>
