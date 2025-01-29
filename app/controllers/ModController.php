@@ -87,17 +87,66 @@ class ModController extends Controller
         }
     }
 
-    public function DeactivateUser()
-    {
-        //deactivate user
-        $user = new User();
-        $user->update($_GET['usr_id'], ['isActivated' => 0], 'userID');
-    }
-
     public function DeleteUser()
     {
-        //delete user
+        // First verify the delete confirmation was typed correctly
+        if (!isset($_POST['deleteConfirmText']) || $_POST['deleteConfirmText'] !== 'DELETE THIS USER') {
+            // Redirect back with error if confirmation text is wrong
+            $_SESSION['error'] = 'Delete confirmation text was incorrect';
+            header('location: /Free-Write/public/Mod/Users');
+            exit();
+        }
+
+        // Check if userId exists in POST
+        if (!isset($_POST['userId'])) {
+            $_SESSION['error'] = 'No user ID provided';
+            header('location: /Free-Write/public/Mod/Users');
+            exit();
+        }
+
+        $userId = $_POST['userId'];  
+
+        // Initialize models
         $user = new User();
+        $userDetails = new UserDetails();
+
+        try {
+            // Perform deletions
+            $user->delete($userId, 'userID');
+            $userDetails->delete($userId, 'user');
+
+            // Log the moderation action
+            $modlog = new ModLog();
+            $ModLogActivity = sprintf(
+                'Mod: %s deleted USER: %s (Email: %s)',
+                $_SESSION['user_name'],
+                $userId,
+                $userData['email'] ?? 'unknown'  // Include email in log if available
+            );
+
+            $modlog->insert([
+                'mod' => $_SESSION['user_id'],
+                'activity' => $ModLogActivity,
+                'occurrence' => date('Y-m-d H:i:s')
+            ]);
+
+            $_SESSION['success'] = 'User successfully deleted';
+        } catch (Exception $e) {
+            $_SESSION['error'] = 'Error deleting user: ' . $e->getMessage();
+        }
+
+        header('location: /Free-Write/public/Mod/Users');
+        exit();
+    }
+
+    public function UpdateUser()
+    {
+        //UpdateUser
+        $user = new User();
+        $userDetails = new UserDetails();
+
+
+        header('location: /Free-Write/public/Mod/Users');
     }
 
     //INSTIUTION MANAGEMENT

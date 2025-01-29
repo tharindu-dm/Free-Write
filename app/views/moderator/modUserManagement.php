@@ -46,7 +46,7 @@
             <div class="search-bar">
                 <form action="/Free-Write/public/Mod/Search" method="post" id="searchForm">
                     <select id="searchCriteria" name="searchCriteria" required>
-                        <option value="" disabled selected>Select Criteria</option>
+                        <option value="" readonly selected>Select Criteria</option>
                         <option value="id">ID</option>
                         <option value="name">Name</option>
                         <option value="email">Email</option>
@@ -94,11 +94,6 @@
                 </tbody>
             </table>
 
-            <div class="special-btns">
-                <a href="/Free-Write/public/Mod/DeactivateUser ?usr_id="><button>Deactivate User</button></a>
-                <a href="/Free-Write/public/Mod/DeleteUser"><button>Delete User</button></a>
-            </div>
-
             <!-- User details form -->
             <div class="user-details-form">
                 <h3>User Details</h3>
@@ -111,7 +106,7 @@
                             if (isset($userDetails)) {
                                 echo 'value="' . htmlspecialchars($userDetails[0]['user']) . '"';
                             }
-                            ?> disabled>
+                            ?> readonly>
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
@@ -119,7 +114,7 @@
                             if (isset($userDetails)) {
                                 echo 'value="' . htmlspecialchars($users[0]['email']) . '"';
                             }
-                            ?> disabled>
+                            ?> readonly>
                         </div>
                     </div>
 
@@ -132,12 +127,12 @@
                             if (isset($userDetails)) {
                                 echo 'value="' . htmlspecialchars($users[0]['loginAttempt']) . '"';
                             }
-                            ?> disabled>
+                            ?> readonly>
                         </div>
                         <div class="form-group">
                             <label for="userType">User Type</label>
-                            <select name="userType" required>
-                                <option value="" disabled <?php echo !isset($userDetails) ? 'selected' : ''; ?>>Select
+                            <select id="userType" name="userType" required>
+                                <option value="" readonly <?php echo !isset($userDetails) ? 'selected' : ''; ?>>Select
                                     Type</option>
                                 <option value="reader" <?php echo (isset($userDetails) && $users[0]['userType'] == 'reader') ? 'selected' : ''; ?>>Reader</option>
                                 <option value="writer" <?php echo (isset($userDetails) && $users[0]['userType'] == 'writer') ? 'selected' : ''; ?>>Writer</option>
@@ -155,8 +150,8 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="premium">Premium</label>
-                            <select id="premium" name="premium" <?php echo isset($userDetails) ? '' : 'disabled'; ?>>
-                                <option value="" disabled <?php echo !isset($userDetails) ? 'selected' : ''; ?>>Select
+                            <select id="premium" name="premium" <?php echo isset($userDetails) ? '' : 'readonly'; ?>>
+                                <option value="" readonly <?php echo !isset($userDetails) ? 'selected' : ''; ?>>Select
                                     Premium Status</option>
                                 <option value="true" <?php echo (isset($userDetails) && $users[0]['isPremium'] === '1') ? 'selected' : ''; ?>>True</option>
                                 <option value="false" <?php echo (isset($userDetails) && $users[0]['isPremium'] === '0') ? 'selected' : ''; ?>>False</option>
@@ -164,8 +159,8 @@
                         </div>
                         <div class="form-group">
                             <label for="activated">Activated</label>
-                            <select id="activated" name="activated" <?php echo isset($userDetails) ? '' : 'disabled'; ?>>
-                                <option value="" disabled <?php echo !isset($userDetails) ? 'selected' : ''; ?>>Select
+                            <select id="activated" name="activated" <?php echo isset($userDetails) ? '' : 'readonly'; ?>>
+                                <option value="" readonly <?php echo !isset($userDetails) ? 'selected' : ''; ?>>Select
                                     Activation Status</option>
                                 <option value="true" <?php echo (isset($userDetails) && $users[0]['isActivated'] === '1') ? 'selected' : ''; ?>>True</option>
                                 <option value="false" <?php echo (isset($userDetails) && $users[0]['isActivated'] === '0') ? 'selected' : ''; ?>>False</option>
@@ -248,17 +243,94 @@
                             </textarea>
                         </div>
                     </div>
+                    <?php
+                    if (isset($userDetails)): ?>
+                        <div class="special-btns">
+                            <button id="mod-delete-user">Delete User</button>
+                            <button id="mod-update-user">Update User</button>
+                        </div>
+                    <?php endif; ?>
                 </form>
             </div>
         </div>
 
     </main>
 
+    <!-- Overlays -->
+    <!-- Update Preview Modal -->
+    <div id="updatePreviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Update User Details</h3>
+                <button type="button" class="close-modal" onclick="closeUpdateModal()">&times;</button>
+            </div>
+            <div class="update-notice">
+                <p><strong>You are updating details for user:</strong> <span id="update-user-name"></span></p>
+                <p>Please review the changes carefully before confirming.</p>
+            </div>
+            <form id="updateModalForm" method="POST" action="/Free-Write/public/Mod/UpdateUser">
+                <div class="preview-form">
+                    <!-- The form will be cloned here using js-->
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" class="cancel-button" onclick="closeUpdateModal()">Cancel</button>
+                    <button type="submit" class="confirm-button">Confirm Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteConfirmModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Delete User Account</h3>
+                <button type="button" class="close-modal" onclick="closeDeleteModal()">&times;</button>
+            </div>
+            <form id="deleteModalForm" method="POST" action="/Free-Write/public/Mod/DeleteUser">
+                <div class="delete-info">
+                    <p><strong>User ID:</strong> <span id="delete-uid"></span></p>
+                    <p><strong>Email:</strong> <span id="delete-email"></span></p>
+                    <p><strong>Name:</strong> <span id="delete-name"></span></p>
+                    <p><strong>User Type:</strong> <span id="delete-usertype"></span></p>
+                    <p><strong>Premium Status:</strong> <span id="delete-premium"></span></p>
+                </div>
+
+                <div class="warning-text">
+                    ⚠️ WARNING: This action is irreversible!
+                    <ul>
+                        <li>All user content will be permanently removed from the database</li>
+                        <li>This includes all posts, comments, and uploaded content</li>
+                        <li>User's account access will be immediately terminated</li>
+                        <li>This action cannot be undone</li>
+                    </ul>
+                </div>
+
+                <div class="delete-confirmation">
+                    <label>
+                        <strong>To confirm deletion, type "DELETE THIS USER" (all caps):</strong>
+                        <input type="text" id="deleteConfirmText" oninput="validateDeleteConfirmation()"
+                            placeholder="Type DELETE THIS USER">
+                    </label>
+                </div>
+
+                <input type="hidden" name="userId" id="deleteUserId">
+
+                <div class="modal-buttons">
+                    <button type="button" class="cancel-button" onclick="closeDeleteModal()">Cancel</button>
+                    <button type="submit" class="confirm-button delete-btn" id="deleteSubmitBtn" disabled>Delete
+                        User</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
     <?php
     require_once "../app/views/layout/footer.php";
     ?>
 
-    <script src="\Free-Write\public\js\modUserManagement.js">    </script>
+    <script src="/Free-Write/public/js/Moderator/modUserManagement.js"></script>
     <script src="/Free-Write/public/js/Admin/admin.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
