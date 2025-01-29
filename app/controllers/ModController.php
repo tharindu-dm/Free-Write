@@ -90,7 +90,7 @@ class ModController extends Controller
     public function DeleteUser()
     {
         // First verify the delete confirmation was typed correctly
-        if (!isset($_POST['deleteConfirmText']) || $_POST['deleteConfirmText'] !== 'DELETE THIS USER') {
+        if (!isset($_POST['deleteConfirmText']) || $_POST['deleteConfirmText'] !== "DELETE THIS USER") {
             // Redirect back with error if confirmation text is wrong
             $_SESSION['error'] = 'Delete confirmation text was incorrect';
             header('location: /Free-Write/public/Mod/Users');
@@ -104,7 +104,7 @@ class ModController extends Controller
             exit();
         }
 
-        $userId = $_POST['userId'];  
+        $userId = $_POST['userId'];
 
         // Initialize models
         $user = new User();
@@ -122,6 +122,8 @@ class ModController extends Controller
                 $_SESSION['user_name'],
                 $userId,
                 $userData['email'] ?? 'unknown'  // Include email in log if available
+
+                //sprintf is used to format the string with the variables
             );
 
             $modlog->insert([

@@ -309,7 +309,7 @@
                 <div class="delete-confirmation">
                     <label>
                         <strong>To confirm deletion, type "DELETE THIS USER" (all caps):</strong>
-                        <input type="text" id="deleteConfirmText" oninput="validateDeleteConfirmation()"
+                        <input type="text" id="deleteConfirmText" name="deleteConfirmText"  oninput="validateDeleteConfirmation()"
                             placeholder="Type DELETE THIS USER">
                     </label>
                 </div>
