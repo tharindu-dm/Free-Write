@@ -63,4 +63,11 @@ class User
         return $this->query($query);
     }
 
+    public function getNormalUsers()
+    {
+        $query = "SELECT * FROM [dbo].[User] WHERE [userType] != 'admin' AND [userType] != 'mod' AND [userType] != 'pub' AND [userType] != 'inst' ";
+
+        return $this->query($query);
+    }
+
 }

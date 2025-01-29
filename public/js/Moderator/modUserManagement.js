@@ -20,7 +20,6 @@ function showReportDetails(row) {
 
 /////////////////////////////////////
 // update and delete buttons and overlays
-// Get modal elements
 const updateModal = document.getElementById("updatePreviewModal");
 const deleteModal = document.getElementById("deleteConfirmModal");
 const originalForm = document.getElementById("userDetailsForm");
@@ -28,54 +27,52 @@ const deleteSubmitBtn = document.getElementById("deleteSubmitBtn");
 
 // Show update preview modal
 function showUpdateModal() {
-  // Clone the form content
-  const previewForm = originalForm.cloneNode(true);
-
-  // Set user name in notice
-  const firstName = document.getElementById("firstName").value;
-  const lastName = document.getElementById("lastName").value;
-  document.getElementById(
-    "update-user-name"
-  ).textContent = `${firstName} ${lastName}`;
-
-  // Make all inputs readonly
-  const inputs = previewForm.getElementsByTagName("input");
-  const selects = previewForm.getElementsByTagName("select");
-  const textareas = previewForm.getElementsByTagName("textarea");
-
-  for (let input of inputs) {
-    const clonedInput = input.cloneNode(true);
-    clonedInput.setAttribute("readonly", true);
-    clonedInput.style.backgroundColor = "#f5f5f5";
-    input.parentNode.replaceChild(clonedInput, input);
-  }
-
-  for (let select of selects) {
-    const clonedSelect = select.cloneNode(true);
-    clonedSelect.setAttribute("disabled", true);
-    clonedSelect.style.backgroundColor = "#f5f5f5";
-    select.parentNode.replaceChild(clonedSelect, select);
-  }
-
-  for (let textarea of textareas) {
-    const clonedTextarea = textarea.cloneNode(true);
-    clonedTextarea.setAttribute("readonly", true);
-    clonedTextarea.style.backgroundColor = "#f5f5f5";
-    textarea.parentNode.replaceChild(clonedTextarea, textarea);
-  }
-
-  // Remove existing buttons
-  const buttonContainer = previewForm.querySelector(".special-btns");
-  if (buttonContainer) {
-    buttonContainer.remove();
-  }
-
-  // Clear existing preview and add new one
-  const previewContainer = updateModal.querySelector(".preview-form");
-  previewContainer.innerHTML = "";
-  previewContainer.appendChild(previewForm);
-
-  updateModal.style.display = "block";
+    // Get all form values from the original form
+    const formData = new FormData(originalForm);
+    
+    // Clear existing preview form
+    const previewContainer = updateModal.querySelector(".preview-form");
+    previewContainer.innerHTML = "";
+    
+    // Create display-only elements to show the data
+    for (let [name, value] of formData.entries()) {
+        const displayDiv = document.createElement('div');
+        displayDiv.className = 'preview-item';
+        
+        // Create label
+        const label = document.createElement('label');
+        label.textContent = name.charAt(0).toUpperCase() + name.slice(1).replace(/([A-Z])/g, ' $1');
+        
+        // Create display span
+        const span = document.createElement('span');
+        span.textContent = value;
+        span.style.backgroundColor = "#f5f5f5";
+        span.style.padding = "5px";
+        span.style.display = "block";
+        
+        // Create hidden input to hold the actual value
+        const hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = name;
+        hiddenInput.value = value;
+        
+        displayDiv.appendChild(label);
+        displayDiv.appendChild(span);
+        displayDiv.appendChild(hiddenInput);
+        previewContainer.appendChild(displayDiv);
+    }
+    
+    // Set user name in notice
+    const firstName = document.getElementById("firstName").value;
+    const lastName = document.getElementById("lastName").value;
+    document.getElementById("update-user-name").textContent = `${firstName} ${lastName}`;
+    
+    // Show the modal
+    updateModal.style.display = "block";
+    
+    // Update the form action
+    const modalForm = document.getElementById("updateModalForm");
+    modalForm.action = "/Free-Write/public/Mod/UpdateUser";
 }
 
 // Show delete confirmation modal
@@ -109,41 +106,41 @@ function validateDeleteConfirmation() {
 
 // Close modals
 function closeUpdateModal() {
-  updateModal.style.display = "none";
+    updateModal.style.display = "none";
 }
 
 function closeDeleteModal() {
-  deleteModal.style.display = "none";
-  document.getElementById("deleteConfirmText").value = "";
-  deleteSubmitBtn.disabled = true;
+    deleteModal.style.display = "none";
+    document.getElementById("deleteConfirmText").value = "";
+    deleteSubmitBtn.disabled = true;
 }
 
 // Add event listeners when page loads
-document.addEventListener("DOMContentLoaded", function () {
-  const updateButton = document.getElementById("mod-update-user");
-  const deleteButton = document.getElementById("mod-delete-user");
-
-  if (updateButton) {
-    updateButton.addEventListener("click", function (e) {
-      e.preventDefault();
-      showUpdateModal();
-    });
-  }
-
-  if (deleteButton) {
-    deleteButton.addEventListener("click", function (e) {
-      e.preventDefault();
-      showDeleteModal();
-    });
-  }
-
-  // Close modals when clicking outside
-  window.addEventListener("click", function (e) {
-    if (e.target === updateModal) {
-      closeUpdateModal();
+document.addEventListener("DOMContentLoaded", function() {
+    const updateButton = document.getElementById("mod-update-user");
+    const deleteButton = document.getElementById("mod-delete-user");
+    
+    if (updateButton) {
+        updateButton.addEventListener("click", function(e) {
+            e.preventDefault();
+            showUpdateModal();
+        });
     }
-    if (e.target === deleteModal) {
-      closeDeleteModal();
+    
+    if (deleteButton) {
+        deleteButton.addEventListener("click", function(e) {
+            e.preventDefault();
+            showDeleteModal();
+        });
     }
-  });
+    
+    // Close modals when clicking outside
+    window.addEventListener("click", function(e) {
+        if (e.target === updateModal) {
+            closeUpdateModal();
+        }
+        if (e.target === deleteModal) {
+            closeDeleteModal();
+        }
+    });
 });

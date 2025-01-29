@@ -39,7 +39,7 @@ class ModController extends Controller
     public function Users()
     {
         $userTable = new User();
-        $users = $userTable->findAll();
+        $users = $userTable->getNormalUsers();
 
         $this->view('moderator/modUserManagement', ['users' => $users]);
     }
@@ -143,12 +143,138 @@ class ModController extends Controller
 
     public function UpdateUser()
     {
-        //UpdateUser
+        // UpdateUser 
         $user = new User();
         $userDetails = new UserDetails();
 
+        // Validations
+        if (!isset($_POST['userId'])) {  // User ID
+            $_SESSION['error'] = 'No user ID provided';
+            header('location: /Free-Write/public/Mod/Users');
+            exit();
+        }
+
+        $userId = $_POST['userId'];
+
+        if (!isset($_POST['userType'])) { // User Type
+            $_SESSION['error'] = 'No user type provided';
+            header('location: /Free-Write/public/Mod/Users');
+            exit();
+        }
+
+        if (!isset($_POST['loginAttempts'])) { // Login Attempts
+            $_SESSION['error'] = 'No login attempts provided';
+            header('location: /Free-Write/public/Mod/Users');
+            exit();
+        }
+
+        if (!isset($_POST['premium'])) { // Premium
+            $_SESSION['error'] = 'No premium status provided';
+            header('location: /Free-Write/public/Mod/Users');
+            exit();
+        }
+
+        if (!isset($_POST['activated'])) { // Activated
+            $_SESSION['error'] = 'No activation status provided';
+            header('location: /Free-Write/public/Mod/Users');
+            exit();
+        }
+
+        if (!isset($_POST['firstName'])) { // First Name
+            $_SESSION['error'] = 'No first name provided';
+            header('location: /Free-Write/public/Mod/Users');
+            exit();
+        }
+
+        if (!isset($_POST['lastName'])) { // Last Name
+            $_SESSION['error'] = 'No last name provided';
+            header('location: /Free-Write/public/Mod/Users');
+            exit();
+        }
+
+        if (!isset($_POST['country'])) { // Country
+            $_SESSION['error'] = 'No country provided';
+            header('location: /Free-Write/public/Mod/Users');
+            exit();
+        }
+
+        if (!isset($_POST['dob'])) { // Date of Birth
+            $_SESSION['error'] = 'No date of birth provided';
+            header('location: /Free-Write/public/Mod/Users');
+            exit();
+        }
+
+        if (!isset($_POST['bio'])) { // Bio
+            $_SESSION['error'] = 'No bio provided';
+            header('location: /Free-Write/public/Mod/Users');
+            exit();
+        }
+
+        // Length validations
+        if (strlen($_POST['firstName']) > 45) {
+            $_SESSION['error'] = 'First name exceeds maximum length of 45 characters';
+            header('location: /Free-Write/public/Mod/Users');
+            exit();
+        }
+
+        if (strlen($_POST['lastName']) > 45) {
+            $_SESSION['error'] = 'Last name exceeds maximum length of 45 characters';
+            header('location: /Free-Write/public/Mod/Users');
+            exit();
+        }
+
+        if (strlen($_POST['country']) > 45) {
+            $_SESSION['error'] = 'Country exceeds maximum length of 45 characters';
+            header('location: /Free-Write/public/Mod/Users');
+            exit();
+        }
+
+        if (strlen($_POST['bio']) > 255) {
+            $_SESSION['error'] = 'Bio exceeds maximum length of 255 characters';
+            header('location: /Free-Write/public/Mod/Users');
+            exit();
+        }
+
+        // Update user details in the database
+        try {
+            $user->update($userId, [
+                'userType' => $_POST['userType'],
+                'email' => $_POST['email'],
+                'loginAttempt' => $_POST['loginAttempts'],
+                'isPremium' => $_POST['premium'],
+                'isActivated' => $_POST['activated']
+            ], 'userID');
+            
+            $userDetails->update($userId, [
+                'firstName' => $_POST['firstName'],
+                'lastName' => $_POST['lastName'],
+                'country' => $_POST['country'],
+                'dob' => $_POST['dob'],
+                'bio' => $_POST['bio']
+            ], 'user');
+
+            // Log the moderation action
+            $modlog = new ModLog();
+            $ModLogActivity = sprintf(
+                'Mod: %s updated USER: %s (Email: %s)',
+                $_SESSION['user_name'],
+                $userId,
+                $_POST['email'] ?? 'unknown'  // Include email in log if available
+            );
+
+            $modlog->insert([
+                'mod' => $_SESSION['user_id'],
+                'activity' => $ModLogActivity,
+                'occurrence' => date('Y-m-d H:i:s')
+            ]);
+
+            $_SESSION['success'] = 'User  successfully updated';
+        } catch (Exception $e) {
+            $_SESSION['error'] = 'Error updating user: ' . $e->getMessage();
+        }
 
         header('location: /Free-Write/public/Mod/Users');
+        exit();
     }
 
     //INSTIUTION MANAGEMENT
