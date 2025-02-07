@@ -26,12 +26,12 @@ FROM [dbo].[Collection] c WHERE [user] = $uid;";
                         CASE 
                             WHEN EXISTS (
                             SELECT 1
-                            FROM [freewrite_v3].[dbo].[CollectionBook] bc
+                            FROM [dbo].[CollectionBook] bc
                             WHERE bc.[Book] = $book AND bc.[Collection] = c.[collectionID]
                             ) THEN 1
                         ELSE 0
                         END AS BookExist
-                    FROM [freewrite_v3].[dbo].[Collection] c
+                    FROM [dbo].[Collection] c
                     WHERE c.[user] = $uid;";
 
         return $this->query($query);

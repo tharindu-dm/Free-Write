@@ -21,13 +21,17 @@ h3.synopsis {
   color: #444;
   margin-bottom: 10px;
   text-align: center;
+  border: solid 1px #ffd90054;
+  background-color: #ffd90054;
 }
 
 p.synopsis {
   font-size: 1rem;
-  color: #666;
+  color: #353535;
   margin-bottom: 30px;
   text-align: center;
+  border: solid 1px #dbdbdb54;
+  background-color: #dbdbdb54;
 }
 
 label {
@@ -86,14 +90,95 @@ textarea {
 }
 
 .save-btn:hover {
-  background-color: #e6bf00;
+  background-color: #ffeb86;
+}
+
+.discard-btn {
+  background-color: #1f1f1f;
+  color: white;
+}
+
+.discard-btn:hover {
+  background-color: #797979;
 }
 
 .delete-btn {
-  background-color: #ff6c6c;
+  background-color: #ff4444;
   color: white;
 }
 
 .delete-btn:hover {
-  background-color: #e65a5a;
+  background-color: #800000;
 }
+
+
+/** OVERLAY STYLES **/
+.delete_spinoff_chapter_overlay,
+.discard_spinoff_chapter_overlay
+{  
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay-content {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+}
+
+.overlay-content h2 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.overlay-content p {
+  margin-bottom: 1.5rem;
+  color: #353535;
+}
+
+.overlay-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.overlay-buttons button {
+  padding: 12px 25px;
+  font-size: 1rem;
+  
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background-color: #e0e0e0;
+  color: #333;
+  padding: 12px 25px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cancel-btn:hover {
+  background-color: #d0d0d0;
+}
+
+/* To show the overlay, add these classes */
+.overlay-container.active {
+  display: flex;
+}
+

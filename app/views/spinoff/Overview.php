@@ -31,7 +31,7 @@
         default:
             require_once "../app/views/layout/header.php";
     }
-    show($data);
+    //show($data);
     ?>
 
     <?php if (!empty($content) && is_array($content)): ?>
@@ -78,17 +78,18 @@
                     <div class="table-of-contents">
                         <div class="toc-title">
                             <h2>Table of Contents</h2>
-                            <a href="/Free-Write/public/Spinoff/write_chapter?spinoff=<?= htmlspecialchars($content['spinoffID'])?>"><button>+ Create New Chapter</button></a>
+                            <a
+                                href="/Free-Write/public/Spinoff/write_chapter?spinoff=<?= htmlspecialchars($content['spinoffID']) ?>"><button>+
+                                    Create New Chapter</button></a>
                         </div>
                         <?php if (!empty($chapters) && is_array($chapters)): ?>
                             <table border="1">
                                 <tr>
                                     <th>Chapter</th>
-                                    <th>Last Updated</th>                                    
+                                    <th>Last Updated</th>
                                     <th>View Count</th>
                                     <?php if ($_SESSION['user_id'] == $content['creatorID']): ?>
                                         <th>Edit</th>
-                                        <th>Delete</th>
                                     <?php endif; ?>
                                 </tr>
                                 <?php foreach ($chapters as $chap): ?>
@@ -98,12 +99,11 @@
 
                                         </td>
                                         <td><?= htmlspecialchars($chap['lastUpdated']); ?></td>
-                                        
+
                                         <td><?= htmlspecialchars($chap['viewCount']); ?></td>
                                         <?php
                                         if ($_SESSION['user_id'] == $content['creatorID']) {
-                                            echo '<td><a href="/Free-Write/public/Spinoff/ChapEdit/' . $chap['chapterID'] . '"><button class="edit-btn-chap">Edit</button></a></td>';
-                                            echo '<td><a href="/Free-Write/public/Spinoff/ChapDelete/' . $chap['chapterID'] . '"><button class="del-btn-chap">Delete</button></a></td>';
+                                            echo '<td><a href="/Free-Write/public/Spinoff/ChapEdit/' . $chap['chapterID'] . '"><button class="edit-btn-spinoff">Edit</button></a></td>';
                                         }
                                         ?>
                                     </tr>
@@ -122,6 +122,30 @@
 
     <?php require_once "../app/views/layout/footer.php"; ?>
 
+    <!-- Delete Chapter Overlay-->
+    <?php if (splitURL()[1] == 'ChapEdit'): ?>
+        <div class="delete_spinoff_chapter_overlay">
+            <div class="overlay-container">
+                <div class="overlay-content">
+                    <h2 style="color:#ff4444;">Delete Chapter</h2>
+                    <p>Are you sure you want to delete this chapter?</p>
+                    <p>Please know the <strong>chapter will be permanently deleted</strong> and cannot be recovered.
+                    </p>
+                    <div class="overlay-buttons">
+                        <button id="cancelDeleteBtn" class="cancel-btn">Cancel</button>
+                        <form method="POST" id="deleteOverlayForm" action="/Free-Write/public/Spinoff/deleteChap">
+                            <input type="hidden" name="chapterID" value="<?= $chapter['chapterID'] ?>">
+                            <input type="hidden" name="spinoffID" value="<?= $spinoff['spinoffID'] ?>">
+                            <button id="deleteChapterBtn" class="delete-btn">Delete Chapter</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <!-- Scripts -->
+    <script src="/Free-Write/public/js/Spinoff/spinoffEditDelete.js"></script>
     <script src="/Free-Write/public/js/Spinoff/bookOverview.js"></script>
 </body>
 

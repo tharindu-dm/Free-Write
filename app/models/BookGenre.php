@@ -10,12 +10,12 @@ class BookGenre
     {
         $query = "SELECT 
                     g.[name] AS genre_name,
-                    CAST(COUNT(bg.[genre]) AS FLOAT) / (SELECT COUNT(*) FROM [freewrite_v3].[dbo].[BookList] bl WHERE bl.[user] = 27) * 100 AS percentage
-                    FROM [freewrite_v3].[dbo].[BookGenre] bg
-                    INNER JOIN [freewrite_v3].[dbo].[Genre] g ON bg.[genre] = g.[genreID]
+                    CAST(COUNT(bg.[genre]) AS FLOAT) / (SELECT COUNT(*) FROM [dbo].[BookList] bl WHERE bl.[user] = $userID) * 100 AS percentage
+                    FROM [dbo].[BookGenre] bg
+                    INNER JOIN [dbo].[Genre] g ON bg.[genre] = g.[genreID]
                     WHERE bg.[book] IN (
                     SELECT bl.[book]
-                    FROM [freewrite_v3].[dbo].[BookList] bl
+                    FROM [dbo].[BookList] bl
                     WHERE bl.[user] = $userID
                     )
                     GROUP BY g.[name]

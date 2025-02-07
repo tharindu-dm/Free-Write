@@ -41,4 +41,15 @@ class SpinOff
 
         return $this->query($query);
     }
+
+    public function getFromChapterID($chapID)
+    {
+        $query = "SELECT 
+                    s.*
+                    FROM [dbo].[Spinoff] s
+                    JOIN [dbo].[SpinoffChapter] sc ON s.[spinoffID] = sc.[spinoff]
+                    WHERE sc.[chapter] = $chapID;";
+
+        return $this->query($query);
+    }
 }

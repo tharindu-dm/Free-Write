@@ -183,7 +183,7 @@ svg {
   color: #333;
   border: 1px solid #ccc;
   padding: 0.25rem 0.3rem;
-  border-radius: 100%;
+  border-radius: 100% !important;
   cursor: pointer;
   position: relative;
 }
