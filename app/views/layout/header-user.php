@@ -1,3 +1,7 @@
+<?php 
+require_once "../app/views/layout/notificationPanel.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

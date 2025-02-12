@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const discardChangesBtn = document.getElementById("discardChangesBtn");
   const deleteForm = document.getElementById('deleteOverlayForm');
   const deleteBtn = document.getElementById('spinoff_chapter_delete_btn');
-
+  const spinoffid = document.getElementById('spinoffID_hidden').value;
 
   // Initially hide the overlays
   if (deleteOverlay) deleteOverlay.style.display = "none";
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (discardChangesBtn) {
     discardChangesBtn.addEventListener("click", function (e) {
       e.preventDefault();
-      window.location.reload();
+      window.location.href ="../Overview/" + spinoffid;
     });
   }
 

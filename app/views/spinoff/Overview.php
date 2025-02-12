@@ -38,7 +38,7 @@
         <div class="container">
             <div class="title-container">
                 <div class="title">
-                    <h1><?= htmlspecialchars($content['fromBook']); ?></h1>
+                    <h1 id="parentBookTitle"><?= htmlspecialchars($content['fromBook']); ?></h1>
                     <h2>A Reader-Made Spinoff</h2>
                 </div>
             </div>
@@ -66,21 +66,23 @@
                 </div>
 
                 <div class="product-info">
-                    <h1><?= htmlspecialchars($content['title']); ?></h1>
+                    <h1 id="spinoffTitle_h1"><?= htmlspecialchars($content['title']); ?></h1>
                     <p class="description">
                         <?= htmlspecialchars($content['synopsis']); ?>
                     </p>
-                    <?php if ($_SESSION['user_id'] == $content['creatorID']): ?>
-                        <button class="edit-btn-spinoff">Edit Spinoff Details</button>
-                        <button class="del-btn-spinoff">Delete Spinoff</button>
+                    <?php if (isset($_SESSION['user_id']) && ($_SESSION['user_id'] == $content['creatorID'])): ?>
+                        <button id="saveSpinoffDetailsButton" class="edit-btn-spinoff">Edit Spinoff Details</button>
+                        <button id="deleteSpinoffButton" class="del-btn-spinoff">Delete Spinoff</button>
                     <?php endif; ?>
 
                     <div class="table-of-contents">
                         <div class="toc-title">
                             <h2>Table of Contents</h2>
-                            <a
-                                href="/Free-Write/public/Spinoff/write_chapter?spinoff=<?= htmlspecialchars($content['spinoffID']) ?>"><button>+
-                                    Create New Chapter</button></a>
+                            <?php if (isset($_SESSION['user_id']) && ($_SESSION['user_id'] == $content['creatorID'])): ?>
+                                <a
+                                    href="/Free-Write/public/Spinoff/write_chapter?spinoff=<?= htmlspecialchars($content['spinoffID']) ?>"><button>+
+                                        Create New Chapter</button></a>
+                            <?php endif; ?>
                         </div>
                         <?php if (!empty($chapters) && is_array($chapters)): ?>
                             <table border="1">
@@ -88,7 +90,7 @@
                                     <th>Chapter</th>
                                     <th>Last Updated</th>
                                     <th>View Count</th>
-                                    <?php if ($_SESSION['user_id'] == $content['creatorID']): ?>
+                                    <?php if (isset($_SESSION['user_id']) && ($_SESSION['user_id'] == $content['creatorID'])): ?>
                                         <th>Edit</th>
                                     <?php endif; ?>
                                 </tr>
@@ -102,7 +104,7 @@
 
                                         <td><?= htmlspecialchars($chap['viewCount']); ?></td>
                                         <?php
-                                        if ($_SESSION['user_id'] == $content['creatorID']) {
+                                        if (isset($_SESSION['user_id']) && ($_SESSION['user_id'] == $content['creatorID'])) {
                                             echo '<td><a href="/Free-Write/public/Spinoff/ChapEdit/' . $chap['chapterID'] . '"><button class="edit-btn-spinoff">Edit</button></a></td>';
                                         }
                                         ?>
@@ -123,20 +125,71 @@
     <?php require_once "../app/views/layout/footer.php"; ?>
 
     <!-- Delete Chapter Overlay-->
-    <?php if (splitURL()[1] == 'ChapEdit'): ?>
+    <?php if (isset($_SESSION['user_id']) && ($_SESSION['user_id'] == $content['creatorID'])): ?>
         <div class="delete_spinoff_chapter_overlay">
             <div class="overlay-container">
                 <div class="overlay-content">
-                    <h2 style="color:#ff4444;">Delete Chapter</h2>
-                    <p>Are you sure you want to delete this chapter?</p>
-                    <p>Please know the <strong>chapter will be permanently deleted</strong> and cannot be recovered.
+                    <h2 style="color:#ff4444;">You Are About To Delete A Spinoff</h2>
+                    <p>Are you sure you want to delete this Spinoff?</p>
+                    <p>Please know the <strong>Spinoff will be permanently deleted including its chapters comments</strong>
+                        and cannot be recovered.
                     </p>
                     <div class="overlay-buttons">
                         <button id="cancelDeleteBtn" class="cancel-btn">Cancel</button>
-                        <form method="POST" id="deleteOverlayForm" action="/Free-Write/public/Spinoff/deleteChap">
-                            <input type="hidden" name="chapterID" value="<?= $chapter['chapterID'] ?>">
-                            <input type="hidden" name="spinoffID" value="<?= $spinoff['spinoffID'] ?>">
-                            <button id="deleteChapterBtn" class="delete-btn">Delete Chapter</button>
+                        <form method="POST" id="deleteOverlayForm" action="/Free-Write/public/Spinoff/deleteSpinoff">
+                            <input type="hidden" name="spinoffID" value="<?= $content['spinoffID'] ?>">
+                            <button id="deleteChapterBtn" class="delete-btn">Delete Spinoff</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit changes Chapter Overlay-->
+        <div class="edit_spinoff_chapter_overlay">
+            <div class="overlay-container">
+                <div class="overlay-content">
+                    <h2>Edit Spinoff</h2>
+
+                    <div class="overlay-buttons">
+                        <form action="/Free-Write/public/Spinoff/editSpinoff" method="POST" id="editSpinoffForm">
+                            <input type="hidden" name="spinoffID" id="spinoffID_hidden"
+                                value="<?= $content['spinoffID'] ?>">
+
+                            <label for="editTitle">Title</label>
+                            <input type="text" name="title" id="editTitle" value="<?= $content['title'] ?>" require
+                                maxlength="45">
+
+                            <label for="editDescription">Synopsis</label>
+                            <textarea require maxlength="255" name="synopsis"
+                                id="editDescription"><?= $content['synopsis'] ?></textarea>
+
+                            <label for="editAccessType">Access Type</label>
+                            <select required name="access" id="editAccessType">
+                                <option value="public" <?php if ($content['accessType'] == 'public')
+                                    echo 'selected'; ?>>
+                                    Public
+                                </option>
+                                <option value="private" <?php if ($content['accessType'] == 'private')
+                                    echo 'selected'; ?>>
+                                    Private</option>
+                            </select>
+
+                            <label for="editChapter">Starting Chapter</label>
+                            <select require name="chapter" id="editChapter">
+                                <?php foreach ($bookChapters as $chap): ?>
+                                    <option value="<?= $chap['chapter'] ?>" <?php if ($content['startingChapter'] == $chap['chapter'])
+                                          echo 'selected'; ?>>
+                                        <?= $chap['title'] ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+
+                            <p>Are you sure you want to save these changes?</p>
+
+                            <button id="saveChangesBtn" class="edit-btn-spinoff">Save Changes</button>
+                            <button id="cancelSaveEditBtn" class="cancel-btn">Cancel</button>
+
                         </form>
                     </div>
                 </div>

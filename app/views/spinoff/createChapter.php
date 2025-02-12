@@ -42,7 +42,7 @@
         <form id="chapter-form"
             action="<?= (splitURL()[1] == 'ChapEdit') ? '/Free-Write/public/Spinoff/updateChapter' : 'saveChapter' ?>"
             method="POST">
-            <input type="hidden" name="spinoffID" value="<?= $spinoff['spinoffID'] ?>">
+            <input id="spinoffID_hidden" type="hidden" name="spinoffID" value="<?= $spinoff['spinoffID'] ?>">
 
             <?php if (isset($chapter['chapterID'])): ?>
                 <input type="hidden" name="chapterID" value="<?= $chapter['chapterID'] ?>">

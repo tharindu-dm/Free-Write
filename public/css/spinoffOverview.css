@@ -9,6 +9,10 @@
   transition: background-color 0.2s;
 }
 
+.edit-btn-spinoff:hover {
+  background-color: #fff1a8;
+}
+
 .del-btn-spinoff {
   background-color: #ff6c6c;
   color: #333;
@@ -18,6 +22,11 @@
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.2s;
+}
+
+.del-btn-spinoff:hover {
+  background-color: #600000;
+  color: white;
 }
 
 .toc-title {
@@ -40,5 +49,110 @@
 
 button {
   border-radius: 0.5rem !important;
+}
+
+
+/** OVERLAY STYLES **/
+.delete_spinoff_chapter_overlay,
+.edit_spinoff_chapter_overlay
+{  
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay-content {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+}
+
+.overlay-content h2 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.overlay-content p {
+  margin-bottom: 1.5rem;
+  color: #353535;
+}
+
+.overlay-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.overlay-buttons form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.overlay-buttons input,
+.overlay-buttons textarea,
+.overlay-buttons select {
+  padding: 12px 25px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.overlay-buttons textarea {
+  resize: vertical;
+}
+
+.overlay-buttons button {
+  padding: 12px 25px;
+  font-size: 1rem;
+  
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background-color: #e0e0e0;
+  color: #333;
+  padding: 12px 25px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cancel-btn:hover {
+  background-color: #d0d0d0;
+}
+
+/* To show the overlay, add these classes */
+.overlay-container.active {
+  display: flex;
+}
+
+#deleteChapterBtn {
+  background-color: #ff6c6c;
+  color: #ffffff;
+  padding: 12px 25px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#deleteChapterBtn:hover {
+  background-color: #600000;
 }
 

@@ -1,22 +1,36 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const deleteOverlay = document.querySelector(".delete_spinoff_chapter_overlay");
-  const discardOverlay = document.querySelector(".discard_spinoff_chapter_overlay");
-  const cancelDiscardBtn = document.getElementById("cancelDiscardBtn");
-  const cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
-  const discardChangesBtn = document.getElementById("discardChangesBtn");
-  const deleteForm = document.getElementById('deleteOverlayForm');
-  const deleteBtn = document.getElementById('spinoff_chapter_delete_btn');
+  const deleteOverlay = document.querySelector(
+    ".delete_spinoff_chapter_overlay"
+  );
+  const saveEditOverlay = document.querySelector(
+    ".edit_spinoff_chapter_overlay"
+  );
 
+  const cancelSaveEditBtn = document.getElementById("cancelSaveEditBtn");
+  const cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
+  const saveChangesBtn = document.getElementById("saveChangesBtn");
+  const saveEditBtn = document.getElementById("saveSpinoffDetailsButton");
+
+  const deleteForm = document.getElementById("deleteOverlayForm");
+  const editSpinoffForm = document.getElementById("editSpinoffForm");
+  const deleteBtn = document.getElementById("deleteSpinoffButton");
 
   // Initially hide the overlays
   if (deleteOverlay) deleteOverlay.style.display = "none";
-  if (discardOverlay) discardOverlay.style.display = "none";
+  if (saveEditOverlay) saveEditOverlay.style.display = "none";
 
   // Show delete overlay when delete button is clicked
   if (deleteBtn) {
     deleteBtn.addEventListener("click", function (e) {
       e.preventDefault(); // Prevent form submission
       showDeleteOverlay();
+    });
+  }
+
+  if (saveEditBtn) {
+    saveEditBtn.addEventListener("click", function (e) {
+      e.preventDefault(); // Prevent form submission
+      showsaveEditOverlay();
     });
   }
 
@@ -37,26 +51,36 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Function to show discard overlay
-  function showDiscardOverlay() {
-    if (discardOverlay) {
-      discardOverlay.style.display = "flex";
+  // Function to show save edits overlay
+  function showsaveEditOverlay() {
+    console.log("Showing delete overlay");
+    if (saveEditOverlay) {
+      saveEditOverlay.style.display = "flex";
+
+      // Add event listener to the confirmation button in the overlay
+      const confirmDeleteBtn = document.getElementById("deleteChapterBtn");
+      if (confirmDeleteBtn) {
+        confirmDeleteBtn.addEventListener("click", function (e) {
+          e.preventDefault(); // Prevent default form submission
+          deleteForm.submit(); // Submit the form when confirmed
+        });
+      }
     }
   }
 
-  // Discard changes button
+  // Save changes button
   document.querySelectorAll(".discard-btn").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       e.preventDefault();
-      showDiscardOverlay();
+      showsaveEditOverlay();
     });
   });
 
   // Cancel buttons
-  if (cancelDiscardBtn) {
-    cancelDiscardBtn.addEventListener("click", function (e) {
+  if (cancelSaveEditBtn) {
+    cancelSaveEditBtn.addEventListener("click", function (e) {
       e.preventDefault();
-      discardOverlay.style.display = "none";
+      saveEditOverlay.style.display = "none";
     });
   }
 
@@ -67,11 +91,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Discard changes confirmation
-  if (discardChangesBtn) {
-    discardChangesBtn.addEventListener("click", function (e) {
+  // save changes confirmation
+  if (saveChangesBtn) {
+    saveChangesBtn.addEventListener("click", function (e) {
       e.preventDefault();
-      window.location.reload();
+      editSpinoffForm.submit();
     });
   }
 

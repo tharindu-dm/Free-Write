@@ -43,14 +43,22 @@ class SpinoffController extends Controller
         $spinoffID = $URL[2];
         $spinoff = new Spinoff();
         $spinoff_chapter = new SpinoffChapter();
+        $book_chapter = new BookChapter();
 
         $chapters = [];
+        $bookChapters = [];
 
         $content = $spinoff->getSpinoffDetails($spinoffID);
+
+        if (empty($content)) {
+            $this->view('error');
+            return;
+        }
+
         $chapters = $spinoff_chapter->getChapters($spinoffID);
+        $bookChapters = $book_chapter->getChapters($content[0]['fromBookID']);
 
-
-        $this->view('spinoff/Overview', ['content' => $content[0], 'chapters' => $chapters]);
+        $this->view('spinoff/Overview', ['content' => $content[0], 'chapters' => $chapters, 'bookChapters' => $bookChapters]);
     }
 
     public function ChapEdit()
@@ -153,5 +161,37 @@ class SpinoffController extends Controller
         $chapterList = $spinoffchap->getChapters($chapterFound['title_author'][0]['BookID']);
 
         $this->view('book/Chapter', ['chapterDetails' => $chapterFound, 'chapterList' => $chapterList]);
+    }
+
+    public function editSpinoff()
+    {
+        $spinoff = new Spinoff();
+        $spinoffID = $_POST['spinoffID'];
+        $title = $_POST['title'];
+        $synopsis = $_POST['synopsis'];
+        $access = $_POST['access'];
+        $chapter = $_POST['chapter'];
+        $datetime = date('Y-m-d H:i:s');
+
+        $spinoff->update($spinoffID, ['title' => $title, 'synopsis' => $synopsis, 'accessType' => $access, 'startingChapter' => $chapter, 'lastUpdated' => $datetime], 'spinoffID');
+
+        header('location: /Free-Write/public/Spinoff/Overview/' . $spinoffID);
+    }
+
+    public function deleteSpinoff()
+    {
+        //remove spinoff chapters from spinoffchapters, comments then chapters, then spinoff
+
+        $spinoffChapter = new SpinoffChapter();
+        //$spinoffComment = new Comment(); -handled by trigger
+        //$Chapter = new Chapter(); -handled by trigger
+        $spinoff = new Spinoff();
+
+        $spinoffID = $_POST['spinoffID'];
+        $spinoffChapter->deleteChapters($spinoffID);
+        $spinoff->delete($spinoffID, 'spinoffID');
+
+        header('location: /Free-Write/public/Spinoff/Overview/' . $spinoffID);
+        
     }
 }
