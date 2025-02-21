@@ -9,20 +9,14 @@ class HomeController extends Controller
         $this->view("home"); //calling the view function in /includes/Controller.php to view the homepage
     }
 
-    public function About()
+    private function checkLoggedUser()
     {
-        $this->view("AboutUs");
-    }
+        if (session_status() == PHP_SESSION_NONE) {
+            echo "no session found";
+        }
 
-    public function Terms_of_Service()
-    {
-        $this->view("TOS");
+        if (isset($_SESSION['user_id'])) {
+            echo "user is already logged in \n";
+        }
     }
-
-    public function Privacy_Policy()
-    {
-        $this->view("PrivacyPolicy");
-    }
-
 }
-

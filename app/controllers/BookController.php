@@ -25,7 +25,6 @@ class BookController extends Controller
         $buybook = new BuyBook();
         $bookList = new BookList();
         $rating = new Rating();
-        $collections = new Collection();
 
         $bookFound = $book->getBookByID($bookID);
         $bookChapters = $BookChapter_table->getBookChapters($bookID); //list of chapters related to the specific book
@@ -34,11 +33,8 @@ class BookController extends Controller
         $bookBought = null;
         $bookInListStatus = null;
         $chapterProgress = null;
-        $collectionsFound = null;
-
 
         if (isset($_SESSION['user_id'])) {
-            //if logged user avaialble, then check if the book is bought by the user
             $bookBought = $buybook->first(['user' => $_SESSION['user_id'], 'book' => $bookID]);
             if ($bookBought)
                 $bookBought = true;
@@ -49,9 +45,6 @@ class BookController extends Controller
                 $bookInListStatus = $bookInList['status'];
                 $chapterProgress = $bookInList['chapterProgress'];
             }
-
-            //if user logged in find the collections made by the user
-            $collectionsFound = $collections->getCollectionsAndBooks($_SESSION['user_id'], $bookID);
         }
 
         //if the user decided to see a book and that book is added to the viewed list to avoid viewCount++ abuse
@@ -76,8 +69,7 @@ class BookController extends Controller
                 'rating' => $bookRating,
                 'bought' => $bookBought,
                 'inList' => $bookInListStatus,
-                'chapterProgress' => $chapterProgress,
-                'collections' => $collectionsFound
+                'chapterProgress' => $chapterProgress
             ]
         );
 
@@ -121,29 +113,4 @@ class BookController extends Controller
         header('Location: /Free-Write/public/Book/Overview/' . $bookID);
     }
 
-    public function AddToCollection()
-    {
-        $collection = new Collection();
-        $collectionBook = new CollectionBook();
-
-        $userID = $_SESSION['user_id'];
-        $bookID = $_POST['book_id'];
-        $selectedCollections = $_POST['collections'] ?? [];
-
-        //put the book in the selected collections
-        foreach ($selectedCollections as $collectionID) {
-            $collectionBook->insert(['Collection' => $collectionID, 'Book' => $bookID]);
-        }
-
-        //if the book is already in a non-selected collection, then remove it
-        $user_Collections = $collection->getUserCollections($userID);
-
-        foreach ($user_Collections as $collection) {
-            if (!in_array($collection['collectionID'], $selectedCollections)) {
-                $collectionBook->deleteBookRecord($collection['collectionID'], $bookID);
-            }
-        }
-
-        header('Location: /Free-Write/public/Book/Overview/' . $bookID);
-    }
 }

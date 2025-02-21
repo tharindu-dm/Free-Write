@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
     <link rel="stylesheet" href="/Free-Write/public/css/profile.css">
-    <link rel="stylesheet" href="/Free-Write/public/css/createCollection.css">
 </head>
 
 <body>
+
     <?php
     if (isset($_SESSION['user_type'])) {
         $userType = $_SESSION['user_type'];
@@ -53,43 +53,38 @@
 
                     <div class="user-profile-details">
                         <div class="user-profile-actions">
-                            <?php if (isset($_SESSION['user_id']) && ($userAccount['userID'] == $_SESSION['user_id'])): ?>
+                            <?php if ($userAccount['userID'] == $_SESSION['user_id']): ?>
                                 <button id="profileEditBtn" class="edit-profile-btn">Edit Profile</button>
 
                             <?php endif; ?>
-                            <?php if (isset($_SESSION['user_id'])): ?>
-                                <?php if ($userAccount['userID'] != $_SESSION['user_id']): ?>
+                            <?php if ($userAccount['userID'] != $_SESSION['user_id']): ?>
 
-                                    <?php if ($isFollowing): ?>
-                                        <form method="get" action="/Free-Write/public/User/unfollowUser">
-                                            <input hidden name="user" value="<?= $userAccount['userID'] ?>">
-                                            <button class="follower-btn">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                    stroke-width="1.5" stroke="currentColor" class="size-6">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="M22 10.5h-6m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM4 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 10.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
-                                                </svg>
-                                                Unfollow
-                                            </button>
-                                        </form>
-                                    <?php else: ?>
-                                        <form method="get" action="/Free-Write/public/User/followUser">
-                                            <input hidden name="user" value="<?= $userAccount['userID'] ?>">
-                                            <button class="follower-btn">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                    stroke-width="1.5" stroke="currentColor" class="size-6">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
-                                                </svg>
-                                                Follow
-                                            </button>
-                                        </form>
-                                    <?php endif; ?>
+                                <?php if ($isFollowing): ?>
+                                    <form method="get" action="/Free-Write/public/User/unfollowUser">
+                                        <input hidden name="user" value="<?= $userAccount['userID'] ?>">
+                                        <button class="follower-btn">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M22 10.5h-6m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM4 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 10.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
+                                            </svg>
+                                            Unfollow
+                                        </button>
+                                    </form>
+                                <?php else: ?>
+                                    <form method="get" action="/Free-Write/public/User/followUser">
+                                        <input hidden name="user" value="<?= $userAccount['userID'] ?>">
+                                        <button class="follower-btn">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
+                                            </svg>
+                                            Follow
+                                        </button>
+                                    </form>
                                 <?php endif; ?>
 
-                            <?php endif; ?>
-
-                            <?php if (!isset($_SESSION['user_id']) || (isset($_GET['user']) && $_GET['user']!=$_SESSION['user_id'])): ?>
                                 <button id="reportBtn" class="report-profile-btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -134,15 +129,7 @@
                             </svg>
                             My Spin-offs
                         </button>
-                        <button class="user-nav-button" data-view="my-network">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
-                            </svg>
-                            My Network
-                        </button>
-                        <?php if (isset($_SESSION['user_id']) && ($userAccount['userID'] == $_SESSION['user_id'])): ?>
+                        <?php if ($userAccount['userID'] == $_SESSION['user_id']): ?>
                             <button class="user-nav-button" data-view="purchased-books">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                     stroke="currentColor" class="size-6">
@@ -175,169 +162,97 @@
                         </div>
                     </div>
 
-                    <?php
-                    //backend values
-                    $totalEntries = $listCounts[0]['reading'] + $listCounts[0]['completed'] + $listCounts[0]['hold'] + $listCounts[0]['dropped'] + $listCounts[0]['planned'];
-
-                    if ($totalEntries == 0) {
-                        $readingPercentage = 0;
-                        $completedPercentage = 0;
-                        $onHoldPercentage = 0;
-                        $droppedPercentage = 0;
-                        $plannedPercentage = 0;
-                    } else {
-                        $readingPercentage = ($listCounts[0]['reading'] / $totalEntries) * 100;
-                        $completedPercentage = ($listCounts[0]['completed'] / $totalEntries) * 100;
-                        $onHoldPercentage = ($listCounts[0]['hold'] / $totalEntries) * 100;
-                        $droppedPercentage = ($listCounts[0]['dropped'] / $totalEntries) * 100;
-                        $plannedPercentage = ($listCounts[0]['planned'] / $totalEntries) * 100;
-                    }
-                    ?>
-
-                    <div class="statistics-container">
-                        <!-- Book Lists Section -->
-                        <div class="book-lists-container">
-                            <div class="my-book-list">
-                                <h3>My Book List</h3>
-
-                                <!-- Progress Bar -->
-                                <div class="book-progress-bar">
-                                    <div class="book-progress-segment book-progress-reading"
-                                        style="width: <?= htmlspecialchars($readingPercentage) ?>%;"></div>
-                                    <div class="book-progress-segment book-progress-completed"
-                                        style="width: <?= htmlspecialchars($completedPercentage) ?>%;"></div>
-                                    <div class="book-progress-segment book-progress-onhold"
-                                        style="width: <?= htmlspecialchars($onHoldPercentage) ?>%;"></div>
-                                    <div class="book-progress-segment book-progress-dropped"
-                                        style="width: <?= htmlspecialchars($droppedPercentage) ?>%;"></div>
-                                    <div class="book-progress-segment book-progress-planned"
-                                        style="width: <?= htmlspecialchars($plannedPercentage) ?>%;"></div>
-                                </div>
-
-                                <!-- List Items -->
-                                <div class="book-list-stats">
-                                    <a
-                                        href="/Free-Write/public/BookList/Reading?user=<?= htmlspecialchars($userAccount['userID']); ?>">
-                                        <div class="book-list-item">
-                                            <span class="book-list-label">Reading</span>
-                                            <span
-                                                class="book-list-count"><?= htmlspecialchars($listCounts[0]['reading']) ?></span>
-                                        </div>
-                                    </a>
-                                    <a
-                                        href="/Free-Write/public/BookList/Completed?user=<?= htmlspecialchars($userAccount['userID']); ?>">
-                                        <div class="book-list-item">
-                                            <span class="book-list-label">Completed</span>
-                                            <span
-                                                class="book-list-count"><?= htmlspecialchars($listCounts[0]['completed']) ?></span>
-                                        </div>
-                                    </a>
-                                    <a
-                                        href="/Free-Write/public/BookList/Onhold?user=<?= htmlspecialchars($userAccount['userID']); ?>">
-                                        <div class="book-list-item">
-                                            <span class="book-list-label">On Hold</span>
-                                            <span
-                                                class="book-list-count"><?= htmlspecialchars($listCounts[0]['hold']) ?></span>
-                                        </div>
-                                    </a>
-                                    <a
-                                        href="/Free-Write/public/BookList/Dropped?user=<?= htmlspecialchars($userAccount['userID']); ?>">
-                                        <div class="book-list-item">
-                                            <span class="book-list-label">Dropped</span>
-                                            <span
-                                                class="book-list-count"><?= htmlspecialchars($listCounts[0]['dropped']) ?></span>
-                                        </div>
-                                    </a>
-                                    <a
-                                        href="/Free-Write/public/BookList/Planned?user=<?= htmlspecialchars($userAccount['userID']); ?>">
-                                        <div class="book-list-item">
-                                            <span class="book-list-label">To Read</span>
-                                            <span
-                                                class="book-list-count"><?= htmlspecialchars($listCounts[0]['planned']) ?></span>
-                                        </div>
-                                    </a>
-                                </div>
+                    <div class="book-lists-container">
+                        <!-- My Book List Section -->
+                        <div class="my-book-list">
+                            <h3>My Book List</h3>
+                            <div class="book-list-stats">
+                                <a
+                                    href="/Free-Write/public/BookList/Reading?user=<?= htmlspecialchars($userAccount['userID']); ?>">
+                                    <div class="book-list-item">
+                                        <span class="book-list-label">Reading</span>
+                                        <span
+                                            class="book-list-count"><?= htmlspecialchars($listCounts[0]['reading']) ?></span>
+                                    </div>
+                                </a>
+                                <a
+                                    href="/Free-Write/public/BookList/Completed?user=<?= htmlspecialchars($userAccount['userID']); ?>">
+                                    <div class="book-list-item">
+                                        <span class="book-list-label">Completed</span>
+                                        <span
+                                            class="book-list-count"><?= htmlspecialchars($listCounts[0]['completed']) ?></span>
+                                    </div>
+                                </a>
+                                <a
+                                    href="/Free-Write/public/BookList/Onhold?user=<?= htmlspecialchars($userAccount['userID']); ?>">
+                                    <div class="book-list-item">
+                                        <span class="book-list-label">On Hold</span>
+                                        <span
+                                            class="book-list-count"><?= htmlspecialchars($listCounts[0]['hold']) ?></span>
+                                    </div>
+                                </a>
+                                <a
+                                    href="/Free-Write/public/BookList/Dropped?user=<?= htmlspecialchars($userAccount['userID']); ?>">
+                                    <div class="book-list-item">
+                                        <span class="book-list-label">Dropped</span>
+                                        <span
+                                            class="book-list-count"><?= htmlspecialchars($listCounts[0]['dropped']) ?></span>
+                                    </div>
+                                </a>
+                                <a
+                                    href="/Free-Write/public/BookList/Planned?user=<?= htmlspecialchars($userAccount['userID']); ?>">
+                                    <div class="book-list-item">
+                                        <span class="book-list-label">To Read</span>
+                                        <span
+                                            class="book-list-count"><?= htmlspecialchars($listCounts[0]['planned']) ?></span>
+                                    </div>
+                                </a>
                             </div>
                         </div>
 
-                        <!-- My Book Genre Section -->
-                        <div class="genre-section">
-                            <!-- Pie Chart Section -->
-                            <div class="chart-container">
-                                <canvas id="genrePieChart"></canvas>
-                            </div>
-
-                            <!-- Genre List Section -->
-                            <div class="genre-list-container">
-                                <ul id="genreList">
-                                    <!-- Genre list will be dynamically populated -->
-                                </ul>
+                        <!-- Spinoff Book List Section -->
+                        <div class="my-book-list spinoff-list">
+                            <h3>Spinoff List</h3>
+                            <div class="book-list-stats">
+                                <a href="/Free-Write/public/BookList/Spinoff/Reading">
+                                    <div class="book-list-item">
+                                        <span class="book-list-label">Reading</span>
+                                        <span class="book-list-count">0</span>
+                                    </div>
+                                </a>
+                                <a href="/Free-Write/public/BookList/Spinoff/Completed">
+                                    <div class="book-list-item">
+                                        <span class="book-list-label">Completed</span>
+                                        <span class="book-list-count">0</span>
+                                    </div>
+                                </a>
+                                <a href="/Free-Write/public/BookList/Spinoff/Onhold">
+                                    <div class="book-list-item">
+                                        <span class="book-list-label">On Hold</span>
+                                        <span class="book-list-count">0</span>
+                                    </div>
+                                </a>
+                                <a href="/Free-Write/public/BookList/Spinoff/Dropped">
+                                    <div class="book-list-item">
+                                        <span class="book-list-label">Dropped</span>
+                                        <span class="book-list-count">0</span>
+                                    </div>
+                                </a>
+                                <a href="/Free-Write/public/BookList/Spinoff/Planned">
+                                    <div class="book-list-item">
+                                        <span class="book-list-label">To Read</span>
+                                        <span class="book-list-count">0</span>
+                                    </div>
+                                </a>
                             </div>
                         </div>
-
-                        <!-- Include Chart.js -->
-                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                        <script>
-                            // Convert PHP array to JavaScript array
-                            const genreFrequency = <?php echo json_encode($genreFrequency); ?>;
-
-                            // Extract genre names and percentages for the chart
-                            const genreNames = genreFrequency.map(item => item.genre_name);
-                            const genrePercentages = genreFrequency.map(item => item.percentage);
-
-                            // Generate random colors for each genre
-                            const generateColors = (count) => {
-                                if (count === 0) return [];
-                                const colors = [];
-                                for (let i = 0; i < count; i++) {
-                                    const hue = (i * 360) / count;
-                                    colors.push(`hsl(${hue}, 70%, 60%)`);
-                                }
-                                return colors;
-                            };
-
-                            const backgroundColor = generateColors(genreNames.length);
-
-                            // Create pie chart
-                            const ctx = document.getElementById('genrePieChart').getContext('2d');
-                            const genrePieChart = new Chart(ctx, {
-                                type: 'pie',
-                                data: {
-                                    labels: genreNames,
-                                    datasets: [{
-                                        data: genrePercentages,
-                                        backgroundColor: backgroundColor,
-                                        borderWidth: 1
-                                    }]
-                                },
-                                options: {
-                                    responsive: true,
-                                    plugins: {
-                                        legend: {
-                                            display: false // Hide default legend
-                                        }
-                                    }
-                                }
-                            });
-
-                            // Populate the genre list
-                            const genreList = document.getElementById('genreList');
-                            genreFrequency.forEach((item, index) => {
-                                const listItem = document.createElement('li');
-                                listItem.innerHTML = `
-            <span class="color-box" style="background-color: ${backgroundColor[index]};"></span>
-            ${item.genre_name}: ${parseFloat(item.percentage).toFixed(1)}%
-        `;
-                                genreList.appendChild(listItem);
-                            });
-                        </script>
-
                     </div>
+
                     <!-- My Book Collections Section -->
                     <div class="my-book-collections">
                         <div class="book-collection-heading">
                             <h3>My Book Collections</h3>
-                            <button class="edit-profile-btn" id="createCollectionBtn">
+                            <button class="edit-profile-btn" id="createCollection">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 12"
                                     stroke-width="0.5" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -347,26 +262,20 @@
                             </button>
                         </div>
                         <div class="collections-grid">
-                            <!-- Collection items will be dynamically populated -->
-                            <?php if (!empty($collections)): ?>
-                                <?php foreach ($collections as $collection): ?>
-                                    <a
-                                        href="/Free-Write/public/Collection/view/<?= htmlspecialchars($collection['collectionID']); ?>">
-                                        
-                                        <div class="collection-item">
-                                            <img src="/Free-Write/public/images/collectionThumb.jpeg"
-                                                alt="Collection Thumbnail">
-                                            <div class="collection-details">
-                                                <span><?= htmlspecialchars($collection['title']) ?></span>
-                                                <span><?= htmlspecialchars($collection['BookCount']) ?></span>
-                                                <span><?= htmlspecialchars(($collection['isPublic'] == 1 ? 'public' : 'private')) ?></span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <p>No collections made.</p>
-                            <?php endif; ?>
+                            <div class="collection-item">
+                                <img src="/Free-Write/public/images/collectionThumb.jpeg" alt="Collection Thumbnail">
+                                <div class="collection-details">
+                                    <span>Favorite Sci-Fi</span>
+                                    <span>5 Books</span>
+                                </div>
+                            </div>
+                            <div class="collection-item">
+                                <img src="/Free-Write/public/images/collectionThumb.jpeg" alt="Collection Thumbnail">
+                                <div class="collection-details">
+                                    <span>Romance Reads</span>
+                                    <span>3 Books</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -401,28 +310,6 @@
                 <!-- Spin-offs Section -->
                 <div id="spinoffs" class="view-section">
                     <h2>My Spin-offs</h2>
-                    <div class="spin-off-message">
-                        <h3>Creating a Spin-off</h3>
-                        <p>
-                            Spin-offs are stories that are based on existing stories. You can create a spin-off of
-                            your
-                            own story or any other story you like. Please note that you need to have read the
-                            chapter
-                            you create a spin-off of, and you can only create spin-offs of chapters that are public
-                            except the first chapter.
-                        </p>
-                        <p>
-                            Additionally, spin-offs are a great way to explore alternate storylines, character arcs,
-                            or
-                            even dive deeper into untold backstories. Remember to give credit to the original story
-                            where required,
-                            and ensure your spin-off aligns with the community guidelines to maintain a respectful
-                            and
-                            engaging environment for all users.
-                        </p>
-                        <p>Access spinoff creation through the book overview.</p>
-                    </div>
-
                     <?php if (!empty($spinoffs)): ?>
                         <div class="spinoff-container">
                             <?php foreach ($spinoffs as $spinoff): ?>
@@ -449,13 +336,12 @@
                     <?php endif; ?>
                 </div>
 
-                <!-- Purchased Books Section -->
                 <div id="purchased-books" class="view-section">
                     <h2>Purchased Books</h2>
                     <?php if (!empty($purchasedBooks)): ?>
                         <?php foreach ($purchasedBooks as $book): ?>
                             <div class="book-item">
-                                <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['covimage']); ?>"
+                                <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image']); ?>"
                                     alt="Book Cover">
                                 <div class="book-details">
                                     <h3><?= htmlspecialchars($book['title']); ?></h3>
@@ -468,7 +354,6 @@
                     <?php endif; ?>
                 </div>
 
-                <!-- Orders Section -->
                 <div id="orders" class="view-section">
                     <h2>My Orders</h2>
                     <?php if (!empty($orders)): ?>
@@ -482,58 +367,6 @@
                     <?php else: ?>
                         <p>No orders yet.</p>
                     <?php endif; ?>
-                </div>
-
-                <!-- Followers Section -->
-                <div id="my-network" class="view-section">
-                    <div class="myfollow-tabs">
-                        <div class="myfollow-tab active" onclick="switchTab('followers')">Followers</div>
-                        <div class="myfollow-tab" onclick="switchTab('following')">Following</div>
-                    </div>
-
-                    <div id="followers-grid" class="myfollow-user-grid">
-                        <?php if ($followedByList): ?>
-                            <?php foreach ($followedByList as $follower): ?>
-                                <a href="/Free-Write/public/User/Profile?user=<?= htmlspecialchars($follower['user']) ?>">
-                                    <div class="myfollow-user-card">
-                                        <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($follower['profileImage'] ?? 'profile-image.jpg') ?>"
-                                            alt="John Doe" class="myfollow-user-image">
-                                        <div class="myfollow-user-info">
-                                            <div class="myfollow-user-name"><?= htmlspecialchars($follower['userName']) ?>
-                                            </div>
-                                            <div class="myfollow-user-last-logged">
-                                                <?= htmlspecialchars($follower['lastLogDate']) ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <p>No followers yet.</p>
-                        <?php endif; ?>
-                    </div>
-
-                    <div id="following-grid" class="myfollow-user-grid" style="display: none;">
-                        <?php if ($followingList): ?>
-                            <?php foreach ($followingList as $follower): ?>
-                                <a href="/Free-Write/public/User/Profile?user=<?= htmlspecialchars($follower['user']) ?>">
-                                    <div class="myfollow-user-card">
-                                        <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($follower['profileImage'] ?? 'profile-image.jpg') ?>"
-                                            alt="Sarah Lee" class="myfollow-user-image">
-                                        <div class="myfollow-user-info">
-                                            <div class="myfollow-user-name"><?= htmlspecialchars($follower['userName']) ?>
-                                            </div>
-                                            <div class="myfollow-user-last-logged">
-                                                <?= htmlspecialchars($follower['lastLogDate']) ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <p>Not following anyone yet.</p>
-                        <?php endif; ?>
-                    </div>
                 </div>
             </div>
         </div>
@@ -592,7 +425,7 @@
                 </div>
                 <div class="edit-profile-item">
                     <label for="country">Country</label>
-                    <select id="country" name="country">
+                    <select type="date" id="country" name="country">
                         <!-- 195 main countries -->
                         <option value="">country</option>
                         <option value="Afghanistan">Afghanistan</option>
@@ -831,7 +664,7 @@
     </div>
 
     <!-- Report user form --------------------------------------- -->
-    <div id="report-profile" class="edit-profile">
+    <div class="edit-profile">
         <div class="close-overlay-button">
             <button id="report-cancelOverlayBtn">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -845,8 +678,6 @@
         <div class="edit-profile-container">
             <form id="report-profile-form" action="/Free-Write/public/User/ReportProfile" method="POST"
                 onsubmit="return validateForm()">
-                <input hidden type="text" id="reportedUserID" name="reportedUserID"
-                    value="<?= htmlspecialchars($userAccount['userID']); ?>">
 
                 <div class="edit-profile-item edit-name">
                     <div>
@@ -863,84 +694,44 @@
                     </div>
                 </div>
                 <div class="edit-profile-item">
-                    <label for="select">For further details we may contact you</label>
-                    <select type="select" id="selectReason" name="selectReason" required>
-                        <option value="">Select Reason</option>
-                        <option value="harassment">Harassment</option>
-                        <option value="spam">Spam</option>
-                        <option value="hate speech">Hate Speech</option>
-                        <option value="violence">Violence</option>
-                        <option value="other">Other</option>
-                    </select>
+                    <label for="bio">Bio</label>
+                    <textarea id="bio" rows="6" name="bio" maxlength="255"
+                        required><?= htmlspecialchars($userDetails['bio']); ?></textarea>
                 </div>
                 <div class="edit-profile-item">
-                    <label for="description">Briefly Describe Your Reason (600 characters)</label>
-                    <textarea id="description" rows="6" name="description" maxlength="600" required></textarea>
-                </div>
-
-                <div class="edit-profile-item">
-                    <label for="email">We may contact you for further details</label>
-                    <input type="email" id="email" name="email" maxlength="50" required>
+                    <label for="email">For further details we may contact you</label>
+                    <input type="email" id="email" name="email" value="<?= htmlspecialchars($userAccount['email']); ?>"
+                        required>
                 </div>
                 <div class="edit-profile-item">
-                    <label for="bio">You can contact us via</label>
-                    <p>freewrite_support@freewrite.com</p>
-                </div>
-                <div class="edit-profile-item">
-                    <button type="submit" name="submit">Submit Report</button>
+                    <button type="submit" name="submit">Save Changes</button>
                 </div>
             </form>
+
+
+            <hr class="horizontal-divider">
+
+            <div class="danger-zone">
+                <h3>Danger Zone</h3>
+                <div class="warning-message">
+                    <p>Warning: Deleting your account will permanently remove:</p>
+                    <ul>
+                        <li>All your posts and writings</li>
+                        <li>Your profile information</li>
+                        <li>Your comments and interactions</li>
+                        <li>All associated data</li>
+                    </ul>
+                    <p>This action cannot be undone.</p>
+                </div>
+                <form action="/Free-Write/public/User/DeleteProfile" method="POST">
+                    <button class="delete-account-btn" type="submit">Delete Account</button>
+                </form>
+            </div>
             <button class="discard-change-btn" id="cancelOverlay">Discard Changes</button>
         </div>
     </div>
 
-    <!-- Create Collection Form --------------------------------------- -->
-    <div class="edit-profile create-collection-overlay">
-        <div class="close-overlay-button">
-            <button id="collection-cancelOverlayBtn">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                </svg>
-                close
-            </button>
-        </div>
-        <div class="edit-profile-container">
-            <form id="collectionForm" action="/Free-Write/public/User/CreateCollection" method="post">
-                <div class="form-group">
-                    <label for="title">Title</label>
-                    <input type="text" id="title" name="title" maxlength="45" placeholder="Enter a title for your collection">
-                    <span class="error-message" id="titleError"></span>
-                </div>
-
-                <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea id="Collect_description" name="Collect_description"
-                        placeholder="Tell us about your collection..." maxlength="255"></textarea>
-                    <span class="error-message" id="descriptionError"></span>
-                </div>
-
-                <div class="form-group">
-                    <label for="visibility">Visibility</label>
-                    <select id="visibility" name="visibility">
-                        <option value="1">Public</option>
-                        <option value="0">Private</option>
-                    </select>
-                </div>
-
-                <button class="create-btn" type="submit">
-                    <span>Create Collection</span>
-                    <i class="arrow-icon"></i>
-                </button>
-            </form>
-            <button class="discard-change-btn-collection" id="cancelOverlay">Discard Changes</button>
-        </div>
-    </div>
-
-    <script src="/Free-Write/public/js/user/profile.js"></script>
-    <script src="/Free-Write/public/js/user/createCollection.js"></script>
-    <script src="/Free-Write/public/js/user/reportUser.js"></script>
+    <script src="/Free-Write/public/js/profile.js"></script>
     <script src="/Free-Write/public/js/imageAdd.js"></script>
     <script>
         //handle navigation button clicks
@@ -959,25 +750,6 @@
                 document.getElementById(button.dataset.view).classList.add("active");
             });
         });
-    </script>
-    <script>
-        //script for switching between followers and following tabs
-        function switchTab(tab) {
-            const followersGrid = document.getElementById('followers-grid');
-            const followingGrid = document.getElementById('following-grid');
-            const tabs = document.querySelectorAll('.myfollow-tab');
-
-            tabs.forEach(t => t.classList.remove('active'));
-            event.target.classList.add('active');
-
-            if (tab === 'followers') {
-                followersGrid.style.display = 'grid';
-                followingGrid.style.display = 'none';
-            } else {
-                followersGrid.style.display = 'none';
-                followingGrid.style.display = 'grid';
-            }
-        }
     </script>
 </body>
 

@@ -173,78 +173,6 @@
         margin: 0.5rem 0;
       }
     }
-    .modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
-}
-
-.modal-content {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #FFFFFF;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  max-width: 400px;
-  width: 90%;
-}
-
-.modal-title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: #1C160C;
-}
-
-.modal-message {
-  margin-bottom: 1.5rem;
-  color: #c47c15;
-}
-
-.modal-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.btn-cancel {
-  background-color: #FFD052;
-  color: white;
-  padding: 1rem 1.5rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 600;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.btn-delete {
-  background-color: #c47c15;
-  color: white;
-  padding: 1rem 1.5rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 600;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.btn-cancel:hover,
-.btn-delete:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
   </style>
 </head>
 
@@ -339,55 +267,8 @@
   <?php
   require_once "../app/views/layout/footer.php";
   ?>
-<<<<<<< HEAD
 
   <script src="/Free-Write/public/js/competition/editingCompetitionDetails.js"></script>
-=======
-  <div id="deleteModal" class="modal">
-  <div class="modal-content">
-    <div class="modal-title">Delete Competition</div>
-    <div class="modal-message">
-      Warning: This will permanently delete the competition. This action cannot be undone.
-    </div>
-    <div class="modal-buttons">
-      <button class="btn-cancel" onclick="hideDeleteModal()">Cancel</button>
-      <button class="btn-delete" onclick="deleteCompetition()">Continue</button>
-    </div>
-  </div>
-</div>
-<script>
-  // Replace the delete competition link with a button that shows the modal
-  document.addEventListener('DOMContentLoaded', function() {
-    const deleteLink = document.querySelector('a[href*="deleteCompetition"]');
-    const deleteButton = deleteLink.querySelector('button');
-    
-    deleteButton.addEventListener('click', function(e) {
-      e.preventDefault();
-      showDeleteModal();
-    });
-  });
-
-  function showDeleteModal() {
-    document.getElementById('deleteModal').style.display = 'block';
-  }
-
-  function hideDeleteModal() {
-    document.getElementById('deleteModal').style.display = 'none';
-  }
-
-  function deleteCompetition() {
-    window.location.href = '/Free-Write/public/Competition/deleteCompetition/<?= htmlspecialchars($competitionDetails['competitionID']) ?>';
-  }
-
-  // Close modal if user clicks outside of it
-  window.onclick = function(event) {
-    const modal = document.getElementById('deleteModal');
-    if (event.target === modal) {
-      hideDeleteModal();
-    }
-  }
-</script>
->>>>>>> 7a59bea (navigation changes , and competition CRUD based on publisherID, create for adding books)
 </body>
 
 </html>

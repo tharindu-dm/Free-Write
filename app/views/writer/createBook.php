@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create a Book - Free Write</title>
+    <title>Edit Book - Free Write</title>
     <link rel="stylesheet" href="/Free-Write/public/css/writer.css">
 </head>
 
@@ -26,26 +26,16 @@
         default:
             require_once "../app/views/layout/header.php";
     }
+    //show($data);
     ?>
+
     <!-- Main Content -->
     <main class="book-section">
-        <div class="book-form-container">
-            <h2>Create a New Book</h2>
+        
+            
+            <form action="/Free-Write/public/Writer/Update" method="POST" enctype="multipart/form-data">
 
-
-            <form action="/Free-Write/public/Writer/createBook" method="POST" enctype="multipart/form-data">
-
-                <!-- Book Cover Section -->
-                <div class="book-cover">
-                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Cover Preview" class="cover-img">
-                    <div class="cover-upload">
-                        <input type="file" id="cover" name="cover" accept="image/*" class="file-input">
-                        <button type="button" class="upload-btn">Upload Cover Photo</button>
-                        <?php if (!empty($errors['cover'])): ?>
-                            <p class="error"><?php echo $errors['cover']; ?></p>
-                        <?php endif; ?>
-                    </div>
-                </div>
+            <h1>Update Book Details</h1>
 
                 <!-- Book Details Section -->
                 <div class="book-info">
@@ -89,8 +79,15 @@
 
                     <button type="submit" class="create-btn">Create</button>
                 </div>
-            </form>
-        </div>
+                
+              </form>
+             <!-- Book Cover Section -->
+             <div class="book-cover">
+                <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Cover Preview" class="cover-img">
+                    <label for="cover" class="upload-btn">Upload Cover Photo</label>
+                 <input type="file" id="cover" name="cover" accept="image/*" class="file-input">
+                </div>
+            </div>
     </main>
 
     <!-- Footer -->
@@ -99,8 +96,7 @@
     require_once "../app/views/layout/footer.php";
     ?>
 
-<script src="/Free-Write/public/js/writer/createBook.js"></script>
-
+    <script src="/Free-Write/public/js/writer/editBook.js"></script>
 
 </body>
 

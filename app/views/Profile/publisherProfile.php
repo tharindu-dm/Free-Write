@@ -140,15 +140,14 @@
         <section class="library">
             <h2>Library</h2>
             <div class="book-grid">
-                <a href="/Free-Write/public/PublisherBooks/BookDesign"><img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 1"></a>
-                <a href="link2.html"><img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 2"></a>
-                <a href="link3.html"><img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 3"></a>
-                <a href="link4.html"><img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 4"></a>
-                <a href="link5.html"><img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 5"></a>
+                <a href="link1.html"><img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 1"></a>
+                <a href="link2.html"><img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 2"></a>
+                <a href="link3.html"><img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 3"></a>
+                <a href="link4.html"><img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 4"></a>
+                <a href="link5.html"><img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 5"></a>
             </div>
             <div class="publisher-profile-btn">
-                <a href="/Free-Write/public/PublisherBooks/AddBook
-                "><button class="add-books">Add Books To Library</button></a>
+                <a hSpinoffNameref="#"><button class="add-books">Add Books To Library</button></a>
                 <a href="/Free-Write/public/Competition/MyCompetitions"><button class="add-books">Manage My
                         Competitions</button></a>
             </div>

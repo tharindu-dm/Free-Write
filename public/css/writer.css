@@ -5,10 +5,24 @@ main{
     align-items: center;
 }
 
+.file-input {
+    display: none;
+}
+.profile-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    margin-top: 20px;
+}
+
 /* Main Quote Section */
 .quote-section {
     margin: 50px auto;
-    max-width: 600px;
+    max-width: 800px;
+    padding: 20px;
+    flex-direction: column;
     text-align: center;
     background-color: #fff;
     padding: 40px;
@@ -16,8 +30,22 @@ main{
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.quote-section h1 {
-    font-size: 32px;
+.quote-section p{
+    padding: 8px;
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+}
+
+.quote-section h4 {
+    font-size:20px;
+    color: #7b7b7b;
+    margin-bottom: 10px;
+    padding: 20px;
+}
+.quote-section h3 {
     color: #333;
     margin-bottom: 10px;
 }
@@ -31,6 +59,7 @@ main{
 /* Form Styles */
 .quote-form {
     display: flex;
+    width: 100%;
     flex-direction: column;
     align-items: center;
 }
@@ -69,19 +98,23 @@ main{
 }
 
 /* Main Book Section */
-.book-grid{
+.book-grid {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+    gap: 20px;
     margin-top: 1.5rem;
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    
+    justify-items: center;
 }
 
 .book-section {
-    margin: 50px auto;
-    max-width: 900px;
+    margin: 0px auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    max-width: 1000px;
     display: flex;
     justify-content: space-between;
+    align-items: flex-start; /* Aligns elements to the top */
     background-color: #fff;
     padding: 40px;
     border-radius: 8px;
@@ -171,7 +204,7 @@ main{
 }
 
 .cover-img {
-    width: 150px;
+    width: 100px;
     height: 200px;
     object-fit: cover;
     margin-bottom: 10px;
@@ -185,8 +218,10 @@ main{
 
 /* Writing Section */
 .writing-section {
+    display: flex;
+    flex-direction: column;
     margin: 50px auto;
-    max-width: 800px;
+    max-width: 1000px;
     background-color: #fff;
     padding: 40px;
     border-radius: 8px;
@@ -213,7 +248,7 @@ main{
     margin-bottom: 20px;
 }
 
-.save-btn, .publish-btn {
+.save-btn,.cancel-btn, .publish-btn {
     padding: 10px 20px;
     background-color: #ffcc00;
     border: none;
@@ -230,7 +265,9 @@ main{
 /* Text Editor */
 .text-editor {
     background-color: #fdf4e5;
+    width: 100%;
     padding: 30px;
+    margin-bottom: 20px;
     border-radius: 8px;
     border: 2px solid #e6e6e6;
 }
@@ -273,8 +310,44 @@ main{
     border-radius: 8px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
+.book-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border: 0.1rem solid #e0e0e0;
+    border-radius: 1.5rem;
+    padding: 0.5rem;
+    background-color: #fff;
+    transition: transform 0.5s, background-color 0.3s ease-in-out;
+  }
+  .book-card:hover {
+    transform: translateY(-5px);
+    background-color: #ffd700;
+  }
+  
+  .book-card img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 1rem;
+    margin-bottom: 10px;
+  }
+  
+  .book-card h3 {
+    font-size: 16px;
+    margin: 5px 0;
+  }
+  
+  .book-card p {
+    font-size: 14px;
+    color: #888;
+  }
 
 .book-cover img {
+    align-items: center;
+    justify-content: center;
+    display: block;
     width: 200px;
     height: 300px;
     border-radius: 8px;
@@ -282,6 +355,8 @@ main{
 
 .book-info {
     margin-left: 40px;
+    width: 600px;
+
 }
 
 .author-description {
@@ -303,8 +378,10 @@ main{
     gap: 10px;
 }
 
-.edit-btn, .view-stats-btn {
+.edit-btn, .delete-btn {
+    width: 100px;
     padding: 10px 20px;
+    margin: 50px auto;
     background-color: #ffcc00;
     border: none;
     border-radius: 6px;
@@ -344,6 +421,8 @@ main{
 /* Dashboard Content */
 .dashboard {
     display: flex;
+    margin-top: 40px;
+    margin-bottom: 40px;
     flex-direction: column;
     min-width: 90vw;
     padding: 2rem;
@@ -499,14 +578,22 @@ main{
     list-style: none;
     padding: 0;
 }
-
-.quote-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-    padding: 10px;
-    border-bottom: 1px solid #e0e0e0;
+/* Quote container */
+.quote-container {
+    width: 100%; 
+    height: 100%; 
+    max-width: 800px;
+    padding: 20px;
+    margin: 0 auto;  
+    margin-top: 20px;
+    display: flex;  
+    justify-content: center;  
+    align-items: center;  
+    flex-direction: column;  
 }
+
+
+
 .quote-info h3 {
     margin: 0;
     font-size: 16px;
@@ -565,7 +652,7 @@ main{
     margin: 0;
 }
 
-.delete-btn, .view-btn {
+.view-btn {
     padding: 5px 10px;
     font-size: 14px;
     color: #fff;
@@ -581,40 +668,153 @@ main{
 .view-btn {
     background-color: #5e432d;
 }
-/* Spin-off Requests Section */
-.spinoff-section {
-    flex-grow: 1;
-    background-color: #fff;
-    padding: 20px;
-    border: 1px solid #e0e0e0;
-    border-radius: 10px;
-}
-
-.spinoff-section h3 {
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
-.spinoff-list {
-    margin-top: 20px;
-}
-
-.spinoff-list h4 {
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-
-.spinoff-item {
+.button-container {
     display: flex;
+    justify-content: space-between; /* Space between left and right buttons */
+    align-items: center;
+    width: 100%; /* Ensure it spans the full width */
+}
+
+/* Left-aligned Cancel button */
+.cancel-btn {
+    margin-left: 0; /* Optional: No left margin */
+}
+
+/* Right-aligned Edit and Delete buttons */
+.right-buttons {
+    display: flex;
+    gap: 10px; /* Space between Edit and Delete buttons */
+}
+
+.spinoff-container {
+    width: 80%;
+    margin: 30px auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+
+  .spinoff-nav {
+    display: flex;
+    justify-content: center;
+    background: #ffcc00;
+  }
+
+  .tab-btn {
+    flex: 1;
+    padding: 15px;
+    color: #fff;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+  }
+
+  .tab-btn:hover {
+    background: #a48300;
+  }
+
+  .tab-btn.active {
+    background: #624f01;
+  }
+  .no-requests {
+    text-align: center;
+    padding: 2rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin: 1rem 0;
+}
+
+.no-requests p {
+    color: #6c757d;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+  .spinoff-section {
+    padding: 20px;
+    display: none;
+  }
+
+  .spinoff-section.active {
+    display: block;
+  }
+
+  .spinoff-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .spinoff-item {
+    background: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    transition: box-shadow 0.3s;
+  }
+
+  .spinoff-item:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .spinoff-link {
+    text-decoration: none;
+    color: #333;
+    display: block;
+  }
+
+  .spinoff-link h3 {
+    margin: 0 0 5px;
+    font-size: 20px;
+  }
+
+  .spinoff-link p {
+    margin: 0;
+    color: #777;
+    font-size: 14px;
+  }
+  .spinoff-section {
+    display: none;
+}
+
+.spinoff-section.active {
+    display: block;
+}
+.book-btn {
+    padding: 10px 20px;
+    background-color: #ffcc00;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+
+
+.quote-item {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
     justify-content: space-between;
     align-items: center;
-    background-color: #f9f9f9;
+    
     padding: 15px;
     margin-bottom: 10px;
     border-radius: 5px;
 }
+.quote-item li {
+    display: block;
+    margin-bottom: 20px; 
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px; 
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
 
-.spinoff-item p {
+.quote-item p {
     margin: 0;
 }
 
@@ -645,6 +845,57 @@ main{
 .button-new:hover {
     background-color: #e6c200; /* Darker shade on hover */
 }
+
+.delete-btn:hover {
+    background-color: #e63946;
+}
+
+/* General Style for Select Dropdown */
+select {
+    width: 50%;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    color: #333;
+    appearance: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Focused State for Select Dropdown */
+select:focus {
+    border-color: #ffcc00;
+    outline: none;
+    background-color: #fff;
+}
+
+/* Custom Dropdown Arrow */
+select::-ms-expand {
+    display: none; /* Remove the default dropdown arrow in IE */
+}
+
+select {
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"%3E%3Cpath fill="none" stroke="%23333" stroke-width="1.5" d="M12 5l-4 4-4-4" /%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+}
+
+/* Hover State for Select Dropdown */
+select:hover {
+    border-color: #e6b800;
+}
+
+/* Adjusting the label for Select */
+label {
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: #333;
+    display: block;
+}
+
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {

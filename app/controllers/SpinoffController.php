@@ -4,7 +4,7 @@ class SpinoffController extends Controller
 {
     public function index()
     {
-        $this->view('error');
+        //display all spinoff section
     }
 
     public function New()
@@ -17,7 +17,7 @@ class SpinoffController extends Controller
         $bookDetails = $book->first(['bookID' => $bookID]);
         $chapters = $book_chapter->getChapters($bookID);
 
-        $this->view('Spinoff/writeSpinoff', ['book' => $bookDetails, 'chapters' => $chapters]);
+        $this->view('Reader/writeSpinoff', ['book' => $bookDetails, 'chapters' => $chapters]);
     }
 
     public function Create()
@@ -44,13 +44,10 @@ class SpinoffController extends Controller
         $spinoff = new Spinoff();
         $spinoff_chapter = new SpinoffChapter();
 
-        $chapters = [];
-
         $content = $spinoff->getSpinoffDetails($spinoffID);
-        $chapters = $spinoff_chapter->getChapters($spinoffID);
+        $chapters = $spinoff_chapter->where(['spinoff' => $spinoffID]);
 
-
-        $this->view('spinoff/Overview', ['content' => $content[0], 'chapters' => $chapters]);
+        $this->view('spinoff/Overview', ['content' => $content, 'chapters' => $chapters]);
     }
 
     public function Edit()
@@ -61,39 +58,5 @@ class SpinoffController extends Controller
     public function Delete()
     {
         //delete the chapter
-    }
-
-    public function write_chapter()
-    {
-        $spinoffID = $_GET['spinoff'];
-        $spinoff = new Spinoff();
-
-
-
-        $spinoffDetails = $spinoff->first(['spinoffID' => $spinoffID]);
-        $data =
-            [
-                'spinoff' => $spinoffDetails
-            ];
-        $this->view('spinoff/createChapter', $data);
-    }
-
-    public function saveChapter()
-    {
-        $Chapter = new Chapter();
-        $spinoffChapter = new SpinoffChapter();
-
-        $spinoffID = $_POST['spinoffID'];
-        $chapterTitle = $_POST['chapter_title'];
-        $chapterContent = $_POST['chapter_content'];
-        $datetime = date('Y-m-d H:i:s');
-
-        $Chapter->insert(['title' => $chapterTitle, 'content' => $chapterContent, 'lastUpdated' => $datetime]);
-
-        $chapterID = $Chapter->first(['title' => $chapterTitle, 'content' => $chapterContent, 'lastUpdated' => $datetime])['chapterID'];
-
-        $spinoffChapter->insert(['spinoff' => $spinoffID, 'chapter' => $chapterID]);
-
-        header('location: /Free-Write/public/Spinoff/Overview/' . $spinoffID);
     }
 }

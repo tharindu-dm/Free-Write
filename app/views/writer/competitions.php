@@ -43,13 +43,15 @@
                 </div>
 
                 <?php if (!empty($userDetails) && is_array($userDetails)): ?>
+                    <h2 style="color: var(--black);">
+                        <?= htmlspecialchars($userDetails['firstName']) . " " . htmlspecialchars($userDetails['lastName']); ?>
+                    </h2>
                     <div class="profile-info">
-                        <h2><?= htmlspecialchars($userDetails[0]['fullName'] ?? 'Unknown User'); ?></h2>
-
+                        <p><strong><?= htmlspecialchars($followers['followers']) ?> Followers</strong></p>
+                        <p><strong><?= htmlspecialchars((string) $views); ?> Views</strong></p>
                     </div>
                 <?php else: ?>
-                    <h2>Michael Thompson</h2>
-                    <p>250 followers</p>
+                    <h2>User Name</h2>
                 <?php endif; ?>
             </div>
             <!-- Navigation for Writer Options -->
@@ -58,9 +60,6 @@
             <!-- Competitions Section -->
             <div>
                 <h3>Competitions</h3>
-                <a href="/Free-Write/public/Writer/ViewCompetitions">>>>>>>Competitions<<<<<< </a>
-                        <br /><!-- template button -->
-
                         <!-- Button to Add New Competition -->
                         <a href="/Free-Write/public/Writer/NewCompetition" class="button-new">+ New</a>
 

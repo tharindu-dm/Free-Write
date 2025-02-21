@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create a Book - Free Write</title>
+    <title>Edit Book - Free Write</title>
     <link rel="stylesheet" href="/Free-Write/public/css/writer.css">
 </head>
 
@@ -31,18 +31,11 @@
 
     <!-- Main Content -->
     <main class="book-section">
-        <div class="book-form-container">
-            <h2>Update Book Details</h2>
+        
+            
             <form action="/Free-Write/public/Writer/Update" method="POST" enctype="multipart/form-data">
 
-                <!-- Book Cover Section -->
-                <div class="book-cover">
-                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Cover Preview" class="cover-img">
-                    <div class="cover-upload">
-                        <input type="file" id="cover" name="cover" accept="image/*" class="file-input">
-                        <button type="button" class="upload-btn">Upload Cover Photo</button>
-                    </div>
-                </div>
+            <h1>Update Book Details</h1>
 
                 <!-- Book Details Section -->
                 <input type="hidden" name="bID" value="<?php echo $book['bookID']; ?>">
@@ -86,8 +79,15 @@
 
                     <button type="submit" class="create-btn">Update</button>
                 </div>
-            </form>
-        </div>
+                
+              </form>
+             <!-- Book Cover Section -->
+             <div class="book-cover">
+                <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Cover Preview" class="cover-img">
+                    <label for="cover" class="upload-btn">Upload Cover Photo</label>
+                 <input type="file" id="cover" name="cover" accept="image/*" class="file-input">
+                </div>
+            </div>
     </main>
 
     <!-- Footer -->

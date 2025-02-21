@@ -29,15 +29,68 @@ class SpinOff
         $query = "SELECT
                     s.[spinoffID],
                     s.[title],
+                    c.title AS ChapterTitle,
+                    s.isAcknowledge,
                     s.[synopsis],
                     s.[creator] AS [creatorID],
                     CONCAT(u.[firstName], ' ', u.[lastName]) AS [creator],
                     b.[title] AS [fromBook],
+                    b.bookID,
                     s.[accessType],
                     s.[lastUpdated]
                     FROM [dbo].[Spinoff] s
                     JOIN [dbo].[UserDetails] u ON s.[creator] = u.[user] 
+                    LEFT JOIN [dbo].[Chapter] c ON s.startingChapter = c.chapterID
                     JOIN [dbo].[Book] b ON s.[fromBook] = b.[bookID] WHERE s.[spinoffID] = $spinoffID;";
+
+        return $this->query($query);
+    }
+    public function getPendingSpinoff($uid)
+    {
+        $query = "SELECT 
+                s.[spinoffID], 
+                s.title AS SpinoffTitle, 
+                b.title AS BookTitle,
+                c.title AS ChapterTitle,
+                s.synopsis, s.lastUpdated
+                FROM [dbo].[Spinoff] s
+                JOIN [dbo].[Book] b ON s.fromBook = b.bookID
+                LEFT JOIN [dbo].[Chapter] c ON s.startingChapter = c.chapterID
+                WHERE (b.[author] = $uid
+                AND s.[isAcknowledge] = 0)";
+
+        return $this->query($query);
+    }
+    public function getAcceptedSpinoff($uid)
+    {
+        $query = "SELECT 
+                s.[spinoffID], 
+                s.title AS SpinoffTitle, 
+                b.title AS BookTitle,
+                c.title AS ChapterTitle,
+                s.synopsis, s.lastUpdated
+                FROM [dbo].[Spinoff] s
+                JOIN [dbo].[Book] b ON s.fromBook = b.bookID
+                LEFT JOIN [dbo].[Chapter] c ON s.startingChapter = c.chapterID
+                WHERE (b.[author] = $uid
+                AND s.[isAcknowledge] = 1)";
+
+        return $this->query($query);
+    }
+
+    public function getRejectedSpinoff($uid)
+    {
+        $query = "SELECT 
+                s.[spinoffID], 
+                s.title AS SpinoffTitle, 
+                b.title AS BookTitle,
+                c.title AS ChapterTitle,
+                s.synopsis, s.lastUpdated
+                FROM [dbo].[Spinoff] s
+                JOIN [dbo].[Book] b ON s.fromBook = b.bookID
+                LEFT JOIN [dbo].[Chapter] c ON s.startingChapter = c.chapterID
+                WHERE (b.[author] = $uid
+                AND s.[isAcknowledge] = 2)";
 
         return $this->query($query);
     }

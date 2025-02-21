@@ -31,10 +31,55 @@ class Quote
 
     public function getQuoteByID($quoteID)
     {
-        $query = "SELECT * FROM $this->table WHERE quoteID = :quoteID";
+        $query = "SELECT 
+            q.quoteID,
+            q.quote, 
+            c.title AS chapter_name, 
+            bc.book,
+            b.title AS book_name,
+            u.userID
+        FROM 
+            Quote q
+        LEFT JOIN Chapter c ON q.chapter = c.chapterID
+        LEFT JOIN BookChapter bc ON c.chapterID = bc.chapter
+        LEFT JOIN [Book] b ON bc.book = b.bookID
+        LEFT JOIN [User] u ON b.author = u.userID
+        WHERE 
+            q.quoteID = :quoteID";
+    
         $params = [':quoteID' => $quoteID];
         $result = $this->query($query, $params);
-        return $result ? $result[0] : null;
+     
+        if ($result) {
+            return $result[0]; // Return the first result if found
+        } else {
+            return null; // No results found
+        }
+    }
+    
+
+
+    public function getQuoteByAuthor($uid)
+    {
+    
+    $query = "SELECT 
+    q.quoteID,
+    q.quote, 
+    c.title AS chapter_name, 
+    bc.book,
+    b.title AS book_name
+    FROM 
+    Quote q
+    JOIN 
+    Chapter c ON q.chapter = c.chapterID
+    JOIN 
+    BookChapter bc ON c.chapterID = bc.chapter
+    JOIN 
+    [Book] b ON bc.book = b.bookID
+    WHERE 
+    b.author =$uid";
+
+    return $this->query($query);
     }
 }
 

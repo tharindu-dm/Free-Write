@@ -47,6 +47,16 @@ class Book
         return $this->query($query);
     }
 
+    public function getAuthorViews($uid)
+    {
+        $query = "SELECT SUM(viewCount) AS totalViews 
+    FROM [dbo].[Book] 
+    WHERE author = $uid";
+
+        return $this->query($query);
+        
+    }
+
     public function searchBook($searchTitle)
     {
         $query = "SELECT TOP(10) [bookID]

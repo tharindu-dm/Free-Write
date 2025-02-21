@@ -47,7 +47,7 @@ trait Database
         }
     }
 
-    /*private function connect()
+   /* private function connect()
      {
          // Load the .env file using the method
          $this->loadEnv(__DIR__ . '/.env');
