@@ -352,7 +352,7 @@
                             <?php if (!empty($collections)): ?>
                                 <?php foreach ($collections as $collection): ?>
                                     <a
-                                        href="/Free-Write/public/Collection/view/<?= htmlspecialchars($collection['collectionID']); ?>">
+                                        href="/Free-Write/public/Collection/viewCollection/<?= htmlspecialchars($collection['collectionID']); ?>">
 
                                         <div class="collection-item">
                                             <img src="/Free-Write/public/images/collectionThumb.jpeg"
