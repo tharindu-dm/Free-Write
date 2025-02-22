@@ -14,7 +14,7 @@ trait Model
 
     public function findAll() //return multiple rows
     {
-        $query = "select * from $this->table order by " . lcfirst($this->table) . "ID" . " $this->orderBy;";
+        $query = "select * from [$this->table] order by [" . lcfirst($this->table) . "ID]" . " $this->orderBy;";
 
         return $this->query($query);
     }

@@ -42,7 +42,7 @@
             <ul id="chapterMenu">
                 <?php foreach ($chapterList as $chapter): ?>
                     <li>
-                        <a href="/Free-Write/public/book/Chapter/<?= $chapter['chapterID']; ?>"><?= htmlspecialchars($chapter['title']); ?></a>
+                        <a href="/Free-Write/public/<?= ($chapterDetails['type']=='book')?'Book':'Spinoff'?>/Chapter/<?= $chapter['chapterID']; ?>"><?= htmlspecialchars($chapter['title']); ?></a>
                     </li>
                 <?php endforeach; ?>
             </ul>
@@ -124,7 +124,6 @@
     <?php
     require_once "../app/views/layout/footer.php";
     ?>
-
 
     <script src="/Free-Write/public/js/Book/bookChapter.js"></script>
 </body>

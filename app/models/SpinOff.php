@@ -32,12 +32,26 @@ class SpinOff
                     s.[synopsis],
                     s.[creator] AS [creatorID],
                     CONCAT(u.[firstName], ' ', u.[lastName]) AS [creator],
+                    s.[fromBook] AS [fromBookID],
                     b.[title] AS [fromBook],
                     s.[accessType],
-                    s.[lastUpdated]
+                    s.[lastUpdated],
+                    s.[isAcknowledge],
+                    s.[startingChapter]
                     FROM [dbo].[Spinoff] s
                     JOIN [dbo].[UserDetails] u ON s.[creator] = u.[user] 
                     JOIN [dbo].[Book] b ON s.[fromBook] = b.[bookID] WHERE s.[spinoffID] = $spinoffID;";
+
+        return $this->query($query);
+    }
+
+    public function getFromChapterID($chapID)
+    {
+        $query = "SELECT 
+                    s.*
+                    FROM [dbo].[Spinoff] s
+                    JOIN [dbo].[SpinoffChapter] sc ON s.[spinoffID] = sc.[spinoff]
+                    WHERE sc.[chapter] = $chapID;";
 
         return $this->query($query);
     }

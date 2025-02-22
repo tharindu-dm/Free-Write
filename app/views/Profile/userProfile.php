@@ -89,7 +89,7 @@
 
                             <?php endif; ?>
 
-                            <?php if (!isset($_SESSION['user_id']) || (isset($_GET['user']) && $_GET['user']!=$_SESSION['user_id'])): ?>
+                            <?php if (!isset($_SESSION['user_id']) || (isset($_GET['user']) && $_GET['user'] != $_SESSION['user_id'])): ?>
                                 <button id="reportBtn" class="report-profile-btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -115,6 +115,7 @@
                     </div>
                 </div>
 
+                <!-- USER NAV BAR ON LEFT-->
                 <hr class="user-profile-divider">
                 <div class="user-profile-navigation">
                     <button class="user-nav-button active" data-view="dashboard">
@@ -352,8 +353,8 @@
                             <?php if (!empty($collections)): ?>
                                 <?php foreach ($collections as $collection): ?>
                                     <a
-                                        href="/Free-Write/public/Collection/view/<?= htmlspecialchars($collection['collectionID']); ?>">
-                                        
+                                        href="/Free-Write/public/Collection/viewCollection/<?= htmlspecialchars($collection['collectionID']); ?>">
+
                                         <div class="collection-item">
                                             <img src="/Free-Write/public/images/collectionThumb.jpeg"
                                                 alt="Collection Thumbnail">
@@ -911,7 +912,8 @@
             <form id="collectionForm" action="/Free-Write/public/User/CreateCollection" method="post">
                 <div class="form-group">
                     <label for="title">Title</label>
-                    <input type="text" id="title" name="title" maxlength="45" placeholder="Enter a title for your collection">
+                    <input type="text" id="title" name="title" maxlength="45"
+                        placeholder="Enter a title for your collection">
                     <span class="error-message" id="titleError"></span>
                 </div>
 
