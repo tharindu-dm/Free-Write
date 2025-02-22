@@ -333,7 +333,7 @@
           </div>
           
           <div class="profile-right">
-              <h1>Acme Publishing</h1>
+              <h1><?= htmlspecialchars($publisherDetails['name']) ?></h1>
               <p>Independent Publisher since 1995</p>
               <div class="tags">
                   <span class="tag">Fiction</span>
@@ -375,38 +375,22 @@
                 <h3>Latest Releases</h3>
             </div>
             <div class="publications-grid">
+            <?php if (!empty($data['recentBooks'])) : ?>
+                <?php foreach ($data['recentBooks'] as $recentBooks): ?>
                 <div class="book-card">
-                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 1">
+                    <img src="/Free-Write/app/images/coverDesign/<?= !empty($recentBooks['coverImage']) ? htmlspecialchars($recentBooks['coverImage']) : 'sampleCover.jpg' ?>" alt="Book 1">
                     <div class="book-info">
-                        <div class="book-title">The Hidden Path</div>
-                        <div class="book-author">by Sarah Johnson</div>
-                        <div class="book-date">Published: Oct 2024</div>
+                        <div class="book-title"><?= htmlspecialchars($recentBooks['title']) ?></div>
+                        <div class="book-author">by <?= htmlspecialchars($recentBooks['author_name']) ?></div>
+                        <div class="book-date">Published: <?= date('Y-m-d', strtotime($recentBooks['created_at'])) ?></div>
+
                     </div>
                 </div>
-                <div class="book-card">
-                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 2">
-                    <div class="book-info">
-                        <div class="book-title">Beyond the Horizon</div>
-                        <div class="book-author">by Michael Chen</div>
-                        <div class="book-date">Published: Sep 2024</div>
-                    </div>
-                </div>
-                <div class="book-card">
-                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 3">
-                    <div class="book-info">
-                        <div class="book-title">Midnight Tales</div>
-                        <div class="book-author">by Emma Roberts</div>
-                        <div class="book-date">Published: Sep 2024</div>
-                    </div>
-                </div>
-                <div class="book-card">
-                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 4">
-                    <div class="book-info">
-                        <div class="book-title">The Last Summer</div>
-                        <div class="book-author">by David Miller</div>
-                        <div class="book-date">Published: Aug 2024</div>
-                    </div>
-                </div>
+                
+                <?php endforeach; ?>
+    <?php else : ?>
+        <p>No books available.</p>
+    <?php endif; ?>
             </div>
         </div>
 
@@ -450,7 +434,7 @@
             </div>
         </div>
 
-        <a href="/Free-Write/public/PublisherBooks/bookList" class="view-all-button">View All Publications</a>
+        <a href="/Free-Write/public/Publisher/bookList" class="view-all-button">View All Publications</a>
     </section>
 
     <!-- Previous sections remain the same -->

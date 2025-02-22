@@ -55,4 +55,13 @@ class User
         return $this->query($query);
     }
 
+    public function updateToPub($userType, $user_id) {
+        $data = [
+            
+            'userType' => $userType
+        ];
+        return $this->update($user_id, $data, 'userID');
+    }
+    
+
 }

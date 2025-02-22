@@ -339,55 +339,8 @@
   <?php
   require_once "../app/views/layout/footer.php";
   ?>
-<<<<<<< HEAD
 
   <script src="/Free-Write/public/js/competition/editingCompetitionDetails.js"></script>
-=======
-  <div id="deleteModal" class="modal">
-  <div class="modal-content">
-    <div class="modal-title">Delete Competition</div>
-    <div class="modal-message">
-      Warning: This will permanently delete the competition. This action cannot be undone.
-    </div>
-    <div class="modal-buttons">
-      <button class="btn-cancel" onclick="hideDeleteModal()">Cancel</button>
-      <button class="btn-delete" onclick="deleteCompetition()">Continue</button>
-    </div>
-  </div>
-</div>
-<script>
-  // Replace the delete competition link with a button that shows the modal
-  document.addEventListener('DOMContentLoaded', function() {
-    const deleteLink = document.querySelector('a[href*="deleteCompetition"]');
-    const deleteButton = deleteLink.querySelector('button');
-    
-    deleteButton.addEventListener('click', function(e) {
-      e.preventDefault();
-      showDeleteModal();
-    });
-  });
-
-  function showDeleteModal() {
-    document.getElementById('deleteModal').style.display = 'block';
-  }
-
-  function hideDeleteModal() {
-    document.getElementById('deleteModal').style.display = 'none';
-  }
-
-  function deleteCompetition() {
-    window.location.href = '/Free-Write/public/Competition/deleteCompetition/<?= htmlspecialchars($competitionDetails['competitionID']) ?>';
-  }
-
-  // Close modal if user clicks outside of it
-  window.onclick = function(event) {
-    const modal = document.getElementById('deleteModal');
-    if (event.target === modal) {
-      hideDeleteModal();
-    }
-  }
-</script>
->>>>>>> 7a59bea (navigation changes , and competition CRUD based on publisherID, create for adding books)
 </body>
 
 </html>
