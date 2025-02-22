@@ -1,55 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Freewrite Institution - Purchase Packages</title>
     <link rel="stylesheet" href="/Free-Write/public/css/InstitutePurchasePackage.css">
 </head>
+
 <body>
-    <header>
-        <div class="logo">
-            <img src="/CRUD_OOP/public/assets/images/logo.png" alt="Freewrite">
-            Freewrite
-        </div>
-        <nav>
-            <a href="#">Browse</a>
-            <a href="#">Contests</a>
-            <a href="#">For Publishers</a>
-            <a href="#">For Advertisers</a>
-        </nav>
-        <div class="search-bar">
-            <input type="text" placeholder="Search">
-        </div>
-        <button class="btn btn-primary">Publish</button>
-        <button class="btn btn-secondary">Sign In</button>
-        <div class="user-avatar">
-            <img src="/CRUD_OOP/public/assets/images/profile-placeholder.jpg" alt="User">
-        </div>
-    </header>
+    <?php
+    if (isset($_SESSION['user_type'])) {
+        $userType = $_SESSION['user_type'];
+    } else {
+        $userType = 'guest';
+    }
+    switch ($userType) {
+        case 'admin':
+        case 'mod':
+        case 'writer':
+        case 'covdes':
+        case 'wricov':
+        case 'reader':
+            require_once "../app/views/layout/header-user.php";
+            break;
+        case 'pub':
+            require_once "../app/views/layout/header-pub.php";
+            break;
+        case 'inst':
+            require_once "../app/views/layout/header-inst.php";
+            break;
+        default:
+            require_once "../app/views/layout/header.php";
+    }
+    //show($data);
+    ?>
 
     <main>
-        <aside class="sidebar">
-            <div class="institution-info">
-                <img src="/CRUD_OOP/public/assets/images/institution-logo.png" alt="Institution Name">
-                <h2>Institution Name</h2>
-                <p>Access and Manage</p>
-            </div>
-            <nav>
-            <div class="menu-item" onclick="location.href='index.php?page=instituteDashboard'">Dashboard</div>
-                <a href="#"><i class="icon-library"></i> Library</a>
-                <a href="#" class="active"><i class="icon-package"></i> Purchase Packages</a>
-                <a href="#"><i class="icon-users"></i> Manage Users</a>
-            </nav>
-            <!-- <button class="btn btn-secondary btn-full-width">Update Profile</button> -->
-        </aside>
+        <!--sidebar-->
+        <?php include_once "../app/views/Institute/sidebar.php"; ?>
 
         <section class="main-content">
             <div class="institution-header">
                 <img src="/CRUD_OOP/public/assets/images/institution-header.png" alt="Institution Building">
                 <h1>Institution Name</h1>
                 <p>Welcome to your Freewrite dashboard</p>
-                <p>Last login: 1 day ago</p>
             </div>
 
             <nav class="tabs">
@@ -67,7 +62,7 @@
                     <button class="btn btn-secondary">Choose Basic</button>
                     <ul>
                         <li>Access to 100 books in the Library</li>
-                        <li>Access to 5 user accounts</li>
+                        <li>Access to 10 user accounts</li>
                         <li>1 year validity</li>
                     </ul>
                 </div>
@@ -78,7 +73,7 @@
                     <ul>
                         <li>Access to 500 books in the Library</li>
                         <li>Access to 25 user accounts</li>
-                        <li>2 years validity</li>
+                        <li>1 year validity</li>
                     </ul>
                 </div>
                 <div class="package-card">
@@ -88,28 +83,18 @@
                     <ul>
                         <li>Access to unlimited books in the Library</li>
                         <li>Access to 100 user accounts</li>
-                        <li>Lifetime validity</li>
+                        <li>1 year validity</li>
                     </ul>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer>
-        <nav>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
-            <a href="#">Terms of Use</a>
-            <a href="#">Privacy Policy</a>
-        </nav>
-        <div class="social-icons">
-            <a href="#" class="icon-twitter"></a>
-            <a href="#" class="icon-facebook"></a>
-            <a href="#" class="icon-instagram"></a>
-        </div>
-        <p>&copy; 2023 Freewrite. All rights reserved</p>
-    </footer>
+    <?php
+    require_once "../app/views/layout/footer.php";
+    ?>
 
     <script src="script.js"></script>
 </body>
+
 </html>
