@@ -164,7 +164,7 @@
                     <?php endif; ?>
                 </div>
             </div>
-
+           
             <div class="user-profile-content">
                 <div id="dashboard" class="view-section active">
                     <h2>Dashboard</h2>
@@ -172,7 +172,8 @@
                     <div class="dashboard-stats">
                         <div class="stat-card">
                             <h3>About</h3>
-                            <p><?= htmlspecialchars($userDetails['bio']) ?></p>
+                            <p><?= htmlspecialchars($userDetails['bio'] ?? '', ENT_QUOTES, 'UTF-8') ?></p>
+
                         </div>
                     </div>
 

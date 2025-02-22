@@ -10,7 +10,9 @@ class BookGenre
     {
         $query = "SELECT 
                     g.[name] AS genre_name,
+
                     CAST(COUNT(bg.[genre]) AS FLOAT) / (SELECT COUNT(*) FROM [dbo].[BookList] bl WHERE bl.[user] = $userID) * 100 AS percentage
+
                     FROM [dbo].[BookGenre] bg
                     INNER JOIN [dbo].[Genre] g ON bg.[genre] = g.[genreID]
                     WHERE bg.[book] IN (

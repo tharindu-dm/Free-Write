@@ -20,6 +20,9 @@ class UserController extends Controller
 
         $uid = isset($_GET['user']) ? $_GET['user'] : $_SESSION['user_id'];
 
+        $publisherBook_table = new publisherBooks();
+        $bookDetails = $publisherBook_table->where(['publisherID' => $_SESSION['user_id']]);
+
         //echo "inside the userProfile function\n";
         $user = new User();
         $userDetailsTable = new UserDetails();
@@ -59,7 +62,8 @@ class UserController extends Controller
                 'followedByList' => $followedByList,
                 'purchasedBooks' => $myboughtBooks,
                 'genreFrequency' => $genreFrequency,
-                'collections' => $getUserCollections
+                'collections' => $getUserCollections,
+                'bookDetails' => $bookDetails
             ]
         );
     }

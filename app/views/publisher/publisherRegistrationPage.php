@@ -299,68 +299,81 @@ body {
                 <p>Join our publishing community and share your literary works with readers worldwide. Complete the form below to get started.</p>
             </div>
 
-            <form class="publisher-form" action="/Free-Write/public/Publisher/index" method="POST" enctype="multipart/form-data">
-                <div class="logo-upload">
-                    <div class="logo-preview-container">
-                        <img src="/api/placeholder/120/120" alt="Publisher Logo Preview" id="logo-preview">
-                    </div>
-                    <div class="logo-upload-content">
-                        <h3>Publisher Logo</h3>
-                        <p>Upload a professional logo to represent your publishing brand</p>
-                        <label for="logo-input" class="upload-button">Choose Image</label>
-                        <input type="file" id="logo-input" name="logo" accept="image/*" hidden>
-                        <div class="file-requirements">
-                            Recommended: 400x400px or larger, Maximum size: 2MB
-                        </div>
-                    </div>
-                </div>
+            <form class="publisher-form" action="/Free-Write/public/Publisher/regPage" method="POST">
+    <div class="form-group">
+        <label for="email">Email Address</label>
+        <div class="description">We'll use this for account for your publisher account</div>
+        <input type="email" id="email" name="email" disabled value="<?= htmlspecialchars($userDetails['email']) ?>">
+        <div class="error-message">Please enter a valid email address</div>
+    </div>
+    <input type="hidden" name="email" value="<?= htmlspecialchars($userDetails['email']) ?>">
 
-                <div class="form-group">
-                    <label for="name">Publisher Name</label>
-                    <div class="description">This will be your public display name</div>
-                    <input type="text" id="name" name="name" required>
-                    <div class="error-message">Please enter a valid publisher name</div>
-                </div>
+    <!-- <div class="form-group">
+        <label for="password">Password</label>
+        <div class="description">Use at least 8 characters with a mix of letters, numbers & symbols</div>
+        <input type="password" id="password" name="password" required>
+        <div class="password-strength">
+            <div class="password-strength-bar"></div>
+        </div>
+        <div class="error-message">Password must meet the requirements</div>
+    </div> -->
 
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <div class="description">We'll use this for account verification and updates</div>
-                    <input type="email" id="email" name="email" required>
-                    <div class="error-message">Please enter a valid email address</div>
-                </div>
+    <div class="form-group">
+        <label for="description">Bio</label>
+        <div class="description">Tell readers about your publishing house, specialties, and vision</div>
+        <textarea id="description" name="description" required 
+            placeholder="Share your publishing journey, areas of focus, and what makes your publications unique..."></textarea>
+        <div class="error-message">Please provide a description</div>
+    </div>
 
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <div class="description">Use at least 8 characters with a mix of letters, numbers & symbols</div>
-                    <input type="password" id="password" name="password" required>
-                    <div class="password-strength">
-                        <div class="password-strength-bar"></div>
-                    </div>
-                    <div class="error-message">Password must meet the requirements</div>
-                </div>
+    <div class="form-group">
+        <label for="dob">Date of Birth</label>
+        <div class="description">Your Date of Birth</div>
+        <input type="date" id="dob" name="dob" required>
+        <div class="error-message">Please enter your birthdate</div>
+    </div>
 
-                <div class="form-group">
-                    <label for="confirm-password">Confirm Password</label>
-                    <input type="password" id="confirm-password" name="confirm-password" required>
-                    <div class="error-message">Passwords do not match</div>
-                </div>
+    <div class="form-group">
+        <label for="country">Country</label>
+        <div class="description">Current country of your office</div>
+        <input type="text" id="country" name="country" required>
+        <div class="error-message">Please enter your country</div>
+    </div>
 
-                <div class="form-group">
-                    <label for="website">Website (Optional)</label>
-                    <div class="description">Your official website or social media presence</div>
-                    <input type="url" id="website" name="website" placeholder="https://">
-                </div>
+    <div class="form-group">
+        <label for="contactNumber">Contact Number</label>
+        <div class="description">Enter your valid contact number</div>
+        <input type="text" id="contactNumber" name="contactNumber" required>
+        <div class="error-message">Please enter your country</div>
+    </div>
 
-                <div class="form-group">
-                    <label for="description">Publisher Description</label>
-                    <div class="description">Tell readers about your publishing house, specialties, and vision</div>
-                    <textarea id="description" name="description" required 
-                        placeholder="Share your publishing journey, areas of focus, and what makes your publications unique..."></textarea>
-                    <div class="error-message">Please provide a description</div>
-                </div>
+    <div class="form-group">
+        <label for="Address">Office address</label>
+        <div class="description">Enter your head office address</div>
+        <input type="text" id="address" name="address" required>
+        <div class="error-message">Please enter your country</div>
+    </div>
 
-                <a href="/Free-Write/public/Publisher/index"><button type="submit" class="submit-button">Create Publisher Account</button></a>
-            </form>
+    <div class="form-group">
+        <label for="website">Website</label>
+        <div class="description">Enter your website address</div>
+        <input type="text" id="website" name="website" placeholder="https//" required>
+        <div class="error-message">Please enter your country</div>
+    </div>
+
+    <div class="form-group">
+        <label for="officeEmail">Office email account</label>
+        <div class="description">Enter your email address</div>
+        <input type="text" id="officeEmail" name="officeEmail"  required>
+        <div class="error-message">Please enter your country</div>
+    </div>
+
+
+    <input type="hidden" name="logout_after" value="1">
+    <button type="submit" class="submit-button">Update Publisher Account</button>
+    
+</form>
+
         </section>
     </main>
 

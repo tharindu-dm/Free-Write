@@ -51,17 +51,28 @@
         }
 
         .book-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 20px;
-            margin-bottom: 20px;
-        }
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Adjust based on how many books you want per row */
+    gap: 16px; /* Space between the book items */
+}
 
-        .book-grid img {
-            width: 100%;
-            border-radius: 12px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
+.book-item {
+    text-align: center; /* Center the text */
+}
+
+.book-item img {
+    width: 100%; /* Ensure the image fills the container */
+    height: auto;
+    display: block;
+}
+
+.book-title {
+    margin-top: 8px; /* Space between image and title */
+    font-size: 16px; /* Adjust font size */
+    font-weight: bold;
+    color: #333; /* Color for the title */
+}
+
 
         .add-books {
             background-color: #444;
@@ -139,18 +150,64 @@
 
         <section class="library">
             <h2>Library</h2>
-            <div class="book-grid">
-                <a href="/Free-Write/public/PublisherBooks/BookDesign"><img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 1"></a>
-                <a href="link2.html"><img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 2"></a>
-                <a href="link3.html"><img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 3"></a>
-                <a href="link4.html"><img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 4"></a>
-                <a href="link5.html"><img src="/Free-Write/public/images/sampleCover.jpg" alt="Book 5"></a>
+            <!-- <div class="book-grid">
+    <div class="book-item">
+        <a href="/Free-Write/public/Publisher/BookDesign">
+            <img src="/Free-Write/public/images/collectionThumb.jpeg" alt="Book 1">
+            <p class="book-title">Book 1</p>
+        </a>
+    </div>
+    <div class="book-item">
+        <a href="link2.html">
+            <img src="/Free-Write/public/images/collectionThumb.jpeg" alt="Book 2">
+            <p class="book-title">Book 2</p>
+        </a>
+    </div>
+    <div class="book-item">
+        <a href="link3.html">
+            <img src="/Free-Write/public/images/collectionThumb.jpeg" alt="Book 3">
+            <p class="book-title">Book 3</p>
+        </a>
+    </div>
+    <div class="book-item">
+        <a href="link4.html">
+            <img src="/Free-Write/public/images/collectionThumb.jpeg" alt="Book 4">
+            <p class="book-title">Book 4</p>
+        </a>
+    </div>
+    <div class="book-item">
+        <a href="link5.html">
+            <img src="/Free-Write/public/images/collectionThumb.jpeg" alt="Book 5">
+            <p class="book-title">Book 5</p>
+        </a>
+    </div>
+</div> -->
+
+<div class="book-grid">
+    <?php if (!empty($data['bookDetails'])) : ?>
+        <?php foreach (array_slice($data['bookDetails'], 0, 5) as $bookDetails) : ?>
+            <div class="book-item">
+                <a href="/Free-Write/public/Publisher/bookProfile4Publishers/<?php echo $bookDetails['isbnID']; ?>">
+                    <img src="/Free-Write/public/images/collectionThumb.jpeg" 
+                         alt="<?php echo htmlspecialchars($bookDetails['title'] ?? ''); ?>">
+                    <p class="book-title"><?php echo htmlspecialchars($bookDetails['title'] ?? ''); ?></p>
+                </a>
             </div>
+        <?php endforeach; ?>
+    <?php else : ?>
+        <p>No books available.</p>
+    <?php endif; ?>
+</div>
+
+
+
             <div class="publisher-profile-btn">
-                <a href="/Free-Write/public/PublisherBooks/AddBook
+                <a href="/Free-Write/public/Publisher/AddBook
                 "><button class="add-books">Add Books To Library</button></a>
                 <a href="/Free-Write/public/Competition/MyCompetitions"><button class="add-books">Manage My
                         Competitions</button></a>
+                        <a href="/Free-Write/public/Publisher/courier"><button class="add-books">Manage My
+                        Couriers</button></a>
             </div>
         </section>
 

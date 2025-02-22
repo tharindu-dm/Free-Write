@@ -256,7 +256,7 @@
     </div>
 
     <div class="tabs">
-      <a href="/Free-Write/public/Competition/">All</a>
+      <a href="/Free-Write/public/Competition/MyCompetitions">All</a>
       <a href="/Free-Write/public/Competition/Active">Active</a>
       <a href="/Free-Write/public/Competition/Completed" class="active">Completed</a>
     </div>
@@ -265,31 +265,48 @@
       <table>
         <thead>
           <tr>
-            <th>Competition</th>
+           <th>Competition</th>
             <th>Status</th>
             <th>Start Date</th>
             <th>End Date</th>
+            <th>Category</th>
+            <th>prize</th>
             <th>Participants</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td><a href="#">Kaggle Days - Paris</a></td>
-            <td><span class="status-badge">Completed</span></td>
-            <td>3/14/2022</td>
-            <td>4/6/2022</td>
-            <td>8,000</td>
-            <td><a href="#" class="action-link">Manage</a></td>
-          </tr>
-          <tr>
-            <td><a href="#">Kaggle Days - Paris</a></td>
-            <td><span class="status-badge">Completed</span></td>
-            <td>3/14/2022</td>
-            <td>4/6/2022</td>
-            <td>8,000</td>
-            <td><a href="#" class="action-link">Manage</a></td>
-          </tr>
+          <?php if (!empty($data['completedCompetition_details'])): ?>
+
+            <?php foreach ($data['completedCompetition_details'] as $completedCompetition): ?>
+              <tr>
+                <td>
+                  <a href="/Free-Write/public/Competition/Profile/<?php echo $completedCompetition['competitionID']; ?>">
+                    <?php echo htmlspecialchars($completedCompetition['title']); ?>
+                  </a>
+                </td>
+                <td>
+                  <span class="status-badge <?= strtotime($completedCompetition['end_date']) < time() ? 'ended' : 'active' ?>">
+                    <?= strtotime($completedCompetition['end_date']) < time() ? 'Ended' : 'Active' ?>
+                  </span>
+                </td>
+
+                <td><?php echo date('m/d/Y', strtotime($completedCompetition['start_date'])); ?></td>
+                <td><?php echo date('m/d/Y', strtotime($completedCompetition['end_date'])); ?></td>
+                <td><?php echo htmlspecialchars($completedCompetition['category'] ?? ''); ?></td>
+                <td><?php echo '$' . number_format($completedCompetition['first_prize'], 2); ?></td>
+                <td>0</td>
+                <td>
+                  <a href="/Free-Write/public/Competition/Manage/<?php echo $completedCompetition['competitionID']; ?>"
+                    class="action-link">Manage</a>
+                </td>
+              </tr>
+            <?php endforeach; ?>
+          <?php else: ?>
+            <tr>
+              <td colspan="8" style="text-align: center;">No competitions found</td>
+            </tr>
+          <?php endif; ?>
         </tbody>
       </table>
     </div>

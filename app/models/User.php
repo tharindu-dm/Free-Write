@@ -55,6 +55,16 @@ class User
         return $this->query($query);
     }
 
+
+    public function updateToPub($userType, $user_id) {
+        $data = [
+            
+            'userType' => $userType
+        ];
+        return $this->update($user_id, $data, 'userID');
+    }
+    
+
     public function getUserByName($name)
     {
         $query = "SELECT u.* FROM [dbo].[User] u
@@ -69,5 +79,6 @@ class User
 
         return $this->query($query);
     }
+
 
 }
