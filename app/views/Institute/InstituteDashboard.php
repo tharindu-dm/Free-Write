@@ -37,20 +37,7 @@
     ?>
 
     <div class="dashboard-container">
-        <aside class="sidebar">
-            <div class="institution-info">
-                <div class="institution-icon"></div>
-                <div>
-                    <h3><?= htmlspecialchars($instDetails['name']) ?></h3>
-                </div>
-            </div>
-            <nav class="menu">
-                <div class="menu-item active"><a href="/Free-Write/public/Institute/Dashboard">Dashboard</a></div>
-                <div class="menu-item"><a href="/Free-Write/public/Institute/Library">Library</a></div>
-                <div class="menu-item"><a href="/Free-Write/public/Institute/PurchasePackage">Packages</a></div>
-                <div class="menu-item"><a href="/Free-Write/public/Institute/ManageUser">User Management</a></div>
-            </nav>
-        </aside>
+        <?php include_once "../app/views/Institute/sidebar.php"; ?>
         <main class="main-content">
             <header class="header">
                 <h1>Welcome to Freewrite,  </h1>
