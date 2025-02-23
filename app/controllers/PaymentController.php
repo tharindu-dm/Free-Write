@@ -33,7 +33,14 @@ class PaymentController extends Controller
             'Total' => $bookDetails[0]['price']
         ];
 
-        $this->view('paymentPage', ['type' => "Book", 'orderInfo' => $orderDetails]);
+        $this->view(
+            'paymentPage',
+            [
+                'type' => "Book",
+                'orderInfo' => $orderDetails,
+                'itemID' => $bookID
+            ]
+        );
     }
 
     public function buy_Book()
@@ -44,19 +51,18 @@ class PaymentController extends Controller
         $userID = $_SESSION['user_id'];
         $bookID = $_POST['itemID'];
 
-        if ($_POST['saveCard'] == 'yes') {
-            $card = new CardDetails();
-
-            $cardData = [
-                "user" => $userID,
-                "card_number" => $_POST['cardNumber'],
-                "type" => $_POST['cardType'],
-                "host" => $_POST['cardHost'],
-                "exp_month" => $_POST['expMonth'],
-                "exp_year" => $_POST['expYear'],
-            ];
-            $card->insert($cardData);
-        }
+        //if ($_POST['saveCard'] == 'yes') {
+        //    $card = new CardDetails();
+        //    $cardData = [
+        //        "user" => $userID,
+        //        "card_number" => $_POST['cardNumber'],
+        //        "type" => $_POST['cardType'],
+        //        "host" => $_POST['cardHost'],
+        //        "exp_month" => $_POST['expMonth'],
+        //        "exp_year" => $_POST['expYear'],
+        //    ];
+        //    $card->insert($cardData);
+        //}
 
         $buybook = new BuyBook();
         $buyBookDetails = [
@@ -89,12 +95,12 @@ class PaymentController extends Controller
         switch ($type) {
             case 'reader':
                 $orderDetails = ['Item' => "Premium Reader Account", 'Quantity' => 1, 'Price' => 899, 'Total' => 899];
-                $this->view('paymentPage', ['type' => "premium_reader", 'orderInfo' => $orderDetails]);
+                $this->view('paymentPage', ['type' => "premium_user", 'orderInfo' => $orderDetails]);
 
                 break;
             case 'writer':
                 $orderDetails = ['Item' => "Premium Writer Account", 'Quantity' => 1, 'Price' => 1199, 'Total' => 1199];
-                $this->view('paymentPage', ['type' => "premium_writer", 'orderInfo' => $orderDetails]);
+                $this->view('paymentPage', ['type' => "premium_user", 'orderInfo' => $orderDetails]);
                 break;
             default:
                 header('location:/Free-Write/public/Error404');
@@ -113,14 +119,15 @@ class PaymentController extends Controller
 
         header('location:/Free-Write/public/User/Profile');
     }
-    public function buy_premium_reader()
+    public function buy_premium_user()
     {
+        if (!$this->loggedUserExists())
+            header('location:/Free-Write/public/Login');
+
+        $userID = $_SESSION['user_id'];
+        $user = new User();
+
+        $user->update($userID, ['isPremium' => 1], 'userID');
         $this->makePremium();
     }
-
-    public function buy_premium_writer()
-    {
-        $this->makePremium();
-    }
-
 }

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Moderator Panel - User Management</title>
+    <title>Moderator Panel - Courier Management</title>
     <link rel="stylesheet" href="/Free-Write/public/css/modUserManagement.css">
     <link rel="stylesheet" href="/Free-Write/public/css/admin.css">
 
@@ -35,7 +35,7 @@
         <?php require_once "../app/views/layout/admin_aside_nav.php"; ?>
         <div class="container">
             <div class="mod-user-header">
-                <h2>Institute Management</h2>
+                <h2>Courier Management</h2>
                 <div class="mod-user-header-info">
                     <div><span id="currentDate"><?= htmlspecialchars(date('D M j, Y')) ?></span></div>
                     <div><span id="currentTime"><?= htmlspecialchars(date('H:i:s')) ?></span>&nbsp;UTC</div>
@@ -66,17 +66,17 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Institute ID</th>
+                        <th>UserID</th>
                         <th>Email</th>
-                        <th>Type</th>
+                        <th>User Type</th>
                         <th>Premium</th>
                         <th>Activated</th>
                         <th>Login Attempts</th>
-                        <th>Select Institute</th>
+                        <th>Select User</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($insts as $user): ?>
+                    <?php foreach ($data['users'] as $user): ?>
                         <tr>
                             <td><?= $user['userID'] ?></td>
                             <td><?= $user['email'] ?></td>
@@ -97,12 +97,12 @@
 
             <!-- User details form -->
             <div class="user-details-form">
-                <h3>Institute Details</h3>
+                <h3>User Details</h3>
                 <form id="userDetailsForm">
                     <!-- Row 1: User ID and Email -->
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="userId">Institute ID</label>
+                            <label for="userId">User ID</label>
                             <input type="text" id="userId" name="userId" <?php
                             if (isset($userDetails)) {
                                 echo 'value="' . htmlspecialchars($userDetails[0]['user']) . '"';
@@ -131,7 +131,7 @@
                             ?>>
                         </div>
                         <div class="form-group">
-                            <label for="userType">Type</label>
+                            <label for="userType">User Type</label>
                             <select id="userType" name="userType" required>
                                 <option value="" <?php echo !isset($userDetails) ? 'selected' : ''; ?>>Select
                                     Type</option>

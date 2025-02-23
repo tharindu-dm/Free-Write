@@ -20,6 +20,7 @@
         $userType = 'guest';
     }
     switch ($userType) {
+        case 'admin':
         case 'mod':
             require_once "../app/views/layout/header-user.php";
             break;
@@ -139,6 +140,9 @@
                                 <option value="covdes" <?php echo (isset($userDetails) && $users[0]['userType'] == 'covdes') ? 'selected' : ''; ?>>Cover Page Designer</option>
                                 <option value="wricov" <?php echo (isset($userDetails) && $users[0]['userType'] == 'wricov') ? 'selected' : ''; ?>>Writer and Cover Page
                                     Designer</option>
+                                <?php if ($_SESSION['user_type'] == 'admin'): ?>
+                                    <option value="mod" <?php echo (isset($userDetails) && $users[0]['userType'] == 'mod') ? 'selected' : ''; ?>>Moderator</option>
+                                <?php endif; ?>
                             </select>
                         </div>
                     </div>

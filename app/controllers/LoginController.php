@@ -190,7 +190,7 @@ class LoginController extends Controller
 
                 switch ($userData['userType']) {
                     case 'admin':
-                        $response['redirect'] = '/Free-Write/public/Admin/Dashboard';
+                        $response['redirect'] = '/Free-Write/public/Mod/Dashboard';
                         break;
                     case 'mod':
                         $this->modLogUpdate();

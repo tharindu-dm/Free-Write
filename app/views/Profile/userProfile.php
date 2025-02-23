@@ -31,7 +31,6 @@
         default:
             require_once "../app/views/layout/header.php";
     }
-
     //show($data);
     ?>
 
@@ -164,7 +163,7 @@
                     <?php endif; ?>
                 </div>
             </div>
-           
+
             <div class="user-profile-content">
                 <div id="dashboard" class="view-section active">
                     <h2>Dashboard</h2>

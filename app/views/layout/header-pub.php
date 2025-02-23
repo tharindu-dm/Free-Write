@@ -9,6 +9,13 @@ require_once "../app/controllers/UserController.php"; //since this "navigation b
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/Free-Write/public/css/header.css">
+    <title>
+        <?php
+        $URL = splitURL();
+        $page = $URL[0] . " " . splitCamelCase($URL[1])[1];
+        echo htmlspecialchars($page);
+        ?>
+    </title>
 </head>
 
 <body>
@@ -26,7 +33,7 @@ require_once "../app/controllers/UserController.php"; //since this "navigation b
                     <div class="nav-button">
                         <a href="/Free-Write/public/Publisher/">Publishers</a>
                     </div>
-                    
+
                     <div class="nav-button">
                         <a href="/Free-Write/public/Competition/">Competitions</a>
                     </div>
@@ -40,23 +47,34 @@ require_once "../app/controllers/UserController.php"; //since this "navigation b
                 <div class="action-button-container">
                     <div class="premium-notification-container">
                         <div class="notification-button">
-                            <a href="/Free-Write/public/Notifications">
-                                <button class="notification-btn">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="size-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
-                                    </svg>
-
-                                    <span class="notification-badge">3</span>
-                                </button>
-                            </a>
+                            <button class="notification-btn" id="notification-toggle">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+                                </svg>
+                                <span id="notification-badge" class="notification-badge">
+                                    <?= htmlspecialchars(sizeof(getUnreadNotifications($_SESSION['user_id']))) ?>
+                                </span>
+                            </button>
+                            <!-- Notification Overlay -->
+                            <div id="notification-overlay" class="notification-overlay">
+                                <div class="overlay-header">
+                                    <h3>Notifications</h3>
+                                    <div class="overlay-buttons">
+                                        <button id="view-all-btn">View All</button>
+                                        <button id="mark-all-read-btn">Mark All as Read</button>
+                                    </div>
+                                </div>
+                                <div id="notification-list" class="notification-list"></div>
+                            </div>
                         </div>
                     </div>
                     <div class="action-button">
                         <a href="/Free-Write/public/User/Profile">
                             <div class="profile-btn">
-                                <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="Profile"> Profile
+                                <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>"
+                                    alt="Profile"> Profile
                             </div>
                         </a>
                     </div>
@@ -76,6 +94,38 @@ require_once "../app/controllers/UserController.php"; //since this "navigation b
             </div>
         </nav>
     </header>
+
+    <!--SCRIPTS 
+    <script>
+        // Function to fetch and update notification count
+        function updateNotificationCount() {
+            fetch('/Free-Write/public/fetch_notifications.php')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.text(); // Get raw text first
+                })
+                .then(text => {
+                    console.log('Raw response:', text); // Log raw response for debugging
+                    const data = JSON.parse(text); // Parse it as JSON
+                    const badge = document.getElementById('notification-badge');
+                    if (badge) {
+                        badge.textContent = data.unread_count;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching notifications:', error);
+                    console.log('Raw response causing error:', text); // Log raw text if defined
+                });
+        }
+
+        // Initial call
+        updateNotificationCount();
+        setInterval(updateNotificationCount, 5000);
+    </script>-->
+
+    <script src="/Free-Write/public/js/notification.js"></script>
 </body>
 
 </html>

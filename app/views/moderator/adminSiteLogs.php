@@ -18,6 +18,7 @@
         $userType = 'guest';
     }
     switch ($userType) {
+        case 'admin':
         case 'mod':
             require_once "../app/views/layout/header-user.php";
             break;

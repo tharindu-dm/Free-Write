@@ -21,6 +21,60 @@ class ModController extends Controller
         $this->view('moderator/adminDashboard', $data);
     }
 
+    public function sendAnnouncement()
+    {
+        $notification = new Notification();
+
+        // Validate subject length (max 45 characters)
+        $subject = trim($_POST['subject'] ?? '');
+        if (strlen($subject) > 45) {
+            die("Error: Subject must be 45 characters or less.");
+        }
+
+        $description = trim($_POST['description'] ?? '');
+        $datetime = date('Y-m-d H:i:s');
+
+        // Ensure roles are received properly
+        if (!isset($_POST['roles']) || !is_array($_POST['roles'])) {
+            die("Error: No roles selected.");
+        }
+
+        $roles = $_POST['roles'];
+
+        // Allowed roles
+        $validRoles = ['mod', 'reader', 'writer', 'covdes', 'inst', 'pub', 'courier'];
+
+        // Validate roles and filter out invalid ones
+        $filteredRoles = array_intersect($roles, $validRoles);
+
+        // If both writer & covdes exist, ensure wricov is added
+        if (in_array('writer', $filteredRoles) && in_array('covdes', $filteredRoles)) {
+            $filteredRoles[] = 'wricov';
+        }
+
+        // Convert array to comma-separated string
+        $userTypes = implode(',', array_unique($filteredRoles));
+
+        if (empty($userTypes)) {
+            die("Error: No valid roles selected.");
+        }
+
+        $notify_data = [
+            'subject' => $subject,
+            'message' => $description,
+            'sentDate' => $datetime,
+            'userTypes' => $userTypes
+        ];
+
+        // Insert into database
+        $notification->insert($notify_data);
+
+        header('location: /Free-Write/public/Mod/Dashboard');
+
+        // Relevant users will be notified by a database trigger
+    }
+
+
     public function viewTable()
     {
         $modlog = new ModLog();
@@ -244,7 +298,7 @@ class ModController extends Controller
                 'isPremium' => $_POST['premium'],
                 'isActivated' => $_POST['activated']
             ], 'userID');
-            
+
             $userDetails->update($userId, [
                 'firstName' => $_POST['firstName'],
                 'lastName' => $_POST['lastName'],
@@ -280,8 +334,11 @@ class ModController extends Controller
     //INSTIUTION MANAGEMENT
     public function Institutes()
     {
+        $userTable = new User();
+        $insts = $userTable->where(['userType' => 'inst']);
+
         //query details
-        $this->view('moderator/modInstituteManagement');
+        $this->view('moderator/modInstituteManagement', ['insts' => $insts]);
     }
 
     //REPORT HANDLING
@@ -352,5 +409,25 @@ class ModController extends Controller
 
         header('location: /Free-Write/public/Mod/Reports');
         exit();
+    }
+
+    //COURIER DETAILS
+    public function AddCourier()//visit page
+    {
+
+        $userTable = new User();
+        $users = $userTable->where(['userType' => 'Courier']);
+
+        $this->view('moderator/modAddCourier', ['users' => $users]);
+    }
+
+    //MOD DETAILS (ADMIN ONLY)
+    public function AddMod()//visit page
+    {
+
+        $userTable = new User();
+        $users = $userTable->where(['userType' => 'mod']);
+
+        $this->view('moderator/modAddMod', ['users' => $users]);
     }
 }
