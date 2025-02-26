@@ -43,18 +43,18 @@ function updateNotificationCount() {
 }
 
 // Toggle overlay visibility
-const toggleBtn = document.getElementById('notification-toggle');
-const overlay = document.getElementById('notification-overlay');
-if (toggleBtn && overlay) {
-    toggleBtn.addEventListener('click', (e) => {
+const Notification_toggleBtn = document.getElementById('notification-toggle');
+const Notification_overlay = document.getElementById('notification-overlay');
+if (Notification_toggleBtn && Notification_overlay) {
+    Notification_toggleBtn.addEventListener('click', (e) => {
         e.stopPropagation(); // Prevent event bubbling
-        overlay.style.display = overlay.style.display === 'block' ? 'none' : 'block';
+        Notification_overlay.style.display = Notification_overlay.style.display === 'block' ? 'none' : 'block';
     });
 
     // Close overlay when clicking outside
     document.addEventListener('click', (e) => {
-        if (!overlay.contains(e.target) && e.target !== toggleBtn) {
-            overlay.style.display = 'none';
+        if (!Notification_overlay.contains(e.target) && e.target !== Notification_toggleBtn) {
+            Notification_overlay.style.display = 'none';
         }
     });
 }
@@ -67,7 +67,7 @@ document.getElementById('view-all-btn').addEventListener('click', () => {
 // Mark All as Read (placeholder)
 document.getElementById('mark-all-read-btn').addEventListener('click', () => {
     alert('Mark all as read functionality to be implemented');
-    // Add AJAX call here later
+    // Add AJAX call here
 });
 
 // Initial call and interval

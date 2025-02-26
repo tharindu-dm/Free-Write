@@ -30,6 +30,8 @@
         default:
             require_once "../app/views/layout/header.php";
     }
+
+    //show($data);
     ?>
 
     <!-- Page Title -->
@@ -55,7 +57,7 @@
 
                 <!-- Book Categories -->
                 <section class="book-category">
-                    <h2>Freewrite Originals For You</h2>
+                    <h2>Hot Freewrite Originals</h2>
                     <div class="book-grid">
 
                         <?php if (!empty($FWObooks) && is_array($FWObooks)): ?>
@@ -91,16 +93,16 @@
                         <?php if (!empty($paidBooks) && is_array($paidBooks)): ?>
                             <?php foreach ($paidBooks as $pbook): ?>
                                 <a href="/Free-Write/public/book/Overview/<?= htmlspecialchars($pbook['bookID']); ?>">
-                                <div class="book-card">
-                                    <img src="../app/images/coverDesign/<?= htmlspecialchars($pbook['cover_image'] ?? 'sampleCover.jpg'); ?>"
-                                        alt="Cover Image of <?= htmlspecialchars($pbook['title']); ?>">
-                                    <h3>
-                                        <?= strlen($pbook['title']) > 20 ? htmlspecialchars(substr($pbook['title'], 0, 17)) . '...' : htmlspecialchars($pbook['title']); ?>
-                                    </h3>
-                                    <p> <?= htmlspecialchars($pbook['author']); ?></p>
-                                    <h4><?= $pbook['price'] === null ? 'FREE' : 'LKR ' . number_format($pbook['price'], 2); ?>
-                                    </h4>
-                                </div>
+                                    <div class="book-card">
+                                        <img src="../app/images/coverDesign/<?= htmlspecialchars($pbook['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                                            alt="Cover Image of <?= htmlspecialchars($pbook['title']); ?>">
+                                        <h3>
+                                            <?= strlen($pbook['title']) > 20 ? htmlspecialchars(substr($pbook['title'], 0, 17)) . '...' : htmlspecialchars($pbook['title']); ?>
+                                        </h3>
+                                        <p> <?= htmlspecialchars($pbook['author']); ?></p>
+                                        <h4><?= $pbook['price'] === null ? 'FREE' : 'LKR ' . number_format($pbook['price'], 2); ?>
+                                        </h4>
+                                    </div>
                                 </a>
                             <?php endforeach; ?>
 
@@ -110,27 +112,43 @@
                     </div>
                 </section>
 
-                <section class="book-category">
-                    <h2>Who Will Be Left Standing?</h2>
-                    <div class="book-grid">
-                        <div class="book-card">
-                            <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Heartless">
-                            <h3>Heartless</h3>
-                            <p>Romance</p>
-                        </div>
-                        <div class="book-card">
-                            <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="GroundBound">
-                            <h3>GroundBound</h3>
-                            <p>Horror</p>
-                        </div>
-                        <div class="book-card">
-                            <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Comatose">
-                            <h3>Comatose</h3>
-                            <p>Psychology</p>
-                        </div>
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <?php if (!empty($likeBooks) && is_array($likeBooks)): ?>
+                        <?php foreach ($likeBooks as $genreName => $books): ?>
+                            <section class="book-category">
+                                <h2>Books you might like in <?= htmlspecialchars($genreName); ?></h2>
+                                <div class="book-grid">
+                                    <?php if (!empty($books) && is_array($books)): ?>
+                                        <?php foreach ($books as $book): ?>
+                                            <a href="/Free-Write/public/book/Overview/<?= htmlspecialchars($book['bookID']); ?>">
+                                                <div class="book-card">
+                                                    <img src="../app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                                                        alt="Cover Image of <?= htmlspecialchars($book['title']); ?>">
+                                                    <h3>
+                                                        <?= strlen($book['title']) > 20 ? htmlspecialchars(substr($book['title'], 0, 17)) . '...' : htmlspecialchars($book['title']); ?>
+                                                    </h3>
+                                                    <p> <?= htmlspecialchars($book['author']); ?></p>
+                                                    <h4><?= $book['price'] === null ? 'FREE' : 'LKR ' . number_format($book['price'], 2); ?>
+                                                    </h4>
+                                                </div>
+                                            </a>
+                                        <?php endforeach; ?>
 
-                    </div>
-                </section>
+                                    <?php else: ?>
+                                        <p>No books available.</p>
+                                    <?php endif; ?>
+                                </div>
+                            </section>
+                        <?php endforeach; ?>
+
+                    <?php else: ?>
+                        <div class="noBooksForGenres">
+                            <p>No books here?<br />Ahh we don't know your book taste yet...</p><br />
+                            <p>Read some books and maintain your booklist right at Free-Write</p>
+                            <p>we will recommend your next masterpiece to read...</p>
+                        </div>
+                    <?php endif; ?>
+                <?php endif; ?>
             </section>
         </main>
 

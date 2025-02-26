@@ -9,6 +9,7 @@ class BookGenre
     public function getGenreFrequency($userID)
     {
         $query = "SELECT 
+                    g.[genreID],
                     g.[name] AS genre_name,
 
                     CAST(COUNT(bg.[genre]) AS FLOAT) / (SELECT COUNT(*) FROM [dbo].[BookList] bl WHERE bl.[user] = $userID) * 100 AS percentage
@@ -16,11 +17,11 @@ class BookGenre
                     FROM [dbo].[BookGenre] bg
                     INNER JOIN [dbo].[Genre] g ON bg.[genre] = g.[genreID]
                     WHERE bg.[book] IN (
-                    SELECT bl.[book]
-                    FROM [dbo].[BookList] bl
-                    WHERE bl.[user] = $userID
-                    )
-                    GROUP BY g.[name]
+                                        SELECT bl.[book]
+                                        FROM [dbo].[BookList] bl
+                                        WHERE bl.[user] = $userID
+                                    )
+                    GROUP BY g.[genreID], g.[name]
                     ORDER BY percentage DESC;";
 
         return $this->query($query);
