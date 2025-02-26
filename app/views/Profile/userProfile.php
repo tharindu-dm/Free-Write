@@ -338,14 +338,17 @@
                     <div class="my-book-collections">
                         <div class="book-collection-heading">
                             <h3>My Book Collections</h3>
-                            <button class="edit-profile-btn" id="createCollectionBtn">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 12"
-                                    stroke-width="0.5" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M6 2.25v7.5m3.75-3.75h-7.5" />
-                                </svg>
-                                New Collection
-                            </button>
+
+                            <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $userAccount['userID']): ?>
+                                <button class="edit-profile-btn" id="createCollectionBtn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 12"
+                                        stroke-width="0.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M6 2.25v7.5m3.75-3.75h-7.5" />
+                                    </svg>
+                                    New Collection
+                                </button>
+                            <?php endif; ?>
                         </div>
                         <div class="collections-grid">
                             <!-- Collection items will be dynamically populated -->

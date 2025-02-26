@@ -140,6 +140,7 @@
                                 <option value="covdes" <?php echo (isset($userDetails) && $users[0]['userType'] == 'covdes') ? 'selected' : ''; ?>>Cover Page Designer</option>
                                 <option value="wricov" <?php echo (isset($userDetails) && $users[0]['userType'] == 'wricov') ? 'selected' : ''; ?>>Writer and Cover Page
                                     Designer</option>
+                                <option value="courier" <?php echo (isset($userDetails) && $users[0]['userType'] == 'courier') ? 'selected' : ''; ?>>Courier</option>
                                 <?php if ($_SESSION['user_type'] == 'admin'): ?>
                                     <option value="mod" <?php echo (isset($userDetails) && $users[0]['userType'] == 'mod') ? 'selected' : ''; ?>>Moderator</option>
                                 <?php endif; ?>

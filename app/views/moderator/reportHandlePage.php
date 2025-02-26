@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Moderator Report Management</title>
+    <title>Report Management</title>
     <link rel="stylesheet" href="/Free-Write/public/css/reportHandlePage.css">
     <link rel="stylesheet" href="/Free-Write/public/css/admin.css">
 
@@ -62,34 +62,41 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($data['reports'] as $report): ?>
-                            <tr onclick="showReportDetails(this)">
-                                <td><?= $report['reportID'] ?></td>
-                                <td><?= $report['email'] ?></td>
-                                <td><?= $report['type'] ?></td>
-                                <td><?= $report['description'] ?></td>
-                                <td><?= $report['submitTime'] ?></td>
-                                <td><?= $report['status'] ?></td>
-                                <td><?= $report['handler'] ?? 'None' ?></td>
-                                <td>
-                                    <?php
-                                    $modResponse = $report['modResponse'] ?? '';
-                                    // Display truncated version in the table
-                                    echo ($modResponse) ? 'Available' : 'None';
-                                    ?>
-                                    <span style="display:none;"><?= htmlspecialchars($modResponse) ?></span>
-                                </td>
+                        <?php if (!empty($data['reports'])): ?>
+                            <?php foreach ($data['reports'] as $report): ?>
+                                <tr onclick="showReportDetails(this)">
+                                    <td><?= $report['reportID'] ?></td>
+                                    <td><?= $report['email'] ?></td>
+                                    <td><?= $report['type'] ?></td>
+                                    <td><?= $report['description'] ?></td>
+                                    <td><?= $report['submitTime'] ?></td>
+                                    <td><?= $report['status'] ?></td>
+                                    <td><?= $report['handler'] ?? 'None' ?></td>
+                                    <td>
+                                        <?php
+                                        $modResponse = $report['modResponse'] ?? '';
+                                        // Display truncated version in the table
+                                        echo ($modResponse) ? 'Available' : 'None';
+                                        ?>
+                                        <span style="display:none;"><?= htmlspecialchars($modResponse) ?></span>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="8">No reports found</td>
                             </tr>
-                        <?php endforeach; ?>
+                        <?php endif; ?>
                     </tbody>
                 </table>
+                <!--
                 <div class="pagination">
                     <button>1</button>
                     <button class="active">2</button>
                     <button>3</button>
                     <button>4</button>
                     <button>5</button>
-                </div>
+                </div>-->
             </div>
             <form action="/Free-Write/public/Mod/HandleReport" method="post">
                 <div class="detail-sections">

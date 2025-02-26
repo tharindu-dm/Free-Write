@@ -109,6 +109,17 @@ class BookController extends Controller
         $userID = $_SESSION['user_id'];
         $ratingValue = $_POST['rating'];
 
+        //validations (is int?)
+        if (
+            (!is_numeric($ratingValue) 
+            || $ratingValue < 1 
+            || $ratingValue > 10) 
+            && !is_numeric($bookID) 
+            && !is_numeric($userID)) {
+            header('Location: /Free-Write/public/Book/Overview/' . $bookID);
+            return;
+        }
+
         $rating_exists = $rating->where(['book' => $bookID, 'user' => $userID]);
 
         if ($rating_exists) {

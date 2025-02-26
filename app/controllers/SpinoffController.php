@@ -32,6 +32,18 @@ class SpinoffController extends Controller
         $user = $_SESSION['user_id'];
         $datetime = date('Y-m-d H:i:s');
 
+        //validations
+        if (
+            (empty($title) || strlen($title) > 45 || strlen($title) < 1)
+            || (empty($synopsis) || strlen($synopsis) > 255 || strlen($synopsis) < 1)
+            || (empty($bookID) || $bookID < 1)
+            || (empty($access) || strlen($title) > 45 || strlen($title) < 1)
+            || (empty($chapter) || $chapter > 1)
+        ) {
+            header('location: /Free-Write/public/Spinoff/New/' . $bookID);
+            return;
+        }
+
         $spinoff->insert(['title' => $title, 'synopsis' => $synopsis, 'creator' => $user, 'fromBook' => $bookID, 'accessType' => $access, 'startingChapter' => $chapter, 'isAcknowledge' => 0, 'lastUpdated' => $datetime]);
 
         header('location: /Free-Write/public/Book/Overview/' . $bookID);
@@ -192,6 +204,6 @@ class SpinoffController extends Controller
         $spinoff->delete($spinoffID, 'spinoffID');
 
         header('location: /Free-Write/public/Spinoff/Overview/' . $spinoffID);
-        
+
     }
 }

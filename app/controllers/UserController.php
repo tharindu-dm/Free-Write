@@ -274,9 +274,9 @@ class UserController extends Controller
         // If validation passes, proceed to insert the collection
         $collection = new Collection();
         $data = [
-            'title' => $_POST['title'],
+            'title' => $_POST['title'] ?? "Untitled Collection",
             'user' => $_SESSION['user_id'],
-            'description' => $_POST['Collect_description'],
+            'description' => $_POST['Collect_description'] ?? "None Provided",
             'isPublic' => $_POST['visibility'],
         ];
 
