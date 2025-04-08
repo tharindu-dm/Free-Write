@@ -48,11 +48,11 @@ class CollectionController extends Controller
         $collectionID = $_POST['id'];
         $collection = new Collection();
 
-        $title = $_POST['collectionTitle'];
-        $description = $_POST['collectionDescription'];
-        $isPublic = $_POST['collectionStatus'];
+        $title = $_POST['collectionTitle'] ?? null;
+        $description = $_POST['collectionDescription'] ?? null;
+        $isPublic = $_POST['collectionStatus'] ?? null;
 
-        if (sizeof($title) > 45 || sizeof($description) > 255) { //checking for max length - if exceeded, redirect back to collection
+        if (strlen($title) > 45 || strlen($description) > 255) { //checking for max length - if exceeded, redirect back to collection
             header('Location: /Free-Write/public/Collection/viewCollection/' . $collectionID);
             return;
         }

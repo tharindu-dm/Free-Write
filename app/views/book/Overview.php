@@ -147,8 +147,10 @@
                                 </a>
                             <?php endif; ?>
                         </div>
-                        <button id="btn-create-spinoff" class="read-button">Create A Spinoff
-                        </button>
+                        <?php if ($book[0]['price'] === null || $bought): ?>
+                            <button id="btn-create-spinoff" class="read-button">Create A Spinoff
+                            </button>
+                        <?php endif; ?>
                     </div>
 
                     <div class="add-to-list">

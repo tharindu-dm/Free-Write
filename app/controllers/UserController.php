@@ -13,6 +13,11 @@ class UserController extends Controller
 
     public function Profile()
     {
+        /*
+         * this function handles interactions in user;s profile page.
+         * there are two rendereing instances as logged user and other user account.
+         * depending on that values retrieved will be different - dynamic reusing
+         */
 
         if (isset($_SESSION['user_id']))
             if (isset($_GET['user']) && $_GET['user'] == $_SESSION['user_id'])
@@ -35,7 +40,7 @@ class UserController extends Controller
 
         $userDetails = $userDetailsTable->first(['user' => $uid]);//getUserDetails($uid);
         $list = $Booklist->getBookListCount($uid);
-        $userAcc = $user->first(['userID' => $uid]);
+        $userAcc = $user->first(['userID' => $uid, 'isActivated' => 1]);
         $myspinoffs = $spinoff->getUserSpinoff($uid);
         $myfollowers = $follow->getFollowCount($uid);
         $myboughtBooks = $BuyBook->getBoughtBooks($uid);
@@ -49,27 +54,36 @@ class UserController extends Controller
         $followingList = $follow->getUserDetails(['FollowerID' => $uid]);
         $followedByList = $follow->getUserDetails(['FollowedID' => $uid]);
 
-        $this->view(
-            'Profile/userProfile',
-            [
-                'userAccount' => $userAcc,
-                'userDetails' => $userDetails,
-                'listCounts' => $list,
-                'spinoffs' => $myspinoffs,
-                'follows' => $myfollowers,
-                'isFollowing' => $isFollowing,
-                'followingList' => $followingList,
-                'followedByList' => $followedByList,
-                'purchasedBooks' => $myboughtBooks,
-                'genreFrequency' => $genreFrequency,
-                'collections' => $getUserCollections,
-                'bookDetails' => $bookDetails
-            ]
-        );
+        if ($userAcc != null){
+            $this->view(
+                'Profile/userProfile',
+                [
+                    'userAccount' => $userAcc,
+                    'userDetails' => $userDetails,
+                    'listCounts' => $list,
+                    'spinoffs' => $myspinoffs,
+                    'follows' => $myfollowers,
+                    'isFollowing' => $isFollowing,
+                    'followingList' => $followingList,
+                    'followedByList' => $followedByList,
+                    'purchasedBooks' => $myboughtBooks,
+                    'genreFrequency' => $genreFrequency,
+                    'collections' => $getUserCollections,
+                    'bookDetails' => $bookDetails
+                ]
+            );}
+        else{
+            header('Location: /Free-Write/public/Error'); // works for not showing deleted accounts or invalid accounts
+        }
+
     }
 
     public function editProfile()
     {
+        /**
+         * At account creation details like birthday and country will not be asked and user can edit their profile to set these parameters and their own bio if deemed necessary.
+         */
+
         $uid = $_SESSION['user_id'];
         $user = new User();
         $userDetailsTable = new UserDetails();
@@ -138,7 +152,7 @@ class UserController extends Controller
             $newFileName = "PROFILE_{$uid}_{$dateTime}.{$fileExtension}";
 
             // Define the target directory
-            $targetDirectory = 'D:/XAMPP/htdocs/Free-Write/app/images/profile/';
+            $targetDirectory = 'C:/xampp/htdocs/Free-Write/app/images/profile/';
 
             // Move the uploaded file to the target directory with the new name
             if (move_uploaded_file($profileImage['tmp_name'], $targetDirectory . $newFileName)) {
