@@ -42,7 +42,8 @@
             <ul id="chapterMenu">
                 <?php foreach ($chapterList as $chapter): ?>
                     <li>
-                        <a href="/Free-Write/public/<?= ($chapterDetails['type']=='book')?'Book':'Spinoff'?>/Chapter/<?= $chapter['chapterID']; ?>"><?= htmlspecialchars($chapter['title']); ?></a>
+                        <a
+                            href="/Free-Write/public/<?= ($chapterDetails['type'] == 'book') ? 'Book' : 'Spinoff' ?>/Chapter/<?= $chapter['chapterID']; ?>"><?= htmlspecialchars($chapter['title']); ?></a>
                     </li>
                 <?php endforeach; ?>
             </ul>
@@ -55,7 +56,8 @@
                 <div class="title-container">
                     <div class="title">
                         <h1><?= htmlspecialchars($chapterDetails['title_author'][0]['BookTitle']); ?></h1>
-                        <p class="author">By <?= htmlspecialchars($chapterDetails['title_author'][0]['AuthorName']); ?></p>
+                        <p class="author">By <?= htmlspecialchars($chapterDetails['title_author'][0]['AuthorName']); ?>
+                        </p>
                         <hr>
                     </div>
                 </div>
@@ -80,45 +82,49 @@
                     </button>
                     <button class="btn" id="nextChapter" <?= $nextChapterID ? "onclick=\"location.href='?chapterID=$nextChapterID'\"" : 'disabled'; ?>>
                         Next Chapter
-                    </button>-->
+                    </button>
                     <button class="btn" id="prevChapter">
                         Previous Chapter
                     </button>
                     <button class="btn" id="nextChapter">
                         Next Chapter
-                    </button>
+                    </button>-->
                 </div>
 
                 <!-- Comments Section -->
-                <div class="comments">
-                    <h3>Comments</h3>
-                    <form action="/Free-Write/public/Chapter/Comment" method="post" class="comment-form">
-                        <textarea name="commentText" placeholder="Add your comment"></textarea>
-                        <input type="hidden" name="chapterID"
-                            value="<?= $chapterDetails['chapter_content'][0]['chapterID']; ?>">
-                        <button class="btn" type="submit">Post Comment</button>
-                    </form>
-                    <?php if (!empty($chapterDetails['chapter_comments']) && is_array($chapterDetails['chapter_comments'])): ?>
-                        <?php foreach ($chapterDetails['chapter_comments'] as $comment): ?>
-                            <div class="comment">
-                                <p>
-                                    <strong><?= htmlspecialchars($comment['UserName']); ?></strong>
-                                    <span><?= (new DateTime($comment['DateAdded']))->format('F j, Y, g:i A'); ?></span><br>
-                                    <?= htmlspecialchars($comment['CommentContent']); ?>
-                                </p>
-                            </div>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <p>Be the first to comment</p>
-                    <?php endif; ?>
-                </div>
+                <?php if ($URL[0] == 'book'): ?>
+                    <div class="comments">
+                        <h3>Comments</h3>
+                        <form action="/Free-Write/public/Chapter/Comment" method="post" class="comment-form">
+                            <textarea name="commentText" placeholder="Add your comment"></textarea>
+                            <input type="hidden" name="chapterID"
+                                value="<?= $chapterDetails['chapter_content'][0]['chapterID']; ?>">
+                            <button class="btn" type="submit">Post Comment</button>
+                        </form>
+                        <?php if (!empty($chapterDetails['chapter_comments']) && is_array($chapterDetails['chapter_comments'])): ?>
+                            <?php foreach ($chapterDetails['chapter_comments'] as $comment): ?>
+                                <div class="comment">
+                                    <p>
+                                        <strong><?= htmlspecialchars($comment['UserName']); ?></strong>
+                                        <span><?= (new DateTime($comment['DateAdded']))->format('F j, Y, g:i A'); ?></span><br>
+                                        <?= htmlspecialchars($comment['CommentContent']); ?>
+                                    </p>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p>Be the first to comment</p>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
 
         <!-- Advertisement Section -->
-        <div class="advertisement">
-            <img src="/Free-Write/public/images/ad.png" alt="Advertisement">
-        </div>
+        <?php if ($_SESSION['user_premium'] == 0): ?>
+            <div>
+                <img src="/Free-Write/public/images/ad.png" alt="Ad" class="ad-image">
+            </div>
+        <?php endif; ?>
     </main>
 
     <?php

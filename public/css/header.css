@@ -210,7 +210,7 @@ svg {
 
 /*overlay for notificaitron panel*/
 .notification-overlay {
-  display: block; /* Hidden by default */
+  display: none; /* Hidden by default */
   position: absolute;
   top: 60px; /* Adjust based on your navbar height */
   right: 10px;

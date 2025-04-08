@@ -39,9 +39,11 @@
 
     <div class="browse-main-container">
         <!-- Ad image -->
-        <div>
-            <img src="../public/images/ad.png" alt="Ad" class="ad-image">
-        </div>
+        <?php if ($_SESSION['user_premium'] == 0): ?>
+            <div>
+                <img src="/Free-Write/public/images/ad.png" alt="Ad" class="ad-image">
+            </div>
+        <?php endif; ?>
 
         <main>
             <section class="browse-body-section">
@@ -91,16 +93,16 @@
                         <?php if (!empty($paidBooks) && is_array($paidBooks)): ?>
                             <?php foreach ($paidBooks as $pbook): ?>
                                 <a href="/Free-Write/public/book/Overview/<?= htmlspecialchars($pbook['bookID']); ?>">
-                                <div class="book-card">
-                                    <img src="../app/images/coverDesign/<?= htmlspecialchars($pbook['cover_image'] ?? 'sampleCover.jpg'); ?>"
-                                        alt="Cover Image of <?= htmlspecialchars($pbook['title']); ?>">
-                                    <h3>
-                                        <?= strlen($pbook['title']) > 20 ? htmlspecialchars(substr($pbook['title'], 0, 17)) . '...' : htmlspecialchars($pbook['title']); ?>
-                                    </h3>
-                                    <p> <?= htmlspecialchars($pbook['author']); ?></p>
-                                    <h4><?= $pbook['price'] === null ? 'FREE' : 'LKR ' . number_format($pbook['price'], 2); ?>
-                                    </h4>
-                                </div>
+                                    <div class="book-card">
+                                        <img src="../app/images/coverDesign/<?= htmlspecialchars($pbook['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                                            alt="Cover Image of <?= htmlspecialchars($pbook['title']); ?>">
+                                        <h3>
+                                            <?= strlen($pbook['title']) > 20 ? htmlspecialchars(substr($pbook['title'], 0, 17)) . '...' : htmlspecialchars($pbook['title']); ?>
+                                        </h3>
+                                        <p> <?= htmlspecialchars($pbook['author']); ?></p>
+                                        <h4><?= $pbook['price'] === null ? 'FREE' : 'LKR ' . number_format($pbook['price'], 2); ?>
+                                        </h4>
+                                    </div>
                                 </a>
                             <?php endforeach; ?>
 
@@ -135,9 +137,11 @@
         </main>
 
         <!-- Ad image -->
-        <div>
-            <img src="../public/images/ad.png" alt="Ad" class="ad-image">
-        </div>
+        <?php if ($_SESSION['user_premium'] == 0): ?>
+            <div>
+                <img src="/Free-Write/public/images/ad.png" alt="Ad" class="ad-image">
+            </div>
+        <?php endif; ?>
     </div>
 
     <?php

@@ -138,7 +138,7 @@ class UserController extends Controller
             $newFileName = "PROFILE_{$uid}_{$dateTime}.{$fileExtension}";
 
             // Define the target directory
-            $targetDirectory = 'D:/XAMPP/htdocs/Free-Write/app/images/profile/';
+            $targetDirectory = 'C:/xampp/htdocs/Free-Write/app/images/profile/';
 
             // Move the uploaded file to the target directory with the new name
             if (move_uploaded_file($profileImage['tmp_name'], $targetDirectory . $newFileName)) {

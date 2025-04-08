@@ -41,9 +41,11 @@
 
     <div class="browse-main-container">
         <!-- Ad image -->
-        <div>
-            <img src="/Free-Write/public/images/ad.png" alt="Ad" class="ad-image">
-        </div>
+        <?php if ($_SESSION['user_premium'] == 0): ?>
+            <div>
+                <img src="/Free-Write/public/images/ad.png" alt="Ad" class="ad-image">
+            </div>
+        <?php endif; ?>
 
         <main>
             <section class="search-section">
@@ -105,9 +107,11 @@
         </main>
 
         <!-- Ad image -->
-        <div>
-            <img src="/Free-Write/public/images/ad.png" alt="Ad" class="ad-image">
-        </div>
+        <?php if ($_SESSION['user_premium'] == 0): ?>
+            <div>
+                <img src="/Free-Write/public/images/ad.png" alt="Ad" class="ad-image">
+            </div>
+        <?php endif; ?>
     </div>
 
     <?php
