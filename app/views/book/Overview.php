@@ -30,7 +30,7 @@
             require_once "../app/views/layout/header.php";
     }
 
-    show($data);
+    //show($data);
     ?>
 
     <?php if (!empty($book) && is_array($book)): ?>
@@ -114,14 +114,18 @@
                                     <div class="dropdown">
                                         <button type="button" class="dropbtn">Select Collection</button>
                                         <div class="dropdown-content">
-                                            <?php foreach ($collections as $collection): ?>
-                                                <label>
-                                                    <input type="checkbox" name="collections[]"
-                                                        value="<?= htmlspecialchars($collection['collectionID']); ?>"
-                                                        <?= ($collection['BookExist'] == 1) ? 'checked' : ''; ?>>
-                                                    <?= htmlspecialchars($collection['title']); ?>
-                                                </label>
-                                            <?php endforeach; ?>
+                                            <?php if ($collections != null): ?>
+                                                <?php foreach ($collections as $collection): ?>
+                                                    <label>
+                                                        <input type="checkbox" name="collections[]"
+                                                            value="<?= htmlspecialchars($collection['collectionID']); ?>"
+                                                            <?= ($collection['BookExist'] == 1) ? 'checked' : ''; ?>>
+                                                        <?= htmlspecialchars($collection['title']); ?>
+                                                    </label>
+                                                <?php endforeach; ?>
+                                            <?php else: ?>
+                                                <p>You have not created any collections</p>
+                                            <?php endif; ?>
                                             <button type="submit" class="addCollection-btn">Edit Collections</button>
                                         </div>
                                     </div>
@@ -270,6 +274,55 @@
                         <?php else: ?>
                             <p>No spinoffs found</p>
                         <?php endif; ?>
+                    </div>
+
+                    <div class="table-of-contents">
+                        <h2>Reviews</h2>
+                        <div class="review-form">
+                            <form action="/Free-Write/public/Book/addReview" method="POST">
+                                <input type="hidden" name="bookID" value="<?= htmlspecialchars($book[0]['bookID']); ?>">
+
+                                <textarea name="reviewText" id="reviewText" placeholder="Add your review"></textarea>
+                                <p id="charFeedback" style="color: red; font-size: 0.9em;"></p>
+
+                                <input type="hidden" name="bookID" value="<?= htmlspecialchars($book[0]['bookID']); ?>">
+
+                                <button class="btn" type="submit">Post Review</button>
+                            </form>
+                        </div>
+                        <?php if (!empty($reviews) && is_array($reviews)): ?>
+                            <table class="reviews-table">
+                                <thead>
+                                    <tr>
+                                        <th>User</th>
+                                        <th>Review</th>
+                                        <th>Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($reviews as $review): ?>
+                                        <tr>
+                                            <td><?= htmlspecialchars($review['fullName']); ?></td>
+                                            <td><?= htmlspecialchars($review['content']); ?></td>
+                                            <td><?= htmlspecialchars($review['postDate']); ?></td>
+                                            <td>
+                                                <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $review['userID']): ?>
+                                                    <!-- Show delete button if the logged-in user matches the review user -->
+                                                    <form action="/Free-Write/public/Book/deleteReview" method="POST">
+                                                        <input type="hidden" name="reviewID" value="<?= $review['reviewID']; ?>">
+                                                        <button type="submit" class="delete-btn">Delete</button>
+                                                    </form>
+                                                <?php endif; ?>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        <?php else: ?>
+                            <p>Be the first to write a review</p>
+                        <?php endif; ?>
+
                     </div>
                 </div>
             </div>

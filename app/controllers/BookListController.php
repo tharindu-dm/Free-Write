@@ -25,7 +25,7 @@ class BookListController extends Controller
             return;
         }
 
-        $uid = $_GET['user'] ;
+        $uid = $_GET['user'];
         $Booklist = new BookList(); //List Table
 
         $Reading = $Booklist->getUserBookList($uid, 'reading');
@@ -73,7 +73,7 @@ class BookListController extends Controller
         if (!isset($_POST['chapterCount']))
             header('Location: /Free-Write/public/Book/Overview/' . $bookID);
         else
-            header('Location: /Free-Write/public/User/Profile');
+            header('Location: /Free-Write/public/BookList/Reading?user=' . $uid);
     }
 
     public function deleteFromList()
@@ -83,7 +83,7 @@ class BookListController extends Controller
 
         $uid = $_SESSION['user_id'];
         $list->deleteFromList($uid, $bookID);
-        header('Location: /Free-Write/public/User/Profile');
+        header('Location: /Free-Write/public/BookList/Reading?user=' . $uid);
     }
 
 

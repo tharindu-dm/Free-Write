@@ -265,7 +265,7 @@
                     <h3>Edit Record</h3>
                     <h4 id="bookTitle-header">Title:</h4>
 
-                    <form id="add-to-list-form" action="/Free-Write/public/BookList/Update" method="POST">
+                    <form id="add-to-list-form" action="/Free-Write/public/BookList/updateList" method="POST">
                         <div class="form-content">
                             <div class="chapter-counter">
                                 <label for="chapterCount">Edit Chapter Count</label>

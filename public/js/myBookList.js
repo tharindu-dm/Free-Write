@@ -13,29 +13,48 @@ const plannedBtn = document.getElementById("planned-btn");
 
 document.addEventListener("DOMContentLoaded", function () {
   const url = window.location.href.split("/");
-  const type = url[url.length - 1];
-  console.log("URL type:", type); // Debug the extracted type
+  const type = url[url.length - 1].split("?")[0]; // the type?userID part
+
+  console.log("URL type:", window.location.href); // Debug the extracted type
   switchTable(type);
 });
 
+let urlFull = new URL(window.location.href);
+let segments = urlFull.pathname.split("/");
+
 readingBtn.addEventListener("click", () => {
-  switchTable("Reading");
+  segments[4] = "Reading";
+
+  urlFull.pathname = segments.join("/");
+  window.location.href = urlFull.toString();
 });
 
 completedBtn.addEventListener("click", () => {
-  switchTable("Completed");
+  segments[4] = "Completed";
+
+  urlFull.pathname = segments.join("/");
+  window.location.href = urlFull.toString();
 });
 
 onholdBtn.addEventListener("click", () => {
-  switchTable("Onhold");
+  segments[4] = "Onhold";
+
+  urlFull.pathname = segments.join("/");
+  window.location.href = urlFull.toString();
 });
 
 droppedBtn.addEventListener("click", () => {
-  switchTable("Dropped");
+  segments[4] = "Dropped";
+
+  urlFull.pathname = segments.join("/");
+  window.location.href = urlFull.toString();
 });
 
 plannedBtn.addEventListener("click", () => {
-  switchTable("Planned");
+  segments[4] = "Planned";
+
+  urlFull.pathname = segments.join("/");
+  window.location.href = urlFull.toString();
 });
 
 function switchTable(type) {
@@ -46,6 +65,8 @@ function switchTable(type) {
       onholdTable.style.display = "none";
       droppedTable.style.display = "none";
       plannedTable.style.display = "none";
+      readingBtn.style.backgroundColor = "#000000";
+      readingBtn.style.color = "#ffd700";
 
       break;
     case "Completed":
@@ -54,6 +75,9 @@ function switchTable(type) {
       onholdTable.style.display = "none";
       droppedTable.style.display = "none";
       plannedTable.style.display = "none";
+      completedBtn.style.backgroundColor = "#000000";
+      completedBtn.style.color = "#ffd700";
+
       break;
     case "Onhold":
       readingTable.style.display = "none";
@@ -61,6 +85,9 @@ function switchTable(type) {
       onholdTable.style.display = "flex";
       droppedTable.style.display = "none";
       plannedTable.style.display = "none";
+      onholdBtn.style.backgroundColor = "#000000";
+      onholdBtn.style.color = "#ffd700";
+
       break;
     case "Dropped":
       readingTable.style.display = "none";
@@ -68,6 +95,9 @@ function switchTable(type) {
       onholdTable.style.display = "none";
       droppedTable.style.display = "flex";
       plannedTable.style.display = "none";
+      droppedBtn.style.backgroundColor = "#000000";
+      droppedBtn.style.color = "#ffd700";
+
       break;
     case "Planned":
       readingTable.style.display = "none";
@@ -75,6 +105,9 @@ function switchTable(type) {
       onholdTable.style.display = "none";
       droppedTable.style.display = "none";
       plannedTable.style.display = "flex";
+      plannedBtn.style.backgroundColor = "#000000";
+      plannedBtn.style.color = "#ffd700";
+      
       break;
     default:
       readingTable.style.display = "flex";

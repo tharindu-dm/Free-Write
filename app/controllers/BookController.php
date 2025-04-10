@@ -26,6 +26,7 @@ class BookController extends Controller
         $bookList = new BookList();
         $rating = new Rating();
         $collections = new Collection();
+        $review = new Review();
 
         $bookFound = $book->getBookByID($bookID);
         $bookChapters = $BookChapter_table->getBookChapters($bookID); //list of chapters related to the specific book
@@ -67,6 +68,9 @@ class BookController extends Controller
             $_SESSION['viewed_books'][] = $bookID;
         }
 
+        //getting reviews
+        $reviewsFound = $review->getReviews($bookID);
+
         $this->view(
             'book/Overview',
             [
@@ -77,7 +81,8 @@ class BookController extends Controller
                 'bought' => $bookBought,
                 'inList' => $bookInListStatus,
                 'chapterProgress' => $chapterProgress,
-                'collections' => $collectionsFound
+                'collections' => $collectionsFound,
+                'reviews' => $reviewsFound
             ]
         );
 
@@ -145,5 +150,40 @@ class BookController extends Controller
         }
 
         header('Location: /Free-Write/public/Book/Overview/' . $bookID);
+    }
+
+    public function addReview()
+    {
+        $review = new Review();
+
+        $user = $_SESSION['user_id'];
+
+        if ($user == null) {
+            header('/Free-Write/public/Login');
+            return;
+        }
+
+        $bookID = $_POST['bookID']; //hidden there for user cannot interact with this value
+        $content = $_POST['reviewText'];
+
+        //validate the review: length greater thatn 5 char, less than 255 char
+        if (strlen($content) < 5 || strlen($content) > 255) {
+            header('Location: /Free-Write/public/Book/Overview/' . $bookID);
+            return;
+        }
+
+        $review->insert(['book' => $bookID, 'user' => $user, 'content' => $content, 'postDate' => date('Y-m-d H:i:s')]);
+
+        header('Location: /Free-Write/public/Book/Overview/' . $bookID);
+
+    }
+
+    public function deleteReview()
+    {
+        $review = new Review();
+        $reviewID = $_POST['reviewID'];
+
+        $review->delete($reviewID, 'reviewID');
+        header('Location: /Free-Write/public/Book/Overview/' . $_POST['bookID']);
     }
 }
