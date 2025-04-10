@@ -101,7 +101,7 @@ document.addEventListener("click", function (e) {
     const chapterCount = row.dataset.chapterProgress;
     const getBookStatus = row.dataset.status;
 
-    // Set the values in the inputs
+    // Set the values in the inputsmybookListno
     const bookID_input = document.getElementById("List_bid");
     const bookTitle_header = document.getElementById("bookTitle-header");
     const chapterCounter = document.getElementById("chapterCount");

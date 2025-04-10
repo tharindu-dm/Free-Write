@@ -187,7 +187,7 @@ img {
 
 /* ------------------------------------------------------------------------------ */
 /*DELETE Record*/
-.delete-from-list{  
+.delete-from-list {
   display: none;
   position: fixed; /* Make it fixed to the viewport */
   top: 0;
