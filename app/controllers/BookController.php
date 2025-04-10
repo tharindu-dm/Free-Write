@@ -29,7 +29,7 @@ class BookController extends Controller
 
         $bookFound = $book->getBookByID($bookID);
         $bookChapters = $BookChapter_table->getBookChapters($bookID); //list of chapters related to the specific book
-        $spinoffs = $spinoff->where(['fromBook' => $bookID]);
+        $spinoffs = $spinoff->where(['fromBook' => $bookID, 'accessType' => 'public']); //list of spinoffs related to the specific book
         $bookRating = $rating->getBookRating($bookID);
         $bookBought = null;
         $bookInListStatus = null;

@@ -39,7 +39,7 @@
 
     <div class="browse-main-container">
         <!-- Ad image -->
-        <?php if ($_SESSION['user_premium'] == 0): ?>
+        <?php if ((isset($_SESSION['user_premium']) && $_SESSION['user_premium'] == 0) || !isset($_SESSION['user_id'])): ?>
             <div>
                 <img src="/Free-Write/public/images/ad.png" alt="Ad" class="ad-image">
             </div>
@@ -111,33 +111,11 @@
                         <?php endif; ?>
                     </div>
                 </section>
-
-                <section class="book-category">
-                    <h2>Who Will Be Left Standing?</h2>
-                    <div class="book-grid">
-                        <div class="book-card">
-                            <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Heartless">
-                            <h3>Heartless</h3>
-                            <p>Romance</p>
-                        </div>
-                        <div class="book-card">
-                            <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="GroundBound">
-                            <h3>GroundBound</h3>
-                            <p>Horror</p>
-                        </div>
-                        <div class="book-card">
-                            <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Comatose">
-                            <h3>Comatose</h3>
-                            <p>Psychology</p>
-                        </div>
-
-                    </div>
-                </section>
             </section>
         </main>
 
         <!-- Ad image -->
-        <?php if ($_SESSION['user_premium'] == 0): ?>
+        <?php if ((isset($_SESSION['user_premium']) && $_SESSION['user_premium'] == 0) || !isset($_SESSION['user_id'])): ?>
             <div>
                 <img src="/Free-Write/public/images/ad.png" alt="Ad" class="ad-image">
             </div>

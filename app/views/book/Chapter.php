@@ -120,7 +120,7 @@
         </div>
 
         <!-- Advertisement Section -->
-        <?php if ($_SESSION['user_premium'] == 0): ?>
+        <?php if ((isset($_SESSION['user_premium']) && $_SESSION['user_premium'] == 0) || !isset($_SESSION['user_id'])): ?>
             <div>
                 <img src="/Free-Write/public/images/ad.png" alt="Ad" class="ad-image">
             </div>
