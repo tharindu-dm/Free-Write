@@ -4,6 +4,54 @@ main {
   padding: 2rem;
 }
 
+.dashboard-container {
+  display: flex;
+  flex-direction: row;
+}
+
+/* Side Navigation Bar */
+.side-nav {
+  width: 250px;
+  background-color: #f4f4f4;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  height: 100vh;
+  position: fixed;
+}
+
+.side-nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.side-nav ul li {
+  margin-bottom: 20px;
+}
+
+.side-nav ul li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  display: block;
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.side-nav ul li a:hover,
+.side-nav ul li a.active {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Main Content */
+.main-content {
+  margin-left: 270px; /* Leave space for the side navigation bar */
+  padding: 20px;
+  flex: 1;
+}
+
 .user-profile {
   text-align: center;
   margin-bottom: 2rem;

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Write - Create Design</title>
+    <title>Free Write - <?= isset($design) ? 'Edit Design' : 'Create Design' ?></title>
     <link rel="stylesheet" href="/Free-Write/public/css/CreateDesign.css">
 </head>
 
@@ -36,30 +36,30 @@
     ?>
 
     <main>
-        <!--  IMPORTANT: method="POST" and enctype required for file upload -->
-        <form id="create-design-form" method="POST" enctype="multipart/form-data" action="/Free-Write/public/Designer/createCover">
+        <!-- IMPORTANT: method="POST" and enctype required for file upload -->
+        <form id="create-design-form" method="POST" enctype="multipart/form-data" action="<?= isset($design) ? "/Free-Write/public/Designer/edit/{$design['covID']}" : "/Free-Write/public/Designer/createCover" ?>">
             <!-- Title -->
             <div class="form-group">
                 <label for="title">Title <span style="color:red">*</span></label>
-                <input type="text" id="title" name="title" placeholder="Enter a title for your design" required>
+                <input type="text" id="title" name="title" placeholder="Enter a title for your design" value="<?= htmlspecialchars($design['name'] ?? '') ?>" required>
             </div>
 
             <!-- Optional: Description -->
             <div class="form-group">
                 <label for="description">Description (optional)</label>
-                <textarea id="description" name="description" rows="4"></textarea>
+                <textarea id="description" name="description" rows="4"><?= htmlspecialchars($design['description'] ?? '') ?></textarea>
             </div>
 
             <!-- Optional: Price -->
             <div class="form-group">
                 <label for="price">Price (optional)</label>
-                <input type="number" id="price" name="price" min="0" step="0.01">
+                <input type="number" id="price" name="price" min="0" step="0.01" value="<?= htmlspecialchars($design['price'] ?? '') ?>">
             </div>
 
-            <!--  Cover Image File Input -->
+            <!-- Cover Image File Input -->
             <div class="form-group">
-                <label for="coverImage">Cover Image <span style="color:red">*</span></label>
-                <input type="file" id="coverImage" name="coverImage" accept="image/*" required>
+                <label for="coverImage">Cover Image <span style="color:red"><?= isset($design) ? '(Leave blank to keep current image)' : '*' ?></span></label>
+                <input type="file" id="coverImage" name="coverImage" accept="image/*" <?= isset($design) ? '' : 'required' ?>>
             </div>
 
             <!-- Hidden input to send logged-in designer's ID -->
@@ -67,7 +67,10 @@
 
             <!-- Submit -->
             <div class="form-group">
-                <button type="submit" id="create-btn">Create</button>
+                <button type="submit" id="create-btn"><?= isset($design) ? 'Save Changes' : 'Create' ?></button>
+                <?php if (isset($design)) : ?>
+                    <a href="/Free-Write/public/Designer/viewDesign/<?= $design['covID'] ?>" class="cancel-button">Cancel</a>
+                <?php endif; ?>
             </div>
         </form>
     </main>

@@ -37,5 +37,9 @@ class UserDetails
         return $this->update($user_id, $data, 'user'); // Changed 'userID' to 'user'
     }
     
+    public function getDetails($userId)
+    {
+        return $this->first(['user' => $userId]);
+    }
     
 }

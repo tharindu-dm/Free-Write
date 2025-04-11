@@ -26,53 +26,51 @@
         default:
             require_once "../app/views/layout/header.php";
     }
-    //show($data);
     ?>
 
-    <main>
-        <section class="user-profile">
-            <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="Michael Thompson" class="profile-picture">
-            <h1>Michael Thompson</h1>
-            <p>250 followers</p>
-        </section>
+    <main class="dashboard-container">
 
-        <nav class="profile-nav">
-            <a href="#" class="active">Your Designs</a>
-            <a href="/Free-Write/public/Designer/Competition">Competitions</a>
-        </nav>
+        <aside class="side-nav">
+            <ul>
+                <li><a href="/Free-Write/public/Designer/Dashboard" class="active">Dashboard</a></li>
+                <li><a href="/Free-Write/public/Designer/Competition">Competitions</a></li>
+                <li><a href="/Free-Write/public/Designer/New">Create New Design</a></li>
+                <!-- <li><a href="/Free-Write/public/Designer/MyOrders">My Orders</a></li> -->
+                <li><a href="/Free-Write/public/User/profile">Profile</a></li>
+            </ul>
+        </aside>
+        <section class="main-content">
+            <section class="user-profile">
+                <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="Profile Picture" class="profile-picture">
+                <h1><?= htmlspecialchars($userDetails['firstName'] ?? 'Designer Name') ?></h1>
+                <p><?= htmlspecialchars($userDetails['followers'] ?? '0') ?> followers</p>
+            </section>
 
-        <section class="designs">
+            <nav class="profile-nav">
+                <a href="#" class="active">Your Designs</a>
+                <a href="/Free-Write/public/Designer/Competition">Competitions</a>
+            </nav>
 
-            <div class="designs-header">
-                <h2>Your Designs</h2>
-                <a href="/Free-Write/public/Designer/New"><button class="new-design-btn">+New</button></a>
-            </div>
-            <div class="design-grid">
-                <div class="design-item">
-                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Flying bird design">
+            <section class="designs">
+                <div class="designs-header">
+                    <h2>Your Designs</h2>
+                    <a href="/Free-Write/public/Designer/New"><button class="new-design-btn">+New</button></a>
                 </div>
-                <div class="design-item">
-                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Forest landscape design">
+                <div class="design-grid">
+                    <?php if (!empty($designs)) : ?>
+                        <?php foreach ($designs as $design) : ?>
+                            <div class="design-item">
+                                <a href="/Free-Write/public/Designer/viewDesign/<?= $design['covID'] ?>">
+                                    <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($design['license']) ?>" alt="<?= htmlspecialchars($design['name']) ?>">
+                                </a>
+                                <p><?= htmlspecialchars($design['name']) ?></p>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else : ?>
+                        <p>No designs found. Start creating your first design!</p>
+                    <?php endif; ?>
                 </div>
-                <div class="design-item">
-                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Misty forest design">
-                </div>
-                <div class="design-item">
-                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Girl in moonlight design">
-                </div>
-                <div class="design-item">
-                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Day after design">
-                </div>
-                <div class="pagination">
-                    <button>&lt;</button>
-                    <button>1</button>
-                    <button>2</button>
-                    <button>3</button>
-                    <button>4</button>
-                    <button>&gt;</button>
-                </div>
-            </div>
-
+            </section>
         </section>
     </main>
 

@@ -37,6 +37,17 @@
   ?>
 
   <main>
+
+    <aside class="side-nav">
+        <ul>
+            <li><a href="/Free-Write/public/Designer/Dashboard" class="active">Dashboard</a></li>
+            <li><a href="/Free-Write/public/Designer/Competition">Competitions</a></li>
+            <li><a href="/Free-Write/public/Designer/New">Create New Design</a></li>
+            <!-- <li><a href="/Free-Write/public/Designer/MyOrders">My Orders</a></li> -->
+            <li><a href="/Free-Write/public/User/profile">Profile</a></li>
+        </ul>
+    </aside>
+
     <section class="user-profile">
       <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="Michael Thompson" class="profile-picture">
       <h1>Michael Thompson</h1>
@@ -61,7 +72,18 @@
             </tr>
           </thead>
           <tbody id="active-competitions-table">
-            <!-- Active competitions data should get be added here -->
+            <?php foreach ($activeCompetitions ?? [] as $comp): ?>
+              <tr>
+                <td><?= htmlspecialchars($comp->title) ?></td>
+                <td><?= htmlspecialchars($comp->end_date) ?></td>
+                <td>
+                  🥇 <?= $comp->first_prize ?> <br>
+                  🥈 <?= $comp->second_prize ?> <br>
+                  🥉 <?= $comp->third_prize ?>
+                </td>
+                <td><a href="#" class="btn-enter">Enter</a></td>
+              </tr>
+            <?php endforeach; ?>
           </tbody>
         </table>
       </div>
@@ -78,8 +100,20 @@
             </tr>
           </thead>
           <tbody id="previous-competitions-table">
-            <!-- Previous competitions data should get be added here -->
+            <?php foreach ($previousCompetitions ?? [] as $comp): ?>
+              <tr>
+                <td><?= htmlspecialchars($comp->title) ?></td>
+                <td><?= htmlspecialchars($comp->end_date) ?></td>
+                <td>
+                  🥇 <?= $comp->first_prize ?> <br>
+                  🥈 <?= $comp->second_prize ?> <br>
+                  🥉 <?= $comp->third_prize ?>
+                </td>
+                <td><a href="#">View Results</a></td>
+              </tr>
+            <?php endforeach; ?>
           </tbody>
+
         </table>
       </div>
 
@@ -91,12 +125,24 @@
               <th>Competition</th>
               <th>Deadline</th>
               <th>Prizes</th>
-              <inder>Reminder</th>
+              <th>Reminder</th>
             </tr>
           </thead>
           <tbody id="upcoming-competitions-table">
-            <!-- Upcoming competitions data should get be added here -->
+            <?php foreach ($upcomingCompetitions ?? [] as $comp): ?>
+              <tr>
+                <td><?= htmlspecialchars($comp->title) ?></td>
+                <td><?= htmlspecialchars($comp->end_date) ?></td>
+                <td>
+                  🥇 <?= $comp->first_prize ?> <br>
+                  🥈 <?= $comp->second_prize ?> <br>
+                  🥉 <?= $comp->third_prize ?>
+                </td>
+                <td><a href="#">Set Reminder</a></td>
+              </tr>
+            <?php endforeach; ?>
           </tbody>
+
         </table>
       </div>
     </section>
