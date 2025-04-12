@@ -33,6 +33,7 @@
     //show($data);
     ?>
 
+
     <?php if (!empty($book) && is_array($book)): ?>
         <main class="container">
             <div class="product-layout">
@@ -162,6 +163,13 @@
                             <button id="btn-create-spinoff" class="read-button">Create A Spinoff
                             </button>
                         <?php endif; ?>
+                        <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'pub'): ?>
+                            <?php if (!$hasExistingQuotation): ?>
+                                <button id="write-quotation" class="read-button">Write Quotation</button>
+                            <?php else: ?>
+                                <a href="/Free-Write/public/Publisher/viewQuotationHistory?writer_id=<?= htmlspecialchars($book[0]['author']); ?>&book_id=<?= htmlspecialchars($book[0]['bookID']); ?>" class="read-button">View Quotation History</a>
+                            <?php endif; ?>
+                        <?php endif; ?>
                     </div>
 
                     <div class="add-to-list">
@@ -267,7 +275,7 @@
 
                                         </td>
                                         <td><?= date('Y-m-d', strtotime($spinoff['lastUpdated']));
-                                        ?></td>
+                                            ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </table>
@@ -331,9 +339,55 @@
         <p>No book found.</p>
     <?php endif; ?>
 
+    <div id="quotation-popup" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000;">
+
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; border-radius: 5px; width: 300px;">
+
+            <h3>Write a Quotation</h3>
+
+            <form action="/Free-Write/public/Publisher/sendQuotation2Wri" method="post">
+                <input type="hidden" name="book_id" value="<?= htmlspecialchars($book[0]['bookID'] ?? ''); ?>">
+                <input type="hidden" name="book_title" value="<?= htmlspecialchars($book[0]['title'] ?? ''); ?>">
+                <input type="hidden" name="writer_id" value="<?= htmlspecialchars($book[0]['author'] ?? ''); ?>">
+                <input type="hidden" name="publisher_id" value="<?= htmlspecialchars($_SESSION['user_id'] ?? ''); ?>">
+
+                <textarea name="message" placeholder="Enter your quotation here..." style="width: 100%; height: 100px; margin-bottom: 10px;"></textarea>
+
+                <div style="text-align: right;">
+                    <button type="button" onclick="document.getElementById('quotation-popup').style.display='none';" style="margin-right: 10px;">Cancel</button>
+                    <button type="submit">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <?php require_once "../app/views/layout/footer.php"; ?>
 
     <script src="/Free-Write/public/js/Book/bookOverview.js"></script>
+    <script>
+        // Get the button and popup elements
+        const writeQuotationBtn = document.getElementById('write-quotation');
+        const quotationPopup = document.getElementById('quotation-popup');
+
+        // Add click event to the button
+        if (writeQuotationBtn) {
+            writeQuotationBtn.addEventListener('click', function() {
+                quotationPopup.style.display = 'block';
+            });
+        }
+    </script>
+    <?php
+    if (isset($_SESSION['success_message'])) {
+        echo '<div class="success-message" style="background-color: #dff0d8; color: #3c763d; padding: 15px; margin-bottom: 20px; border: 1px solid #d6e9c6; border-radius: 4px;">';
+        echo $_SESSION['success_message'];
+        echo '</div>';
+
+        unset($_SESSION['success_message']);
+    }
+    ?>
+
+
+
 </body>
 
 </html>

@@ -29,6 +29,19 @@ class PublisherBooks
     return $this->query($query);
 }
 
+public function updateBookDetails($isbnID, $data) {
+    $bookData = [
+        'title' => $data['title'],
+        'author_name' => $data['author_name'],
+        'synopsis' => $data['synopsis'],
+        'prize' => $data['prize'],
+        'genre' => $data['genre']
+    ];
+
+    return $this->update($isbnID, $bookData, 'isbnID');
+}
+
+
     
 
 

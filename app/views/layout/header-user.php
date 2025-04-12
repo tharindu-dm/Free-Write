@@ -27,7 +27,10 @@
             </div>
 
             <div class="nav-right-side-container">
-                <div class="action-button-container">
+
+              
+            <div class="action-button-container">
+             
                     <div class="premium-notification-container">
                         <?php if ($_SESSION['user_type'] != 'admin' && $_SESSION['user_type'] != 'mod'): ?>
                             <?php if ($_SESSION['user_premium'] == false): ?>
@@ -96,6 +99,7 @@
                         </form>
                     </div>
                 </div>
+                
             </div>
         </nav>
     </header>

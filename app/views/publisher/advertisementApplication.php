@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Apply for an advertisement on Free Write">
+    <title>Apply for Advertisement</title>
+    <style>
+        .form-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #FFFFFF;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #1C160C;
+        }
+
+        .form-container h4 {
+            color: #c47c15;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #1C160C;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border: 2px solid #FFD700;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            background-color: #FCFAF5;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #FFD052;
+            box-shadow: 0 0 0 3px rgba(255, 208, 82, 0.2);
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        button {
+            padding: 1rem 1.5rem;
+            margin-right: 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .submit-btn {
+            background-color: #FFD052;
+            color: #1C160C;
+        }
+
+        .submit-btn:hover {
+            background-color: #E0B94A;
+        }
+
+        .cancel-btn {
+            background-color: #c47c15;
+            color: white;
+        }
+
+        .cancel-btn:hover {
+            background-color: #7A6F50;
+        }
+
+        .optional-section {
+            padding: 1.5rem;
+            border: 2px dashed #FFD700;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            background-color: #FCFAF5;
+        }
+
+        .optional-section h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1C160C;
+        }
+
+        .optional-section p {
+            color: #c47c15;
+            margin-bottom: 1rem;
+        }
+
+        .ad-type-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .ad-type-option {
+            border: 2px solid #FFD700;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .ad-type-option:hover {
+            background-color: #FFF8E0;
+        }
+
+        .ad-type-option.selected {
+            background-color: #FFD052;
+            border-color: #E0B94A;
+        }
+
+        .ad-type-option h3 {
+            margin: 0.5rem 0;
+            color: #1C160C;
+        }
+
+        .ad-type-option p {
+            color: #c47c15;
+            font-size: 0.9rem;
+        }
+
+        .ad-type-option .price {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+            color: #1C160C;
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: -1rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .form-container {
+                margin: 1rem;
+                padding: 1rem;
+            }
+
+            button {
+                width: 100%;
+                margin: 0.5rem 0;
+            }
+
+            .ad-type-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+   
+    <?php
+    if (isset($_SESSION['user_type'])) {
+        $userType = $_SESSION['user_type'];
+    } else {
+        $userType = 'guest';
+    }
+    switch ($userType) {
+        case 'admin':
+        case 'mod':
+        case 'writer':
+        case 'covdes':
+        case 'wricov':
+        case 'reader':
+            require_once "../app/views/layout/header-user.php";
+            break;
+        case 'pub':
+            require_once "../app/views/layout/header-pub.php";
+            break;
+        default:
+            require_once "../app/views/layout/header.php";
+    }
+
+
+    ?>
+
+    <main>
+        <div class="form-container">
+            <h1>Apply for Advertisement</h1>
+            <h4>Submit your ad details to promote your work or service</h4>
+
+            
+            <div id="form_error" class="error-message"></div>
+
+            <form action="/Free-Write/public/Publisher/ApplyAdvertisement" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+
+                <label for="ad_title">Advertisement Title</label>
+                <input type="text" maxlength="60" id="ad_title" name="ad_title" placeholder="Enter a catchy title for your advertisement" required />
+                <div id="ad_title_error" class="error-message"></div>
+
+
+
+
+
+                <label>Advertisement Type</label>
+                <div class="ad-type-container">
+                    <div class="ad-type-option" onclick="selectAdType('banner')">
+                        <h3>Browse Page Ad</h3>
+                        <p>Displayed at the top of pages</p>
+                        <p>728×90 pixels</p>
+                        <div class="price">$199/month</div>
+                        <input type="radio" name="ad_type" value="banner" id="banner_type" style="display: none;" required />
+                    </div>
+                    <div class="ad-type-option" onclick="selectAdType('sidebar')">
+                        <h3>Writer Page Ad</h3>
+                        <p>Displayed on page sides</p>
+                        <p>300×250 pixels</p>
+                        <div class="price">$149/month</div>
+                        <input type="radio" name="ad_type" value="sidebar" id="sidebar_type" style="display: none;" />
+                    </div>
+
+                </div>
+                <div id="ad_type_error" class="error-message"></div>
+
+                <label for="start_date">Start Date</label>
+                <input type="date" id="start_date" name="start_date" required />
+                <div id="start_date_error" class="error-message"></div>
+
+                <label for="end_date">End Date</label>
+                <input type="date" id="end_date" name="end_date" required />
+                <div id="end_date_error" class="error-message"></div>
+
+
+
+                <!-- <label for="duration">Duration (in days)</label>
+                <input type="number"
+                    id="duration"
+                    name="duration"
+                    placeholder="Enter number of days (e.g. 30, 90, 180)"
+                    min="1"
+                    max="365"
+                    required>
+                <div id="duration_error" class="error-message"></div> -->
+
+
+                <div class="form-field">
+                    <label for="ad_image">Advertisement Image</label>
+                    <input type="file" id="ad_image" name="ad_image" accept="image/*" required>
+                    <p class="description">JPG or PNG, 2MB max. Size depends on ad type selected.</p>
+                </div>
+
+
+
+
+                <label for="contact_email">Contact Email</label>
+                <input type="email" id="contact_email" name="contact_email" placeholder="Where we can reach you" required />
+                <div id="contact_email_error" class="error-message"></div>
+
+                <button type="submit" class="submit-btn">Submit Advertisement</button>
+                <button type="button" class="cancel-btn" onclick="location.href='/Free-Write/public/Advertisement/'">Cancel</button>
+            </form>
+        </div>
+    </main>
+    <!-- Footer would be included here -->
+
+    <script>
+        // Function to select advertisement type
+        function selectAdType(type) {
+            // Reset all options
+            document.querySelectorAll('.ad-type-option').forEach(element => {
+                element.classList.remove('selected');
+            });
+
+            // Select the clicked option
+            const selectedOption = document.querySelector(`.ad-type-option:has(#${type}_type)`);
+            selectedOption.classList.add('selected');
+
+            // Check the radio button
+            document.getElementById(`${type}_type`).checked = true;
+
+            // Hide error message if it was displayed
+            document.getElementById('ad_type_error').style.display = 'none';
+        }
+
+        // Function to validate the form
+        function validateForm() {
+            let isValid = true;
+            const errorMessages = {
+                adTitle: document.getElementById('ad_title_error'),
+                adType: document.getElementById('ad_type_error'),
+                startDate: document.getElementById('start_date_error'),
+                endDate: document.getElementById('end_date_error'),
+                duration: document.getElementById('duration_error'),
+                adImage: document.getElementById('ad_image_error'),
+                contactEmail: document.getElementById('contact_email_error')
+            };
+
+            // Reset all error messages
+            Object.values(errorMessages).forEach(elem => {
+                if (elem) elem.style.display = 'none';
+            });
+
+            // Title Validation
+            const adTitle = document.getElementById('ad_title').value;
+            if (adTitle.length < 5) {
+                errorMessages.adTitle.textContent = 'Advertisement title must be at least 5 characters';
+                errorMessages.adTitle.style.display = 'block';
+                isValid = false;
+            }
+
+            // Ad Type Validation
+            const adTypeSelected = document.querySelector('input[name="ad_type"]:checked');
+            if (!adTypeSelected) {
+                errorMessages.adType.textContent = 'Please select an advertisement type';
+                errorMessages.adType.style.display = 'block';
+                isValid = false;
+            }
+
+            // Date Validations
+            const startDate = new Date(document.getElementById('start_date').value);
+            const endDate = new Date(document.getElementById('end_date').value);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0); // Set time to midnight for accurate comparison
+
+            if (startDate < today) {
+                errorMessages.startDate.textContent = 'Start date cannot be in the past';
+                errorMessages.startDate.style.display = 'block';
+                isValid = false;
+            }
+
+            if (endDate <= startDate) {
+                errorMessages.endDate.textContent = 'End date must be after start date';
+                errorMessages.endDate.style.display = 'block';
+                isValid = false;
+            }
+
+            // Duration Validation
+            const duration = document.getElementById('duration').value;
+            if (!duration || isNaN(duration) || duration <= 0) {
+                errorMessages.duration.textContent = 'Please enter a valid duration (must be a positive number)';
+                errorMessages.duration.style.display = 'block';
+                isValid = false;
+            }
+
+            // Image Validation
+            const adImage = document.getElementById('ad_image');
+            if (adImage.files.length === 0) {
+                errorMessages.adImage.textContent = 'Please upload an advertisement image';
+                errorMessages.adImage.style.display = 'block';
+                isValid = false;
+            } else if (adImage.files[0].size > 2 * 1024 * 1024) {
+                errorMessages.adImage.textContent = 'Image size cannot exceed 2MB';
+                errorMessages.adImage.style.display = 'block';
+                isValid = false;
+            }
+
+            // Email Validation
+            const contactEmail = document.getElementById('contact_email').value;
+            if (!contactEmail.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                errorMessages.contactEmail.textContent = 'Please enter a valid email address';
+                errorMessages.contactEmail.style.display = 'block';
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        // Set minimum date for start date (today)
+        const today = new Date();
+        const todayFormatted = today.toISOString().split('T')[0];
+        document.getElementById('start_date').setAttribute('min', todayFormatted);
+
+        // Real-time validation for text inputs
+        document.getElementById('ad_title').addEventListener('input', function() {
+            const errorElem = document.getElementById('ad_title_error');
+            if (this.value.length < 5) {
+                errorElem.textContent = 'Advertisement title must be at least 5 characters';
+                errorElem.style.display = 'block';
+            } else {
+                errorElem.style.display = 'none';
+            }
+        });
+
+        document.getElementById('contact_email').addEventListener('input', function() {
+            const errorElem = document.getElementById('contact_email_error');
+            if (!this.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                errorElem.textContent = 'Please enter a valid email address';
+                errorElem.style.display = 'block';
+            } else {
+                errorElem.style.display = 'none';
+            }
+        });
+
+        document.getElementById('ad_image').addEventListener('change', function() {
+            const errorElem = document.getElementById('ad_image_error');
+            if (this.files.length > 0 && this.files[0].size > 2 * 1024 * 1024) {
+                errorElem.textContent = 'Image size cannot exceed 2MB';
+                errorElem.style.display = 'block';
+            } else {
+                errorElem.style.display = 'none';
+            }
+        });
+
+        // Real-time validation for end date
+        document.getElementById('end_date').addEventListener('input', function() {
+            const startDate = new Date(document.getElementById('start_date').value);
+            const endDate = new Date(this.value);
+            const errorElem = document.getElementById('end_date_error');
+
+            if (endDate <= startDate) {
+                errorElem.textContent = 'End date must be after start date';
+                errorElem.style.display = 'block';
+            } else {
+                errorElem.style.display = 'none';
+            }
+        });
+    </script>
+    <?php
+    require_once "../app/views/layout/footer.php";
+    ?>
+</body>
+
+</html>

@@ -44,11 +44,13 @@ body {
 }
 
 .book-image img {
-    width: 100%;
-    height: auto;
-    border-radius: 12px;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
-    transition: transform 0.3s ease;
+    
+            width: 100%;
+            height: 650px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        
 }
 
 .book-image img:hover {
@@ -276,15 +278,15 @@ body {
     ?>
     <div class="book-container">
         <div class="book-image">
-            <img src="/Free-Write/public/images/collectionThumb.jpeg" alt="The Art of War Book Cover">
+        <img src="/Free-Write/app/images/coverDesign/<?= !empty($bookDetails['coverImage']) ? htmlspecialchars($bookDetails['coverImage']) : 'sampleCover.jpg' ?>" alt="<?= htmlspecialchars($bookDetails['title']) ?>">
         </div>
         <div class="book-info">
-            <div class="Names">
-                <h1>The Art of War</h1>
-                <p>By Sun Tzu</p>
+    <div class="Names">
+        <h1><?= htmlspecialchars($bookDetails['title']) ?></h1>
+        <p>By <?= htmlspecialchars($bookDetails['author_name']) ?></p>
 
-                <div class="price-rating">
-                    <span class="price">$24.99</span>
+        <div class="price-rating">
+            <span class="price">$<?= htmlspecialchars($bookDetails['prize']) ?></span>
                     <div class="rating">
                         <div class="stars">
                             <i class="fas fa-star"></i>
@@ -301,33 +303,51 @@ body {
                 <p>Due back: 2023-10-23</p>
 
                 <h3>Synopsis</h3>
-                <h4>The Art of War is an ancient Chinese military treatise attributed to Sun Tzu, a military strategist, and philosopher. The text is composed of 13 chapters, each of which is devoted to one aspect of warfare. It is commonly known to be the definitive work on strategy and tactics.</h4>
+                <h4><?= htmlspecialchars($bookDetails['synopsis']) ?></h4>
             </div>
             <div class="details">
                 <h3>Details</h3>
                 <div class="row">
                     <div class="column">
                         <p><strong>Author</strong></p>
-                        <p>Sun Tzu</p>
+                        <p><?= htmlspecialchars($bookDetails['author_name']) ?></p>
                     </div>
                     <div class="column">
                         <p><strong>Genre</strong></p>
-                        <p>Non-fiction, Philosophy</p>
+                        <p><?= htmlspecialchars($bookDetails['genre']) ?></p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="column">
-                        <p><strong>Publisher</strong></p>
-                        <p>Penguin Classics</p>
+                    <p><strong>Contributor</strong></p>
+                    <p><?= empty($bookDetails['contributor_name']) ? 'No contributors' : htmlspecialchars($bookDetails['contributor_name']) ?></p>
+
                     </div>
                     <div class="column">
-                        <p><strong>Published Date</strong></p>
-                        <p>5th century BC</p>
+                    <p><strong>Published Date</strong></p>
+                    <p><?= htmlspecialchars($bookDetails['publication_year']) ?></p>
                     </div>
                 </div>
+                <div class="quantity-selector" style="margin-bottom: 20px;">
+    <label for="quantity"><strong>Quantity:</strong></label>
+    <select name="quantity" id="quantity" style="padding: 8px; margin-left: 10px; border-radius: 8px; border: 1px solid #ddd;">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+</div>
+
             </div>
             <button class="resButton">Add to WishList</button>
-            <button class="buyButton">Buy Now</button>
+            <a href="/Free-Write/public/Publisher/paymentPage/<?= htmlspecialchars($bookDetails['isbnID']) ?>">
+            <?php if ($_SESSION['user_type'] !== 'pub'): ?>
+                <button class="buyButton" onclick="window.location.href=this.parentElement.href + '?quantity=' + document.getElementById('quantity').value; return false;">Buy Now</button>
+                <?php endif; ?>
+            </a>
+
+
         </div>
     </div>
     <?php

@@ -67,6 +67,18 @@ class BookController extends Controller
             // Add the book ID to the session
             $_SESSION['viewed_books'][] = $bookID;
         }
+        $hasExistingQuotation = false;
+
+if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'pub') {
+    
+    $quotation = new Quotation();
+    $existingQuotation = $quotation->first([
+        'publisher' => $_SESSION['user_id'],
+        'writer' => $bookFound[0]['author']
+    ]);
+    
+    $hasExistingQuotation = !empty($existingQuotation);
+}
 
         //getting reviews
         $reviewsFound = $review->getReviews($bookID);
@@ -82,7 +94,8 @@ class BookController extends Controller
                 'inList' => $bookInListStatus,
                 'chapterProgress' => $chapterProgress,
                 'collections' => $collectionsFound,
-                'reviews' => $reviewsFound
+                'reviews' => $reviewsFound,
+                'hasExistingQuotation' => $hasExistingQuotation
             ]
         );
 
