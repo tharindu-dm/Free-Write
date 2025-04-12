@@ -32,7 +32,12 @@ class UserController extends Controller
         $BuyBook = new BuyBook();
         $bookGenre = new BookGenre();
         $collection = new Collection();
+        $orderTable = new Order();
+        $publisherTable = new Publisher();
+        $advertisement_table = new Advertisement();
+    $advertisements = $advertisement_table->where(['pubID' => $_SESSION['user_id']]);
 
+        $orders = $orderTable->where(['customer_userID' => $_SESSION['user_id']]);
         $userDetails = $userDetailsTable->first(['user' => $uid]);//getUserDetails($uid);
         $list = $Booklist->getBookListCount($uid);
         $userAcc = $user->first(['userID' => $uid]);
@@ -41,6 +46,7 @@ class UserController extends Controller
         $myboughtBooks = $BuyBook->getBoughtBooks($uid);
         $genreFrequency = $bookGenre->getGenreFrequency($uid);
         $getUserCollections = $collection->getUserCollections($uid);
+        $publisher = $publisherTable->first(['pubID' => $_SESSION['user_id']]);
 
         $isFollowing = null;
         if (isset($_SESSION['user_id']))
@@ -60,10 +66,13 @@ class UserController extends Controller
                 'isFollowing' => $isFollowing,
                 'followingList' => $followingList,
                 'followedByList' => $followedByList,
+                'orders' => $orders,
                 'purchasedBooks' => $myboughtBooks,
                 'genreFrequency' => $genreFrequency,
                 'collections' => $getUserCollections,
-                'bookDetails' => $bookDetails
+                'bookDetails' => $bookDetails,
+                'publisher' => $publisher,
+                'advertisements' => $advertisements
             ]
         );
     }

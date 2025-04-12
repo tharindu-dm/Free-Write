@@ -40,7 +40,7 @@ class PublisherController extends Controller
         $contributor_name = $_POST['contributor_name'];
         $genre = $_POST['genre'];
         $publication_year = $_POST['publication_year'];
-        $synopsis = $_POST['synopsis'];
+        $synopsis = substr($_POST['synopsis'], 0, 1000);
         $prize = $_POST['prize'];
         $created_at = date("Y-m-d H:i:s");
         // $author_link = $_POST['author_link'];
@@ -48,14 +48,15 @@ class PublisherController extends Controller
         $fileName = time() . '_' . $coverImage['name'];
         $targetPath = '../app/images/coverDesign/' . $fileName;
 
-        if(move_uploaded_file($coverImage['tmp_name'], $targetPath)) {
+        if (move_uploaded_file($coverImage['tmp_name'], $targetPath)) {
 
-        $publisherBooks_table = new publisherBooks();
-        $publisherBooks_table->insert(['title' => $title, 'isbnID' => $isbnID, 'author_name' => $author_name, 'contributor_name' => $contributor_name, 'genre' => $genre, 'publication_year' => $publication_year, 'synopsis' => $synopsis, 'prize' => $prize, 'created_at' => $created_at, 'coverImage' => $fileName, 'publisherID' => $_SESSION['user_id']]);
+            $publisherBooks_table = new publisherBooks();
+            $publisherBooks_table->insert(['title' => $title, 'isbnID' => $isbnID, 'author_name' => $author_name, 'contributor_name' => $contributor_name, 'genre' => $genre, 'publication_year' => $publication_year, 'synopsis' => $synopsis, 'prize' => $prize, 'created_at' => $created_at, 'coverImage' => $fileName, 'publisherID' => $_SESSION['user_id']]);
         }
         header('Location: /Free-Write/public/User/Profile');
     }
 
+    
 
     public function bookProfile4publishers()
     {
@@ -63,11 +64,9 @@ class PublisherController extends Controller
         $URL = splitURL();
         $bookID = $URL[2];        //model-method-id
         $book_table = new publisherBooks();        //creating the model and assiging to a variable 
-        $bookDetails = $book_table->first(['isbnID' => $bookID]);   //orange one is table name and blue one is the variable we created 
-        // above one should be returned so put it into the arguement 
+        $bookDetails = $book_table->first(['isbnID' => $bookID]);   //orange one is table name and blue 
 
         $this->view('publisher/bookDesign4Publishers', ['bookDetails' => $bookDetails]);
-        // $this->view('publisher/bookDesign4Users', ['bookDetails' => $bookDetails]);
     }
     public function bookProfile4Users()
     {
@@ -134,8 +133,8 @@ class PublisherController extends Controller
             $publisher = new Publisher();
 
 
-            $user->updateToPub("pub", $_SESSION['user_id']);
-            $publisher->insertPublisher($_POST['email'], $_POST['officeEmail'], $_POST['website'], $_POST['address'], $_POST['contactNumber'], $_POST['dob'], $_POST['description'], $_SESSION['user_id']);
+            $user->updateToPub("cov", $_SESSION['user_id']);
+            // $publisher->insertPublisher($_POST['email'], $_POST['officeEmail'], $_POST['website'], $_POST['address'], $_POST['contactNumber'], $_POST['dob'], $_POST['description'], $_SESSION['user_id']);
             // Update user details
             $userDetails->updatePubDetail($_POST['description'], $_POST['dob'], $_POST['country'], $_SESSION['user_id']);
 
@@ -156,6 +155,7 @@ class PublisherController extends Controller
 
     public function orderDetail()
     {
+
         $this->view('publisher/orderDetailPage');
     }
 
@@ -172,4 +172,443 @@ class PublisherController extends Controller
     {
         $this->view('publisher/courierReview');
     }
+
+    public function paymentPage()
+    {
+        $URL = splitURL();
+        $bookID = $URL[2];
+        $quantity = isset($_GET['quantity']) ? (int)$_GET['quantity'] : 1;
+
+        $book_table = new publisherBooks();
+        $bookDetails = $book_table->first(['isbnID' => $bookID]);
+
+        // Calculate total price
+        $totalPrice = $bookDetails['prize'] * $quantity;
+
+        $this->view('publisher/paymentPage', [
+            'bookDetails' => $bookDetails,
+            'quantity' => $quantity,
+            'totalPrice' => $totalPrice
+        ]);
+    }
+
+    public function updateBookDetails()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $data = [
+                'title' => trim($_POST['title']),
+                'author_name' => trim($_POST['author_name']),
+                'synopsis' => trim($_POST['synopsis']),
+                'prize' => trim($_POST['prize']),
+                'genre' => trim($_POST['genre'])
+            ];
+
+            $publisherBooks = new PublisherBooks();
+            if ($publisherBooks->updateBookDetails($_POST['isbnID'], $data)) {
+                echo json_encode(['status' => 'success']);
+            } else {
+                echo json_encode(['status' => 'error']);
+            }
+            exit;
+        }
+    }
+
+    public function applyingAdvertisement()
+    {
+        $this->view('publisher/advertisementApplication');
+    }
+
+    public function ApplyAdvertisement()
+{
+    
+    $ad_title = $_POST['ad_title'];
+    $ad_type = $_POST['ad_type'];
+    $start_date = $_POST['start_date'];
+    $end_date = $_POST['end_date'];
+    $contact_email = $_POST['contact_email'];
+
+    // Handle image upload
+    $adImage = $_FILES['ad_image'];
+    $fileName = time() . '_' . $adImage['name'];
+    $targetPath = '../app/images/advertisements/' . $fileName;
+
+    if (move_uploaded_file($adImage['tmp_name'], $targetPath)) {
+        $advertisement_table = new Advertisement();
+        $advertisement_table->insert([
+            'advertisementType' => $ad_type,
+            'startDate' => $start_date,
+            'endDate' => $end_date,
+            'contactEmail' => $contact_email,
+            'adImage' => $fileName,
+            'pubID' => $_SESSION['user_id'],
+            'status' => 'pending'
+        ]);
+    }
+    header('Location: /Free-Write/public/User/Profile');
+}
+
+public function deleteAdvertisement()
+{
+    if (!isset($_POST['adID'])) {
+        header('Location: /Free-Write/public/User/Profile');
+        exit();
+    }
+
+    $adID = $_POST['adID'];
+    $advertisement_table = new Advertisement();
+
+    // Verify advertisement belongs to current publisher
+    $advertisement = $advertisement_table->first([
+        'adID' => $adID,
+        'pubID' => $_SESSION['user_id']
+    ]);
+
+    if ($advertisement) {
+        $advertisement_table->delete($adID, 'adID');
+    }
+
+    header('Location: /Free-Write/public/User/Profile');
+    exit();
+}
+
+public function updateAdvertisement()
+{
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $adID = $_POST['adID'];
+        $newEndDate = $_POST['newEndDate'];
+        
+        $data = [
+            'endDate' => $newEndDate
+        ];
+
+        // Handle new image upload if provided
+        if (isset($_FILES['newAdImage']) && $_FILES['newAdImage']['size'] > 0) {
+            $adImage = $_FILES['newAdImage'];
+            $fileName = time() . '_' . $adImage['name'];
+            $targetPath = '../app/images/advertisements/' . $fileName;
+
+            if (move_uploaded_file($adImage['tmp_name'], $targetPath)) {
+                $data['adImage'] = $fileName;
+            }
+        }
+
+        $advertisement_table = new Advertisement();
+        $advertisement = $advertisement_table->first(['adID' => $adID]);
+
+        if ($advertisement) {
+            $advertisement_table->update($adID, $data, 'adID');
+        }
+
+        header('Location: /Free-Write/public/Publisher/payPage4ad');
+        exit();
+    }
+}
+
+public function payPage4ad()
+{
+    $adID = $_POST['adID'];
+    $oldEndDate = $_POST['oldEndDate'];
+    $newEndDate = $_POST['newEndDate'];
+    
+    // Handle image upload
+    $fileName = null;
+    if (isset($_FILES['newAdImage']) && $_FILES['newAdImage']['size'] > 0) {
+        $adImage = $_FILES['newAdImage'];
+        $fileName = time() . '_' . $adImage['name'];
+        $targetPath = '../app/images/advertisements/' . $fileName;
+        move_uploaded_file($adImage['tmp_name'], $targetPath);
+    }
+    
+    $this->view('publisher/paymentPage4ad', [
+        'adID' => $adID,
+        'oldEndDate' => $oldEndDate,
+        'newEndDate' => $newEndDate,
+        'newImage' => $fileName
+    ]);
+}
+
+public function updateAdvertisementAfterPayment()
+{
+    $adID = $_POST['adID'];
+    $newEndDate = $_POST['newEndDate'];
+    $newImage = $_POST['newImage'];
+    
+    $data = [
+        'endDate' => $newEndDate
+    ];
+    
+    if($newImage) {
+        $data['adImage'] = $newImage;
+    }
+    
+    $advertisement_table = new Advertisement();
+    $advertisement_table->update($adID, $data, 'adID');
+    
+    header('Location: /Free-Write/public/User/Profile');
+    exit();
+}
+
+public function sendQuotation2Wri(){
+    $bookId = $_POST['book_id'];
+    $writerId = $_POST['writer_id'];
+    $publisherId = $_SESSION['user_id'];
+    $newMessage = $_POST['message']; 
+    
+    $quotation_table = new Quotation();
+    
+    $existingQuotation = $quotation_table->first([
+        'publisher' => $publisherId,
+        'writer' => $writerId
+    ]);
+    
+    $currentDate = date('Y-m-d H:i:s');
+    $formattedMessage = "\n[" . $currentDate . " - Publisher] " . $newMessage;
+    
+    if ($existingQuotation) {
+
+        $updatedMessage = $existingQuotation['message'] . $formattedMessage;
+        
+        $primaryKeyField = 'quotaID'; 
+        
+         $quotation_table->update($existingQuotation[$primaryKeyField], [
+            'message' => $updatedMessage,
+            'sendDate' => date('Y-m-d')
+        ], $primaryKeyField); 
+    } else {
+        
+         $quotation_table->insert([
+            'publisher' => $publisherId,
+            'message' => $formattedMessage,
+            'sendDate' => date('Y-m-d'),
+            'writer' => $writerId,
+        ]);
+    }
+    
+    header('Location: /Free-Write/public/Publisher/viewQuotationHistory?writer_id=' . $writerId . '&book_id=' . $bookId);
+    exit();
+}
+public function viewQuotationHistory() {
+    
+        $writerId = $_GET['writer_id'] ;
+        $bookId = $_GET['book_id'];
+    
+        if (!$writerId || !$bookId) {
+        header('Location: /Free-Write/public/User/Profile');
+        exit();
+    }
+    
+    // Get writer details
+    $writer = new UserDetails();
+    $writerDetails = $writer->first(['user' => $writerId]);
+    $writerName = $writerDetails['firstName'] . ' ' . $writerDetails['lastName'] ?? 'Unknown Writer';
+
+    
+    // Get quotation history
+    $quotation = new Quotation();
+    $quotationHistory = $quotation->first([
+        'publisher' => $_SESSION['user_id'],
+        'writer' => $writerId
+    ]);
+    
+    
+    $messages = [];
+    if ($quotationHistory && !empty($quotationHistory['message'])) {
+        // Split the message by newlines and parse each line
+        $lines = explode("\n", $quotationHistory['message']);
+        foreach ($lines as $line) {
+            if (empty(trim($line))) continue;
+            
+            // Parse the message format: [timestamp - sender_type] message
+            if (preg_match('/\[(.*?) - (.*?)\] (.*)/', $line, $matches)) {
+                $timestamp = $matches[1];
+                $senderType = strtolower($matches[2]);
+                $content = $matches[3];
+                
+                $messages[] = [
+                    'timestamp' => $timestamp,
+                    'sender_type' => $senderType,
+                    'sender_name' => $senderType == 'publisher' ? 'You' : $writerName,
+                    'content' => $content
+                ];
+            }
+        }
+    }
+    
+    $this->view('publisher/quotationHistory', [
+        'writerName' => $writerName,
+        'writerId' => $writerId,
+        'bookId' => $bookId,
+        'messages' => $messages,
+        'quotationHistory' => $quotationHistory
+    ]);
+}
+public function editQuotationMessage() {
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        header('Location: /Free-Write/public/User/Profile');
+        exit();
+    }
+    
+    $quotationId = $_POST['quotation_id'] ?? null;
+    $messageIndex = $_POST['message_index'] ?? null;
+    $writerId = $_POST['writer_id'] ?? null;
+    $bookId = $_POST['book_id'] ?? null;
+    $editedMessage = $_POST['edited_message'] ?? '';
+    
+    if (!$quotationId || !isset($messageIndex) || !$writerId || !$bookId) {
+        $_SESSION['error_message'] = "Missing required information";
+        header('Location: /Free-Write/public/Publisher/viewQuotationHistory?writer_id=' . $writerId . '&book_id=' . $bookId);
+        exit();
+    }
+    
+    // Get the quotation
+    $quotation = new Quotation();
+    $quotationData = $quotation->first(['quotaID' => $quotationId]);
+    
+    if (!$quotationData || $quotationData['publisher'] != $_SESSION['user_id']) {
+        $_SESSION['error_message'] = "You don't have permission to edit this message";
+        header('Location: /Free-Write/public/Publisher/viewQuotationHistory?writer_id=' . $writerId . '&book_id=' . $bookId);
+        exit();
+    }
+    
+    // Parse the messages
+    $messages = [];
+    $lines = explode("\n", $quotationData['message']);
+    foreach ($lines as $line) {
+        if (empty(trim($line))) continue;
+        
+        if (preg_match('/\[(.*?) - (.*?)\] (.*)/', $line, $matches)) {
+            $timestamp = $matches[1];
+            $senderType = $matches[2];
+            $content = $matches[3];
+            
+            $messages[] = [
+                'timestamp' => $timestamp,
+                'sender_type' => $senderType,
+                'content' => $content,
+                'full_line' => $line
+            ];
+        }
+    }
+    
+    // Make sure the message index is valid
+    if (!isset($messages[$messageIndex])) {
+        $_SESSION['error_message'] = "Invalid message index";
+        header('Location: /Free-Write/public/Publisher/viewQuotationHistory?writer_id=' . $writerId . '&book_id=' . $bookId);
+        exit();
+    }
+    
+    // Make sure the message belongs to the publisher
+    if (strtolower($messages[$messageIndex]['sender_type']) !== 'publisher') {
+        $_SESSION['error_message'] = "You can only edit your own messages";
+        header('Location: /Free-Write/public/Publisher/viewQuotationHistory?writer_id=' . $writerId . '&book_id=' . $bookId);
+        exit();
+    }
+    
+    // Update the message
+    $messages[$messageIndex]['content'] = $editedMessage;
+    $messages[$messageIndex]['full_line'] = '[' . $messages[$messageIndex]['timestamp'] . ' - ' . $messages[$messageIndex]['sender_type'] . '] ' . $editedMessage . ' (edited)';
+    
+    // Rebuild the message string
+    $updatedMessage = '';
+    foreach ($messages as $msg) {
+        $updatedMessage .= $msg['full_line'] . "\n";
+    }
+    
+    // Update the database
+    $result = $quotation->update($quotationId, [
+        'message' => $updatedMessage
+    ], 'quotaID');
+    
+    if ($result) {
+        $_SESSION['success_message'] = "Message updated successfully";
+    } else {
+        $_SESSION['error_message'] = "Failed to update message";
+    }
+    
+    header('Location: /Free-Write/public/Publisher/viewQuotationHistory?writer_id=' . $writerId . '&book_id=' . $bookId);
+    exit();
+}
+
+public function deleteQuotationMessage() {
+    $quotationId = $_GET['quotation_id'] ?? null;
+    $messageIndex = $_GET['message_index'] ?? null;
+    $writerId = $_GET['writer_id'] ?? null;
+    $bookId = $_GET['book_id'] ?? null;
+    
+    if (!$quotationId || !isset($messageIndex) || !$writerId || !$bookId) {
+        $_SESSION['error_message'] = "Missing required information";
+        header('Location: /Free-Write/public/Publisher/viewQuotationHistory?writer_id=' . $writerId . '&book_id=' . $bookId);
+        exit();
+    }
+    
+    // Get the quotation
+    $quotation = new Quotation();
+    $quotationData = $quotation->first(['quotaID' => $quotationId]);
+    
+    if (!$quotationData || $quotationData['publisher'] != $_SESSION['user_id']) {
+        $_SESSION['error_message'] = "You don't have permission to delete this message";
+        header('Location: /Free-Write/public/Publisher/viewQuotationHistory?writer_id=' . $writerId . '&book_id=' . $bookId);
+        exit();
+    }
+    
+    // Parse the messages
+    $messages = [];
+    $lines = explode("\n", $quotationData['message']);
+    foreach ($lines as $line) {
+        if (empty(trim($line))) continue;
+        
+        if (preg_match('/\[(.*?) - (.*?)\] (.*)/', $line, $matches)) {
+            $timestamp = $matches[1];
+            $senderType = $matches[2];
+            $content = $matches[3];
+            
+            $messages[] = [
+                'timestamp' => $timestamp,
+                'sender_type' => $senderType,
+                'content' => $content,
+                'full_line' => $line
+            ];
+        }
+    }
+    
+    // Make sure the message index is valid
+    if (!isset($messages[$messageIndex])) {
+        $_SESSION['error_message'] = "Invalid message index";
+        header('Location: /Free-Write/public/Publisher/viewQuotationHistory?writer_id=' . $writerId . '&book_id=' . $bookId);
+        exit();
+    }
+    
+    // Make sure the message belongs to the publisher
+    if (strtolower($messages[$messageIndex]['sender_type']) !== 'publisher') {
+        $_SESSION['error_message'] = "You can only delete your own messages";
+        header('Location: /Free-Write/public/Publisher/viewQuotationHistory?writer_id=' . $writerId . '&book_id=' . $bookId);
+        exit();
+    }
+    
+    // Remove the message
+    array_splice($messages, $messageIndex, 1);
+    
+    // Rebuild the message string
+    $updatedMessage = '';
+    foreach ($messages as $msg) {
+        $updatedMessage .= $msg['full_line'] . "\n";
+    }
+    
+    // Update the database
+    $result = $quotation->update($quotationId, [
+        'message' => $updatedMessage
+    ], 'quotaID');
+    
+    if ($result) {
+        $_SESSION['success_message'] = "Message deleted successfully";
+    } else {
+        $_SESSION['error_message'] = "Failed to delete message";
+    }
+    
+    header('Location: /Free-Write/public/Publisher/viewQuotationHistory?writer_id=' . $writerId . '&book_id=' . $bookId);
+    exit();
+}
+
+
+
 }

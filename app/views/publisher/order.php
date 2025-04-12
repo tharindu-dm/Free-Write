@@ -328,33 +328,39 @@
           <th>Book Title</th>
           <th>Order Date</th>
           <th>Customer</th>
-          <th>Address</th>
+          <!-- <th>Address</th> -->
           <th>Status</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
+    <?php if (!empty($data['orders'])): ?>
+        <?php foreach ($data['orders'] as $order): ?>
+            <?php 
+            $userDetailsTable = new UserDetails();
+            $userDetails = $userDetailsTable->first(['user' => $order['customer_userID']]);
+            ?>
+            <tr>
+                <td><a href="/Free-Write/public/Publisher/orderDetail"><?= htmlspecialchars($order['bookTitle'] ?? ''); ?></a></td>
+                <td><?= htmlspecialchars($order['orderDate'] ?? ''); ?></td>
+                <td><?= $userDetails ? htmlspecialchars($userDetails['firstName'] . '  ' . $userDetails['lastName']) : 'N/A'; ?></td>
+                <td>Pending</td>
+                <td>
+                    <button class="order-action-button">Proceed</button>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    <?php else: ?>
         <tr>
-          <td><a href="/Free-Write/public/Publisher/orderDetail">Designing Data-Intensive Applications</a></td>
-          <td>2024-10-20</td>
-          <td>Jane Smith</td>
-          <td>1234 Main St, Colombo</td>
-          <td>shipped</td>
-          <td>
-            <button class="order-action-button">Proceed</button>
-          </td>
+            <td colspan="8" style="text-align: center;">No Orders found</td>
         </tr>
-        <tr>
-          <td><a href="/Free-Write/public/Publisher/orderDetail">Clean Code</a></td>
-          <td>2024-10-21</td>
-          <td>John Doe</td>
-          <td>5678 Market St, Galle</td>
-          <td>pending</td>
-          <td>
-            <button class="order-action-button">Proceed</button>
-          </td>
-        </tr>
-      </tbody>
+    <?php endif; ?>
+</tbody>
+
+
+
+
+
     </table>
   </main>
 </body>

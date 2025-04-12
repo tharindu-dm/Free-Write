@@ -51,27 +51,35 @@
         }
 
         .book-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr); /* Adjust based on how many books you want per row */
-    gap: 16px; /* Space between the book items */
-}
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            /* Adjust based on how many books you want per row */
+            gap: 16px;
+            /* Space between the book items */
+        }
 
-.book-item {
-    text-align: center; /* Center the text */
-}
+        .book-item {
+            text-align: center;
+            /* Center the text */
+        }
 
-.book-item img {
-    width: 100%; /* Ensure the image fills the container */
-    height: auto;
-    display: block;
-}
+        .book-item img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
 
-.book-title {
-    margin-top: 8px; /* Space between image and title */
-    font-size: 16px; /* Adjust font size */
-    font-weight: bold;
-    color: #333; /* Color for the title */
-}
+        .book-title {
+            margin-top: 8px;
+            /* Space between image and title */
+            font-size: 16px;
+            /* Adjust font size */
+            font-weight: bold;
+            color: #333;
+            /* Color for the title */
+        }
 
 
         .add-books {
@@ -183,21 +191,20 @@
     </div>
 </div> -->
 
-<div class="book-grid">
-    <?php if (!empty($data['bookDetails'])) : ?>
-        <?php foreach (array_slice($data['bookDetails'], 0, 5) as $bookDetails) : ?>
-            <div class="book-item">
-                <a href="/Free-Write/public/Publisher/bookProfile4Publishers/<?php echo $bookDetails['isbnID']; ?>">
-                    <img src="/Free-Write/public/images/collectionThumb.jpeg" 
-                         alt="<?php echo htmlspecialchars($bookDetails['title'] ?? ''); ?>">
-                    <p class="book-title"><?php echo htmlspecialchars($bookDetails['title'] ?? ''); ?></p>
-                </a>
+            <div class="book-grid">
+                <?php if (!empty($data['bookDetails'])) : ?>
+                    <?php foreach (array_slice($data['bookDetails'], 0, 5) as $bookDetails) : ?>
+                        <div class="book-item">
+                            <a href="/Free-Write/public/Publisher/bookProfile4Publishers/<?php echo $bookDetails['isbnID']; ?>">
+                                <img src="/Free-Write/app/images/coverDesign/<?= !empty($bookDetails['coverImage']) ? htmlspecialchars($bookDetails['coverImage']) : 'sampleCover.jpg' ?>" alt="<?= htmlspecialchars($bookDetails['title']) ?>">
+                                <p class="book-title"><?php echo htmlspecialchars($bookDetails['title'] ?? ''); ?></p>
+                            </a>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <p>No books available.</p>
+                <?php endif; ?>
             </div>
-        <?php endforeach; ?>
-    <?php else : ?>
-        <p>No books available.</p>
-    <?php endif; ?>
-</div>
 
 
 
@@ -206,7 +213,7 @@
                 "><button class="add-books">Add Books To Library</button></a>
                 <a href="/Free-Write/public/Competition/MyCompetitions"><button class="add-books">Manage My
                         Competitions</button></a>
-                        <a href="/Free-Write/public/Publisher/courier"><button class="add-books">Manage My
+                <a href="/Free-Write/public/Publisher/courier"><button class="add-books">Manage My
                         Couriers</button></a>
             </div>
         </section>
@@ -219,8 +226,8 @@
                     d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
             </svg>
             <h2>Location</h2>
-            <p>San Francisco, CA</p>
-            <p>123 Main St</p>
+            <p><?php echo htmlspecialchars($publisher['hqAddress'] ?? ''); ?></p>
+
         </section>
 
         <section class="contact">
@@ -231,7 +238,7 @@
             </svg>
             <h2>Contact</h2>
             <p>Phone</p>
-            <p>(123) 456-7890</p>
+            <p><?php echo htmlspecialchars($publisher['contactNo'] ?? ''); ?></p>
         </section>
     </main>
 </body>

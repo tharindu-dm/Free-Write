@@ -7,6 +7,349 @@
     <title>User Profile</title>
     <link rel="stylesheet" href="/Free-Write/public/css/profile.css">
     <link rel="stylesheet" href="/Free-Write/public/css/createCollection.css">
+    <style>
+        /* Advertisement Section Styling */
+        #advertisements {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#advertisements h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #1C160C;
+  text-align: center;
+  border-bottom: 2px solid #FFD700;
+  padding-bottom: 0.5rem;
+}
+
+.advertisement-container {
+  width: 100%;
+}
+
+.advertisement-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+}
+
+.advertisement-table th,
+.advertisement-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.advertisement-table th {
+    background-color: #FFD052;
+    color: #1C160C;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+}
+
+.advertisement-table tbody tr {
+  transition: background-color 0.2s;
+}
+
+.advertisement-table tbody tr:nth-child(odd) {
+  background-color: #FCFAF5;
+}
+
+.advertisement-table tbody tr:hover {
+    background-color: #FFF8E0;
+}
+
+
+.advertisement-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #FFE57F;
+  color: #4A4A4A;
+}
+
+.advertisement-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Status styling - adds colored dots for status */
+.advertisement-table td:last-child {
+  font-weight: 600;
+}
+
+.advertisement-table td:last-child:contains("Approved") {
+  color: #28a745;
+}
+
+.advertisement-table td:last-child:contains("Pending") {
+  color: #ffc107;
+}
+
+.advertisement-table td:last-child:contains("Rejected") {
+  color: #dc3545;
+}
+
+/* No ads message styling */
+.no-ads-message {
+  text-align: center;
+  padding: 3rem 1rem;
+  background-color: #FCFAF5;
+  border: 2px dashed #FFD700;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.no-ads-message p {
+  color: #c47c15;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* Button styling */
+.edit-profile-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #FFD052;
+  color: #1C160C;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 0 auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.edit-profile-btn:hover {
+  background-color: #E0B94A;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.edit-profile-btn svg {
+  width: 20px;
+  height: 20px;
+}
+.editable {
+    padding: 5px;
+    border: 1px solid transparent;
+}
+
+.editing .editable {
+    border: 1px solid #FFD052;
+    border-radius: 4px;
+}
+
+.btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.edit-btn {
+    background-color: #FFD052;
+    color: white;
+}
+
+
+
+.delete-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+/* Delete Overlay Styling */
+.deleteOverlay-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+
+.deleteOverlay {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px;
+}
+
+.deleteOverlay h2 {
+    color: #2c3e50;
+    margin: 0 0 20px 0;
+    font-size: 20px;
+    text-align: center;
+}
+
+.deleteOverlay label {
+    display: block;
+    font-weight: 500;
+    color: gray;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.deleteOverlay input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    background-color: #F5F0E5;
+    color: #2c3e50;
+    font-size: 14px;
+}
+
+.deleteOverlay input[type="text"]:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+#deleteAd_Agree {
+    background-color: #dc3545;
+    color: white;
+    margin-top: 10px;
+}
+
+#cancelDeleteAd {
+    background-color: #6c757d;
+    color: white;
+    margin-top: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .advertisement-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  #advertisements {
+    margin: 1rem;
+    padding: 1rem;
+  }
+  
+  .edit-profile-btn {
+    width: 100%;
+  }
+}
+/* Edit Overlay Styling */
+.editOverlay-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.editOverlay {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #333;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.form-group input[disabled] {
+    background-color: #f5f5f5;
+}
+
+.button-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    justify-content: flex-end;
+}
+
+/* Edit Button Styling */
+.edit-btn {
+    background-color: #FFD052;
+    color: #1C160C;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.2s;
+}
+
+.edit-btn:hover {
+    background-color: #E0B94A;
+}
+
+.save-btn {
+    background-color: #FFD052;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.description {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 0.25rem;
+}
+
+    </style>
 </head>
 
 <body>
@@ -22,12 +365,16 @@
         case 'writer':
         case 'covdes':
         case 'wricov':
+        
         case 'reader':
             require_once "../app/views/layout/header-user.php";
             break;
         case 'pub':
             require_once "../app/views/layout/header-pub.php";
             break;
+        case 'cov':
+                require_once "../app/views/layout/header-user.php";
+                break;
         default:
             require_once "../app/views/layout/header.php";
     }
@@ -126,7 +473,41 @@
                         </svg>
                         Dashboard
                     </button>
-                    <?php if ($userType != 'pub' && $userType != 'inst'): ?>
+                    <?php if ($userType == 'pub' ): ?>
+                    <button class="user-nav-button" data-view="advertisements">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75" />
+                        </svg>
+                        My Advertisements
+                    </button>
+
+                    <button class="user-nav-button" data-view="quotations">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" 
+        stroke="currentColor" class="size-6">
+        <path stroke-linecap="round" stroke-linejoin="round" 
+            d="M8.25 7.5V6.108c0-1.135.845-2.098 1.976-2.192.373-.03.748-.057 1.123-.08M15.75 18H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08M15.75 18.75v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5A3.375 3.375 0 006.375 7.5H5.25m11.9-3.664A2.251 2.251 0 0015 2.25h-1.5a2.251 2.251 0 00-2.15 1.586m5.8 0c.065.21.1.433.1.664v.75h-6V4.5c0-.231.035-.454.1-.664M6.75 7.5H4.875c-.621 0-1.125.504-1.125 1.125v12c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V16.5a9 9 0 00-9-9z" />
+    </svg>
+    My Quotations
+</button>
+<?php endif; ?>
+
+<?php if ($userType == 'cov' ): ?>
+<button class="user-nav-button" data-view="courierOrders">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" 
+        stroke="currentColor" class="size-6">
+        <path stroke-linecap="round" stroke-linejoin="round" 
+            d="M8.25 7.5V6.108c0-1.135.845-2.098 1.976-2.192.373-.03.748-.057 1.123-.08M15.75 18H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08M15.75 18.75v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5A3.375 3.375 0 006.375 7.5H5.25m11.9-3.664A2.251 2.251 0 0015 2.25h-1.5a2.251 2.251 0 00-2.15 1.586m5.8 0c.065.21.1.433.1.664v.75h-6V4.5c0-.231.035-.454.1-.664M6.75 7.5H4.875c-.621 0-1.125.504-1.125 1.125v12c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V16.5a9 9 0 00-9-9z" />
+    </svg>
+    My Courier Orders
+</button>
+<?php endif; ?>
+
+
+
+
+                    <?php if ($userType != 'pub' && $userType != 'inst' && $userType != 'cov'): ?>
                         <button class="user-nav-button" data-view="spinoffs">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-6">
@@ -164,7 +545,7 @@
                     <?php endif; ?>
                 </div>
             </div>
-           
+
             <div class="user-profile-content">
                 <div id="dashboard" class="view-section active">
                     <h2>Dashboard</h2>
@@ -353,8 +734,8 @@
                             <?php if (!empty($collections)): ?>
                                 <?php foreach ($collections as $collection): ?>
                                     <a
-                                        href="/Free-Write/public/Collection/viewCollection/<?= htmlspecialchars($collection['collectionID']); ?>">
-
+                                        href="/Free-Write/public/Collection/view/<?= htmlspecialchars($collection['collectionID']); ?>">
+                                        
                                         <div class="collection-item">
                                             <img src="/Free-Write/public/images/collectionThumb.jpeg"
                                                 alt="Collection Thumbnail">
@@ -399,6 +780,121 @@
                         <?php endif; ?>
                     </div>
                 </div>
+
+              <!-- Advertisement Section -->
+<div id="advertisements" class="view-section">
+    <h2>My Advertisement Site</h2>
+    <div class="advertisement-container">
+        <?php if (!empty($data['advertisements'])): ?>
+            <table class="advertisement-table">
+                <thead>
+                    <tr data-ad-id="<?= htmlspecialchars($ad['adID']) ?>">
+                        <th>Advertisement Type</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Contact Email</th>
+                        <th>Status</th>
+                        <th>Actions</th> <!-- New column for Edit, Save, Cancel, and Delete buttons -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($data['advertisements'] as $ad): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($ad['advertisementType']) ?></td>
+                            <td><?= htmlspecialchars($ad['startDate']) ?></td>
+                            <td class="editable" contenteditable="false"><?= htmlspecialchars($ad['endDate']) ?></td>
+                            <td><?= htmlspecialchars($ad['contactEmail']) ?></td>
+                            <td><?= htmlspecialchars($ad['status']) ?></td>
+                            <td>
+                            <div class="action-buttons">
+                            <button class="edit-btn" onclick="showEditOverlay('<?= htmlspecialchars($ad['adID']) ?>', '<?= htmlspecialchars($ad['endDate']) ?>')">
+                        <i class="fas fa-edit"></i> Edit
+                    </button>
+                    
+                    <button class="btn delete-btn" id="deleteAdBtn" onclick="showDeleteConfirmation('<?= htmlspecialchars($ad['adID']) ?>')">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </div>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else: ?>
+            <div class="no-ads-message">
+                <p>No currently hired advertisements</p>
+            </div>
+        <?php endif; ?>
+        <a href="/Free-Write/public/Publisher/applyingAdvertisement">
+            <button class="edit-profile-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" 
+                    stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" 
+                        d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+                Apply for Advertisement
+            </button>
+        </a>
+    </div>
+</div>
+
+<!-- Delete Confirmation Overlay -->
+<div class="deleteOverlay-container">
+    <div class="deleteOverlay">
+        <h2>Are you sure you want to delete this advertisement?</h2>
+        <form action="/Free-Write/public/Publisher/deleteAdvertisement" method="POST">
+            <input type="hidden" name="adID" id="deleteAdID" value="<?=
+htmlspecialchars(string: $ad['adID']) ?>">
+            <label for="adID-label">Advertisement ID</label>
+            <input type="text" id="adID-label" disabled value="<?=
+htmlspecialchars(string: $ad['adID']) ?>">
+            <label for="adType-label">Advertisement Type</label>
+            <input type="text" id="adType-label" disabled value="<?=
+htmlspecialchars(string: $ad['advertisementType']) ?>">
+            <button type="submit" id="deleteAd_Agree">Yes, Delete</button>
+            <button type="button" id="cancelDeleteAd" onclick="hideDeleteOverlay()">Cancel</button>
+        </form>
+    </div>
+</div>
+
+<div class="editOverlay-container">
+<div class="editOverlay">
+    <h2>Edit Advertisement End Date</h2>
+    <form action="/Free-Write/public/Publisher/payPage4ad" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="adID" id="editAdID">
+        <div class="form-group">
+            <label for="currentEndDate">Current End Date</label>
+            <input type="text" id="currentEndDate" name="oldEndDate" readonly>
+        </div>
+        <div class="form-group">
+            <label for="newEndDate">New End Date</label>
+            <input type="date" id="newEndDate" name="newEndDate" required>
+        </div>
+        <div class="form-group">
+            <label for="newAdImage">New Advertisement Image</label>
+            <input type="file" id="newAdImage" name="newAdImage" accept="image/*">
+            <p class="description">JPG or PNG, 2MB max</p>
+        </div>
+        <div class="button-group">
+            <button type="submit" class="save-btn">Proceed to Payment</button>
+            <button type="button" class="cancel-btn" onclick="hideEditOverlay()">Cancel</button>
+        </div>
+    </form>
+</div>
+</div>
+
+<div id="quotations" class="view-section">
+    <h2>My Quotations are here</h2>
+</div>
+
+<div id="courierOrders" class="view-section">
+    <h2>My Orders are here</h2>
+</div>
+
+
+
+
+
 
                 <!-- Spin-offs Section -->
                 <div id="spinoffs" class="view-section">
@@ -478,13 +974,14 @@
                             <div class="order-item">
                                 <p>Order #<?= htmlspecialchars($order['orderID']); ?></p>
                                 <p>Date: <?= htmlspecialchars($order['orderDate']); ?></p>
-                                <p>Total: $<?= number_format($order['total'], 2); ?></p>
+                                <p>Total: $<?= number_format($order['totalPrice'], 2); ?></p>
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <p>No orders yet.</p>
                     <?php endif; ?>
                 </div>
+
 
                 <!-- Followers Section -->
                 <div id="my-network" class="view-section">
@@ -982,6 +1479,174 @@
             }
         }
     </script>
+
+<script>
+    // // Function to toggle edit mode for the advertisement section
+    // function toggleEditMode() {
+    //     document.querySelector('.advertisement-container').classList.add('editing');
+    //     document.querySelectorAll('.editable').forEach(el => {
+    //         el.contentEditable = true;
+    //         el.style.backgroundColor = '#fff8e8';
+    //     });
+    //     document.querySelector('.edit-btn').style.display = 'none';
+    //     document.querySelector('.save-btn').style.display = 'inline-block';
+    //     document.querySelector('.cancel-btn').style.display = 'inline-block';
+    // }
+
+    // // Function to save changes for the advertisement section
+    // function saveChanges() {
+    //     // Get values with null checks
+    //     const adID = document.querySelector('input[name="adID"]').value;
+    //     const endDate = document.querySelector('.editable')?.textContent || '';
+
+    //     // Create form data
+    //     const formData = new FormData();
+    //     formData.append('adID', adID);
+    //     formData.append('endDate', endDate);
+
+    //     // Add console.log to debug
+    //     console.log('Sending data:', Object.fromEntries(formData));
+
+    //     // Send data to the server
+    //     fetch('/Free-Write/public/Publisher/updateAdvertisement', {
+    //         method: 'POST',
+    //         body: formData
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         console.log('Response:', data);
+    //         if (data.status === 'success') {
+    //             alert('Advertisement updated successfully!');
+    //             location.reload();
+    //         } else {
+    //             alert('Failed to update advertisement.');
+    //         }
+    //     })
+    //     .catch(error => {
+    //         console.error('Error:', error);
+    //     });
+    // }
+
+    // // Function to cancel edit mode for the advertisement section
+    // function cancelEdit() {
+    //     document.querySelector('.advertisement-container').classList.remove('editing');
+    //     document.querySelectorAll('.editable').forEach(el => {
+    //         el.contentEditable = false;
+    //         el.style.backgroundColor = 'transparent';
+    //         // Revert to original content (if needed)
+    //     });
+    //     document.querySelector('.edit-btn').style.display = 'inline-block';
+    //     document.querySelector('.save-btn').style.display = 'none';
+    //     document.querySelector('.cancel-btn').style.display = 'none';
+    // }
+
+
+    // Function to show delete confirmation overlay
+    function showDeleteConfirmation(adID) {
+    const deleteOverlay = document.querySelector('.deleteOverlay-container');
+    const adIDLabel = document.getElementById('adID-label');
+    const deleteAdIDInput = document.getElementById('deleteAdID');
+    
+    // Set the values
+    adIDLabel.value = adID;
+    deleteAdIDInput.value = adID;
+    
+    // Show the overlay
+    deleteOverlay.style.display = 'flex';
+}
+
+    // Function to handle delete confirmation
+    document.getElementById('deleteAdForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+
+        fetch('/Free-Write/public/Publisher/deleteAdvertisement', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                alert('Advertisement deleted successfully!');
+                location.reload();
+            } else {
+                alert('Failed to delete advertisement.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+
+    function hideDeleteOverlay() {
+    document.querySelector('.deleteOverlay-container').style.display = 'none';
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    const deleteAdBtns = document.querySelectorAll(".delete-btn");
+    const deleteOverlay = document.querySelector(".deleteOverlay-container");
+
+    deleteAdBtns.forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            deleteOverlay.style.display = "flex";
+        });
+    });
+});
+
+function showEditOverlay(adID, currentDate) {
+    document.getElementById('editAdID').value = adID;
+    document.getElementById('currentEndDate').value = currentDate;
+    document.querySelector('.editOverlay-container').style.display = 'flex';
+}
+
+function hideEditOverlay() {
+    document.querySelector('.editOverlay-container').style.display = 'none';
+}
+
+
+// Add click handler to edit buttons
+document.querySelectorAll('.edit-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        const row = e.target.closest('tr');
+        const adID = row.dataset.adId;
+        const currentDate = row.querySelector('td:nth-child(3)').textContent;
+        showEditOverlay(adID, currentDate);
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    const editBtns = document.querySelectorAll(".edit-btn");
+    const editOverlay = document.querySelector(".editOverlay-container");
+
+    editBtns.forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            const row = btn.closest('tr');
+            const adID = row.dataset.adId;
+            const currentEndDate = row.querySelector('td:nth-child(3)').textContent;
+            
+            document.getElementById('editAdID').value = adID;
+            document.getElementById('currentEndDate').value = currentEndDate;
+            
+            editOverlay.style.display = "flex";
+        });
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    const editForm = document.querySelector('.editOverlay form');
+    editForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Add validation logic here
+        this.submit();
+    });
+});
+
+
+
+
+</script>
 </body>
 
 </html>

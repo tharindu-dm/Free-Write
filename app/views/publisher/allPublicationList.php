@@ -96,6 +96,29 @@
         }
 
         .book-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    height: 400px;
+}
+
+.book-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    background: #fff;
+    padding: 10px;
+    transition: transform 0.3s ease;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+}
+
+
+        .book-card {
             background: white;
             border-radius: 12px;
             overflow: hidden;
@@ -266,7 +289,7 @@
             <?php if (!empty($data['allBookDetails'])) : ?>
                 <?php foreach ($data['allBookDetails'] as $allBookDetails): ?>
             <a href="/Free-Write/public/Publisher/bookProfile">  <div class="book-card">
-                <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book Title" class="book-cover">
+            <img src="/Free-Write/app/images/coverDesign/<?= !empty($allBookDetails['coverImage']) ? htmlspecialchars($allBookDetails['coverImage']) : 'sampleCover.jpg' ?>" alt="<?= htmlspecialchars($allBookDetails['title']) ?>">
 
                 <div class="book-info">
                     <div class="book-title"><?= htmlspecialchars($allBookDetails['title']) ?></div>

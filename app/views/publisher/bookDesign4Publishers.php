@@ -67,7 +67,7 @@
         }
 
         .btn {
-            
+
             padding: 8px 16px;
             border-radius: 4px;
             cursor: pointer;
@@ -174,116 +174,116 @@
             border-radius: 4px;
         }
 
-     /* Delete Overlay Container */
-.deleteOverlay-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
+        /* Delete Overlay Container */
+        .deleteOverlay-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
 
-/* Delete Overlay Dialog */
-.deleteOverlay {
-    background-color: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    max-width: 400px;
-}
+        /* Delete Overlay Dialog */
+        .deleteOverlay {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+        }
 
-/* Heading */
-.deleteOverlay h2 {
-    color: #2c3e50;
-    margin: 0 0 20px 0;
-    font-size: 20px;
-    text-align: center;
-    font-family: Arial, sans-serif;
-}
+        /* Heading */
+        .deleteOverlay h2 {
+            color: #2c3e50;
+            margin: 0 0 20px 0;
+            font-size: 20px;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
 
-/* Form */
-.deleteOverlay form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
+        /* Form */
+        .deleteOverlay form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
 
-/* Labels */
-.deleteOverlay label {
-    display: block;
-    font-weight: 500;
-    color: gray;
-    margin-bottom: 5px;
-    font-size: 14px;
-    font-family: Arial, sans-serif;
-}
+        /* Labels */
+        .deleteOverlay label {
+            display: block;
+            font-weight: 500;
+            color: gray;
+            margin-bottom: 5px;
+            font-size: 14px;
+            font-family: Arial, sans-serif;
+        }
 
-/* Inputs */
-.deleteOverlay input[type="text"] {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #eee;
-    border-radius: 4px;
-    background-color: #F5F0E5;
-    color: #2c3e50;
-    font-size: 14px;
-    font-family: Arial, sans-serif;
-}
+        /* Inputs */
+        .deleteOverlay input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            background-color: #F5F0E5;
+            color: #2c3e50;
+            font-size: 14px;
+            font-family: Arial, sans-serif;
+        }
 
-.deleteOverlay input[type="text"]:disabled {
-    cursor: not-allowed;
-    opacity: 0.7;
-}
+        .deleteOverlay input[type="text"]:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
 
-/* Buttons - matching your existing button styles */
-.deleteOverlay button {
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    border: none;
-    font-size: 14px;
-    transition: all 0.3s ease;
-    font-family: Arial, sans-serif;
-}
+        /* Buttons - matching your existing button styles */
+        .deleteOverlay button {
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            font-family: Arial, sans-serif;
+        }
 
-#deleteCompetition_Agree {
-    background-color: #dc3545;
-    color: white;
-    margin-top: 10px;
-}
+        #deleteCompetition_Agree {
+            background-color: #dc3545;
+            color: white;
+            margin-top: 10px;
+        }
 
-#deleteCompetition_Agree:hover {
-    opacity: 0.9;
-}
+        #deleteCompetition_Agree:hover {
+            opacity: 0.9;
+        }
 
-#cancelDelete {
-    background-color: #6c757d;
-    color: white;
-    margin-top: 8px;
-}
+        #cancelDelete {
+            background-color: #6c757d;
+            color: white;
+            margin-top: 8px;
+        }
 
-#cancelDelete:hover {
-    opacity: 0.9;
-}
+        #cancelDelete:hover {
+            opacity: 0.9;
+        }
 
-/* Responsive Adjustments */
-@media (max-width: 480px) {
-    .deleteOverlay {
-        width: 95%;
-        padding: 20px;
-        margin: 20px;
-    }
-    
-    .deleteOverlay h2 {
-        font-size: 18px;
-    }
-}
+        /* Responsive Adjustments */
+        @media (max-width: 480px) {
+            .deleteOverlay {
+                width: 95%;
+                padding: 20px;
+                margin: 20px;
+            }
+
+            .deleteOverlay h2 {
+                font-size: 18px;
+            }
+        }
     </style>
 </head>
 
@@ -428,18 +428,53 @@
         }
 
         function saveChanges() {
-            document.querySelector('.book-info').classList.remove('editing');
-            document.querySelectorAll('.editable').forEach(el => {
-                el.contentEditable = false;
-                el.style.backgroundColor = 'transparent';
-            });
-            document.querySelector('.edit-btn').style.display = 'inline-block';
-            document.querySelector('.save-btn').style.display = 'none';
-            document.querySelector('.cancel-btn').style.display = 'none';
+            // Log all elements we're trying to access
+            // console.log('Title element:', document.querySelector('.Names h1'));
+            // console.log('Author element:', document.querySelector('.Names p'));
+            // console.log('Synopsis element:', document.querySelector('.synopsis p'));
+            // console.log('Price element:', document.querySelector('.price'));
+            // console.log('Genre element:', document.querySelector('.details .row:first-child .column:last-child p:last-child'));
 
-            // Here you would typically send the updated data to your server
-            console.log('Changes saved!');
+            // Get values with null checks
+            const isbnID = document.querySelector('input[name="isbnID"]').value;
+            const title = document.querySelector('.Names h1')?.textContent || '';
+            const author = document.querySelector('.Names p')?.textContent.replace('By ', '') || '';
+            const synopsis = document.querySelector('.synopsis p')?.textContent || '';
+            const price = document.querySelector('.price')?.textContent || '';
+            const genre = document.querySelector('.details .row:first-child .column:last-child p:last-child')?.textContent || '';
+
+
+            // Create form data
+            const formData = new FormData();
+            formData.append('isbnID', isbnID);
+            formData.append('title', title);
+            formData.append('author_name', author);
+            formData.append('synopsis', synopsis);
+            formData.append('prize', price);
+            formData.append('genre', genre);
+
+            // Add console.log to debug
+            console.log('Sending data:', Object.fromEntries(formData));
+
+            fetch('/Free-Write/public/Publisher/updateBookDetails', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Response:', data);
+                    if (data.status === 'success') {
+                        alert('Book details updated successfully!');
+                        location.reload();
+                    } else {
+                        alert('Failed to update book details.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
         }
+
 
         function cancelEdit() {
             document.querySelector('.book-info').classList.remove('editing');
