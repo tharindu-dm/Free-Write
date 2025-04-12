@@ -39,6 +39,8 @@
     ?>
 
     <div class="container">
+        <!--Sidebar-->
+        <?php include_once "../app/views/Institute/sidebar.php"; ?>
         <!-- Main Content -->
         <main class="main-content">
             <!-- <header>
@@ -108,14 +110,9 @@
         </main>
     </div>
 
-    <footer>
-        <nav>
-            <a href="/about">About</a>
-            <a href="/contact">Contact</a>
-            <a href="/privacy">Privacy Policy</a>
-            <a href="/terms">Terms of Service</a>
-        </nav>
-    </footer>
+    <?php
+    require_once "../app/views/layout/footer.php";
+    ?>
 
     <script src="assets/js/settings.js"></script>
 </body>

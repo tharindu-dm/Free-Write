@@ -27,10 +27,17 @@
             </div>
 
             <div class="nav-right-side-container">
-
-              
-            <div class="action-button-container">
-             
+                <div class="action-button-container">
+                    <div class="action-button">
+                        <form action="/Free-Write/public/Writer/DashboardNew" method="post">
+                            <div class="sign-in-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                        <path d="M14.25 3.75l6 6-9 9H5.25v-6L14.25 3.75z" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                <button type="submit"> Write </button>
+                            </div>
+                        </form>
+                    </div>
                     <div class="premium-notification-container">
                         <?php if ($_SESSION['user_type'] != 'admin' && $_SESSION['user_type'] != 'mod'): ?>
                             <?php if ($_SESSION['user_premium'] == false): ?>

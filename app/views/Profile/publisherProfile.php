@@ -192,16 +192,17 @@
 </div> -->
 
             <div class="book-grid">
-                <?php if (!empty($data['bookDetails'])) : ?>
-                    <?php foreach (array_slice($data['bookDetails'], 0, 5) as $bookDetails) : ?>
+                <?php if (!empty($data['bookDetails'])): ?>
+                    <?php foreach (array_slice($data['bookDetails'], 0, 5) as $bookDetails): ?>
                         <div class="book-item">
                             <a href="/Free-Write/public/Publisher/bookProfile4Publishers/<?php echo $bookDetails['isbnID']; ?>">
-                                <img src="/Free-Write/app/images/coverDesign/<?= !empty($bookDetails['coverImage']) ? htmlspecialchars($bookDetails['coverImage']) : 'sampleCover.jpg' ?>" alt="<?= htmlspecialchars($bookDetails['title']) ?>">
+                                <img src="/Free-Write/app/images/coverDesign/<?= !empty($bookDetails['coverImage']) ? htmlspecialchars($bookDetails['coverImage']) : 'sampleCover.jpg' ?>"
+                                    alt="<?= htmlspecialchars($bookDetails['title']) ?>">
                                 <p class="book-title"><?php echo htmlspecialchars($bookDetails['title'] ?? ''); ?></p>
                             </a>
                         </div>
                     <?php endforeach; ?>
-                <?php else : ?>
+                <?php else: ?>
                     <p>No books available.</p>
                 <?php endif; ?>
             </div>
@@ -213,8 +214,7 @@
                 "><button class="add-books">Add Books To Library</button></a>
                 <a href="/Free-Write/public/Competition/MyCompetitions"><button class="add-books">Manage My
                         Competitions</button></a>
-                <a href="/Free-Write/public/Publisher/courier"><button class="add-books">Manage My
-                        Couriers</button></a>
+                <a href="/Free-Write/public/Publisher/courier"><button class="add-books">Manage My Couriers</button></a>
             </div>
         </section>
 

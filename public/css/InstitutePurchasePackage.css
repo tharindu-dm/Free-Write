@@ -69,12 +69,48 @@ main {
     margin: 2rem;
 }
 
+/* Sidebar styles */
 .sidebar {
-    width: 250px;
-    background-color: #fff;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+width: 240px;
+background-color: #000;
+color: white;
+padding: 10px;
+height: 100vh;
+position: sticky;
+top: 0;
+box-shadow: 2px 0 5px rgb(255, 255, 255);
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+}
+
+.menu {
+display: flex;
+flex-direction: column;
+gap: 5px; /* Reduce the space between items */
+justify-content: center; /* Center items vertically */
+}
+
+.menu-item {
+padding: 8px 10px; /* Adjust padding for better alignment */
+font-size: 16px;
+font-weight: bold;
+text-align: center; /* Center text */
+}
+
+
+.institution-info {
+display: flex;
+align-items: center;
+margin-bottom: 20px;
+}
+
+.institution-icon {
+width: 50px;
+height: 50px;
+background-color: white;
+border-radius: 50%;
+margin-right: 15px;
 }
 
 .institution-info img {

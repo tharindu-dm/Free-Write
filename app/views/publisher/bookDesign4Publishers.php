@@ -67,7 +67,6 @@
         }
 
         .btn {
-
             padding: 8px 16px;
             border-radius: 4px;
             cursor: pointer;
@@ -284,6 +283,117 @@
                 font-size: 18px;
             }
         }
+
+        /* Delete Overlay Container */
+        .deleteOverlay-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        /* Delete Overlay Dialog */
+        .deleteOverlay {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+        }
+
+        /* Heading */
+        .deleteOverlay h2 {
+            color: #2c3e50;
+            margin: 0 0 20px 0;
+            font-size: 20px;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Form */
+        .deleteOverlay form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Labels */
+        .deleteOverlay label {
+            display: block;
+            font-weight: 500;
+            color: gray;
+            margin-bottom: 5px;
+            font-size: 14px;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Inputs */
+        .deleteOverlay input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            background-color: #F5F0E5;
+            color: #2c3e50;
+            font-size: 14px;
+            font-family: Arial, sans-serif;
+        }
+
+        .deleteOverlay input[type="text"]:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        /* Buttons - matching your existing button styles */
+        .deleteOverlay button {
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            font-family: Arial, sans-serif;
+        }
+
+        #deleteCompetition_Agree {
+            background-color: #dc3545;
+            color: white;
+            margin-top: 10px;
+        }
+
+        #deleteCompetition_Agree:hover {
+            opacity: 0.9;
+        }
+
+        #cancelDelete {
+            background-color: #6c757d;
+            color: white;
+            margin-top: 8px;
+        }
+
+        #cancelDelete:hover {
+            opacity: 0.9;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 480px) {
+            .deleteOverlay {
+                width: 95%;
+                padding: 20px;
+                margin: 20px;
+            }
+
+            .deleteOverlay h2 {
+                font-size: 18px;
+            }
+        }
     </style>
 </head>
 
@@ -324,8 +434,12 @@
         <div class="book-info">
             <div class="header-actions">
                 <div class="Names">
-                    <h1 class="editable" contenteditable="false"><?= htmlspecialchars($bookDetails['title'] ?? 'Untitled', ENT_QUOTES, 'UTF-8') ?></h1>
-                    <p class="editable" contenteditable="false">By <?= htmlspecialchars($bookDetails['author_name'] ?? 'Unknown', ENT_QUOTES, 'UTF-8') ?></p>
+                    <h1 class="editable" contenteditable="false">
+                        <?= htmlspecialchars($bookDetails['title'] ?? 'Untitled', ENT_QUOTES, 'UTF-8') ?>
+                    </h1>
+                    <p class="editable" contenteditable="false">By
+                        <?= htmlspecialchars($bookDetails['author_name'] ?? 'Unknown', ENT_QUOTES, 'UTF-8') ?>
+                    </p>
                 </div>
 
                 <div class="action-buttons">
@@ -360,7 +474,8 @@
             </div>
 
             <div class="price-rating">
-                <span class="price editable" contenteditable="false"><?= htmlspecialchars($bookDetails['prize'] ?? 'Untitled', ENT_QUOTES, 'UTF-8') ?></span>
+                <span class="price editable"
+                    contenteditable="false"><?= htmlspecialchars($bookDetails['prize'] ?? 'Untitled', ENT_QUOTES, 'UTF-8') ?></span>
                 <div class="rating">
                     <div class="stars">
                         <i class="fas fa-star"></i>
@@ -387,11 +502,15 @@
                 <div class="row">
                     <div class="column">
                         <p><strong>Author</strong></p>
-                        <p class="editable" contenteditable="false">By <?= htmlspecialchars($bookDetails['author_name'] ?? 'Unknown', ENT_QUOTES, 'UTF-8') ?></p>
+                        <p class="editable" contenteditable="false">By
+                            <?= htmlspecialchars($bookDetails['author_name'] ?? 'Unknown', ENT_QUOTES, 'UTF-8') ?>
+                        </p>
                     </div>
                     <div class="column">
                         <p><strong>Genre</strong></p>
-                        <p class="editable" contenteditable="false"><?= htmlspecialchars($bookDetails['genre'] ?? 'Unknown', ENT_QUOTES, 'UTF-8') ?></p>
+                        <p class="editable" contenteditable="false">
+                            <?= htmlspecialchars($bookDetails['genre'] ?? 'Unknown', ENT_QUOTES, 'UTF-8') ?>
+                        </p>
 
                     </div>
                 </div>
@@ -457,9 +576,9 @@
             console.log('Sending data:', Object.fromEntries(formData));
 
             fetch('/Free-Write/public/Publisher/updateBookDetails', {
-                    method: 'POST',
-                    body: formData
-                })
+                method: 'POST',
+                body: formData
+            })
                 .then(response => response.json())
                 .then(data => {
                     console.log('Response:', data);
@@ -489,7 +608,7 @@
         }
 
 
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             const deleteCompBtn = document.getElementById("deletebookProfile");
             const cancelDeleteBtn = document.getElementById("cancelDelete");
             const deleteOverlay = document.querySelector(".deleteOverlay-container");

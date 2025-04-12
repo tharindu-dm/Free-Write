@@ -40,13 +40,13 @@ class PublisherController extends Controller
         $contributor_name = $_POST['contributor_name'];
         $genre = $_POST['genre'];
         $publication_year = $_POST['publication_year'];
-        $synopsis = substr($_POST['synopsis'], 0, 1000);
+        $synopsis = $_POST['synopsis']; //$synopsis = substr($_POST['synopsis'], 0, 1000);
         $prize = $_POST['prize'];
         $created_at = date("Y-m-d H:i:s");
-        // $author_link = $_POST['author_link'];
         $coverImage = $_FILES['bookCover'];
         $fileName = time() . '_' . $coverImage['name'];
         $targetPath = '../app/images/coverDesign/' . $fileName;
+        // $author_link = $_POST['author_link'];
 
         if (move_uploaded_file($coverImage['tmp_name'], $targetPath)) {
 
@@ -55,7 +55,6 @@ class PublisherController extends Controller
         }
         header('Location: /Free-Write/public/User/Profile');
     }
-
 
 
     public function bookProfile4publishers()
@@ -133,8 +132,8 @@ class PublisherController extends Controller
             $publisher = new Publisher();
 
 
-            $user->updateToPub("cov", $_SESSION['user_id']);
-            // $publisher->insertPublisher($_POST['email'], $_POST['officeEmail'], $_POST['website'], $_POST['address'], $_POST['contactNumber'], $_POST['dob'], $_POST['description'], $_SESSION['user_id']);
+            $user->updateToPub("pub", $_SESSION['user_id']);
+            $publisher->insertPublisher($_POST['email'], $_POST['officeEmail'], $_POST['website'], $_POST['address'], $_POST['contactNumber'], $_POST['dob'], $_POST['description'], $_SESSION['user_id']);
             // Update user details
             $userDetails->updatePubDetail($_POST['description'], $_POST['dob'], $_POST['country'], $_SESSION['user_id']);
 
@@ -150,12 +149,8 @@ class PublisherController extends Controller
         $this->view('publisher/publisherRegistrationPage', ['userDetails' => $userDetails]);
     }
 
-
-
-
     public function orderDetail()
     {
-
         $this->view('publisher/orderDetailPage');
     }
 

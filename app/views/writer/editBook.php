@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create a Book - Free Write</title>
+    <title>Edit Book - Free Write</title>
     <link rel="stylesheet" href="/Free-Write/public/css/writer.css">
 </head>
 
@@ -31,18 +31,11 @@
 
     <!-- Main Content -->
     <main class="book-section">
-        <div class="book-form-container">
-            <h2>Update Book Details</h2>
+        
+            
             <form action="/Free-Write/public/Writer/Update" method="POST" enctype="multipart/form-data">
 
-                <!-- Book Cover Section -->
-                <div class="book-cover">
-                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Cover Preview" class="cover-img">
-                    <div class="cover-upload">
-                        <input type="file" id="cover" name="cover" accept="image/*" class="file-input">
-                        <button type="button" class="upload-btn">Upload Cover Photo</button>
-                    </div>
-                </div>
+            <h1>Update Book Details</h1>
 
                 <!-- Book Details Section -->
                 <input type="hidden" name="bID" value="<?php echo $book['bookID']; ?>">
@@ -79,15 +72,30 @@
                     <div class="input-group">
                         <label for="privacy">Privacy</label>
                         <div class="privacy-toggle">
-                            <input required type="radio" name="accessType" value="public" <?php ($book['accessType'] == 'public') ? 'checked' : ''; ?>> Public
+                            <input required type="radio" name="accessType" value="public" <?php echo ($book['accessType'] == 'public') ? 'checked' : ''; ?>> Public
                             <input required type="radio" name="accessType" value="private" <?php echo ($book['accessType'] == 'private') ? 'checked' : ''; ?>> Private</label>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="status">Book Status</label>
+                        <div class="privacy-toggle">
+                            <input required type="radio" name="isCompleted" value="0" <?php echo ($book['isCompleted'] == '0') ? 'checked' : ''; ?>> Not Completed
+                            <label><input required type="radio" name="isCompleted" value="1" <?php echo ($book['isCompleted'] == '1') ? 'checked' : ''; ?>> Completed</label>
                         </div>
                     </div>
 
                     <button type="submit" class="create-btn">Update</button>
                 </div>
-            </form>
-        </div>
+                
+              </form>
+             <!-- Book Cover Section -->
+             <div class="book-cover">
+                <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Cover Preview" class="cover-img">
+                    <label for="cover" class="upload-btn">Upload Cover Photo</label>
+                 <input type="file" id="cover" name="cover" accept="image/*" class="file-input">
+                </div>
+            </div>
     </main>
 
     <!-- Footer -->

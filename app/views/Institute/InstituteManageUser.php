@@ -38,21 +38,7 @@
 
     <div class="inst-container">
         <!-- Sidebar Navigation -->
-        <aside class="sidebar">
-            <div class="institution-info">
-                <div class="institution-icon"></div>
-                <div>
-                    <h3><?= htmlspecialchars($instDetails['name']) ?></h3>
-                </div>
-            </div>
-            <nav class="menu">
-                <div class="menu-item"><a href="/Free-Write/public/Institute/Dashboard">Dashboard</a></div>
-                <div class="menu-item"><a href="/Free-Write/public/Institute/Library">Library</a></div>
-                <div class="menu-item"><a href="/Free-Write/public/Institute/PurchasePackage">Packages</a></div>
-                <div class="menu-item active"><a href="/Free-Write/public/Institute/ManageUser">User Management</a>
-                </div>
-            </nav>
-        </aside>
+        <?php include_once "../app/views/Institute/sidebar.php"; ?>
 
         <!-- Main Content -->
         <main class="inst-main-content">
@@ -213,7 +199,7 @@
             </form>
         </div>
     </div>
-
+    <?php require_once "../app/views/layout/footer.php"; ?>
 
     <script src="\Free-Write\public\js\Institute\InstituteManageUser.js"></script>
 </body>

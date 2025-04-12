@@ -37,27 +37,14 @@
     ?>
 
     <main>
-        <aside class="sidebar">
-            <div class="institution-info">
-                <img src="/CRUD_OOP/public/assets/images/institution-logo.png" alt="Institution Name">
-                <h2>Institution Name</h2>
-                <p>Access and Manage</p>
-            </div>
-            <nav>
-                <div class="menu-item" onclick="location.href='index.php?page=instituteDashboard'">Dashboard</div>
-                <a href="#"><i class="icon-library"></i> Library</a>
-                <a href="#" class="active"><i class="icon-package"></i> Purchase Packages</a>
-                <a href="#"><i class="icon-users"></i> Manage Users</a>
-            </nav>
-            <!-- <button class="btn btn-secondary btn-full-width">Update Profile</button> -->
-        </aside>
+        <!--sidebar-->
+        <?php include_once "../app/views/Institute/sidebar.php"; ?>
 
         <section class="main-content">
             <div class="institution-header">
                 <img src="/CRUD_OOP/public/assets/images/institution-header.png" alt="Institution Building">
                 <h1>Institution Name</h1>
                 <p>Welcome to your Freewrite dashboard</p>
-                <p>Last login: 1 day ago</p>
             </div>
 
             <nav class="tabs">
@@ -75,7 +62,7 @@
                     <button class="btn btn-secondary">Choose Basic</button>
                     <ul>
                         <li>Access to 100 books in the Library</li>
-                        <li>Access to 5 user accounts</li>
+                        <li>Access to 10 user accounts</li>
                         <li>1 year validity</li>
                     </ul>
                 </div>
@@ -86,7 +73,7 @@
                     <ul>
                         <li>Access to 500 books in the Library</li>
                         <li>Access to 25 user accounts</li>
-                        <li>2 years validity</li>
+                        <li>1 year validity</li>
                     </ul>
                 </div>
                 <div class="package-card">
@@ -96,27 +83,16 @@
                     <ul>
                         <li>Access to unlimited books in the Library</li>
                         <li>Access to 100 user accounts</li>
-                        <li>Lifetime validity</li>
+                        <li>1 year validity</li>
                     </ul>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer>
-        <nav>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
-            <a href="#">Terms of Use</a>
-            <a href="#">Privacy Policy</a>
-        </nav>
-        <div class="social-icons">
-            <a href="#" class="icon-twitter"></a>
-            <a href="#" class="icon-facebook"></a>
-            <a href="#" class="icon-instagram"></a>
-        </div>
-        <p>&copy; 2023 Freewrite. All rights reserved</p>
-    </footer>
+    <?php
+    require_once "../app/views/layout/footer.php";
+    ?>
 
     <script src="script.js"></script>
 </body>

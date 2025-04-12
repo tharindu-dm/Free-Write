@@ -6,54 +6,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create a Quote - Free Write</title>
     <link rel="stylesheet" href="/Free-Write/public/css/writer.css">
-    
+
     <script>
-document.addEventListener('DOMContentLoaded', function () {
-    // JavaScript for Dynamic Chapter Retrieval
-    const bookSelect = document.getElementById('book_select');
-    const chapterSelect = document.getElementById('chapter_select');
+        document.addEventListener('DOMContentLoaded', function () {
+            let bookSelect = document.getElementById('book_select');
+            let chapterDropdown = document.getElementById('chapter');
+            let quoteTextarea = document.getElementById('quote');
+            let form = document.querySelector('.quote-form');
+            let charWarning = document.createElement('div');
+            charWarning.style.color = 'red';
+            charWarning.style.display = 'none';
+            form.appendChild(charWarning);
 
-    bookSelect.addEventListener('change', function () {
-        const bookID = this.value;
+            if (!bookSelect || !chapterDropdown || !quoteTextarea) {
+                console.error("Dropdown elements not found.");
+                return;
+            }
 
-        // Clear previous chapters
-        chapterSelect.innerHTML = '<option value="">Loading chapters...</option>';
+            bookSelect.addEventListener('change', function () {
+                let bookID = this.value;
+                chapterDropdown.innerHTML = '<option value="">Select Chapter</option>';
 
-        // Fetch chapters for the selected book
-        if (bookID) {
-            fetch(`/Free-Write/public/Writer/GetChapters/${bookID}`)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to fetch chapters');
-        }
-        return response.json();
-    })
-    .then(data => {
-        chapterSelect.innerHTML = '<option value="">Select Chapter</option>';
-        if (Array.isArray(data) && data.length > 0) {
-            data.forEach(chapter => {
-                const option = document.createElement('option');
-                option.value = chapter.chapterID;
-                option.textContent = chapter.title;
-                chapterSelect.appendChild(option);
+                if (bookID) {
+                    fetch('/Free-Write/public/Writer/NewQuote', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: new URLSearchParams({ book_id: bookID })
+                    })
+                    .then(response => {
+                        if (!response.ok) throw new Error('Failed to load chapters');
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.length === 0) {
+                            alert('No chapters found for this book.');
+                        }
+                        data.forEach(chapter => {
+                            let option = document.createElement('option');
+                            option.value = chapter.chapter;
+                            option.textContent = chapter.title;
+                            chapterDropdown.appendChild(option);
+                        });
+                    })
+                    .catch(error => console.error('Error fetching chapters:', error));
+                }
             });
-        } else {
-            chapterSelect.innerHTML = '<option value="">No chapters found</option>';
-        }
-    })
-    .catch(error => {
-        console.error('Error fetching chapters:', error);
-        chapterSelect.innerHTML = '<option value="">Error loading chapters</option>';
-    });
 
-        } else {
-            chapterSelect.innerHTML = '<option value="">Select a book first</option>';
-        }
-    });
-});
-
-</script>
-
+            // Check quote length on input and show a warning if over 255 characters
+            quoteTextarea.addEventListener('input', function () {
+                let quoteLength = quoteTextarea.value.length;
+                if (quoteLength > 255) {
+                    charWarning.textContent = "Warning: Quote exceeds 255 characters.";
+                    charWarning.style.display = 'block';
+                    // Disable the submit button if over limit
+                    form.querySelector('.post-btn').disabled = true;
+                } else {
+                    charWarning.style.display = 'none';
+                    // Enable the submit button if under limit
+                    form.querySelector('.post-btn').disabled = false;
+                }
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -64,34 +78,35 @@ document.addEventListener('DOMContentLoaded', function () {
     <!-- Main Content -->
     <main class="quote-section">
         <h1>Create a Quote</h1>
-        <p>Share your favorite passages from your books. Quotes can be up to 280 characters.</p>
+        <h4>Share your favorite passages from your books. Quotes can be up to 280 characters.</h4>
 
         <!-- Form for Creating a Quote -->
-      <form action="/Free-Write/public/Writer/NewQuote" method="post" class="quote-form">
-    <label for="book_select">Select Book:</label>
-    <select id="book_select" name="book_id" class="book-select-input" required>
-        <option value="">Select Book</option>
-        <?php
-        $books = (new Book())->getBookByAuthor($_SESSION['user_id']);
-        foreach ($books as $book) {
-            echo "<option value=\"{$book['bookID']}\">{$book['title']}</option>";
-        }
-        ?>
-    </select>
+        <form action="/Free-Write/public/Writer/saveQuote" method="post" class="quote-form">
+            <label for="book_select">Select Book:</label>
+            <select id="book_select" name="book_id" class="book-select-input" required>
+                <option value="">Select Book</option>
+                <?php foreach ($books as $book) {
+                    echo "<option value=\"{$book['bookID']}\">{$book['title']}</option>";
+                } ?>
+            </select>
 
-    <label for="chapter_select">Select Chapter:</label>
-    <select id="chapter_select" name="chapter_id" class="chapter-select-input" required>
-        <option value="">Select a book first</option>
-    </select>
-
-    <!-- Hidden input to hold the chapter name -->
-    <input type="hidden" id="chapter_name" name="chapter_name" value="">
-
-    <textarea id="quote" name="quote" class="quote-input" placeholder="Enter your quote here..." maxlength="280" required></textarea>
-
-    <button type="submit" class="post-btn">Post</button>
-</form>
-
+            <label for="chapter">Select Chapter:</label>
+            <select id="chapter" name="chapter" class="chapter-select-input" required>
+                <option value="">Select Chapter</option>
+                <?php foreach ($chapters as $chapter): ?>
+                    <option value="<?= htmlspecialchars($chapter['chapterID']); ?>">
+                        <?= htmlspecialchars($chapter['title']); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+<div class="quote-container">
+            <textarea id="quote" name="quote" class="quote-input" placeholder="Enter your quote here..." maxlength="280" required></textarea>
+</div>
+<div class="action-buttons">
+            <button type="submit" class="edit-btn">Post</button>
+            <button type="button" class="edit-btn" onclick="window.history.back();">Cancel</button>
+</div>
+        </form>
     </main>
 
     <!-- Footer -->
@@ -101,3 +116,4 @@ document.addEventListener('DOMContentLoaded', function () {
 </body>
 
 </html>
+

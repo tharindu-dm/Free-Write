@@ -10,7 +10,7 @@
 
 <body>
 
-    <?php
+<?php
     if (isset($_SESSION['user_type'])) {
         $userType = $_SESSION['user_type'];
     } else {
@@ -18,34 +18,27 @@
     }
     switch ($userType) {
         case 'admin':
-        case 'mod':
         case 'writer':
+        case 'covdes':
         case 'wricov':
+        case 'reader':
             require_once "../app/views/layout/header-user.php";
+            break;
+        case 'pub':
+            require_once "../app/views/layout/header-pub.php";
             break;
         default:
             require_once "../app/views/layout/header.php";
     }
     ?>
+
     <!-- Main Content -->
     <main class="book-section">
-        <div class="book-form-container">
-            <h2>Create a New Book</h2>
-
-
+        
+            
             <form action="/Free-Write/public/Writer/createBook" method="POST" enctype="multipart/form-data">
 
-                <!-- Book Cover Section -->
-                <div class="book-cover">
-                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Cover Preview" class="cover-img">
-                    <div class="cover-upload">
-                        <input type="file" id="cover" name="cover" accept="image/*" class="file-input">
-                        <button type="button" class="upload-btn">Upload Cover Photo</button>
-                        <?php if (!empty($errors['cover'])): ?>
-                            <p class="error"><?php echo $errors['cover']; ?></p>
-                        <?php endif; ?>
-                    </div>
-                </div>
+            <h1>Create a New Story</h1>
 
                 <!-- Book Details Section -->
                 <div class="book-info">
@@ -89,8 +82,15 @@
 
                     <button type="submit" class="create-btn">Create</button>
                 </div>
-            </form>
-        </div>
+                
+              </form>
+             <!-- Book Cover Section -->
+             <div class="book-cover">
+                <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Cover Preview" class="cover-img">
+                    <label for="cover" class="upload-btn">Upload Cover Photo</label>
+                 <input type="file" id="cover" name="cover" accept="image/*" class="file-input">
+                </div>
+            </div>
     </main>
 
     <!-- Footer -->
@@ -99,8 +99,7 @@
     require_once "../app/views/layout/footer.php";
     ?>
 
-<script src="/Free-Write/public/js/writer/createBook.js"></script>
-
+    <script src="/Free-Write/public/js/writer/editBook.js"></script>
 
 </body>
 

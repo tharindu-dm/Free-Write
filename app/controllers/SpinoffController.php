@@ -4,7 +4,7 @@ class SpinoffController extends Controller
 {
     public function index()
     {
-        $this->view('error');
+        //display all spinoff section
     }
 
     public function New()
@@ -17,7 +17,7 @@ class SpinoffController extends Controller
         $bookDetails = $book->first(['bookID' => $bookID]);
         $chapters = $book_chapter->getChapters($bookID);
 
-        $this->view('Spinoff/writeSpinoff', ['book' => $bookDetails, 'chapters' => $chapters]);
+        $this->view('Reader/writeSpinoff', ['book' => $bookDetails, 'chapters' => $chapters]);
     }
 
     public function Create()

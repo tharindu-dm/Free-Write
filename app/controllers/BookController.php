@@ -39,7 +39,6 @@ class BookController extends Controller
 
 
         if (isset($_SESSION['user_id'])) {
-            //if logged user avaialble, then check if the book is bought by the user
             $bookBought = $buybook->first(['user' => $_SESSION['user_id'], 'book' => $bookID]);
             if ($bookBought)
                 $bookBought = true;
@@ -139,31 +138,6 @@ class BookController extends Controller
         header('Location: /Free-Write/public/Book/Overview/' . $bookID);
     }
 
-    public function AddToCollection()
-    {
-        $collection = new Collection();
-        $collectionBook = new CollectionBook();
-
-        $userID = $_SESSION['user_id'];
-        $bookID = $_POST['book_id'];
-        $selectedCollections = $_POST['collections'] ?? [];
-
-        //put the book in the selected collections
-        foreach ($selectedCollections as $collectionID) {
-            $collectionBook->insert(['Collection' => $collectionID, 'Book' => $bookID]);
-        }
-
-        //if the book is already in a non-selected collection, then remove it
-        $user_Collections = $collection->getUserCollections($userID);
-
-        foreach ($user_Collections as $collection) {
-            if (!in_array($collection['collectionID'], $selectedCollections)) {
-                $collectionBook->deleteBookRecord($collection['collectionID'], $bookID);
-            }
-        }
-
-        header('Location: /Free-Write/public/Book/Overview/' . $bookID);
-    }
 
     public function addReview()
     {

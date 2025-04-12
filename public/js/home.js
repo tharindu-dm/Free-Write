@@ -31,3 +31,4 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = '/Free-Write/public/Login';
     });
 });
+

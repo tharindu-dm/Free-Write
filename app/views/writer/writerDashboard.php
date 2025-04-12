@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Freewrite - Explore and Share Incredible Stories</title>
     <link rel="stylesheet" href="/Free-Write/public/css/writer.css">
-    <link rel="stylesheet" href="/Free-Write/public/css/browse.css">
+
 </head>
 
 <body>
@@ -42,29 +42,26 @@
                 </div>
 
                 <?php if (!empty($userDetails) && is_array($userDetails)): ?>
+                    <h2 style="color: var(--black);">
+                        <?= htmlspecialchars($userDetails['firstName']) . " " . htmlspecialchars($userDetails['lastName']); ?>
+                    </h2>
                     <div class="profile-info">
-                        <h2><?= htmlspecialchars($userDetails[0]['fullName'] ?? 'Unknown User'); ?></h2>
+                        <p><strong><?= htmlspecialchars($followers['followers']) ?> Followers</strong></p>
+                        <p><strong><?= htmlspecialchars((string) $views); ?> Views</strong></p>
 
                     </div>
+
                 <?php else: ?>
-                    <h2>Michael Thompson</h2>
-                    <p>250 followers</p>
+                    <h2>User Name</h2>
                 <?php endif; ?>
             </div>
 
             <!-- Navigation for Writer Options -->
             <?php require_once "../app/views/writer/writerNav.php"; ?>
 
-            <!-- Other links to get to pages -->
-            <!--<ul>
-                <li><a href="/Free-Write/public/Writer/ViewSpinoff">view spin off details</a></li>
-                <li><a href="/Free-Write/public/Writer/WriteStory">writeStory.php</a></li>
-                <li><a href="/Free-Write/public/Writer/EditStory">editStory.php</a></li>
-            </ul>-->
-
             <!-- Books Section -->
             <div class="books-section" id="books">
-                <h3>Books</h3>
+                <h2>My Books</h2>
 
                 <!-- Button to Add New Book -->
                 <div>
@@ -72,16 +69,16 @@
                 </div>
 
                 <!-- Books List -->
-                <div class="book-grid">
+                <div class="books-grid">
                     <?php if (!empty($MyBooks) && is_array($MyBooks)): ?>
                         <?php foreach ($MyBooks as $book): ?>
                             <a href="/Free-Write/public/writer/Overview/<?= htmlspecialchars($book['bookID']); ?>">
                                 <div class="book-card">
                                     <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
                                         alt="Cover Image of <?= htmlspecialchars($book['title']); ?>">
-                                    <h3>
+                                    <h4>
                                         <?= strlen($book['title']) > 20 ? htmlspecialchars(substr($book['title'], 0, 17)) . '...' : htmlspecialchars($book['title']); ?>
-                                    </h3>
+                                    </h4>
                                     <p>
                                         <?= htmlspecialchars($book['author']); ?>
                                     </p>

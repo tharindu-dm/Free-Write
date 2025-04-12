@@ -25,44 +25,50 @@
         default:
             require_once "../app/views/layout/header.php";
     }
-    //show($data);
     ?>
 
     <!-- Writing Section -->
     <form action="/Free-Write/public/Writer/saveChapter" method="POST" enctype="multipart/form-data">
-    <main class="writing-section">
-        <div class="story-info">
-            <h1 class="story-title">
-                <?php echo htmlspecialchars($book['title']); ?>
-            </h1>
-        </div>
+        <main class="writing-section">
+            <!-- Title -->
+            <div class="story-info">
+                <h1 class="story-title">
+                    <?php echo htmlspecialchars($book['title']); ?>
+                </h1>
+            </div>
 
-        
-        <div class="text-editor">
+            <!-- Chapter Name -->
+            <div class="text-editor">
             <textarea id="story-editor-chapter" name="story-editor-chapter"
-                placeholder="Chapter Name"><?= htmlspecialchars($chapter ?? 'Untitled') ?></textarea>
-        </div>
+            placeholder="Chapter Name"><?= htmlspecialchars($chapter ?? 'Chapter ' . $chapterCount) ?></textarea>
 
-        <div class="text-editor">
-            <textarea id="story-editor" name="story-editor"
-                placeholder="Type your text"><?= htmlspecialchars($content ?? '') ?></textarea>
-        </div>
-        <div class="action-buttons">
-            <button type="submit" class="save-btn"
-                onclick="window.location.href='/editStory/saveChapter/<?= htmlspecialchars($chapterId ?? '') ?>'">Save</button>
-            
-            <input type="hidden" name="bID" value="<?php echo $bookId; ?>">
-        </div>
+            </div>
 
-    </main>
+            <!-- Story Editor -->
+            <div class="text-editor">
+                <textarea id="story-editor" name="story-editor"
+                    placeholder="Type your text..."><?= htmlspecialchars($content ?? '') ?></textarea>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button type="submit" class="save-btn">Save</button>
+                <button type="button" class="save-btn" onclick="window.history.back();">Cancel</button>
+            </div>
+
+            <input id="bookID_hidden" type="hidden" name="bookID" value="<?= $book['bookID'] ?>">
+
+            <?php if (isset($chapter['chapterID'])): ?>
+                <input type="hidden" name="chapterID" value="<?= $chapter['chapterID'] ?>">
+            <?php endif; ?>
+
+        </main>
     </form>
 
     <!-- Footer -->
     <?php
-    // Including the footer
     require_once "../app/views/layout/footer.php";
     ?>
-
 </body>
 
 </html>

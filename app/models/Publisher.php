@@ -27,6 +27,4 @@ class Publisher {
 
         return $this->insert($data);
     }
-
-    
 }

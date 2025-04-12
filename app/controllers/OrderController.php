@@ -31,5 +31,4 @@ class OrderController extends Controller
     {
         $this->view('publisher/viewStats4Orders');
     }
-
 }

@@ -14,7 +14,7 @@
 
     <script>
         document.getElementById('writerDashboard').addEventListener('click', function () {
-            window.location.href = '/Free-Write/public/Writer/Dashboard';
+            window.location.href = '/Free-Write/public/Writer/ViewWriter';
         });
     </script>
 </body>

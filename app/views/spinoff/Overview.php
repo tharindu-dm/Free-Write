@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Freewrite - Explore and Share Incredible Stories</title>
     <link rel="stylesheet" href="/Free-Write/public/css/bookOverview.css">
-    <link rel="stylesheet" href="/Free-Write/public/css/spinoffOverview.css">
 </head>
 
 <body>
@@ -46,21 +45,13 @@
             <div class="product-layout">
                 <div class="product-image">
                     <img src="/Free-Write/public/images/spinoff.jpg"
-                        alt="Cover Image of <?= htmlspecialchars($content['title']); ?>">
+                        alt="Cover Image of <?= htmlspecialchars($content[0]['title']); ?>">
                     <div class="author-details">
-                        <h3><?= htmlspecialchars($content['creator']); ?></h3>
-                        <div class="author-detail-btns">
-                            <a
-                                href="/Free-Write/public/User/Profile?user=<?= htmlspecialchars($content['creatorID']); ?>"><button>Profile</button></a>
-                            <a
-                                href="/Free-Write/public/Writer/Donate?user=<?= htmlspecialchars($content['creatorID']); ?>"><button>Donate</button></a>
-                        </div>
-                    </div>
-                    <div class="other-details">
                         <h3>Other Details</h3>
-                        <p><strong>Last Updated:</strong> <?= explode(' ', $content['lastUpdated'])[0]; ?></p>
+                        <p><strong>Spinoff Author:&nbsp;</strong><?= htmlspecialchars($content[0]['creator']); ?></p>
+                        <p><strong>Last Updated:&nbsp;</strong> <?= explode(' ', $content[0]['lastUpdated'])[0]; ?></p>
                         <p><strong>AccessType:&nbsp;</strong>
-                            <?= htmlspecialchars($content['accessType']); ?>
+                            <?= htmlspecialchars($content[0]['accessType']); ?>
                         </p>
                     </div>
                 </div>
@@ -68,7 +59,7 @@
                 <div class="product-info">
                     <h1 id="spinoffTitle_h1"><?= htmlspecialchars($content['title']); ?></h1>
                     <p class="description">
-                        <?= htmlspecialchars($content['synopsis']); ?>
+                        <?= htmlspecialchars($content[0]['synopsis']); ?>
                     </p>
                     <?php if (isset($_SESSION['user_id']) && ($_SESSION['user_id'] == $content['creatorID'])): ?>
                         <button id="saveSpinoffDetailsButton" class="edit-btn-spinoff">Edit Spinoff Details</button>

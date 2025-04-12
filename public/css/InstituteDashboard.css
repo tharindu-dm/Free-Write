@@ -1,154 +1,186 @@
 /* General styles */
 .dashboard-container {
-  display: flex;
-}
-
-/* Sidebar styles */
-/* Sidebar Styles */
-.sidebar {
-  width: 240px;
-  background-color: #000;
-  color: white;
-  padding: 20px;
-  height: 100vh;
-  position: sticky;
-  top: 0;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.institution-info {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.institution-icon {
-  width: 50px;
-  height: 50px;
-  background-color: white;
-  border-radius: 50%;
-  margin-right: 15px;
-}
-
-.menu {
-  display: flex;
-  flex-direction: column !important;
-  align-items: flex-start;
-  margin-top: 20px;
-}
-
-.menu-item {
-  margin: 10px 0;
-}
-
-.menu-item a {
-  text-decoration: none;
-  color: white;
-  font-weight: bold;
-  display: block;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-.menu-item.active a,
-.menu-item a:hover {
-  background-color: #ffd700;
-  color: #000;
-}
-
-/* Main content styles */
-.main-content {
-  flex-grow: 1;
-  padding: 40px;
-  background-color: #fff;
-  border-radius: 10px;
-  margin: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.header h1 {
-  color: #333;
-}
-
-.header p {
-  color: #666;
-  margin-bottom: 20px;
-}
-
-/* Dashboard cards */
-.dashboard-cards {
-  display: flex;
-  gap: 20px;
-  margin-top: 20px;
-}
-
-.card {
-  flex: 1;
-  background-color: #fdfdfd;
-  padding: 20px;
-  border: 1px solid #eee;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-}
-
-.card h3 {
-  margin-bottom: 10px;
-  color: #333;
-}
-
-/* Feature section */
-.feature-section {
-  display: flex;
-  gap: 20px;
-  margin-top: 40px;
-}
-
-.feature-image {
-  flex: 1;
-  background-color: #f0f0f0;
-  height: 200px;
-  border-radius: 8px;
-}
-
-.feature-content {
-  flex: 2;
-}
-
-.feature-content h2 {
-  margin-bottom: 10px;
-  color: #333;
-}
-
-.feature-buttons .btn {
-  margin-top: 20px;
-  margin-right: 10px;
-  padding: 10px 20px;
-  border-radius: 25px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.btn-primary {
-  background-color: #ffd700;
-  color: white;
-}
-
-.btn-primary:hover {
-  background-color: #e6b800;
-}
-
-.btn-secondary {
-  background-color: #f0f0f0;
-  color: #333;
-}
-
-.btn-secondary:hover {
-  background-color: #e0e0e0;
-}
+    display: flex;
+  }
+  
+  /* Sidebar styles */
+  .sidebar {
+    width: 240px;
+    background-color: #000;
+    color: white;
+    padding: 10px;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    box-shadow: 2px 0 5px rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Reduce the space between items */
+    justify-content: center; /* Center items vertically */
+  }
+  
+  .menu-item {
+    padding: 8px 10px; /* Adjust padding for better alignment */
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center; /* Center text */
+  }
+  
+  
+  .institution-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .institution-icon {
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border-radius: 50%;
+    margin-right: 15px;
+  }
+  
+  /* .menu {
+    display: flex;
+    flex-direction: column !important;
+    align-items: flex-start;
+    margin-top: 20px;
+    flex-grow: 1;
+  }
+  
+  .menu-item {
+    margin: 10px 0;
+    width: 100%;
+  } */
+  
+  .menu-item a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+    text-align: left;
+  }
+  
+  .menu-item.active a,
+  .menu-item a:hover {
+    background-color: #ffd700;
+    color: #000;
+  }
+  
+  /* Sidebar Footer */
+  .sidebar-footer {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  /* Main content styles */
+  .main-content {
+    flex-grow: 1;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 10px;
+    margin: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .header h1 {
+    color: #333;
+  }
+  
+  .header p {
+    color: #666;
+    margin-bottom: 20px;
+  }
+  
+  /* Dashboard cards */
+  .dashboard-cards {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .card {
+    flex: 1;
+    background-color: #fdfdfd;
+    padding: 20px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .card h3 {
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  /* Feature section */
+  .feature-section {
+    display: flex;
+    gap: 20px;
+    margin-top: 40px;
+  }
+  
+  .feature-image {
+    flex: 1;
+    background-color: #f0f0f0;
+    height: 200px;
+    border-radius: 8px;
+  }
+  
+  .feature-content {
+    flex: 2;
+  }
+  
+  .feature-content h2 {
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .feature-buttons .btn {
+    margin-top: 20px;
+    margin-right: 10px;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-primary {
+    background-color: #ffd700;
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background-color: #e6b800;
+  }
+  
+  .btn-secondary {
+    background-color: #f0f0f0;
+    color: #333;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #e0e0e0;
+  }
+  

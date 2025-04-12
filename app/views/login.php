@@ -94,38 +94,6 @@
             </div>
         </div>
     </main>
-
-    <!-- Login Error Overlay -->
-    <div class="overlay" id="loginErrorOverlay">
-        <div class="overlay-content">
-            <div class="overlay-header">
-                <h3>Login Failed</h3>
-                <button class="close-btn" onclick="closeOverlay('loginErrorOverlay')">&times;</button>
-            </div>
-            <div class="overlay-body">
-                <p>Invalid username or password. Please try again.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Timeout Overlay -->
-    <div class="overlay" id="timeoutOverlay">
-        <div class="overlay-content">
-            <div class="overlay-header">
-                <h3>Account Temporarily Locked</h3>
-                <button class="close-btn" onclick="closeOverlay('timeoutOverlay')">&times;</button>
-            </div>
-            <div class="overlay-body">
-                <p>Too many failed login attempts. Please try again in 5 minutes.</p>
-                <h6>Please note that hard refresh reattempt only results in longer waiting time</h6>
-                <div class="timer">
-                    <span id="countdown">5:00</span> minutes remaining
-                </div>
-            </div>
-        </div>
-    </div>
-
-
     <?php
     require_once "../app/views/layout/footer.php";
     ?>

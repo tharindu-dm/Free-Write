@@ -12,7 +12,11 @@ class Chapter
         $chapter_content = $this->where($arr);
 
         $title_author_query = "SELECT b.[title] AS BookTitle,
-                    CONCAT(u.[firstName], ' ', u.[lastName]) AS AuthorName, bc.[book] AS BookID
+                    CONCAT(u.[firstName], ' ', u.[lastName]) AS AuthorName, bc.[book] AS BookID,
+                    c.title AS ChapterTitle,
+                    c.lastUpdated AS ChapterLastUpdated,
+                    c.content AS ChapterContent,
+                    c.chapterID
                     FROM [dbo].[Chapter] c
                     JOIN [dbo].[BookChapter] bc ON c.[chapterID] = bc.[chapter]
                     JOIN [dbo].[Book] b ON bc.[book] = b.[bookID]
