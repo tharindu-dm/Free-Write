@@ -3,7 +3,7 @@
 class OrderController extends Controller
 {
     public function index()
-    {
+{
     $orderTable = new Order();
     
     $orders = $orderTable->where(['bookPublisherID' => $_SESSION['user_id']]);
@@ -12,11 +12,7 @@ class OrderController extends Controller
     $userDetails = $userDetailsTable->first(['user' => $userName]);
     $this->view('publisher/order', ['orders' => $orders, 'userDetails' => $userDetails]);
 }
-
-
-
-
-    public function addOrder4Pub(){
+public function addOrder4Pub(){
         $isbnID = $_POST['isbnID'];
         $userID = $_POST['userID'];
         $totalPrice = $_POST['totalPrice'];
