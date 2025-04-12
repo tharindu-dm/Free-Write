@@ -59,8 +59,8 @@
 
             <div class="tabs">
                 <a href="/Free-Write/public/Mod/Users"><button class="tab">All Users</button></a>
-                <a href="/Free-Write/public/Mod/Users?filter=normal"><button class="tab">Regular Users</button></a>
-                <a href="/Free-Write/public/Mod/Users?filter=premium"><button class="tab">Premium Users</button></a>
+                <a href="/Free-Write/public/Mod/Search?filter=normal"><button class="tab">Regular Users</button></a>
+                <a href="/Free-Write/public/Mod/Search?filter=premium"><button class="tab">Premium Users</button></a>
             </div>
 
             <table>
@@ -85,9 +85,8 @@
                             <td><?= $user['isActivated'] ?></td>
                             <td><?= $user['loginAttempt'] ?></td>
                             <td>
-                                <a href="/Free-Write/public/Mod/Users?filter=premium">
-                                    <a href="/Free-Write/public/Mod/Search?uid=<?= htmlspecialchars($user['userID']) ?>"><button
-                                            class="table-select-user-btn">Select User</button></a>
+                                <a href="/Free-Write/public/Mod/Search?filter=id&user=<?= htmlspecialchars($user['userID']) ?>">
+                                    <button class="table-select-user-btn">Select User</button>
                                 </a>
                             </td>
                         </tr>

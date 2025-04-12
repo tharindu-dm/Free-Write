@@ -27,52 +27,55 @@ const deleteSubmitBtn = document.getElementById("deleteSubmitBtn");
 
 // Show update preview modal
 function showUpdateModal() {
-    // Get all form values from the original form
-    const formData = new FormData(originalForm);
-    
-    // Clear existing preview form
-    const previewContainer = updateModal.querySelector(".preview-form");
-    previewContainer.innerHTML = "";
-    
-    // Create display-only elements to show the data
-    for (let [name, value] of formData.entries()) {
-        const displayDiv = document.createElement('div');
-        displayDiv.className = 'preview-item';
-        
-        // Create label
-        const label = document.createElement('label');
-        label.textContent = name.charAt(0).toUpperCase() + name.slice(1).replace(/([A-Z])/g, ' $1');
-        
-        // Create display span
-        const span = document.createElement('span');
-        span.textContent = value;
-        span.style.backgroundColor = "#f5f5f5";
-        span.style.padding = "5px";
-        span.style.display = "block";
-        
-        // Create hidden input to hold the actual value
-        const hiddenInput = document.createElement('input');
-        hiddenInput.type = 'hidden';
-        hiddenInput.name = name;
-        hiddenInput.value = value;
-        
-        displayDiv.appendChild(label);
-        displayDiv.appendChild(span);
-        displayDiv.appendChild(hiddenInput);
-        previewContainer.appendChild(displayDiv);
-    }
-    
-    // Set user name in notice
-    const firstName = document.getElementById("firstName").value;
-    const lastName = document.getElementById("lastName").value;
-    document.getElementById("update-user-name").textContent = `${firstName} ${lastName}`;
-    
-    // Show the modal
-    updateModal.style.display = "block";
-    
-    // Update the form action
-    const modalForm = document.getElementById("updateModalForm");
-    modalForm.action = "/Free-Write/public/Mod/UpdateUser";
+  // Get all form values from the original form
+  const formData = new FormData(originalForm);
+
+  // Clear existing preview form
+  const previewContainer = updateModal.querySelector(".preview-form");
+  previewContainer.innerHTML = "";
+
+  // Create display-only elements to show the data
+  for (let [name, value] of formData.entries()) {
+    const displayDiv = document.createElement("div");
+    displayDiv.className = "preview-item";
+
+    // Create label
+    const label = document.createElement("label");
+    label.textContent =
+      name.charAt(0).toUpperCase() + name.slice(1).replace(/([A-Z])/g, " $1");
+
+    // Create display span
+    const span = document.createElement("span");
+    span.textContent = value;
+    span.style.backgroundColor = "#f5f5f5";
+    span.style.padding = "5px";
+    span.style.display = "block";
+
+    // Create hidden input to hold the actual value
+    const hiddenInput = document.createElement("input");
+    hiddenInput.type = "hidden";
+    hiddenInput.name = name;
+    hiddenInput.value = value;
+
+    displayDiv.appendChild(label);
+    displayDiv.appendChild(span);
+    displayDiv.appendChild(hiddenInput);
+    previewContainer.appendChild(displayDiv);
+  }
+
+  // Set user name in notice
+  const firstName = document.getElementById("firstName").value;
+  const lastName = document.getElementById("lastName").value;
+  document.getElementById(
+    "update-user-name"
+  ).textContent = `${firstName} ${lastName}`;
+
+  // Show the modal
+  updateModal.style.display = "block";
+
+  // Update the form action
+  const modalForm = document.getElementById("updateModalForm");
+  modalForm.action = "/Free-Write/public/Mod/UpdateUser";
 }
 
 // Show delete confirmation modal
@@ -106,41 +109,41 @@ function validateDeleteConfirmation() {
 
 // Close modals
 function closeUpdateModal() {
-    updateModal.style.display = "none";
+  updateModal.style.display = "none";
 }
 
 function closeDeleteModal() {
-    deleteModal.style.display = "none";
-    document.getElementById("deleteConfirmText").value = "";
-    deleteSubmitBtn.disabled = true;
+  deleteModal.style.display = "none";
+  document.getElementById("deleteConfirmText").value = "";
+  deleteSubmitBtn.disabled = true;
 }
 
 // Add event listeners when page loads
-document.addEventListener("DOMContentLoaded", function() {
-    const updateButton = document.getElementById("mod-update-user");
-    const deleteButton = document.getElementById("mod-delete-user");
-    
-    if (updateButton) {
-        updateButton.addEventListener("click", function(e) {
-            e.preventDefault();
-            showUpdateModal();
-        });
-    }
-    
-    if (deleteButton) {
-        deleteButton.addEventListener("click", function(e) {
-            e.preventDefault();
-            showDeleteModal();
-        });
-    }
-    
-    // Close modals when clicking outside
-    window.addEventListener("click", function(e) {
-        if (e.target === updateModal) {
-            closeUpdateModal();
-        }
-        if (e.target === deleteModal) {
-            closeDeleteModal();
-        }
+document.addEventListener("DOMContentLoaded", function () {
+  const updateButton = document.getElementById("mod-update-user");
+  const deleteButton = document.getElementById("mod-delete-user");
+
+  if (updateButton) {
+    updateButton.addEventListener("click", function (e) {
+      e.preventDefault();
+      showUpdateModal();
     });
+  }
+
+  if (deleteButton) {
+    deleteButton.addEventListener("click", function (e) {
+      e.preventDefault();
+      showDeleteModal();
+    });
+  }
+
+  // Close modals when clicking outside
+  window.addEventListener("click", function (e) {
+    if (e.target === updateModal) {
+      closeUpdateModal();
+    }
+    if (e.target === deleteModal) {
+      closeDeleteModal();
+    }
+  });
 });

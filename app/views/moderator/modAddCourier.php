@@ -45,7 +45,7 @@
 
             <!-- Search Bar -->
             <div class="search-bar">
-                <form action="/Free-Write/public/Mod/Search" method="post" id="searchForm">
+                <form action="/Free-Write/public/Mod/CouSearch" method="post" id="searchForm">
                     <select id="searchCriteria" name="searchCriteria" required>
                         <option value="" readonly selected>Select Criteria</option>
                         <option value="id">ID</option>
@@ -58,9 +58,7 @@
             </div>
 
             <div class="tabs">
-                <a href="/Free-Write/public/Mod/Users"><button class="tab">All Users</button></a>
-                <a href="/Free-Write/public/Mod/Users?filter=normal"><button class="tab">Regular Users</button></a>
-                <a href="/Free-Write/public/Mod/Users?filter=premium"><button class="tab">Premium Users</button></a>
+                <a href="/Free-Write/public/Mod/AddCourier"><button class="tab">All Couriers</button></a>
             </div>
 
             <table>
@@ -85,9 +83,8 @@
                             <td><?= $user['isActivated'] ?></td>
                             <td><?= $user['loginAttempt'] ?></td>
                             <td>
-                                <a href="/Free-Write/public/Mod/Users?filter=premium">
-                                    <a href="/Free-Write/public/Mod/Search?uid=<?= htmlspecialchars($user['userID']) ?>"><button
-                                            class="table-select-user-btn">Select User</button></a>
+                                <a href="/Free-Write/public/Mod/CouSearch?filter=<?= htmlspecialchars($user['userID']) ?>">
+                                    <button class="table-select-user-btn">Select User</button>
                                 </a>
                             </td>
                         </tr>
@@ -135,6 +132,7 @@
                             <select id="userType" name="userType" required>
                                 <option value="" <?php echo !isset($userDetails) ? 'selected' : ''; ?>>Select
                                     Type</option>
+                                <option value="courier" <?php echo (isset($userDetails) && $users[0]['userType'] == 'courier') ? 'selected' : ''; ?>>Courier</option>
                                 <option value="reader" <?php echo (isset($userDetails) && $users[0]['userType'] == 'reader') ? 'selected' : ''; ?>>Reader</option>
                                 <option value="writer" <?php echo (isset($userDetails) && $users[0]['userType'] == 'writer') ? 'selected' : ''; ?>>Writer</option>
                                 <option value="covdes" <?php echo (isset($userDetails) && $users[0]['userType'] == 'covdes') ? 'selected' : ''; ?>>Cover Page Designer</option>
