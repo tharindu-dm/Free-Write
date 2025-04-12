@@ -192,6 +192,6 @@ class SpinoffController extends Controller
         $spinoff->delete($spinoffID, 'spinoffID');
 
         header('location: /Free-Write/public/Spinoff/Overview/' . $spinoffID);
-        
+
     }
 }

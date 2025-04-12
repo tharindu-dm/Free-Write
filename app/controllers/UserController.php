@@ -35,7 +35,7 @@ class UserController extends Controller
         $orderTable = new Order();
         $publisherTable = new Publisher();
         $advertisement_table = new Advertisement();
-    $advertisements = $advertisement_table->where(['pubID' => $_SESSION['user_id']]);
+        $advertisements = $advertisement_table->where(['pubID' => $_SESSION['user_id']]);
 
         $orders = $orderTable->where(['customer_userID' => $_SESSION['user_id']]);
         $userDetails = $userDetailsTable->first(['user' => $uid]);//getUserDetails($uid);
@@ -303,8 +303,7 @@ class UserController extends Controller
             $allNotifications = $userNotification->getAllNotifications($_SESSION['user_id']);
 
             $this->view('Profile/MyNotifications', ['notifications' => $allNotifications]);
-        }
-        else {
+        } else {
             header('Location: /Free-Write/public/User/Login');
             exit;
         }

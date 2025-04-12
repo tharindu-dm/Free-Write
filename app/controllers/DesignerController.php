@@ -17,7 +17,8 @@ class DesignerController extends Controller
         $this->view('CoverPageDesigner/CreateDesign');
     }
 
-    public function Competition(){
+    public function Competition()
+    {
         $this->view('CoverPageDesigner/Competition');
     }
 }

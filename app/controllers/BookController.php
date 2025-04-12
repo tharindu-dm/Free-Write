@@ -69,16 +69,16 @@ class BookController extends Controller
         }
         $hasExistingQuotation = false;
 
-if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'pub') {
-    
-    $quotation = new Quotation();
-    $existingQuotation = $quotation->first([
-        'publisher' => $_SESSION['user_id'],
-        'writer' => $bookFound[0]['author']
-    ]);
-    
-    $hasExistingQuotation = !empty($existingQuotation);
-}
+        if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'pub') {
+
+            $quotation = new Quotation();
+            $existingQuotation = $quotation->first([
+                'publisher' => $_SESSION['user_id'],
+                'writer' => $bookFound[0]['author']
+            ]);
+
+            $hasExistingQuotation = !empty($existingQuotation);
+        }
 
         //getting reviews
         $reviewsFound = $review->getReviews($bookID);

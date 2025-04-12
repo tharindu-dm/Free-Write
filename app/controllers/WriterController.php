@@ -36,26 +36,26 @@ class WriterController extends Controller
 
     public function NewQuote()
     {
-        
+
         $this->view('writer/createQuote');
     }
 
-    
-    
-public function saveQuote()
+
+
+    public function saveQuote()
     {
-        $chapter= $_POST['chapter_name'] ?? '';
+        $chapter = $_POST['chapter_name'] ?? '';
         $content = $_POST['quote'] ?? '';
-        
+
 
         $quote = new Quote();
 
         if ($quote->insert(['chapter' => $chapter, 'quote' => $content])) {
-        
-        header('Location: /Free-Write/public/Writer/quotes');
-    }
 
-}
+            header('Location: /Free-Write/public/Writer/quotes');
+        }
+
+    }
 
 
     // SPINOFFS
@@ -213,7 +213,7 @@ public function saveQuote()
         $this->view('writer/editStory');
     }
 
-    
+
     public function GetChapters($bookID)
     {
         if (!is_numeric($bookID)) {
@@ -221,10 +221,10 @@ public function saveQuote()
             echo json_encode(['error' => 'Invalid book ID']);
             exit;
         }
-    
+
         $Chapter = new Chapter();
         $chapters = $Chapter->getChaptersByBookID($bookID);
-    
+
         if ($chapters) {
             header('Content-Type: application/json');
             echo json_encode($chapters);
@@ -247,22 +247,22 @@ public function saveQuote()
         $chapter = new Chapter();
 
         if ($chapter->insert(['title' => $title, 'content' => $content, 'lastUpdated' => $datetime])) {
-        /*    $chapterID = $chapter->lastInsertId();
-        // Data for BookChapter table
-        $data = [
-            'book' => $bookID,
-            'chapter' => $chapterID,
-        ];
+            /*    $chapterID = $chapter->lastInsertId();
+            // Data for BookChapter table
+            $data = [
+                'book' => $bookID,
+                'chapter' => $chapterID,
+            ];
 
-            $bookChapter = new BookChapter();
+                $bookChapter = new BookChapter();
 
-            $bookChapter->insert($data);
-            exit;
-        */
-        header('Location: /Free-Write/public/Writer/');
+                $bookChapter->insert($data);
+                exit;
+            */
+            header('Location: /Free-Write/public/Writer/');
+        }
+
     }
-
-}
 
     public function WriteStory($bookID = 0)
     {
@@ -298,9 +298,9 @@ public function saveQuote()
     {
         $chapterID = $_POST['cID'];
 
-        $chapter = new Chapter(); 
+        $chapter = new Chapter();
 
-        
+
         if ($chapter->delete($chapterID, 'chapterID')) {
             header('location: /Free-Write/public/Writer/'); // Redirect to the writer dashboard
             exit;

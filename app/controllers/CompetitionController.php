@@ -3,17 +3,18 @@
 class CompetitionController extends Controller
 {
 
-    public function index(){
+    public function index()
+    {
         $this->view('OpenUser/competitions');
     }
 
     public function MyCompetitions()
     {
-        
+
         $competition_table = new Competition();
         $competition_table->updateCompetitionStatus();
         $competitionDetails = $competition_table->where(['publisherID' => $_SESSION['user_id']]);
-        
+
 
         $this->view('publisher/competitionDetails4Publisher', ['competitionDetails' => $competitionDetails]);
     }
@@ -38,7 +39,7 @@ class CompetitionController extends Controller
         $competitionID = $_POST['compID'];
         $competition_table = new Competition();
 
-        $competition_table->insert(['title' => $title, 'description' => $desc, 'rules' => $rules, 'first_prize' => $firstPrize,'second_prize' => $secondPrize,'third_prize' => $thirdPrize,'status' => $status, 'start_date' => $start_date, 'end_date' => $end_date, 'category' => $category,'publisherID'=> $_SESSION['user_id']]);
+        $competition_table->insert(['title' => $title, 'description' => $desc, 'rules' => $rules, 'first_prize' => $firstPrize, 'second_prize' => $secondPrize, 'third_prize' => $thirdPrize, 'status' => $status, 'start_date' => $start_date, 'end_date' => $end_date, 'category' => $category, 'publisherID' => $_SESSION['user_id']]);
 
         header('Location: /Free-Write/public/Competition/MyCompetitions');
     }
@@ -65,7 +66,7 @@ class CompetitionController extends Controller
         $date = $_POST['end_date'];
         $competitionID = $_POST['compID']; //compID from editingcompetitionDetails.php
         $competition_table = new Competition();
-        $competition_table->update($competitionID, ['title' => $var, 'description' => $desc, 'rules' => $rules, 'first_prize' => $firstPrize,'second_prize' => $secondPrize,'third_prize' => $thirdPrize, 'category' => $category, 'end_date' => $date], 'competitionID');
+        $competition_table->update($competitionID, ['title' => $var, 'description' => $desc, 'rules' => $rules, 'first_prize' => $firstPrize, 'second_prize' => $secondPrize, 'third_prize' => $thirdPrize, 'category' => $category, 'end_date' => $date], 'competitionID');
         //above one has no need to pass , it just need to updated 
         header('Location: /Free-Write/public/Competition/MyCompetitions');   //to navigate after updated 
     }
@@ -90,17 +91,20 @@ class CompetitionController extends Controller
     }
 
     public function Completed()
-    {   $completedCompetition_table = new Competition();
-        $completedCompetition_details = $completedCompetition_table->where(['status'=>'ended','publisherID' => $_SESSION['user_id']]);
-        $this->view('publisher/completedCompetition',['completedCompetition_details'=>$completedCompetition_details]);
+    {
+        $completedCompetition_table = new Competition();
+        $completedCompetition_details = $completedCompetition_table->where(['status' => 'ended', 'publisherID' => $_SESSION['user_id']]);
+        $this->view('publisher/completedCompetition', ['completedCompetition_details' => $completedCompetition_details]);
     }
 
     public function Active()
-    {   
+    {
         $activeCompetition_table = new Competition();
-        $activeCompetition_details = $activeCompetition_table->where(['status'=>'active',
-        'publisherID' => $_SESSION['user_id']]);
-        $this->view('publisher/activeCompetition',['activeCompetition_details'=>$activeCompetition_details]);
+        $activeCompetition_details = $activeCompetition_table->where([
+            'status' => 'active',
+            'publisherID' => $_SESSION['user_id']
+        ]);
+        $this->view('publisher/activeCompetition', ['activeCompetition_details' => $activeCompetition_details]);
     }
 
     public function ViewStats()
