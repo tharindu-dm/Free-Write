@@ -17,19 +17,11 @@ class DesignerController extends Controller
         $this->view('CoverPageDesigner/CreateDesign');
     }
 
-    public function Competition(){
+    public function Competition()
+    {
         $this->view('CoverPageDesigner/Competition');
     }
 
-    public function index()
-    {
-        $cover = new CoverImage();
-        $covers = $cover->getAllCovers();
-        
-        $this->view('cover/index', [
-            'covers' => $covers
-        ]);
-    }
 
     /*public function upload()
     {
@@ -149,4 +141,4 @@ class DesignerController extends Controller
         header('Location: /Free-Write/public/CoverDesigner');
     }
 */
-}?><?php
+}
