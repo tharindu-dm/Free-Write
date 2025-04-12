@@ -134,3 +134,10 @@ p {
   object-fit: cover;
   height: auto;
 }
+
+.active{
+  color: #ffd700;
+  padding-left: 1rem;
+  border: 1px solid #ffd700;
+  border-radius: 1rem;
+}

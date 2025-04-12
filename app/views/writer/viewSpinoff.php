@@ -17,7 +17,6 @@
     <!-- Main Content -->
     <main class="quote-section">
         <h1><?php echo htmlspecialchars($spinoff['title']); ?></h1>
-        <div class="quote-info">
         <h3>From <?php echo htmlspecialchars($spinoff['ChapterTitle']); ?></h3>
         <button class="book-btn" onclick="window.location.href='/Free-Write/public/writer/Overview/<?= htmlspecialchars($spinoff['bookID']); ?>'"><?php echo htmlspecialchars($spinoff['fromBook']); ?></button>
         <p><?php echo htmlspecialchars($spinoff['synopsis']); ?></p>

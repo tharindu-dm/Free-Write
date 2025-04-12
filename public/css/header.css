@@ -148,6 +148,37 @@ svg {
   margin-right: 1rem;
 }
 
+.write-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 1rem;
+
+  background-color: #fff;
+  color: #333;
+}
+
+.write-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.write-btn button{
+  background: none;
+  color: #333;
+  border: none;
+  cursor: pointer;
+}
+
+.write-btn:hover{
+  background-color: #f0f0f0;
+}
+
+
 .go-premium-button {
   display: flex;
   justify-content: center;
@@ -183,7 +214,7 @@ svg {
   color: #333;
   border: 1px solid #ccc;
   padding: 0.25rem 0.3rem;
-  border-radius: 100%;
+  border-radius: 100% !important;
   cursor: pointer;
   position: relative;
 }
@@ -205,4 +236,82 @@ svg {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+
+/*overlay for notificaitron panel*/
+.notification-overlay {
+  display: block; /* Hidden by default */
+  position: absolute;
+  top: 60px; /* Adjust based on your navbar height */
+  right: 10px;
+  width: 25rem;
+  max-height: 400px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.overlay-header {
+  background-color: #ffd700; /* Gold primary color */
+  padding: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.overlay-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.overlay-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.overlay-buttons button {
+  background-color: transparent;
+  border: 1px solid #333;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  color: #333;
+}
+
+.overlay-buttons button:hover {
+  background-color: #333;
+  color: #ffd700;
+}
+
+.notification-list {
+  max-height: 340px; /* Fits ~5 items */
+  overflow-y: auto; /* Scrollable if more than 5 */
+  padding: 10px;
+}
+
+.notification-item {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+
+.notification-item:last-child {
+  border-bottom: none;
+}
+
+.notification-item .subject {
+  font-weight: bold;
+  color: #333;
+}
+
+.notification-item .time {
+  font-size: 12px;
+  color: #666;
 }

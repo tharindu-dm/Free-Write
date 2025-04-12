@@ -27,4 +27,15 @@ class UserDetails
         return $this->query($query);
     }*/
 
+    public function updatePubDetail($bio, $dob, $country, $user_id) {
+        $data = [
+            'bio' => $bio,
+            'dob' => $dob,
+            'country' => $country
+        ];
+    
+        return $this->update($user_id, $data, 'user'); // Changed 'userID' to 'user'
+    }
+    
+    
 }

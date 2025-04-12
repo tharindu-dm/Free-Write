@@ -8,4 +8,8 @@ class OrderController extends Controller
 
     }
 
+    public function viewStats(){
+        $this->view('publisher/viewStats4Orders');
+    }
+
 }

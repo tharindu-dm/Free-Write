@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Book - Free Write</title>
+    <title>Create a Book - Free Write</title>
     <link rel="stylesheet" href="/Free-Write/public/css/writer.css">
 </head>
 
 <body>
 
-    <?php
+<?php
     if (isset($_SESSION['user_type'])) {
         $userType = $_SESSION['user_type'];
     } else {
@@ -18,24 +18,27 @@
     }
     switch ($userType) {
         case 'admin':
-        case 'mod':
         case 'writer':
+        case 'covdes':
         case 'wricov':
+        case 'reader':
             require_once "../app/views/layout/header-user.php";
+            break;
+        case 'pub':
+            require_once "../app/views/layout/header-pub.php";
             break;
         default:
             require_once "../app/views/layout/header.php";
     }
-    //show($data);
     ?>
 
     <!-- Main Content -->
     <main class="book-section">
         
             
-            <form action="/Free-Write/public/Writer/Update" method="POST" enctype="multipart/form-data">
+            <form action="/Free-Write/public/Writer/createBook" method="POST" enctype="multipart/form-data">
 
-            <h1>Update Book Details</h1>
+            <h1>Create a New Story</h1>
 
                 <!-- Book Details Section -->
                 <div class="book-info">

@@ -60,7 +60,20 @@
 
             <!-- Quotes Section -->
             <section class="quotes-section">
-                <h2>Quotes</h2>
+                <h2>My Quotes</h2>
+
+                <?php if (empty($quotes)): ?>
+                    <div class="no-requests">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 4v16a2 2 0 0 0 2 2h16"/>
+          <path d="M6 2h12a2 2 0 0 1 2 2v16"/>
+          <path d="M6 8h12"/>
+          </svg><br>
+                        <h2>You haven't written any quotes yet.</h2><br>
+                    <a href="/Free-Write/public/Writer/NewQuote" class="book-btn">+ Create A New Quote </a>
+                    </div>
+                 <?php else: ?>
+
                 <a href="/Free-Write/public/Writer/NewQuote" class="button-new">+ New</a>
 
                 <!-- Quotes List -->
@@ -87,6 +100,7 @@
                         </li>     
                     <?php endforeach; ?>
                 </ul>
+                <?php endif; ?>
             </section>
 
         </div> <!-- End of Dashboard -->

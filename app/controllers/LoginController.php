@@ -25,25 +25,25 @@ class LoginController extends Controller
         // Checking if user is already logged in
         if (isset($_SESSION['user_id'])) {
             switch ($_SESSION['user_type']) {
-                case 'admin':
-                    header('Location: /Free-Write/public/Admin/Dashboard');
-                    break;
-                case 'mod':
-                    $this->modLogUpdate();
-                    header('Location: /Free-Write/public/Mod/Dashboard');
-                    break;
-                case 'reader':
-                case 'writer':
-                case 'covdes':
-                case 'wricov':
-                    header('Location: /Free-Write/public/User/Profile');
-                    break;
-                case 'courier':
-                    header('Location: /Free-Write/public/courier');
-                    break;
-                case 'publisher':
-                    header('Location: /Free-Write/public/publisher');
-                    break;
+                //case 'admin':
+                //    header('Location: /Free-Write/public/Admin/Dashboard');
+                //    break;
+                //case 'mod':
+                //    $this->modLogUpdate();
+                //    header('Location: /Free-Write/public/Mod/Dashboard');
+                //    break;
+                //case 'reader':
+                //case 'writer':
+                //case 'covdes':
+                //case 'wricov':
+                //    header('Location: /Free-Write/public/User/Profile');
+                //    break;
+                //case 'courier':
+                //    header('Location: /Free-Write/public/courier');
+                //    break;
+                //case 'publisher':
+                //    header('Location: /Free-Write/public/publisher');
+                //    break;
                 case 'inst':
                     header('Location: /Free-Write/public/Institute');
                     break;
@@ -172,6 +172,37 @@ class LoginController extends Controller
 
                     // Set last login date
                     $userDetails = new UserDetails();
+                $response['success'] = true;
+                $response['message'] = 'login_success';
+                //$response['redirect'] = '/Free-Write/public/User/Profile';
+
+                switch ($userData['userType']) {
+                    case 'admin':
+                        $response['redirect'] = '/Free-Write/public/Mod/Dashboard';
+                        break;
+                    case 'mod':
+                        $this->modLogUpdate();
+                        $response['redirect'] = '/Free-Write/public/Mod/Dashboard';
+                        break;
+                    case 'reader':
+                    case 'writer':
+                    case 'covdes':
+                    case 'wricov':
+                        $response['redirect'] = '/Free-Write/public/User/Profile';
+                        break;
+                    case 'courier':
+                        $response['redirect'] = '/Free-Write/public/courier';
+                        break;
+                    case 'publisher':
+                        $response['redirect'] = '/Free-Write/public/publisher';
+                        break;
+                    case 'inst':
+                        $response['redirect'] = '/Free-Write/public/Institute';
+                        break;
+                    default:
+                        $response['redirect'] = '/Free-Write/public/';
+                        break;
+                }
 
                     $userDetails->update($userData['userID'], ['lastLogDate' => date("Y-m-d H:i:s")], 'user');
 

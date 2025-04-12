@@ -211,7 +211,7 @@
                 <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="Acme Publishing" class="publisher-logo">
                 <div>
                     <h1>All Publications</h1>
-                    <p>Acme Publishing</p>
+                    <p><?= htmlspecialchars($pubDetails['name']) ?></p>
                 </div>
             </div>
         </div>
@@ -263,12 +263,15 @@
 
         <div class="publications-grid">
             <!-- Example book cards -->
+            <?php if (!empty($data['allBookDetails'])) : ?>
+                <?php foreach ($data['allBookDetails'] as $allBookDetails): ?>
             <a href="/Free-Write/public/Publisher/bookProfile">  <div class="book-card">
                 <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book Title" class="book-cover">
+
                 <div class="book-info">
-                    <div class="book-title">The Hidden Path</div>
-                    <div class="book-author">by Sarah Johnson</div>
-                    <div class="book-details">Published: Oct 2024</div>
+                    <div class="book-title"><?= htmlspecialchars($allBookDetails['title']) ?></div>
+                    <div class="book-author">by <?= htmlspecialchars($allBookDetails['author_name']) ?></div>
+                    <div class="book-details">Published: <?= htmlspecialchars($allBookDetails['publication_year']) ?></div>
                     <div class="book-tags">
                         <span class="book-tag">Fiction</span>
                         <span class="book-tag">Mystery</span>
@@ -276,10 +279,12 @@
                 </div>
             </div>
             </a>
+           
 
             <!-- Repeat book cards for demonstration -->
-            <a href="/Free-Write/public/Publisher/bookProfile"> <div class="book-card">
-                <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book Title" class="book-cover">
+            <!-- <a href="/Free-Write/public/Publisher/bookProfile"> <div class="book-card">
+                <img src="/Free-Write/public/images/sampleCover.jpg" alt="Book Title" class="book-cover">
+
                 <div class="book-info">
                     <div class="book-title">Beyond the Horizon</div>
                     <div class="book-author">by Michael Chen</div>
@@ -290,10 +295,14 @@
                     </div>
                 </div>
             </div>
-            </a>
+            </a> -->
 
             <!-- Add more book cards as needed -->
             <!-- Repeat similar book cards 10 more times for demonstration -->
+            <?php endforeach; ?>
+    <?php else : ?>
+        <p>No books available.</p>
+    <?php endif; ?>
         </div>
 
         <button class="load-more">Load More</button>

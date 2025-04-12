@@ -168,14 +168,23 @@
     }
 
     .status-badge {
-      display: inline-block;
-      padding: 0.25rem 0.75rem;
-      background-color: #FFD700;
-      color: #1C160C;
-      border-radius: 16px;
-      font-size: 0.875rem;
-      font-weight: 600;
-    }
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 16px;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.status-badge.active {
+    background-color: #FFD700;
+    color: #1C160C;
+}
+
+.status-badge.ended {
+    background-color: #8C805E;
+    color: #FFFFFF;
+}
+
 
     .action-link {
       color: #c47c15;
@@ -229,6 +238,7 @@
 
   <div class="content">
     <h1>Competitions</h1>
+    
 
     <div class="competition-search-container">
       <div class="competition-search-bar">
@@ -243,7 +253,7 @@
     </div>
 
     <div class="tabs">
-      <a href="/Free-Write/public/Competition/" class="active">All</a>
+      <a href="/Free-Write/public/Competition/MyCompetitions" class="active">All</a>
       <a href="/Free-Write/public/Competition/Active">Active</a>
       <a href="/Free-Write/public/Competition/Completed">Completed</a>
     </div>
@@ -263,7 +273,9 @@
           </tr>
         </thead>
         <tbody>
+          
           <?php if (!empty($data['competitionDetails'])): ?>
+            
             <?php foreach ($data['competitionDetails'] as $competitionDetails): ?>
               <tr>
                 <td>
@@ -272,14 +284,15 @@
                   </a>
                 </td>
                 <td>
-                  <span class="status-badge">
-                    Active
-                  </span>
-                </td>
+  <span class="status-badge <?= strtotime($competitionDetails['end_date']) < time() ? 'ended' : 'active' ?>">
+    <?= strtotime($competitionDetails['end_date']) < time() ? 'Ended' : 'Active' ?>
+  </span>
+</td>
+
                 <td><?php echo date('m/d/Y', strtotime($competitionDetails['start_date'])); ?></td>
                 <td><?php echo date('m/d/Y', strtotime($competitionDetails['end_date'])); ?></td>
                 <td><?php echo htmlspecialchars($competitionDetails['category'] ?? ''); ?></td>
-                <td><?php echo '$' . number_format($competitionDetails['prizes'], 2); ?></td>
+                <td><?php echo '$' . number_format($competitionDetails['first_prize'], 2); ?></td>
                 <td>0</td>
                 <td>
                   <a href="/Free-Write/public/Competition/Manage/<?php echo $competitionDetails['competitionID']; ?>"

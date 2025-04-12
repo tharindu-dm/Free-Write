@@ -215,16 +215,22 @@
     <textarea id="description" maxlength="255" name="description" placeholder="Describe your competition" required></textarea>
     <div id="description_error" class="error-message"></div>
     
-    <label for="rules">Rules</label>
-    <input type="text" id="rules" maxlength="25" name="rules" placeholder="Enter competition rules" required />
+    <label for="rules">Judging criteria</label>
+    <textarea id="rules" maxlength="25" name="rules" placeholder="Enter your competition judging criteria" required></textarea>
     <div id="rules_error" class="error-message"></div>
     
     <label for="category">Category</label>
     <input type="text" id="category" maxlength="45" name="category" placeholder="Enter category" required />
     <div id="category_error" class="error-message"></div>
     
-    <label for="prizes">Prize Amount</label>
-    <input type="number" id="prizes" name="prizes" placeholder="Enter prize amount" required min="0" step="0.01" />
+    <label for="first_prize">Prize Amount</label>
+    <input type="number" id="first_prize" name="first_prize" placeholder="Enter first prize amount" required min="0" step="0.01" />
+
+    <label for="second_prize">Second Prize Amount</label>
+<input type="number" id="second_prize" name="second_prize" placeholder="Enter second prize amount" required min="0" step="0.01" />
+
+<label for="third_prize">Third Prize Amount</label>
+<input type="number" id="third_prize" name="third_prize" placeholder="Enter third prize amount" required min="0" step="0.01" />
     
     <label for="start_date">Start Date</label>
     <input type="date" id="start_date" name="start_date" required />
@@ -361,6 +367,16 @@ document.getElementById('rules').addEventListener('input', function() {
         errorElem.style.display = 'none';
     }
 });
+
+const firstPrize = document.getElementById('first_prize').value;
+const secondPrize = document.getElementById('second_prize').value;
+const thirdPrize = document.getElementById('third_prize').value;
+
+if (parseFloat(firstPrize) <= parseFloat(secondPrize) || parseFloat(secondPrize) <= parseFloat(thirdPrize)) {
+    errorMessages.prizes.textContent = 'First prize must be greater than second prize, which must be greater than third prize';
+    errorMessages.prizes.style.display = 'block';
+    isValid = false;
+}
 
 // Set minimum date for start date (today)
 const today = new Date();

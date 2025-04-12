@@ -4,10 +4,33 @@ class WriterController extends Controller
 {
     public function index()
     {
-        $this->Dashboard();
+        $this->DashboardNew();
     }
 
-    // DASHBOARD
+    public function DashboardNew()
+    {   
+        $book = new Book();
+        $author = $_SESSION['user_id'];
+
+        $MyBooks = $book->getBookByAuthor($author);
+        if(empty($MyBooks)){
+            header('Location: /Free-Write/public/Writer/DashboardNewView');
+        exit;
+        }else{
+            header('Location: /Free-Write/public/Writer/Dashboard');
+        exit;
+        }
+    }
+
+    public function DashboardNewView()
+{
+    $author = $_SESSION['user_id'];
+    $userDetailsTable = new UserDetails();
+    $userDetails = $userDetailsTable->first(['user' => $author]);
+
+    $this->view('writer/writerDashboardNew', ['userDetails' => $userDetails]);
+}
+
 
     public function Dashboard()
     {
@@ -258,6 +281,8 @@ public function deleteQuote($qID = 0)
         $author = $_SESSION['user_id'];
         $userDetailsTable = new UserDetails();
         $userDetails = $userDetailsTable->first(['user' => $author]);
+        $competition = new Competition();
+        $competitions = $competition->getCompetitionByWriterID($author);
 
         $Followers = new Follow();
         $followers = $Followers->getFollowCount($author);
@@ -266,33 +291,103 @@ public function deleteQuote($qID = 0)
         $totViewsArray = $view->getAuthorViews($author);
         $views = $totViewsArray[0]['totalViews'] ?? 0;
 
-        $this->view('writer/competitions',['userDetails' => $userDetails, 'followers' => $followers, 'views' => $views]);
+        $this->view('writer/competitions',['userDetails' => $userDetails, 'followers' => $followers, 'views' => $views, 'competitions' => $competitions]);
     }
-
-    public function ViewCompetitions()
-    {
-        $this->view('writer/viewCompetitions');
-    }
-
 
     public function NewCompetition()
     {
-        $this->view('writer/createCompetition');
+        $genre = new Genre();
+        $genres = $genre->getGenres();
+        $this->view('writer/createCompetition' , ['genres' => $genres]);
     }
 
-
-    public function DeleteCompetition()
+    public function createCompetition()
     {
-        //implement delete competition
+        $competition = new Competition();
+
+        $title = $_POST['title'] ?? '';
+        $synopsis = $_POST['Synopsis'] ?? '';
+        $author = $_SESSION['user_id'];
+        $price = $_POST['price'] ?? null;
+        $startDate = date('Y-m-d');
+        $endDate = date('Y-m-d', strtotime('+2 months'));
+        $genre = $_POST['genre'];
+
+        if ($competition->insert(['title' => $title, 'description' => $synopsis, 'first_prize' => $price, 'publisherID' => $author, 'start_date' => $startDate, 'end_date' => $endDate, 'category' => $genre])) {
+            header('location: /Free-Write/public/Writer/Competitions');
+            exit;
+        } else {
+            echo "Failed to create the competition.";
+        }
     }
-
-
-    public function viewCompetition()
+    public function ViewCompetition($competitionID = 0)
     {
-        //implement view competition
-    }
+        $URL = splitURL();
+        if ($URL[2] < 1)
+            $this->view('error');
 
-    //new book
+        if ($competitionID < 1 || !is_numeric($competitionID))
+            $competitionID = $URL[2]; 
+
+        $competition = new Competition();
+        $competitionDetails = $competition->first(['competitionID' => $competitionID]);
+        $this->view('writer/viewCompetition', ['competition' => $competitionDetails]);
+    }
+    
+    
+    public function editCompetition($competitionID = 0)
+    {
+        $URL = splitURL();
+        if ($URL[2] < 1)
+            $this->view('error');
+
+        if ($competitionID < 1 || !is_numeric($competitionID))
+            $competitionID = $URL[2]; //get the competition id from the url
+
+        $competition = new Competition();
+        $competitionDetails = $competition->first(['competitionID' => $competitionID]);
+        $this->view('writer/editCompetition', ['competition' => $competitionDetails]);
+    }
+    public function UpdateCompetition()
+    {
+        $competitionID = $_POST['cID'];
+        $title = $_POST['title'] ?? '';
+        $Synopsis = $_POST['description'] ?? '';
+        $price = $_POST['price'] ?? null;
+
+        $data = [
+            'title' => $title,
+            'description' => $Synopsis,
+            'first_prize' => $price
+        ];
+
+        $competition = new Competition();
+
+        if ($competition->update($competitionID, $data, 'competitionID')) {
+            header('location: /Free-Write/public/Writer/Competitions');
+            exit;
+        } else {
+            echo "Failed to update the competition.";
+        }
+    }
+    public function DeleteCompetition($cID = 0)
+    {
+        $URL = splitURL();
+        if ($URL[2] < 1)
+            $this->view('error');
+        if ($cID < 1 || !is_numeric($cID))
+            $cID = $URL[2]; //get the competition id from the url
+
+        $competition = new Competition(); 
+
+        // Attempt to delete the competition
+        if ($competition->delete($cID, 'competitionID')) {
+            header('location: /Free-Write/public/Writer/Competitions'); // Redirect to the writer dashboard
+            exit;
+        } else {
+            die('Failed to delete the competition.'); // Handle failure case
+        }
+    }
 
     public function New()
     {
@@ -344,6 +439,7 @@ public function deleteQuote($qID = 0)
         $Synopsis = $_POST['Synopsis'] ?? '';
         $accessType = $_POST['accessType'] ?? 'public';
         $publishType = $_POST['publishType'] ?? 'book';
+        $status = $_POST['status'] ?? '0';
         $author = $_SESSION['user_id'];
         $price = $_POST['price'] ?? null;
 
@@ -353,7 +449,8 @@ public function deleteQuote($qID = 0)
             'accessType' => $accessType,
             'publishType' => $publishType,
             'price' => $price,
-            'author' => $author
+            'author' => $author,
+            'isCompleted' => $status
         ];
 
         $book = new Book();
@@ -370,10 +467,11 @@ public function deleteQuote($qID = 0)
     {
         $bookID = $_POST['bID'];
 
-        $book = new Book(); // Instantiate the Book model
+        $book = new Book(); 
+
 
         // Attempt to delete the book
-        if ($book->delete($bookID, 'bookID')) {
+        if ($book->update($bookID, ['accessType' => 'deleted'], 'bookID'))  {
             header('location: /Free-Write/public/Writer/'); // Redirect to the writer dashboard
             exit;
         } else {
@@ -393,6 +491,9 @@ public function deleteQuote($qID = 0)
             $bookID = $URL[2]; //get the book id from the url
 
         $book = new Book();
+        $spinoff = new Spinoff();
+        $spinoffs = $spinoff->where(['fromBook' => $bookID]);
+
         $rating = new Rating();
         $bookChapter_table = new BookChapter();
         $bookFound = $book->getBookByID($bookID);
@@ -400,7 +501,7 @@ public function deleteQuote($qID = 0)
         $bookChapters = $bookChapter_table->getBookChapters($bookID); //list of chapters related to the specific book
 
 
-        $this->view('writer/bookDetail', ['book' => $bookFound, 'chapters' => $bookChapters, 'rating' => $bookRating]);
+        $this->view('writer/bookDetail', ['book' => $bookFound, 'chapters' => $bookChapters, 'rating' => $bookRating, 'spinoffs' => $spinoffs]);
     }
 
     public function Chapter($chapterID = 0)
@@ -419,10 +520,6 @@ public function deleteQuote($qID = 0)
         $this->view('writer/bookDetails', $chapterFound);
     }
 
-    public function EditStory()
-    {
-        $this->view('writer/editStory');
-    }
 
     public function editChapter($chapterID = 0)
     {
@@ -431,97 +528,154 @@ public function deleteQuote($qID = 0)
             $this->view('error');
 
         if ($chapterID < 1 || !is_numeric($chapterID))
-            $chapterID = $URL[2]; //get the book id from the url
+            $chapterID = $URL[2]; 
 
-        $chapter = new Chapter();
-        $chapterDetails = $chapter->getChapterByID($chapterID);
-        $this->view('writer/editStory', ['chapter' => $chapterDetails]);
+        $chapters = new Chapter();
+        $chapterDetails = $chapters->getChapterByID($chapterID);
+        
+        $chapter = $chapterDetails['title_author'][0];
+
+        $this->view('writer/editStory', ['chapter' => $chapter]);
     }
 
     public function UpdateChapter()
     {
-        $bookID = $_POST['bID'];
-        $title = $_POST['title'] ?? '';
-        $Synopsis = $_POST['Synopsis'] ?? '';
-        $accessType = $_POST['accessType'] ?? 'public';
-        $publishType = $_POST['publishType'] ?? 'book';
-        $author = $_SESSION['user_id'];
-        $price = $_POST['price'] ?? null;
+        $Chapter = new Chapter();
+        $chapterID = $_POST['chapterID'];
 
-        $data = [
-            'title' => $title,
-            'Synopsis' => $Synopsis,
-            'accessType' => $accessType,
-            'publishType' => $publishType,
-            'price' => $price,
-            'author' => $author
-        ];
-
-        $book = new Book();
-
-        if ($book->update($bookID, $data, 'bookID')) {
-            header('location: /Free-Write/public/Writer/');
-            exit;
-        } else {
-            echo "Failed to update the book.";
-        }
-    }
-
-
-    public function saveChapter()
-    {
-        $title = $_POST['story-editor-chapter'] ?? '';
-        $content = $_POST['story-editor'] ?? '';
+        $bookID = $_POST['BookID'];
+        $chapterTitle = $_POST['story-editor-chapter'] ?? '';
+        $chapterContent = $_POST['story-editor'] ?? '';
         $datetime = date('Y-m-d H:i:s');
-        $bookID = $_POST['bID'] ?? null;
 
-        $chapter = new Chapter();
-
-        if ($chapter->insert(['title' => $title, 'content' => $content, 'lastUpdated' => $datetime])) {
-        /*    $chapterID = $chapter->lastInsertId();
-        // Data for BookChapter table
-        $data = [
-            'book' => $bookID,
-            'chapter' => $chapterID,
-        ];
-
-            $bookChapter = new BookChapter();
-
-            $bookChapter->insert($data);
-            exit;
-        */
-        header('Location: /Free-Write/public/Writer/');
+        $Chapter->update(
+            $chapterID,
+            ['title' => $chapterTitle, 'content' => $chapterContent, 'lastUpdated' => $datetime],
+            'chapterID'
+        );
+        header('Location: /Free-Write/public/Writer/Overview/' . $bookID);
+        exit;
     }
 
-}
 
-    public function WriteStory($bookID = 0)
+    public function writeChapter($bookID = 0)
     {
         $URL = splitURL();
         if ($URL[2] < 1)
             $this->view('error');
 
         if ($bookID < 1 || !is_numeric($bookID))
-            $bookID = $URL[2]; //get the book id from the url
+            $bookID = $URL[2]; 
 
         $book = new Book();
+        $bookChapter = new BookChapter();
+
         $bookDetails = $book->first(['bookID' => $bookID]);
-        $this->view('writer/WriteStory', ['book' => $bookDetails]);
+        $chapters = $bookChapter->where(['book' => $bookID]);
+        $chapterCount = count($chapters)+1;
+
+        $this->view('writer/writeStory', ['book' => $bookDetails, 'chapterCount' => $chapterCount]);
 
     }
 
-    public function DeleteChapter()
+    public function saveChapter()
     {
-        $chapterID = $_POST['cID'];
+        $Chapter = new Chapter();
+        $bookChapter = new BookChapter();
 
-        $chapter = new Chapter(); 
+        $bookID = $_POST['bookID'];
+        $title = $_POST['story-editor-chapter'] ?? '';
+        $content = $_POST['story-editor'] ?? '';
+        $datetime = date('Y-m-d H:i:s');
 
         
-        if ($chapter->delete($chapterID, 'chapterID')) {
-            header('location: /Free-Write/public/Writer/'); // Redirect to the writer dashboard
-            exit;
-        } else {
-            die('Failed to delete the book.'); // Handle failure case
-        }
+
+        $Chapter->insert(['title' => $title, 'content' => $content, 'lastUpdated' => $datetime]);
+
+        $chapterID = $Chapter->first(['title' => $title, 'content' => $content, 'lastUpdated' => $datetime])['chapterID'];
+
+        $bookChapter->insert(['book' => $bookID, 'chapter' => $chapterID]);
+
+        header('Location: /Free-Write/public/Writer/Overview/' . $bookID);
+        exit;
+}
+
+public function deleteChapter()
+{
+    if (!isset($_POST['chapterID']) || !isset($_POST['BookID'])) {
+        die('Invalid request');
     }
+
+    $chapterID = $_POST['chapterID'];
+    $bookID = $_POST['BookID'];
+
+    $chapter = new Chapter();
+    $bookChapter = new BookChapter();
+    $comment = new Comment();
+
+    $bookChapter->delete($chapterID, 'chapter');
+    $comment->delete($chapterID, 'chapter');
+
+    // Now delete the chapter
+    if ($chapter->delete($chapterID, 'chapterID')) {
+        header('Location: /Free-Write/public/Writer/Overview/' . $bookID);
+        exit;
+    } else {
+        die('Failed to delete the chapter.');
+    }
+}
+
+
+public function Quotations() {
+        $author = $_SESSION['user_id'];
+        $userDetailsTable = new UserDetails(); $userDetails = $userDetailsTable->first(['user' => $author]);
+
+        $Followers = new Follow();
+        $followers = $Followers->getFollowCount($author);
+
+        $view = new Book();
+        $totViewsArray = $view->getAuthorViews($author);
+        $views = $totViewsArray[0]['totalViews'] ?? 0;
+
+        $quotation = new Quotation();
+        $quotations = $quotation->getQuotaByAuthor($author);
+
+        $this->view('writer/quotations',['userDetails' => $userDetails, 'followers' => $followers, 'views' => $views, 'quotas' => $quotations]);
+}
+
+public function ViewQuota(){
+    $URL = splitURL();
+    if ($URL[2] < 1)
+        $this->view('error');
+
+    $qID = $URL[2]; 
+
+    $quotation = new Quotation();
+    $quotationDetails = $quotation->getQuotaByID($qID);
+    $this->view('writer/viewQuota', ['quota' => $quotationDetails]);
+}
+
+public function RequestPublisher(){
+    $this->view('writer/publishers');
+
+}
+
+public function ViewWriter(){
+    $author = $_SESSION['user_id'];
+
+    $userDetailsTable = new UserDetails();
+    $userDetails = $userDetailsTable->first(['user' => $author]);
+   
+    $mostViewed = new Book();
+    $latest = new Book();
+
+    $quoteModel = new Quote();
+    $quotes = $quoteModel->getQuoteByAuthor($author);
+
+    $MostViewed = $mostViewed->getMostViewedBooks($author);
+    $Latest = $latest->getLatestBooks($author);
+
+    $this->view('writer/viewWriter', ['userDetails' => $userDetails, 'quotes' => $quotes, 'MostViewed' => $MostViewed, 'Latest' => $Latest]);
+}
+
 }

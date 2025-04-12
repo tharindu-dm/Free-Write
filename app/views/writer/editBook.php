@@ -72,8 +72,16 @@
                     <div class="input-group">
                         <label for="privacy">Privacy</label>
                         <div class="privacy-toggle">
-                            <input required type="radio" name="accessType" value="public" <?php ($book['accessType'] == 'public') ? 'checked' : ''; ?>> Public
+                            <input required type="radio" name="accessType" value="public" <?php echo ($book['accessType'] == 'public') ? 'checked' : ''; ?>> Public
                             <input required type="radio" name="accessType" value="private" <?php echo ($book['accessType'] == 'private') ? 'checked' : ''; ?>> Private</label>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="status">Book Status</label>
+                        <div class="privacy-toggle">
+                            <input required type="radio" name="isCompleted" value="0" <?php echo ($book['isCompleted'] == '0') ? 'checked' : ''; ?>> Not Completed
+                            <label><input required type="radio" name="isCompleted" value="1" <?php echo ($book['isCompleted'] == '1') ? 'checked' : ''; ?>> Completed</label>
                         </div>
                     </div>
 

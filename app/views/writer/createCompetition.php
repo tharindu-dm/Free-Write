@@ -10,76 +10,75 @@
 
 <body>
 
-    <?php
-    // Initialize variables for form fields and error messages
-    $description = $bookTitle = $price = '';
-    $errors = [];
-
-    // Handle form submission
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Description validation
-        $description = trim($_POST['description'] ?? '');
-        if (empty($description)) {
-            $errors['description'] = 'Description is required.';
-        } elseif (strlen($description) > 280) {
-            $errors['description'] = 'Description must not exceed 280 characters.';
-        }
-
-        // Book title validation
-        $bookTitle = trim($_POST['bookTitle'] ?? '');
-        if (empty($bookTitle)) {
-            $errors['bookTitle'] = 'Book title is required.';
-        }
-
-        // Price validation
-        $price = trim($_POST['price'] ?? '');
-        if (empty($price)) {
-            $errors['price'] = 'Price is required.';
-        } elseif (!is_numeric($price)) {
-            $errors['price'] = 'Please enter a valid number for the price.';
-        }
-
-        // If no errors, save the competition (simulated here)
-        if (empty($errors)) {
-            // Save competition logic here, e.g., insert into database
-            echo '<p>Competition created successfully!</p>';
-        }
+<?php
+    if (isset($_SESSION['user_type'])) {
+        $userType = $_SESSION['user_type'];
+    } else {
+        $userType = 'guest';
+    }
+    switch ($userType) {
+        case 'admin':
+        case 'writer':
+        case 'covdes':
+        case 'wricov':
+        case 'reader':
+            require_once "../app/views/layout/header-user.php";
+            break;
+        case 'pub':
+            require_once "../app/views/layout/header-pub.php";
+            break;
+        default:
+            require_once "../app/views/layout/header.php";
     }
     ?>
 
     <!-- Main Content -->
-    <main class="quote-section">
-        <h1>Create a Competition</h1>
-        <p>Invite designers to submit their best book cover designs at competitive prices</p>
+    <main class="book-section">
+        
+    <div class="competition-info">    
+            <form action="/Free-Write/public/Writer/createCompetition" method="POST" enctype="multipart/form-data">
+     
+            <h1>Create a Competition</h1>
+            <p>Invite designers to submit their best book cover designs at competitive prices.<p>
 
-        <!-- Form for Creating a Competition -->
-        <form action="" method="POST" class="quote-form">
-            <div class="input-group">
-                <textarea name="description" class="book-title-input" placeholder="Description"
-                    maxlength="280"><?php echo htmlspecialchars($description); ?></textarea>
-                <?php if (!empty($errors['description'])): ?>
-                    <p class="error"><?php echo $errors['description']; ?></p>
-                <?php endif; ?>
-            </div>
+                <!-- competition Details Section -->
+                <div class="book-info">
+                    <div class="input-group">
+                        <label for="title">Title</label>
 
-            <div class="input-group">
-                <input type="text" name="bookTitle" class="book-title-input" placeholder="Enter your book's title"
-                    value="<?php echo htmlspecialchars($bookTitle); ?>">
-                <?php if (!empty($errors['bookTitle'])): ?>
-                    <p class="error"><?php echo $errors['bookTitle']; ?></p>
-                <?php endif; ?>
-            </div>
+                        <input type="text" maxlength="45" rows="7" id="title" name="title"
+                            placeholder="Book Title" required>
+                    </div>
 
-            <div class="input-group">
-                <input type="text" name="price" class="book-title-input" placeholder="Price"
-                    value="<?php echo htmlspecialchars($price); ?>">
-                <?php if (!empty($errors['price'])): ?>
-                    <p class="error"><?php echo $errors['price']; ?></p>
-                <?php endif; ?>
-            </div>
+                    <div class="input-group">
+                        <label for="synopsis">Synopsis</label>
 
-            <button type="submit" class="post-btn">Post</button>
-        </form>
+                        <textarea id="Synopsis" maxlength="255" name="Synopsis" placeholder="Synopsis"
+                            required></textarea>
+
+                    </div>
+
+                    <div class="input-group">
+                    <label for="genre">Genre</label>
+                        <select id="genre" name="genre" class="book-select-input" required>
+                        <option value="">Select Genre</option>
+                        <?php foreach ($genres as $genre) {
+                    echo "<option value=\"{$genre['genreID']}\">{$genre['name']}</option>";
+                        } ?>
+            </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="price">Price</label>
+                        <input type="number" min="0" id="price" name="price" placeholder="Price" required>
+                    </div>
+
+                    <p>*The competition expires two months after its creation date.<p>
+
+                    <button type="submit" class="create-btn">Create</button>
+                </div>
+              </form>
+        </div>
     </main>
 
     <!-- Footer -->
@@ -87,6 +86,7 @@
     // Including the footer
     require_once "../app/views/layout/footer.php";
     ?>
+
 </body>
 
 </html>

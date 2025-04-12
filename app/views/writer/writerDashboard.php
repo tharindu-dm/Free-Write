@@ -61,7 +61,7 @@
 
             <!-- Books Section -->
             <div class="books-section" id="books">
-                <h2>Books</h2>
+                <h2>My Books</h2>
 
                 <!-- Button to Add New Book -->
                 <div>
@@ -69,16 +69,16 @@
                 </div>
 
                 <!-- Books List -->
-                <div class="book-grid">
+                <div class="books-grid">
                     <?php if (!empty($MyBooks) && is_array($MyBooks)): ?>
                         <?php foreach ($MyBooks as $book): ?>
                             <a href="/Free-Write/public/writer/Overview/<?= htmlspecialchars($book['bookID']); ?>">
                                 <div class="book-card">
                                     <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
                                         alt="Cover Image of <?= htmlspecialchars($book['title']); ?>">
-                                    <h3>
+                                    <h4>
                                         <?= strlen($book['title']) > 20 ? htmlspecialchars(substr($book['title'], 0, 17)) . '...' : htmlspecialchars($book['title']); ?>
-                                    </h3>
+                                    </h4>
                                     <p>
                                         <?= htmlspecialchars($book['author']); ?>
                                     </p>

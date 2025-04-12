@@ -39,8 +39,9 @@
 
             <!-- Chapter Name -->
             <div class="text-editor">
-                <textarea id="story-editor-chapter" name="story-editor-chapter"
-                    placeholder="Chapter Name"><?= htmlspecialchars($chapter ?? 'Untitled') ?></textarea>
+            <textarea id="story-editor-chapter" name="story-editor-chapter"
+            placeholder="Chapter Name"><?= htmlspecialchars($chapter ?? 'Chapter ' . $chapterCount) ?></textarea>
+
             </div>
 
             <!-- Story Editor -->
@@ -52,10 +53,15 @@
             <!-- Action Buttons -->
             <div class="action-buttons">
                 <button type="submit" class="save-btn">Save</button>
-                <button type="button" class="cancel-btn" onclick="window.history.back();">Cancel</button>
+                <button type="button" class="save-btn" onclick="window.history.back();">Cancel</button>
             </div>
 
-            <input type="hidden" name="bID" value="<?php echo $bookId; ?>">
+            <input id="bookID_hidden" type="hidden" name="bookID" value="<?= $book['bookID'] ?>">
+
+            <?php if (isset($chapter['chapterID'])): ?>
+                <input type="hidden" name="chapterID" value="<?= $chapter['chapterID'] ?>">
+            <?php endif; ?>
+
         </main>
     </form>
 

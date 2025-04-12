@@ -10,7 +10,6 @@
 </head>
 
 <body>
-
     <?php
     if (isset($_SESSION['user_type'])) {
         $userType = $_SESSION['user_type'];
@@ -18,6 +17,7 @@
         $userType = 'guest';
     }
     switch ($userType) {
+        case 'admin':
         case 'mod':
             require_once "../app/views/layout/header-user.php";
             break;
@@ -25,6 +25,7 @@
             require_once "../app/views/layout/header.php";
     }
     ?>
+
     <main>
         <?php require_once "../app/views/layout/admin_aside_nav.php"; ?>
 

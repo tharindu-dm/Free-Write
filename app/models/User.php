@@ -55,4 +55,30 @@ class User
         return $this->query($query);
     }
 
+
+    public function updateToPub($userType, $user_id) {
+        $data = [
+            
+            'userType' => $userType
+        ];
+        return $this->update($user_id, $data, 'userID');
+    }
+    
+
+    public function getUserByName($name)
+    {
+        $query = "SELECT u.* FROM [dbo].[User] u
+        RIGHT JOIN [dbo].[UserDetails] ud ON u.[userID] = ud.[user]
+        WHERE ud.[firstName] LIKE '%$name%' OR ud.[lastName] LIKE '%$name%'";
+        return $this->query($query);
+    }
+
+    public function getNormalUsers()
+    {
+        $query = "SELECT * FROM [dbo].[User] WHERE [userType] != 'admin' AND [userType] != 'mod' AND [userType] != 'pub' AND [userType] != 'inst' ";
+
+        return $this->query($query);
+    }
+
+
 }

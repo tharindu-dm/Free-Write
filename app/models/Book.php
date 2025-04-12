@@ -11,7 +11,8 @@ class Book
         $query = "SELECT TOP(5) b.bookID, b.title, b.price, CONCAT(u.firstName, ' ', u.lastName) AS author, c.[name] AS cover_image 
         FROM Book b 
         JOIN [UserDetails] u ON b.author = u.[user] 
-        LEFT JOIN [CoverImage] c ON b.[coverImage] = c.covID WHERE b.accessType = 'public' AND b.[publisher] IS NULL;";
+        LEFT JOIN [CoverImage] c ON b.[coverImage] = c.covID WHERE b.accessType = 'public'
+        AND NOT (b.publishType = 'book' AND b.isCompleted = 0) AND b.[publisher] IS NULL;";
 
         return $this->query($query);
     }
@@ -20,14 +21,15 @@ class Book
         $query = "SELECT TOP(5) b.bookID, b.title, b.price, CONCAT(u.firstName, ' ', u.lastName) AS author, c.[name] AS cover_image 
         FROM Book b 
         JOIN [UserDetails] u ON b.author = u.[user] 
-        LEFT JOIN [CoverImage] c ON b.[coverImage] = c.covID WHERE b.accessType = 'public' AND b.[price]>=0;";
+        LEFT JOIN [CoverImage] c ON b.[coverImage] = c.covID WHERE b.accessType = 'public'
+        AND NOT (b.publishType = 'book' AND b.isCompleted = 0) AND b.[price]>=0;";
 
         return $this->query($query);
     }
 
     public function getBookByID($bid) //seeach for a book by given ID
     {
-        $query = "SELECT b.[bookID], b.[author], b.[title], b.[Synopsis], b.[accessType], b.[lastUpdateDate], b.[isCompleted], b.[viewCount] ,b.[price], CONCAT(u.[firstName], ' ', u.[lastName]) AS authorName, c.[name] AS cover_image 
+        $query = "SELECT b.[bookID], b.[author], b.[title], b.[Synopsis], b.[accessType], b.[publishType], b.[lastUpdateDate], b.[isCompleted], b.[viewCount] ,b.[price], CONCAT(u.[firstName], ' ', u.[lastName]) AS authorName, c.[name] AS cover_image 
         FROM [Book] b 
         JOIN [UserDetails] u ON b.author = u.[user] 
         LEFT JOIN [CoverImage] c ON b.[coverImage] = c.covID 
@@ -42,7 +44,35 @@ class Book
         CONCAT(u.[firstName], ' ', u.[lastName]) AS author, c.[name] AS cover_image FROM [Book] b 
         JOIN [UserDetails] u ON b.author = u.[user] 
         LEFT JOIN [CoverImage] c ON b.[coverImage] = c.covID 
-        WHERE b.[author] = $uid;";
+        WHERE b.[author] = $uid
+        AND NOT b.[accessType] = 'deleted';";
+
+        return $this->query($query);
+    }
+    public function getMostViewedBooks($uid)
+    {
+        $query = "SELECT TOP(6) b.[bookID], b.[title], b.[Synopsis] AS synopsis, b.[accessType], b.[lastUpdateDate],b.creationDate AS created_at, b.[isCompleted], b.[price], 
+        CONCAT(u.[firstName], ' ', u.[lastName]) AS author, c.[name] AS coverImage, b.[viewCount] AS views FROM [Book] b 
+        JOIN [UserDetails] u ON b.author = u.[user] 
+        LEFT JOIN [CoverImage] c ON b.[coverImage] = c.covID 
+        WHERE b.accessType = 'public' 
+        AND b.[author] = $uid 
+        AND NOT (b.publishType = 'book' AND b.isCompleted = 0)
+        ORDER BY b.viewCount DESC;";
+
+        return $this->query($query);
+    }
+
+    public function getLatestBooks($uid)
+    {
+        $query = "SELECT TOP(5) b.[bookID], b.[title], b.[Synopsis] AS synopsis, b.[accessType], b.[lastUpdateDate],b.creationDate AS created_at, b.[isCompleted], b.[price], 
+        CONCAT(u.[firstName], ' ', u.[lastName]) AS author, c.[name] AS coverImage FROM [Book] b 
+        JOIN [UserDetails] u ON b.author = u.[user] 
+        LEFT JOIN [CoverImage] c ON b.[coverImage] = c.covID 
+        WHERE b.accessType = 'public' 
+        AND b.[author] = $uid 
+        AND NOT (b.publishType = 'book' AND b.isCompleted = 0)
+        ORDER BY b.lastUpdateDate DESC;";
 
         return $this->query($query);
     }
@@ -74,7 +104,9 @@ class Book
         FROM [Book] b 
         JOIN [UserDetails] u ON b.author = u.[user] 
         LEFT JOIN [CoverImage] c ON b.[coverImage] = c.covID 
-        WHERE [title] LIKE '%$searchTitle%'";
+        WHERE b.accessType = 'public' 
+        AND NOT (b.publishType = 'book' AND b.isCompleted = 0)
+        AND [title] LIKE '%$searchTitle%'";
 
         return $this->query($query);
     }

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Freewrite - Explore and Share Incredible Stories</title>
-    <link rel="stylesheet" href="/Free-Write/public/css/bookDetail.css">
+    <link rel="stylesheet" href="/Free-Write/public/css/writer.css">
 </head>
 
 <body>
@@ -46,17 +46,19 @@
                     <h1><?= htmlspecialchars($book[0]['title']); ?></h1>
                     <p class="description"> <?= htmlspecialchars($book[0]['Synopsis']); ?> </p>
                     
-                    <div class="read-button-container">
+                   
                         <div class="rating-container">
-                            <div class="rating">Views: <?= htmlspecialchars($book[0]['viewCount']); ?></div>
+                        <div class="rating"> 
+                            <?= $book[0]['viewCount'] > 0 ? 'Views: ' .htmlspecialchars($book[0]['viewCount']) : 'No Views'; ?></div>
+
                               <div class="rating">
-                                Rating: <?= $rating ? htmlspecialchars($rating[0]['AverageRating']) . " | " . htmlspecialchars($rating[0]['RatingCount']) . " ratings" : 'No Ratings'; ?>
+                                <?= $rating ? htmlspecialchars($rating[0]['AverageRating']) . " | " . htmlspecialchars($rating[0]['RatingCount']) . " ratings" : 'No Ratings'; ?>
                             </div>
                         </div>
-                        <a href="/Free-Write/public/Writer/Edit/<?= htmlspecialchars($book[0]['bookID']) ?>" class="read-button">Edit</a>
-                        <button id="delete-details" class="read-button delete-btn">Delete</button>
+                        <div class="right-buttons">
+                        <a href="/Free-Write/public/Writer/Edit/<?= htmlspecialchars($book[0]['bookID']) ?>" class="edit-btn">Edit</a>
+                        <button id="delete-details" class="delete-btn">Delete</button>
                  </div>
-
                     <div class="table-of-contents">
                         <h2>Table of Contents</h2>
                         <?php if (!empty($chapters) && is_array($chapters)): ?>
@@ -73,8 +75,8 @@
                                 </td>
                                 <td><?= htmlspecialchars($chap['lastUpdated']); ?></td>
                                 <td>
-                                    <a href="/Free-Write/public/Writer/editChapter/<?= htmlspecialchars($chap['chapterID']); ?>" class="read-button">Edit</a>
-                                    <a href="/Free-Write/public/Writer/deleteChapter/<?= htmlspecialchars($chap['chapterID']); ?>" class="read-button delete-btn">Delete</a>
+                                    <a href="/Free-Write/public/Writer/editChapter/<?= htmlspecialchars($chap['chapterID']); ?>" class="edit-btn">Edit</a>
+                                    
                                 </td>
                             </tr>
                            <?php endforeach; ?>
@@ -83,7 +85,7 @@
                        <p>No chapters found.</p>
                      <?php endif; ?>
 
-                        <button class="read-button" onclick="window.location.href='/Free-Write/public/Writer/writeStory/<?= htmlspecialchars($book[0]['bookID']); ?>'">Add New Chapter</button>
+                        <button class="book-btn" onclick="window.location.href='/Free-Write/public/Writer/writeChapter/<?= htmlspecialchars($book[0]['bookID']); ?>'">Add New Chapter</button>
                     </div>
         
                 
@@ -119,11 +121,12 @@
                     <h2>Are you sure you want to delete this Book?</h2>
                     <form action="/Free-Write/public/Writer/DeleteBook/" method="POST">
                         <input type="hidden" name="bID" value="<?= htmlspecialchars($book[0]['bookID']); ?>">
-                        <label for="title">Book Title</label>
-                        <input id="title" type="text" disabled value="<?= htmlspecialchars($book[0]['title']); ?>">
-                        <div>
+                        
+                        <p>Book Title: <strong><?= htmlspecialchars($book[0]['title']); ?></strong></p>
+                        <div class="right-buttons">
                             <button class="read-button delete-btn" type="submit">Yes, Delete</button>
-                            <button class="read-button" type="button" id="cancelDelete">Cancel</button>
+                            <button class="edit-btn" type="button" id="cancelDelete">Cancel</button>
+                        </div>
                         </div>
                     </form>
                 </div>

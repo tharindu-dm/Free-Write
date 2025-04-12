@@ -18,6 +18,7 @@
         $userType = 'guest';
     }
     switch ($userType) {
+        case 'admin':
         case 'mod':
             require_once "../app/views/layout/header-user.php";
             break;
@@ -31,7 +32,6 @@
         <section class="dashboard">
             <div class="stats-grid">
                 <div class="stat-card">
-
                     <h3>Total User Count</h3>
                     <p><?= htmlspecialchars($data[0]['totalUsers'] ?? '0'); ?></p>
                 </div>
@@ -68,25 +68,77 @@
                 </div>
             </div>
 
-            <form class="publish-form">
-                <input type="text" placeholder="Subject" class="subject-input">
-                <textarea placeholder="Descriptions" class="description-input"></textarea>
-                <div class="checkbox-group">
-                    <label><input type="checkbox"> All users</label>
-                    <label><input type="checkbox"> Writers</label>
-                    <label><input type="checkbox"> Cover Designers</label>
-                    <label><input type="checkbox"> Institutes</label>
-                    <label><input type="checkbox"> Publishers</label>
+            <form class="publish-form" action="/Free-Write/public/Mod/sendAnnouncement" method="POST">
+                <div class="form-content">
+                    <div class="text-inputs">
+                        <input type="text" placeholder="Subject" class="subject-input" name="subject">
+                        <textarea placeholder="Descriptions" class="description-input" name="description"></textarea>
+                    </div>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="roles[]" value="reader" class="all-users-checkbox">&nbsp;
+                            All users</label>
+                        <label><input type="checkbox" name="roles[]" value="writer">&nbsp; Writers</label>
+                        <label><input type="checkbox" name="roles[]" value="covdes">&nbsp; Cover
+                            Designers</label>
+                        <label><input type="checkbox" name="roles[]" value="inst">&nbsp; Institutes</label>
+                        <label><input type="checkbox" name="roles[]" value="pub">&nbsp; Publishers</label>                        
+                        <label><input type="checkbox" name="roles[]" value="courier">&nbsp; Courier</label>
+                        <?php if ($_SESSION['user_type'] == 'admin'): ?>
+                            <label><input type="checkbox" name="roles[]" value="moderators">&nbsp; Moderators</label>
+                        <?php endif; ?>
+                    </div>
                 </div>
-                <button type="submit" class="publish-btn">Publish</button>
+                <div class="button-group">
+                    <button type="reset" class="clear-btn">Clear</button>
+                    <button type="submit" class="publish-btn">Announce</button>
+                </div>
             </form>
         </section>
     </main>
+
     <?php
     require_once "../app/views/layout/footer.php";
     ?>
 
     <script src="/Free-Write/public/js/Admin/admin.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.querySelector('.publish-form');
+            const allUsersCheckbox = form.querySelector('.all-users-checkbox');
+            const otherCheckboxes = Array.from(form.querySelectorAll('.checkbox-group input[type="checkbox"]:not(.all-users-checkbox)'));
+
+            // Handle "All Users" checkbox
+            allUsersCheckbox.addEventListener('change', function () {
+                otherCheckboxes.forEach(checkbox => {
+                    checkbox.checked = this.checked;
+                });
+            });
+
+            // Handle other checkboxes
+            otherCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function () {
+                    // If any checkbox is unchecked, uncheck "All Users"
+                    if (!this.checked) {
+                        allUsersCheckbox.checked = false;
+                    }
+                    // If all other checkboxes are checked, check "All Users"
+                    else if (otherCheckboxes.every(cb => cb.checked)) {
+                        allUsersCheckbox.checked = true;
+                    }
+                });
+            });
+
+            // Handle form reset properly
+            form.addEventListener('reset', function () {
+                setTimeout(() => {
+                    allUsersCheckbox.checked = false;
+                    otherCheckboxes.forEach(checkbox => {
+                        checkbox.checked = false;
+                    });
+                }, 10);
+            });
+        });
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const sidebarNav = document.getElementById('sidebar-nav');
@@ -105,6 +157,7 @@
             }
         });
     </script>
+
 </body>
 
 </html>

@@ -118,24 +118,6 @@
       border-bottom: none;
     }
 
-    /* .status-dropdown {
-      width: 100%;
-      padding: 0.5rem;
-      border: 2px solid #FFD700;
-      border-radius: 8px;
-      background-color: #FCFAF5;
-      font-size: 1rem;
-      color: #1C160C;
-      cursor: pointer;
-      transition: border-color 0.3s, box-shadow 0.3s;
-    }
-
-    .status-dropdown:focus {
-      outline: none;
-      border-color: #FFD052;
-      box-shadow: 0 0 0 3px rgba(255, 208, 82, 0.2);
-    } */
-
     .order-action-button {
       padding: 0.5rem 1rem;
       background-color: #FFD052;
@@ -160,11 +142,99 @@
       box-shadow: none;
     }
 
+    /* Statistics Styles */
+    .stats-container {
+      max-width: 1200px;
+      width: 90%;
+      margin: 1rem auto;
+      padding: 1rem;
+    }
+
+    .stats-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      width: 90%;
+      margin: 2rem auto 1rem auto;
+      padding: 0 1rem;
+    }
+
+    .view-stats-button {
+      padding: 0.75rem 1.5rem;
+      background-color: #FFD052;
+      color: #1C160C;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .view-stats-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: #FFFFFF;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      border: 2px solid #FFD700;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .stat-card h3 {
+      color: #1C160C;
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+    }
+
+    .stat-card .number {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #FFD052;
+    }
+
     @media (max-width: 768px) {
       .main-content {
         padding: 1rem;
         width: 95%;
         margin: 1rem auto;
+      }
+
+      .stats-container {
+        width: 95%;
+        padding: 0.5rem;
+      }
+
+      .stats-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+
+      .view-stats-button {
+        width: 100%;
+        text-align: center;
       }
 
       .order-search-container {
@@ -179,38 +249,12 @@
       .order-action-button {
         width: 100%;
       }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
     }
-
-    .container {
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .stat-card h3 {
-            color: #666;
-            margin-bottom: 10px;
-        }
-
-        .stat-card .number {
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-        }
   </style>
 </head>
 
@@ -236,34 +280,44 @@
       require_once "../app/views/layout/header.php";
   }
   ?>
-   
-   <div class="container">
-        <div class="stats-grid">
-        <a href="/Free-Write/public/Publisher/newOrder"><div class="stat-card">
-                <h3>New Orders</h3>
-                <div class="number">12</div>
-            </div></a>
-            <div class="stat-card">
-                <h3>Processing</h3>
-                <div class="number">8</div>
-            </div>
-            <div class="stat-card">
-                <h3>Shipped</h3>
-                <div class="number">45</div>
-            </div>
-            <div class="stat-card">
-                <h3>Completed</h3>
-                <div class="number">156</div>
-            </div>
+
+  <!-- Statistics Header with View Button -->
+  <div class="stats-header">
+    <h2 style="color: #1C160C; font-size: 1.5rem; font-weight: 600;">Statistics Overview</h2>
+    <a href="/Free-Write/public/Order/viewStats" class="view-stats-button">View Statistics</a>
+  </div>
+
+  <!-- Statistics Cards -->
+  <div class="stats-container">
+    <div class="stats-grid">
+      <a href="/Free-Write/public/Publisher/newOrder">
+        <div class="stat-card">
+          <h3>New Orders</h3>
+          <div class="number">12</div>
         </div>
+      </a>
+      <div class="stat-card">
+        <h3>Processing</h3>
+        <div class="number">8</div>
+      </div>
+      <div class="stat-card">
+        <h3>Shipped</h3>
+        <div class="number">45</div>
+      </div>
+      <div class="stat-card">
+        <h3>Completed</h3>
+        <div class="number">156</div>
+      </div>
+    </div>
+  </div>
 
-
+  <!-- Main Content -->
   <main class="main-content">
     <h1>Orders</h1>
 
     <div class="order-search-container">
       <div class="order-search-bar">
-        <input type="text" placeholder="order-Search by book title or customer name">
+        <input type="text" placeholder="Search by book title or customer name">
       </div>
       <button class="filter-button">Filter</button>
     </div>
@@ -281,13 +335,11 @@
       </thead>
       <tbody>
         <tr>
-        <td><a href="/Free-Write/public/Publisher/orderDetail">Designing Data-Intensive Applications</a></td></a>
+          <td><a href="/Free-Write/public/Publisher/orderDetail">Designing Data-Intensive Applications</a></td>
           <td>2024-10-20</td>
           <td>Jane Smith</td>
           <td>1234 Main St, Colombo</td>
-          <td>
-            shipped
-          </td>
+          <td>shipped</td>
           <td>
             <button class="order-action-button">Proceed</button>
           </td>
@@ -297,9 +349,7 @@
           <td>2024-10-21</td>
           <td>John Doe</td>
           <td>5678 Market St, Galle</td>
-          <td>
-            pending
-          </td>
+          <td>pending</td>
           <td>
             <button class="order-action-button">Proceed</button>
           </td>

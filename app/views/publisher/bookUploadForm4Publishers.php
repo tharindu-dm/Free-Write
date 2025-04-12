@@ -135,6 +135,7 @@
       color: #1C160C;
     }
 
+
     footer {
       margin-top: auto;
       text-align: center;
@@ -143,6 +144,20 @@
       color: #c47c15;
       box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
     }
+    .form-field input[type="file"] {
+    padding: 0.8rem;
+    background-color: #FCFAF5;
+    border: 2px solid #FFD700;
+    border-radius: 8px;
+    width: 100%;
+}
+
+.description {
+    color: #c47c15;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
 
     @media (max-width: 768px) {
 
@@ -187,7 +202,7 @@
     <h1>Add a New Book</h1>
     <h4>Enter the details for your book</h4>
 
-    <form>
+    <form action="/Free-Write/public/Publisher/BookUpload" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
       <div class="form-field">
         <label for="title">Title</label>
         <input type="text" id="title" placeholder="Enter title" required>
@@ -203,6 +218,10 @@
           <input type="text" id="contributor" placeholder="Enter contributor">
         </div>
       </div>
+      <div class="form-field">
+        <label for="Synopsis">Synopsis of the book</label>
+        <input type="text" id="synopsis" name="synopsis" placeholder="Enter the prize of the book" required>
+      </div>
 
       <div class="form-field">
         <label for="genre">Genre</label>
@@ -212,6 +231,10 @@
           <option value="non-fiction">Non-fiction</option>
           <option value="biography">Biography</option>
         </select>
+      </div>
+      <div class="form-field">
+        <label for="prize">Prize</label>
+        <input type="text" id="prize" name="prize" placeholder="Enter the prize of the book" required>
       </div>
 
       <div class="form-group">
@@ -224,6 +247,7 @@
           <input type="text" id="isbn" placeholder="Enter ISBN" required>
         </div>
       </div>
+      
 
       <div class="optional-section">
         <h3>Add Author Profile</h3>
@@ -231,12 +255,11 @@
         <button type="button">Add Link</button>
       </div>
 
-      <div class="optional-section">
-        <h3>Add Cover Image</h3>
-        <p>JPG or PNG, 2MB max</p>
-        <button type="button">Upload Image</button>
-      </div>
-
+      <div class="form-field">
+    <label for="bookCover">Book Cover Image</label>
+    <input type="file" id="bookCover" name="bookCover" accept="image/*" required>
+    <p class="description">JPG or PNG, 2MB max</p>
+</div>
       <button type="submit" class="submit-button">Submit</button>
     </form>
   </div>
