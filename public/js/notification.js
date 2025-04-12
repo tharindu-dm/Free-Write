@@ -61,14 +61,28 @@ if (Notification_toggleBtn && Notification_overlay) {
 
 // View All button
 document.getElementById('view-all-btn').addEventListener('click', () => {
-    window.location.href = '/Free-Write/public/Notifications';
+    window.location.href = '/Free-Write/public/User/Notifications';
 });
 
 // Mark All as Read (placeholder)
 document.getElementById('mark-all-read-btn').addEventListener('click', () => {
-    alert('Mark all as read functionality to be implemented');
-    // Add AJAX call here
+    fetch('/Free-Write/public/User/MarkAllRead', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Marked all as read:', data);
+        // Update UI by removing the notification badge
+    })
+    .catch(error => {
+        console.error('Error marking all as read:', error);
+    });
 });
+
+
 
 // Initial call and interval
 updateNotificationCount();

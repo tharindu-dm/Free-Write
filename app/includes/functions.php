@@ -25,11 +25,7 @@ function splitCamelCase($text)
 function getUnreadNotifications($uid)
 {
     $notification_user = new UserNotification();
-    $unread = $notification_user->getUserNotifications($uid);
-
-    // Debug logs
-    error_log("User ID: " . $uid);
-    error_log("Unread notifications in function: " . print_r($unread, true));
+    $unread = $notification_user->getUnreadUserNotifications($uid);
 
     return $unread;
 }

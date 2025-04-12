@@ -84,7 +84,7 @@
                         <label><input type="checkbox" name="roles[]" value="pub">&nbsp; Publishers</label>                        
                         <label><input type="checkbox" name="roles[]" value="courier">&nbsp; Courier</label>
                         <?php if ($_SESSION['user_type'] == 'admin'): ?>
-                            <label><input type="checkbox" name="roles[]" value="moderators">&nbsp; Moderators</label>
+                            <label><input type="checkbox" name="roles[]" value="mod">&nbsp; Moderators</label>
                         <?php endif; ?>
                     </div>
                 </div>

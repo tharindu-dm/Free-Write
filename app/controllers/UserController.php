@@ -286,4 +286,31 @@ class UserController extends Controller
         header('Location: /Free-Write/public/User/Profile');
         exit;
     }
+
+    public function Notifications()
+    {
+        if (isset($_SESSION["user_id"])) {
+            $userNotification = new UserNotification();
+            $allNotifications = $userNotification->getAllNotifications($_SESSION['user_id']);
+
+            $this->view('Profile/MyNotifications', ['notifications' => $allNotifications]);
+        }
+        else {
+            header('Location: /Free-Write/public/User/Login');
+            exit;
+        }
+    }
+
+    public function MarkAllRead()
+    {
+        if (empty($_SESSION['user_id'])) {
+            header('Location: /Free-Write/public/User/Login');
+            exit;
+        }
+        $un = new UserNotification();
+
+        $un->update($_SESSION['user_id'], ['isRead' => 1, 'isReadDate' => date('Y-m-d H:i:s')], 'user');
+
+        return;
+    }
 }

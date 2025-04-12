@@ -33,14 +33,7 @@
 
     //show($data);
     ?>
-
-
-    <!--
-        + handle privacy view
-        + handle edit collection
-        + handle delete collection
-        + handle book removal from collection
-        -->
+    
     <main>
         <div class="collection-header">
             <img src="/Free-Write/public/images/collectionThumb.jpeg" alt="Collection Cover" class="collection-image">
