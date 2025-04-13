@@ -281,12 +281,9 @@
     ?>
     <div class="book-container">
         <div class="book-image">
-            <<<<<<< HEAD <img
-                src="/Free-Write/app/images/coverDesign/<?= !empty($bookDetails['coverImage']) ? htmlspecialchars($bookDetails['coverImage']) : 'sampleCover.jpg' ?>"
+            <img src="/Free-Write/app/images/coverDesign/<?= !empty($bookDetails['coverImage']) ? htmlspecialchars($bookDetails['coverImage']) : 'sampleCover.jpg' ?>"
                 alt="<?= htmlspecialchars($bookDetails['title']) ?>">
-                =======
-                <img src="/Free-Write/public/images/collectionThumb.jpeg" alt="The Art of War Book Cover">
-                >>>>>>> eren_new2
+            <img src="/Free-Write/public/images/collectionThumb.jpeg" alt="The Art of War Book Cover">
         </div>
         <div class="book-info">
             <div class="Names">
