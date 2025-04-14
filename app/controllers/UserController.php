@@ -179,14 +179,11 @@ class UserController extends Controller
     {
         $uid = $_SESSION['user_id'];
         $user = new User();
-        $userDetailsTable = new UserDetails();
 
         $userTableData = $user->first(['userID' => $uid]);
-        $userDetailsTableData = $userDetailsTable->first(['user' => $uid]);
 
         //deleting the data from the user and userdetails table
-        $userDetailsTable->delete($uid, 'user');
-        $user->delete($uid, 'userID');
+        $user->update($uid, ['isActivated' => 9, 'password' => "", 'email' => $userTableData['email'] . "-deleted"], 'userID');
         //this will activate the trigger to archive the data
 
         session_destroy();
