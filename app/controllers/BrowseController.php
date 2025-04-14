@@ -12,7 +12,8 @@ class BrowseController extends Controller
         $book = new Book();
         $FWObooks = $book->getFWOBooks();
         $paidBooks = $book->getPaidBooks();
-        $this->view('OpenUser/browse', ['FWObooks' => $FWObooks, 'paidBooks' => $paidBooks]);
+        $freeBooks = $book->getFreeBooks();
+        $this->view('OpenUser/browse', ['freewriteOriginals' => $FWObooks, 'paidBooks' => $paidBooks, 'freeBooks'=> $freeBooks]);
     }
     public function search()
     {

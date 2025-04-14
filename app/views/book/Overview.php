@@ -150,7 +150,7 @@
                                 </a>
                             <?php endif; ?>
                         </div>
-                        <?php if ($book[0]['price'] === null || $bought): ?>
+                        <?php if (($book[0]['price'] === null || $bought) && isset($_SESSION['user_id'])): ?>
                             <button id="btn-addToList" class="read-button">
                                 <?php if ($inList === null): ?>
                                     <p><?= 'Add To List'; ?></p>
@@ -167,7 +167,8 @@
                             <?php if (!$hasExistingQuotation): ?>
                                 <button id="write-quotation" class="read-button">Write Quotation</button>
                             <?php else: ?>
-                                <a href="/Free-Write/public/Publisher/viewQuotationHistory?writer_id=<?= htmlspecialchars($book[0]['author']); ?>&book_id=<?= htmlspecialchars($book[0]['bookID']); ?>" class="read-button">View Quotation History</a>
+                                <a href="/Free-Write/public/Publisher/viewQuotationHistory?writer_id=<?= htmlspecialchars($book[0]['author']); ?>&book_id=<?= htmlspecialchars($book[0]['bookID']); ?>"
+                                    class="read-button">View Quotation History</a>
                             <?php endif; ?>
                         <?php endif; ?>
                     </div>
@@ -275,7 +276,7 @@
 
                                         </td>
                                         <td><?= date('Y-m-d', strtotime($spinoff['lastUpdated']));
-                                            ?></td>
+                                        ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </table>
@@ -287,16 +288,22 @@
                     <div class="table-of-contents">
                         <h2>Reviews</h2>
                         <div class="review-form">
-                            <form action="/Free-Write/public/Book/addReview" method="POST">
-                                <input type="hidden" name="bookID" value="<?= htmlspecialchars($book[0]['bookID']); ?>">
 
-                                <textarea name="reviewText" id="reviewText" placeholder="Add your review"></textarea>
-                                <p id="charFeedback" style="color: red; font-size: 0.9em;"></p>
+                            <?php if ((isset($_SESSION['user_id']) && $_SESSION['user_id'] == $review['userID']) && ($book[0]['price'] === null || $bought)): ?>
+                                <form action="/Free-Write/public/Book/addReview" method="POST">
+                                    <input type="hidden" name="bookID" value="<?= htmlspecialchars($book[0]['bookID']); ?>">
 
-                                <input type="hidden" name="bookID" value="<?= htmlspecialchars($book[0]['bookID']); ?>">
+                                    <textarea name="reviewText" id="reviewText" placeholder="Add your review"></textarea>
+                                    <p id="charFeedback" style="color: red; font-size: 0.9em;"></p>
 
-                                <button class="btn" type="submit">Post Review</button>
-                            </form>
+                                    <input type="hidden" name="bookID" value="<?= htmlspecialchars($book[0]['bookID']); ?>">
+
+                                    <button class="btn" type="submit">Post Review</button>
+                                </form>
+                            <?php else: ?>
+                                <p>Log in to add a review</p>
+                            <?php endif; ?>
+
                         </div>
                         <?php if (!empty($reviews) && is_array($reviews)): ?>
                             <table class="reviews-table">
@@ -305,7 +312,9 @@
                                         <th>User</th>
                                         <th>Review</th>
                                         <th>Date</th>
-                                        <th>Actions</th>
+                                        <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $review['userID']): ?>
+                                            <th>Actions</th>
+                                        <?php endif; ?>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -339,9 +348,11 @@
         <p>No book found.</p>
     <?php endif; ?>
 
-    <div id="quotation-popup" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000;">
+    <div id="quotation-popup"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000;">
 
-        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; border-radius: 5px; width: 300px;">
+        <div
+            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; border-radius: 5px; width: 300px;">
 
             <h3>Write a Quotation</h3>
 
@@ -351,10 +362,12 @@
                 <input type="hidden" name="writer_id" value="<?= htmlspecialchars($book[0]['author'] ?? ''); ?>">
                 <input type="hidden" name="publisher_id" value="<?= htmlspecialchars($_SESSION['user_id'] ?? ''); ?>">
 
-                <textarea name="message" placeholder="Enter your quotation here..." style="width: 100%; height: 100px; margin-bottom: 10px;"></textarea>
+                <textarea name="message" placeholder="Enter your quotation here..."
+                    style="width: 100%; height: 100px; margin-bottom: 10px;"></textarea>
 
                 <div style="text-align: right;">
-                    <button type="button" onclick="document.getElementById('quotation-popup').style.display='none';" style="margin-right: 10px;">Cancel</button>
+                    <button type="button" onclick="document.getElementById('quotation-popup').style.display='none';"
+                        style="margin-right: 10px;">Cancel</button>
                     <button type="submit">Send</button>
                 </div>
             </form>
@@ -371,7 +384,7 @@
 
         // Add click event to the button
         if (writeQuotationBtn) {
-            writeQuotationBtn.addEventListener('click', function() {
+            writeQuotationBtn.addEventListener('click', function () {
                 quotationPopup.style.display = 'block';
             });
         }
