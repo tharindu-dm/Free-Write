@@ -30,6 +30,7 @@
         default:
             require_once "../app/views/layout/header.php";
     }
+    //show($data);
     ?>
 
     <!-- Page Title -->
@@ -56,61 +57,36 @@
                 </section>
 
                 <!-- Book Categories -->
-                <section class="book-category">
-                    <h2>Freewrite Originals For You</h2>
-                    <div class="book-grid">
-
-                        <?php if (!empty($FWObooks) && is_array($FWObooks)): ?>
-                            <?php foreach ($FWObooks as $book): ?>
-                                <a href="/Free-Write/public/book/Overview/<?= htmlspecialchars($book['bookID']); ?>">
-                                    <div class="book-card">
-                                        <img src="../app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
-                                            alt="Cover Image of <?= htmlspecialchars($book['title']); ?>">
-
-                                        <h3>
-                                            <?= strlen($book['title']) > 20 ? htmlspecialchars(substr($book['title'], 0, 17)) . '...' : htmlspecialchars($book['title']); ?>
-                                        </h3>
-                                        <p>
-                                            <?= htmlspecialchars($book['author']); ?>
-                                        </p>
-                                        <h4>
-                                            <?= $book['price'] === null ? 'FREE' : 'LKR ' . number_format($book['price'], 2); ?>
-                                        </h4>
-                                    </div>
-                                </a>
-
-                            <?php endforeach; ?>
-
-                        <?php else: ?>
-                            <p>No books available.</p>
-                        <?php endif; ?>
-                    </div>
-                </section>
-
-                <section class="book-category">
-                    <h2>Top Paid Books</h2>
-                    <div class="book-grid">
-                        <?php if (!empty($paidBooks) && is_array($paidBooks)): ?>
-                            <?php foreach ($paidBooks as $pbook): ?>
-                                <a href="/Free-Write/public/book/Overview/<?= htmlspecialchars($pbook['bookID']); ?>">
-                                    <div class="book-card">
-                                        <img src="../app/images/coverDesign/<?= htmlspecialchars($pbook['cover_image'] ?? 'sampleCover.jpg'); ?>"
-                                            alt="Cover Image of <?= htmlspecialchars($pbook['title']); ?>">
-                                        <h3>
-                                            <?= strlen($pbook['title']) > 20 ? htmlspecialchars(substr($pbook['title'], 0, 17)) . '...' : htmlspecialchars($pbook['title']); ?>
-                                        </h3>
-                                        <p> <?= htmlspecialchars($pbook['author']); ?></p>
-                                        <h4><?= $pbook['price'] === null ? 'FREE' : 'LKR ' . number_format($pbook['price'], 2); ?>
-                                        </h4>
-                                    </div>
-                                </a>
-                            <?php endforeach; ?>
-
-                        <?php else: ?>
-                            <p>No books available.</p>
-                        <?php endif; ?>
-                    </div>
-                </section>
+                <?php foreach ($data as $categoryVar => $books): ?>
+                    <?php
+                    // Convert camelCase to Title Case for section title
+                    $sectionTitle = ucwords(preg_replace('/([a-z])([A-Z])/', '$1 $2', $categoryVar));
+                    ?>
+                    <section class="book-category">
+                        <h2><?= htmlspecialchars($sectionTitle); ?></h2>
+                        <div class="book-grid">
+                            <?php if (!empty($books) && is_array($books)): ?>
+                                <?php foreach ($books as $book): ?>
+                                    <a href="/Free-Write/public/book/Overview/<?= htmlspecialchars($book['bookID']); ?>">
+                                        <div class="book-card">
+                                            <img src="../app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                                                alt="Cover Image of <?= htmlspecialchars($book['title']); ?>">
+                                            <h3>
+                                                <?= strlen($book['title']) > 20 ? htmlspecialchars(substr($book['title'], 0, 17)) . '...' : htmlspecialchars($book['title']); ?>
+                                            </h3>
+                                            <p><?= htmlspecialchars($book['author']); ?></p>
+                                            <h4>
+                                                <?= $book['price'] === null || $book['price'] === '' ? 'FREE' : 'LKR ' . number_format($book['price'], 2); ?>
+                                            </h4>
+                                        </div>
+                                    </a>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <p>No books available.</p>
+                            <?php endif; ?>
+                        </div>
+                    </section>
+                <?php endforeach; ?>
             </section>
         </main>
 

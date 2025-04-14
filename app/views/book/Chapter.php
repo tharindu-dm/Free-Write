@@ -92,15 +92,21 @@
                 </div>
 
                 <!-- Comments Section -->
-                <?php if ($URL[0] == 'book'): ?>
+                <?php if (splitURL()[0] == 'book'): ?>
                     <div class="comments">
                         <h3>Comments</h3>
-                        <form action="/Free-Write/public/Chapter/Comment" method="post" class="comment-form">
-                            <textarea name="commentText" placeholder="Add your comment"></textarea>
-                            <input type="hidden" name="chapterID"
-                                value="<?= $chapterDetails['chapter_content'][0]['chapterID']; ?>">
-                            <button class="btn" type="submit">Post Comment</button>
-                        </form>
+                        <?php if (isset($_SESSION['user_id'])): ?>
+                            <form action="/Free-Write/public/Chapter/Comment" method="post" class="comment-form">
+                                <textarea name="commentText" placeholder="Add your comment"></textarea>
+                                <input type="hidden" name="chapterID"
+                                    value="<?= $chapterDetails['chapter_content'][0]['chapterID']; ?>">
+                                <button class="btn" type="submit">Post Comment</button>
+                            </form>
+                        <?php else: ?>
+                            <p><a href="/Free-Write/public/Login">Log in</a> to make a comment</p>
+                        <?php endif; ?>
+                        <hr />
+
                         <?php if (!empty($chapterDetails['chapter_comments']) && is_array($chapterDetails['chapter_comments'])): ?>
                             <?php foreach ($chapterDetails['chapter_comments'] as $comment): ?>
                                 <div class="comment">

@@ -13,15 +13,13 @@ class UserController extends Controller
 
     public function Profile()
     {
-
         if (isset($_SESSION['user_id']))
             if (isset($_GET['user']) && $_GET['user'] == $_SESSION['user_id'])
                 header('Location: /Free-Write/public/User/Profile'); //to avoid user to see his own public view profile.
 
         $uid = isset($_GET['user']) ? $_GET['user'] : $_SESSION['user_id'];
 
-        $publisherBook_table = new publisherBooks();
-        $bookDetails = $publisherBook_table->where(['publisherID' => $_SESSION['user_id']]);
+
 
         //echo "inside the userProfile function\n";
         $user = new User();
@@ -35,9 +33,20 @@ class UserController extends Controller
         $orderTable = new Order();
         $publisherTable = new Publisher();
         $advertisement_table = new Advertisement();
-        $advertisements = $advertisement_table->where(['pubID' => $_SESSION['user_id']]);
+        $publisherBook_table = new publisherBooks();
 
-        $orders = $orderTable->where(['customer_userID' => $_SESSION['user_id']]);
+        $bookDetails = null;
+        $advertisements = null;
+        $orders = null;
+        $publisher = null;
+
+        if (isset($_SESSION['user_id'])) {
+            $bookDetails = $publisherBook_table->where(['publisherID' => $_SESSION['user_id']]);
+            $advertisements = $advertisement_table->where(['pubID' => $_SESSION['user_id']]);
+            $orders = $orderTable->where(['customer_userID' => $_SESSION['user_id']]);
+            $publisher = $publisherTable->first(['pubID' => $_SESSION['user_id']]);
+        }
+
         $userDetails = $userDetailsTable->first(['user' => $uid]);//getUserDetails($uid);
         $list = $Booklist->getBookListCount($uid);
         $userAcc = $user->first(['userID' => $uid]);
@@ -46,7 +55,6 @@ class UserController extends Controller
         $myboughtBooks = $BuyBook->getBoughtBooks($uid);
         $genreFrequency = $bookGenre->getGenreFrequency($uid);
         $getUserCollections = $collection->getUserCollections($uid);
-        $publisher = $publisherTable->first(['pubID' => $_SESSION['user_id']]);
 
         $isFollowing = null;
         if (isset($_SESSION['user_id']))

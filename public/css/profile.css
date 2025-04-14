@@ -115,7 +115,7 @@ main {
 /* Main Container */
 .statistics-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   max-width: 90vh;
   margin: 2rem auto;
   gap: 2rem;
@@ -408,7 +408,7 @@ h2 {
   position: absolute;
 
   top: 7rem;
-  right: 38rem;
+  right: 34rem;
   border: none;
   cursor: pointer;
   font-size: 1.5rem;

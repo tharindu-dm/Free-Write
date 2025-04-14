@@ -46,12 +46,12 @@
                 <div class="product-image">
                     <img src="/Free-Write/public/images/spinoff.jpg"
                         alt="Cover Image of <?= htmlspecialchars($content[0]['title']); ?>">
-                    <div class="author-details">
+                    <div class="other-details">
                         <h3>Other Details</h3>
-                        <p><strong>Spinoff Author:&nbsp;</strong><?= htmlspecialchars($content[0]['creator']); ?></p>
-                        <p><strong>Last Updated:&nbsp;</strong> <?= explode(' ', $content[0]['lastUpdated'])[0]; ?></p>
+                        <p><strong>Spinoff Author:&nbsp;</strong><?= htmlspecialchars($content['creator']); ?></p>
+                        <p><strong>Last Updated:&nbsp;</strong> <?= explode(' ', $content['lastUpdated'])[0]; ?></p>
                         <p><strong>AccessType:&nbsp;</strong>
-                            <?= htmlspecialchars($content[0]['accessType']); ?>
+                            <?= htmlspecialchars($content['accessType']); ?>
                         </p>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                 <div class="product-info">
                     <h1 id="spinoffTitle_h1"><?= htmlspecialchars($content['title']); ?></h1>
                     <p class="description">
-                        <?= htmlspecialchars($content[0]['synopsis']); ?>
+                        <?= htmlspecialchars($content['synopsis']); ?>
                     </p>
                     <?php if (isset($_SESSION['user_id']) && ($_SESSION['user_id'] == $content['creatorID'])): ?>
                         <button id="saveSpinoffDetailsButton" class="edit-btn-spinoff">Edit Spinoff Details</button>
