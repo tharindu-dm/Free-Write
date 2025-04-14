@@ -1072,7 +1072,7 @@
     <?php endif; ?>
 
     <!-- Create Collection Form --------------------------------------- -->
-    <div class="edit-profile create-collection-overlay">
+    <div class="create-collection-overlay">
         <div class="close-overlay-button">
             <button id="collection-cancelOverlayBtn">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -1083,7 +1083,7 @@
                 close
             </button>
         </div>
-        <div class="edit-profile-container">
+        <div class="create-collection-container">
             <form id="collectionForm" action="/Free-Write/public/User/CreateCollection" method="post">
                 <div class="form-group">
                     <label for="title">Title</label>
