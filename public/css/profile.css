@@ -115,7 +115,7 @@ main {
 /* Main Container */
 .statistics-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   max-width: 90vh;
   margin: 2rem auto;
   gap: 2rem;
