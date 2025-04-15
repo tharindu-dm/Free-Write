@@ -111,10 +111,35 @@ class BookController extends Controller
         if ($chapterID < 1 || !is_numeric($chapterID))
             $chapterID = $URL[2]; //get the chapter id from the url
 
+        $book = new Book();
         $chapter = new Chapter();
         $bookchap = new BookChapter();
         $chapterFound = $chapter->getChapterByID($chapterID);
-        $chapterList = $bookchap->getBookChapters($chapterFound['title_author'][0]['BookID']);
+
+        $bookID = $chapterFound['title_author'][0]['BookID'];
+        $chapterList = $bookchap->getBookChapters($bookID);
+
+        //check if user logged in or not
+        // if loggedin and book has a price
+        // if has a price, has it been bought? if not bought and not loggedin transfer to bookOverview
+
+        $bookDetails = $book->where(['bookID' => $bookID]);
+
+        if ($bookDetails[0]['price'] > 0) {
+            if (!isset($_SESSION['user_id'])) {
+                header('Location: /Free-Write/public/Book/Overview/' . $bookID);
+                return;
+            } else {
+                // if loggedin
+                $buybook = new BuyBook();
+                $bought = $buybook->where(['book' => $bookID, 'user' => $_SESSION['user_id']]);
+
+                if (!$bought) {
+                    header('Location: /Free-Write/public/Book/Overview/' . $bookID);
+                    return;
+                }
+            }
+        }
 
         $this->view('book/Chapter', ['chapterDetails' => $chapterFound, 'chapterList' => $chapterList]);
     }
@@ -138,6 +163,31 @@ class BookController extends Controller
         header('Location: /Free-Write/public/Book/Overview/' . $bookID);
     }
 
+    public function AddToCollection()
+    {
+        $collection = new Collection();
+        $collectionBook = new CollectionBook();
+
+        $userID = $_SESSION['user_id'];
+        $bookID = $_POST['book_id'];
+        $selectedCollections = $_POST['collections'] ?? [];
+
+        //put the book in the selected collections
+        foreach ($selectedCollections as $collectionID) {
+            $collectionBook->insert(['Collection' => $collectionID, 'Book' => $bookID]);
+        }
+
+        //if the book is already in a non-selected collection, then remove it
+        $user_Collections = $collection->getUserCollections($userID);
+
+        foreach ($user_Collections as $collection) {
+            if (!in_array($collection['collectionID'], $selectedCollections)) {
+                $collectionBook->deleteBookRecord($collection['collectionID'], $bookID);
+            }
+        }
+
+        header('Location: /Free-Write/public/Book/Overview/' . $bookID);
+    }
 
     public function addReview()
     {
