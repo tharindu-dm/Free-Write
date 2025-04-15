@@ -12,12 +12,12 @@ class Review
 
         $query = "SELECT 
                     r.reviewID,
-                    u.userID,
+                    r.[user],
                     CONCAT(ud.firstName, ' ', ud.lastName) AS fullName,
                     r.content,
                     r.postDate
                 FROM Review r
-                JOIN [User] u ON r.[user] = u.userID
+                JOIN [User] u ON r.[user] = u.[userID]
                 JOIN UserDetails ud ON u.userID = ud.[user]
                 WHERE r.book = $bookID
                 AND u.isActivated != -1

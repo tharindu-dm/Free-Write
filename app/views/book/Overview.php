@@ -289,7 +289,7 @@
                         <h2>Reviews</h2>
                         <div class="review-form">
 
-                            <?php if ((isset($_SESSION['user_id']) && $_SESSION['user_id'] == $review['userID']) && ($book[0]['price'] === null || $bought)): ?>
+                            <?php if (isset($_SESSION['user_id']) && ($book[0]['price'] === null || $bought)): ?>
                                 <form action="/Free-Write/public/Book/addReview" method="POST">
                                     <input type="hidden" name="bookID" value="<?= htmlspecialchars($book[0]['bookID']); ?>">
 
@@ -311,10 +311,7 @@
                                     <tr>
                                         <th>User</th>
                                         <th>Review</th>
-                                        <th>Date</th>
-                                        <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $review['userID']): ?>
-                                            <th>Actions</th>
-                                        <?php endif; ?>
+                                        <th colspan="2">Date</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -322,12 +319,14 @@
                                         <tr>
                                             <td><?= htmlspecialchars($review['fullName']); ?></td>
                                             <td><?= htmlspecialchars($review['content']); ?></td>
-                                            <td><?= htmlspecialchars($review['postDate']); ?></td>
+                                            <td><?= (new DateTime($review['postDate']))->format('F j, Y'); ?>
+                                            </td>
                                             <td>
-                                                <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $review['userID']): ?>
+                                                <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $review['user']): ?>
                                                     <!-- Show delete button if the logged-in user matches the review user -->
                                                     <form action="/Free-Write/public/Book/deleteReview" method="POST">
                                                         <input type="hidden" name="reviewID" value="<?= $review['reviewID']; ?>">
+                                                        <input type="hidden" name="bookID" value="<?= $book[0]['bookID']; ?>">
                                                         <button type="submit" class="delete-btn">Delete</button>
                                                     </form>
                                                 <?php endif; ?>
