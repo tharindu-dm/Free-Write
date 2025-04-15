@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Freewrite - Explore and Share Incredible Stories</title>
     <link rel="stylesheet" href="/Free-Write/public/css/bookOverview.css">
+    <link rel="stylesheet" href="/Free-Write/public/css/spinoffOverview.css">
 </head>
 
 <body>
@@ -39,6 +40,7 @@
                 <div class="title">
                     <h1 id="parentBookTitle"><?= htmlspecialchars($content['fromBook']); ?></h1>
                     <h2>A Reader-Made Spinoff</h2>
+                    <hr style="margin-bottom: 1rem; border:0.1rem solid #ffd700; " />
                 </div>
             </div>
 
