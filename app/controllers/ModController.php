@@ -4,11 +4,21 @@ class ModController extends Controller
     public function index()
     {
         //echo "this is the Mod Controller\n";
+        $this->checkLoggedUser();
         header('location: /Free-Write/public/Mod/Dashboard');
+    }
+
+    private function checkLoggedUser()
+    {
+        if (!isset($_SESSION['user_id']) && $_SESSION['user_type'] != 'admin' && $_SESSION['user_type'] != 'mod') {
+            header('location: /Free-Write/public/');
+            exit();
+        }
     }
 
     public function modLogs()
     {
+        $this->checkLoggedUser();
         $modlog = new ModLog();
         $logs = $modlog->findAll();
         $this->view('moderator/adminModLogs', $logs);
@@ -16,6 +26,7 @@ class ModController extends Controller
 
     public function Dashboard()
     {
+        $this->checkLoggedUser();
         $user = new User();
         $data = $user->getUserTypeCounts();
         $this->view('moderator/adminDashboard', $data);
@@ -23,6 +34,7 @@ class ModController extends Controller
 
     public function sendAnnouncement()
     {
+        $this->checkLoggedUser();
         $notification = new Notification();
 
         // Validate subject length (max 45 characters)
@@ -77,6 +89,7 @@ class ModController extends Controller
 
     public function viewTable()
     {
+        $this->checkLoggedUser();
         $modlog = new ModLog();
         $tables = $modlog->getAllTables();
         $this->view('moderator/adminViewTable', $tables);
@@ -84,14 +97,16 @@ class ModController extends Controller
 
     public function siteLogs()
     {
+        $this->checkLoggedUser();
         $sitelog = new SiteLog();
-        $logs = $sitelog->findAll();
+        $logs = $sitelog->todayLogs();
         $this->view('moderator/adminSiteLogs', $logs);
     }
 
     //USER MANAGEMENT
     public function Users()
     {
+        $this->checkLoggedUser();
         $userTable = new User();
         $users = $userTable->getNormalUsers();
 
@@ -101,6 +116,7 @@ class ModController extends Controller
     //user management search
     public function Search()
     {
+        $this->checkLoggedUser();
         $user = new User();
         $userDetails = new UserDetails();
 
@@ -140,6 +156,22 @@ class ModController extends Controller
             case 'normal':
                 $data = $user->WHERE(['isPremium' => 0]);
                 break;
+            // by user type
+            case 'reader':
+                $data = $user->WHERE(['userType' => "reader"]);
+                break;
+            case 'writer':
+                $data = $user->WHERE(['userType' => "writer"]);
+                break;
+            case 'covdes':
+                $data = $user->WHERE(['userType' => "covdes"]);
+                break;
+            case 'wricov':
+                $data = $user->WHERE(['userType' => "wricov"]);
+                break;
+            case 'pub':
+                $data = $user->WHERE(['userType' => "pub"]);
+                break;
             default:
                 header('location: /Free-Write/public/Mod/Users');
         }
@@ -153,56 +185,9 @@ class ModController extends Controller
         }
     }
 
-    //courier management search
-    public function CouSearch()
-    {
-        $user = new User();
-        $userDetails = new UserDetails();
-
-        $criteria = '';
-        if (isset($_GET['filter'])) {
-            $criteria = $_GET['filter'];
-        } else if (isset($_POST['searchCriteria'])) {
-            $criteria = $_POST['searchCriteria'];
-        } else {
-            header('location: /Free-Write/public/Mod/AddCourier');
-        }
-
-        // Check if the search input is set in POST or GET
-        $input = '';
-        if (isset($_POST['searchInput'])) {
-            $input = $_POST['searchInput'];
-        } else if (isset($_GET['filter'])) {
-            $input = $_GET['filter'];
-        } else {
-            //header('location: /Free-Write/public/Mod/AddCourier');
-        }
-
-        // Validate the input
-        switch ($criteria) {
-            case 'id':
-                $data = $user->WHERE(['userID' => $input]);
-                break;
-            case 'name':
-                $data = $user->getUserByName($input);
-                break;
-            case 'email':
-                $data = $user->WHERE(['email' => $input]);
-                break;
-            default:
-                header('location: /Free-Write/public/Mod/AddCourier');
-        }
-
-        if (sizeof($data) == 1) {
-            $userDetails = $userDetails->WHERE(['user' => $data[0]['userID']]);
-            $this->view('moderator/modAddCourier', ['users' => $data, 'userDetails' => $userDetails]);
-        } else {
-            $this->view('moderator/modAddCourier', ['users' => $data]);
-        }
-    }
-
     public function DeleteUser()
     {
+        $this->checkLoggedUser();
         // First verify the delete confirmation was typed correctly
         if (!isset($_POST['deleteConfirmText']) || $_POST['deleteConfirmText'] !== "DELETE THIS USER") {
             // Redirect back with error if confirmation text is wrong
@@ -224,9 +209,11 @@ class ModController extends Controller
         $user = new User();
         $userDetails = new UserDetails();
 
+        $userTableData = $user->first(['userID' => $userId]);
+
         try {
             // Perform deletions
-            $user->delete($userId, 'userID');
+            $user->update($userId, ['isActivated' => 9, 'password' => "", 'email' => $userTableData['email'] . "-deleted"], 'userID');
             $userDetails->delete($userId, 'user');
 
             // Log the moderation action
@@ -257,6 +244,7 @@ class ModController extends Controller
 
     public function UpdateUser()
     {
+        $this->checkLoggedUser();
         // UpdateUser 
         $user = new User();
         $userDetails = new UserDetails();
@@ -394,6 +382,7 @@ class ModController extends Controller
     //INSTIUTION MANAGEMENT
     public function Institutes()
     {
+        $this->checkLoggedUser();
         $userTable = new User();
         $insts = $userTable->where(['userType' => 'inst']);
 
@@ -404,6 +393,7 @@ class ModController extends Controller
     //REPORT HANDLING
     public function Reports()
     {
+        $this->checkLoggedUser();
         //query details
         $reportTable = new Report();
         $reports = null;
@@ -427,6 +417,7 @@ class ModController extends Controller
 
     public function HandleReport()
     {
+        $this->checkLoggedUser();
         error_log("Handling report"); // Add server-side logging
         echo "<script>console.log('Handling report - Function reached');</script>";
 
@@ -481,13 +472,127 @@ class ModController extends Controller
         $this->view('moderator/modAddCourier', ['users' => $users]);
     }
 
+    //courier management search
+    public function CouSearch()
+    {
+        $this->checkLoggedUser();
+        $user = new User();
+        $userDetails = new UserDetails();
+
+        $criteria = '';
+        if (isset($_GET['filter'])) {
+            $criteria = $_GET['filter'];
+
+            //if criteria is a number then make it ID
+            if (is_int((int) $criteria)) {
+                $criteria = 'id';
+
+            }
+        } else if (isset($_POST['searchCriteria'])) {
+            $criteria = $_POST['searchCriteria'];
+        } else {
+            header('location: /Free-Write/public/Mod/AddCourier');
+        }
+
+        // Check if the search input is set in POST or GET
+        $input = '';
+        if (isset($_POST['searchInput'])) {
+            $input = $_POST['searchInput'];
+        } else if (isset($_GET['filter'])) {
+            $input = $_GET['filter'];
+        } else {
+            //header('location: /Free-Write/public/Mod/AddCourier');
+        }
+
+        // Validate the input
+        switch ($criteria) {
+            case 'id':
+                $data = $user->WHERE(['userID' => $input]);
+                break;
+            case 'name':
+                $data = $user->getUserByName($input);
+                break;
+            case 'email':
+                $data = $user->WHERE(['email' => $input]);
+                break;
+            default:
+                header('location: /Free-Write/public/Mod/AddCourier');
+        }
+
+        if (sizeof($data) == 1) {
+            $userDetails = $userDetails->WHERE(['user' => $data[0]['userID']]);
+            $this->view('moderator/modAddCourier', ['users' => $data, 'userDetails' => $userDetails]);
+        } else {
+            $this->view('moderator/modAddCourier', ['users' => $data]);
+        }
+    }
+
     //MOD DETAILS (ADMIN ONLY)
     public function AddMod()//visit page
     {
+
+        if (isset($_SESSION['user_type']) && $_SESSION['user_type'] != 'admin') {
+            $this->index();
+            return;
+        }
 
         $userTable = new User();
         $users = $userTable->where(['userType' => 'mod']);
 
         $this->view('moderator/modAddMod', ['users' => $users]);
+    }
+
+    //Mod management search
+    public function ModSearch()
+    {
+        $this->checkLoggedUser();
+        $user = new User();
+        $userDetails = new UserDetails();
+
+        $criteria = '';
+        if (isset($_GET['filter'])) {
+            $criteria = $_GET['filter'];
+
+            //if criteria is a number then make it ID
+            if (is_int((int) $criteria)) {
+                $criteria = 'id';
+            }
+        } else if (isset($_POST['searchCriteria'])) {
+            $criteria = $_POST['searchCriteria'];
+        } else {
+            header('location: /Free-Write/public/Mod/AddMod');
+        }
+
+        // Check if the search input is set in POST or GET
+        $input = '';
+        if (isset($_POST['searchInput'])) {
+            $input = $_POST['searchInput'];
+        } else if (isset($_GET['filter'])) {
+            $input = $_GET['filter'];
+        } else {
+            //header('location: /Free-Write/public/Mod/AddMod');
+        }
+
+        // Validate the input
+        switch ($criteria) {
+            case 'id':
+                $data = $user->WHERE(['userID' => $input]);
+                break;
+            case 'name':
+                $data = $user->getUserByName($input);
+                break;
+            case 'email':
+                $data = $user->WHERE(['email' => $input]);
+                break;
+            default:
+                header('location: /Free-Write/public/Mod/AddMod');
+        }
+
+        if (sizeof($data) == 1) {
+            $userDetails = $userDetails->WHERE(['user' => $data[0]['userID']]);
+            $this->view('moderator/modAddMod', ['users' => $data, 'userDetails' => $userDetails]);
+        } else {
+            $this->view('moderator/modAddMod', ['users' => $data]);
+        }
     }
 }

@@ -94,7 +94,7 @@
 
             <!-- User details form -->
             <div class="user-details-form">
-                <h3>User Details</h3>
+                <h3>Courier Details</h3>
                 <form id="userDetailsForm">
                     <!-- Row 1: User ID and Email -->
                     <div class="form-row">

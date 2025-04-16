@@ -86,7 +86,7 @@
                             <td><?= $user['loginAttempt'] ?></td>
                             <td>
                                 <a href="/Free-Write/public/Mod/Users?filter=premium">
-                                    <a href="/Free-Write/public/Mod/Search?uid=<?= htmlspecialchars($user['userID']) ?>"><button
+                                    <a href="/Free-Write/public/Mod/ModSearch?filter=<?= htmlspecialchars($user['userID']) ?>"><button
                                             class="table-select-user-btn">Select User</button></a>
                                 </a>
                             </td>
@@ -97,7 +97,7 @@
 
             <!-- User details form -->
             <div class="user-details-form">
-                <h3>User Details</h3>
+                <h3>Moderator Details</h3>
                 <form id="userDetailsForm">
                     <!-- Row 1: User ID and Email -->
                     <div class="form-row">
@@ -140,6 +140,9 @@
                                 <option value="covdes" <?php echo (isset($userDetails) && $users[0]['userType'] == 'covdes') ? 'selected' : ''; ?>>Cover Page Designer</option>
                                 <option value="wricov" <?php echo (isset($userDetails) && $users[0]['userType'] == 'wricov') ? 'selected' : ''; ?>>Writer and Cover Page
                                     Designer</option>
+                                <?php if ($_SESSION['user_type'] == 'admin'): ?>
+                                    <option value="mod" <?php echo (isset($userDetails) && $users[0]['userType'] == 'mod') ? 'selected' : ''; ?>>Moderator</option>
+                                <?php endif; ?>
                             </select>
                         </div>
                     </div>

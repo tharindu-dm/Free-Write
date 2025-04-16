@@ -62,7 +62,15 @@
                 <a href="/Free-Write/public/Mod/Search?filter=normal"><button class="tab">Regular Users</button></a>
                 <a href="/Free-Write/public/Mod/Search?filter=premium"><button class="tab">Premium Users</button></a>
             </div>
-
+            <div>
+                <a href="/Free-Write/public/Mod/Search?filter=reader"><button class="tab">Reader Users</button></a>
+                <a href="/Free-Write/public/Mod/Search?filter=writer"><button class="tab">Writer Users</button></a>
+                <a href="/Free-Write/public/Mod/Search?filter=covdes"><button class="tab">Cover Designer
+                        Users</button></a>
+                <a href="/Free-Write/public/Mod/Search?filter=wricov"><button class="tab">Writer And Designer
+                        Users</button></a>
+                <a href="/Free-Write/public/Mod/Search?filter=pub"><button class="tab">Publisher Users</button></a>
+            </div>
             <table>
                 <thead>
                     <tr>
@@ -85,7 +93,8 @@
                             <td><?= $user['isActivated'] ?></td>
                             <td><?= $user['loginAttempt'] ?></td>
                             <td>
-                                <a href="/Free-Write/public/Mod/Search?filter=id&user=<?= htmlspecialchars($user['userID']) ?>">
+                                <a
+                                    href="/Free-Write/public/Mod/Search?filter=id&user=<?= htmlspecialchars($user['userID']) ?>">
                                     <button class="table-select-user-btn">Select User</button>
                                 </a>
                             </td>
@@ -246,7 +255,9 @@
                     <?php
                     if (isset($userDetails)): ?>
                         <div class="special-btns">
-                            <button id="mod-delete-user">Delete User</button>
+                            <?php if ($users[0]['isActivated'] != 9): //if the user already deleted then no need to?>
+                                <button id="mod-delete-user">Delete User</button>
+                            <?php endif; ?>
                             <button id="mod-update-user">Update User</button>
                         </div>
                     <?php endif; ?>

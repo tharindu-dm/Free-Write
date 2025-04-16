@@ -30,69 +30,94 @@
         <?php require_once "../app/views/layout/admin_aside_nav.php"; ?>
 
         <section class="dashboard">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <h3>Total User Count</h3>
-                    <p><?= htmlspecialchars($data[0]['totalUsers'] ?? '0'); ?></p>
+            <div class="publish-form">
+                <h2>User Statistics</h2>
+                <hr style="margin-bottom: 1rem; border:0.1rem solid #ffd700; " />
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Total User Count</h3>
+                        <p><?= htmlspecialchars($data[0]['totalUsers'] ?? '0'); ?></p>
+                    </div>
+
+                    <a href="/Free-Write/public/Mod/Search?filter=reader">
+                        <div class="stat-card">
+                            <h3>Readers</h3>
+                            <p><?= htmlspecialchars($data[0]['readers'] ?? '0'); ?></p>
+                        </div>
+                    </a>
+
+                    <a href="/Free-Write/public/Mod/Search?filter=writer">
+                        <div class="stat-card">
+                            <h3>Writers</h3>
+                            <p><?= htmlspecialchars($data[0]['writers'] ?? '0'); ?></p>
+                        </div>
+                    </a>
+
+                    <a href="/Free-Write/public/Mod/Search?filter=covdes">
+                        <div class="stat-card">
+                            <h3>Cover Designers</h3>
+                            <p><?= htmlspecialchars($data[0]['covdes'] ?? '0'); ?></p>
+                        </div>
+                    </a>
+
+                    <a href="/Free-Write/public/Mod/Search?filter=pub">
+                        <div class="stat-card">
+                            <h3>Publishers</h3>
+                            <p><?= htmlspecialchars($data[0]['pubs'] ?? '0'); ?></p>
+                        </div>
+                    </a>
                 </div>
-                <div class="stat-card">
-                    <h3>Readers</h3>
-                    <p><?= htmlspecialchars($data[0]['readers'] ?? '0'); ?></p>
-                </div>
-                <div class="stat-card">
-                    <h3>Writers</h3>
-                    <p><?= htmlspecialchars($data[0]['writers'] ?? '0'); ?></p>
-                </div>
-                <div class="stat-card">
-                    <h3>Cover Designers</h3>
-                    <p><?= htmlspecialchars($data[0]['covdes'] ?? '0'); ?></p>
-                </div>
-                <div class="stat-card">
-                    <h3>Publishers</h3>
-                    <p><?= htmlspecialchars($data[0]['pubs'] ?? '0'); ?></p>
+
+                <div class="stats-grid secondary">
+                    <div class="stat-card">
+                        <h3>Institutions</h3>
+                        <p><?= htmlspecialchars($data[0]['inst'] ?? '0'); ?></p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Premium Users</h3>
+                        <p><?= htmlspecialchars(($data[0]['premium']) ?? '0'); ?></p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Moderators</h3>
+                        <p><?= htmlspecialchars($data[0]['mod'] ?? '0'); ?></p>
+                    </div>
                 </div>
             </div>
 
-            <div class="stats-grid secondary">
-                <div class="stat-card">
-                    <h3>Institutions</h3>
-                    <p><?= htmlspecialchars($data[0]['inst'] ?? '0'); ?></p>
-                </div>
-                <div class="stat-card">
-                    <h3>Premium Users</h3>
-                    <p><?= htmlspecialchars(($data[0]['premium']) ?? '0'); ?></p>
-                </div>
-                <div class="stat-card">
-                    <h3>Moderators</h3>
-                    <p><?= htmlspecialchars($data[0]['mod'] ?? '0'); ?></p>
-                </div>
-            </div>
+            <div class="publish-form">
+                <h2>Send Announcement</h2>
+                <p>Send an announcement to all users or specific roles.</p>
+                <hr style="margin-bottom: 1rem; border:0.1rem solid #ffd700; " />
 
-            <form class="publish-form" action="/Free-Write/public/Mod/sendAnnouncement" method="POST">
-                <div class="form-content">
-                    <div class="text-inputs">
-                        <input type="text" placeholder="Subject" class="subject-input" name="subject">
-                        <textarea placeholder="Descriptions" class="description-input" name="description"></textarea>
+                <form action="/Free-Write/public/Mod/sendAnnouncement" method="POST">
+                    <div class="form-content">
+                        <div class="text-inputs">
+                            <input type="text" placeholder="Subject" class="subject-input" name="subject">
+                            <textarea placeholder="Descriptions" class="description-input"
+                                name="description"></textarea>
+                        </div>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="roles[]" value="reader"
+                                    class="all-users-checkbox">&nbsp;
+                                All users</label>
+                            <label><input type="checkbox" name="roles[]" value="writer">&nbsp; Writers</label>
+                            <label><input type="checkbox" name="roles[]" value="covdes">&nbsp; Cover
+                                Designers</label>
+                            <label><input type="checkbox" name="roles[]" value="inst">&nbsp; Institutes</label>
+                            <label><input type="checkbox" name="roles[]" value="pub">&nbsp; Publishers</label>
+                            <label><input type="checkbox" name="roles[]" value="courier">&nbsp; Courier</label>
+                            <?php if ($_SESSION['user_type'] == 'admin'): ?>
+                                <label><input type="checkbox" name="roles[]" value="mod">&nbsp; Moderators</label>
+                            <?php endif; ?>
+                        </div>
                     </div>
-                    <div class="checkbox-group">
-                        <label><input type="checkbox" name="roles[]" value="reader" class="all-users-checkbox">&nbsp;
-                            All users</label>
-                        <label><input type="checkbox" name="roles[]" value="writer">&nbsp; Writers</label>
-                        <label><input type="checkbox" name="roles[]" value="covdes">&nbsp; Cover
-                            Designers</label>
-                        <label><input type="checkbox" name="roles[]" value="inst">&nbsp; Institutes</label>
-                        <label><input type="checkbox" name="roles[]" value="pub">&nbsp; Publishers</label>                        
-                        <label><input type="checkbox" name="roles[]" value="courier">&nbsp; Courier</label>
-                        <?php if ($_SESSION['user_type'] == 'admin'): ?>
-                            <label><input type="checkbox" name="roles[]" value="mod">&nbsp; Moderators</label>
-                        <?php endif; ?>
+                    <div class="button-group">
+                        <button type="reset" class="clear-btn">Clear</button>
+                        <button type="submit" class="publish-btn">Announce</button>
                     </div>
-                </div>
-                <div class="button-group">
-                    <button type="reset" class="clear-btn">Clear</button>
-                    <button type="submit" class="publish-btn">Announce</button>
-                </div>
-            </form>
+                </form>
+            </div>
         </section>
     </main>
 
