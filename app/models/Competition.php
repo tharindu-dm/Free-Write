@@ -2,7 +2,6 @@
 class Competition
 {
     use Model;
-    protected $table = 'Competition';
 
     public function findAll()
     {
@@ -28,6 +27,4 @@ class Competition
             'today' => $today
         ]);
     }
-    
-    
 }
