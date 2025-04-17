@@ -1,3 +1,4 @@
+/* General Layout */
 main {
   max-width: 1200px;
   margin: 0 auto;
@@ -12,7 +13,7 @@ main {
 /* Side Navigation Bar */
 .side-nav {
   width: 250px;
-  background-color: #f4f4f4;
+  background-color: #e4e4e4;
   padding: 20px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   height: 100vh;
@@ -41,7 +42,7 @@ main {
 
 .side-nav ul li a:hover,
 .side-nav ul li a.active {
-  background-color: #007bff;
+  background-color: #9e9e9e;
   color: white;
 }
 
@@ -91,6 +92,7 @@ main {
   border-bottom: 2px solid #4a4a4a;
 }
 
+/* Designs Section */
 .designs-header {
   display: flex;
   justify-content: space-between;
@@ -126,6 +128,7 @@ main {
   object-fit: cover;
 }
 
+/* Pagination */
 .pagination {
   display: flex;
   justify-content: center;
@@ -143,4 +146,267 @@ main {
 .pagination button.active {
   background-color: #333;
   color: #fff;
+}
+
+/* Create Collection Section */
+.create-collection-section {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.create-collection-section .btn {
+  background-color: yellow;
+  color: black;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Popup Overlay */
+.create-collection-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.design-collection-overlay.active {
+  display: flex;
+}
+
+.design-collection-container {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
+}
+
+.design-collection-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Form Styling */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.create-btn {
+  background: #ffd700;
+  color: white;
+  padding: 0.7rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.cancel-btn {
+  background: #ddd;
+  color: #333;
+  padding: 0.7rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  margin-left: 1rem;
+  cursor: pointer;
+}
+
+.collections-section {
+  margin-top: 20px;
+}
+
+.collection-item {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.collection-item h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.collection-item p {
+  margin: 5px 0;
+  color: #666;
+}
+
+.collection-item a {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+}
+
+/* --- View Collection Page Styles --- */
+
+.collection-details {
+  background: #fffbe6;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(255, 217, 102, 0.15);
+}
+
+.collection-details h2 {
+  margin: 0 0 10px 0;
+  color: #1e88e5;
+  font-size: 2rem;
+}
+
+.collection-details p {
+  margin: 6px 0;
+  color: #555;
+  font-size: 1.1rem;
+}
+
+.add-design-section {
+  background: #f4f4f4;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 4px rgba(30, 136, 229, 0.07);
+}
+
+.add-design-section h3 {
+  margin-top: 0;
+  color: #1e88e5;
+}
+
+.add-design-section form {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.add-design-section select,
+.add-design-section button {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.add-design-section button {
+  background: #ffd966;
+  color: #333;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.add-design-section button:hover {
+  background: #ffe599;
+}
+
+.designs-section {
+  margin-top: 24px;
+}
+
+.designs-section h3 {
+  color: #1e88e5;
+  margin-bottom: 1rem;
+}
+
+.design-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.2rem;
+}
+
+.design-item {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(30, 136, 229, 0.08);
+  padding: 12px;
+  text-align: center;
+  position: relative;
+}
+
+.design-item img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  background: #f9f9f9;
+}
+
+.design-item p {
+  margin: 0 0 8px 0;
+  color: #333;
+  font-weight: 500;
+}
+
+.design-item form {
+  display: inline;
+}
+
+.design-item button {
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  padding: 0.3rem 0.7rem;
+  cursor: pointer;
+  background: #fff;
+  color: #000;
+  font-size: 0.95rem;
+  font-weight: bold;
+}
+
+.design-item button:hover {
+  background: #d32f2f;
+}
+
+.back-btn {
+  display: inline-block;
+  margin-bottom: 18px;
+  padding: 0.4rem 1.2rem;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  background: #fff;
+  color: #222;
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+.back-btn:hover {
+  background: #f0f0f0;
 }

@@ -68,6 +68,7 @@
             <!-- Submit -->
             <div class="form-group">
                 <button type="submit" id="create-btn">Create</button>
+                <a href="/Free-Write/public/Designer/Dashboard" class="cancel-btn">Cancel</a>
             </div>
         </form>
     </main>

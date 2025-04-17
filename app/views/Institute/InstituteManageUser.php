@@ -214,7 +214,8 @@
         </div>
     </div>
 
-
+                        
+    
     <script src="\Free-Write\public\js\Institute\InstituteManageUser.js"></script>
 </body>
 

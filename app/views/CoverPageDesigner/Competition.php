@@ -60,92 +60,109 @@
       </ul>
     </nav>
     <section class="competitions">
-      <div class="active-competitions">
+
+    <!-- filepath: c:\xampp\htdocs\Free-Write\app\views\Competitions\index.php -->
+<h1>All Competitions</h1>
+<?php if (!empty($competitions)): ?>
+    <?php foreach ($competitions as $competition): ?>
+        <div class="competition">
+            <h2><?= htmlspecialchars($competition['title']) ?></h2>
+            <p><?= htmlspecialchars($competition['description']) ?></p>
+            <p><strong>Deadline:</strong> <?= htmlspecialchars($competition['deadline']) ?></p>
+        </div>
+    <?php endforeach; ?>
+<?php else: ?>
+    <p>No competitions available at the moment.</p>
+<?php endif; ?>
+
+
+    <!-- Active Competitions -->
+    <div class="active-competitions">
         <h2>Active Competitions</h2>
         <table class="competition-table">
-          <thead>
-            <tr>
-              <th>Competition</th>
-              <th>Deadline</th>
-              <th>Prizes</th>
-              <th>Enter</th>
-            </tr>
-          </thead>
-          <tbody id="active-competitions-table">
-            <?php foreach ($activeCompetitions ?? [] as $comp): ?>
-              <tr>
-                <td><?= htmlspecialchars($comp->title) ?></td>
-                <td><?= htmlspecialchars($comp->end_date) ?></td>
-                <td>
-                  🥇 <?= $comp->first_prize ?> <br>
-                  🥈 <?= $comp->second_prize ?> <br>
-                  🥉 <?= $comp->third_prize ?>
-                </td>
-                <td><a href="#" class="btn-enter">Enter</a></td>
-              </tr>
-            <?php endforeach; ?>
-          </tbody>
+            <thead>
+                <tr>
+                    <th>Competition</th>
+                    <th>Deadline</th>
+                    <th>Prizes</th>
+                    <th>Enter</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($activeCompetitions ?? [] as $comp): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($comp->title) ?></td>
+                        <td><?= htmlspecialchars($comp->end_date) ?></td>
+                        <td>
+                            🥇 <?= $comp->first_prize ?> <br>
+                            🥈 <?= $comp->second_prize ?> <br>
+                            🥉 <?= $comp->third_prize ?>
+                        </td>
+                        <td><a href="#" class="btn-enter">Enter</a></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
         </table>
-      </div>
+    </div>
 
-      <div class="previous-competitions">
+    <!-- Previous Competitions -->
+    <div class="previous-competitions">
         <h2>Previous Competitions</h2>
         <table class="competition-table">
-          <thead>
-            <tr>
-              <th>Competition</th>
-              <th>Deadline</th>
-              <th>Prizes</th>
-              <th>Results</th>
-            </tr>
-          </thead>
-          <tbody id="previous-competitions-table">
-            <?php foreach ($previousCompetitions ?? [] as $comp): ?>
-              <tr>
-                <td><?= htmlspecialchars($comp->title) ?></td>
-                <td><?= htmlspecialchars($comp->end_date) ?></td>
-                <td>
-                  🥇 <?= $comp->first_prize ?> <br>
-                  🥈 <?= $comp->second_prize ?> <br>
-                  🥉 <?= $comp->third_prize ?>
-                </td>
-                <td><a href="#">View Results</a></td>
-              </tr>
-            <?php endforeach; ?>
-          </tbody>
-
+            <thead>
+                <tr>
+                    <th>Competition</th>
+                    <th>Deadline</th>
+                    <th>Prizes</th>
+                    <th>Results</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($previousCompetitions ?? [] as $comp): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($comp->title) ?></td>
+                        <td><?= htmlspecialchars($comp->end_date) ?></td>
+                        <td>
+                            🥇 <?= $comp->first_prize ?> <br>
+                            🥈 <?= $comp->second_prize ?> <br>
+                            🥉 <?= $comp->third_prize ?>
+                        </td>
+                        <td><a href="#">View Results</a></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
         </table>
-      </div>
+    </div>
 
-      <div class="upcoming-competitions">
+    <!-- Upcoming Competitions -->
+    <div class="upcoming-competitions">
         <h2>Upcoming Competitions</h2>
         <table class="competition-table">
-          <thead>
-            <tr>
-              <th>Competition</th>
-              <th>Deadline</th>
-              <th>Prizes</th>
-              <th>Reminder</th>
-            </tr>
-          </thead>
-          <tbody id="upcoming-competitions-table">
-            <?php foreach ($upcomingCompetitions ?? [] as $comp): ?>
-              <tr>
-                <td><?= htmlspecialchars($comp->title) ?></td>
-                <td><?= htmlspecialchars($comp->end_date) ?></td>
-                <td>
-                  🥇 <?= $comp->first_prize ?> <br>
-                  🥈 <?= $comp->second_prize ?> <br>
-                  🥉 <?= $comp->third_prize ?>
-                </td>
-                <td><a href="#">Set Reminder</a></td>
-              </tr>
-            <?php endforeach; ?>
-          </tbody>
-
+            <thead>
+                <tr>
+                    <th>Competition</th>
+                    <th>Deadline</th>
+                    <th>Prizes</th>
+                    <th>Reminder</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($upcomingCompetitions ?? [] as $comp): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($comp->title) ?></td>
+                        <td><?= htmlspecialchars($comp->end_date) ?></td>
+                        <td>
+                            🥇 <?= $comp->first_prize ?> <br>
+                            🥈 <?= $comp->second_prize ?> <br>
+                            🥉 <?= $comp->third_prize ?>
+                        </td>
+                        <td><a href="#">Set Reminder</a></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
         </table>
-      </div>
-    </section>
+    </div>
+</section>
   </main>
   
   <?php require_once "../app/views/layout/footer.php"; ?>

@@ -69,10 +69,15 @@
             <h2>Purchase Packages</h2>
 
             <div class="package-grid">
+                <!-- Basic Package -->
                 <div class="package-card">
                     <h3>Basic</h3>
                     <div class="price">$9.99 <span>per month</span></div>
-                    <button class="btn btn-secondary">Choose Basic</button>
+                    <form action="/Free-Write/public/paymentPage.php" method="POST">
+                        <input type="hidden" name="package" value="basic">
+                        <input type="hidden" name="price" value="9.99">
+                        <button type="submit" class="btn btn-secondary">Choose Basic</button>
+                    </form>
                     <ul>
                         <li>Access to 100 books in the Library</li>
                         <li>Access to 5 user accounts</li>
@@ -86,7 +91,7 @@
                     <ul>
                         <li>Access to 500 books in the Library</li>
                         <li>Access to 25 user accounts</li>
-                        <li>2 years validity</li>
+                        <li>1 year validity</li>
                     </ul>
                 </div>
                 <div class="package-card">
@@ -96,27 +101,16 @@
                     <ul>
                         <li>Access to unlimited books in the Library</li>
                         <li>Access to 100 user accounts</li>
-                        <li>Lifetime validity</li>
+                        <li>1 year validity</li>
                     </ul>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer>
-        <nav>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
-            <a href="#">Terms of Use</a>
-            <a href="#">Privacy Policy</a>
-        </nav>
-        <div class="social-icons">
-            <a href="#" class="icon-twitter"></a>
-            <a href="#" class="icon-facebook"></a>
-            <a href="#" class="icon-instagram"></a>
-        </div>
-        <p>&copy; 2023 Freewrite. All rights reserved</p>
-    </footer>
+    <?php
+  require_once "../app/views/layout/footer.php";
+  ?>
 
     <script src="script.js"></script>
 </body>

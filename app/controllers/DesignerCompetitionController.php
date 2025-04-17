@@ -6,31 +6,41 @@ class DesignerCompetitionController extends Controller
     {
         $competitionModel = new Competition();
 
-        // Optional: update statuses
+        // Update competition statuses
         $competitionModel->updateCompetitionStatus();
 
+        // Fetch all competitions
         $allCompetitions = $competitionModel->findAll();
         $now = date('Y-m-d');
 
-        $active = [];
-        $upcoming = [];
-        $previous = [];
+        // Categorize competitions
+        $activeCompetitions = [];
+        $upcomingCompetitions = [];
+        $previousCompetitions = [];
 
         foreach ($allCompetitions as $comp) {
-            if ($comp->status === 'active' && $comp->start_date <= $now && $comp->end_date >= $now) {
-                $active[] = $comp;
+            if ($comp->start_date <= $now && $comp->end_date >= $now) {
+                $activeCompetitions[] = $comp; // Active competitions
             } elseif ($comp->start_date > $now) {
-                $upcoming[] = $comp;
+                $upcomingCompetitions[] = $comp; // Upcoming competitions
             } elseif ($comp->end_date < $now) {
-                $previous[] = $comp;
+                $previousCompetitions[] = $comp; // Previous competitions
             }
         }
 
-        $this->view('designer/competition', [
-            'activeCompetitions' => $active,
-            'upcomingCompetitions' => $upcoming,
-            'previousCompetitions' => $previous
+        // Pass competitions to the view
+        $this->view('CoverPageDesigner/Competition', [
+            'activeCompetitions' => $activeCompetitions,
+            'upcomingCompetitions' => $upcomingCompetitions,
+            'previousCompetitions' => $previousCompetitions
         ]);
+    }
+
+    public function index()
+    {
+        $competitionModel = new Competition();
+        $competitions = $competitionModel->getAllCompetitions();
+        $this->view('Competitions/index', ['competitions' => $competitions]);
     }
 
     public function DisplayForDesigners()
@@ -77,4 +87,5 @@ class DesignerCompetitionController extends Controller
             'upcomingCompetitions' => $upcoming
         ]);
     }
-}
+
+}   

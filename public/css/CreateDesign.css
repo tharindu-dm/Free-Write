@@ -54,3 +54,25 @@ textarea {
     display: block;
     width: 100%;
 }
+
+.cancel-btn {
+    background-color: #ddd;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    /* margin-left: 1rem; */
+    cursor: pointer;
+    /* transition: background 0.2s; */
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.cancel-btn:hover {
+    background-color: #bbb;
+    color: #222;
+}

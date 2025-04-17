@@ -112,4 +112,21 @@ class CompetitionController extends Controller
     {
         $this->view('publisher/bookUploadForm4Publishers');
     }
+
+    public function Competitions()
+    {
+        $competitionModel = new Competition();
+
+        // Fetch competitions based on their status
+        $activeCompetitions = $competitionModel->where(['status' => 'active']);
+        $previousCompetitions = $competitionModel->where(['status' => 'ended']);
+        $upcomingCompetitions = $competitionModel->where(['status' => 'upcoming']);
+
+        // Pass data to the view
+        $this->view('CoverPageDesigner/Competition', [
+            'activeCompetitions' => $activeCompetitions,
+            'previousCompetitions' => $previousCompetitions,
+            'upcomingCompetitions' => $upcomingCompetitions
+        ]);
+    }
 }

@@ -28,6 +28,11 @@
 
             <div class="nav-right-side-container">
                 <div class="action-button-container">
+
+                    <?php if ($_SESSION['user_type'] === 'reader' || $_SESSION['user_type'] === 'writer'): ?>
+                        <a class="nav-link" href="/Free-Write/public/User/uploadFirstDesign">Upload Design</a>
+                    <?php endif; ?>
+
                     <div class="premium-notification-container">
                         <?php if ($_SESSION['user_type'] != 'admin' && $_SESSION['user_type'] != 'mod'): ?>
                             <?php if ($_SESSION['user_premium'] == false): ?>

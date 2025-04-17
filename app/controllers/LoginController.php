@@ -25,25 +25,25 @@ class LoginController extends Controller
         // Checking if user is already logged in
         if (isset($_SESSION['user_id'])) {
             switch ($_SESSION['user_type']) {
-                //case 'admin':
-                //    header('Location: /Free-Write/public/Admin/Dashboard');
-                //    break;
-                //case 'mod':
-                //    $this->modLogUpdate();
-                //    header('Location: /Free-Write/public/Mod/Dashboard');
-                //    break;
-                //case 'reader':
-                //case 'writer':
-                //case 'covdes':
-                //case 'wricov':
-                //    header('Location: /Free-Write/public/User/Profile');
-                //    break;
-                //case 'courier':
-                //    header('Location: /Free-Write/public/courier');
-                //    break;
-                //case 'publisher':
-                //    header('Location: /Free-Write/public/publisher');
-                //    break;
+                case 'admin':
+                   header('Location: /Free-Write/public/Admin/Dashboard');
+                   break;
+                case 'mod':
+                   $this->modLogUpdate();
+                   header('Location: /Free-Write/public/Mod/Dashboard');
+                   break;
+                case 'reader':
+                case 'writer':
+                case 'covdes':
+                case 'wricov':
+                   header('Location: /Free-Write/public/User/Profile');
+                   break;
+                case 'courier':
+                   header('Location: /Free-Write/public/courier');
+                   break;
+                case 'publisher':
+                   header('Location: /Free-Write/public/publisher');
+                   break;
                 case 'inst':
                     header('Location: /Free-Write/public/Institute');
                     break;

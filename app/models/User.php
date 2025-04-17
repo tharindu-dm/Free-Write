@@ -63,7 +63,16 @@ class User
         ];
         return $this->update($user_id, $data, 'userID');
     }
+
     
+    public function updateUserTypeToCovdes($userID)
+    {
+        $data = [
+            'userType' => 'covdes'
+        ];
+        return $this->update($userID, $data, 'userID');
+    }
+            
 
     public function getUserByName($name)
     {

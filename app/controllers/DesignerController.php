@@ -5,7 +5,7 @@ class DesignerController extends Controller
     public function index()
     {
         $model = new CoverImage();
-        $designs = $model->getAll();
+        //$designs = $model->getAll();
         $this->view('CoverPageDesigner/Designers_and_Design');
         //$this->view('CoverPage/index', ['designs' => $designs]);
     }
@@ -24,10 +24,29 @@ class DesignerController extends Controller
         $coverModel = new CoverImage();
         $designs = $coverModel->getByDesigner($designerId);
 
+        // Fetch collections created by the designer
+        $collectionDetails = new CollectionDetails();
+        $collections = $collectionDetails->getCollectionsByUser($designerId);
+
+        // Add: Fetch first image for each collection
+        $collectionDesigns = new CollectionDesigns();
+        $coverModel = new CoverImage();
+        foreach ($collections as &$collection) {
+            $firstDesignLink = $collectionDesigns->getFirstDesignByCollection($collection['collectionID']);
+            if ($firstDesignLink) {
+                // Now fetch the actual design to get the image filename
+                $design = $coverModel->first(['covID' => $firstDesignLink['designID']]);
+                $collection['frontImage'] = $design ? $design['license'] : null;
+            } else {
+                $collection['frontImage'] = null;
+            }
+        }
+
         // Pass the data to the Dashboard view
         $this->view('CoverPageDesigner/Dashboard', [
             'userDetails' => $userDetails,
-            'designs' => $designs
+            'designs' => $designs,
+            'collections' => $collections
         ]);
     }
 
@@ -206,7 +225,85 @@ class DesignerController extends Controller
         }
     }
 
-    //competition
+    //collection
+
+    public function createCollection()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            $collectionDetails = new CollectionDetails();
+
+            $data = [
+                'userID' => $_SESSION['user_id'], // Ensure the user is logged in
+                'title' => $_POST['collectionTitle'],
+                'description' => $_POST['CollectionDescription'],
+                'isPublic' => $_POST['collectionVisibility'],
+            ];
+
+            $collectionDetails->createCollection($data);
+
+            // Redirect to the dashboard after creation
+            header('Location: /Free-Write/public/Designer/Dashboard');
+            exit;
+        }
+    }
+
+    // public function showCollection()
+    // {
+    //     $collectionDetails = new CollectionDetails();
+
+    //     // Fetch collections for the logged-in user
+    //     $collections = $collectionDetails->getCollectionsByUser($_SESSION['user_id']);
+
+    //     // Debugging: Log the collections
+    //     error_log("Collections fetched: " . print_r($collections, true));
+
+    //     // Fetch designs for the logged-in user (if applicable)
+    //     $designs = []; // Replace with your logic to fetch designs
+
+    //     // Pass the data to the view
+    //     $this->view('CoverPageDesigner/Dashboard', [
+    //         'collections' => $collections,
+    //         //'designs' => $designs,
+    //     ]);
+    // }
+
+    // public function viewCollection($collectionID)
+    // {
+    //     $collectionDetails = new CollectionDetails();
+    //     $collectionDesigns = new CollectionDesigns();
+    
+    //     // Fetch the collection details
+    //     $collection = $collectionDetails->first(['collectionID' => $collectionID]);
+    
+    //     if (!$collection) {
+    //         echo "Collection not found.";
+    //         return;
+    //     }
+    
+    //     // Fetch the designs (images) associated with the collection
+    //     $designs = $collectionDesigns->getDesignsByCollection($collectionID);
+    
+    //     // Pass the collection and designs to the view
+    //     $this->view('CoverPageDesigner/ViewCollection', [
+    //         'collection' => $collection,
+    //         'designs' => $designs,
+    //     ]);
+    // }
+
+    // public function addDesignToCollection($collectionID)
+    // {
+    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //         $collectionDesigns = new CollectionDesigns();
+
+    //         $designID = $_POST['designID']; // Assume this is passed from the form
+    //         $collectionDesigns->addDesignToCollection($collectionID, $designID);
+
+    //         // Redirect to the collection view
+    //         header('Location: /Free-Write/public/Designer/viewCollection/' . $collectionID);
+    //         exit;
+    //     }
+    // }
 
     
 

@@ -286,4 +286,22 @@ class UserController extends Controller
         header('Location: /Free-Write/public/User/Profile');
         exit;
     }
+
+    public function uploadFirstDesign()
+    {
+        $userID = $_SESSION['user_id'];
+        $user = new User();
+
+        // Update user type to 'covdes'
+        $user->updateUserTypeToCovdes($userID);
+
+        // Update the session
+        $_SESSION['user type'] = 'covdes';
+
+        // Redirect to the insert page
+        header('Location: /Free-Write/public/Designer/new');
+
+        // header('Location: /Free-Write/public/User/Profile');
+        exit;
+    }
 }
