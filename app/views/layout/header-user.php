@@ -28,8 +28,9 @@
 
             <div class="nav-right-side-container">
                 <div class="action-button-container">
-                    <div class="action-button">
-                        <?php if ($_SESSION['user_type'] === 'reader' || $_SESSION['user_type'] === 'writer'): ?>
+                    <?php
+                    if (isset($_SESSION['user_type']) && ($_SESSION['user_type'] == 'reader' || $_SESSION['user_type'] == 'writer')): ?>
+                        <div class="action-button">
 
                             <a class="nav-link" href="/Free-Write/public/User/uploadFirstDesign">
                                 <div class="sign-in-btn"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -40,22 +41,25 @@
                                     <button>&nbsp;Upload Design</button>
                                 </div>
                             </a>
+                        </div>
+                    <?php endif; ?>
 
-                        <?php endif; ?>
-                    </div>
-                    <div class="action-button">
-                        <form action="/Free-Write/public/Writer/DashboardNew" method="post">
-                            <div class="sign-in-btn">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="size-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
-                                </svg>
+                    <?php if (isset($_SESSION['user_type']) && ($_SESSION['user_type'] == 'reader' || $_SESSION['user_type'] == 'covdes')): ?>
+                        <div class="action-button">
+                            <form action="/Free-Write/public/Writer/DashboardNew" method="post">
+                                <div class="sign-in-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                                    </svg>
 
-                                <button type="submit">&nbsp;Write </button>
-                            </div>
-                        </form>
-                    </div>
+                                    <button type="submit">&nbsp;Write </button>
+                                </div>
+                            </form>
+                        </div>
+                    <?php endif; ?>
+
                     <div class="premium-notification-container">
                         <?php if ($_SESSION['user_type'] != 'admin' && $_SESSION['user_type'] != 'mod'): ?>
                             <?php if ($_SESSION['user_premium'] == false): ?>
@@ -75,7 +79,12 @@
                         <?php else: ?>
                             <div class="go-premium-button">
                                 <a href="/Free-Write/public/<?= ucfirst($_SESSION['user_type']) ?>">
-                                    <button class="premium-btn">Dashboard</button>
+                                    <button class="premium-btn"> <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M6.429 9.75 2.25 12l4.179 2.25m0-4.5 5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0 4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3" />
+                                        </svg> &nbsp;Dashboard
+                                    </button>
                                 </a>
                             </div>
                         <?php endif; ?>
@@ -98,7 +107,9 @@
                                         <h3>Notifications</h3>
                                         <div class="overlay-buttons">
                                             <button id="view-all-btn">View All</button>
-                                            <button id="mark-all-read-btn">Mark All as Read</button>
+                                            <button id="mark-all-read-btn">
+                                                Mark All as Read
+                                            </button>
                                         </div>
                                     </div>
                                     <div id="notification-list" class="notification-list"></div>
@@ -109,12 +120,27 @@
                     <div class="action-button">
                         <a href="/Free-Write/public/User/Profile">
                             <div class="profile-btn">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="size-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-                                </svg>
+                                <?php if (isset($userDetails['profileImage']) && ($userDetails['profileImage'])): ?>
+                                    <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>"
+                                        alt="Profile">
+                                <?php else: ?>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                                    </svg>
+                                <?php endif; ?>
+
                                 <?= htmlspecialchars($_SESSION['user_name']) ?>
+
+                                <?php if (isset($_SESSION['user_premium']) && $_SESSION['user_premium']): ?>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
+                                    </svg>
+                                <?php endif; ?>
+
                             </div>
                         </a>
                     </div>

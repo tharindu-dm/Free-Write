@@ -185,30 +185,8 @@
 </head>
 
 <body>
-   
-    <?php
-    if (isset($_SESSION['user_type'])) {
-        $userType = $_SESSION['user_type'];
-    } else {
-        $userType = 'guest';
-    }
-    switch ($userType) {
-        case 'admin':
-        case 'mod':
-        case 'writer':
-        case 'covdes':
-        case 'wricov':
-        case 'reader':
-            require_once "../app/views/layout/header-user.php";
-            break;
-        case 'pub':
-            require_once "../app/views/layout/header-pub.php";
-            break;
-        default:
-            require_once "../app/views/layout/header.php";
-    }
-
-
+    <?php require_once "../app/views/layout/headerSelector.php";
+    //show($data);
     ?>
 
     <main>
@@ -216,13 +194,15 @@
             <h1>Apply for Advertisement</h1>
             <h4>Submit your ad details to promote your work or service</h4>
 
-            
+
             <div id="form_error" class="error-message"></div>
 
-            <form action="/Free-Write/public/Publisher/ApplyAdvertisement" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+            <form action="/Free-Write/public/Publisher/ApplyAdvertisement" method="POST" enctype="multipart/form-data"
+                onsubmit="return validateForm()">
 
                 <label for="ad_title">Advertisement Title</label>
-                <input type="text" maxlength="60" id="ad_title" name="ad_title" placeholder="Enter a catchy title for your advertisement" required />
+                <input type="text" maxlength="60" id="ad_title" name="ad_title"
+                    placeholder="Enter a catchy title for your advertisement" required />
                 <div id="ad_title_error" class="error-message"></div>
 
 
@@ -236,7 +216,8 @@
                         <p>Displayed at the top of pages</p>
                         <p>728×90 pixels</p>
                         <div class="price">$199/month</div>
-                        <input type="radio" name="ad_type" value="banner" id="banner_type" style="display: none;" required />
+                        <input type="radio" name="ad_type" value="banner" id="banner_type" style="display: none;"
+                            required />
                     </div>
                     <div class="ad-type-option" onclick="selectAdType('sidebar')">
                         <h3>Writer Page Ad</h3>
@@ -280,11 +261,13 @@
 
 
                 <label for="contact_email">Contact Email</label>
-                <input type="email" id="contact_email" name="contact_email" placeholder="Where we can reach you" required />
+                <input type="email" id="contact_email" name="contact_email" placeholder="Where we can reach you"
+                    required />
                 <div id="contact_email_error" class="error-message"></div>
 
                 <button type="submit" class="submit-btn">Submit Advertisement</button>
-                <button type="button" class="cancel-btn" onclick="location.href='/Free-Write/public/Advertisement/'">Cancel</button>
+                <button type="button" class="cancel-btn"
+                    onclick="location.href='/Free-Write/public/Advertisement/'">Cancel</button>
             </form>
         </div>
     </main>
@@ -398,7 +381,7 @@
         document.getElementById('start_date').setAttribute('min', todayFormatted);
 
         // Real-time validation for text inputs
-        document.getElementById('ad_title').addEventListener('input', function() {
+        document.getElementById('ad_title').addEventListener('input', function () {
             const errorElem = document.getElementById('ad_title_error');
             if (this.value.length < 5) {
                 errorElem.textContent = 'Advertisement title must be at least 5 characters';
@@ -408,7 +391,7 @@
             }
         });
 
-        document.getElementById('contact_email').addEventListener('input', function() {
+        document.getElementById('contact_email').addEventListener('input', function () {
             const errorElem = document.getElementById('contact_email_error');
             if (!this.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
                 errorElem.textContent = 'Please enter a valid email address';
@@ -418,7 +401,7 @@
             }
         });
 
-        document.getElementById('ad_image').addEventListener('change', function() {
+        document.getElementById('ad_image').addEventListener('change', function () {
             const errorElem = document.getElementById('ad_image_error');
             if (this.files.length > 0 && this.files[0].size > 2 * 1024 * 1024) {
                 errorElem.textContent = 'Image size cannot exceed 2MB';
@@ -429,7 +412,7 @@
         });
 
         // Real-time validation for end date
-        document.getElementById('end_date').addEventListener('input', function() {
+        document.getElementById('end_date').addEventListener('input', function () {
             const startDate = new Date(document.getElementById('start_date').value);
             const endDate = new Date(this.value);
             const errorElem = document.getElementById('end_date_error');

@@ -13,10 +13,13 @@ class UserController extends Controller
 
     public function Profile()
     {
-        if (isset($_SESSION['user_id']))
+        if (isset($_SESSION['user_id'])) {
             if (isset($_GET['user']) && $_GET['user'] == $_SESSION['user_id'])
                 header('Location: /Free-Write/public/User/Profile'); //to avoid user to see his own public view profile.
-
+        }
+        else{
+            header('Location: /Free-Write/public/Login');
+        }
         $uid = isset($_GET['user']) ? $_GET['user'] : $_SESSION['user_id'];
 
         //echo "inside the userProfile function\n";

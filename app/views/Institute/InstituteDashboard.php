@@ -9,30 +9,7 @@
 </head>
 
 <body>
-    <?php
-    if (isset($_SESSION['user_type'])) {
-        $userType = $_SESSION['user_type'];
-    } else {
-        $userType = 'guest';
-    }
-    switch ($userType) {
-        case 'admin':
-        case 'mod':
-        case 'writer':
-        case 'covdes':
-        case 'wricov':
-        case 'reader':
-            require_once "../app/views/layout/header-user.php";
-            break;
-        case 'pub':
-            require_once "../app/views/layout/header-pub.php";
-            break;
-        case 'inst':
-            require_once "../app/views/layout/header-inst.php";
-            break;
-        default:
-            require_once "../app/views/layout/header.php";
-    }
+    <?php require_once "../app/views/layout/headerSelector.php";
     //show($data);
     ?>
 
@@ -40,7 +17,7 @@
         <?php include_once "../app/views/Institute/sidebar.php"; ?>
         <main class="main-content">
             <header class="header">
-                <h1>Welcome to Freewrite,  </h1>
+                <h1>Welcome to Freewrite, </h1>
                 <p>Manage your institution's Freewrite experience</p>
             </header>
             <section class="dashboard-overview">

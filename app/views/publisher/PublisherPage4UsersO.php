@@ -160,65 +160,52 @@
 </head>
 
 <body>
-
-    <?php
-    if (isset($_SESSION['user_type'])) {
-        $userType = $_SESSION['user_type'];
-    } else {
-        $userType = 'guest';
-    }
-    switch ($userType) {
-        case 'admin':
-        case 'mod':
-        case 'writer':
-        case 'covdes':
-        case 'wricov':
-        case 'reader':
-            require_once "../app/views/layout/header-user.php";
-            break;
-        case 'pub':
-            require_once "../app/views/layout/header-pub.php";
-            break;
-        default:
-            require_once "../app/views/layout/header.php";
-    }
+    <?php require_once "../app/views/layout/headerSelector.php";
+    //show($data);
     ?>
 
     <main>
         <section class="publishers-section">
             <h1>Publishers</h1>
             <div class="publisher-search">
-    <input type="text" placeholder="Search publisher...">
-    <?php if ($userType !== 'pub'): ?>
-        <a href="/Free-Write/public/Publisher/regPage"><button>New Publisher</button></a>
-    <?php endif; ?>
-</div>
+                <input type="text" placeholder="Search publisher...">
+                <?php if ($userType !== 'pub'): ?>
+                    <a href="/Free-Write/public/Publisher/regPage"><button>New Publisher</button></a>
+                <?php endif; ?>
+            </div>
 
 
             <div class="publisher-list">
-    <?php foreach ($publisherBooks as $publisherName => $books): ?>
-        
-        <div class="publisher">
-            
-            <div class="publisher-header">
-                
-            <a href="/Free-Write/public/Publisher/Profile/<?= htmlspecialchars($books[0]['publisherID'] ?? '') ?>">
-<img src="/Free-Write/app/images/profile/profile-image.jpg" alt="<?= htmlspecialchars($publisherName) ?>"> </a>
-                <a href="/Free-Write/public/Publisher/Profile/<?= htmlspecialchars($books[0]['publisherID'] ?? '') ?>"><h2><?= htmlspecialchars($publisherName) ?></h2></a>
-            </div>
-            <div class="books">
-                <?php foreach ($books as $book): ?>
-                    <div class="book">
-                        <a href="/Free-Write/public/Publisher/bookProfile4Users/<?= htmlspecialchars($book['isbnID']) ?>">
-                            <img src="/Free-Write/app/images/coverDesign/<?= !empty($book['coverImage']) ? htmlspecialchars($book['coverImage']) : 'sampleCover.jpg' ?>" alt="<?= htmlspecialchars($book['title']) ?>">
-                        </a>
-                        <p><?= htmlspecialchars($book['title']) ?></p>
+                <?php foreach ($publisherBooks as $publisherName => $books): ?>
+
+                    <div class="publisher">
+
+                        <div class="publisher-header">
+
+                            <a
+                                href="/Free-Write/public/Publisher/Profile/<?= htmlspecialchars($books[0]['publisherID'] ?? '') ?>">
+                                <img src="/Free-Write/app/images/profile/profile-image.jpg"
+                                    alt="<?= htmlspecialchars($publisherName) ?>"> </a>
+                            <a
+                                href="/Free-Write/public/Publisher/Profile/<?= htmlspecialchars($books[0]['publisherID'] ?? '') ?>">
+                                <h2><?= htmlspecialchars($publisherName) ?></h2>
+                            </a>
+                        </div>
+                        <div class="books">
+                            <?php foreach ($books as $book): ?>
+                                <div class="book">
+                                    <a
+                                        href="/Free-Write/public/Publisher/bookProfile4Users/<?= htmlspecialchars($book['isbnID']) ?>">
+                                        <img src="/Free-Write/app/images/coverDesign/<?= !empty($book['coverImage']) ? htmlspecialchars($book['coverImage']) : 'sampleCover.jpg' ?>"
+                                            alt="<?= htmlspecialchars($book['title']) ?>">
+                                    </a>
+                                    <p><?= htmlspecialchars($book['title']) ?></p>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
                     </div>
                 <?php endforeach; ?>
             </div>
-        </div>
-    <?php endforeach; ?>
-</div>
 
         </section>
     </main>
