@@ -19,8 +19,6 @@ class UserController extends Controller
 
         $uid = isset($_GET['user']) ? $_GET['user'] : $_SESSION['user_id'];
 
-
-
         //echo "inside the userProfile function\n";
         $user = new User();
         $userDetailsTable = new UserDetails();
@@ -325,5 +323,24 @@ class UserController extends Controller
         $un->update($_SESSION['user_id'], ['isRead' => 1, 'isReadDate' => date('Y-m-d H:i:s')], 'user');
 
         return;
+    }
+
+    //Nalan upload design
+    public function uploadFirstDesign()
+    {
+        $userID = $_SESSION['user_id'];
+        $user = new User();
+
+        // Update user type to 'covdes'
+        $user->updateUserTypeToCovdes($userID);
+
+        // Update the session
+        $_SESSION['user type'] = 'covdes';
+
+        // Redirect to the insert page
+        header('Location: /Free-Write/public/Designer/new');
+
+        // header('Location: /Free-Write/public/User/Profile');
+        exit;
     }
 }

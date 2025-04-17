@@ -86,49 +86,6 @@ class InstituteController extends Controller
         header('Location: /Free-Write/public/Login');
     }
 
-    // public function read()
-    // {
-    //     $institutionModel = new Institution();
-    //     $institutions = $institutionModel->fetchAllInstitutions();
-    //     $this->view('institution/InstituteManageUser', ['institutions' => $institutions]);
-    // }
-
-    // public function update($id) //uipdate institute details
-    // {
-    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //         $institutionModel = new Institution();
-    //         $data = [
-    //             'institutionName' => $_POST['institutionName'],
-    //             'username' => $_POST['username'],
-    //             'password' => password_hash($_POST['password'], PASSWORD_DEFAULT),
-    //             'subStartDate' => $_POST['subStartDate'],
-    //             'subEndDate' => $_POST['subEndDate'],
-    //             'subPlan' => $_POST['subPlan'],
-    //             'Creater' => $_POST['Creater']
-    //         ];
-
-    //         if ($institutionModel->updateInstitution($id, $data)) {
-    //             echo "Institution updated successfully!";
-    //         } else {
-    //             echo "Failed to update institution.";
-    //         }
-    //     }
-
-    //     $institutionModel = new Institution();
-    //     $institution = $institutionModel->findInstitutionById($id);
-    //     $this->view('editInstitution', ['institution' => $institution]);
-    // }
-
-    // public function delete($id)
-    // {
-    //     $institutionModel = new Institution();
-    //     if ($institutionModel->deleteInstitution($id)) {
-    //         echo "Institution deleted successfully!";
-    //     } else {
-    //         echo "Failed to delete institution.";
-    //     }
-    // }
-
     /**
      * USER MANAGEMENT
      * INSERT
@@ -203,13 +160,4 @@ class InstituteController extends Controller
 
         header('Location: /Free-Write/public/Institute/ManageUser');
     }
-
-
-    /**
-     * USER MANAGEMENT
-     * INSERT
-     * UPDATE
-     * DELETE
-     */
-
 }

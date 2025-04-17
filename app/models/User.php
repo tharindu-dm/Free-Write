@@ -56,14 +56,14 @@ class User
     }
 
 
-    public function updateToPub($userType, $user_id) {
+    public function updateToPub($userType, $user_id)
+    {
         $data = [
-            
             'userType' => $userType
         ];
         return $this->update($user_id, $data, 'userID');
     }
-    
+
 
     public function getUserByName($name)
     {
@@ -80,5 +80,13 @@ class User
         return $this->query($query);
     }
 
+    //nalan
+    public function updateUserTypeToCovdes($userID)
+    {
+        $data = [
+            'userType' => 'covdes'
+        ];
+        return $this->update($userID, $data, 'userID');
+    }
 
 }

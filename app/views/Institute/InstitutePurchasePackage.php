@@ -45,6 +45,7 @@
                 <img src="/CRUD_OOP/public/assets/images/institution-header.png" alt="Institution Building">
                 <h1>Institution Name</h1>
                 <p>Welcome to your Freewrite dashboard</p>
+                <p>Last login: 1 day ago</p> <!-- static need to be retrieved-->
             </div>
 
             <nav class="tabs">
@@ -59,7 +60,13 @@
                 <div class="package-card">
                     <h3>Basic</h3>
                     <div class="price">$9.99 <span>per month</span></div>
-                    <button class="btn btn-secondary">Choose Basic</button>
+                    <form action="/Free-Write/public/paymentPage.php" method="POST">
+                        <input type="hidden" name="package" value="basic">
+                        <input type="hidden" name="price" value="9.99">
+
+                        <button type="submit" class="btn btn-secondary">Choose Basic</button>
+
+                    </form>
                     <ul>
                         <li>Access to 100 books in the Library</li>
                         <li>Access to 10 user accounts</li>
