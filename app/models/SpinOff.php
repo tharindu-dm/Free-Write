@@ -24,6 +24,25 @@ class SpinOff
         return $this->query($query);
     }
 
+    public function getSpinoffByName($name)
+    {
+        $query = "SELECT
+                    s.[spinoffID],
+                    s.[title],
+                    c.title AS ChapterTitle,
+                    s.[synopsis],
+                    s.[creator] AS [creatorID],
+                    CONCAT(u.[firstName], ' ', u.[lastName]) AS [creator],
+                    s.[fromBook] AS [fromBookID],
+                    b.[title] AS [fromBook]
+                    FROM [dbo].[Spinoff] s
+                    JOIN [dbo].[UserDetails] u ON s.[creator] = u.[user] 
+                    LEFT JOIN [dbo].[Chapter] c ON s.startingChapter = c.chapterID
+                    JOIN [dbo].[Book] b ON s.[fromBook] = b.[bookID] WHERE s.[title] LIKE '%$name%' AND s.[accessType]='public';";
+
+        return $this->query($query);
+    }
+
     public function getSpinoffDetails($spinoffID)
     {
         $query = "SELECT

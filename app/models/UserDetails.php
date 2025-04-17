@@ -35,4 +35,19 @@ class UserDetails
     {
         return $this->first(['user' => $userId]);
     }
+
+    public function getUserDetailsByName($name)
+    {
+        $query = "SELECT CONCAT(ud.firstName, ' ', ud.lastName) AS fullName, 
+                ud.[profileImage],  ud.[bio], u.[userID],
+                u.userType, u.isPremium FROM [dbo].[UserDetails] ud 
+                INNER JOIN [dbo].[User] u ON ud.[user] = u.[userID] 
+                WHERE u.[userType] != 'admin' 
+                AND u.[userType] != 'mod' 
+                AND u.[userType] != 'pub' 
+                AND u.[userType] != 'inst' AND 
+                CONCAT(ud.firstName, ' ', ud.lastName) LIKE '%$name%'";
+
+        return $this->query($query);
+    }
 }

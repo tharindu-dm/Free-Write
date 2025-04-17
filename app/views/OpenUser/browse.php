@@ -31,8 +31,24 @@
                 <!-- Search Bar Section -->
                 <section class="search-section">
                     <form action="/Free-Write/public/Browse/search" method="GET">
-                        <input type="text" id="search-bar" name="bookName" placeholder="Search books..." />
-                        <button type="submit" id="search-btn">Search</button>
+                        <div class="search-container">
+                            <select id="search-type" name="searchType" aria-label="Search type">
+                                <option value="book">Book</option>
+                                <option value="user">User</option>
+                                <option value="spinoff">Spinoff</option>
+                                <!--<option value="cover">Cover Design</option>-->
+                            </select>
+                            <input type="text" id="search-bar" name="itemName" placeholder="Search..."
+                                aria-label="Search query" />
+                            <button type="submit" id="search-btn" aria-label="Search">
+                                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
+                                Search
+                            </button>
+                        </div>
                     </form>
                 </section>
 

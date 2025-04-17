@@ -13,13 +13,31 @@ class BrowseController extends Controller
         $FWObooks = $book->getFWOBooks();
         $paidBooks = $book->getPaidBooks();
         $freeBooks = $book->getFreeBooks();
-        $this->view('OpenUser/browse', ['freewriteOriginals' => $FWObooks, 'paidBooks' => $paidBooks, 'freeBooks'=> $freeBooks]);
+        $this->view('OpenUser/browse', ['freewriteOriginals' => $FWObooks, 'paidBooks' => $paidBooks, 'freeBooks' => $freeBooks]);
     }
     public function search()
     {
-        $search = $_GET['bookName'];
-        $book = new Book();
-        $searchResult = $book->searchBook($search);
+        $searchType = $_GET['searchType'];
+        $item = $_GET['itemName'];
+        $searchResult = null;
+
+        switch ($searchType) {
+            case 'book':
+                $book = new Book();
+                $searchResult = $book->searchBook($item);
+                break;
+            case 'user':
+                $users = new UserDetails();
+                $searchResult = $users->getUserDetailsByName($item);
+                break;
+            case 'spinoff':
+                $spinoff = new Spinoff();
+                $searchResult = $spinoff->getSpinoffByName($item);
+                break;
+            //case 'cover':
+                //break;
+        }
+
 
         $this->view('OpenUser/bookSearch', ['searchResult' => $searchResult]);
     }

@@ -21,38 +21,91 @@ main {
 /* Search Section */
 .search-section {
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 10px;
-  margin-bottom: 2.5rem;
+  align-items: center;
+  margin: 2rem auto;
+  min-width: 100%;
 }
 
-.search-section form {
+.search-container {
   display: flex;
-  align-items: center;
   justify-content: center;
-  min-width: 80%;
-  gap: 10px;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 100%;
+  background: #fff;
+  border-radius: 0.75rem;
+  padding: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+#search-type {
+  padding: 0.75rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: #fff3ad;
+  font-size: 1rem;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+#search-type:hover {
+  background: #ffeb7c;
 }
 
 #search-bar {
   flex: 1;
-  padding: 8px;
-  border: 1px solid #ccc;
+  min-width: 70%;
+  padding: 0.75rem;
+  border: 0.05rem solid #333;
   border-radius: 0.5rem;
+  font-size: 1rem;
+  color: #333;
+  background: transparent;
 }
 
 #search-btn {
-  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
   border: none;
-  background-color: #ffd700;
-  color: #000;
+  background: #ffd700;
+  color: #1a1a1a;
   border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
   cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
 }
 
 #search-btn:hover {
-  background-color: #ffc400;
+  background: #ffc107;
+  transform: translateY(-2px);
+}
+
+.search-icon {
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-width: 600px) {
+  .search-container {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+  }
+
+  #search-type,
+  #search-bar,
+  #search-btn {
+    width: 100%;
+  }
+
+  #search-btn {
+    justify-content: center;
+  }
 }
 
 /* Book Category Section */
