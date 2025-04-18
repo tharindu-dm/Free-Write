@@ -9,14 +9,45 @@ class HomeController extends Controller
         $this->view("home"); //calling the view function in /includes/Controller.php to view the homepage
     }
 
-    private function checkLoggedUser()
+    public function About()
     {
-        if (session_status() == PHP_SESSION_NONE) {
-            echo "no session found";
+        $this->view("AboutUs");
+    }
+
+    public function Terms_of_Service()
+    {
+        $this->view("TOS");
+    }
+
+    public function Privacy_Policy()
+    {
+        $this->view("PrivacyPolicy");
+    }
+
+    public function Feedback()
+    {
+        $this->view("Feedback");
+    }
+
+    public function SendFeedback()
+    {
+        //validation and checking:
+        $feedback = new Feedback();
+
+        $content = $_POST['feedback'] ?? '';
+        $contact = $_POST['contact'] ?? 'not provided';
+        $recommendation = $_POST['recommend'] ?? '';
+
+        //VALIDATIONS
+        $message = "-body: " . $content . " -Recommendation:" . $recommendation . "";
+
+        if (strlen($message) > 600) {
+            return;
         }
 
-        if (isset($_SESSION['user_id'])) {
-            echo "user is already logged in \n";
-        }
+        $feedback->insert(['isRead' => 0, 'email' => $contact, 'content' => $message]);
+
+        header('Location: /Free-Write/public');
+        exit;
     }
 }

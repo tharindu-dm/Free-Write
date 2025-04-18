@@ -484,3 +484,23 @@ select {
     text-align: center;
   }
 }
+
+/*reporting */
+.report-book-btn {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: #000000;
+  color: #ffffff;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.report-book-btn:hover {
+  background-color: #555;
+}

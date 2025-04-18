@@ -223,4 +223,45 @@ class BookController extends Controller
         $review->delete($reviewID, 'reviewID');
         header('Location: /Free-Write/public/Book/Overview/' . $_POST['bookID']);
     }
+
+    //book or chapter reporting
+
+    public function ReportOnBook()
+    {
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: /Free-Write/public/Login');
+            exit;
+        }
+
+        $bookID = splitURL()[2];
+        $book = new Book();
+        $title = $book->first(['bookID' => $bookID])['title'];
+        $this->view('book/reportBookChap', ['bookTitle' => $title]);
+    }
+
+    public function SendReport()
+    {
+        $report = new Report();
+        $user = new User();
+        $userid = $_SESSION['user_id'];
+
+        $desc = $_POST['report'] ?? null;
+
+        if ($desc == null) {
+            return;
+        }
+
+        $data = [
+            "email" => $user->first(['userID' => $userid])['email'], //get from userID,
+            "type" => "Book/Chapter Report",
+            "description" => $desc,
+            "submitTime" => date('Y-m-d H:i:s'),
+            "handler" => null,
+            "status" => "Pending"
+        ];
+
+        $report->insert($data);
+        header('Location: /Free-Write/public/Browse');
+    }
+
 }

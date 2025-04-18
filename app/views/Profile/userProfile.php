@@ -35,8 +35,8 @@
                         <div class="user-profile-actions">
                             <?php if (isset($_SESSION['user_id']) && ($userAccount['userID'] == $_SESSION['user_id'])): ?>
                                 <button id="profileEditBtn" class="edit-profile-btn">Edit Profile</button>
-
                             <?php endif; ?>
+                            
                             <?php if (isset($_SESSION['user_id'])): ?>
                                 <?php if ($userAccount['userID'] != $_SESSION['user_id']): ?>
 

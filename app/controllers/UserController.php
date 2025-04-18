@@ -155,7 +155,7 @@ class UserController extends Controller
             $dateTime = date('Y-m-d_H-i-s'); // Format: YYYY-MM-DD_HH-MM-SS
             $newFileName = "PROFILE_{$uid}_{$dateTime}.{$fileExtension}";
 
-            // Define the target directory
+            // the target directory
             $targetDirectory = 'C:/xampp/htdocs/Free-Write/app/images/profile/';
 
             // Move the uploaded file to the target directory with the new name
@@ -206,7 +206,7 @@ class UserController extends Controller
 
     public function ReportProfile()
     {
-        // Initialize an array to hold error messages
+        // an array to hold error messages
         $errors = [];
 
         // Validate email
@@ -226,8 +226,6 @@ class UserController extends Controller
 
         // If there are validation errors, handle them
         if (!empty($errors)) {
-            // You can either redirect back with errors or display them
-            // For example, redirecting back with error messages in the session
             session_start();
             $_SESSION['errors'] = $errors;
             header('Location: /Free-Write/public/User/Profile?user=' . $_GET['user']);
