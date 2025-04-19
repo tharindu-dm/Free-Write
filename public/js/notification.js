@@ -27,7 +27,7 @@ function updateNotificationCount() {
                         item.className = 'notification-item';
                         item.innerHTML = `
                             <div class="subject">${record.subject || 'No subject'}</div>
-                            <div class="time">${record.received_time || 'Unknown time'}</div>
+                            <div class="time">${record.sentDate || 'Unknown time'}</div>
                         `;
                         list.appendChild(item);
                     });

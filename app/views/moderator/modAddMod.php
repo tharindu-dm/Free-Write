@@ -10,28 +10,11 @@
 </head>
 
 <body>
-
-    <?php
-    date_default_timezone_set('UTC'); // Set timezone to UTC
-    
-    if (isset($_SESSION['user_type'])) {
-        $userType = $_SESSION['user_type'];
-    } else {
-        $userType = 'guest';
-    }
-    switch ($userType) {
-        case 'admin':
-        case 'mod':
-            require_once "../app/views/layout/header-user.php";
-            break;
-        default:
-            require_once "../app/views/layout/header.php";
-    }
-
+    <?php require_once "../app/views/layout/headerSelector.php";
     //show($data);
     ?>
-    <main>
 
+    <main>
         <?php require_once "../app/views/layout/admin_aside_nav.php"; ?>
         <div class="container">
             <div class="mod-user-header">
@@ -86,7 +69,8 @@
                             <td><?= $user['loginAttempt'] ?></td>
                             <td>
                                 <a href="/Free-Write/public/Mod/Users?filter=premium">
-                                    <a href="/Free-Write/public/Mod/ModSearch?filter=<?= htmlspecialchars($user['userID']) ?>"><button
+                                    <a
+                                        href="/Free-Write/public/Mod/ModSearch?filter=<?= htmlspecialchars($user['userID']) ?>"><button
                                             class="table-select-user-btn">Select User</button></a>
                                 </a>
                             </td>

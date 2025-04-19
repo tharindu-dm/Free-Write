@@ -19,7 +19,7 @@
             <div class="title-container">
                 <div class="title">
                     <h1 id="parentBookTitle"><?= htmlspecialchars($content['fromBook']); ?></h1>
-                    <h2>A Reader-Made Spinoff</h2>
+                    <h2>A Reader-Made Spinoff at Chapter: <?= htmlspecialchars($bookChapters[0]['title']); ?></h2>
                     <hr style="margin-bottom: 1rem; border:0.1rem solid #ffd700; " />
                 </div>
             </div>

@@ -119,6 +119,7 @@ class PaymentController extends Controller
 
         header('location:/Free-Write/public/User/Profile');
     }
+
     public function buy_premium_user()
     {
         if (!$this->loggedUserExists())
@@ -129,5 +130,46 @@ class PaymentController extends Controller
 
         $user->update($userID, ['isPremium' => 1], 'userID');
         $this->makePremium();
+    }
+
+    public function donateWriter()
+    {
+        $donation = new Donation();
+
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: /Free-Write/public/Login');
+            return;
+        }
+
+        $amount = $_POST['donateAmount'] ?? 100;
+        $user = $_SESSION['user_id'];
+        $writer = $_POST['writerID'];
+        $date = date('Y-m-d H:i:s');
+
+        $donation->insert(['writer' => $writer, 'user' => $user, 'amount' => $amount, 'date' => $date]);
+
+        //send notification also
+        $notification = new Notification();
+        $userNotification = new UserNotification();
+
+        $notification->insert(
+            [
+                'subject' => "new donation",
+                'message' => 'A user donated LKR.' . $amount,
+                'sentDate' => $date,
+                'userTypes' => $writer
+            ]
+        );
+
+        $sent = $notification->first(['sentDate' => $date]);
+        $userNotification->insert([
+            'user' => $writer,
+            'notification' => $sent['notificationID'],
+            'isRead' => 0
+        ]);
+
+        //redirect back to user profile
+        header('/Free-Write/public/User/Profile?user=' . $writer);
+        return;
     }
 }

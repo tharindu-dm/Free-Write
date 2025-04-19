@@ -28,10 +28,9 @@
             </div>-->
 
             <div class="tabs">
-                <a href="/Free-Write/public/Mod/Reports"><button class="tab">All Reports</button></a>
-                <a href="/Free-Write/public/Mod/Reports?filter=unhandled"><button class="tab">Unhandled</button></a>
-                <a href="/Free-Write/public/Mod/Reports?filter=handled"><button class="tab">Handled</button></a>
-                <a href="/Free-Write/public/Mod/Reports?filter=escalated"><button class="tab">Escalated</button></a>
+                <a href="/Free-Write/public/Mod/Feedbacks"><button class="tab">All Feedbacks</button></a>
+                <a href="/Free-Write/public/Mod/Feedbacks?filter=unread"><button class="tab">Unread</button></a>
+                <a href="/Free-Write/public/Mod/Feedbacks?filter=read"><button class="tab">Read</button></a>
             </div>
 
             <div class="table-section">
