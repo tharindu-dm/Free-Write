@@ -21,30 +21,29 @@ class ModController extends Controller
         $this->checkLoggedUser();
         $modlog = new ModLog();
         $logs = null;
+        $date = null;
         $whereParams = [];
 
-        if (isset($_GET['logid']) && !empty($_GET['logid']))
+        if (!empty($_GET['logid']))
             $whereParams['modlogID'] = $_GET['logid'];
 
-        if (isset($_GET['userID']) && !empty($_GET['userID']))
-            $whereParams['mod'] = $_GET['userID'] ?? '';
+        if (!empty($_GET['userID']))
+            $whereParams['mod'] = $_GET['userID'];
 
-        if (isset($_GET['logactivity']) && !empty($_GET['logactivity']))
-            $whereParams['activity'] = $_GET['logactivity'];
-
-        if (isset($_GET['logdate']) && !empty($_GET['logdate']))
-            $whereParams['occurrence'] = $_GET['logdate'];
-
-        if (!empty($whereParams)) {
+        if (!empty($whereParams) && empty($_GET['logdate'])) {
             $logs = $modlog->where($whereParams);
             //show($whereParams);
         }
 
-        if (empty($whereParams)) {
+        if (!empty($_GET['logdate'])) {
+            $date = $_GET['logdate'];
+            $logs = $modlog->filterByDate($whereParams, $date);
+        }
+
+        if (empty($whereParams) && empty($logs)) {
             $logs = $modlog->findAll();
         }
 
-        
         $this->view('moderator/adminModLogs', $logs);
 
     }
@@ -116,29 +115,29 @@ class ModController extends Controller
         $this->checkLoggedUser();
         $sitelog = new SiteLog();
         $logs = null;
+        $date = null;
         $whereParams = [];
 
-
-        if (isset($_GET['logid']) && !empty($_GET['logid']))
+        if (!empty($_GET['logid']))
             $whereParams['siteLogID'] = $_GET['logid'];
 
-        if (isset($_GET['userID']) && !empty($_GET['userID']))
-            $whereParams['user'] = $_GET['userID'] ?? '';
+        if (!empty($_GET['userID']))
+            $whereParams['user'] = $_GET['userID'];
 
-        if (isset($_GET['logactivity']) && !empty($_GET['logactivity']))
-            $whereParams['activity'] = $_GET['logactivity'];
-
-        if (isset($_GET['logdate']) && !empty($_GET['logdate']))
-            $whereParams['occurrence'] = $_GET['logdate'];
-
-        if (!empty($whereParams)) {
+        if (!empty($whereParams) && empty($_GET['logdate'])) {
             $logs = $sitelog->where($whereParams);
             //show($whereParams);
         }
 
-        if (empty($whereParams)) {
+        if (!empty($_GET['logdate'])) {
+            $date = $_GET['logdate'];
+            $logs = $sitelog->filterByDate($whereParams, $date);
+        }
+
+        if (empty($whereParams) && empty($logs)) {
             $logs = $sitelog->todayLogs();
         }
+
         $this->view('moderator/adminSiteLogs', $logs);
     }
 

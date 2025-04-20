@@ -32,13 +32,7 @@
 
                             <div class="search-field">
                                 <label for="search-user">User:</label>
-                                <input type="text" id="userID" name="userID" placeholder="Search by username">
-                            </div>
-
-                            <div class="search-field">
-                                <label for="search-activity">Activity:</label>
-                                <input type="text" id="logactivity" name="logactivity"
-                                    placeholder="Search by activity">
+                                <input type="number" id="userID" name="userID" placeholder="Search by USER ID">
                             </div>
 
                             <div class="search-field">
