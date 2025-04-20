@@ -5,7 +5,18 @@ class CompetitionController extends Controller
 
     public function index()
     {
-        $this->view('OpenUser/competitions');
+        $competition = new Competition();
+        $competition_writer = null;
+        $competition_cover = null;
+
+        $competition_writer = $competition->where(["type" => "writer"], ['status' => "ended"]);
+        $competition_cover = $competition->where(["type" => "cover"], ['status' => "ended"]);
+
+        $data = [
+            'writer' => $competition_writer,
+            'cover' => $competition_cover
+        ];
+        $this->view('OpenUser/competitions', $data);
     }
 
     public function MyCompetitions()
@@ -85,9 +96,42 @@ class CompetitionController extends Controller
         $this->view('publisher/aCompetitionProfile4Publisher');
     }
 
-    public function ProfileUser()
+    /*public function ProfileUser()
     {
+
         $this->view('publisher/aCompetitionProfile4users');
+    }*/
+
+    public function WriterCompetition()
+    {
+        $competiion = new Competition();
+        $compID = $_GET['compID'] ?? null;
+        $compDetails = null;
+
+        if ($compID != null) {
+            $compDetails = $competiion->first(['competitionID' => $compID]);
+        }
+
+        $data = [
+            'details' => $compDetails,
+        ];
+        $this->view('publisher/aCompetitionProfile4users', $data);
+    }
+
+    public function CoverCompetition()
+    {
+        $competiion = new Competition();
+        $compID = $_GET['compID'] ?? null;
+        $compDetails = null;
+
+        if ($compID != null) {
+            $compDetails = $competiion->first(['competitionID' => $compID]);
+        }
+
+        $data = [
+            'details' => $compDetails,
+        ];
+        $this->view('publisher/aCompetitionProfile4users', $data);
     }
 
     public function Completed()

@@ -38,7 +38,7 @@ trait Model
 
         $data = array_merge($data, $data_not);
 
-        show($query);
+        //show($query);
         return $this->query($query, $data);
     }
 
