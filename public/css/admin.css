@@ -180,6 +180,7 @@ aside nav ul li svg {
 .clear-btn:hover {
   opacity: 0.9;
 }
+
 /*Site Logs CSS*/
 .table-container {
   background-color: #fff;
@@ -196,13 +197,12 @@ aside nav ul li svg {
 
 table {
   width: 100%;
-  border-collapse: seperate;
+  border-collapse: separate;
   border-spacing: 1rem;
 }
 
 th,
 td {
-  /*border: 1px solid #ccc  ;*/
   border-radius: 1rem;
   padding: 0.5rem;
   text-align: center;
@@ -215,38 +215,100 @@ th {
   z-index: 10; /* Ensures headers are above scrollable content */
 }
 
-/*VIEW TABLES CSS*/
-.card-float {
-  background-color: #fff; /* Default background */
-  position: relative; /* Required for pseudo-elements */
-  overflow: hidden; /* Ensure pseudo-element is contained */
-  transform: translateY(0); /* Default position */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions for hover effects */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Default shadow */
+/* New Search section */
+.search-section {
+  margin-bottom: 1rem;
 }
 
-.card-float:hover {
-  transform: translateY(-10px); /* Lift card upward */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+.search-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  padding: 1.5rem;
+  border: #ffd700 solid 1px;
+  border-radius: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.card-float::before {
-  content: ""; /* Required for pseudo-element */
-  position: absolute;
-  top: 0;
-  left: -100%; /* Start the fill from the left */
+.search-container h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.search-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.search-field {
+  flex: 1;
+  min-width: 200px;
+}
+
+.search-field label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #555;
+}
+
+.search-field input {
   width: 100%;
-  height: 100%;
-  background-color: #ffd700; /* Hover background color */
-  z-index: 1; /* Place the pseudo-element below the text */
-  transition: left 0.5s ease; /* Smooth left-to-right animation */
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  font-size: 1rem;
 }
 
-.card-float:hover::before {
-  left: 0; /* Move the fill to fully cover the card */
+.search-buttons {
+  display: flex;
+  justify-self: end;
+  gap: 1rem;
 }
 
-.card-float * {
-  position: relative; /* Ensure text stays above the pseudo-element */
-  z-index: 2;
+.search-btn,
+.reset-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.search-btn {
+  background-color: #ffd700;
+  color: #333;
+}
+
+.search-btn:hover {
+  background-color: #ffcc00;
+}
+
+.reset-btn {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.reset-btn:hover {
+  background-color: #e0e0e0;
+}
+
+/* table height */
+.table-wrapper {
+  height: 70vh;
+}
+
+@media (max-width: 768px) {
+  .search-fields {
+    flex-direction: column;
+  }
+
+  .search-field {
+    width: 100%;
+  }
 }

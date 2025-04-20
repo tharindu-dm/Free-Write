@@ -86,20 +86,33 @@ class ModController extends Controller
         // Relevant users will be notified by a database trigger
     }
 
-
-    public function viewTable()
-    {
-        $this->checkLoggedUser();
-        $modlog = new ModLog();
-        $tables = $modlog->getAllTables();
-        $this->view('moderator/adminViewTable', $tables);
-    }
-
     public function siteLogs()
     {
         $this->checkLoggedUser();
         $sitelog = new SiteLog();
-        $logs = $sitelog->todayLogs();
+        $logs = null;
+        $whereParams = [];
+
+        if (sizeof(splitURL()) > 2) {
+            if (isset($_GET['logid']) && !empty($_GET['logid']))
+                $whereParams['siteLogID'] = $_GET['logid'];
+
+            if (isset($_GET['userID']))
+                $whereParams['user'] = $_GET['userID'] ?? '';
+
+            if (isset($_GET['logactivity']) && !empty($_GET['logactivity']))
+                $whereParams['activity'] = $_GET['logactivity'];
+
+            if (isset($_GET['logdate']) && !empty($_GET['logdate']))
+                $whereParams['occurrence'] = $_GET['logdate'];
+
+            if (!empty($whereParams)) {
+                $logs = $sitelog->where($whereParams);
+                show($whereParams);
+            }
+        } else {
+            $logs = $sitelog->todayLogs();
+        }
         $this->view('moderator/adminSiteLogs', $logs);
     }
 

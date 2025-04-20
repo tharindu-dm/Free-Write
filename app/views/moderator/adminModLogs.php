@@ -18,6 +18,41 @@
         <?php require_once "../app/views/layout/admin_aside_nav.php"; ?>
 
         <section class="dashboard">
+            <section class="search-section">
+                <div class="search-container">
+                    <h2>Search Mod Logs
+                        <hr style="margin-bottom: 1rem; border:0.1rem solid #ffd700; " />
+                    </h2>
+                    <form id="log-search-form" method="GET" action="/Free-Write/public/Mod/modLogs">
+                        <div class="search-fields">
+                            <div class="search-field">
+                                <label for="search-id">Log ID:</label>
+                                <input type="text" id="logid" name="logid" placeholder="Search by ID">
+                            </div>
+
+                            <div class="search-field">
+                                <label for="search-user">Moderator:</label>
+                                <input type="text" id="userID" name="userID" placeholder="Search by username">
+                            </div>
+
+                            <div class="search-field">
+                                <label for="search-activity">Activity:</label>
+                                <input type="text" id="logactivity" name="logactivity" placeholder="Search by activity">
+                            </div>
+
+                            <div class="search-field">
+                                <label for="search-date">Date:</label>
+                                <input type="date" id="logdate" name="logdate">
+                            </div>
+                        </div>
+
+                        <div class="search-buttons">
+                            <button type="reset" class="reset-btn">Reset</button>
+                            <button type="submit" class="search-btn">Search</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
             <div class="table-container">
                 <div class="table-wrapper">
                     <table>
