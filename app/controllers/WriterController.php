@@ -15,7 +15,7 @@ class WriterController extends Controller
         if (empty($MyBooks)) {
             if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'writer') {
                 $userDetails = new User();
-                $userDetails->update($author, ['userType' => 'reader'], 'userID');
+                $userDetails->update($author, ['userType' => 'reader'], 'userID');//if wricov =>covdes
 
                 $_SESSION['user_type'] = 'reader';
             }
@@ -23,6 +23,7 @@ class WriterController extends Controller
             exit;
         } else {
             if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'reader') {
+                //wricov if cover
                 $userDetails = new User();
                 $userDetails->update($author, ['userType' => 'writer'], 'userID');
                 $_SESSION['user_type'] = 'writer';

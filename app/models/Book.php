@@ -44,7 +44,7 @@ class Book
         FROM [Book] b 
         JOIN [UserDetails] u ON b.author = u.[user] 
         LEFT JOIN [CoverImage] c ON b.[coverImage] = c.covID 
-        WHERE b.[bookID] = $bid;";
+        WHERE b.[bookID] = $bid;"; //////////// ACCESS TYPE NOT DELETED
 
         return $this->query($query);
     }
@@ -56,7 +56,8 @@ class Book
         JOIN [UserDetails] u ON b.author = u.[user] 
         LEFT JOIN [CoverImage] c ON b.[coverImage] = c.covID 
         WHERE b.[author] = $uid
-        AND NOT b.[accessType] = 'deleted';";
+        AND NOT b.[accessType] = 'deleted'
+        ORDER BY b.[creationDate] DESC;";
 
         return $this->query($query);
     }
@@ -155,4 +156,3 @@ class Book
     }
 
 }
-
