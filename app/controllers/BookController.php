@@ -37,6 +37,12 @@ class BookController extends Controller
         $chapterProgress = null;
         $collectionsFound = null;
 
+        $buychapter = new BuyChapter(); 
+        
+        foreach ($bookChapters as $key => $chapterItem) {
+            $chapterDetails = $buychapter->ChapPurchaseStatus($chapterItem['chapterID']);  
+            $bookChapters[$key]['isPurchased'] = $chapterDetails; 
+        }
 
         if (isset($_SESSION['user_id'])) {
             $bookBought = $buybook->first(['user' => $_SESSION['user_id'], 'book' => $bookID]);

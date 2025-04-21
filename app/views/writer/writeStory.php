@@ -35,10 +35,12 @@
                 <h1 class="story-title">
                     <?php echo htmlspecialchars($book['title']); ?>
                 </h1>
+                <?php if($book['price'] === NULL): ?>
                 <div class="input-group">
                     <label for="price">Price(LKR):</label>
                     <input type="number" min="0" id="price" name="price" placeholder="Free">
                 </div>
+              <?php endif; ?>
             </div>
 
             <!-- Chapter Name -->

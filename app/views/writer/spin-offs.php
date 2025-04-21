@@ -39,7 +39,8 @@ switch ($userType) {
         <!-- Profile Section -->
         <div class="profile-section">
             <div class="profile-image">
-                <img src="../../app/images/profile/profile-image.jpg" alt="User Profile Image">
+            <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>"
+            alt="Profile Picture" class="user-profile-picture">
             </div>
 
             <?php if (!empty($userDetails) && is_array($userDetails)): ?>

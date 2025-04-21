@@ -19,6 +19,11 @@ class WriterController extends Controller
 
                 $_SESSION['user_type'] = 'reader';
             }
+            elseif (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'wricov') {
+                $userDetails = new User();
+                $userDetails->update($author, ['userType' => 'covdes'], 'userID');
+                $_SESSION['user_type'] = 'covdes';
+            }
             header('Location: /Free-Write/public/Writer/DashboardNewView');
             exit;
         } else {
@@ -27,6 +32,11 @@ class WriterController extends Controller
                 $userDetails = new User();
                 $userDetails->update($author, ['userType' => 'writer'], 'userID');
                 $_SESSION['user_type'] = 'writer';
+            }
+            elseif (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'covdes') {
+                $userDetails = new User();
+                $userDetails->update($author, ['userType' => 'wricov'], 'userID');
+                $_SESSION['user_type'] = 'wricov';
             }
             header('Location: /Free-Write/public/Writer/Dashboard');
             exit;
@@ -598,7 +608,11 @@ class WriterController extends Controller
 
         $chapter = $chapterDetails['title_author'][0];
 
-        $this->view('writer/editStory', ['chapter' => $chapter]);
+        $bookID = $chapter['BookID'];
+        $book = new Book();
+        $bookDetails = $book->first(['bookID' => $bookID]);
+
+        $this->view('writer/editStory', ['chapter' => $chapter, 'book' => $bookDetails]);
     }
 
     public function UpdateChapter()

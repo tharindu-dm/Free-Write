@@ -68,6 +68,7 @@
                             <input type="checkbox" name="saveCard" value="yes">&nbsp;Save Card for future payments
                         </label>-->
                         <input type="hidden" name="itemID" value="<?= htmlspecialchars($itemID) ?>">
+                        <input type="hidden" name="bookID" value="<?= htmlspecialchars($bookID) ?>">
                         <div id="cardValidation"></div>
                         <button type="submit">Pay Now</button>
                     </div>

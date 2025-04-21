@@ -6,4 +6,15 @@ class BuyChapter
 
     protected $table = 'BuyChapter'; //when using the Model trait, this table name ise used 
 
+    public function ChapPurchaseStatus($chapterID)
+    {
+        $arr = ['chapter' => $chapterID, 'user' => $_SESSION['user_id']];
+        $chapBought = $this->where($arr);
+        if ($chapBought) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

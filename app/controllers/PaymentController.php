@@ -75,6 +75,25 @@ class PaymentController extends Controller
         header('location:/Free-Write/public/Book/Overview/' . $bookID);
     }
 
+    public function buy_chapter()
+    {
+        if (!$this->loggedUserExists())
+            header('location:/Free-Write/public/Login');
+
+        $userID = $_SESSION['user_id'];
+        $chapterID = $_POST['itemID'];
+        $bookID = $_POST['bookID'];
+        $buyChapter = new BuyChapter();
+        $buyChapterDetails = [
+            'user' => $userID,
+            'chapter' => $chapterID,
+            'purchaseDateTime' => date("Y-m-d H:i:s"),
+        ];
+
+        $buyChapter->insert($buyChapterDetails);
+        header('location:/Free-Write/public/Book/Overview/' . $bookID);
+    }
+
     public function Chapter()//buying a paid chapter
     {
         if (!$this->loggedUserExists())
@@ -85,20 +104,24 @@ class PaymentController extends Controller
 
         $chapter = new chapter();
 
-        $chapterDetails = $chapter->getchapterByID($chapterID);
+        $chapterDetails = $chapter->getChapterByID($chapterID);
+        $chapter = $chapterDetails['title_author'][0];
+        $bookID = $chapter['BookID'];
+
         $orderDetails = [
-            'Item' => $chapterDetails[0]['title'],
+            'Item' => $chapter['BookTitle']. " | " .$chapter['ChapterTitle'],
             'Quantity' => 1,
-            'Price' => $chapterDetails[0]['price'],
-            'Total' => $chapterDetails[0]['price']
+            'Price' => $chapter['price'],
+            'Total' => $chapter['price']
         ];
 
         $this->view(
             'paymentPage',
             [
-                'type' => "Book",
+                'type' => "Chapter",
                 'orderInfo' => $orderDetails,
-                'itemID' => $chapterID
+                'itemID' => $chapterID,
+                'bookID' => $bookID
             ]
         );
 

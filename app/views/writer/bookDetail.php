@@ -35,8 +35,7 @@
                     <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book[0]['cover_image'] ?? 'sampleCover.jpg'); ?>"
                         alt="Cover Image of <?= htmlspecialchars($book[0]['title']); ?>">
                     <div class="author-details">
-                        <h3>Other Details</h3>
-                        <p><?= $book[0]['price'] === null ? 'Read for Free' : 'LKR. ' . number_format($book[0]['price'], 2); ?>
+                        <p><?= $book[0]['price'] === null ? 'Free' : 'LKR. ' . number_format($book[0]['price'], 2); ?>
                         </p>
                         <p><strong>Last Updated:</strong> <?= explode(' ', $book[0]['lastUpdateDate'])[0]; ?></p>
                         <p><strong>Status:</strong> <?= ($book[0]['isCompleted'] == 1) ? "Completed" : "Ongoing"; ?></p>
@@ -77,7 +76,9 @@
                                 <tr>
                                     <th>Chapter</th>
                                     <th>Last Updated</th>
-                                    <th>Price (LKR)</th>
+                                    <?php if ($book[0]['price'] === null): ?>
+                                        <th>Price (LKR)</th>
+                                    <?php endif; ?>
                                     <th>Action</th>
                                 </tr>
                                 <?php foreach ($chapters as $chap): ?>
@@ -86,7 +87,9 @@
                                                 <?= htmlspecialchars($chap['title']); ?></a>
                                         </td>
                                         <td><?= htmlspecialchars($chap['lastUpdated']); ?></td>
-                                        <td><?= $chap['price'] === null ? 'FREE' : htmlspecialchars($chap['price']); ?></td>
+                                        <?php if ($book[0]['price'] === null): ?>
+                                            <td><?= $chap['price'] === null ? 'FREE' : htmlspecialchars($chap['price']); ?></td>
+                                        <?php endif; ?>
                                         <td>
                                             <a href="/Free-Write/public/Writer/editChapter/<?= htmlspecialchars($chap['chapterID']); ?>"
                                                 class="edit-btn">Edit</a>

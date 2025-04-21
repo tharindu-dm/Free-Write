@@ -28,7 +28,7 @@ trait Database
         }
     }
 
-    /*private function connect() //connecting to azure sql server
+    private function connect() //connecting to azure sql server
     {
         // Load the .env file using the method
         $this->loadEnv(__DIR__ . '/.env');
@@ -46,7 +46,7 @@ trait Database
             die("Connection failed: " . $e->getMessage());
         }
     }
-*/
+/*
     private function connect()
      {
          // Load the .env file using the method
@@ -67,8 +67,7 @@ trait Database
              die("Connection failed: " . $e->getMessage());
          }
      }
- 
-
+     */
     public function query($query, $data = []) //using sql prepared statement to avoid sql injections
     {
         $con = $this->connect();

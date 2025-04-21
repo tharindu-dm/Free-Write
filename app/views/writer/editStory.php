@@ -36,11 +36,13 @@
                     <?php
                     echo htmlspecialchars($chapter['BookTitle']); ?>
                 </h1>
+                <?php if ($book['price'] === NULL): ?>
                 <div class="input-group">
                     <label for="price">Price(LKR):</label>
                     <input type="number" id="price" name="price" min="0" step="0.01" placeholder="Free"
                         value="<?= htmlspecialchars($chapter['price'] ?? ''); ?>">
                 </div>
+                <?php endif; ?>
             </div>
 
             <!-- Chapter Name -->

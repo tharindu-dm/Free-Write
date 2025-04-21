@@ -245,18 +245,35 @@
                                 <tr>
                                     <th>Chapter</th>
                                     <th>Last Updated</th>
+                                    <?php if ($book[0]['price'] === null): ?>
+                                        <th>Price</th>
+                                    <?php endif; ?>
                                 </tr>
                                 <?php foreach ($chapters as $chap): ?>
                                     <tr>
                                         <td>
-                                            <?php if ($book[0]['price'] === null || $bought): ?>
+                                            <?php if ($chap['isPurchased'] || $bought || $chap['price'] === NULL): ?>
                                                 <a
                                                     href="/Free-Write/public/book/Chapter/<?= htmlspecialchars($chap['chapterID']); ?>"><?= htmlspecialchars($chap['title']); ?></a>
                                             <?php else: ?>
-                                                <p>Purchase the book to read the chapters</p>
+                                                <p>Purchase to read chapters</p>
                                             <?php endif; ?>
                                         </td>
                                         <td><?= htmlspecialchars($chap['lastUpdated']); ?></td>
+                                        <?php if ($book[0]['price'] === null): ?>
+                                            <td><div class="buy-button">
+                                                <?php if ($chap['price'] === null): ?>
+                                                    <p><?= 'Read for Free'; ?></p>
+                                                 <?php elseif ($chap['isPurchased']): ?>
+                                                    <p> <?= 'Already Purchased'; ?></p>
+                                                <?php else: ?>
+                                                     <a href='/Free-Write/public/Payment/Chapter/<?= htmlspecialchars($chap['chapterID']); ?>'>
+                                                    <?= 'Buy LKR. ' . number_format($chap['price'], 2); ?>
+                                                        </a>
+                                                <?php endif; ?>
+                                                </div>
+                                            </td>
+                                        <?php endif; ?>
                                     </tr>
                                 <?php endforeach; ?>
                             </table>
