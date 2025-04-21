@@ -27,5 +27,12 @@ class BookChapter
         return $this->query($query);
     }
 
+    public function getChapterCount($bid)
+    {
+        $query = "SELECT COUNT(*) AS ChapterCount
+                FROM [dbo].[BookChapter]
+                WHERE [book] = $bid;";
 
+        return $this->query($query)[0];
+    }
 }

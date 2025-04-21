@@ -25,7 +25,7 @@
                             <a
                                 href="/Free-Write/public/User/Profile?user=<?= htmlspecialchars($book[0]['author']); ?>"><button>Profile</button></a>
                             <a href="/Free-Write/public/Writer/Donate?user=<?= htmlspecialchars($book[0]['author']); ?>"><button>Donate
-                                    LKR.500</button></a>
+                                    Author</button></a>
                         </div>
                     </div>
                     <div class="other-details">
@@ -154,8 +154,10 @@
                             </button>
 
 
-                            <button id="btn-create-spinoff" class="read-button">Create A Spinoff
-                            </button>
+                            <?php if (sizeof($chapters) >= 2): ?>
+                                <button id="btn-create-spinoff" class="read-button">Create A Spinoff
+                                </button>
+                            <?php endif; ?>
                         <?php endif; ?>
                         <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'pub'): ?>
                             <?php if (!$hasExistingQuotation): ?>
@@ -178,30 +180,32 @@
                             <form id="add-to-list-form" action="<?= $action ?>" method="POST">
 
                                 <div class="list-add-radios">
-                                    <div>
-                                        <label class="add-list-radio-labels">
-                                            <input type="radio" name="status" value="reading">
-                                            <h5>Reading</h5>
-                                        </label>
-                                    </div>
-                                    <div>
-                                        <label class="add-list-radio-labels">
-                                            <input type="radio" name="status" value="completed">
-                                            <h5>Completed</h5>
-                                        </label>
-                                    </div>
-                                    <div>
-                                        <label class="add-list-radio-labels">
-                                            <input type="radio" name="status" value="hold">
-                                            <h5>On Hold</h5>
-                                        </label>
-                                    </div>
-                                    <div>
-                                        <label class="add-list-radio-labels">
-                                            <input type="radio" name="status" value="dropped">
-                                            <h5>Dropped</h5>
-                                        </label>
-                                    </div>
+                                    <?php if (!empty($chapters)): ?>
+                                        <div>
+                                            <label class="add-list-radio-labels">
+                                                <input type="radio" name="status" value="reading">
+                                                <h5>Reading</h5>
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <label class="add-list-radio-labels">
+                                                <input type="radio" name="status" value="completed">
+                                                <h5>Completed</h5>
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <label class="add-list-radio-labels">
+                                                <input type="radio" name="status" value="hold">
+                                                <h5>On Hold</h5>
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <label class="add-list-radio-labels">
+                                                <input type="radio" name="status" value="dropped">
+                                                <h5>Dropped</h5>
+                                            </label>
+                                        </div>
+                                    <?php endif; ?>
                                     <div>
                                         <label class="add-list-radio-labels">
                                             <input require type="radio" name="status" value="planned">
@@ -214,6 +218,12 @@
                                                 value="<?= htmlspecialchars($book[0]['bookID']); ?>">
                                         </label>
                                     </div>
+                                </div>
+
+                                <div>
+                                    <label for="chapCount">Chapter Count</label>
+                                    <input type="number" id="chapterCount" name="chapterCount"
+                                        value="<?= htmlspecialchars($chapterProgress ?? 0); ?>">
                                 </div>
 
                                 <div class="list-add-actionBtns">
@@ -391,8 +401,6 @@
         unset($_SESSION['success_message']);
     }
     ?>
-
-
 
 </body>
 

@@ -49,8 +49,20 @@ class BookListController extends Controller
         $uid = $_SESSION['user_id'];
         $bookID = $_POST['List_bid'];
         $status = $_POST['status'];
+        $readchapters = $_POST['chapterCount'] ?? 0;
 
         $list = new BookList(); //get chapter to be added to the list
+        $bookchapter = new BookChapter();
+        $noOfChapters = $bookchapter->getChapterCount($bookID);
+
+        if (empty($noOfChapters['ChapterCount']) || $readchapters < 0) {
+            $readchapters = 0;
+        }
+
+        if ($status == "completed" || $readchapters > $noOfChapters['ChapterCount']) {
+            $readchapters = $noOfChapters['ChapterCount'];
+        }
+
         $list->addToList($uid, $bookID, $status);
         header('Location: /Free-Write/public/Book/Overview/' . $bookID);
     }
@@ -58,17 +70,28 @@ class BookListController extends Controller
     public function updateList()
     {
         $bookID = $_POST['List_bid'];
-        $chapterCount = 0;
+        $readchapters = 0;
 
         if (isset($_POST['chapterCount']))
-            $chapterCount = $_POST['chapterCount'];
+            $readchapters = $_POST['chapterCount'];
 
         $BookStatus = $_POST['status'];
+
+        $bookchapter = new BookChapter();
+        $noOfChapters = $bookchapter->getChapterCount($bookID);
+
+        if (empty($noOfChapters['ChapterCount']) || $readchapters < 0) {
+            $readchapters = 0;
+        }
+
+        if ($BookStatus == "completed" || $readchapters > $noOfChapters['ChapterCount']) {
+            $readchapters = $noOfChapters['ChapterCount'];
+        }
 
         $list = new BookList();
 
         $uid = $_SESSION['user_id'];
-        $list->updateList($uid, $bookID, $chapterCount, $BookStatus);
+        $list->updateList($uid, $bookID, $readchapters, $BookStatus);
 
         if (!isset($_POST['chapterCount']))
             header('Location: /Free-Write/public/Book/Overview/' . $bookID);
