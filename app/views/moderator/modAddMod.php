@@ -40,12 +40,6 @@
                 </form>
             </div>
 
-            <div class="tabs">
-                <a href="/Free-Write/public/Mod/Users"><button class="tab">All Users</button></a>
-                <a href="/Free-Write/public/Mod/Users?filter=normal"><button class="tab">Regular Users</button></a>
-                <a href="/Free-Write/public/Mod/Users?filter=premium"><button class="tab">Premium Users</button></a>
-            </div>
-
             <table>
                 <thead>
                     <tr>
