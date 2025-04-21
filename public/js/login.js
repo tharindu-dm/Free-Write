@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function checkPassStrength(password) {
-    const passwordRegEx = /(?=.\d)(?=.[a-z])(?=.*[A-Z]).{8,}/;
+    const passwordRegEx = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
     return passwordRegEx.test(password);
   }
 
@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           case "invalid_password":
             showLoginError(
-              ⁠ Invalid password. ${data.remainingAttempts} attempts remaining. ⁠
+              `Invalid password. ${data.remainingAttempts} attempts remaining.`
             );
             break;
 

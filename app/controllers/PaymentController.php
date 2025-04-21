@@ -83,6 +83,25 @@ class PaymentController extends Controller
         $URL = splitURL();
         $chapterID = $URL[2];
 
+        $chapter = new chapter();
+
+        $chapterDetails = $chapter->getchapterByID($chapterID);
+        $orderDetails = [
+            'Item' => $chapterDetails[0]['title'],
+            'Quantity' => 1,
+            'Price' => $chapterDetails[0]['price'],
+            'Total' => $chapterDetails[0]['price']
+        ];
+
+        $this->view(
+            'paymentPage',
+            [
+                'type' => "Book",
+                'orderInfo' => $orderDetails,
+                'itemID' => $chapterID
+            ]
+        );
+
     }
 
     public function Premium()

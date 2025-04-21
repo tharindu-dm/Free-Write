@@ -27,6 +27,17 @@ class Book
         return $this->query($query);
     }
 
+    public function getFreeBooks()//top paid books
+    {
+        $query = "SELECT TOP(5) b.bookID, b.title, b.price, CONCAT(u.firstName, ' ', u.lastName) AS author, c.[name] AS cover_image 
+        FROM Book b 
+        JOIN [UserDetails] u ON b.author = u.[user] 
+        LEFT JOIN [CoverImage] c ON b.[coverImage] = c.covID WHERE b.accessType = 'public'
+        AND NOT (b.publishType = 'book' AND b.isCompleted = 0) AND (b.[price] = 0 OR b.[price] IS NULL);";
+
+        return $this->query($query);
+    }
+    
     public function getBookByID($bid) //seeach for a book by given ID
     {
         $query = "SELECT b.[bookID], b.[author], b.[title], b.[Synopsis], b.[accessType], b.[publishType], b.[lastUpdateDate], b.[isCompleted], b.[viewCount] ,b.[price], CONCAT(u.[firstName], ' ', u.[lastName]) AS authorName, c.[name] AS cover_image 
