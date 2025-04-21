@@ -33,12 +33,15 @@
     ?>
 
     <!-- Main Content -->
-    <main class="book-section">
+    <main>
+        <div class="book-section">
         
             
             <form action="/Free-Write/public/Writer/createBook" method="POST" enctype="multipart/form-data">
 
             <h1>Create a New Story</h1>
+            <p>Bring your imagination to life ✨create a book that leaves a mark on readers everywhere.</p>
+            <div class="book-form">
 
                 <!-- Book Details Section -->
                 <div class="book-info">
@@ -58,8 +61,18 @@
                     </div>
 
                     <div class="input-group">
+                    <label for="genre">Genre</label>
+                        <select id="genre" name="genre" class="book-select-input" required>
+                        <option value="">Select Genre</option>
+                        <?php foreach ($genres as $genre) {
+                        echo "<option value=\"{$genre['genreID']}\">{$genre['name']}</option>";
+                        } ?>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
                         <label for="price">Price</label>
-                        <input type="number" min="0" id="price" name="price" placeholder="Free (Enter a Price)">
+                        <input type="number" min="0" id="price" name="price" placeholder="Free">
                     </div>
 
                     <div class="input-group">
@@ -80,17 +93,23 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="create-btn">Create</button>
+                   
                 </div>
-                
-              </form>
-             <!-- Book Cover Section -->
-             <div class="book-cover">
-                <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Cover Preview" class="cover-img">
-                    <label for="cover" class="upload-btn">Upload Cover Photo</label>
-                 <input type="file" id="cover" name="cover" accept="image/*" class="file-input">
-                </div>
-            </div>
+                <!-- Right: Cover Image -->
+        <div class="book-cover">
+            <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                alt="Cover Image of <?= htmlspecialchars($book['title']); ?>">
+            
+        </div>
+    </div>
+
+               <!-- Buttons -->
+    <div class="right-buttons">
+        <button type="button" class="edit-btn cancel-btn" onclick="window.history.back();">Back</button>
+        <button type="submit" class="create-btn">Create</button>
+    </div>
+        </form>
+            
     </main>
 
     <!-- Footer -->

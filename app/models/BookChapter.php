@@ -18,7 +18,7 @@ class BookChapter
 
     public function getBookChapters($bid) //to the book Overview
     {
-        $query = "SELECT C.[chapterID],C.[title], C.[lastUpdated] 
+        $query = "SELECT C.[chapterID],C.[title], C.[lastUpdated], C.price
         FROM [dbo].[BookChapter] BC 
         JOIN [dbo].[Chapter] C ON BC.[chapter] = C.[chapterID] 
         WHERE BC.[book] = $bid 

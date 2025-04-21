@@ -16,13 +16,20 @@
 
     <!-- Main Content -->
     <main class="quote-section">
-        <h1><?php echo htmlspecialchars($quote['book_name']); ?></h1>
-        <h3><?php echo htmlspecialchars($quote['chapter_name']); ?></h3>
-        <p><?php echo htmlspecialchars($quote['quote']); ?></p>
+
+    <h2>A Quote by <?= htmlspecialchars($userDetails['firstName']) . " " . htmlspecialchars($userDetails['lastName']); ?></h2>
+    <p class="text-editor"><?php echo htmlspecialchars($quote['quote']); ?></p>
     
+        <div class="space_between">
+        <h3><?php echo htmlspecialchars($quote['book_name']); ?></h3>
+        <h3><?php echo htmlspecialchars($quote['chapter_name']); ?></h3>
+        </div>
+       
+       
+
         <div class="button-container">
     <!-- Left side: Cancel button -->
-    <button type="button" class="edit-btn cancel-btn" onclick="window.history.back();">Back</button>
+    <button type="button" class="edit-btn cancel-btn" onclick="window.location.href='/Free-Write/public/Writer/Quotes'">Back</button>
     
     <!-- Right side: Edit and Delete buttons -->
     <div class="right-buttons">

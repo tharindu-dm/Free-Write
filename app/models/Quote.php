@@ -33,8 +33,10 @@ class Quote
     {
         $query = "SELECT 
             q.quoteID,
+            b.bookID,
             q.quote, 
             c.title AS chapter_name, 
+            c.chapterID,
             bc.book,
             b.title AS book_name,
             u.userID

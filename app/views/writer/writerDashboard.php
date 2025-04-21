@@ -80,8 +80,12 @@
                                         <?= strlen($book['title']) > 20 ? htmlspecialchars(substr($book['title'], 0, 17)) . '...' : htmlspecialchars($book['title']); ?>
                                     </h4>
                                     <p>
-                                        <?= htmlspecialchars($book['author']); ?>
-                                    </p>
+                                         <?php if (isset($book['genre'][0]['genreName'])): ?>
+                                          <?= htmlspecialchars($book['genre'][0]['genreName']); ?>
+                                                 <?php else: ?>
+                                         No Genre Available
+                                         <?php endif; ?>
+                                        </p>
                                     <h4>
                                         <?= $book['price'] === null ? 'FREE' : 'LKR ' . number_format($book['price'], 2); ?>
                                     </h4>

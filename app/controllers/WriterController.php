@@ -1,5 +1,4 @@
 <?php
-
 class WriterController extends Controller
 {
     public function index()
@@ -14,9 +13,20 @@ class WriterController extends Controller
 
         $MyBooks = $book->getBookByAuthor($author);
         if(empty($MyBooks)){
+            if(isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'writer'){
+            $userDetails = new User();
+            $userDetails->update($author, ['userType' => 'reader'], 'userID');
+
+            $_SESSION['user_type'] = 'reader';
+            }
             header('Location: /Free-Write/public/Writer/DashboardNewView');
         exit;
         }else{
+        if(isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'reader'){
+            $userDetails = new User();
+            $userDetails->update($author, ['userType' => 'writer'], 'userID');
+            $_SESSION['user_type'] = 'writer';
+        }
             header('Location: /Free-Write/public/Writer/Dashboard');
         exit;
         }
@@ -24,6 +34,7 @@ class WriterController extends Controller
 
     public function DashboardNewView()
 {
+    //var_dump($_SESSION['user_type']);
     $author = $_SESSION['user_id'];
     $userDetailsTable = new UserDetails();
     $userDetails = $userDetailsTable->first(['user' => $author]);
@@ -32,27 +43,71 @@ class WriterController extends Controller
 }
 
 
-    public function Dashboard()
-    {
-        $book = new Book();
+public function Dashboard()
+{
+    // Get the current author ID from the session
+    $author = $_SESSION['user_id'];
 
-        $author = $_SESSION['user_id'];
+    // Fetch user details
+    $userDetailsTable = new UserDetails();
+    $userDetails = $userDetailsTable->first(['user' => $author]);
 
-        $userDetailsTable = new UserDetails();
-        $userDetails = $userDetailsTable->first(['user' => $author]);
+    // Fetch follower count
+    $Followers = new Follow();
+    $followers = $Followers->getFollowCount($author);
 
-        $Followers = new Follow();
-        $followers = $Followers->getFollowCount($author);
-       
-        $view = new Book();
-        $totViewsArray = $view->getAuthorViews($author);
-        $views = $totViewsArray[0]['totalViews'] ?? 0;
+    // Fetch total views for the author
+    $view = new Book();
+    $totViewsArray = $view->getAuthorViews($author);
+    $views = $totViewsArray[0]['totalViews'] ?? 0;
 
-        $MyBooks = $book->getBookByAuthor($author);
-        $this->view('writer/writerDashboard', ['MyBooks' => $MyBooks, 'userDetails' => $userDetails, 'followers' => $followers, 'views' => $views]);
+    // Fetch books by the author
+    $book = new Book();
+    $MyBooks = $book->getBookByAuthor($author);
 
+    // Fetch genre for each book
+    $bookGenre = new BookGenre();
+    foreach ($MyBooks as $key => $bookItem) {
+        $genreDetails = $bookGenre->getBookGenre($bookItem['bookID']);  // Get genre for each book
+        $MyBooks[$key]['genre'] = $genreDetails;  // Add genre details to the book
     }
 
+    // Pass the data to the view
+    $this->view('writer/writerDashboard', [
+        'MyBooks' => $MyBooks,
+        'userDetails' => $userDetails,
+        'followers' => $followers,
+        'views' => $views
+    ]);
+    
+}
+
+
+
+
+
+    public function Overview($bookID = 0)
+    {
+        $URL = splitURL();
+        if ($URL[2] < 1)
+            $this->view('error');
+
+        if ($bookID < 1 || !is_numeric($bookID))
+            $bookID = $URL[2]; //get the book id from the url
+
+        $book = new Book();
+        $spinoff = new Spinoff();
+        $spinoffs = $spinoff->where(['fromBook' => $bookID]);
+
+        $rating = new Rating();
+        $bookChapter_table = new BookChapter();
+        $bookFound = $book->getBookByID($bookID);
+        $bookRating = $rating->getBookRating($bookID);
+        $bookChapters = $bookChapter_table->getBookChapters($bookID); //list of chapters related to the specific book
+
+
+        $this->view('writer/bookDetail', ['book' => $bookFound, 'chapters' => $bookChapters, 'rating' => $bookRating, 'spinoffs' => $spinoffs]);
+    }
 
     // QUOTES
     public function Quotes()
@@ -86,9 +141,15 @@ class WriterController extends Controller
         if ($qID < 1 || !is_numeric($qID))
             $qID = $URL[2]; 
 
+        
         $quote = new Quote();
         $quoteDetails = $quote->getQuoteByID($qID);
-        $this->view('writer/viewQuote', ['quote' => $quoteDetails]);
+
+        $author = $quoteDetails['userID'];
+        $userDetailsTable = new UserDetails();
+        $userDetails = $userDetailsTable->first(['user' => $author]);
+
+        $this->view('writer/viewQuote', ['quote' => $quoteDetails, 'userDetails' => $userDetails]);
     }
 
     public function NewQuote()
@@ -104,7 +165,7 @@ class WriterController extends Controller
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['book_id'])) {
             $bookID = $_POST['book_id'];
     
-            $chapters = $book_chapter->getChapters($bookID);
+            $chapters = $book_chapter->getBookChapters($bookID);
     
             // Return JSON response for AJAX
             header('Content-Type: application/json');
@@ -126,7 +187,16 @@ class WriterController extends Controller
 
             $quote = new Quote();
             $quoteDetails = $quote->getQuoteByID($qID);
-            $this->view('writer/editQuote', ['quote' => $quoteDetails]);
+
+            $author = $quoteDetails['userID'];
+            $userDetailsTable = new UserDetails();
+            $userDetails = $userDetailsTable->first(['user' => $author]);
+
+            $book_chapter = new BookChapter();
+            $chapters = $book_chapter->getBookChapters($quoteDetails['bookID']);
+
+
+            $this->view('writer/editQuote', ['quote' => $quoteDetails, 'chapters' => $chapters, 'userDetails' => $userDetails]);
     }
     
 
@@ -149,14 +219,16 @@ class WriterController extends Controller
     {
         $quoteID = $_POST['quoteID'];
         $content = $_POST['quote'] ?? '';
+        $chapter = $_POST['chapter'] ?? '';
 
         $data = [
             'quote' => $content,
+            'chapter' => $chapter
         ];
     $quote = new Quote();
 
     if ($quote->update($quoteID, $data, 'quoteID')) {
-        header('location: /Free-Write/public/Writer/Quotes');
+        header('location: /Free-Write/public/Writer/ViewQuote/' . $quoteID);
         exit;
     } else {
         echo "Failed to update the book.";
@@ -243,7 +315,8 @@ public function deleteQuote($qID = 0)
         ];
 
         $spinoff = new Spinoff();
-        if($spinoff->update($sID, $data, 'spinoffID')){   $this->Spinoffs();
+        if($spinoff->update($sID, $data, 'spinoffID')){  
+             header('Location: /Free-Write/public/Writer/Spinoffs');
             exit;
         } else {
             echo "Failed to accept the spinoff.";
@@ -266,7 +339,8 @@ public function deleteQuote($qID = 0)
         ];
 
         $spinoff = new Spinoff();
-        if($spinoff->update($sID, $data, 'spinoffID')){   $this->Spinoffs();
+        if($spinoff->update($sID, $data, 'spinoffID')){   
+            header('Location: /Free-Write/public/Writer/Spinoffs');
             exit;
         } else {
             echo "Failed to reject the spinoff.";
@@ -364,7 +438,7 @@ public function deleteQuote($qID = 0)
         $competition = new Competition();
 
         if ($competition->update($competitionID, $data, 'competitionID')) {
-            header('location: /Free-Write/public/Writer/Competitions');
+            header('location: /Free-Write/public/Writer/ViewCompetition/' . $competitionID); // Redirect to the competition overview page
             exit;
         } else {
             echo "Failed to update the competition.";
@@ -390,31 +464,36 @@ public function deleteQuote($qID = 0)
     }
 
     public function New()
-    {
-        $this->view('writer/createBook');
+    {   $genre = new Genre();
+        $genres = $genre->getGenres();
+        $this->view('writer/createBook', ['genres' => $genres]);
     }
 
     public function createBook()
     {
         $book = new Book();
-
+        $bookGenre = new BookGenre();
 
         $title = $_POST['title'] ?? '';
         $synopsis = $_POST['Synopsis'] ?? '';
         $privacy = $_POST['privacy'] ?? 'public';
         $type = $_POST['type'] ?? 'book';
-        //$coverFilePath = null;
         $datetime = date('Y-m-d H:i:s');
         $author = $_SESSION['user_id'];
+        $genre = $_POST['genre'];
+
         $price = $_POST['price'] ?? null;
 
-        if ($book->insert(['title' => $title, 'Synopsis' => $synopsis, 'price' => $price, 'accessType' => $privacy, 'publishType' => $type, 'author' => $author, 'creationDate' => $datetime, 'lastUpdateDate' => $datetime, 'isCompleted' => 0])) {
+        $book->insert(['title' => $title, 'Synopsis' => $synopsis, 'price' => $price, 'accessType' => $privacy, 'publishType' => $type, 'author' => $author, 'creationDate' => $datetime, 'lastUpdateDate' => $datetime, 'isCompleted' => 0]);
+        
+        $bookID = $book->first(['title' => $title, 'Synopsis' => $synopsis, 'price' => $price, 'accessType' => $privacy, 'publishType' => $type, 'author' => $author, 'creationDate' => $datetime, 'lastUpdateDate' => $datetime, 'isCompleted' => 0])['bookID'];
+
+        $bookGenre->insert(['book' => $bookID, 'genre' => $genre]);
+
+     
             header('location: /Free-Write/public/Writer/');
             exit;
-        } else {
-            echo "Failed to create the book.";
-        }
-        ;
+       
     }
 
     //edit book details
@@ -427,9 +506,16 @@ public function deleteQuote($qID = 0)
         if ($bookID < 1 || !is_numeric($bookID))
             $bookID = $URL[2]; //get the book id from the url
 
+        $genre = new Genre();
+        $genres = $genre->getGenres();
+        
         $book = new Book();
         $bookDetails = $book->first(['bookID' => $bookID]);
-        $this->view('writer/editBook', ['book' => $bookDetails]);
+
+        $bookGenre = new BookGenre();
+        $genreDetails = $bookGenre->getBookGenre($bookID);
+
+        $this->view('writer/editBook', ['book' => $bookDetails, 'genres' => $genres, 'genreDetails' => $genreDetails]);
     }
 
     public function Update()
@@ -440,8 +526,9 @@ public function deleteQuote($qID = 0)
         $accessType = $_POST['accessType'] ?? 'public';
         $publishType = $_POST['publishType'] ?? 'book';
         $status = $_POST['status'] ?? '0';
-        $author = $_SESSION['user_id'];
+        $genre = $_POST['genre'] ?? '';
         $price = $_POST['price'] ?? null;
+        $lastUpdated = date('Y-m-d H:i:s');
 
         $data = [
             'title' => $title,
@@ -449,18 +536,19 @@ public function deleteQuote($qID = 0)
             'accessType' => $accessType,
             'publishType' => $publishType,
             'price' => $price,
-            'author' => $author,
-            'isCompleted' => $status
+            'isCompleted' => $status,
+            'lastUpdateDate' => $lastUpdated,
         ];
 
         $book = new Book();
+        $bookGenre = new BookGenre();
 
-        if ($book->update($bookID, $data, 'bookID')) {
-            header('location: /Free-Write/public/Writer/');
-            exit;
-        } else {
-            echo "Failed to update the book.";
-        }
+        $book->update($bookID, $data, 'bookID');
+        $bookGenre->update($bookID, ['genre' => $genre], 'book');
+
+            header('location: /Free-Write/public/Writer/Overview/' . $bookID);
+                        exit;
+        
     }
 
     public function DeleteBook()
@@ -479,30 +567,6 @@ public function deleteQuote($qID = 0)
         }
     }
 
-
-
-    public function Overview($bookID = 0)
-    {
-        $URL = splitURL();
-        if ($URL[2] < 1)
-            $this->view('error');
-
-        if ($bookID < 1 || !is_numeric($bookID))
-            $bookID = $URL[2]; //get the book id from the url
-
-        $book = new Book();
-        $spinoff = new Spinoff();
-        $spinoffs = $spinoff->where(['fromBook' => $bookID]);
-
-        $rating = new Rating();
-        $bookChapter_table = new BookChapter();
-        $bookFound = $book->getBookByID($bookID);
-        $bookRating = $rating->getBookRating($bookID);
-        $bookChapters = $bookChapter_table->getBookChapters($bookID); //list of chapters related to the specific book
-
-
-        $this->view('writer/bookDetail', ['book' => $bookFound, 'chapters' => $bookChapters, 'rating' => $bookRating, 'spinoffs' => $spinoffs]);
-    }
 
     public function Chapter($chapterID = 0)
     {
@@ -547,10 +611,11 @@ public function deleteQuote($qID = 0)
         $chapterTitle = $_POST['story-editor-chapter'] ?? '';
         $chapterContent = $_POST['story-editor'] ?? '';
         $datetime = date('Y-m-d H:i:s');
+        $price = isset($_POST['price']) && $_POST['price'] !== '' ? $_POST['price'] : null;
 
         $Chapter->update(
             $chapterID,
-            ['title' => $chapterTitle, 'content' => $chapterContent, 'lastUpdated' => $datetime],
+            ['title' => $chapterTitle, 'content' => $chapterContent, 'lastUpdated' => $datetime, 'price' => $price],
             'chapterID'
         );
         header('Location: /Free-Write/public/Writer/Overview/' . $bookID);
@@ -586,10 +651,10 @@ public function deleteQuote($qID = 0)
         $title = $_POST['story-editor-chapter'] ?? '';
         $content = $_POST['story-editor'] ?? '';
         $datetime = date('Y-m-d H:i:s');
+        $price = isset($_POST['price']) && $_POST['price'] !== '' ? $_POST['price'] : null;
 
-        
 
-        $Chapter->insert(['title' => $title, 'content' => $content, 'lastUpdated' => $datetime]);
+        $Chapter->insert(['title' => $title, 'content' => $content, 'lastUpdated' => $datetime, 'price' => $price]);
 
         $chapterID = $Chapter->first(['title' => $title, 'content' => $content, 'lastUpdated' => $datetime])['chapterID'];
 
@@ -677,4 +742,27 @@ public function ViewWriter(){
     $this->view('writer/viewWriter', ['userDetails' => $userDetails, 'quotes' => $quotes, 'MostViewed' => $MostViewed, 'Latest' => $Latest]);
 }
 
+public function Insights()
+{
+    $author = $_SESSION['user_id'];
+
+    $userDetailsTable = new UserDetails();
+    $userDetails = $userDetailsTable->first(['user' => $author]);
+
+    $Followers = new Follow();
+    $followers = $Followers->getFollowCount($author);
+
+    $mostViewed = new Book();
+    $mostViewed = $mostViewed->getMostViewedBooks($author);
+
+    $rating = new Book();
+    $Rated = $rating->getRatedBooks($author);
+
+    $view = new Book();
+    $totViewsArray = $view->getAuthorViews($author);
+    $views = $totViewsArray[0]['totalViews'] ?? 0;
+
+    $this->view('writer/insights',['userDetails' => $userDetails, 'followers' => $followers, 'views' => $views, 'MostViewed' => $mostViewed, 'Rated' => $Rated]);
+
+}
 }

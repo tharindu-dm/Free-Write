@@ -47,7 +47,7 @@
                         <label for="title">Title</label>
 
                         <input type="text" maxlength="45" rows="7" id="title" name="title"
-                            placeholder="Book Title" required>
+                            placeholder="Title" required>
                     </div>
 
                     <div class="input-group">
@@ -65,7 +65,7 @@
                         <?php foreach ($genres as $genre) {
                     echo "<option value=\"{$genre['genreID']}\">{$genre['name']}</option>";
                         } ?>
-            </select>
+                        </select>
                     </div>
 
                     <div class="input-group">

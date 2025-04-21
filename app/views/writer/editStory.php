@@ -31,11 +31,16 @@
     <form action="/Free-Write/public/Writer/UpdateChapter" method="POST" enctype="multipart/form-data">
         <main class="writing-section">
             <!-- Title -->
-            <div class="story-info">
+            <div class="space_between">
                 <h1 class="story-title">
                     <?php 
                     echo htmlspecialchars($chapter['BookTitle']); ?>
                 </h1>
+                <div class="input-group">
+                    <label for="price">Price(LKR):</label>
+                        <input type="number" id="price" name="price" min="0" step="0.01" placeholder="Free"
+                            value="<?= htmlspecialchars($chapter['price'] ?? ''); ?>">
+                    </div>
             </div>
 
             <!-- Chapter Name -->
@@ -49,15 +54,19 @@
                 <textarea id="story-editor" name="story-editor"
                     placeholder="Type your text..."><?= htmlspecialchars($chapter['ChapterContent'] ?? '') ?></textarea>
             </div>
+
+
             <div class="lastUpdated">
                 <p>Last Updated: <?= htmlspecialchars($chapter['ChapterLastUpdated'] ?? '') ?></p>
             </div>
+            
 
             <!-- Action Buttons -->
             
             
             <div class="button-container">
-                <button type="button" class="edit-btn cancel-btn" onclick="window.history.back();">Back</button>
+            <button type="button" class="edit-btn cancel-btn" onclick="event.preventDefault(); window.history.back();">Back</button>
+
 
             <div class="right-buttons">
                 <button type="submit" class="edit-btn">Save</button>
@@ -79,7 +88,7 @@
                 <input type="hidden" name="BookID" value="<?= htmlspecialchars($chapter['BookID']); ?>">
                 <input type="hidden" name="chapterID" value="<?= htmlspecialchars($chapter['chapterID']); ?>">
                         <p><strong>Book</strong> - <?= htmlspecialchars($chapter['BookTitle']); ?> </p>
-                        <p><strong>Chapter</strong> - <?= htmlspecialchars($chapter['ChapterTitle']); ?></p>
+                        <p><strong>Chapter</strong> - <?= htmlspecialchars($chapter['ChapterTitle']); ?></p><br>
          <div class="right-buttons">
         <button class="delete-btn" type="submit">Delete</button>
         <button class="edit-btn" type="button" id="cancelDelete">Cancel</button>

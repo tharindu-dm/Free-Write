@@ -15,12 +15,34 @@
     ?>
 
     <!-- Main Content -->
-    <main class="quote-section">
+    <main class="spinoff-view">
+        <div class="spinoff-details">
         <h1><?php echo htmlspecialchars($spinoff['title']); ?></h1>
-        <h3>From <?php echo htmlspecialchars($spinoff['ChapterTitle']); ?></h3>
-        <button class="book-btn" onclick="window.location.href='/Free-Write/public/writer/Overview/<?= htmlspecialchars($spinoff['bookID']); ?>'"><?php echo htmlspecialchars($spinoff['fromBook']); ?></button>
-        <p><?php echo htmlspecialchars($spinoff['synopsis']); ?></p>
-        
+        <div class="spinoff-content">
+        <div class="cover-image">
+            <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($spinoff['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                alt="Cover Image of <?= htmlspecialchars($spinoff['title']); ?>">
+        </div>
+
+        <div class="spinoff-info">
+            <div class="space_between">
+            <h4><?= htmlspecialchars($spinoff['fromBook']); ?></h4>
+            <button class="book-btn"
+                onclick="window.location.href='/Free-Write/public/writer/Overview/<?= htmlspecialchars($spinoff['bookID']); ?>'">
+                View Book
+            </button>
+            </div>
+            <h3>From Chapter: <?= htmlspecialchars($spinoff['ChapterTitle']); ?></h3>
+            <p class="synopsis"><?= htmlspecialchars($spinoff['synopsis']); ?></p>
+        </div>
+    </div>
+    <div class="requested-by">
+    <h4>Requested By: <?= htmlspecialchars($spinoff['creator']); ?></h4>
+    <button class="book-btn"
+                onclick="window.location.href='/Free-Write/public/User/Profile?user=<?= htmlspecialchars($spinoff['creatorID']); ?>'">
+                View Profile
+            </button>
+    </div>
     
         <div class="button-container">
     <!-- Left side: Cancel button -->

@@ -57,7 +57,7 @@
             <!-- Navigation for Writer Options -->
             <?php require_once "../app/views/writer/writerNav.php"; ?>
 
-            <!-- Quotes Section -->
+            <!-- Competition Section -->
             <section class="quotes-section">
                 <h2>My Competitions</h2>
 
