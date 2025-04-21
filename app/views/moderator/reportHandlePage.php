@@ -70,13 +70,6 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-                <div class="pagination">
-                    <button>1</button>
-                    <button class="active">2</button>
-                    <button>3</button>
-                    <button>4</button>
-                    <button>5</button>
-                </div>
             </div>
             <form action="/Free-Write/public/Mod/HandleReport" method="post">
                 <div class="detail-sections">

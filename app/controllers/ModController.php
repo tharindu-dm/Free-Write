@@ -505,70 +505,44 @@ class ModController extends Controller
     {
         $this->checkLoggedUser();
         //query details
-        $reportTable = new Report();
-        $reports = null;
+        $feedbackTable = new Feedback();
+        $feedbacks = null;
 
         if (isset($_GET['filter']) && $_GET['filter'] == 'unhandled') {
-            $reports = $reportTable->where(['status' => 'Pending']);
-            $unfinishedReports = $reportTable->where(['status' => 'Unfinished']);
+            $feedbacks = $feedbackTable->where(['status' => 'Pending']);
+            $unfinishedfeedbacks = $feedbackTable->where(['status' => 'Unfinished']);
 
             // Merge the two arrays
-            $reports = array_merge($reports, $unfinishedReports);
-        } elseif (isset($_GET['filter']) && $_GET['filter'] == 'handled') {
-            $reports = $reportTable->where(['status' => 'Handled']);
-        } elseif (isset($_GET['filter']) && $_GET['filter'] == 'escalated') {
-            $reports = $reportTable->where(['status' => 'Escalated']);
+            $feedbacks = array_merge($feedbacks, $unfinishedfeedbacks);
+        } elseif (isset($_GET['filter']) && $_GET['filter'] == 'unread') {
+            $feedbacks = $feedbackTable->where(['status' => 'unread']);
+        } elseif (isset($_GET['filter']) && $_GET['filter'] == 'read') {
+            $feedbacks = $feedbackTable->where(['status' => 'read']);
         } else {
-            $reports = $reportTable->findAll();
+            $feedbacks = $feedbackTable->findAll();
         }
 
-        $this->view('moderator/FeedbackHandlePage', ['reports' => $reports]);
+        $this->view('moderator/FeedbackHandlePage', ['feedbacks' => $feedbacks]);
     }
 
     public function HandleFeedback()
     {
         $this->checkLoggedUser();
-        error_log("Handling report"); // Add server-side logging
-        echo "<script>console.log('Handling report - Function reached');</script>";
 
-        // Debug POST data
-        error_log("POST data: " . print_r($_POST, true));
+        $feedbackTable = new Feedback();
+        $action = $_POST['Feedbackstatus'] ?? 'unread';
+        $fid = $_POST['FeedbackID'] ?? null;
 
-        if (!isset($_POST['reportID'], $_POST['reportstatus'], $_POST['newstatus'], $_POST['modResponse'])) {
-            error_log("Missing required fields");
-            echo "<script>console.log('Missing required fields:', " .
-                json_encode($_POST) . ");</script>";
-            return;
+        switch ($action) {
+            case 'read':
+                $feedbackTable->update($fid, ['isRead' => 1], "feedbackID");
+                break;
+            case 'unread':
+                $feedbackTable->update($fid, ['isRead' => 0], "feedbackID");
+                break;
         }
 
-        $reportTable = new Report();
-
-        $reportID = $_POST['reportID'];
-        $reportOldStatus = $_POST['reportstatus'];
-        $reportStatus = $_POST['newstatus'];
-        $modResponse = $_POST['modResponse'];
-
-        //validations
-        if (($reportStatus == 'handled' || $reportStatus == 'Escalated') && $modResponse == '') {
-            echo "<script>console.log(Please provide a response to the report)</script>";
-            return;
-        }
-
-        if ($reportID == '' || $reportStatus == '') {
-            echo "<script>console.log(please refresh the site)</script>";
-            return;
-        }
-
-        //update report
-        $reportTable->update($reportID, ['status' => $reportStatus, 'modResponse' => $modResponse, 'handler' => $_SESSION['user_id']], 'reportID');
-
-        //moglog update
-        $modlog = new ModLog();
-        $ModLogActivity = 'Accessed REPORT: ' . $reportID . ' status changed from: ' . $reportOldStatus . ' to: ' . $reportStatus;
-
-        $modlog->insert(['mod' => $_SESSION['user_id'], 'activity' => $ModLogActivity, 'occurrence' => date('Y-m-d H:i:s')]);
-
-        header('location: /Free-Write/public/Mod/Reports');
+        header('location: /Free-Write/public/Mod/Feedbacks');
         exit();
     }
 
