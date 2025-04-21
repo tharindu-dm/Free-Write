@@ -36,4 +36,10 @@ class CoverImage
     {
         return $this->where(['artist' => $designerId]);
     }
+
+    public function getAllCoverImages() {
+        // Custom SQL query to fetch all cover images
+        $query = "SELECT covID, name, license, description, artist FROM {$this->table}";
+        return $this->query($query);
+    }
 }

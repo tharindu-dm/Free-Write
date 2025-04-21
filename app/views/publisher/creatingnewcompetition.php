@@ -227,10 +227,18 @@
     <input type="number" id="first_prize" name="first_prize" placeholder="Enter first prize amount" required min="0" step="0.01" />
 
     <label for="second_prize">Second Prize Amount</label>
-<input type="number" id="second_prize" name="second_prize" placeholder="Enter second prize amount" required min="0" step="0.01" />
+    <input type="number" id="second_prize" name="second_prize" placeholder="Enter second prize amount" required min="0" step="0.01" />
 
-<label for="third_prize">Third Prize Amount</label>
-<input type="number" id="third_prize" name="third_prize" placeholder="Enter third prize amount" required min="0" step="0.01" />
+    <label for="third_prize">Third Prize Amount</label>
+    <input type="number" id="third_prize" name="third_prize" placeholder="Enter third prize amount" required min="0" step="0.01" />
+
+    <label for="type"> Type(For whom) </label>
+    <!-- <input type="option" id="type" name="type" placeholder="Enter the type of competition" required > -->
+    <select id="type" name="type">
+      <option value="writer">for writers</option>
+      <option value="covdes">for cover page designers</option>
+    </select>
+
     
     <label for="start_date">Start Date</label>
     <input type="date" id="start_date" name="start_date" required />

@@ -89,4 +89,13 @@ class User
         return $this->update($userID, $data, 'userID');
     }
 
+    public function getCoverDesigners()
+    {
+        $query = "SELECT u.[userID], u.[email], u.[userType], ud.[firstName], ud.[lastName], ud.[profileImage]
+                FROM [dbo].[User] u
+                JOIN [dbo].[UserDetails] ud ON u.[userID] = ud.[user]
+                WHERE u.[userType] IN ('covdes', 'wricov') AND u.[isActivated] = 1";
+        return $this->query($query);
+    }
+
 }

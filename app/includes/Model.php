@@ -38,7 +38,7 @@ trait Model
 
         $data = array_merge($data, $data_not);
 
-        show($query);
+        //show($query);
         return $this->query($query, $data);
     }
 
@@ -117,6 +117,24 @@ trait Model
             return true;
         }
         return false;
+    }
+
+    
+    public function deleteWhere($conditions) {
+        $keys = array_keys($conditions);
+        $query = "DELETE FROM [{$this->table}] WHERE ";
+    
+        foreach ($keys as $key) {
+            $query .= "[{$key}] = :{$key} AND ";
+        }
+    
+        $query = rtrim($query, " AND ");
+    
+        // Debug the query and parameters
+        error_log("Delete Query: " . $query);
+        error_log("Delete Parameters: " . json_encode($conditions));
+    
+        return $this->query($query, $conditions);
     }
 
 

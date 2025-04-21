@@ -28,8 +28,11 @@ class App
 
         $controller = new $this->controller();
 
-        if (method_exists($controller, $this->method)) { //
-            call_user_func_array([$controller, $this->method], []);
+        // Extract parameters from the URL (everything after the method name)
+        $params = array_slice($URL, 2);
+
+        if (method_exists($controller, $this->method)) {
+            call_user_func_array([$controller, $this->method], $params);
         } else {
             // Fallback to index method if the specified method doesn't exist
             call_user_func_array([$controller, 'index'], []);

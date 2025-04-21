@@ -41,14 +41,19 @@
 
     <main class="dashboard-container">
 
-        <aside class="side-nav">
+        <!-- <aside class="side-nav">
             <ul>
                 <li><a href="/Free-Write/public/Designer/Dashboard" class="active">Dashboard</a></li>
-                <li><a href="/Free-Write/public/Designer/Competition">Competitions</a></li>
+                <li><a href="/Free-Write/public/DesignerCompetition/index">Competitions</a></li>
                 <li><a href="/Free-Write/public/Designer/New">Create New Design</a></li>
                 <li><a href="/Free-Write/public/User/profile">Profile</a></li>
             </ul>
-        </aside>
+        </aside> -->
+
+        <?php
+        require_once "../app/views/CoverPageDesigner/sidebar.php";
+        ?>
+
         <section class="main-content">
             <section class="user-profile">
                 <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>"
@@ -59,7 +64,7 @@
 
             <nav class="profile-nav">
                 <a href="#" class="active">Your Designs</a>
-                <a href="/Free-Write/public/Designer/Competition">Competitions</a>
+                <a href="/Free-Write/public/DesignerCompetition/index">Competitions</a>
             </nav>
 
             <section class="designs">

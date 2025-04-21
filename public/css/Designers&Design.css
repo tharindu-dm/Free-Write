@@ -117,18 +117,9 @@ body {
 }
 
 /* Cover Page Designers Section */
-.cover-page-designers {
-  padding: 2rem;
-}
-
-.cover-page-designers h2 {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
 .designer-profiles {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 2rem;
 }
 
@@ -139,19 +130,31 @@ body {
 .designer-profile a {
   color: inherit;
   text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .designer-profile img {
-  width: 250px;
-  height: 250px;
-  border-radius: 100%;
+  width: 100%;
+  max-width: 160px;
+  aspect-ratio: 1 / 1;
+  height: auto;
+  border-radius: 50%;
   object-fit: cover;
   margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: transform 0.2s;
+}
+
+.designer-profile img:hover {
+  transform: scale(1.05);
 }
 
 .designer-profile h3 {
   font-size: 1rem;
   margin: 0;
+  word-break: break-word;
 }
 
 .pagination {
@@ -199,9 +202,13 @@ body {
 }
 
 .cover-page-design img {
-  max-width: 100%;
-  height: auto;
+  width: 200px; /* Fixed width */
+  height: 300px; /* Fixed height */
+  object-fit: cover; /* Ensures the image fits within the box */
+  border-radius: 8px; /* Optional: Adds rounded corners */
   margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s;
 }
 
 .cover-page-design h3 {
