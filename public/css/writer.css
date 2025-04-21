@@ -17,8 +17,36 @@ main{
     margin-top: 20px;
 }
 
+
 /* Main Quote Section */
-.quote-section {
+.quote-section{
+    margin: 50px auto;
+    width: 100%;
+    max-width: 900px;
+    min-height: 500px;
+    flex-direction: column;
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.quote-section p{
+    font-size: 20px;
+    font-style: italic;
+}
+
+.quote-section h4{
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.quote-section h2{
+    margin-bottom: 20px;
+}
+
+.spinoff-view {
     margin: 50px auto;
     width: 100%;
     max-width: 900px;
@@ -32,36 +60,39 @@ main{
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.quote-section svg{
+.spinoff-view svg{
     width: 100px;
     height: 100px;
 }
 
-.quote-section p{
+.spinoff-view p {
     padding: 8px;
     width: 100%;
     max-width: 700px;
-    height: auto;
+    min-height: 200px;
     margin-top: 20px;
-    border: 2px solid #ccc;
-    border-radius: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background: #eeeeee;
 }
 
-.quote-section h4 {
-    font-size:20px;
-    color: #7b7b7b;
+.spinoff-view h4 {
+    font-size:18px;
     margin-bottom: 10px;
-    padding: 20px;
+    padding: 10px;
 }
-.quote-section h3 {
+
+.spinoff-view h1 {
+    font-size: 36px;
     color: #333;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
 }
 
-.quote-section p {
-    font-size: 18px;
-    color: #666;
-    margin-bottom: 30px;
+.spinoff-view h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    padding: 10px;
 }
 
 /* Form Styles */
@@ -74,14 +105,31 @@ main{
 
 .quote-input {
     width: 100%;
-    height: 100px;
-    padding: 15px;
-    font-size: 16px;
+    background: #fdf4e5;
+    height: 250px;
+    padding: 30px;
+    font-family: 'Arial', sans-serif;
+    font-size: 20px;
+    font-style: italic;
     border: 1px solid #ccc;
     border-radius: 6px;
     margin-bottom: 20px;
     resize: none;
 }
+
+.book-form{
+    margin: 0px auto;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    max-width: 1000px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Aligns elements to the top */
+    background-color: #fff;
+    padding: 40px;
+}
+
 
 .book-title-input {
     width: 100%;
@@ -97,7 +145,7 @@ main{
     background-color: #ffcc00;
     border: none;
     border-radius: 6px;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
 }
 
@@ -172,20 +220,20 @@ main{
     margin-top: 50px;
     margin-bottom: 50px;
     max-width: 1000px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: flex-start; /* Aligns elements to the top */
-    background-color: #fff;
+    align-items: center; /* Aligns elements to the top */
+    background-color: #ffffff;
     padding: 40px;
     border-radius: 8px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.book-form {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
+.book-section p, .book-section h1 {
+    padding-left: 30px;
 }
+
 
 .form-left {
     width: 60%;
@@ -193,21 +241,28 @@ main{
 
 .input-group {
     margin-bottom: 20px;
+    width: 500px;
 }
 
 .input-group label {
     display: block;
     font-size: 18px;
     color: #333;
-    margin-bottom: 8px;
 }
 
-.input-group input, .input-group select, .input-group textarea {
+.input-group input, .input-group textarea {
     width: 100%;
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 6px;
+}
+.input-group select {
+    width: 100%;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #f9f9f9;
 }
 
 .input-group textarea {
@@ -227,10 +282,11 @@ main{
 
 .create-btn {
     padding: 10px 30px;
+    min-width: 120px;
     background-color: #ffcc00;
     border: none;
     border-radius: 6px;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
 }
 
@@ -255,8 +311,9 @@ main{
     background-color: #ffcc00;
     border: none;
     border-radius: 6px;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
+    min-width: 120px;
 }
 
 .cover-preview {
@@ -268,7 +325,9 @@ main{
     height: 200px;
     object-fit: cover;
     margin-bottom: 10px;
+
 }
+
 
 .avatar-preview {
     width: 40px;
@@ -318,10 +377,11 @@ main{
 
 .save-btn,.cancel-btn, .publish-btn {
     padding: 10px 20px;
+    min-width: 120px;
     background-color: #ffcc00;
     border: none;
     border-radius: 6px;
-    font-size: 18px;
+    font-size: 16px;
     margin-left: 10px;
     cursor: pointer;
 }
@@ -337,6 +397,7 @@ main{
     padding: 30px;
     margin-bottom: 20px;
     border-radius: 8px;
+    font-size: 16px;
     border: 2px solid #e6e6e6;
 }
 
@@ -345,7 +406,7 @@ main{
     height: 800px;
     background-color: transparent;
     border: none;
-    font-size: 24px;
+    font-size: 16px;
     color: #333;
     outline: none;
     resize: none;
@@ -353,13 +414,15 @@ main{
 #story-editor-chapter {
     width: 100%;
     height: 30px;
+    line-height: 30px; /* vertically centers the text */
     background-color: transparent;
     border: none;
-    font-size: 24px;
+    font-size: 16px;
     color: #333;
     outline: none;
     resize: none;
 }
+
 
 #story-editor::placeholder {
     font-style: italic;
@@ -405,6 +468,8 @@ main{
 /* Featured Section - First Row */
 .featured-section {
     display: grid;
+    text-align: center;
+    justify-content: center;
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
     margin-bottom: 2rem;
@@ -412,15 +477,32 @@ main{
 
 /* Most Viewed Book Card */
 .featured-book-card {
+    margin-top: 20px;
     display: flex;
     text-align: center;
     justify-content: center;
-    background: #ffcc00;
+    background: #ffd700;
     border-radius: 10px;
     overflow: hidden;
-    height: 320px;
+    height: 300px;
     border: 1px solid rgba(132, 94, 82, 0.3);
 }
+.featured-book-card span{
+    align-self: flex-end;
+    margin-top: auto;
+    display: flex;
+    height: 100%;
+    gap: 10px;
+}
+
+.most_viewed {
+    border: 1px solid rgba(132, 94, 82, 0.3);
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
+
+}
+
   .book-card:hover {
     transform: translateY(-5px);
     background-color: #ffd700;
@@ -432,41 +514,9 @@ main{
     transition: all 0.3s ease;
 }
 
-.featured-book-cover {
-    width: 40%;
-    height: 100%;
-    overflow: hidden;
-}
-.featured-book-stats {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 1rem;
-    color: var(--pink);
-}
-
-.featured-book-cover img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: var(--transition);
-}
 
 .featured-book-card:hover .featured-book-cover img {
     transform: scale(1.05);
-}
-
-.featured-book-details {
-    width: 60%;
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.featured-book-details h3 {
-    font-size: 1.8rem;
-    margin-bottom: 0.5rem;
-    color: var(--cream);
 }
 
 
@@ -474,6 +524,96 @@ main{
   .quote-item li{ 
     transition: transform 0.3s ease, background-color 0.3s ease;
 }
+
+.spinoff-details {
+    padding: 2rem;
+    font-family: 'Segoe UI', sans-serif;
+    max-width: 1000px;
+    margin: auto;
+    background-color: #fdfdfd;
+    border-radius: 8px;
+}
+
+.spinoff-details h1 {
+    font-size: 2rem;
+    margin-bottom: 50px;
+    color: #333;
+}
+
+.spinoff-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+    margin-top: 1.5rem;
+    align-items: flex-start;
+}
+.spinoff-info {
+    flex: 1;
+    text-align: left;
+    font-size: 16px;
+    min-width: 280px;
+}
+
+.spinoff-info h3 {
+    margin: 0 0 0.5rem;
+    font-size: 16px;
+    color: #555;
+}
+.synopsis {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #444;
+}
+
+.space_between{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.space_between h3, select{
+    font-size: 16px;
+    font-weight: normal;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    max-width: 300px;
+    min-width: 300px;
+    min-height: 80px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    background: #efefef;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.space_between .input-group{
+    display: flex;
+    flex-direction: row;
+    width: 200px;
+    gap: 10px;
+}
+
+.space_between label{
+    margin-top: 7px;
+}
+
+
+.requested-by {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #444;
+    background: #eeeeee;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+}
+
 
 .quote-item li:hover, .spinoff-item:hover {
     transform: translateY(-5px);
@@ -498,11 +638,17 @@ main{
     font-size: 14px;
     color: #888;
   }
+.book-cover{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+}
 
 .book-cover img {
     align-items: center;
     justify-content: center;
-    display: block;
+    display: flex;
     width: 200px;
     height: 300px;
     border-radius: 8px;
@@ -511,6 +657,7 @@ main{
 .book-info {
     margin-left: 40px;
     width: 600px;
+
 
 }
 
@@ -535,13 +682,13 @@ main{
 
 .edit-btn, .delete-btn {
     width: 100px;
-    margin-bottom: 20px;
+    min-width: 120px;
     background-color: #ffcc00;
     border: none;
     border-radius: 6px;
-    font-size: 18px;
+    font-size: 16px;
     text-align: center;
-    height: 40px;
+    height: 38px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -765,15 +912,12 @@ main{
 /* Quote container */
 .quote-container {
     width: 100%; 
-    height: 100%; 
-    max-width: 800px;
-    padding: 20px;
+    height: 200px; 
     margin: 0 auto;  
-    margin-top: 20px;
     display: flex;  
     justify-content: center;  
     align-items: center;  
-    flex-direction: column;  
+    flex-direction: column;
 }
 
 .quote-info {
@@ -803,14 +947,14 @@ main{
 }
 
 .delete-btn {
-    background-color: #ff0000;
+    background-color: #000000;
+    color: #ffffff;
 }
 
 .button-container {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    max-width: 800px;
     margin: 50px 0;
     margin-bottom: 0%;
 }
@@ -822,9 +966,23 @@ main{
 
 /* Right-aligned Edit and Delete buttons */
 .right-buttons {
+  display: flex;
+  align-items: center;    
+  align-self: center; 
+  justify-content: center; 
+  gap: 10px;
+  margin: 0;               
+  padding: 0; 
+}
+
+.right-right-buttons{
     display: flex;
-    gap: 10px; 
     align-items: center;
+    width: 100%;
+    justify-content: flex-end;
+    gap: 10px;
+    margin: 0;               
+    padding: 0; 
 }
 
 .spinoff-container {
@@ -958,10 +1116,13 @@ main{
 }
 .book-btn {
     padding: 10px 20px;
+    margin-top: 10px;
+    min-width: 120px;
+    margin-bottom: 10px;
     background-color: #ffcc00;
     border: none;
     border-radius: 6px;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
 }
 
@@ -1048,31 +1209,30 @@ main{
 }
 
 .delete-btn:hover {
-    background-color: #c90011;
+    background-color: #d60012;
 }
 
-/*RATING*/
-.rating-container {
-    display: flex;
-    margin-top: 30px;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 1rem;
-  }
   
   select {
     font-size: medium;
     border: none;
   }
   
+  .select-quote-input{
+    background: #fdf4e5;
+    gap: 10px;
+  }
+
   .rating {
     display: inline-flex;
-    align-items: center;
-    padding: 0.5rem;
+    flex-direction: row;
     border: 2px solid #ffd700;
+    height: 38px;
+    align-items: center;
+    justify-content: center;
     border-radius: 20px;
     background-color: transparent;
-    margin-bottom: 2rem;
+    padding: 0.25rem 1rem 0.25rem 1rem;
   }
   
   .rating-select {
@@ -1086,7 +1246,7 @@ main{
     cursor: pointer;
   }
   
-  .rating svg {
+  .rating svg, p svg {
     color: #ffd700;
     width: 24px;
     height: 24px;
@@ -1111,6 +1271,44 @@ main{
     padding-bottom: 0.5rem;
   }
   
+/*chart */
+  .chart-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #fafafa;
+    border-radius: 8px;
+}
+
+.bar {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+    padding: 6px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.bar-title {
+    flex: 0 0 150px;
+    padding-right: 10px;
+    font-size: 14px;
+    color: #333;
+    text-align: right;
+}
+
+.bar-fill {
+    height: 22px;
+    background-color: #ffd700;
+    color: white;
+    text-align: right;
+    padding: 0 8px;
+    line-height: 22px;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
   /* Table Styles */
   .table-of-contents table {
     width: 100%;
@@ -1204,7 +1402,6 @@ select:hover {
 /* Adjusting the label for Select */
 label {
     font-size: 18px;
-    margin-bottom: 8px;
     color: #333;
     display: block;
 }

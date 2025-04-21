@@ -33,22 +33,22 @@
                         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                         body: new URLSearchParams({ book_id: bookID })
                     })
-                    .then(response => {
-                        if (!response.ok) throw new Error('Failed to load chapters');
-                        return response.json();
-                    })
-                    .then(data => {
-                        if (data.length === 0) {
-                            alert('No chapters found for this book.');
-                        }
-                        data.forEach(chapter => {
-                            let option = document.createElement('option');
-                            option.value = chapter.chapter;
-                            option.textContent = chapter.title;
-                            chapterDropdown.appendChild(option);
-                        });
-                    })
-                    .catch(error => console.error('Error fetching chapters:', error));
+                        .then(response => {
+                            if (!response.ok) throw new Error('Failed to load chapters');
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.length === 0) {
+                                alert('No chapters found for this book.');
+                            }
+                            data.forEach(chapter => {
+                                let option = document.createElement('option');
+                                option.value = chapter.chapter;
+                                option.textContent = chapter.title;
+                                chapterDropdown.appendChild(option);
+                            });
+                        })
+                        .catch(error => console.error('Error fetching chapters:', error));
                 }
             });
 
@@ -78,20 +78,17 @@
     <!-- Main Content -->
     <main class="quote-section">
         <h1>Create a Quote</h1>
-        <h4>Share your favorite passages from your books. Quotes can be up to 280 characters.</h4>
+        <h4>Share your favorite passages from your books. Quotes can be up to 250 characters.</h4>
 
         <!-- Form for Creating a Quote -->
         <form action="/Free-Write/public/Writer/saveQuote" method="post" class="quote-form">
-            <label for="book_select">Select Book:</label>
-            <select id="book_select" name="book_id" class="book-select-input" required>
+            <select id="book_select" name="book_id" class="select-quote-input" required>
                 <option value="">Select Book</option>
                 <?php foreach ($books as $book) {
                     echo "<option value=\"{$book['bookID']}\">{$book['title']}</option>";
                 } ?>
             </select>
-
-            <label for="chapter">Select Chapter:</label>
-            <select id="chapter" name="chapter" class="chapter-select-input" required>
+            <select id="chapter" name="chapter" class="select-quote-input" required>
                 <option value="">Select Chapter</option>
                 <?php foreach ($chapters as $chapter): ?>
                     <option value="<?= htmlspecialchars($chapter['chapterID']); ?>">
@@ -99,13 +96,15 @@
                     </option>
                 <?php endforeach; ?>
             </select>
-<div class="quote-container">
-            <textarea id="quote" name="quote" class="quote-input" placeholder="Enter your quote here..." maxlength="280" required></textarea>
-</div>
-<div class="action-buttons">
-            <button type="submit" class="edit-btn">Post</button>
-            <button type="button" class="edit-btn" onclick="window.history.back();">Cancel</button>
-</div>
+            <div class="quote-container">
+                <textarea id="quote" name="quote" class="quote-input" placeholder="Enter your quote here..."
+                    maxlength="255" required></textarea>
+            </div>
+            <div class="action-buttons">
+                <button type="button" class="edit-btn" onclick="window.history.back();">Cancel</button>
+                <button type="submit" class="edit-btn">Post</button>
+
+            </div>
         </form>
     </main>
 
@@ -116,4 +115,3 @@
 </body>
 
 </html>
-

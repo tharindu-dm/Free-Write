@@ -26,4 +26,14 @@ class BookGenre
         return $this->query($query);
     }
 
+    public function getBookGenre($bid)
+    {
+        $query = "SELECT g.[name] AS genreName, g.[genreID] FROM [Genre] g
+        JOIN [BookGenre] bg ON bg.[genre] = g.[genreID] 
+        JOIN [Book] b ON bg.[book] = b.[bookID] 
+        WHERE b.[bookID] = $bid;";
+
+        return $this->query($query);
+    }
+
 }

@@ -33,8 +33,10 @@ class Quote
     {
         $query = "SELECT 
             q.quoteID,
+            b.bookID,
             q.quote, 
             c.title AS chapter_name, 
+            c.chapterID,
             bc.book,
             b.title AS book_name,
             u.userID
@@ -46,23 +48,23 @@ class Quote
         LEFT JOIN [User] u ON b.author = u.userID
         WHERE 
             q.quoteID = :quoteID";
-    
+
         $params = [':quoteID' => $quoteID];
         $result = $this->query($query, $params);
-     
+
         if ($result) {
             return $result[0]; // Return the first result if found
         } else {
             return null; // No results found
         }
     }
-    
+
 
 
     public function getQuoteByAuthor($uid)
     {
-    
-    $query = "SELECT 
+
+        $query = "SELECT 
     q.quoteID,
     q.quote, 
     c.title AS chapter_name, 
@@ -79,7 +81,6 @@ class Quote
     WHERE 
     b.author =$uid";
 
-    return $this->query($query);
+        return $this->query($query);
     }
 }
-

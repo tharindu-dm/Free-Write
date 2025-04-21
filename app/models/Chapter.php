@@ -14,6 +14,7 @@ class Chapter
         $title_author_query = "SELECT b.[title] AS BookTitle,
                     CONCAT(u.[firstName], ' ', u.[lastName]) AS AuthorName, bc.[book] AS BookID,
                     c.title AS ChapterTitle,
+                    c.price,
                     c.lastUpdated AS ChapterLastUpdated,
                     c.content AS ChapterContent,
                     c.chapterID

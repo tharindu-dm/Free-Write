@@ -31,29 +31,35 @@
     <form action="/Free-Write/public/Writer/saveChapter" method="POST" enctype="multipart/form-data">
         <main class="writing-section">
             <!-- Title -->
-            <div class="story-info">
+            <div class="space_between">
                 <h1 class="story-title">
                     <?php echo htmlspecialchars($book['title']); ?>
                 </h1>
+                <div class="input-group">
+                    <label for="price">Price(LKR):</label>
+                    <input type="number" min="0" id="price" name="price" placeholder="Free">
+                </div>
             </div>
 
             <!-- Chapter Name -->
             <div class="text-editor">
-            <textarea id="story-editor-chapter" name="story-editor-chapter"
-            placeholder="Chapter Name"><?= htmlspecialchars($chapter ?? 'Chapter ' . $chapterCount) ?></textarea>
+                <textarea id="story-editor-chapter" name="story-editor-chapter"
+                    placeholder="Chapter Name"><?= htmlspecialchars('Chapter ' . $chapterCount) ?></textarea>
 
             </div>
 
             <!-- Story Editor -->
             <div class="text-editor">
-                <textarea id="story-editor" name="story-editor"
-                    placeholder="Type your text..."><?= htmlspecialchars($content ?? '') ?></textarea>
+                <textarea id="story-editor" name="story-editor" placeholder="Type your text..."></textarea>
             </div>
+
+
 
             <!-- Action Buttons -->
             <div class="action-buttons">
-                <button type="submit" class="save-btn">Save</button>
                 <button type="button" class="save-btn" onclick="window.history.back();">Cancel</button>
+                <button type="submit" class="save-btn">Save</button>
+
             </div>
 
             <input id="bookID_hidden" type="hidden" name="bookID" value="<?= $book['bookID'] ?>">

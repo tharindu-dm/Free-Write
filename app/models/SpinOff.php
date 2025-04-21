@@ -59,15 +59,17 @@ class SpinOff
                     s.[accessType],
                     s.[lastUpdated],
                     s.[isAcknowledge],
-                    s.[startingChapter]
+                    s.[startingChapter],
+                    ci.[name] AS cover_image 
                     FROM [dbo].[Spinoff] s
                     JOIN [dbo].[UserDetails] u ON s.[creator] = u.[user] 
                     LEFT JOIN [dbo].[Chapter] c ON s.startingChapter = c.chapterID
-                    JOIN [dbo].[Book] b ON s.[fromBook] = b.[bookID] WHERE s.[spinoffID] = $spinoffID;";
+                    JOIN [dbo].[Book] b ON s.[fromBook] = b.[bookID]
+                    LEFT JOIN [dbo].[CoverImage] ci ON b.[coverImage] = ci.covID
+                    WHERE s.[spinoffID] = $spinoffID;";
 
         return $this->query($query);
     }
-
 
     public function getFromChapterID($chapID)
     {
