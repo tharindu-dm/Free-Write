@@ -521,10 +521,15 @@ class WriterController extends Controller
         $book = new Book();
         $bookDetails = $book->first(['bookID' => $bookID]);
 
+        $covID = $bookDetails['coverImage'];
+        $coverImage = new CoverImage();
+        $coverDetails = $coverImage->first(['covID' => $covID]);
+
         $bookGenre = new BookGenre();
         $genreDetails = $bookGenre->getBookGenre($bookID);
 
-        $this->view('writer/editBook', ['book' => $bookDetails, 'genres' => $genres, 'genreDetails' => $genreDetails]);
+        $this->view('writer/editBook', ['book' => $bookDetails, 'genres' => $genres, 'genreDetails' => $genreDetails, 'coverDetails' => $coverDetails]);
+
     }
 
     public function Update()
@@ -539,6 +544,30 @@ class WriterController extends Controller
         $price = $_POST['price'] ?? null;
         $lastUpdated = date('Y-m-d H:i:s');
 
+        if (isset($_FILES['cover_image'])) {
+            $author = $_SESSION['user_id'];
+            $file = $_FILES['cover_image'];
+            $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
+            $dateTime = date('Y-m-d_H-i-s');
+            $date = date('Y-m-d');
+            $FileName = $author.'_'. $dateTime. '.' . $ext;
+    
+            $uploadDir = __DIR__ . '/../images/coverDesign/'; // Absolute path on disk
+            $uploadPath = $uploadDir . $FileName;
+    
+            if (move_uploaded_file($file['tmp_name'], $uploadPath)) {
+                $cover = new CoverImage();
+                $cover->insert([
+                    'name' => $FileName,
+                    'artist' => $author,
+                    'uploadDate' => $date
+                ]);
+            }
+        }
+
+        $coverImage = new CoverImage();
+        $coverImageDetails = $coverImage->first(['uploadDate' => $date]);
+
         $data = [
             'title' => $title,
             'Synopsis' => $Synopsis,
@@ -547,6 +576,7 @@ class WriterController extends Controller
             'price' => $price,
             'isCompleted' => $status,
             'lastUpdateDate' => $lastUpdated,
+            'coverImage' => $coverImageDetails['covID'] ?? null
         ];
 
         $book = new Book();
@@ -554,6 +584,8 @@ class WriterController extends Controller
 
         $book->update($bookID, $data, 'bookID');
         $bookGenre->update($bookID, ['genre' => $genre], 'book');
+
+        
 
         header('location: /Free-Write/public/Writer/Overview/' . $bookID);
         exit;

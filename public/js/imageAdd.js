@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const files = event.dataTransfer.files; // Get dropped files
     if (files.length > 0) {
       fileInput.files = files; // Assign files to the input element
-      // Optionally, you can show a preview of the image here
     }
   });
 });

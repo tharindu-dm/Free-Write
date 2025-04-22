@@ -138,6 +138,31 @@ main {
   margin-bottom: 20px;
 }
 
+.book-cover input[type="file"] {
+  padding: 0.25rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  width: 200px;
+}
+
+/* for better ux hinting aboutfile upload */
+.book-cover input[type="file"]::file-selector-button {
+  background-color: #ffd700;
+  color: #000;
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  font-weight: 600;
+  width: 100px;
+  text-align: center;
+}
+
+.book-cover input[type="file"]::file-selector-button:hover {
+  background-color: #e6c200;
+}
+
 .post-btn {
   padding: 10px 30px;
   background-color: #ffcc00;
@@ -518,6 +543,10 @@ h1 {
 
 .featured-book-card:hover .featured-book-cover img {
   transform: scale(1.05);
+}
+
+.book-cover .book-btn{
+  min-width: 200px;
 }
 
 .quote-item li {

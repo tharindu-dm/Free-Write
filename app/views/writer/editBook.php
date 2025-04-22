@@ -99,11 +99,11 @@
 
                     <!-- Right: Cover Image -->
                     <div class="book-cover">
-                        <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                        <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($coverDetails['name'] ?? 'sampleCover.jpg'); ?>"
                             alt="Cover Image of <?= htmlspecialchars($book['title']); ?>">
                         <button class="book-btn" type="button"
-                            onclick="window.location.href='/Free-Write/public/writer/covers'">Change Cover
-                            Image</button>
+                            onclick="window.location.href='/Free-Write/public/writer/covers'">Find Cover Images</button>
+                            <input type="file" name="cover_image" accept="image/*" required> 
                     </div>
                 </div>
 
@@ -119,6 +119,7 @@
 
     <?php require_once "../app/views/layout/footer.php"; ?>
     <script src="/Free-Write/public/js/writer/editBook.js"></script>
+    <script src="/Free-Write/public/js/imageAdd.js"></script>
 
 </body>
 
