@@ -22,20 +22,24 @@ class BrowseController extends Controller
         $searchResult = null;
 
         switch ($searchType) {
-            case 'book':
-                $book = new Book();
-                $searchResult = $book->searchBook($item);
-                break;
             case 'user':
                 $users = new UserDetails();
                 $searchResult = $users->getUserDetailsByName($item);
+                break;
+            case 'covdes':
+            case 'writer':
+                $users = new UserDetails();
+                $searchResult = $users->getUserDetailsByName($item, $searchType);
                 break;
             case 'spinoff':
                 $spinoff = new Spinoff();
                 $searchResult = $spinoff->getSpinoffByName($item);
                 break;
-            //case 'cover':
-                //break;
+            case 'book':
+            default:
+                $book = new Book();
+                $searchResult = $book->searchBook($item);
+                break;
         }
 
 

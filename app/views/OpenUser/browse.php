@@ -34,9 +34,10 @@
                         <div class="search-container">
                             <select id="search-type" name="searchType" aria-label="Search type">
                                 <option value="book">Book</option>
-                                <option value="user">User</option>
                                 <option value="spinoff">Spinoff</option>
-                                <!--<option value="cover">Cover Design</option>-->
+                                <option value="user">User</option>
+                                <option value="writer">Author</option>
+                                <option value="covdes">Cover Designer</option>
                             </select>
                             <input type="text" id="search-bar" name="itemName" placeholder="Search..."
                                 aria-label="Search query" />

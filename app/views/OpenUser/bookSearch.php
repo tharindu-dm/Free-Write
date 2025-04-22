@@ -32,9 +32,10 @@
                     <div class="search-container">
                         <select id="search-type" name="searchType" aria-label="Search type">
                             <option value="book">Book</option>
-                            <option value="user">User</option>
                             <option value="spinoff">Spinoff</option>
-                            <!--<option value="cover">Cover Design</option>-->
+                            <option value="user">User</option>
+                            <option value="writer">Author</option>
+                            <option value="covdes">Cover Designer</option>
                         </select>
                         <input type="text" id="search-bar" name="itemName" placeholder="Search..."
                             value="<?= htmlspecialchars($_GET['itemName']) ?>" aria-label="Search query" />
@@ -106,7 +107,7 @@
 
 
             <!-- Users -->
-            <?php if (isset($_GET['searchType']) && $_GET['searchType'] == 'user'): ?>
+            <?php if (isset($_GET['searchType']) && ($_GET['searchType'] == 'user' || $_GET['searchType'] == 'writer' || $_GET['searchType'] == 'covdes')): ?>
                 <div class="searchResult-grid">
                     <?php if (isset($searchResult) && count($searchResult) > 0): ?>
                         <?php foreach ($searchResult as $user): ?>

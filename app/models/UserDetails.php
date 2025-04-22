@@ -36,7 +36,7 @@ class UserDetails
         return $this->first(['user' => $userId]);
     }
 
-    public function getUserDetailsByName($name)
+    public function getUserDetailsByName($name, $type = 'user')
     {
         $query = "SELECT CONCAT(ud.firstName, ' ', ud.lastName) AS fullName, 
                 ud.[profileImage],  ud.[bio], u.[userID],
@@ -47,6 +47,16 @@ class UserDetails
                 AND u.[userType] != 'pub' 
                 AND u.[userType] != 'inst' AND 
                 CONCAT(ud.firstName, ' ', ud.lastName) LIKE '%$name%'";
+
+        switch ($type) {
+            case "covdes":
+            case "writer":
+                $query .= " AND u.[userType] = '$type'";
+                break;
+            case "user":
+            default:
+                break;
+        }
 
         return $this->query($query);
     }
