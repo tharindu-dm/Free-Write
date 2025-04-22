@@ -44,6 +44,17 @@
 
                 <div class="product-info">
                     <h1><?= htmlspecialchars($book[0]['title']); ?></h1>
+                    <?php if(!empty($genres) && is_array($genres)): ?>
+                         <p><strong>
+                     <?php
+                         $genreNames = [];
+                        foreach ($genres as $genre):
+                          $genreNames[] = htmlspecialchars($genre['genreName']);
+                            endforeach;
+                         echo implode(' | ', $genreNames);
+                         ?>
+                         </strong></p>
+                    <?php endif; ?>
                     <p class="description"> <?= htmlspecialchars($book[0]['Synopsis']); ?> </p>
 
 

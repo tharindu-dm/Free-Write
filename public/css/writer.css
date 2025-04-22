@@ -163,6 +163,23 @@ main {
   background-color: #e6c200;
 }
 
+.book-checkbox-group {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+  gap: 10px; /* Adjust spacing between checkbox items */
+}
+
+.book-checkbox-item {
+  display: flex;
+  align-items: center;
+  margin-right: 15px; /* Adjust spacing between items horizontally */
+  margin-bottom: 5px; /* Adjust spacing between lines */
+}
+
+.book-checkbox-item input[type="checkbox"] {
+  margin-right: 5px;
+}
+
 .post-btn {
   padding: 10px 30px;
   background-color: #ffcc00;

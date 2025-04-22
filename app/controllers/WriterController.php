@@ -106,12 +106,14 @@ class WriterController extends Controller
 
         $rating = new Rating();
         $bookChapter_table = new BookChapter();
+        $genreDetails = new BookGenre();
+        $genres = $genreDetails->getBookGenre($bookID);
         $bookFound = $book->getBookByID($bookID);
         $bookRating = $rating->getBookRating($bookID);
         $bookChapters = $bookChapter_table->getBookChapters($bookID); //list of chapters related to the specific book
 
 
-        $this->view('writer/bookDetail', ['book' => $bookFound, 'chapters' => $bookChapters, 'rating' => $bookRating, 'spinoffs' => $spinoffs]);
+        $this->view('writer/bookDetail', ['book' => $bookFound, 'chapters' => $bookChapters, 'rating' => $bookRating, 'spinoffs' => $spinoffs, 'genres' => $genres]);
     }
 
     // QUOTES
@@ -487,7 +489,6 @@ class WriterController extends Controller
         $type = $_POST['type'] ?? 'book';
         $datetime = date('Y-m-d H:i:s');
         $author = $_SESSION['user_id'];
-        $genre = $_POST['genre'];
 
         $price = $_POST['price'] ?? null;
 
@@ -495,7 +496,11 @@ class WriterController extends Controller
 
         $bookID = $book->first(['title' => $title, 'Synopsis' => $synopsis, 'price' => $price, 'accessType' => $privacy, 'publishType' => $type, 'author' => $author, 'creationDate' => $datetime, 'lastUpdateDate' => $datetime, 'isCompleted' => 0])['bookID'];
 
-        $bookGenre->insert(['book' => $bookID, 'genre' => $genre]);
+        if (isset($_POST['genre']) && is_array($_POST['genre'])) {
+            foreach ($_POST['genre'] as $genreID) {
+                $bookGenre->insert(['book' => $bookID, 'genre' => $genreID]);
+            }
+            }
 
 
         header('location: /Free-Write/public/Writer/');
@@ -538,7 +543,6 @@ class WriterController extends Controller
         $accessType = $_POST['accessType'] ?? 'public';
         $publishType = $_POST['publishType'] ?? 'book';
         $status = $_POST['status'] ?? '0';
-        $genre = $_POST['genre'] ?? '';
         $price = $_POST['price'] ?? null;
         $lastUpdated = date('Y-m-d H:i:s');
 
@@ -547,8 +551,7 @@ class WriterController extends Controller
             $file = $_FILES['cover_image'];
             $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
             $dateTime = date('Y-m-d H:i:s'); 
-            $date = date('Y-m-d');
-            $FileName = $author . '_' . $title . ' cover.' . $ext; // Replace colons for filename
+            $FileName = $author . '_' . $dateTime  . $ext; // Replace colons for filename
 
             $uploadDir = __DIR__ . '/../images/coverDesign/'; // Absolute path on disk
             $uploadPath = $uploadDir . $FileName;
@@ -581,9 +584,14 @@ class WriterController extends Controller
         $bookGenre = new BookGenre();
 
         $book->update($bookID, $data, 'bookID');
-        $bookGenre->update($bookID, ['genre' => $genre], 'book');
+        $bookGenre->deleteby('book', $bookID);
 
-
+        // Insert the newly selected genres
+        if (isset($_POST['genre']) && is_array($_POST['genre'])) {
+        foreach ($_POST['genre'] as $genreID) {
+            $bookGenre->insert(['book' => $bookID, 'genre' => $genreID]);
+        }
+        }
 
         header('location: /Free-Write/public/Writer/Overview/' . $bookID);
         exit;

@@ -61,14 +61,21 @@
                         </div>
 
                         <div class="input-group">
-                            <label for="genre">Genre</label>
-                            <select id="genre" name="genre" class="book-select-input" required>
-                                <option value="">Select Genre</option>
-                                <?php foreach ($genres as $genre) {
-                                    echo "<option value=\"{$genre['genreID']}\">{$genre['name']}</option>";
-                                } ?>
-                            </select>
-                        </div>
+                        <label for="genre">Genre</label>
+                        <div class="book-checkbox-group">
+                     <?php
+        foreach ($genres as $genre) {
+            $genreID = htmlspecialchars($genre['genreID']);
+            $genreName = htmlspecialchars($genre['name']);
+
+            echo "<div class=\"book-checkbox-item\">";
+            echo "<input type=\"checkbox\" name=\"genre[]\" id=\"genre_{$genreID}\" value=\"{$genreID}\">";
+            echo "<label for=\"genre_{$genreID}\">{$genreName}</label>";
+            echo "</div>";
+        }
+        ?>
+    </div>
+</div>
 
                         <div class="input-group">
                             <label for="price">Price</label>

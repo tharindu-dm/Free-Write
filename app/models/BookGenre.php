@@ -36,4 +36,19 @@ class BookGenre
         return $this->query($query);
     }
 
+    public function deleteBy($column, $value) 
+    {
+        if (!$this->table) {
+            return false;
+        }
+    
+        $query = "DELETE FROM [{$this->table}] WHERE [$column] = :value";
+        $data = [':value' => $value];
+    
+        if ($this->query($query, $data)) {
+            return true;
+        }
+        return false;
+    }
+    
 }
