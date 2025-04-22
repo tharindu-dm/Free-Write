@@ -18,8 +18,7 @@ class WriterController extends Controller
                 $userDetails->update($author, ['userType' => 'reader'], 'userID');//if wricov =>covdes
 
                 $_SESSION['user_type'] = 'reader';
-            }
-            elseif (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'wricov') {
+            } elseif (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'wricov') {
                 $userDetails = new User();
                 $userDetails->update($author, ['userType' => 'covdes'], 'userID');
                 $_SESSION['user_type'] = 'covdes';
@@ -32,8 +31,7 @@ class WriterController extends Controller
                 $userDetails = new User();
                 $userDetails->update($author, ['userType' => 'writer'], 'userID');
                 $_SESSION['user_type'] = 'writer';
-            }
-            elseif (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'covdes') {
+            } elseif (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'covdes') {
                 $userDetails = new User();
                 $userDetails->update($author, ['userType' => 'wricov'], 'userID');
                 $_SESSION['user_type'] = 'wricov';
@@ -548,25 +546,25 @@ class WriterController extends Controller
             $author = $_SESSION['user_id'];
             $file = $_FILES['cover_image'];
             $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
-            $dateTime = date('Y-m-d_H-i-s');
+            $dateTime = date('Y-m-d H:i:s'); 
             $date = date('Y-m-d');
-            $FileName = $author.'_'. $dateTime. '.' . $ext;
-    
+            $FileName = $author . '_' . $title . ' cover.' . $ext; // Replace colons for filename
+
             $uploadDir = __DIR__ . '/../images/coverDesign/'; // Absolute path on disk
             $uploadPath = $uploadDir . $FileName;
-    
+
             if (move_uploaded_file($file['tmp_name'], $uploadPath)) {
                 $cover = new CoverImage();
                 $cover->insert([
                     'name' => $FileName,
                     'artist' => $author,
-                    'uploadDate' => $date
+                    'uploadDate' => $dateTime
                 ]);
             }
         }
 
         $coverImage = new CoverImage();
-        $coverImageDetails = $coverImage->first(['uploadDate' => $date]);
+        $coverImageDetails = $coverImage->first(['uploadDate' => $dateTime]);
 
         $data = [
             'title' => $title,
@@ -585,7 +583,7 @@ class WriterController extends Controller
         $book->update($bookID, $data, 'bookID');
         $bookGenre->update($bookID, ['genre' => $genre], 'book');
 
-        
+
 
         header('location: /Free-Write/public/Writer/Overview/' . $bookID);
         exit;
