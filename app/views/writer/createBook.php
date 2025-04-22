@@ -64,21 +64,21 @@
                         <label for="genre">Genre</label>
                         <div class="book-checkbox-group">
                      <?php
-        foreach ($genres as $genre) {
-            $genreID = htmlspecialchars($genre['genreID']);
-            $genreName = htmlspecialchars($genre['name']);
+                       foreach ($genres as $genre) {
+                       $genreID = htmlspecialchars($genre['genreID']);
+                       $genreName = htmlspecialchars($genre['name']);
 
-            echo "<div class=\"book-checkbox-item\">";
-            echo "<input type=\"checkbox\" name=\"genre[]\" id=\"genre_{$genreID}\" value=\"{$genreID}\">";
-            echo "<label for=\"genre_{$genreID}\">{$genreName}</label>";
-            echo "</div>";
-        }
-        ?>
-    </div>
-</div>
+                        echo "<div class=\"book-checkbox-item\">";
+                        echo "<input type=\"checkbox\" name=\"genre[]\" id=\"genre_{$genreID}\" value=\"{$genreID}\">";
+                        echo "<label for=\"genre_{$genreID}\">{$genreName}</label>";
+                         echo "</div>";
+                       }
+                      ?>
+                      </div>
+                    </div>
 
                         <div class="input-group">
-                            <label for="price">Price</label>
+                            <label for="price">Price(LKR)</label>
                             <input type="number" min="0" id="price" name="price" placeholder="Free">
                         </div>
 

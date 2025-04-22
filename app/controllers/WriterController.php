@@ -212,6 +212,10 @@ class WriterController extends Controller
     {
         $chapter = $_POST['chapter'] ?? '';
         $content = $_POST['quote'] ?? '';
+            if( strlen($content) >= 255) {
+            echo "Quote must be less than 255 characters.";
+            exit;
+            }
 
 
         $quote = new Quote();
@@ -227,6 +231,11 @@ class WriterController extends Controller
     {
         $quoteID = $_POST['quoteID'];
         $content = $_POST['quote'] ?? '';
+            if( strlen($content) >= 255) {
+            echo "Quote must be less than 255 characters.";
+            exit;
+            }
+
         $chapter = $_POST['chapter'] ?? '';
 
         $data = [
@@ -239,7 +248,7 @@ class WriterController extends Controller
             header('location: /Free-Write/public/Writer/ViewQuote/' . $quoteID);
             exit;
         } else {
-            echo "Failed to update the book.";
+            echo "Failed to update the quote.";
         }
     }
 
@@ -388,14 +397,29 @@ class WriterController extends Controller
         $competition = new Competition();
 
         $title = $_POST['title'] ?? '';
-        $synopsis = $_POST['Synopsis'] ?? '';
+            if (strlen($title) >= 45) {
+            echo "Title must be less than 45 characters.";
+            exit;
+            }
+
+        $description = $_POST['Description'] ?? '';
+            if (strlen($description) >= 255) {
+            echo "Synopsis must be less than 255 characters.";
+            exit;
+            }
+
         $author = $_SESSION['user_id'];
         $price = $_POST['price'] ?? null;
+            if ($price < 0 && !is_numeric($price)) {
+            echo "Price must be a Positive number.";
+            exit;
+            }
+
         $startDate = date('Y-m-d');
         $endDate = date('Y-m-d', strtotime('+2 months'));
-        $genre = $_POST['genre'];
+        $category = "cover";
 
-        if ($competition->insert(['title' => $title, 'description' => $synopsis, 'first_prize' => $price, 'publisherID' => $author, 'start_date' => $startDate, 'end_date' => $endDate, 'category' => $genre])) {
+        if ($competition->insert(['title' => $title, 'description' => $description, 'first_prize' => $price, 'publisherID' => $author, 'start_date' => $startDate, 'end_date' => $endDate, 'category' => $category])) {
             header('location: /Free-Write/public/Writer/Competitions');
             exit;
         } else {
@@ -434,12 +458,26 @@ class WriterController extends Controller
     {
         $competitionID = $_POST['cID'];
         $title = $_POST['title'] ?? '';
-        $Synopsis = $_POST['description'] ?? '';
+            if (strlen($title) >= 45) {
+            echo "Title must be less than 45 characters.";
+            exit;
+            }
+
+        $Description = $_POST['Description'] ?? '';
+            if (strlen($Description) >= 255) {
+            echo "Description must be less than 255 characters.";
+            exit;
+            }
+
         $price = $_POST['price'] ?? null;
+            if ($price < 0 && !is_numeric($price)) {
+            echo "Price must be a Positive number.";
+            exit;
+            }
 
         $data = [
             'title' => $title,
-            'description' => $Synopsis,
+            'description' => $Description,
             'first_prize' => $price
         ];
 
@@ -484,13 +522,27 @@ class WriterController extends Controller
         $bookGenre = new BookGenre();
 
         $title = $_POST['title'] ?? '';
+            if (strlen($title) >= 45) {
+            echo "Title must be less than 45 characters.";
+            exit;
+            }
+
         $synopsis = $_POST['Synopsis'] ?? '';
+            if (strlen($synopsis) >= 255) {
+            echo "Synopsis must be less than 255 characters.";
+            exit;
+            }
+
         $privacy = $_POST['privacy'] ?? 'public';
         $type = $_POST['type'] ?? 'book';
         $datetime = date('Y-m-d H:i:s');
         $author = $_SESSION['user_id'];
 
         $price = $_POST['price'] ?? null;
+            if ($price < 0 && !is_numeric($price)) {
+            echo "Price must be a Positive number.";
+            exit;
+            }
 
         $book->insert(['title' => $title, 'Synopsis' => $synopsis, 'price' => $price, 'accessType' => $privacy, 'publishType' => $type, 'author' => $author, 'creationDate' => $datetime, 'lastUpdateDate' => $datetime, 'isCompleted' => 0]);
 
@@ -539,11 +591,26 @@ class WriterController extends Controller
     {
         $bookID = $_POST['bID'];
         $title = $_POST['title'] ?? '';
+            if (strlen($title) >= 45) {
+            echo "Title must be less than 45 characters.";
+            exit;
+            }
+
         $Synopsis = $_POST['Synopsis'] ?? '';
+            if (strlen($Synopsis) >= 255) {
+            echo "Synopsis must be less than 255 characters.";
+            exit;
+            }
+
         $accessType = $_POST['accessType'] ?? 'public';
         $publishType = $_POST['publishType'] ?? 'book';
         $status = $_POST['status'] ?? '0';
         $price = $_POST['price'] ?? null;
+            if ($price < 0 && !is_numeric($price)) {
+            echo "Price must be a Positive number.";
+            exit;
+            }
+
         $lastUpdated = date('Y-m-d H:i:s');
 
         if (isset($_FILES['cover_image'])) {
@@ -551,7 +618,7 @@ class WriterController extends Controller
             $file = $_FILES['cover_image'];
             $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
             $dateTime = date('Y-m-d H:i:s'); 
-            $FileName = $author . '_' . $dateTime  . $ext; // Replace colons for filename
+            $FileName = $author . '_' . $dateTime  . $ext; 
 
             $uploadDir = __DIR__ . '/../images/coverDesign/'; // Absolute path on disk
             $uploadPath = $uploadDir . $FileName;
@@ -660,9 +727,18 @@ class WriterController extends Controller
 
         $bookID = $_POST['BookID'];
         $chapterTitle = $_POST['story-editor-chapter'] ?? '';
+        if (strlen($chapterTitle) >= 45) {
+            echo "Title must be less than 45 characters.";
+             exit;
+               }
+
         $chapterContent = $_POST['story-editor'] ?? '';
         $datetime = date('Y-m-d H:i:s');
         $price = isset($_POST['price']) && $_POST['price'] !== '' ? $_POST['price'] : null;
+            if ($price < 0 && !is_numeric($price)) {
+            echo "Price must be a Positive number.";
+            exit;
+            }
 
         $Chapter->update(
             $chapterID,
@@ -700,9 +776,20 @@ class WriterController extends Controller
 
         $bookID = $_POST['bookID'];
         $title = $_POST['story-editor-chapter'] ?? '';
+        $title = $_POST['story-editor-chapter'] ?? '';
+
+        if (strlen($title) >= 45) {
+         echo "Title must be less than 45 characters.";
+          exit;
+            }
+
         $content = $_POST['story-editor'] ?? '';
         $datetime = date('Y-m-d H:i:s');
         $price = isset($_POST['price']) && $_POST['price'] !== '' ? $_POST['price'] : null;
+            if ($price < 0 && !is_numeric($price)) {
+            echo "Price must be a Positive number.";
+            exit;
+            }
 
 
         $Chapter->insert(['title' => $title, 'content' => $content, 'lastUpdated' => $datetime, 'price' => $price]);

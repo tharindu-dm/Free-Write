@@ -67,7 +67,7 @@
                          </div>
                         </div>
                         <div class="input-group">
-                            <label for="price">Price</label>
+                            <label for="price">Price(LKR)</label>
                             <input type="number" id="price" name="price" min="0" step="0.01" placeholder="Free"
                                 value="<?= htmlspecialchars($book['price'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
                         </div>

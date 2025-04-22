@@ -8,6 +8,7 @@ main {
 .file-input {
   display: none;
 }
+
 .profile-info {
   display: flex;
   flex-wrap: wrap;
@@ -281,6 +282,12 @@ h1 {
 
 .form-left {
   width: 60%;
+}
+.form-layout {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  margin-top: 30px;
 }
 
 .input-group {
@@ -1171,31 +1178,98 @@ select {
   font-size: 16px;
   cursor: pointer;
 }
+.competition-section {
+  display: flex;
+  justify-content: center;
+  margin: 50px auto;
+  max-width: 1000px;
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
 
 .competition-info {
   width: 100%;
-  margin: 0 auto;
-  padding: 20px;
-  /* Center-align the content */
+}
+
+.competition-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.competition-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 30px;
+}
+
+.left-column {
+  flex: 2;
+}
+.coverComp {
+  flex: 1;
+  display: flex;
+  margin-top: 40px;
+  justify-content: center;
+}
+
+.coverComp img{
+  width: 300px;
+  height: 250px;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.right-column {
+  flex: 1;
+  display: flex;
+  margin-top: 100px;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 10px;
 }
 
 .competition-info h1 {
-  font-size: 48px; /* Make the title much bigger */
+  font-size: 42px;
   font-weight: bold;
+  margin-top: 0;
   margin-bottom: 20px;
+  width: 100%;
   color: #333;
 }
-
-.competition-info h3 {
-  font-size: 20px;
-  color: #444;
-  text-align: left; /* Left-align the description */
-  margin-bottom: 15px;
+.competition-info p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+}
+.competition-info textarea {
+ height: 300px;
 }
 
-.competition-info p {
-  color: #555;
-  margin-top: 10px;
+.left-column p {
+  font-size: 16px;
+  width: 500px;
+  margin-top: 60px;
+  color: #111111;
+  background: #cccccc;
+  border: 1px solid #b4b4b4;
+  border-radius: 6px;
+  padding: 10px;
+  min-height: 200px;
+  overflow-y: auto;
+}
+
+.competition-info h3,
+.competition-info h4 {
+  font-size: 18px;
+  color: #444;
+  margin: 0;
 }
 
 .quote-item {

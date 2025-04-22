@@ -54,6 +54,8 @@
                          echo implode(' | ', $genreNames);
                          ?>
                          </strong></p>
+                    <?php else: ?>
+                        <p><strong>Genre Not specified </strong></p>
                     <?php endif; ?>
                     <p class="description"> <?= htmlspecialchars($book[0]['Synopsis']); ?> </p>
 

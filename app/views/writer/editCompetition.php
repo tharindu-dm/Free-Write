@@ -34,43 +34,52 @@
 
     <!-- Main Content -->
     <main class="book-section">
-        
-    <div class="competition-info">    
-            <form action="/Free-Write/public/Writer/updateCompetition" method="POST" enctype="multipart/form-data">
-     
-            <h1>Update Competition</h1>
-            <p>Invite designers to submit their best book cover designs at competitive prices.<p>
+  <div class="competition-info">
+    <form action="/Free-Write/public/Writer/updateCompetition" method="POST" enctype="multipart/form-data">
+      <h1>Update Competition</h1>
+      <p>Invite designers to submit their best book cover designs at competitive prices.</p>
 
-                <!-- competition Details Section -->
-                <input type="hidden" name="cID" value="<?php echo $competition['competitionID']; ?>">
-                <div class="book-info">
-                    <div class="input-group">
-                        <label for="title">Title</label>
+      <input type="hidden" name="cID" value="<?= $competition['competitionID']; ?>">
 
-                        <input type="text" maxlength="45" rows="7" id="title" name="title"
-                            placeholder="Book Title" value="<?php echo htmlspecialchars($competition['title']); ?>" required>
-                    </div>
+      <div class="form-layout">
+        <!-- Left: Input Fields -->
+        <div class="book-info">
+          <div class="input-group">
+            <label for="title">Title</label>
+            <input type="text" maxlength="45" id="title" name="title" placeholder="Book Title"
+              value="<?= htmlspecialchars($competition['title']); ?>" required>
+          </div>
 
-                    <div class="input-group">
-                <label for="description">Description</label>
-                     <!-- Changed from textarea to input -->
-                     <input type="text" maxlength="255" id="description" name="description" placeholder="Description"
-                      value="<?php echo htmlspecialchars($competition['description']); ?>" required>
-                </div>
+          <div class="input-group">
+            <label for="Description">Description</label>
+            <textarea id="Description" name="Description" maxlength="255" placeholder="Description" required
+            ><?= htmlspecialchars($competition['description']); ?></textarea>
+          </div>
 
-                    <div class="input-group">
-                        <label for="price">Price</label>
-                        <input type="number" min="0" id="price" name="price" placeholder="Price"
-                        value="<?php echo htmlspecialchars($competition['first_prize'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" required>
-                    </div>
+          <div class="input-group">
+            <label for="price">Price (LKR)</label>
+            <input type="number" min="0" id="price" name="price" placeholder="Price"
+              value="<?= htmlspecialchars($competition['first_prize'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" required>
+          </div>
 
-                    <p>*The competition expires two months after its creation date.<p>
-
-                    <button type="submit" class="create-btn">Update</button>
-                </div>
-              </form>
+          <p>*The competition expires two months after its creation date.</p>
         </div>
-    </main>
+
+        <!-- Right: Book Cover -->
+        <div class="coverComp">
+          <img src="/Free-Write/app/images/competition/coverComp.png" alt="Competition Cover">
+        </div>
+      </div>
+
+      <!-- Bottom Center: Buttons -->
+      <div class="right-buttons">
+        <button type="button" class="edit-btn cancel-btn" onclick="window.history.back();">Back</button>
+        <button type="submit" class="create-btn">Update</button>
+      </div>
+    </form>
+  </div>
+</main>
+
 
     <!-- Footer -->
     <?php

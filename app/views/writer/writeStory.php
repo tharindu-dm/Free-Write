@@ -45,7 +45,7 @@
 
             <!-- Chapter Name -->
             <div class="text-editor">
-                <textarea id="story-editor-chapter" name="story-editor-chapter"
+                <textarea id="story-editor-chapter" name="story-editor-chapter" maxlength="45"
                     placeholder="Chapter Name"><?= htmlspecialchars('Chapter ' . $chapterCount) ?></textarea>
 
             </div>
@@ -77,6 +77,7 @@
     <?php
     require_once "../app/views/layout/footer.php";
     ?>
+    <script src="/Free-Write/public/js/writer/createChapter.js"></script>
 </body>
 
 </html>

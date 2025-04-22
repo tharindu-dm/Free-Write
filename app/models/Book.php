@@ -51,7 +51,7 @@ class Book
 
     public function getBookByAuthor($uid)
     {
-        $query = "SELECT b.[bookID], b.[title], b.[Synopsis], b.[accessType], b.[lastUpdateDate], b.[isCompleted], b.[price], 
+        $query = "SELECT b.[bookID], b.[title], b.[Synopsis], b.[accessType], b.[lastUpdateDate], b.[creationDate], b.[isCompleted], b.[price], 
         CONCAT(u.[firstName], ' ', u.[lastName]) AS author, c.[name] AS cover_image FROM [Book] b 
         JOIN [UserDetails] u ON b.author = u.[user] 
         LEFT JOIN [CoverImage] c ON b.[coverImage] = c.covID 

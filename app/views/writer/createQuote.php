@@ -78,7 +78,7 @@
     <!-- Main Content -->
     <main class="quote-section">
         <h1>Create a Quote</h1>
-        <h4>Share your favorite passages from your books. Quotes can be up to 250 characters.</h4>
+        <h4>Share your favorite passages from your books. Quotes can be up to 255 characters.</h4>
 
         <!-- Form for Creating a Quote -->
         <form action="/Free-Write/public/Writer/saveQuote" method="post" class="quote-form">
@@ -98,7 +98,7 @@
             </select>
             <div class="quote-container">
                 <textarea id="quote" name="quote" class="quote-input" placeholder="Enter your quote here..."
-                    maxlength="255" required></textarea>
+                     required></textarea>
             </div>
             <div class="action-buttons">
                 <button type="button" class="edit-btn" onclick="window.history.back();">Cancel</button>

@@ -34,53 +34,45 @@
 
     <!-- Main Content -->
     <main class="book-section">
-
-        <div class="competition-info">
-            <form action="/Free-Write/public/Writer/createCompetition" method="POST" enctype="multipart/form-data">
-
-                <h1>Create a Competition</h1>
-                <p>Invite designers to submit their best book cover designs at competitive prices.
-                <p>
-
-                    <!-- competition Details Section -->
-                <div class="book-info">
-                    <div class="input-group">
-                        <label for="title">Title</label>
-
-                        <input type="text" maxlength="45" rows="7" id="title" name="title" placeholder="Title" required>
-                    </div>
-
-                    <div class="input-group">
-                        <label for="synopsis">Synopsis</label>
-
-                        <textarea id="Synopsis" maxlength="255" name="Synopsis" placeholder="Synopsis"
-                            required></textarea>
-
-                    </div>
-
-                    <div class="input-group">
-                        <label for="genre">Genre</label>
-                        <select id="genre" name="genre" class="book-select-input" required>
-                            <option value="">Select Genre</option>
-                            <?php foreach ($genres as $genre) {
-                                echo "<option value=\"{$genre['genreID']}\">{$genre['name']}</option>";
-                            } ?>
-                        </select>
-                    </div>
-
-                    <div class="input-group">
-                        <label for="price">Price</label>
-                        <input type="number" min="0" id="price" name="price" placeholder="Price" required>
-                    </div>
-
-                    <p>*The competition expires two months after its creation date.
-                    <p>
-
-                        <button type="submit" class="create-btn">Create</button>
-                </div>
-            </form>
+    <div class="competition-info">
+      <form action="/Free-Write/public/Writer/createCompetition" method="POST" enctype="multipart/form-data">
+        <h1>Create a Competition</h1>
+        <p>Invite designers to submit their best book cover designs at competitive prices.</p>
+        <div class="form-layout">
+            <!-- Left: Input Fields -->
+            <div class="book-info">
+        <div class="input-group">
+          <label for="title">Title</label>
+          <input type="text" maxlength="45" id="title" name="title" placeholder="Title" required>
         </div>
-    </main>
+
+        <div class="input-group">
+          <label for="Description">Description</label>
+          <textarea id="Description" maxlength="255" name="Description" placeholder="Description" required></textarea>
+        </div>
+
+        <div class="input-group">
+          <label for="price">Price (LKR)</label>
+          <input type="number" min="0" id="price" name="price" placeholder="Price" required>
+        </div>
+
+        <p>*The competition expires two months after its creation date.</p>
+        </div>
+
+          <!-- Right: Book Cover -->
+          <div class="coverComp">
+          <img src="/Free-Write/app/images/competition/coverComp.png" alt="Competition Cover">
+        </div>
+      </div>
+
+      <!-- Bottom Center: Buttons -->
+      <div class="right-buttons">
+        <button type="button" class="edit-btn cancel-btn" onclick="window.history.back();">Back</button>
+        <button type="submit" class="create-btn">Create</button>
+      </div>
+    </form>
+  </div>
+</main>
 
     <!-- Footer -->
     <?php
