@@ -27,5 +27,21 @@ class DesignSubmissions
         return $this->query($query, ['userID' => $userID]);
     }
 
+    public function getSubmissionByCompetitionID($competitionID){
+        $query = "SELECT 
+                    c.title AS competitionName,
+                    ds.title,
+                    ds.status,
+                    ds.competitionID,
+                    ds.submissionID,
+                    ds.covID,
+                    ds.name,
+                    ds.created_at
+                  FROM DesignSubmissions ds
+                  JOIN Competition c ON ds.competitionID = c.competitionID
+                  WHERE ds.competitionID = $competitionID";
+                  return $this->query($query);
+    }
+    
     
 }

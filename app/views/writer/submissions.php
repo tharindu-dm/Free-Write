@@ -11,48 +11,47 @@
 
 <body>
     <?php
-    require_once "../app/views/layout/header-user.php";
+    require_once "../app/views/layout/headerSelector.php";
     ?>
 
     <!-- Main Content -->
-<main class="submission-section">
-    
-    <div class="books-grid">
-                    <?php if (!empty($submissions) && is_array($submissions)): ?>
-                        <?php foreach ($submissions as $submission): ?>
-                            
-                                    <a href="/Free-Write/public/Writer/viewSubmission/<?= htmlspecialchars($submission['submissionID']); ?>">
-                                   
-                                    <div class="book-card">
-                                        <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($submission['name'] ?? 'sampleCover.jpg'); ?>"
-                                            alt="Cover Image of <?= htmlspecialchars($submission['title']); ?>">
-                                        <h4>
-                                            <?= strlen($submission['title']) > 20 ? htmlspecialchars(substr($submission['title'], 0, 17)) . '...' : htmlspecialchars($submission['title']); ?>
-                                        </h4>
-                                        <p>
-                                            <?= date('Y-m-d', strtotime($submission['creationDate'])); ?>
-                                        </p>
-                                        <h4>
-                                            By:
-                                        </h4>
-                                    </div>
-                                </a>
-                            <?php endforeach; ?>
+    <main class="book-section">
 
-                        <?php else: ?>
-                            <p>No Submissions available.</p>
-                        <?php endif; ?>
-                </div>
-    </div>
+        <div class="books-grid">
+            <?php if (!empty($submissions) && is_array($submissions)): ?>
+                <?php foreach ($submissions as $submission): ?>
+
+                    <a href="/Free-Write/public/Writer/viewSubmission/<?= htmlspecialchars($submission['submissionID']); ?>">
+
+                        <div class="book-card">
+                            <img src="/Free-Write/app/images/DesignSubmissions/<?= htmlspecialchars($submission['name'] ?? 'sampleCover.jpg'); ?>"
+                                alt="Cover Image of <?= htmlspecialchars($submission['title']); ?>">
+                            <h4>
+                                <?= strlen($submission['title']) > 20 ? htmlspecialchars(substr($submission['title'], 0, 17)) . '...' : htmlspecialchars($submission['title']); ?>
+                            </h4>
+                            <p>
+                                <?= date('Y-m-d', strtotime($submission['created_at'])); ?>
+                            </p>
+                            <h4>
+                                By:
+                            </h4>
+                        </div>
+                    </a>
+                <?php endforeach; ?>
+
+            <?php else: ?>
+                <p>No Submissions available.</p>
+            <?php endif; ?>
+        </div>
+        </div>
 
 
-  <!-- Centered Buttons -->
-  <div class="button-container">
-    <button type="button" class="edit-btn cancel-btn" onclick="window.location.href='/Free-Write/public/Writer/ViewCompetition/<?= htmlspecialchars($competition['competitionID']); ?>'">Back</button>
-    </div>
-</main>
-    
-    <script src="/Free-Write/public/js/writer/bookDetails.js"></script>
+        <!-- Centered Buttons -->
+        <div class="button-container">
+            <button type="button" class="edit-btn cancel-btn"
+                onclick="window.location.href='/Free-Write/public/Writer/ViewCompetition/<?= htmlspecialchars($submission['competitionID']); ?>'">Back</button>
+        </div>
+    </main>
 
     <!-- Footer -->
     <?php
@@ -61,4 +60,3 @@
 </body>
 
 </html>
-

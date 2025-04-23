@@ -102,12 +102,8 @@
             </div>
         </div>
 
-        <!-- Advertisement Section -->
-        <?php if ((isset($_SESSION['user_premium']) && $_SESSION['user_premium'] == 0) || !isset($_SESSION['user_id'])): ?>
-            <div>
-                <img src="/Free-Write/public/images/ad.png" alt="Ad" class="ad-image">
-            </div>
-        <?php endif; ?>
+        <!-- Ad image -->
+        <?php include "../app/views/layout/advertisement.php"; ?>
     </main>
 
     <?php

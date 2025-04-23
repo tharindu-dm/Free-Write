@@ -43,7 +43,7 @@
                                 alt="Competition Image">
                             <div class="competition-details">
                                 <h2><?= htmlspecialchars($comp['title']) ?></h2>
-                                <div class="publisher">By <?= htmlspecialchars($comp['publisherID']); ?></div>
+                                <div class="publisher">By <?= htmlspecialchars($comp['publisherName']); ?></div>
                                 <div class="deadline">
                                     <span class="deadline-badge"><?= htmlspecialchars($comp['end_date']) ?></span>
                                     <a href="/Free-Write/public/Competition/WriterCompetition?compID=<?= htmlspecialchars($comp['competitionID']) ?>"

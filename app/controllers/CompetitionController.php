@@ -10,7 +10,7 @@ class CompetitionController extends Controller
         $competition_cover = null;
 
         $competition_writer = $competition->where(["type" => "writer"], ['status' => "ended"]);
-        $competition_cover = $competition->where(["type" => "cover"], ['status' => "ended"]);
+        $competition_cover = $competition->where(["type" => "covdes"], ['status' => "ended"]);
 
         $data = [
             'writer' => $competition_writer,

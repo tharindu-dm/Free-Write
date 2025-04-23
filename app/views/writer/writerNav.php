@@ -8,7 +8,7 @@
             <a href="/Free-Write/public/Writer/DashboardNew" id="dashboard-link">Books</a>
             <a href="/Free-Write/public/Writer/Quotes" id="quotes-link">Quotes</a>
             <a href="/Free-Write/public/Writer/Spinoffs" id="spinoffs-link">Spin-off Requests</a>
-            <a href="/Free-Write/public/Writer/Quotations" id="quotation-link">Quotations</a>\
+            <a href="/Free-Write/public/Writer/Quotations" id="quotation-link">Quotations</a>
 
             <?php if (isset($_SESSION['user_type']) && $_SESSION['user_premium'] === '1'): ?>
                 <a href="/Free-Write/public/Writer/Competitions" id="competitions-link">Competitions</a>

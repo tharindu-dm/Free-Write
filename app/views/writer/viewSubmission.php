@@ -16,29 +16,32 @@
 
     <!-- Main Content -->
 <main class="competition-section">
-    <div class="competition-info">
-  <div class="form-layout">
-    <!-- Left Column -->
-    <div class="left-column">
-      <h1>Last of it</h1>
-      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+<div class="spinoff-details">
+            <h1><?php echo htmlspecialchars($submission['title']); ?></h1>
+            <div class="spinoff-content">
+                <div class="book-cover">
+                    <img src="/Free-Write/app/images/DesignSubmissions/<?= htmlspecialchars($submission['name'] ?? 'sampleCover.jpg'); ?>">
+                </div>
 
+                <div class="spinoff-info">
+                    
+                    <h3>Last Updated: <?= htmlspecialchars($submission['updated_at']); ?></h3>
+                    <p class="synopsis"><?= htmlspecialchars($submission['description']); ?></p>
+                </div>
+            </div>
+            
+            <div class="requested-by">
+                <h4>Submitted By: <?= htmlspecialchars($submission['userID']); ?></h4>
+                <button class="book-btn"
+                    onclick="window.location.href='/Free-Write/public/User/Profile?user=<?= htmlspecialchars($submission['userID']); ?>'">
+                    View Profile
+                </button>
+            </div>
 
-        <h4>Submitted by : James Smith</h4>
-    </div>
-
-    <!-- Right Column (Cover Image) -->
-    <div class="right-column">
-      <div class="coverComp">
-        <img src="/Free-Write/app/images/competition/coverComp.png" alt="Competition Cover">
-      </div>
-    </div>
-    </div>
-    <div class="button-container">
-    <button type="button" class="edit-btn cancel-btn" onclick="window.location.href='/Free-Write/public/Writer/Submissions/<?= htmlspecialchars($competition['competitionID']); ?>'">Back</button>
+            <div class="button-container">
+    <button type="button" class="edit-btn cancel-btn" onclick="window.location.href='/Free-Write/public/Writer/Submissions/<?= htmlspecialchars($submission['competitionID']); ?>'">Back</button>
     <div class="right-buttons">
-      <button class="edit-btn" onclick="window.location.href='/Free-Write/public/Writer/Win/<?= htmlspecialchars($submission['covID']); ?>'">Choose As Winner</button>
-    </div>
+      <button class="edit-btn" onclick="window.location.href='/Free-Write/public/Writer/Win/<?= htmlspecialchars($submission['submissionID']); ?>'">Choose As Winner</button>
     </div>
     </main>
 

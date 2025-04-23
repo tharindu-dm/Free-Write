@@ -547,14 +547,23 @@ class WriterController extends Controller
         $submissionID = $URL[2]; //get the competition id from the url
 
         $submission = new DesignSubmissions();
-        $submissionDetails = $submission->getSubmissionDetails($submissionID);
+        $submissionDetails = $submission->first(['submissionID' => $submissionID]);
         
         $this->view('writer/viewSubmission', ['submission' => $submissionDetails]);
     }
 
-    public function win($covID = 0)
+    public function win($submissionID = 0)
     {
-        
+            $URL = splitURL();
+            if ($URL[2] < 1)
+            $this->view('error');
+           if ($submissionID < 1|| !is_numeric($submissionID))
+           $submissionID = $URL[2];
+
+            $submission = new DesignSubmissions();
+
+            $submission->update($submissionID, ['status'=> 'Selected'] , 'submissionID');
+
 
         header('location: /Free-Write/public/Writer/');
     }
@@ -593,7 +602,7 @@ class WriterController extends Controller
         $author = $_SESSION['user_id'];
 
         $price = $_POST['price'] ?? null;
-        if ($price < 0 && !is_numeric($price)) {
+        if ($price < 0 && !is_numeric($price) && $price != NULL) {
             echo "Price must be a Positive number.";
             exit;
         }
