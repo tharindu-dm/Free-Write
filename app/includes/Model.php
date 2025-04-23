@@ -60,7 +60,7 @@ trait Model
 
         //$query .= " limit $this->limit offset $this->offset";
 
-        echo "\n Query: " . $query . "\n"; // <<<<<<<<<<<<<<<<<<<<<<
+        //echo "\n Query: " . $query . "\n"; // <<<<<<<<<<<<<<<<<<<<<<
 
         $data = array_merge($data, $data_not);
         $result = $this->query($query, $data);
