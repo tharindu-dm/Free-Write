@@ -15,24 +15,40 @@
     ?>
 
     <!-- Main Content -->
-    <main class="quote-section">
-        <div class="competition-info">
-        <h1><?php echo htmlspecialchars($competition['title']); ?></h1>
-        <h3><?php echo htmlspecialchars($competition['description']); ?></h3>
-        <h3>Prize: <?php echo htmlspecialchars($competition['first_prize']); ?></h3>
-        <h4>End Date: <?php echo htmlspecialchars($competition['end_date']); ?></h4>
-        
-        <div class="button-container">
-    <!-- Left side: Cancel button -->
+<main class="competition-section">
+    <div class="competition-info">
+  <div class="form-layout">
+    <!-- Left Column -->
+    <div class="left-column">
+      <h1><?= htmlspecialchars($competition['title']); ?></h1>
+      <p><?= htmlspecialchars($competition['description']); ?></p>
+      <h3>Prize: <?= htmlspecialchars($competition['first_prize']); ?></h3>
+
+      <?php if ($competition['status'] === 'ended'): ?>
+        <h4>Competition Ended</h4>
+      <?php else: ?>
+        <h4>End Date: <?= htmlspecialchars($competition['end_date']); ?></h4>
+      <?php endif; ?>
+    </div>
+
+    <!-- Right Column (Cover Image) -->
+    <div class="right-column">
+      <div class="coverComp">
+        <img src="/Free-Write/app/images/competition/coverComp.png" alt="Competition Cover">
+      </div>
+    </div>
+    </div>
+
+  <!-- Centered Buttons -->
+  <div class="button-container">
     <button type="button" class="edit-btn cancel-btn" onclick="window.history.back();">Back</button>
-    
-     <!-- Right side: Edit and Delete buttons -->
-     <div class="right-buttons">
-        <button class="edit-btn" onclick="window.location.href='/Free-Write/public/Writer/editCompetition/<?= htmlspecialchars($competition['competitionID']); ?>'">Edit</button>
-        <button class="delete-btn" id="delete-details">Delete</button>
+    <div class="right-buttons">
+      <button class="edit-btn" onclick="window.location.href='/Free-Write/public/Writer/editCompetition/<?= htmlspecialchars($competition['competitionID']); ?>'">Edit</button>
+      <button class="delete-btn" id="delete-details">Delete</button>
     </div>
-    </div>
-</div>
+</main>
+
+
 
 <div class="deleteOverlay-container">
                 <div class="deleteOverlay">

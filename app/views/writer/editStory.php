@@ -47,7 +47,7 @@
 
             <!-- Chapter Name -->
             <div class="text-editor">
-                <textarea id="story-editor-chapter" name="story-editor-chapter"
+                <textarea id="story-editor-chapter" name="story-editor-chapter" maxlength="45"
                     placeholder="Chapter Name"><?= htmlspecialchars($chapter['ChapterTitle'] ?? 'Untitled') ?></textarea>
             </div>
 

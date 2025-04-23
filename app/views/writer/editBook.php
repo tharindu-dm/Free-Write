@@ -48,20 +48,26 @@
                         </div>
 
                         <div class="input-group">
-                            <label for="genre">Genre</label>
-                            <select id="genre" name="genre" class="book-select-input" required>
-                                <option value="<?php echo htmlspecialchars($genreDetails[0]['genreID']); ?>">
-                                    <?php echo htmlspecialchars($genreDetails[0]['genreName']); ?></option>
-                                <?php foreach ($genres as $genre) {
-                                    if ($genre['genreID'] == $genreDetails[0]['genreID'])
-                                        continue;
-                                    echo "<option value=\"{$genre['genreID']}\">{$genre['name']}</option>";
-                                } ?>
-                            </select>
+                        <label for="genre">Genre</label>
+                        <div class="book-checkbox-group">
+                        <?php
+                          $selectedGenreIDs = array_column($genreDetails, 'genreID');
 
+                           foreach ($genres as $genre) {
+                               $genreID = htmlspecialchars($genre['genreID']);
+                                $genreName = htmlspecialchars($genre['name']);
+                                $isChecked = in_array($genreID, $selectedGenreIDs) ? 'checked' : '';
+
+                                 echo "<div class=\"book-checkbox-item\">";
+                                echo "<input type=\"checkbox\" name=\"genre[]\" id=\"genre_{$genreID}\" value=\"{$genreID}\" {$isChecked}>";
+                                echo "<label for=\"genre_{$genreID}\">{$genreName}</label>";
+                                echo "</div>";
+                            }       
+                            ?>
+                         </div>
                         </div>
                         <div class="input-group">
-                            <label for="price">Price</label>
+                            <label for="price">Price(LKR)</label>
                             <input type="number" id="price" name="price" min="0" step="0.01" placeholder="Free"
                                 value="<?= htmlspecialchars($book['price'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
                         </div>
@@ -103,7 +109,7 @@
                             alt="Cover Image of <?= htmlspecialchars($book['title']); ?>">
                         <button class="book-btn" type="button"
                             onclick="window.location.href='/Free-Write/public/writer/covers'">Find Cover Images</button>
-                            <input type="file" name="cover_image" accept="image/*" required> 
+                            <input type="file" name="cover_image" accept="image/*"> 
                     </div>
                 </div>
 
@@ -119,7 +125,6 @@
 
     <?php require_once "../app/views/layout/footer.php"; ?>
     <script src="/Free-Write/public/js/writer/editBook.js"></script>
-    <script src="/Free-Write/public/js/imageAdd.js"></script>
 
 </body>
 

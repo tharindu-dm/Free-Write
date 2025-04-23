@@ -7,8 +7,33 @@
     <title>Edit Quote - Free Write</title>
     <link rel="stylesheet" href="/Free-Write/public/css/writer.css">
 
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const quoteTextarea = document.getElementById("quoteTextarea");
+    const charWarning = document.getElementById("charWarning");
+    const form = document.querySelector("form");
 
-</head>
+    if (!quoteTextarea || !charWarning || !form) {
+        console.warn("Missing elements: quoteTextarea, charWarning, or form.");
+        return;
+    }
+
+    // Check quote length on input and show a warning if over 255 characters
+    quoteTextarea.addEventListener('input', function () {
+        let quoteLength = quoteTextarea.value.length;
+        if (quoteLength > 255) {
+            charWarning.textContent = "Warning: Quote exceeds 255 characters.";
+            charWarning.style.display = 'block';
+            form.querySelector('.post-btn').disabled = true;
+        } else {
+            charWarning.style.display = 'none';
+            form.querySelector('.post-btn').disabled = false;
+        }
+    });
+});
+</script>
+
+    </head>
 
 <body>
     <?php
@@ -23,7 +48,7 @@
         <form action="/Free-Write/public/Writer/updateQuote" method="post" class="quote-form">
             <div class="quote-container">
                 <textarea id="quote" name="quote" class="quote-input" placeholder="Enter your quote here..."
-                    maxlength="280" required><?php echo htmlspecialchars($quote['quote']); ?></textarea>
+                 required><?php echo htmlspecialchars($quote['quote']); ?></textarea>
 
             </div>
             <div class="space_between">
