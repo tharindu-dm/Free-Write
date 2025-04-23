@@ -261,16 +261,18 @@
                                         </td>
                                         <td><?= htmlspecialchars($chap['lastUpdated']); ?></td>
                                         <?php if ($book[0]['price'] === null): ?>
-                                            <td><div class="buy-button">
-                                                <?php if ($chap['price'] === null): ?>
-                                                    <p><?= 'Read for Free'; ?></p>
-                                                 <?php elseif ($chap['isPurchased']): ?>
-                                                    <p> <?= 'Already Purchased'; ?></p>
-                                                <?php else: ?>
-                                                     <a href='/Free-Write/public/Payment/Chapter/<?= htmlspecialchars($chap['chapterID']); ?>'>
-                                                    <?= 'Buy LKR. ' . number_format($chap['price'], 2); ?>
+                                            <td>
+                                                <div class="buy-button">
+                                                    <?php if ($chap['price'] === null): ?>
+                                                        <p><?= 'Read for Free'; ?></p>
+                                                    <?php elseif ($chap['isPurchased']): ?>
+                                                        <p> <?= 'Already Purchased'; ?></p>
+                                                    <?php else: ?>
+                                                        <a
+                                                            href='/Free-Write/public/Payment/Chapter/<?= htmlspecialchars($chap['chapterID']); ?>'>
+                                                            <?= 'Buy LKR. ' . number_format($chap['price'], 2); ?>
                                                         </a>
-                                                <?php endif; ?>
+                                                    <?php endif; ?>
                                                 </div>
                                             </td>
                                         <?php endif; ?>

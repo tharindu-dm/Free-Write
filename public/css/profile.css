@@ -36,6 +36,35 @@ main {
   margin-bottom: 20px;
 }
 
+.user-type-redirect-btn-container {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: stretch;
+
+  width: 100%;
+  padding: 1rem;
+}
+
+.writer-dashboard-btn {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+}
+
+.writer-dashboard-btn button {
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--primary-color);
+  color: var(--black);
+  border: none;
+  border-radius: 1rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* Follower stats */
 .follower-stats {
   display: flex;
@@ -156,11 +185,21 @@ main {
   transition: width 0.3s ease;
 }
 
-.book-progress-reading { background-color: #ffd700; }  /* Primary Gold */
-.book-progress-completed { background-color: #4a90e2; }  /* Blue */
-.book-progress-onhold { background-color: #f5a623; }  /* Orange */
-.book-progress-dropped { background-color: #d0021b; }  /* Red */
-.book-progress-planned { background-color: #9b9b9b; }  /* Gray */
+.book-progress-reading {
+  background-color: #ffd700;
+} /* Primary Gold */
+.book-progress-completed {
+  background-color: #4a90e2;
+} /* Blue */
+.book-progress-onhold {
+  background-color: #f5a623;
+} /* Orange */
+.book-progress-dropped {
+  background-color: #d0021b;
+} /* Red */
+.book-progress-planned {
+  background-color: #9b9b9b;
+} /* Gray */
 
 /* Book List Items */
 .book-list-item {
@@ -243,7 +282,7 @@ main {
   .statistics-container {
     flex-direction: column;
   }
-  
+
   .chart-container {
     max-width: 250px;
   }

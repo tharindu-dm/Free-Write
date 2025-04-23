@@ -30,9 +30,14 @@
 
         <div class="button-container">
             <!-- Left side: Cancel button -->
+            <?php if (isset($_SESSION['user_id']) && ($userDetails['user'] == $_SESSION['user_id'])): ?>
             <button type="button" class="edit-btn cancel-btn"
                 onclick="window.location.href='/Free-Write/public/Writer/Quotes'">Back</button>
-
+                <?php else: ?>
+                    <button type="button" class="edit-btn cancel-btn" onclick="window.history.back();">Back</button>
+                    <?php endif; ?>
+               
+         <?php if (isset($_SESSION['user_id']) && ($userDetails['user'] == $_SESSION['user_id'])): ?>
             <!-- Right side: Edit and Delete buttons -->
             <div class="right-buttons">
                 <button class="edit-btn"
@@ -50,12 +55,10 @@
                         <button class="read-button delete-btn" type="submit">Yes, Delete</button>
                         <button class="edit-btn" type="button" id="cancelDelete">Cancel</button>
                     </div>
-            </div>
             </form>
         </div>
         </div>
-
-
+        <?php endif; ?>
 
     </main>
 

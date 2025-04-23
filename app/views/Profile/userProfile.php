@@ -36,7 +36,7 @@
                             <?php if (isset($_SESSION['user_id']) && ($userAccount['userID'] == $_SESSION['user_id'])): ?>
                                 <button id="profileEditBtn" class="edit-profile-btn">Edit Profile</button>
                             <?php endif; ?>
-                            
+
                             <?php if (isset($_SESSION['user_id'])): ?>
                                 <?php if ($userAccount['userID'] != $_SESSION['user_id']): ?>
 
@@ -192,6 +192,25 @@
                             <p><?= htmlspecialchars($userDetails['bio'] ?? '', ENT_QUOTES, 'UTF-8') ?></p>
 
                         </div>
+                    </div>
+                    <div class="user-type-redirect-btn-container">
+                        <?php if (!isset($_SESSION['user_id']) || (isset($_GET['user']) && $_GET['user'] != $_SESSION['user_id'])): ?>
+                            <div class="writer-dashboard-btn">
+
+                                <a
+                                    href="/Free-Write/public/Writer/DashboardNew?writer=<?= htmlspecialchars($userAccount['userID']) ?>">
+                                    <button>Books</button>
+                                </a>
+                            </div>
+                        <?php endif; ?>
+                        <?php if (!isset($_SESSION['user_id']) || (isset($_GET['user']) && $_GET['user'] != $_SESSION['user_id'])): ?>
+                            <div class="writer-dashboard-btn">
+
+                                <a href="#">
+                                    <button>Covers</button>
+                                </a>
+                            </div>
+                        <?php endif; ?>
                     </div>
 
                     <?php

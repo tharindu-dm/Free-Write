@@ -61,7 +61,9 @@
 
             <!-- Quotes Section -->
             <section class="quotes-section">
+            <?php if (isset($_SESSION['user_id']) && ($userDetails['user'] == $_SESSION['user_id'])): ?>
                 <h2>My Quotes</h2>
+                <?php endif; ?>
 
                 <?php if (empty($quotes)): ?>
                     <div class="no-requests">
@@ -69,13 +71,17 @@
           <path d="M2 4v16a2 2 0 0 0 2 2h16"/>
           <path d="M6 2h12a2 2 0 0 1 2 2v16"/>
           <path d="M6 8h12"/>
-          </svg><br>
+          </svg><br><?php if (isset($_SESSION['user_id']) && ($userDetails['user'] == $_SESSION['user_id'])): ?>
                         <h2>You haven't written any quotes yet.</h2><br>
                     <a href="/Free-Write/public/Writer/NewQuote" class="book-btn">+ Create A New Quote </a>
+                    <?php else: ?>
+                            <h2>No quotes Available.</h2><br>
+                            <?php endif; ?>
                     </div>
                  <?php else: ?>
-
+                    <?php if (isset($_SESSION['user_id']) && ($userDetails['user'] == $_SESSION['user_id'])): ?>
                 <a href="/Free-Write/public/Writer/NewQuote" class="button-new">+ New</a>
+                        <?php endif; ?>
 
                 <!-- Quotes List -->
                 <ul class="quote-item">

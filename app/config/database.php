@@ -28,15 +28,37 @@ trait Database
         }
     }
 
-    private function connect() //connecting to azure sql server
+    /*  private function connect() //connecting to azure sql server
+      {
+          // Load the .env file using the method
+          $this->loadEnv(__DIR__ . '/.env');
+
+          // Now can access the environment variables
+          $dsn = getenv('DB_DSN');
+          $username = getenv('DB_USERNAME');
+          $password = getenv('DB_PASSWORD');
+
+          try {
+              $conn = new PDO($dsn, $username, $password);
+              $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+              return $conn;
+          } catch (PDOException $e) {
+              die("Connection failed: " . $e->getMessage());
+          }
+      }
+       */
+
+    private function connect()
     {
         // Load the .env file using the method
         $this->loadEnv(__DIR__ . '/.env');
 
-        // Now can access the environment variables
-        $dsn = getenv('DB_DSN');
-        $username = getenv('DB_USERNAME');
-        $password = getenv('DB_PASSWORD');
+        // Define the DSN for SQL Server
+        $host = getenv('DB_HOST'); // e.g., "VICTUSTRIX\SQLEXPRESS"
+        $dbname = getenv('DB_NAME'); // e.g., "Free-Write"
+        $dsn = "sqlsrv:Server=$host;Database=$dbname";
+        $username = getenv('DB_USERNAME'); // Use the username or leave empty for Windows Authentication
+        $password = getenv('DB_PASSWORD'); // Use the password or leave empty for Windows Authentication
 
         try {
             $conn = new PDO($dsn, $username, $password);
@@ -46,28 +68,6 @@ trait Database
             die("Connection failed: " . $e->getMessage());
         }
     }
-/*
-    private function connect()
-     {
-         // Load the .env file using the method
-         $this->loadEnv(__DIR__ . '/.env');
-
-         // Define the DSN for SQL Server
-         $host = getenv('DB_HOST'); // e.g., "VICTUSTRIX\SQLEXPRESS"
-         $dbname = getenv('DB_NAME'); // e.g., "Free-Write"
-         $dsn = "sqlsrv:Server=$host;Database=$dbname";
-         $username = getenv('DB_USERNAME'); // Use the username or leave empty for Windows Authentication
-         $password = getenv('DB_PASSWORD'); // Use the password or leave empty for Windows Authentication
-
-         try {
-             $conn = new PDO($dsn, $username, $password);
-             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-             return $conn;
-         } catch (PDOException $e) {
-             die("Connection failed: " . $e->getMessage());
-         }
-     }
-     */
     public function query($query, $data = []) //using sql prepared statement to avoid sql injections
     {
         $con = $this->connect();
