@@ -41,9 +41,10 @@
 
   <!-- Centered Buttons -->
   <div class="button-container">
-    <button type="button" class="edit-btn cancel-btn" onclick="window.history.back();">Back</button>
+    <button type="button" class="edit-btn cancel-btn" onclick="window.location.href='/Free-Write/public/Writer/Competitions/'">Back</button>
     <div class="right-buttons">
       <button class="edit-btn" onclick="window.location.href='/Free-Write/public/Writer/editCompetition/<?= htmlspecialchars($competition['competitionID']); ?>'">Edit</button>
+      <button class="edit-btn" onclick="window.location.href='/Free-Write/public/Writer/Submissions/<?= htmlspecialchars($competition['competitionID']); ?>'">Submissions</button>
       <button class="delete-btn" id="delete-details">Delete</button>
     </div>
 </main>

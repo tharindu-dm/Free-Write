@@ -5,7 +5,7 @@ class WriterController extends Controller
     {
         $this->DashboardNew();
     }
-
+//dashboard---------------------------------------------------------------------------------
     public function DashboardNew()
     {
         $book = new Book();
@@ -123,7 +123,7 @@ class WriterController extends Controller
         $this->view('writer/bookDetail', ['book' => $bookFound, 'chapters' => $bookChapters, 'rating' => $bookRating, 'spinoffs' => $spinoffs, 'genres' => $genres]);
     }
 
-    // QUOTES
+// QUOTES---------------------------------------------------------------------------------
     public function Quotes()
     {
         if (isset($_SESSION['user_id'])) {
@@ -290,7 +290,7 @@ class WriterController extends Controller
 
 
 
-    // SPINOFFS
+// SPINOFFS---------------------------------------------------------------------------------
     public function Spinoffs()
     {
         $author = $_SESSION['user_id'];
@@ -380,7 +380,7 @@ class WriterController extends Controller
         $this->Spinoffs();
     }
 
-    // COMPETITIONS
+// COMPETITIONS----------------------------------------------------------------------------------------------------
     public function Competitions()
     {
         $author = $_SESSION['user_id'];
@@ -431,9 +431,9 @@ class WriterController extends Controller
 
         $startDate = date('Y-m-d');
         $endDate = date('Y-m-d', strtotime('+2 months'));
-        $category = "cover";
+        $type = "covdes";
 
-        if ($competition->insert(['title' => $title, 'description' => $description, 'first_prize' => $price, 'publisherID' => $author, 'start_date' => $startDate, 'end_date' => $endDate, 'category' => $category])) {
+        if ($competition->insert(['title' => $title, 'description' => $description, 'first_prize' => $price, 'publisherID' => $author, 'start_date' => $startDate, 'end_date' => $endDate, 'type' => $type])) {
             header('location: /Free-Write/public/Writer/Competitions');
             exit;
         } else {
@@ -523,6 +523,46 @@ class WriterController extends Controller
         }
     }
 
+    public function Submissions($competitionID = 0)
+    {
+         $URL = splitURL();
+         if ($URL[2] < 1)
+             $this->view('error');
+
+    if ($competitionID < 1 || !is_numeric($competitionID))
+            $competitionID = $URL[2]; //get the competition id from the url
+
+        $submission = new DesignSubmissions();
+        $submissionDetails = $submission->getSubmissionByCompetitionID($competitionID);
+
+        $this->view('writer/submissions', ['submissions' => $submissionDetails]);
+    }
+
+    public function viewSubmission($submissionID = 0)
+    {
+        $URL = splitURL();
+        if ($URL[2] < 1)
+            $this->view('error');
+        if ($submissionID < 1 || !is_numeric($submissionID))
+        $submissionID = $URL[2]; //get the competition id from the url
+
+        $submission = new DesignSubmissions();
+        $submissionDetails = $submission->getSubmissionDetails($submissionID);
+        
+        $this->view('writer/viewSubmission', ['submission' => $submissionDetails]);
+    }
+
+    public function win($covID = 0)
+    {
+        
+
+        header('location: /Free-Write/public/Writer/');
+    }
+
+
+
+//book------------------------------------------------------------------------
+
     public function New()
     {
         $genre = new Genre();
@@ -573,8 +613,7 @@ class WriterController extends Controller
         exit;
 
     }
-
-    //edit book details
+ 
     public function Edit($bookID = 0)
     {
         $URL = splitURL();
@@ -695,7 +734,7 @@ class WriterController extends Controller
         }
     }
 
-
+//chapter---------------------------------------------------------------------------
     public function Chapter($chapterID = 0)
     {
         $URL = splitURL();
@@ -841,7 +880,7 @@ class WriterController extends Controller
         }
     }
 
-
+//quotations---------------------------------------------------------------------------
     public function Quotations()
     {
         $author = $_SESSION['user_id'];
@@ -880,24 +919,6 @@ class WriterController extends Controller
 
     }
 
-    public function ViewWriter()
-    {
-        $author = $_SESSION['user_id'];
-
-        $userDetailsTable = new UserDetails();
-        $userDetails = $userDetailsTable->first(['user' => $author]);
-
-        $mostViewed = new Book();
-        $latest = new Book();
-
-        $quoteModel = new Quote();
-        $quotes = $quoteModel->getQuoteByAuthor($author);
-
-        $MostViewed = $mostViewed->getMostViewedBooks($author);
-        $Latest = $latest->getLatestBooks($author);
-
-        $this->view('writer/viewWriter', ['userDetails' => $userDetails, 'quotes' => $quotes, 'MostViewed' => $MostViewed, 'Latest' => $Latest]);
-    }
 
     public function Insights()
     {
