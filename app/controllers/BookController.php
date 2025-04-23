@@ -23,6 +23,7 @@ class BookController extends Controller
         $BookChapter_table = new BookChapter();
         $spinoff = new Spinoff();
         $buybook = new BuyBook();
+        $buychapter = new BuyChapter(); 
         $bookList = new BookList();
         $rating = new Rating();
         $collections = new Collection();
@@ -37,7 +38,6 @@ class BookController extends Controller
         $chapterProgress = null;
         $collectionsFound = null;
 
-        $buychapter = new BuyChapter(); 
         
         foreach ($bookChapters as $key => $chapterItem) {
             $chapterDetails = $buychapter->ChapPurchaseStatus($chapterItem['chapterID']);  

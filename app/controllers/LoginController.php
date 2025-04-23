@@ -141,10 +141,16 @@ class LoginController extends Controller
                     'activity' => 'Successfully logged in',
                     'occurrence' => date("Y-m-d H:i:s")
                 ]);
-
+                
                 $response['success'] = true;
                 $response['message'] = 'login_success';
                 //$response['redirect'] = '/Free-Write/public/User/Profile';
+
+                if($userData['isPremium'] != 1){
+                    $advertisement = new Advertisement();
+                    $ad = $advertisement->first(['status'=>'active']);
+                    $_SESSION['user_ads'] = $ad['adImage'];
+                }
 
                 switch ($userData['userType']) {
                     case 'admin':

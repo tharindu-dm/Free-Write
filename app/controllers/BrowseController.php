@@ -10,10 +10,20 @@ class BrowseController extends Controller
     public function loadBrowsePage()
     {
         $book = new Book();
+        //$advertisement = new Advertisement();
+
         $FWObooks = $book->getFWOBooks();
         $paidBooks = $book->getPaidBooks();
         $freeBooks = $book->getFreeBooks();
-        $this->view('OpenUser/browse', ['freewriteOriginals' => $FWObooks, 'paidBooks' => $paidBooks, 'freeBooks' => $freeBooks]);
+
+        //    $activeAd = $advertisement->first(['status' => 'active', 'advertisementType'=>'sidebar']);
+
+        $this->view('OpenUser/browse', [
+            'freewriteOriginals' => $FWObooks,
+            'paidBooks' => $paidBooks,
+            'freeBooks' => $freeBooks,
+            //   'ads'=> $activeAd
+        ]);
     }
     public function search()
     {
