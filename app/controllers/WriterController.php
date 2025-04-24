@@ -5,7 +5,7 @@ class WriterController extends Controller
     {
         $this->DashboardNew();
     }
-//dashboard---------------------------------------------------------------------------------
+    //dashboard---------------------------------------------------------------------------------
     public function DashboardNew()
     {
         $book = new Book();
@@ -123,7 +123,7 @@ class WriterController extends Controller
         $this->view('writer/bookDetail', ['book' => $bookFound, 'chapters' => $bookChapters, 'rating' => $bookRating, 'spinoffs' => $spinoffs, 'genres' => $genres]);
     }
 
-// QUOTES---------------------------------------------------------------------------------
+    // QUOTES---------------------------------------------------------------------------------
     public function Quotes()
     {
         if (isset($_SESSION['user_id'])) {
@@ -134,7 +134,7 @@ class WriterController extends Controller
         }
         $author = isset($_GET['writer']) ? $_GET['writer'] : $_SESSION['user_id'];
         $quoteModel = new Quote();
-       // $author = $_SESSION['user_id'];
+        // $author = $_SESSION['user_id'];
 
         $userDetailsTable = new UserDetails();
         $userDetails = $userDetailsTable->first(['user' => $author]);
@@ -290,7 +290,7 @@ class WriterController extends Controller
 
 
 
-// SPINOFFS---------------------------------------------------------------------------------
+    // SPINOFFS---------------------------------------------------------------------------------
     public function Spinoffs()
     {
         $author = $_SESSION['user_id'];
@@ -380,7 +380,7 @@ class WriterController extends Controller
         $this->Spinoffs();
     }
 
-// COMPETITIONS----------------------------------------------------------------------------------------------------
+    // COMPETITIONS----------------------------------------------------------------------------------------------------
     public function Competitions()
     {
         $author = $_SESSION['user_id'];
@@ -525,11 +525,11 @@ class WriterController extends Controller
 
     public function Submissions($competitionID = 0)
     {
-         $URL = splitURL();
-         if ($URL[2] < 1)
-             $this->view('error');
+        $URL = splitURL();
+        if ($URL[2] < 1)
+            $this->view('error');
 
-    if ($competitionID < 1 || !is_numeric($competitionID))
+        if ($competitionID < 1 || !is_numeric($competitionID))
             $competitionID = $URL[2]; //get the competition id from the url
 
         $submission = new DesignSubmissions();
@@ -544,25 +544,25 @@ class WriterController extends Controller
         if ($URL[2] < 1)
             $this->view('error');
         if ($submissionID < 1 || !is_numeric($submissionID))
-        $submissionID = $URL[2]; //get the competition id from the url
+            $submissionID = $URL[2]; //get the competition id from the url
 
         $submission = new DesignSubmissions();
         $submissionDetails = $submission->first(['submissionID' => $submissionID]);
-        
+
         $this->view('writer/viewSubmission', ['submission' => $submissionDetails]);
     }
 
     public function win($submissionID = 0)
     {
-            $URL = splitURL();
-            if ($URL[2] < 1)
+        $URL = splitURL();
+        if ($URL[2] < 1)
             $this->view('error');
-           if ($submissionID < 1|| !is_numeric($submissionID))
-           $submissionID = $URL[2];
+        if ($submissionID < 1 || !is_numeric($submissionID))
+            $submissionID = $URL[2];
 
-            $submission = new DesignSubmissions();
+        $submission = new DesignSubmissions();
 
-            $submission->update($submissionID, ['status'=> 'Selected'] , 'submissionID');
+        $submission->update($submissionID, ['status' => 'Selected'], 'submissionID');
 
 
         header('location: /Free-Write/public/Writer/');
@@ -570,7 +570,7 @@ class WriterController extends Controller
 
 
 
-//book------------------------------------------------------------------------
+    //book------------------------------------------------------------------------
 
     public function New()
     {
@@ -622,7 +622,7 @@ class WriterController extends Controller
         exit;
 
     }
- 
+
     public function Edit($bookID = 0)
     {
         $URL = splitURL();
@@ -666,37 +666,67 @@ class WriterController extends Controller
 
         $accessType = $_POST['accessType'] ?? 'public';
         $publishType = $_POST['publishType'] ?? 'book';
-        $status = $_POST['status'] ?? '0';
+        $status = $_POST['isCompleted'] ?? '0';
         $price = $_POST['price'] ?? null;
-        if ($price < 0 && !is_numeric($price)) {
-            echo "Price must be a Positive number.";
-            exit;
+        if ($price < 0) {
+            $price = null;
         }
 
         $lastUpdated = date('Y-m-d H:i:s');
+        $coverImageID = null; // Default to null incase no coverimage submitted
 
-        if (isset($_FILES['cover_image'])) {
+        // Handle cover image upload
+        if (isset($_FILES['cover_image']) && $_FILES['cover_image']['error'] === UPLOAD_ERR_OK) {
             $author = $_SESSION['user_id'];
             $file = $_FILES['cover_image'];
+
+            // Validate file
+            $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+            $maxSize = 5 * 1024 * 1024; // 5MB
+            if (!in_array($file['type'], $allowedTypes) || $file['size'] > $maxSize) {
+                echo "Invalid file type or size. Please upload a JPEG, PNG, or GIF image under 5MB.";
+                exit;
+            }
+
             $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
-            $dateTime = date('Y-m-d H:i:s');
-            $FileName = $author . '_' . $dateTime . $ext;
+            $dateTime = date('Y-m-d_H-i-s'); // Use a unique format to avoid conflicts
+            $FileName = $author . '_' . $dateTime . '.' . $ext;
 
             $uploadDir = __DIR__ . '/../images/coverDesign/'; // Absolute path on disk
             $uploadPath = $uploadDir . $FileName;
 
             if (move_uploaded_file($file['tmp_name'], $uploadPath)) {
                 $cover = new CoverImage();
-                $cover->insert([
+                $coverData = [
                     'name' => $FileName,
                     'artist' => $author,
-                    'uploadDate' => $dateTime
+                    'uploadDate' => $lastUpdated
+                ];
+                $cover->insert($coverData);
+
+                // Retrieve the newly inserted cover image ID
+                $coverImageDetails = $cover->first([
+                    'name' => $FileName,
+                    'artist' => $author
                 ]);
+                $coverImageID = $coverImageDetails['covID'] ?? null;
+
+                if (!$coverImageID) {
+                    echo "Failed to retrieve cover image ID.";
+                    exit;
+                }
+            } else {
+                echo "Failed to upload cover image.";
+                exit;
             }
         }
 
-        $coverImage = new CoverImage();
-        $coverImageDetails = $coverImage->first(['uploadDate' => $dateTime]);
+        // If no new cover image, retain existing coverImage ID (fetch from Book)
+        if (!$coverImageID) {
+            $bookModel = new Book();
+            $existingBook = $bookModel->first(['bookID' => $bookID]);
+            $coverImageID = $existingBook['coverImage'] ?? null;
+        }
 
         $data = [
             'title' => $title,
@@ -706,7 +736,7 @@ class WriterController extends Controller
             'price' => $price,
             'isCompleted' => $status,
             'lastUpdateDate' => $lastUpdated,
-            'coverImage' => $coverImageDetails['covID'] ?? null
+            'coverImage' => $coverImageID
         ];
 
         $book = new Book();
@@ -724,7 +754,6 @@ class WriterController extends Controller
 
         header('location: /Free-Write/public/Writer/Overview/' . $bookID);
         exit;
-
     }
 
     public function DeleteBook()
@@ -743,7 +772,7 @@ class WriterController extends Controller
         }
     }
 
-//chapter---------------------------------------------------------------------------
+    //chapter---------------------------------------------------------------------------
     public function Chapter($chapterID = 0)
     {
         $URL = splitURL();
@@ -889,7 +918,7 @@ class WriterController extends Controller
         }
     }
 
-//quotations---------------------------------------------------------------------------
+    //quotations---------------------------------------------------------------------------
     public function Quotations()
     {
         $author = $_SESSION['user_id'];

@@ -15,7 +15,9 @@ class LoginController extends Controller
             $user = new User();
             $userDetails = new UserDetails();
 
-            $result = $user->createUser($_POST['signup-email'], $_POST['pw'], "reader", 0, 1);
+            $hashedpw = password_hash($_POST['pw'], PASSWORD_DEFAULT);
+
+            $result = $user->createUser($_POST['signup-email'], $hashedpw /*$_POST['pw']*/ , "reader", 0, 1);
 
             if ($result) {
                 $newUserID = $user->first(['email' => $_POST['signup-email']]);
@@ -63,6 +65,7 @@ class LoginController extends Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $user_email = $_POST['log-email'] ?? '';
             $password = $_POST['log-password'] ?? '';
+
             $response = ['success' => false, 'message' => '', 'lockout' => false, 'remainingTime' => 0];
 
             $user = new User();
@@ -118,7 +121,7 @@ class LoginController extends Controller
             }
 
             // Verify password
-            if ($password === $userData['password']) {
+            if (password_verify($password, $userData['password'])) {/*$password === $userData['password']*/
                 // Successful login
                 $_SESSION['user_id'] = $userData['userID'];
                 $_SESSION['user_type'] = $userData['userType'];
@@ -141,15 +144,16 @@ class LoginController extends Controller
                     'activity' => 'Successfully logged in',
                     'occurrence' => date("Y-m-d H:i:s")
                 ]);
-                
+
                 $response['success'] = true;
                 $response['message'] = 'login_success';
                 //$response['redirect'] = '/Free-Write/public/User/Profile';
 
-                if($userData['isPremium'] != 1){
+                if ($userData['isPremium'] != 1 || !isset($_SESSION['user_id'])) {
                     $advertisement = new Advertisement();
-                    $ad = $advertisement->first(['status'=>'active']);
-                    $_SESSION['user_ads'] = $ad['adImage'];
+                    $ad = $advertisement->first(['status' => 'active']);
+
+                    ($ad) ? $_SESSION['user_ads'] = $ad['adImage'] : null;
                 }
 
                 switch ($userData['userType']) {

@@ -125,6 +125,7 @@
 
     <?php require_once "../app/views/layout/footer.php"; ?>
     <script src="/Free-Write/public/js/writer/editBook.js"></script>
+    <script src="/Free-Write/public/js/imageAdd.js"></script>
 
 </body>
 

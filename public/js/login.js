@@ -23,15 +23,15 @@ document.addEventListener("DOMContentLoaded", function () {
   const confpass = document.getElementById("confpass");
 
   // Validation functions
-  function hashPassword(password) {
-    let hash = 0;
-    for (let i = 0; i < password.length; i++) {
-      const char = password.charCodeAt(i);
-      hash = (hash << 5) - hash + char;
-      hash = hash & hash;
-    }
-    return Math.abs(hash).toString(36);
-  }
+  // function hashPassword(password) {
+  //   let hash = 0;
+  //   for (let i = 0; i < password.length; i++) {
+  //     const char = password.charCodeAt(i);
+  //     hash = (hash << 5) - hash + char;
+  //     hash = hash & hash;
+  //   }
+  //   return Math.abs(hash).toString(36);
+  // }
 
   function checkpwMatch() {
     if (passwordReg.value !== confpass.value) {
@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
       validateEmail(emailReg.value) &&
       checkPassStrength(passwordReg.value)
     ) {
-      passwordReg.value = hashPassword(passwordReg.value);
+      // passwordReg.value = hashPassword(passwordReg.value);
       this.submit();
     }
   });
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    const hashedPassword = hashPassword(passwordLogin.value);
+    const hashedPassword = passwordLogin.value; //hashPassword(passwordLogin.value);
     const formData = new FormData(this);
     formData.set("log-password", hashedPassword);
 

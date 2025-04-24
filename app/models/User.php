@@ -28,7 +28,7 @@ class User
             COUNT(CASE WHEN ([userType] = 'covdes' OR [userType] = 'wricov') THEN 1 END) as covdes,
             COUNT(CASE WHEN [userType] = 'pub' THEN 1 END) as pubs,
             COUNT(CASE WHEN [userType] = 'mod' THEN 1 END) as mod,
-            COUNT(CASE WHEN ([userType] = 'premread' OR [userType] = 'premwri') THEN 1 END) as premium,
+            COUNT(CASE WHEN ([isPremium] = 1) THEN 1 END) as premium,
             COUNT(*) as totalUsers,
             (SELECT COUNT(*) FROM [Institution]) as inst
         FROM [dbo].[User];";
