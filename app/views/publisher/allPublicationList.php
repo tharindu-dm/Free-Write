@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -96,26 +97,26 @@
         }
 
         .book-card {
-    background: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
-    height: 400px;
-}
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+            height: 400px;
+        }
 
-.book-card img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    background: #fff;
-    padding: 10px;
-    transition: transform 0.3s ease;
-}
+        .book-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            background: #fff;
+            padding: 10px;
+            transition: transform 0.3s ease;
+        }
 
-.book-card:hover {
-    transform: translateY(-5px);
-}
+        .book-card:hover {
+            transform: translateY(-5px);
+        }
 
 
         .book-card {
@@ -204,6 +205,7 @@
         }
     </style>
 </head>
+
 <body>
     <?php
     if (isset($_SESSION['user_type'])) {
@@ -212,7 +214,7 @@
         $userType = 'guest';
     }
     switch ($userType) {
-        case 'admin':            
+        case 'admin':
         case 'mod':
         case 'writer':
         case 'covdes':
@@ -231,7 +233,9 @@
     <main>
         <div class="page-header">
             <div class="publisher-info">
-                <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="Acme Publishing" class="publisher-logo">
+                <img src="/Free-Write/app/images/profile/<?= isset($userDetails) && isset($userDetails['profileImage']) ?
+                    htmlspecialchars($userDetails['profileImage']) : 'profile-image.jpg' ?>" alt="Acme Publishing"
+                    class="publisher-logo">
                 <div>
                     <h1>All Publications</h1>
                     <p><?= htmlspecialchars($pubDetails['name']) ?></p>
@@ -286,49 +290,32 @@
 
         <div class="publications-grid">
             <!-- Example book cards -->
-            <?php if (!empty($data['allBookDetails'])) : ?>
-                <?php foreach ($data['allBookDetails'] as $allBookDetails): ?>
-            <a href="/Free-Write/public/Publisher/bookProfile">  <div class="book-card">
-            <img src="/Free-Write/app/images/coverDesign/<?= !empty($allBookDetails['coverImage']) ? htmlspecialchars($allBookDetails['coverImage']) : 'sampleCover.jpg' ?>" alt="<?= htmlspecialchars($allBookDetails['title']) ?>">
 
-                <div class="book-info">
-                    <div class="book-title"><?= htmlspecialchars($allBookDetails['title']) ?></div>
-                    <div class="book-author">by <?= htmlspecialchars($allBookDetails['author_name']) ?></div>
-                    <div class="book-details">Published: <?= htmlspecialchars($allBookDetails['publication_year']) ?></div>
-                    <div class="book-tags">
-                        <span class="book-tag">Fiction</span>
-                        <span class="book-tag">Mystery</span>
-                    </div>
-                </div>
-            </div>
-            </a>
-           
-
-            <!-- Repeat book cards for demonstration -->
-            <!-- <a href="/Free-Write/public/Publisher/bookProfile"> <div class="book-card">
-                <img src="/Free-Write/public/images/sampleCover.jpg" alt="Book Title" class="book-cover">
-
-                <div class="book-info">
-                    <div class="book-title">Beyond the Horizon</div>
-                    <div class="book-author">by Michael Chen</div>
-                    <div class="book-details">Published: Sep 2024</div>
-                    <div class="book-tags">
-                        <span class="book-tag">Fiction</span>
-                        <span class="book-tag">Adventure</span>
-                    </div>
-                </div>
-            </div>
-            </a> -->
-
-            <!-- Add more book cards as needed -->
-            <!-- Repeat similar book cards 10 more times for demonstration -->
-            <?php endforeach; ?>
-    <?php else : ?>
-        <p>No books available.</p>
-    <?php endif; ?>
+            <?php if (!empty($allBookDetails)): ?>
+                <?php foreach ($allBookDetails as $book): ?>
+                    <a href="/Free-Write/public/Publisher/bookProfile4publishers/<?= $book['isbnID'] ?>">
+                        <div class="book-card">
+                            <img src="/Free-Write/app/images/coverDesign/<?= !empty($book['coverImage']) ? htmlspecialchars($book['coverImage']) : 'sampleCover.jpg' ?>"
+                                alt="<?= htmlspecialchars($book['title']) ?>">
+                            <div class="book-info">
+                                <div class="book-title"><?= htmlspecialchars($book['title']) ?></div>
+                                <div class="book-author">by <?= htmlspecialchars($book['author_name']) ?></div>
+                                <div class="book-details">Published: <?= htmlspecialchars($book['publication_year']) ?></div>
+                                <div class="book-tags">
+                                    <span class="book-tag"><?= htmlspecialchars($book['genre']) ?></span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>No books available.</p>
+            <?php endif; ?>
         </div>
+
 
         <button class="load-more">Load More</button>
     </main>
 </body>
+
 </html>

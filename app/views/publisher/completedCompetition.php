@@ -8,7 +8,7 @@
   <title>Free Write - Competitions</title>
   <style>
     .content {
-      max-width: 1200px;
+      max-width: 1600px;
       margin: 2rem auto;
       padding: 0 2rem;
     }
@@ -265,14 +265,16 @@
       <table>
         <thead>
           <tr>
-           <th>Competition</th>
+            <th>Competition</th>
             <th>Status</th>
             <th>Start Date</th>
             <th>End Date</th>
             <th>Category</th>
-            <th>prize</th>
+            <th>First prize</th>
+            <th>Second prize</th>
+            <th>Third prize</th>
             <th>Participants</th>
-            <th>Actions</th>
+
           </tr>
         </thead>
         <tbody>
@@ -286,7 +288,8 @@
                   </a>
                 </td>
                 <td>
-                  <span class="status-badge <?= strtotime($completedCompetition['end_date']) < time() ? 'ended' : 'active' ?>">
+                  <span
+                    class="status-badge <?= strtotime($completedCompetition['end_date']) < time() ? 'ended' : 'active' ?>">
                     <?= strtotime($completedCompetition['end_date']) < time() ? 'Ended' : 'Active' ?>
                   </span>
                 </td>
@@ -295,11 +298,10 @@
                 <td><?php echo date('m/d/Y', strtotime($completedCompetition['end_date'])); ?></td>
                 <td><?php echo htmlspecialchars($completedCompetition['category'] ?? ''); ?></td>
                 <td><?php echo '$' . number_format($completedCompetition['first_prize'], 2); ?></td>
+                <td><?php echo '$' . number_format($completedCompetition['second_prize'], 2); ?></td>
+                <td><?php echo '$' . number_format($completedCompetition['third_prize'], 2); ?></td>
                 <td>0</td>
-                <td>
-                  <a href="/Free-Write/public/Competition/Manage/<?php echo $completedCompetition['competitionID']; ?>"
-                    class="action-link">Manage</a>
-                </td>
+
               </tr>
             <?php endforeach; ?>
           <?php else: ?>
@@ -311,6 +313,9 @@
       </table>
     </div>
   </div>
+  <?php
+  require_once "../app/views/layout/footer.php";
+  ?>
 </body>
 
 </html>

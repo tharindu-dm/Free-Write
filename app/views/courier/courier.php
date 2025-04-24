@@ -82,27 +82,8 @@
 </head>
 
 <body>
-
-  <?php
-  if (isset($_SESSION['user_type'])) {
-    $userType = $_SESSION['user_type'];
-  } else {
-    $userType = 'guest';
-  }
-  switch ($userType) {
-    case 'admin':
-    case 'writer':
-    case 'covdes':
-    case 'wricov':
-    case 'reader':
-      require_once "../app/views/layout/header-user.php";
-      break;
-    case 'pub':
-      require_once "../app/views/layout/header-pub.php";
-      break;
-    default:
-      require_once "../app/views/layout/header.php";
-  }
+  <?php require_once "../app/views/layout/headerSelector.php";
+  //show($data);
   ?>
 
   <div class="content">
@@ -114,35 +95,45 @@
 
     <div class="applications-list">
       <div class="application-item">
-        <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="Jonas">
+        <img
+          src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>"
+          alt="Jonas">
         <div class="application-details">
           <h3>Jonas</h3>
           <p>Colombo</p>
         </div>
       </div>
       <div class="application-item">
-        <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="Molly">
+        <img
+          src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>"
+          alt="Molly">
         <div class="application-details">
           <h3>Molly</h3>
           <p>Galle</p>
         </div>
       </div>
       <div class="application-item">
-        <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="Robert">
+        <img
+          src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>"
+          alt="Robert">
         <div class="application-details">
           <h3>Robert</h3>
           <p>Jaffna</p>
         </div>
       </div>
       <div class="application-item">
-        <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="Emma">
+        <img
+          src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>"
+          alt="Emma">
         <div class="application-details">
           <h3>Emma</h3>
           <p>Matara</p>
         </div>
       </div>
       <div class="application-item">
-        <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="David">
+        <img
+          src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>"
+          alt="David">
         <div class="application-details">
           <h3>David</h3>
           <p>Colombo</p>

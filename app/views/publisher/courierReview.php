@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -275,11 +276,11 @@
       .grid-container {
         grid-template-columns: 1fr;
       }
-      
+
       .decision-box {
         position: static;
       }
-      
+
       .info-grid {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       }
@@ -319,8 +320,9 @@
     }
   </style>
 </head>
+
 <body>
-<?php
+  <?php
   if (isset($_SESSION['user_type'])) {
     $userType = $_SESSION['user_type'];
   } else {
@@ -461,10 +463,7 @@
               <div class="info-label">Vehicle Inspection</div>
               <div class="info-value" style="color: #FFD700;">Pending</div>
             </div>
-            <textarea 
-              class="feedback-textarea" 
-              placeholder="Add feedback or notes about the application..."
-            ></textarea>
+            <textarea class="feedback-textarea" placeholder="Add feedback or notes about the application..."></textarea>
             <div class="decision-buttons">
               <button class="decision-button approve-button">Approve</button>
               <button class="decision-button reject-button">Reject</button>
@@ -475,4 +474,5 @@
     </div>
   </div>
 </body>
+
 </html>

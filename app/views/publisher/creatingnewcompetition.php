@@ -184,10 +184,7 @@
     default:
       require_once "../app/views/layout/header.php";
   }
-
-  //show($data);
   ?>
-
 
   <main>
     <div class="form-container">
@@ -203,8 +200,9 @@
         </div>
       <?php endif; ?>
 
+      <form action="/Free-Write/public/Competition/CreateCompetition" method="POST" enctype="multipart/form-data"
+        onsubmit="return validateForm()">
 
-      <form action="/Free-Write/public/Competition/CreateCompetition" method="POST" onsubmit="return validateForm()">
         <input type="hidden" name="compID" value="<?= htmlspecialchars($competitionDetails['competitionID']) ?>">
 
         <label for="title">Competition Name</label>
@@ -212,38 +210,37 @@
         <div id="title_error" class="error-message"></div>
 
         <label for="description">Competition Description</label>
-        <textarea id="description" maxlength="255" name="description" placeholder="Describe your competition"
-          required></textarea>
+        <textarea id="description" name="description" placeholder="Describe your competition" required></textarea>
         <div id="description_error" class="error-message"></div>
 
-        <label for="rules">Judging criteria</label>
-        <textarea id="rules" maxlength="25" name="rules" placeholder="Enter your competition judging criteria"
-          required></textarea>
+        <label for="rules">Judging Criteria</label>
+        <textarea id="rules" name="rules" placeholder="Enter your competition judging criteria" required></textarea>
         <div id="rules_error" class="error-message"></div>
+
+        <label for="type">Competition For</label>
+        <select id="type" name="type" required>
+          <option value="writer">Writer</option>
+          <option value="CoverDesigners">Cover Designers</option>
+        </select>
 
         <label for="category">Category</label>
         <input type="text" id="category" maxlength="45" name="category" placeholder="Enter category" required />
         <div id="category_error" class="error-message"></div>
 
         <label for="first_prize">Prize Amount</label>
-        <input type="number" id="first_prize" name="first_prize" placeholder="Enter first prize amount" required min="0"
-          step="0.01" />
+        <input type="number" id="first_prize" name="first_prize" placeholder="Enter first prize amount" required
+          min="0" />
+        <div id="first_prize_error" class="error-message"></div>
 
         <label for="second_prize">Second Prize Amount</label>
         <input type="number" id="second_prize" name="second_prize" placeholder="Enter second prize amount" required
-          min="0" step="0.01" />
+          min="0" />
+        <div id="second_prize_error" class="error-message"></div>
 
         <label for="third_prize">Third Prize Amount</label>
         <input type="number" id="third_prize" name="third_prize" placeholder="Enter third prize amount" required min="0"
           step="0.01" />
-
-        <label for="type"> Type(For whom) </label>
-        <!-- <input type="option" id="type" name="type" placeholder="Enter the type of competition" required > -->
-        <select id="type" name="type">
-          <option value="writer">for writers</option>
-          <option value="covdes">for cover page designers</option>
-        </select>
-
+        <div id="third_prize_error" class="error-message"></div>
 
         <label for="start_date">Start Date</label>
         <input type="date" id="start_date" name="start_date" required />
@@ -253,11 +250,11 @@
         <input type="date" id="end_date" name="end_date" required />
         <div id="end_date_error" class="error-message"></div>
 
-        <!-- <div class="optional-section">
+
+
         <h3>Add Competition Image</h3>
         <p>JPG or PNG, 2MB max</p>
         <input type="file" name="competition_image" accept="image/jpeg,image/png" />
-    </div> -->
 
         <button type="submit" class="submit-btn">Create Competition</button>
         <button type="button" class="cancel-btn"
@@ -279,6 +276,9 @@
         category: document.getElementById('category_error'),
         description: document.getElementById('description_error'),
         rules: document.getElementById('rules_error'),
+        firstPrize: document.getElementById('first_prize_error'),
+        secondPrize: document.getElementById('second_prize_error'),
+        thirdPrize: document.getElementById('third_prize_error'),
         startDate: document.getElementById('start_date_error'),
         endDate: document.getElementById('end_date_error')
       };
@@ -306,17 +306,42 @@
 
       // Description Validation
       const description = document.getElementById('description').value;
-      if (countWords(description) < 5) {
-        errorMessages.description.textContent = 'Description must be at least 10 words';
+      const descriptionWordCount = countWords(description);
+      if (descriptionWordCount < 5) {
+        errorMessages.description.textContent = 'Description must be at least 5 words';
+        errorMessages.description.style.display = 'block';
+        isValid = false;
+      } else if (descriptionWordCount > 100) {
+        errorMessages.description.textContent = 'Description cannot exceed 100 words';
         errorMessages.description.style.display = 'block';
         isValid = false;
       }
 
       // Rules Validation
       const rules = document.getElementById('rules').value;
-      if (countWords(rules) < 5) {
-        errorMessages.rules.textContent = 'Rules must be at least 10 words';
+      const rulesWordCount = countWords(rules);
+      if (rulesWordCount < 5) {
+        errorMessages.rules.textContent = 'Rules must be at least 5 words';
         errorMessages.rules.style.display = 'block';
+        isValid = false;
+      } else if (rulesWordCount > 100) {
+        errorMessages.rules.textContent = 'Rules cannot exceed 100 words';
+        errorMessages.rules.style.display = 'block';
+        isValid = false;
+      }
+
+      // Prize Validation
+      const firstPrize = parseFloat(document.getElementById('first_prize').value);
+      const secondPrize = parseFloat(document.getElementById('second_prize').value);
+      const thirdPrize = parseFloat(document.getElementById('third_prize').value);
+
+      if (isNaN(firstPrize) || isNaN(secondPrize) || isNaN(thirdPrize)) {
+        errorMessages.firstPrize.textContent = 'All prize amounts must be valid numbers';
+        errorMessages.firstPrize.style.display = 'block';
+        isValid = false;
+      } else if (firstPrize <= secondPrize || secondPrize <= thirdPrize) {
+        errorMessages.firstPrize.textContent = 'First prize must be greater than second, and second prize must be greater than third';
+        errorMessages.firstPrize.style.display = 'block';
         isValid = false;
       }
 
@@ -364,8 +389,12 @@
 
     document.getElementById('description').addEventListener('input', function () {
       const errorElem = document.getElementById('description_error');
-      if (countWords(this.value) < 5) {
-        errorElem.textContent = 'Description must be at least 10 words';
+      const wordCount = countWords(this.value);
+      if (wordCount < 5) {
+        errorElem.textContent = 'Description must be at least 5 words';
+        errorElem.style.display = 'block';
+      } else if (wordCount > 100) {
+        errorElem.textContent = 'Description cannot exceed 100 words';
         errorElem.style.display = 'block';
       } else {
         errorElem.style.display = 'none';
@@ -374,23 +403,39 @@
 
     document.getElementById('rules').addEventListener('input', function () {
       const errorElem = document.getElementById('rules_error');
-      if (countWords(this.value) < 5) {
-        errorElem.textContent = 'Rules must be at least 10 words';
+      const wordCount = countWords(this.value);
+      if (wordCount < 5) {
+        errorElem.textContent = 'Rules must be at least 5 words';
+        errorElem.style.display = 'block';
+      } else if (wordCount > 100) {
+        errorElem.textContent = 'Rules cannot exceed 100 words';
         errorElem.style.display = 'block';
       } else {
         errorElem.style.display = 'none';
       }
     });
 
-    const firstPrize = document.getElementById('first_prize').value;
-    const secondPrize = document.getElementById('second_prize').value;
-    const thirdPrize = document.getElementById('third_prize').value;
+    // Real-time validation for prize inputs
+    function validatePrizes() {
+      const firstPrize = parseFloat(document.getElementById('first_prize').value);
+      const secondPrize = parseFloat(document.getElementById('second_prize').value);
+      const thirdPrize = parseFloat(document.getElementById('third_prize').value);
+      const errorElem = document.getElementById('first_prize_error');
 
-    if (parseFloat(firstPrize) <= parseFloat(secondPrize) || parseFloat(secondPrize) <= parseFloat(thirdPrize)) {
-      errorMessages.prizes.textContent = 'First prize must be greater than second prize, which must be greater than third prize';
-      errorMessages.prizes.style.display = 'block';
-      isValid = false;
+      if (isNaN(firstPrize) || isNaN(secondPrize) || isNaN(thirdPrize)) {
+        errorElem.textContent = 'All prize amounts must be valid numbers';
+        errorElem.style.display = 'block';
+      } else if (firstPrize <= secondPrize || secondPrize <= thirdPrize) {
+        errorElem.textContent = 'First prize must be greater than second, and second greater than third';
+        errorElem.style.display = 'block';
+      } else {
+        errorElem.style.display = 'none';
+      }
     }
+
+    document.getElementById('first_prize').addEventListener('input', validatePrizes);
+    document.getElementById('second_prize').addEventListener('input', validatePrizes);
+    document.getElementById('third_prize').addEventListener('input', validatePrizes);
 
     // Set minimum date for start date (today)
     const today = new Date();

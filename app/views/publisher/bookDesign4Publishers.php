@@ -27,7 +27,6 @@
 
         .book-image {
             flex: 0 0 300px;
-            position: relative;
         }
 
         .book-image img {
@@ -35,20 +34,6 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-
-        /* .image-edit-overlay {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 8px;
-            border-radius: 4px;
-            display: none;
-        }
-
-        .book-image:hover .image-edit-overlay {
-            display: block;
-        } */
 
         .book-info {
             flex: 1;
@@ -173,442 +158,238 @@
             border-radius: 4px;
         }
 
-        /* Delete Overlay Container */
-        .deleteOverlay-container {
-            position: fixed;
-            top: 0;
-            left: 0;
+        /* Style for form inputs when editing */
+        .book-info.editing .editable-input {
             width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            padding: 5px;
+            border: 1px solid #FFD052;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        /* Hide text elements when editing, show inputs */
+        .book-info.editing .editable-text {
             display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
         }
 
-        /* Delete Overlay Dialog */
-        .deleteOverlay {
-            background-color: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 400px;
-        }
-
-        /* Heading */
-        .deleteOverlay h2 {
-            color: #2c3e50;
-            margin: 0 0 20px 0;
-            font-size: 20px;
-            text-align: center;
-            font-family: Arial, sans-serif;
-        }
-
-        /* Form */
-        .deleteOverlay form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        /* Labels */
-        .deleteOverlay label {
-            display: block;
-            font-weight: 500;
-            color: gray;
-            margin-bottom: 5px;
-            font-size: 14px;
-            font-family: Arial, sans-serif;
-        }
-
-        /* Inputs */
-        .deleteOverlay input[type="text"] {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #eee;
-            border-radius: 4px;
-            background-color: #F5F0E5;
-            color: #2c3e50;
-            font-size: 14px;
-            font-family: Arial, sans-serif;
-        }
-
-        .deleteOverlay input[type="text"]:disabled {
-            cursor: not-allowed;
-            opacity: 0.7;
-        }
-
-        /* Buttons - matching your existing button styles */
-        .deleteOverlay button {
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            border: none;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            font-family: Arial, sans-serif;
-        }
-
-        #deleteCompetition_Agree {
-            background-color: #dc3545;
-            color: white;
-            margin-top: 10px;
-        }
-
-        #deleteCompetition_Agree:hover {
-            opacity: 0.9;
-        }
-
-        #cancelDelete {
-            background-color: #6c757d;
-            color: white;
-            margin-top: 8px;
-        }
-
-        #cancelDelete:hover {
-            opacity: 0.9;
-        }
-
-        /* Responsive Adjustments */
-        @media (max-width: 480px) {
-            .deleteOverlay {
-                width: 95%;
-                padding: 20px;
-                margin: 20px;
-            }
-
-            .deleteOverlay h2 {
-                font-size: 18px;
-            }
-        }
-
-        /* Delete Overlay Container */
-        .deleteOverlay-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+        .book-info:not(.editing) .editable-input {
             display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        /* Delete Overlay Dialog */
-        .deleteOverlay {
-            background-color: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 400px;
-        }
-
-        /* Heading */
-        .deleteOverlay h2 {
-            color: #2c3e50;
-            margin: 0 0 20px 0;
-            font-size: 20px;
-            text-align: center;
-            font-family: Arial, sans-serif;
-        }
-
-        /* Form */
-        .deleteOverlay form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        /* Labels */
-        .deleteOverlay label {
-            display: block;
-            font-weight: 500;
-            color: gray;
-            margin-bottom: 5px;
-            font-size: 14px;
-            font-family: Arial, sans-serif;
-        }
-
-        /* Inputs */
-        .deleteOverlay input[type="text"] {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #eee;
-            border-radius: 4px;
-            background-color: #F5F0E5;
-            color: #2c3e50;
-            font-size: 14px;
-            font-family: Arial, sans-serif;
-        }
-
-        .deleteOverlay input[type="text"]:disabled {
-            cursor: not-allowed;
-            opacity: 0.7;
-        }
-
-        /* Buttons - matching your existing button styles */
-        .deleteOverlay button {
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            border: none;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            font-family: Arial, sans-serif;
-        }
-
-        #deleteCompetition_Agree {
-            background-color: #dc3545;
-            color: white;
-            margin-top: 10px;
-        }
-
-        #deleteCompetition_Agree:hover {
-            opacity: 0.9;
-        }
-
-        #cancelDelete {
-            background-color: #6c757d;
-            color: white;
-            margin-top: 8px;
-        }
-
-        #cancelDelete:hover {
-            opacity: 0.9;
-        }
-
-        /* Responsive Adjustments */
-        @media (max-width: 480px) {
-            .deleteOverlay {
-                width: 95%;
-                padding: 20px;
-                margin: 20px;
-            }
-
-            .deleteOverlay h2 {
-                font-size: 18px;
-            }
         }
     </style>
 </head>
 
 <body>
-    <?php require_once "../app/views/layout/headerSelector.php";
-    //show($data);
+    <?php
+    if (isset($_SESSION['user_type'])) {
+        $userType = $_SESSION['user_type'];
+    } else {
+        $userType = 'guest';
+    }
+    switch ($userType) {
+        case 'admin':
+        case 'mod':
+        case 'writer':
+        case 'covdes':
+        case 'wricov':
+        case 'reader':
+            require_once "../app/views/layout/header-user.php";
+            break;
+        case 'pub':
+            require_once "../app/views/layout/header-pub.php";
+            break;
+        default:
+            require_once "../app/views/layout/header.php";
+    }
     ?>
 
     <div class="book-container">
         <div class="book-image">
-            <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book Cover">
-            <div class="image-edit-overlay">
-                <button class="btn edit-btn">
-                    <i class="fas fa-camera"></i> Change Image
-                </button>
-            </div>
+            <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($bookDetails['coverImage'] ?? 'sampleCover.jpg'); ?>"
+                alt="Book Cover">
+
         </div>
 
         <div class="book-info">
-            <div class="header-actions">
-                <div class="Names">
-                    <h1 class="editable" contenteditable="false">
-                        <?= htmlspecialchars($bookDetails['title'] ?? 'Untitled', ENT_QUOTES, 'UTF-8') ?>
-                    </h1>
-                    <p class="editable" contenteditable="false">By
-                        <?= htmlspecialchars($bookDetails['author_name'] ?? 'Unknown', ENT_QUOTES, 'UTF-8') ?>
+            <form id="book-details-form" action="/Free-Write/public/Publisher/updateBookDetails" method="POST">
+                <input type="hidden" name="isbnID"
+                    value="<?= htmlspecialchars($bookDetails['isbnID'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+
+                <div class="header-actions">
+                    <div class="Names">
+                        <h1>
+                            <span
+                                class="editable editable-text"><?= htmlspecialchars($bookDetails['title'] ?? 'Untitled', ENT_QUOTES, 'UTF-8') ?></span>
+                            <input type="text" name="title" class="editable editable-input"
+                                value="<?= htmlspecialchars($bookDetails['title'] ?? 'Untitled', ENT_QUOTES, 'UTF-8') ?>"
+                                required>
+                        </h1>
+                        <p>
+                            By <span
+                                class="editable editable-text"><?= htmlspecialchars($bookDetails['author_name'] ?? 'Unknown', ENT_QUOTES, 'UTF-8') ?></span>
+                            <input type="text" name="author_name" class="editable editable-input"
+                                value="<?= htmlspecialchars($bookDetails['author_name'] ?? 'Unknown', ENT_QUOTES, 'UTF-8') ?>"
+                                required>
+                        </p>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button type="button" class="btn edit-btn" onclick="toggleEditMode()">Edit</button>
+                        <button type="submit" class="btn save-btn">Save</button>
+                        <button type="button" class="btn cancel-btn" onclick="cancelEdit()">Cancel</button>
+                        <button type="button" class="btn delete-btn" onclick="deleteBook()">Delete</button>
+                    </div>
+                </div>
+
+                <div class="price-rating">
+                    <span class="price">
+                        <span
+                            class="editable editable-text"><?= htmlspecialchars($bookDetails['prize'] ?? '0.00', ENT_QUOTES, 'UTF-8') ?></span>
+                        <input type="text" name="prize" class="editable editable-input"
+                            value="<?= htmlspecialchars($bookDetails['prize'] ?? '0.00', ENT_QUOTES, 'UTF-8') ?>"
+                            required pattern="\d+(\.\d{1,2})?" title="Enter a valid price (e.g., 19.99)">
+                    </span>
+                    <div class="rating">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="rating-count">(4.5/5 - 2,345 reviews)</span>
+                    </div>
+                </div>
+
+                <div class="availability-badge">In Stock</div>
+
+                <div class="synopsis">
+                    <h3>Synopsis</h3>
+                    <p>
+                        <span
+                            class="editable editable-text"><?= htmlspecialchars($bookDetails['synopsis'] ?? 'No synopsis available', ENT_QUOTES, 'UTF-8') ?></span>
+                        <textarea name="synopsis" class="editable editable-input" rows="4"
+                            style="width: 100%;"><?= htmlspecialchars($bookDetails['synopsis'] ?? 'No synopsis available', ENT_QUOTES, 'UTF-8') ?></textarea>
                     </p>
                 </div>
 
-                <div class="action-buttons">
-                    <button class="btn edit-btn" onclick="toggleEditMode()">
-                        <i class="fas fa-edit"></i> Edit
-                    </button>
-                    <button class="btn save-btn" onclick="saveChanges()">
-                        <i class="fas fa-save"></i> Save
-                    </button>
-                    <button class="btn cancel-btn" onclick="cancelEdit()">
-                        <i class="fas fa-times"></i> Cancel
-                    </button>
-
-                    <button type="button" id="deletebookProfile" class="btn delete-btn">Delete</button>
-                </div>
-            </div>
-
-            <div class="deleteOverlay-container">
-                <div class="deleteOverlay">
-                    <h2>Are you sure you want to delete this book?</h2>
-                    <form action="/Free-Write/public/Publisher/deletebookProfile" method="POST">
-                        <input type="hidden" name="isbnID" value="<?= htmlspecialchars($bookDetails['isbnID']) ?>">
-                        <label for="compID-label">Book ID</label>
-                        <input type="text" id="isbnID-label" disabled
-                            value="<?= htmlspecialchars($bookDetails['isbnID']) ?>">
-                        <label for="title">Book Name</label>
-                        <input id="title" type="text" disabled value="<?= htmlspecialchars($bookDetails['title']) ?>">
-                        <button type="submit" id="deleteCompetition_Agree">Yes, Delete</button>
-                        <button id="cancelDelete">Cancel</button>
-                    </form>
-                </div>
-            </div>
-
-            <div class="price-rating">
-                <span class="price editable"
-                    contenteditable="false"><?= htmlspecialchars($bookDetails['prize'] ?? 'Untitled', ENT_QUOTES, 'UTF-8') ?></span>
-                <div class="rating">
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
+                <div class="details">
+                    <h3>Details</h3>
+                    <div class="row">
+                        <div class="column">
+                            <p><strong>Author</strong></p>
+                            <p>
+                                By <span
+                                    class="editable editable-text"><?= htmlspecialchars($bookDetails['author_name'] ?? 'Unknown', ENT_QUOTES, 'UTF-8') ?></span>
+                                <!-- Author is already in the header, so no need for a separate input here -->
+                            </p>
+                        </div>
+                        <div class="column">
+                            <p><strong>Genre</strong></p>
+                            <p>
+                                <span
+                                    class="editable editable-text"><?= htmlspecialchars($bookDetails['genre'] ?? 'Unknown', ENT_QUOTES, 'UTF-8') ?></span>
+                                <input type="text" name="genre" class="editable editable-input"
+                                    value="<?= htmlspecialchars($bookDetails['genre'] ?? 'Unknown', ENT_QUOTES, 'UTF-8') ?>">
+                            </p>
+                        </div>
                     </div>
-                    <span class="rating-count">(4.5/5 - 2,345 reviews)</span>
-                </div>
-            </div>
-
-            <div class="availability-badge">In Stock</div>
-
-            <div class="synopsis">
-                <h3>Synopsis</h3>
-                <p class="editable" contenteditable="false">
-                    <?= htmlspecialchars($bookDetails['synopsis'] ?? 'Untitled', ENT_QUOTES, 'UTF-8') ?>
-                </p>
-            </div>
-
-            <div class="details">
-                <h3>Details</h3>
-                <div class="row">
-                    <div class="column">
-                        <p><strong>Author</strong></p>
-                        <p class="editable" contenteditable="false">By
-                            <?= htmlspecialchars($bookDetails['author_name'] ?? 'Unknown', ENT_QUOTES, 'UTF-8') ?>
-                        </p>
-                    </div>
-                    <div class="column">
-                        <p><strong>Genre</strong></p>
-                        <p class="editable" contenteditable="false">
-                            <?= htmlspecialchars($bookDetails['genre'] ?? 'Unknown', ENT_QUOTES, 'UTF-8') ?>
-                        </p>
-
+                    <div class="row">
+                        <div class="column">
+                            <p><strong>Publisher</strong></p>
+                            <p>
+                                <span
+                                    class="editable editable-text"><?= htmlspecialchars($bookDetails['publisher'] ?? 'Unknown', ENT_QUOTES, 'UTF-8') ?></span>
+                                <input type="text" name="publisher" class="editable editable-input"
+                                    value="<?= htmlspecialchars($bookDetails['publisher'] ?? 'Unknown', ENT_QUOTES, 'UTF-8') ?>">
+                            </p>
+                        </div>
+                        <div class="column">
+                            <p><strong>Published Date</strong></p>
+                            <p>
+                                <span
+                                    class="editable editable-text"><?= htmlspecialchars($bookDetails['published_date'] ?? 'Unknown', ENT_QUOTES, 'UTF-8') ?></span>
+                                <input type="date" name="published_date" class="editable editable-input"
+                                    value="<?= htmlspecialchars($bookDetails['published_date'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+                            </p>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="column">
-                        <p><strong>Publisher</strong></p>
-                        <p class="editable" contenteditable="false">Penguin Classics</p>
-                    </div>
-                    <div class="column">
-                        <p><strong>Published Date</strong></p>
-                        <p class="editable" contenteditable="false">5th century BC</p>
-                    </div>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 
-
-
-
-
-
-
     <script>
+        // Store original values to revert on cancel
+        let originalValues = {};
+
         function toggleEditMode() {
+            // Store original values before editing
+            const form = document.getElementById('book-details-form');
+            originalValues = Object.fromEntries(new FormData(form));
+
+            // Enable editing mode
             document.querySelector('.book-info').classList.add('editing');
-            document.querySelectorAll('.editable').forEach(el => {
-                el.contentEditable = true;
-                el.style.backgroundColor = '#fff8e8';
-            });
             document.querySelector('.edit-btn').style.display = 'none';
             document.querySelector('.save-btn').style.display = 'inline-block';
             document.querySelector('.cancel-btn').style.display = 'inline-block';
         }
 
-        function saveChanges() {
-            // Log all elements we're trying to access
-            // console.log('Title element:', document.querySelector('.Names h1'));
-            // console.log('Author element:', document.querySelector('.Names p'));
-            // console.log('Synopsis element:', document.querySelector('.synopsis p'));
-            // console.log('Price element:', document.querySelector('.price'));
-            // console.log('Genre element:', document.querySelector('.details .row:first-child .column:last-child p:last-child'));
-
-            // Get values with null checks
-            const isbnID = document.querySelector('input[name="isbnID"]').value;
-            const title = document.querySelector('.Names h1')?.textContent || '';
-            const author = document.querySelector('.Names p')?.textContent.replace('By ', '') || '';
-            const synopsis = document.querySelector('.synopsis p')?.textContent || '';
-            const price = document.querySelector('.price')?.textContent || '';
-            const genre = document.querySelector('.details .row:first-child .column:last-child p:last-child')?.textContent || '';
-
-
-            // Create form data
-            const formData = new FormData();
-            formData.append('isbnID', isbnID);
-            formData.append('title', title);
-            formData.append('author_name', author);
-            formData.append('synopsis', synopsis);
-            formData.append('prize', price);
-            formData.append('genre', genre);
-
-            // Add console.log to debug
-            console.log('Sending data:', Object.fromEntries(formData));
-
-            fetch('/Free-Write/public/Publisher/updateBookDetails', {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Response:', data);
-                    if (data.status === 'success') {
-                        alert('Book details updated successfully!');
-                        location.reload();
-                    } else {
-                        alert('Failed to update book details.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        }
-
-
         function cancelEdit() {
-            document.querySelector('.book-info').classList.remove('editing');
-            document.querySelectorAll('.editable').forEach(el => {
-                el.contentEditable = false;
-                el.style.backgroundColor = 'transparent';
-                // Here you would typically revert to the original content
+            // Revert to original values
+            const form = document.getElementById('book-details-form');
+            const inputs = form.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                input.value = originalValues.get(input.name) || '';
             });
+
+            // Disable editing mode
+            document.querySelector('.book-info').classList.remove('editing');
             document.querySelector('.edit-btn').style.display = 'inline-block';
             document.querySelector('.save-btn').style.display = 'none';
             document.querySelector('.cancel-btn').style.display = 'none';
         }
 
-
-        document.addEventListener("DOMContentLoaded", function () {
-            const deleteCompBtn = document.getElementById("deletebookProfile");
-            const cancelDeleteBtn = document.getElementById("cancelDelete");
-            const deleteOverlay = document.querySelector(".deleteOverlay-container");
-
-            if (deleteCompBtn && cancelDeleteBtn && deleteOverlay) {
-                deleteCompBtn.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    deleteOverlay.style.display = "flex";
-                });
-
-                cancelDeleteBtn.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    deleteOverlay.style.display = "none";
-                });
-            } else {
-                alert("One or more elements not found");
+        function deleteBook() {
+            if (confirm('Are you sure you want to delete this book?')) {
+                const isbnID = document.querySelector('input[name="isbnID"]').value;
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '/Free-Write/public/Publisher/deletebookProfile';
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'isbnID';
+                input.value = isbnID;
+                form.appendChild(input);
+                document.body.appendChild(form);
+                form.submit();
             }
+        }
+
+        // Handle form submission
+        document.getElementById('book-details-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+
+            fetch(this.action, {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        alert('Book details updated successfully!');
+                        location.reload();
+                    } else {
+                        alert('Failed to update book details: ' + (data.message || 'Unknown error'));
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while updating book details.');
+                });
         });
     </script>
+
     <?php
     require_once "../app/views/layout/footer.php";
     ?>

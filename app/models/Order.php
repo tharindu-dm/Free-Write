@@ -1,5 +1,4 @@
 <?php
-
 class Order
 {
     use Model; // Use the Model trait
@@ -17,25 +16,4 @@ class Order
         ];
         return $this->insert($orderData);
     }
-//     public function getOrdersWithCustomerNames($publisherID) 
-// {
-//     $query = "
-//         SELECT o.*, 
-//         CONCAT(ud.firstName, ' ', ud.lastName) as fullName
-//         FROM [Order] o 
-//         JOIN [UserDetails] ud ON ud.[user]=o.customer_userID";
-    
-//     return $this->query($query);
-// }
-
-
-    
-
-
-
-    
-
-
-    
-
 }

@@ -172,41 +172,41 @@
 
     <main>
 
-    <?php
-// Calculate days between dates
-$date1 = new DateTime($oldEndDate);
-$date2 = new DateTime($newEndDate);
-$interval = $date1->diff($date2);
-$daysDifference = $interval->days;
-?>
-    <div class="container">
-    <div class="order-details">
-        <h2>Advertisement Update Details</h2>
-        <div class="order-summary">
-            <p>Advertisement ID:</p>
-            <p>&nbsp;<?= htmlspecialchars($adID) ?></p>
-            
-            <p>Current End Date:</p>
-            <p>&nbsp;<?= htmlspecialchars($oldEndDate) ?></p>
-            
-            <p>New End Date:</p>
-            <p>&nbsp;<?= htmlspecialchars($newEndDate) ?></p>
-            
-            <?php if($newImage): ?>
-                <p>New Image:</p>
-                <p>&nbsp;<?= htmlspecialchars($newImage) ?></p>
-            <?php endif; ?>
-            
-            <p>Extension Period:</p>
-    <p>&nbsp;<?= htmlspecialchars($daysDifference) ?> days</p>
-            
-    <p>Price per Day:</p>
-    <p>LKR.&nbsp;100</p>
-    
-    <p>Total Price:</p>
-    <p>LKR.&nbsp;<?= htmlspecialchars($daysDifference * 100) ?></p>
-        </div>
-    </div>
+        <?php
+        // Calculate days between dates
+        $date1 = new DateTime($oldEndDate);
+        $date2 = new DateTime($newEndDate);
+        $interval = $date1->diff($date2);
+        $daysDifference = $interval->days;
+        ?>
+        <div class="container">
+            <div class="order-details">
+                <h2>Advertisement Update Details</h2>
+                <div class="order-summary">
+                    <p>Advertisement ID:</p>
+                    <p>&nbsp;<?= htmlspecialchars($adID) ?></p>
+
+                    <p>Current End Date:</p>
+                    <p>&nbsp;<?= htmlspecialchars($oldEndDate) ?></p>
+
+                    <p>New End Date:</p>
+                    <p>&nbsp;<?= htmlspecialchars($newEndDate) ?></p>
+
+                    <?php if ($newImage): ?>
+                        <p>New Image:</p>
+                        <p>&nbsp;<?= htmlspecialchars($newImage) ?></p>
+                    <?php endif; ?>
+
+                    <p>Extension Period:</p>
+                    <p>&nbsp;<?= htmlspecialchars($daysDifference) ?> days</p>
+
+                    <p>Price per Day:</p>
+                    <p>LKR.&nbsp;100</p>
+
+                    <p>Total Price:</p>
+                    <p>LKR.&nbsp;<?= htmlspecialchars($daysDifference * 100) ?></p>
+                </div>
+            </div>
 
             <div class="payment-details">
                 <h2>Payment Information</h2>
@@ -223,13 +223,17 @@ $daysDifference = $interval->days;
                         <div id="cardTypeDisplay"></div>
                         <input type="hidden" name="cardHost" id="cardHost" value="">
 
-                        <input type="text" required name="cardNumber" id="cardNumber" placeholder="Card Number" maxlength="16">
-                        <input type="text" required name="cardName" id="cardName" placeholder="Cardholder Name" maxlength="26">
+                        <input type="text" required name="cardNumber" id="cardNumber" placeholder="Card Number"
+                            maxlength="16">
+                        <input type="text" required name="cardName" id="cardName" placeholder="Cardholder Name"
+                            maxlength="26">
 
                         <div class="exp-cvv-container">
-                            <input type="text" required name="expMonth" id="expMonth" placeholder="MM" maxlength="2" pattern="(0[1-9]|1[0-2])" title="Enter month as 2 digits (01-12)">
+                            <input type="text" required name="expMonth" id="expMonth" placeholder="MM" maxlength="2"
+                                pattern="(0[1-9]|1[0-2])" title="Enter month as 2 digits (01-12)">
 
-                            <input type="text" required name="expYear" id="expYear" placeholder="YYYY" maxlength="4" pattern="[2-9][0-9]{3}" title="Enter 4-digit year">
+                            <input type="text" required name="expYear" id="expYear" placeholder="YYYY" maxlength="4"
+                                pattern="[2-9][0-9]{3}" title="Enter 4-digit year">
 
                             <input type="password" required name="cvv" id="cvv" placeholder="CVV" maxlength="4">
                         </div>
@@ -238,8 +242,8 @@ $daysDifference = $interval->days;
                         <div id="cardValidation"></div>
 
                         <input type="hidden" name="adID" value="<?= htmlspecialchars($adID) ?>">
-    <input type="hidden" name="newEndDate" value="<?= htmlspecialchars($newEndDate) ?>">
-    <input type="hidden" name="newImage" value="<?= htmlspecialchars($newImage) ?>">
+                        <input type="hidden" name="newEndDate" value="<?= htmlspecialchars($newEndDate) ?>">
+                        <input type="hidden" name="newImage" value="<?= htmlspecialchars($newImage) ?>">
                         <button type="submit">Pay Now</button>
                     </div>
                 </form>

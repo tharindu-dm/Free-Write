@@ -47,7 +47,23 @@ class UserController extends Controller
             $publisher = $publisherTable->first(['pubID' => $_SESSION['user_id']]);
         }
 
-        $userDetails = $userDetailsTable->first(['user' => $uid]);//getUserDetails($uid);
+        $activatingID = $advertisement_table->getAdIDwithinCurrentDateRange();
+        if (!empty($activatingID)) {
+            $adID = $activatingID[0]['adID'];
+            $advertisement_table->update($adID, ['status' => 'active'], 'adID');
+        }
+
+        $expiredAds = $advertisement_table->getAdIDExpired();
+        if (!empty($expiredAds) && isset($expiredAds[0]) && isset($expiredAds[0]['adID'])) {
+            $expiredAdID = $expiredAds[0]['adID'];
+            $updateData = [
+                'status' => 'expired',
+            ];
+            $advertisement_table->update($expiredAdID, $updateData, 'adID');
+        }
+
+
+        $userDetails = $userDetailsTable->first(['user' => $uid]); //getUserDetails($uid);
         $list = $Booklist->getBookListCount($uid);
         $userAcc = $user->first(['userID' => $uid]);
         $myspinoffs = $spinoff->getUserSpinoff($uid);
@@ -62,6 +78,20 @@ class UserController extends Controller
 
         $followingList = $follow->getUserDetails(['FollowerID' => $uid]);
         $followedByList = $follow->getUserDetails(['FollowedID' => $uid]);
+
+        // In the controller method that loads the profile
+        $quotationData = [];
+        if ($_SESSION['user_type'] == 'pub') {
+            $quotationData = $this->getQuotation4Pub();
+        } elseif ($_SESSION['user_type'] == 'writer') {
+            $quotationData = $this->getQuotation4Wri();
+        }
+
+        $cartItems = [];
+        if (isset($_SESSION['user_id'])) {
+            $cartTable = new Cart(); // You'll need to create this model
+            $cartItems = $cartTable->where(['userID' => $_SESSION['user_id'], 'status' => 'active']);
+        }
 
         $this->view(
             'Profile/userProfile',
@@ -80,7 +110,9 @@ class UserController extends Controller
                 'collections' => $getUserCollections,
                 'bookDetails' => $bookDetails,
                 'publisher' => $publisher,
-                'advertisements' => $advertisements
+                'advertisements' => $advertisements,
+                'quotationData' => $quotationData,
+                'cartItems' => $cartItems,
             ]
         );
     }
@@ -342,5 +374,111 @@ class UserController extends Controller
 
         // header('Location: /Free-Write/public/User/Profile');
         exit;
+    }
+
+
+    //jathu update
+    public function getQuotation4Pub()
+    {
+        $quotationDetails = new Quotation();
+
+        $userId = $_SESSION['user_id'];
+        $quotations = $quotationDetails->where(['publisher' => $userId]);
+
+
+        $quotationData = [];
+        foreach ($quotations as $q) {
+            // Get writer details
+            $writer = new UserDetails();
+            $writerDetails = $writer->first(['user' => $q['writer']]);
+
+            if ($writerDetails) {
+                $writerName = $writerDetails['firstName'] . ' ' . $writerDetails['lastName'];
+
+                // Parse messages
+                $messages = [];
+                if (!empty($q['message'])) {
+                    $lines = explode("\n", $q['message']);
+                    foreach ($lines as $line) {
+                        if (empty(trim($line)))
+                            continue;
+
+                        // Parse the message format: [timestamp - sender_type] message
+                        if (preg_match('/\[(.*?) - (.*?)\] (.*)/', $line, $matches)) {
+                            $timestamp = $matches[1];
+                            $senderType = strtolower($matches[2]);
+                            $content = $matches[3];
+
+                            $messages[] = [
+                                'timestamp' => $timestamp,
+                                'sender_type' => $senderType,
+                                'sender_name' => $senderType == 'publisher' ? 'You' : $writerName,
+                                'text' => $content
+                            ];
+                        }
+                    }
+                }
+
+                $quotationData[] = [
+                    'writerId' => $q['writer'],
+                    'writerName' => $writerName,
+                    'messages' => $messages
+                ];
+            }
+        }
+
+
+        return $quotationData;
+    }
+    
+    public function getQuotation4Wri()
+    {
+        $quotationDetails = new Quotation();
+
+        $userId = $_SESSION['user_id'];
+        $quotations = $quotationDetails->where(['writer' => $userId]);
+
+        $quotationData = [];
+        foreach ($quotations as $q) {
+            // Get publisher details
+            $publisher = new Publisher();
+            $publisherDetails = $publisher->first(['pubID' => $q['publisher']]);
+
+            if ($publisherDetails) {
+                $publisherName = $publisherDetails['name'] ?? 'Publisher';
+
+                // Parse messages
+                $messages = [];
+                if (!empty($q['message'])) {
+                    $lines = explode("\n", $q['message']);
+                    foreach ($lines as $line) {
+                        if (empty(trim($line)))
+                            continue;
+
+                        // Parse the message format: [timestamp - sender_type] message
+                        if (preg_match('/\[(.*?) - (.*?)\] (.*)/', $line, $matches)) {
+                            $timestamp = $matches[1];
+                            $senderType = strtolower($matches[2]);
+                            $content = $matches[3];
+
+                            $messages[] = [
+                                'timestamp' => $timestamp,
+                                'sender_type' => $senderType,
+                                'sender_name' => $senderType == 'writer' ? 'You' : $publisherName,
+                                'text' => $content
+                            ];
+                        }
+                    }
+                }
+
+                $quotationData[] = [
+                    'publisherId' => $q['publisher'],
+                    'publisherName' => $publisherName,
+                    'messages' => $messages
+                ];
+            }
+        }
+
+        return $quotationData;
     }
 }

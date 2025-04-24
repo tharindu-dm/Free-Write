@@ -77,6 +77,37 @@
             margin-top: 20px;
         }
 
+        .competition-image-container {
+            margin: -30px auto 20px;
+            max-width: 300px;
+            text-align: center;
+        }
+
+        .competition-image {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 3px solid white;
+        }
+
+        .premium-message {
+            background-color: rgba(255, 215, 0, 0.1);
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px auto;
+            max-width: 80%;
+            text-align: center;
+        }
+
+        .premium-message p {
+            color: #333;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+
         .prize-item {
             text-align: center;
             padding: 15px;
@@ -105,28 +136,85 @@
 </head>
 
 <body>
-    <?php require_once "../app/views/layout/headerSelector.php";
-    //show($data);
+    <?php
+    if (isset($_SESSION['user_type'])) {
+        $userType = $_SESSION['user_type'];
+    } else {
+        $userType = 'guest';
+    }
+    switch ($userType) {
+        case 'admin':
+        case 'writer':
+        case 'covdes':
+        case 'wricov':
+        case 'reader':
+            require_once "../app/views/layout/header-user.php";
+            break;
+        case 'pub':
+            require_once "../app/views/layout/header-pub.php";
+            break;
+        default:
+            require_once "../app/views/layout/header.php";
+    }
     ?>
-
     <div class="header">
         <div class="container">
             <h1><?= htmlspecialchars($details['title']) ?></h1>
             <h2>A <?= htmlspecialchars($details['type']) ?> competition</h2>
         </div>
-        <a href="/Free-Write/public/DesignerCompetition/createSubmission/<?= htmlspecialchars($details['competitionID']) ?>"
-            class="enter-btn">
-            <button>Enter Competition</button>
-        </a>
+
+        <?php if (isset($_SESSION['user_id'])): ?>
+            <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'pub'): ?>
+                <div class="premium-message">
+                    <p>Publishers cannot participate in competitions</p>
+                </div>
+            <?php elseif (isset($competitionEntries) && $competitionEntries): ?>
+                <div class="premium-message">
+                    <p>You have already submitted an entry for this competition</p>
+                </div>
+            <?php elseif (strtotime($data['details']['start_date']) > time()): ?>
+                <div class="premium-message">
+                    <p>You can enter into the competition from <?= date('F j, Y', strtotime($data['details']['start_date'])) ?>
+                    </p>
+                </div>
+            <?php elseif (isset($data['user']) && isset($data['user']['isPremium']) && $data['user']['isPremium'] == 1): ?>
+                <a href="/Free-Write/public/Competition/Enter/<?= htmlspecialchars($data['details']['competitionID']) ?>"
+                    class="enter-btn">
+                    <button>Enter Competition</button>
+                </a>
+            <?php else: ?>
+                <div class="premium-message">
+                    <p>This feature is only available for premium users</p>
+                    <a href="/Free-Write/public/User/Upgrade" class="enter-btn">
+                        <button>Go Premium to Enter the competition</button>
+                    </a>
+                </div>
+            <?php endif; ?>
+        <?php else: ?>
+            <div class="premium-message">
+                <p>Please log in and subscribe to premium to enter competitions</p>
+                <a href="/Free-Write/public/User/Login" class="enter-btn">
+                    <button>Log In</button>
+                </a>
+            </div>
+        <?php endif; ?>
     </div>
 
+    </div>
     <div class="container">
+        <div class="competition-image-container">
+            <img src="/Free-Write/app/images/competition/<?= htmlspecialchars($details['compImage']) ?>"
+                alt="Competition Image" class="competition-image">
+        </div>
+
+
         <div class="card">
-            <p><?= htmlspecialchars($details['description']) ?></p>
+            <h3 class="section-title">Description</h3>
+            <p><?= htmlspecialchars($details['description'] ?? '') ?></p>
         </div>
 
         <div class="card">
-            <h3 class="section-title">Challenge Details</h3>
+            <h3 class="section-title">Judging criteria</h3>
             <ul>
                 <li><?= htmlspecialchars($details['rules']) ?></li>
             </ul>
@@ -165,6 +253,7 @@
             <p><strong>Submission Deadline:</strong> <?= htmlspecialchars($details['end_date']) ?></p>
             <p><strong>Eligibility:</strong> Open to all writers</p>
         </div>
+
     </div>
 
     <?php

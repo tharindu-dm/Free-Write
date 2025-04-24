@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/Free-Write/public/css/bookOverview.css">
+    <link rel="stylesheet" href="/Free-Write/public/css/bookOverview_quotation.css">
 </head>
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
     //show($data);
     ?>
-
 
     <?php if (!empty($book) && is_array($book)): ?>
         <main class="container">
@@ -28,6 +28,7 @@
                                     Author</button></a>
                         </div>
                     </div>
+
                     <div class="other-details">
                         <h3>Other Details</h3>
                         <p><strong>Last Updated:</strong> <?= explode(' ', $book[0]['lastUpdateDate'])[0]; ?></p>
@@ -164,7 +165,7 @@
                                 <button id="write-quotation" class="read-button">Write Quotation</button>
                             <?php else: ?>
                                 <a href="/Free-Write/public/Publisher/viewQuotationHistory?writer_id=<?= htmlspecialchars($book[0]['author']); ?>&book_id=<?= htmlspecialchars($book[0]['bookID']); ?>"
-                                    class="read-button">View Quotation History</a>
+                                    class="read-button">View Quotation Chat</a>
                             <?php endif; ?>
                         <?php endif; ?>
                     </div>
@@ -370,27 +371,19 @@
         <p>No book found.</p>
     <?php endif; ?>
 
-    <div id="quotation-popup"
-        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000;">
-
-        <div
-            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; border-radius: 5px; width: 300px;">
-
+    <div id="quotation-popup">
+        <div>
             <h3>Write a Quotation</h3>
-
             <form action="/Free-Write/public/Publisher/sendQuotation2Wri" method="post">
                 <input type="hidden" name="book_id" value="<?= htmlspecialchars($book[0]['bookID'] ?? ''); ?>">
                 <input type="hidden" name="book_title" value="<?= htmlspecialchars($book[0]['title'] ?? ''); ?>">
                 <input type="hidden" name="writer_id" value="<?= htmlspecialchars($book[0]['author'] ?? ''); ?>">
                 <input type="hidden" name="publisher_id" value="<?= htmlspecialchars($_SESSION['user_id'] ?? ''); ?>">
-
-                <textarea name="message" placeholder="Enter your quotation here..."
-                    style="width: 100%; height: 100px; margin-bottom: 10px;"></textarea>
-
-                <div style="text-align: right;">
-                    <button type="button" onclick="document.getElementById('quotation-popup').style.display='none';"
-                        style="margin-right: 10px;">Cancel</button>
-                    <button type="submit">Send</button>
+                <textarea name="message" placeholder="Enter your quotation here..."></textarea>
+                <div class="button-container">
+                    <button type="button" class="cancel-btn"
+                        onclick="document.getElementById('quotation-popup').style.display='none';">Cancel</button>
+                    <button type="submit" class="send-btn">Send</button>
                 </div>
             </form>
         </div>

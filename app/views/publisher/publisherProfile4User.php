@@ -95,7 +95,8 @@
             transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .follow-button:hover, .message-button:hover {
+        .follow-button:hover,
+        .message-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
@@ -171,6 +172,7 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
+
         .publications-header {
             display: flex;
             justify-content: space-between;
@@ -293,7 +295,7 @@
         $userType = 'guest';
     }
     switch ($userType) {
-        case 'admin':            
+        case 'admin':
         case 'mod':
         case 'writer':
         case 'covdes':
@@ -310,133 +312,140 @@
     ?>
 
 
-  <main>
-      <div class="banner"></div>
+    <main>
+        <div class="banner"></div>
 
-      <section class="profile">
-          <div class="profile-left">
-              <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="Acme Publishing" class="profile-picture">
-              <div class="stats">
-                  <div class="stat-item">
-                      <div class="stat-number">245</div>
-                      <div class="stat-label">Published</div>
-                  </div>
-                  <div class="stat-item">
-                      <div class="stat-number">15.2K</div>
-                      <div class="stat-label">Followers</div>
-                  </div>
-              </div>
-              <div class="action-buttons">
-                  <button class="follow-button">Follow</button>
-                  <button class="message-button">Message</button>
-              </div>
-          </div>
-          
-          <div class="profile-right">
-              <h1><?= htmlspecialchars($publisherDetails['name']) ?></h1>
-              <p>Independent Publisher since 1995</p>
-              <div class="tags">
-                  <span class="tag">Fiction</span>
-                  <span class="tag">Non-Fiction</span>
-                  <span class="tag">Young Adult</span>
-                  <span class="tag">Poetry</span>
-              </div>
-              <p>A leading independent publisher dedicated to discovering new voices and bringing compelling stories to readers worldwide. We specialize in contemporary fiction, literary non-fiction, and groundbreaking poetry.</p>
-          </div>
-      </section>
-
-      <section class="publisher-info">
-          <h2>About the Publisher</h2>
-          <p>Submission Guidelines</p>
-          <p>We accept manuscripts in the following categories:</p>
-          <div class="tags">
-              <span class="tag">Literary Fiction</span>
-              <span class="tag">Contemporary Romance</span>
-              <span class="tag">Science Fiction</span>
-              <span class="tag">Memoir</span>
-          </div>
-          <p>Average Response Time: 4-6 weeks</p>
-      </section>
-      
-    <section class="published-works">
-        <div class="publications-header">
-            <h2>Publications</h2>
-            <div class="filter-controls">
-                <button class="filter-button active">All</button>
-                <button class="filter-button">Fiction</button>
-                <button class="filter-button">Non-Fiction</button>
-                <button class="filter-button">Poetry</button>
-                <button class="filter-button">Young Adult</button>
-            </div>
-        </div>
-
-        <div class="publication-category">
-            <div class="category-header">
-                <h3>Latest Releases</h3>
-            </div>
-            <div class="publications-grid">
-            <?php if (!empty($data['recentBooks'])) : ?>
-                <?php foreach ($data['recentBooks'] as $recentBooks): ?>
-                <div class="book-card">
-                    <img src="/Free-Write/app/images/coverDesign/<?= !empty($recentBooks['coverImage']) ? htmlspecialchars($recentBooks['coverImage']) : 'sampleCover.jpg' ?>" alt="Book 1">
-                    <div class="book-info">
-                        <div class="book-title"><?= htmlspecialchars($recentBooks['title']) ?></div>
-                        <div class="book-author">by <?= htmlspecialchars($recentBooks['author_name']) ?></div>
-                        <div class="book-date">Published: <?= date('Y-m-d', strtotime($recentBooks['created_at'])) ?></div>
-
+        <section class="profile">
+            <div class="profile-left">
+                <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>"
+                    alt="Acme Publishing" class="profile-picture">
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-number">245</div>
+                        <div class="stat-label">Published</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">15.2K</div>
+                        <div class="stat-label">Followers</div>
                     </div>
                 </div>
-                
-                <?php endforeach; ?>
-    <?php else : ?>
-        <p>No books available.</p>
-    <?php endif; ?>
-            </div>
-        </div>
-
-        <div class="publication-category">
-            <div class="category-header">
-                <h3>Best Sellers</h3>
-            </div>
-            <div class="publications-grid">
-                <div class="book-card">
-                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 5">
-                    <div class="book-info">
-                        <div class="book-title">Winter's Edge</div>
-                        <div class="book-author">by Robert Frost</div>
-                        <div class="book-date">Published: Jul 2024</div>
-                    </div>
-                </div>
-                <div class="book-card">
-                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 6">
-                    <div class="book-info">
-                        <div class="book-title">Silent Echo</div>
-                        <div class="book-author">by Lisa Chang</div>
-                        <div class="book-date">Published: Jun 2024</div>
-                    </div>
-                </div>
-                <div class="book-card">
-                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 7">
-                    <div class="book-info">
-                        <div class="book-title">The Dark Woods</div>
-                        <div class="book-author">by James Black</div>
-                        <div class="book-date">Published: May 2024</div>
-                    </div>
-                </div>
-                <div class="book-card">
-                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 8">
-                    <div class="book-info">
-                        <div class="book-title">Morning Light</div>
-                        <div class="book-author">by Anna White</div>
-                        <div class="book-date">Published: Apr 2024</div>
-                    </div>
+                <div class="action-buttons">
+                    <button class="follow-button">Follow</button>
+                    <button class="message-button">Message</button>
                 </div>
             </div>
-        </div>
 
-        <a href="/Free-Write/public/Publisher/bookList" class="view-all-button">View All Publications</a>
-    </section>
+            <div class="profile-right">
+                <h1><?= htmlspecialchars($publisherDetails['name']) ?></h1>
+                <p>Independent Publisher since 1995</p>
+                <div class="tags">
+                    <span class="tag">Fiction</span>
+                    <span class="tag">Non-Fiction</span>
+                    <span class="tag">Young Adult</span>
+                    <span class="tag">Poetry</span>
+                </div>
+                <p>A leading independent publisher dedicated to discovering new voices and bringing compelling stories
+                    to readers worldwide. We specialize in contemporary fiction, literary non-fiction, and
+                    groundbreaking poetry.</p>
+            </div>
+        </section>
 
-    <!-- Previous sections remain the same -->
+        <section class="publisher-info">
+            <h2>About the Publisher</h2>
+            <p>Submission Guidelines</p>
+            <p>We accept manuscripts in the following categories:</p>
+            <div class="tags">
+                <span class="tag">Literary Fiction</span>
+                <span class="tag">Contemporary Romance</span>
+                <span class="tag">Science Fiction</span>
+                <span class="tag">Memoir</span>
+            </div>
+            <p>Average Response Time: 4-6 weeks</p>
+        </section>
+
+        <section class="published-works">
+            <div class="publications-header">
+                <h2>Publications</h2>
+                <div class="filter-controls">
+                    <button class="filter-button active">All</button>
+                    <button class="filter-button">Fiction</button>
+                    <button class="filter-button">Non-Fiction</button>
+                    <button class="filter-button">Poetry</button>
+                    <button class="filter-button">Young Adult</button>
+                </div>
+            </div>
+
+            <div class="publication-category">
+                <div class="category-header">
+                    <h3>Latest Releases</h3>
+                </div>
+                <div class="publications-grid">
+                    <?php if (!empty($data['recentBooks'])): ?>
+                        <?php foreach ($data['recentBooks'] as $recentBooks): ?>
+                            <div class="book-card">
+                                <img src="/Free-Write/app/images/coverDesign/<?= !empty($recentBooks['coverImage']) ? htmlspecialchars($recentBooks['coverImage']) : 'sampleCover.jpg' ?>"
+                                    alt="Book 1">
+                                <div class="book-info">
+                                    <div class="book-title"><?= htmlspecialchars($recentBooks['title']) ?></div>
+                                    <div class="book-author">by <?= htmlspecialchars($recentBooks['author_name']) ?></div>
+                                    <div class="book-date">Published:
+                                        <?= date('Y-m-d', strtotime($recentBooks['created_at'])) ?></div>
+
+                                </div>
+                            </div>
+
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>No books available.</p>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+            <div class="publication-category">
+                <div class="category-header">
+                    <h3>Best Sellers</h3>
+                </div>
+                <div class="publications-grid">
+                    <div class="book-card">
+                        <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 5">
+                        <div class="book-info">
+                            <div class="book-title">Winter's Edge</div>
+                            <div class="book-author">by Robert Frost</div>
+                            <div class="book-date">Published: Jul 2024</div>
+                        </div>
+                    </div>
+                    <div class="book-card">
+                        <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 6">
+                        <div class="book-info">
+                            <div class="book-title">Silent Echo</div>
+                            <div class="book-author">by Lisa Chang</div>
+                            <div class="book-date">Published: Jun 2024</div>
+                        </div>
+                    </div>
+                    <div class="book-card">
+                        <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 7">
+                        <div class="book-info">
+                            <div class="book-title">The Dark Woods</div>
+                            <div class="book-author">by James Black</div>
+                            <div class="book-date">Published: May 2024</div>
+                        </div>
+                    </div>
+                    <div class="book-card">
+                        <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 8">
+                        <div class="book-info">
+                            <div class="book-title">Morning Light</div>
+                            <div class="book-author">by Anna White</div>
+                            <div class="book-date">Published: Apr 2024</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="/Free-Write/public/Publisher/bookList/<?= htmlspecialchars($recentBooks['publisherID']) ?>"
+                class="view-all-button">View All Publications</a>
+        </section>
+
+        <!-- Previous sections remain the same -->
 </body>
+
 </html>

@@ -56,11 +56,6 @@
             box-shadow: 0 0 0 3px rgba(255, 208, 82, 0.2);
         }
 
-        textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
-
         button {
             padding: 1rem 1.5rem;
             margin-right: 1rem;
@@ -93,27 +88,6 @@
 
         .cancel-btn:hover {
             background-color: #7A6F50;
-        }
-
-        .optional-section {
-            padding: 1.5rem;
-            border: 2px dashed #FFD700;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-            text-align: center;
-            background-color: #FCFAF5;
-        }
-
-        .optional-section h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: #1C160C;
-        }
-
-        .optional-section p {
-            color: #c47c15;
-            margin-bottom: 1rem;
         }
 
         .ad-type-container {
@@ -166,6 +140,25 @@
             display: none;
         }
 
+        .availability-info {
+            background-color: #FFF8E0;
+            border-left: 4px solid #FFD052;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .availability-info h4 {
+            color: #c47c15;
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+
+        .availability-info p {
+            margin: 0.5rem 0;
+            color: #1C160C;
+        }
+
         @media (max-width: 768px) {
             .form-container {
                 margin: 1rem;
@@ -185,114 +178,161 @@
 </head>
 
 <body>
-    <?php require_once "../app/views/layout/headerSelector.php";
-    //show($data);
+    <?php
+    // Ensure session is started
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    // Determine user type
+    $userType = isset($_SESSION['user_type']) ? $_SESSION['user_type'] : 'guest';
+
+    // Include appropriate header based on user type
+    switch ($userType) {
+        case 'admin':
+        case 'mod':
+        case 'writer':
+        case 'covdes':
+        case 'wricov':
+        case 'reader':
+            require_once "../app/views/layout/header-user.php";
+            break;
+        case 'pub':
+            require_once "../app/views/layout/header-pub.php";
+            break;
+        default:
+            require_once "../app/views/layout/header.php";
+    }
     ?>
 
     <main>
-        <div class="form-container">
-            <h1>Apply for Advertisement</h1>
-            <h4>Submit your ad details to promote your work or service</h4>
+        <?php if (!isset($adDetails) || empty($adDetails)): ?>
 
+            <div class="form-container">
+                <h1>Apply for Advertisement</h1>
+                <h4>Submit your ad details to promote your work or service</h4>
 
-            <div id="form_error" class="error-message"></div>
-
-            <form action="/Free-Write/public/Publisher/ApplyAdvertisement" method="POST" enctype="multipart/form-data"
-                onsubmit="return validateForm()">
-
-                <label for="ad_title">Advertisement Title</label>
-                <input type="text" maxlength="60" id="ad_title" name="ad_title"
-                    placeholder="Enter a catchy title for your advertisement" required />
-                <div id="ad_title_error" class="error-message"></div>
-
-
-
-
-
-                <label>Advertisement Type</label>
-                <div class="ad-type-container">
-                    <div class="ad-type-option" onclick="selectAdType('banner')">
-                        <h3>Browse Page Ad</h3>
-                        <p>Displayed at the top of pages</p>
-                        <p>728×90 pixels</p>
-                        <div class="price">$199/month</div>
-                        <input type="radio" name="ad_type" value="banner" id="banner_type" style="display: none;"
-                            required />
+                <?php if (isset($latestEndDate)): ?>
+                    <div class="availability-info">
+                        <h4>Advertisement Slot Availability</h4>
+                        <?php if ($latestEndDate): ?>
+                            <p>Our advertisement slots are currently booked until
+                                <strong><?= date('F j, Y', strtotime($latestEndDate)) ?></strong>.</p>
+                            <p>You can schedule your advertisement to start after this date for the best visibility.</p>
+                        <?php else: ?>
+                            <p>Good news! All advertisement slots are currently available. Book now for maximum exposure!</p>
+                        <?php endif; ?>
                     </div>
-                    <div class="ad-type-option" onclick="selectAdType('sidebar')">
-                        <h3>Writer Page Ad</h3>
-                        <p>Displayed on page sides</p>
-                        <p>300×250 pixels</p>
-                        <div class="price">$149/month</div>
-                        <input type="radio" name="ad_type" value="sidebar" id="sidebar_type" style="display: none;" />
+                <?php endif; ?>
+
+                <div id="form_error" class="error-message"></div>
+
+                <form action="/Free-Write/public/Publisher/ApplyAdvertisement" method="POST" enctype="multipart/form-data"
+                    onsubmit="return validateForm()">
+                    <label for="ad_title">Advertisement Title</label>
+                    <input type="text" maxlength="60" id="ad_title" name="ad_title"
+                        placeholder="Enter a catchy title for your advertisement" required />
+                    <div id="ad_title_error" class="error-message"></div>
+
+                    <label>Advertisement Type</label>
+                    <div class="ad-type-container">
+                        <div class="ad-type-option" onclick="selectAdType('sidebar')">
+                            <h3>Writer Page Ad</h3>
+                            <p>Displayed on page sides</p>
+                            <p>300×250 pixels</p>
+                            <div class="price">$149/month</div>
+                            <input type="radio" name="ad_type" value="sidebar" id="sidebar_type" style="display: none;"
+                                required />
+                        </div>
+                    </div>
+                    <div id="ad_type_error" class="error-message"></div>
+
+                    <h4></h4>
+
+                    <label for="start_date">Start Date</label>
+                    <input type="date" id="start_date" name="start_date" required />
+                    <div id="start_date_error" class="error-message"></div>
+
+                    <label for="end_date">End Date</label>
+                    <input type="date" id="end_date" name="end_date" required />
+                    <div id="end_date_error" class="error-message"></div>
+
+                    <div class="form-field">
+                        <label for="ad_image">Advertisement Image</label>
+                        <input type="file" id="ad_image" name="ad_image" accept="image/*" required />
+                        <p class="description">JPG or PNG, 2MB max. Size depends on ad type selected.</p>
+                        <div id="ad_image_error" class="error-message"></div>
                     </div>
 
-                </div>
-                <div id="ad_type_error" class="error-message"></div>
+                    <label for="contact_email">Contact Email</label>
+                    <input type="email" id="contact_email" name="contact_email" placeholder="Where we can reach you"
+                        required />
+                    <div id="contact_email_error" class="error-message"></div>
 
-                <label for="start_date">Start Date</label>
-                <input type="date" id="start_date" name="start_date" required />
-                <div id="start_date_error" class="error-message"></div>
+                    <button type="submit" class="submit-btn">Submit Advertisement</button>
+                    <button type="button" class="cancel-btn"
+                        onclick="location.href='/Free-Write/public/Advertisement/'">Cancel</button>
+                </form>
+            </div>
+        <?php else: ?>
+            <div class="form-container">
+                <h1>Renew for Advertisement</h1>
+                <h4>Submit your ad details to promote your work or service</h4>
 
-                <label for="end_date">End Date</label>
-                <input type="date" id="end_date" name="end_date" required />
-                <div id="end_date_error" class="error-message"></div>
+                <?php if (isset($latestEndDate)): ?>
+                    <div class="availability-info">
+                        <h4>Advertisement Slot Availability</h4>
+                        <?php if ($latestEndDate): ?>
+                            <p>Our advertisement slots are currently booked until
+                                <strong><?= date('F j, Y', strtotime($latestEndDate)) ?></strong>.</p>
+                            <p>You can schedule your advertisement to start after this date for the best visibility.</p>
+                        <?php else: ?>
+                            <p>Good news! All advertisement slots are currently available. Book now for maximum exposure!</p>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
+
+                <div id="form_error" class="error-message"></div>
+
+                <form action="/Free-Write/public/Publisher/RenewAdvertisement" method="POST" enctype="multipart/form-data"
+                    onsubmit="return validateForm()">
+                    <input type="hidden" name="adID" id="deleteAdID"
+                        value="<?= htmlspecialchars(string: $adDetails['adID']) ?>">
+
+                    <label for="start_date">Start Date</label>
+                    <input type="date" id="start_date" name="start_date" required />
+                    <div id="start_date_error" class="error-message"></div>
+
+                    <label for="end_date">End Date</label>
+                    <input type="date" id="end_date" name="end_date" required />
+                    <div id="end_date_error" class="error-message"></div>
 
 
-
-                <!-- <label for="duration">Duration (in days)</label>
-                <input type="number"
-                    id="duration"
-                    name="duration"
-                    placeholder="Enter number of days (e.g. 30, 90, 180)"
-                    min="1"
-                    max="365"
-                    required>
-                <div id="duration_error" class="error-message"></div> -->
-
-
-                <div class="form-field">
-                    <label for="ad_image">Advertisement Image</label>
-                    <input type="file" id="ad_image" name="ad_image" accept="image/*" required>
-                    <p class="description">JPG or PNG, 2MB max. Size depends on ad type selected.</p>
-                </div>
-
-
-
-
-                <label for="contact_email">Contact Email</label>
-                <input type="email" id="contact_email" name="contact_email" placeholder="Where we can reach you"
-                    required />
-                <div id="contact_email_error" class="error-message"></div>
-
-                <button type="submit" class="submit-btn">Submit Advertisement</button>
-                <button type="button" class="cancel-btn"
-                    onclick="location.href='/Free-Write/public/Advertisement/'">Cancel</button>
-            </form>
-        </div>
+                    <button type="submit" class="submit-btn">Submit Advertisement</button>
+                    <button type="button" class="cancel-btn"
+                        onclick="location.href='/Free-Write/public/Advertisement/'">Cancel</button>
+                </form>
+            </div>
+        <?php endif; ?>
     </main>
-    <!-- Footer would be included here -->
+
+    <?php
+    require_once "../app/views/layout/footer.php";
+    ?>
 
     <script>
-        // Function to select advertisement type
+        // Select advertisement type
         function selectAdType(type) {
-            // Reset all options
             document.querySelectorAll('.ad-type-option').forEach(element => {
                 element.classList.remove('selected');
             });
-
-            // Select the clicked option
             const selectedOption = document.querySelector(`.ad-type-option:has(#${type}_type)`);
             selectedOption.classList.add('selected');
-
-            // Check the radio button
             document.getElementById(`${type}_type`).checked = true;
-
-            // Hide error message if it was displayed
             document.getElementById('ad_type_error').style.display = 'none';
         }
 
-        // Function to validate the form
+        // Validate form
         function validateForm() {
             let isValid = true;
             const errorMessages = {
@@ -300,17 +340,16 @@
                 adType: document.getElementById('ad_type_error'),
                 startDate: document.getElementById('start_date_error'),
                 endDate: document.getElementById('end_date_error'),
-                duration: document.getElementById('duration_error'),
                 adImage: document.getElementById('ad_image_error'),
                 contactEmail: document.getElementById('contact_email_error')
             };
 
-            // Reset all error messages
+            // Reset error messages
             Object.values(errorMessages).forEach(elem => {
-                if (elem) elem.style.display = 'none';
+                elem.style.display = 'none';
             });
 
-            // Title Validation
+            // Title validation
             const adTitle = document.getElementById('ad_title').value;
             if (adTitle.length < 5) {
                 errorMessages.adTitle.textContent = 'Advertisement title must be at least 5 characters';
@@ -318,7 +357,7 @@
                 isValid = false;
             }
 
-            // Ad Type Validation
+            // Ad type validation
             const adTypeSelected = document.querySelector('input[name="ad_type"]:checked');
             if (!adTypeSelected) {
                 errorMessages.adType.textContent = 'Please select an advertisement type';
@@ -326,11 +365,11 @@
                 isValid = false;
             }
 
-            // Date Validations
+            // Date validations
             const startDate = new Date(document.getElementById('start_date').value);
             const endDate = new Date(document.getElementById('end_date').value);
             const today = new Date();
-            today.setHours(0, 0, 0, 0); // Set time to midnight for accurate comparison
+            today.setHours(0, 0, 0, 0);
 
             if (startDate < today) {
                 errorMessages.startDate.textContent = 'Start date cannot be in the past';
@@ -344,15 +383,15 @@
                 isValid = false;
             }
 
-            // Duration Validation
-            const duration = document.getElementById('duration').value;
-            if (!duration || isNaN(duration) || duration <= 0) {
-                errorMessages.duration.textContent = 'Please enter a valid duration (must be a positive number)';
-                errorMessages.duration.style.display = 'block';
+            const maxDate = new Date(startDate);
+            maxDate.setDate(maxDate.getDate() + 7);
+            if (endDate > maxDate) {
+                errorMessages.endDate.textContent = 'End date cannot be more than 7 days after start date';
+                errorMessages.endDate.style.display = 'block';
                 isValid = false;
             }
 
-            // Image Validation
+            // Image validation
             const adImage = document.getElementById('ad_image');
             if (adImage.files.length === 0) {
                 errorMessages.adImage.textContent = 'Please upload an advertisement image';
@@ -364,7 +403,7 @@
                 isValid = false;
             }
 
-            // Email Validation
+            // Email validation
             const contactEmail = document.getElementById('contact_email').value;
             if (!contactEmail.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
                 errorMessages.contactEmail.textContent = 'Please enter a valid email address';
@@ -375,12 +414,40 @@
             return isValid;
         }
 
-        // Set minimum date for start date (today)
-        const today = new Date();
-        const todayFormatted = today.toISOString().split('T')[0];
-        document.getElementById('start_date').setAttribute('min', todayFormatted);
+        // Set minimum date for start date
+        <?php if (isset($latestEndDate) && $latestEndDate): ?>
+            // Create a date object from the latest end date
+            const latestEndDate = new Date('<?= $latestEndDate ?>');
+            // Add one day to the latest end date
+            latestEndDate.setDate(latestEndDate.getDate() + 1);
+            // Format the date to YYYY-MM-DD for the input min attribute
+            const minStartDate = latestEndDate.toISOString().split('T')[0];
+            document.getElementById('start_date').setAttribute('min', minStartDate);
+        <?php else: ?>
+            // If no latest end date, use today as minimum
+            const today = new Date();
+            const todayFormatted = today.toISOString().split('T')[0];
+            document.getElementById('start_date').setAttribute('min', todayFormatted);
+        <?php endif; ?>
 
-        // Real-time validation for text inputs
+        // Update end date constraints
+        document.getElementById('start_date').addEventListener('change', function () {
+            const startDate = new Date(this.value);
+            if (startDate) {
+                const maxDate = new Date(startDate);
+                maxDate.setDate(maxDate.getDate() + 7);
+                const maxDateFormatted = maxDate.toISOString().split('T')[0];
+                const endDateInput = document.getElementById('end_date');
+                endDateInput.setAttribute('min', this.value);
+                endDateInput.setAttribute('max', maxDateFormatted);
+                const endDate = new Date(endDateInput.value);
+                if (endDate < startDate || endDate > maxDate) {
+                    endDateInput.value = '';
+                }
+            }
+        });
+
+        // Real-time validation
         document.getElementById('ad_title').addEventListener('input', function () {
             const errorElem = document.getElementById('ad_title_error');
             if (this.value.length < 5) {
@@ -411,23 +478,25 @@
             }
         });
 
-        // Real-time validation for end date
         document.getElementById('end_date').addEventListener('input', function () {
             const startDate = new Date(document.getElementById('start_date').value);
             const endDate = new Date(this.value);
             const errorElem = document.getElementById('end_date_error');
-
             if (endDate <= startDate) {
                 errorElem.textContent = 'End date must be after start date';
                 errorElem.style.display = 'block';
             } else {
-                errorElem.style.display = 'none';
+                const maxDate = new Date(startDate);
+                maxDate.setDate(maxDate.getDate() + 7);
+                if (endDate > maxDate) {
+                    errorElem.textContent = 'End date cannot be more than 7 days after start date';
+                    errorElem.style.display = 'block';
+                } else {
+                    errorElem.style.display = 'none';
+                }
             }
         });
     </script>
-    <?php
-    require_once "../app/views/layout/footer.php";
-    ?>
 </body>
 
 </html>

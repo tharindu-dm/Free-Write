@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Free Write - Courier Applications Dashboard</title>
   <style>
-     body {
+    body {
       margin: 0;
       padding: 0;
       background-color: #f5f5f5;
     }
 
     .content {
-      width: 95%; /* Changed from max-width to width */
-      margin: 1rem auto; /* Reduced margin */
-      padding: 0 1rem; /* Reduced padding */
+      width: 95%;
+      /* Changed from max-width to width */
+      margin: 1rem auto;
+      /* Reduced margin */
+      padding: 0 1rem;
+      /* Reduced padding */
     }
 
     .content h1 {
@@ -26,15 +30,19 @@
     /* Stats Cards */
     .stats-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Reduced minmax width */
-      gap: 1rem; /* Reduced gap */
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      /* Reduced minmax width */
+      gap: 1rem;
+      /* Reduced gap */
       margin-bottom: 1.5rem;
     }
 
     .stat-card {
       background: #FFFFFF;
-      border-radius: 8px; /* Reduced border radius */
-      padding: 1.25rem; /* Reduced padding */
+      border-radius: 8px;
+      /* Reduced border radius */
+      padding: 1.25rem;
+      /* Reduced padding */
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       border-left: 4px solid #FFD700;
     }
@@ -125,7 +133,8 @@
       border-collapse: collapse;
     }
 
-    th, td {
+    th,
+    td {
       padding: 1rem 1.5rem;
       text-align: left;
     }
@@ -179,15 +188,16 @@
       .content {
         padding: 1rem;
       }
-      
+
       .filters-grid {
         grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
+
 <body>
-<?php
+  <?php
   if (isset($_SESSION['user_type'])) {
     $userType = $_SESSION['user_type'];
   } else {
@@ -212,7 +222,7 @@
     <h1>Courier Applications Dashboard</h1>
 
     <!-- Stats Cards -->
-    <div class="stats-container">
+    <!-- <div class="stats-container">
       <div class="stat-card pending">
         <h3>Pending Applications</h3>
         <div class="number">24</div>
@@ -233,7 +243,7 @@
         <div class="number">192</div>
         <div class="trend">↑ 15% this month</div>
       </div>
-    </div>
+    </div> -->
 
     <!-- Filters Section -->
     <!-- <div class="filters-section">
@@ -320,4 +330,5 @@
     </div>
   </div>
 </body>
+
 </html>
