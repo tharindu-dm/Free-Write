@@ -1,6 +1,8 @@
 *.swp
 loginDetails.md
 .env
+app/controllers/LoginController.php
+public/js/login.js
 pagination implementation.md
 moderator page.md
 email activation steps.txt
