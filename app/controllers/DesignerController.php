@@ -9,7 +9,7 @@ class DesignerController extends Controller
 
         // Designers pagination
         $designerPerPage = 5;
-        $designerPage = isset($_GET['designer_page']) ? max(1, (int)$_GET['designer_page']) : 1;
+        $designerPage = isset($_GET['designer_page']) ? max(1, (int) $_GET['designer_page']) : 1;
         $totalDesigners = $userModel->getTotalCoverDesignersCount();
         $totalDesignerPages = max(1, ceil($totalDesigners / $designerPerPage));
         $designerOffset = ($designerPage - 1) * $designerPerPage;
@@ -17,13 +17,13 @@ class DesignerController extends Controller
 
         // Designs pagination 
         $perPage = 5;
-        $page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
+        $page = isset($_GET['page']) ? max(1, (int) $_GET['page']) : 1;
         $totalDesigns = $model->getTotalCoverImagesCount();
         $totalPages = max(1, ceil($totalDesigns / $perPage));
         $offset = ($page - 1) * $perPage;
         $designs = $model->getCoverImagesPaginated($perPage, $offset);
 
-        $this->view('CoverPageDesigner/Designers_and_Design',[
+        $this->view('CoverPageDesigner/Designers_and_Design', [
             'designers' => $designers,
             'designs' => $designs,
             'currentPage' => $page,
@@ -119,9 +119,9 @@ class DesignerController extends Controller
             $coverModel = new CoverImage();
 
             $title = $_POST['title'];
-            $description = $_POST['description'] ?? ''; 
-            $price = $_POST['price'] ?? null; 
-            $designer_id = $_SESSION['user_id']; 
+            $description = $_POST['description'] ?? '';
+            $price = $_POST['price'] ?? null;
+            $designer_id = $_SESSION['user_id'];
             $uploadDate = date('Y-m-d H:i:s');
 
             $newFileName = null;
@@ -172,7 +172,7 @@ class DesignerController extends Controller
             $this->view('CoverUploadForm');
         }
     }
-    
+
 
     public function edit($id)
     {
@@ -314,7 +314,7 @@ class DesignerController extends Controller
 
         if ($design) {
             //fetch the designer details using the artistID
-            $designer = $userDetailsModel -> first(['user' => $design['artist']]);
+            $designer = $userDetailsModel->first(['user' => $design['artist']]);
 
             //fetch the average rating
             $ratingData = $covDesignRatingModel->getAverageRating($id);
@@ -340,8 +340,8 @@ class DesignerController extends Controller
         $collectionDesignsModel = new CollectionDesigns();
         $followModel = new Follow();
 
-        $designer = $userModel->first(['userID' => (int)$userID]);
-        if (!$designer){
+        $designer = $userModel->first(['userID' => (int) $userID]);
+        if (!$designer) {
             echo 'designer not found';
             return;
         }
@@ -360,20 +360,20 @@ class DesignerController extends Controller
                 $design = $coverImageModel->first(['covID' => $firstDesignLink['designID']]);
                 $collection['frontImage'] = $design ? $design['license'] : 'default-collection.jpg';
             } else {
-                $collection['frontImage'] = 'default-collection.jpg'; 
+                $collection['frontImage'] = 'default-collection.jpg';
             }
         }
 
         $followersCount = $followModel->getFollowCount($userID);
 
         $isFollowing = false;
-        if(isset($_SESSION['user_id'])){
+        if (isset($_SESSION['user_id'])) {
             $isFollowing = $followModel->isFollowing($_SESSION['user_id'], $userID);
         }
         //$isFollowing = $followModel->isFollowing($_SESSION['user_id'], $userID);
 
         //pass data to view page
-        $this->view('CoverPageDesigner/PublicProfile',[
+        $this->view('CoverPageDesigner/PublicProfile', [
             'designer' => $designer,
             'designerDetails' => $designerDetails,
             'designs' => $designs,

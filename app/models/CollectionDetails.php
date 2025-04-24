@@ -5,8 +5,9 @@ class CollectionDetails
     use Model;
 
     protected $table = 'CollectionDetails';
-    
-    public function createCollection($data){
+
+    public function createCollection($data)
+    {
         return $this->insert($data);
     }
 

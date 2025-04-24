@@ -12,7 +12,8 @@ class CollectionBook
         return $this->query($query);
     }
 
-    public function getBooksInCollection($collectionID){
+    public function getBooksInCollection($collectionID)
+    {
         $query = "SELECT b.[bookID], b.[title], b.[price], CONCAT(u.[firstName], ' ', u.[lastName]) AS author, c.[name] AS cover_image 
         FROM [Book] b 
         JOIN [UserDetails] u ON b.author = u.[user] 

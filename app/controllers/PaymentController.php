@@ -109,7 +109,7 @@ class PaymentController extends Controller
         $bookID = $chapter['BookID'];
 
         $orderDetails = [
-            'Item' => $chapter['BookTitle']. " | " .$chapter['ChapterTitle'],
+            'Item' => $chapter['BookTitle'] . " | " . $chapter['ChapterTitle'],
             'Quantity' => 1,
             'Price' => $chapter['price'],
             'Total' => $chapter['price']

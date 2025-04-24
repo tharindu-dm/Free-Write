@@ -9,7 +9,7 @@ class CovDesignRating
     public function getAverageRating($covID)
     {
         $query = "SELECT AVG(rating) as averageRating, COUNT(userID) as totalUsers FROM {$this->table} WHERE covID = :covID";
-        return $this->query($query,['covID'=>$covID])[0] ?? ['averageRating' => 0, 'tpatalUsers' => 0];
+        return $this->query($query, ['covID' => $covID])[0] ?? ['averageRating' => 0, 'tpatalUsers' => 0];
     }
 
     public function addOrUpdateRating($userID, $covID, $rating)
@@ -34,5 +34,5 @@ class CovDesignRating
             'rating' => $rating
         ]);
     }
-    
+
 }
