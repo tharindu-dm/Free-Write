@@ -5,6 +5,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/Free-Write/public/css/bookOverview.css">
+    <style>
+        #quotation-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        #quotation-popup > div {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #quotation-popup h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1C160C;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        #quotation-popup textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            resize: none;
+            font-size: 14px;
+            background-color: #FCFAF5;
+            color: #1C160C;
+        }
+
+        #quotation-popup .button-container {
+            text-align: right;
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+
+        #quotation-popup .cancel-btn {
+            padding: 8px 12px;
+            background: #f5f5f5;
+            color: #666;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        #quotation-popup .send-btn {
+            padding: 8px 12px;
+            background: #FFD052;
+            color: #1C160C;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+        }
+    </style>
 </head>
 
 <body>
@@ -168,7 +242,7 @@
                                 <button id="write-quotation" class="read-button">Write Quotation</button>
                             <?php else: ?>
                                 <a href="/Free-Write/public/Publisher/viewQuotationHistory?writer_id=<?= htmlspecialchars($book[0]['author']); ?>&book_id=<?= htmlspecialchars($book[0]['bookID']); ?>"
-                                    class="read-button">View Quotation History</a>
+                                    class="read-button">View Quotation Chat</a>
                             <?php endif; ?>
                         <?php endif; ?>
                     </div>
@@ -347,27 +421,18 @@
         <p>No book found.</p>
     <?php endif; ?>
 
-    <div id="quotation-popup"
-        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000;">
-
-        <div
-            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; border-radius: 5px; width: 300px;">
-
+    <div id="quotation-popup">
+        <div>
             <h3>Write a Quotation</h3>
-
             <form action="/Free-Write/public/Publisher/sendQuotation2Wri" method="post">
                 <input type="hidden" name="book_id" value="<?= htmlspecialchars($book[0]['bookID'] ?? ''); ?>">
                 <input type="hidden" name="book_title" value="<?= htmlspecialchars($book[0]['title'] ?? ''); ?>">
                 <input type="hidden" name="writer_id" value="<?= htmlspecialchars($book[0]['author'] ?? ''); ?>">
                 <input type="hidden" name="publisher_id" value="<?= htmlspecialchars($_SESSION['user_id'] ?? ''); ?>">
-
-                <textarea name="message" placeholder="Enter your quotation here..."
-                    style="width: 100%; height: 100px; margin-bottom: 10px;"></textarea>
-
-                <div style="text-align: right;">
-                    <button type="button" onclick="document.getElementById('quotation-popup').style.display='none';"
-                        style="margin-right: 10px;">Cancel</button>
-                    <button type="submit">Send</button>
+                <textarea name="message" placeholder="Enter your quotation here..."></textarea>
+                <div class="button-container">
+                    <button type="button" class="cancel-btn" onclick="document.getElementById('quotation-popup').style.display='none';">Cancel</button>
+                    <button type="submit" class="send-btn">Send</button>
                 </div>
             </form>
         </div>

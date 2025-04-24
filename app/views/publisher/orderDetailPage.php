@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -122,15 +123,16 @@
         }
     </style>
 </head>
+
 <body>
-<?php
+    <?php
     if (isset($_SESSION['user_type'])) {
         $userType = $_SESSION['user_type'];
     } else {
         $userType = 'guest';
     }
     switch ($userType) {
-        case 'admin':            
+        case 'admin':
         case 'mod':
         case 'writer':
         case 'covdes':
@@ -147,29 +149,25 @@
     ?>
     <main>
         <section class="order-overview">
-            <h1>Order #12345</h1>
-            <p>Placed on November 28, 2024</p>
-            <div class="status-badge">Processing</div>
+            <h1>OrderID #<?= htmlspecialchars($orderDetails['orderID']) ?></h1>
+            <p>Placed on <?= htmlspecialchars($orderDetails['orderDate']) ?></p>
+            <div class="status-badge"><?= htmlspecialchars($orderDetails['delivery_status']) ?></div>
         </section>
 
         <section class="order-section">
             <h2>Order Items</h2>
             <div class="order-item">
-                <img src="/api/placeholder/100/150" alt="The Hidden Path">
+                <?php if (isset($bookDetails['coverImage'])): ?>
+                    <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($bookDetails['coverImage']); ?>" alt="Book Cover">
+                <?php else: ?>
+                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Default Book Cover">
+                <?php endif; ?>
+
                 <div>
-                    <h3>The Hidden Path</h3>
+                    <h3><?= htmlspecialchars($orderDetails['bookTitle']) ?></h3>
                     <p>by Sarah Johnson</p>
-                    <p>Quantity: 1</p>
-                    <p>$24.99</p>
-                </div>
-            </div>
-            <div class="order-item">
-                <img src="/api/placeholder/100/150" alt="Beyond the Horizon">
-                <div>
-                    <h3>Beyond the Horizon</h3>
-                    <p>by Michael Chen</p>
-                    <p>Quantity: 1</p>
-                    <p>$19.99</p>
+                    <p>Quantity: <?= htmlspecialchars($orderDetails['quantity']) ?></p>
+                    <p>$<?= htmlspecialchars($orderDetails['totalPrice']) ?></p>
                 </div>
             </div>
         </section>
@@ -177,8 +175,8 @@
         <section class="order-section">
             <h2>Customer Details</h2>
             <p><strong>Name:</strong> John Doe</p>
-            <p><strong>Email:</strong> john.doe@email.com</p>
-            <p><strong>Phone:</strong> (555) 123-4567</p>
+            <p><strong>Email:</strong><?= htmlspecialchars($customerMainDetails['email']) ?></p>
+            <!-- <p><strong>Phone:</strong> (555) 123-4567</p> -->
         </section>
 
         <section class="order-section">
@@ -189,15 +187,21 @@
             <p>United States</p>
         </section>
 
-        <section class="order-section">
-            <h2>Payment Information</h2>
-            <p><strong>Method:</strong> Credit Card</p>
-            <p><strong>Status:</strong> Paid</p>
-            <p><strong>Subtotal:</strong> $44.98</p>
-            <p><strong>Shipping:</strong> $5.99</p>
-            <p><strong>Total:</strong> $50.97</p>
-        </section>
 
+
+        <section class="order-section">
+            <h2>Courier Assignment</h2>
+            <div class="courier-option selected">
+                <h4><?= htmlspecialchars($courierName) ?></h4>
+                <p><?= htmlspecialchars($courierDetails['country']) ?></p>
+
+            </div>
+            <!-- <div class="courier-option">
+                <h4>Standard Delivery</h4>
+                <p>5-7 business days</p>
+                <p>$3.99</p>
+            </div> -->
+        </section>
         <section class="order-section">
             <h2>Order Timeline</h2>
             <div class="timeline-item">
@@ -223,19 +227,7 @@
             </div>
         </section>
 
-        <section class="order-section">
-            <h2>Courier Assignment</h2>
-            <div class="courier-option selected">
-                <h4>Eliya</h4>
-                <p>Colombo</p>
-                <p>$5.99</p>
-            </div>
-            <!-- <div class="courier-option">
-                <h4>Standard Delivery</h4>
-                <p>5-7 business days</p>
-                <p>$3.99</p>
-            </div> -->
-        </section>
+
 
         <section class="order-section">
             <h2>Customer Notes</h2>
@@ -246,4 +238,5 @@
         </section>
     </main>
 </body>
+
 </html>

@@ -8,7 +8,7 @@
   <title>Free Write - Competitions</title>
   <style>
     .content {
-      max-width: 1200px;
+      max-width: 1600px;
       margin: 2rem auto;
       padding: 0 2rem;
     }
@@ -258,7 +258,9 @@
             <th>Start Date</th>
             <th>End Date</th>
             <th>Category</th>
-            <th>prize</th>
+            <th>First prize</th>
+            <th>Second prize</th>
+            <th>Third prize</th>
             <th>Participants</th>
             <th>Actions</th>
           </tr>
@@ -283,6 +285,8 @@
                 <td><?php echo date('m/d/Y', strtotime($activeCompetition_details['end_date'])); ?></td>
                 <td><?php echo htmlspecialchars($activeCompetition_details['category'] ?? ''); ?></td>
                 <td><?php echo '$' . number_format($activeCompetition_details['first_prize'], 2); ?></td>
+                <td><?php echo '$' . number_format($activeCompetition_details['second_prize'], 2); ?></td>
+                <td><?php echo '$' . number_format($activeCompetition_details['third_prize'], 2); ?></td>
                 <td>0</td>
                 <td>
                   <a href="/Free-Write/public/Competition/Manage/<?php echo $activeCompetition_details['competitionID']; ?>"
@@ -299,6 +303,9 @@
       </table>
     </div>
   </div>
+  <?php
+    require_once "../app/views/layout/footer.php";
+    ?>
 </body>
 
 </html>

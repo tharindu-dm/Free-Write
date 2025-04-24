@@ -212,7 +212,7 @@
     <h1>Courier Applications Dashboard</h1>
 
     <!-- Stats Cards -->
-    <div class="stats-container">
+    <!-- <div class="stats-container">
       <div class="stat-card pending">
         <h3>Pending Applications</h3>
         <div class="number">24</div>
@@ -233,7 +233,7 @@
         <div class="number">192</div>
         <div class="trend">↑ 15% this month</div>
       </div>
-    </div>
+    </div> -->
 
     <!-- Filters Section -->
     <!-- <div class="filters-section">

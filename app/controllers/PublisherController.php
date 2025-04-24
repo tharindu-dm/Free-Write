@@ -34,27 +34,80 @@ class PublisherController extends Controller
 
     public function BookUpload()
     {
+        // Check if the form was submitted
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            die('Invalid request method.');
+        }
+    
+        // Validate required fields
+        $requiredFields = ['title', 'isbnID', 'author_name', 'genre', 'publication_year', 'synopsis', 'prize'];
+        foreach ($requiredFields as $field) {
+            if (empty($_POST[$field])) {
+                die('Error: Missing required field: ' . htmlspecialchars($field));
+            }
+        }
+    
+        // Validate file upload
+        if (!isset($_FILES['bookCover']) || $_FILES['bookCover']['error'] === UPLOAD_ERR_NO_FILE) {
+            die('Error: No book cover uploaded.');
+        }
+    
         $title = $_POST['title'];
         $isbnID = $_POST['isbnID'];
         $author_name = $_POST['author_name'];
-        $contributor_name = $_POST['contributor_name'];
+        $contributor_name = $_POST['contributor_name'] ?? ''; // Optional field
         $genre = $_POST['genre'];
-        $publication_year = $_POST['publication_year'];
-        $synopsis = $_POST['synopsis']; //$synopsis = substr($_POST['synopsis'], 0, 1000);
-        $prize = $_POST['prize'];
+        $publication_year = (int)$_POST['publication_year'];
+        $synopsis = substr($_POST['synopsis'], 0, 1000);
+        $prize = (float)$_POST['prize'];
         $created_at = date("Y-m-d H:i:s");
+    
+        // Validate file type and size
         $coverImage = $_FILES['bookCover'];
-        $fileName = time() . '_' . $coverImage['name'];
-        $targetPath = '../app/images/coverDesign/' . $fileName;
-        // $author_link = $_POST['author_link'];
-
-        if (move_uploaded_file($coverImage['tmp_name'], $targetPath)) {
-
-            $publisherBooks_table = new publisherBooks();
-            $publisherBooks_table->insert(['title' => $title, 'isbnID' => $isbnID, 'author_name' => $author_name, 'contributor_name' => $contributor_name, 'genre' => $genre, 'publication_year' => $publication_year, 'synopsis' => $synopsis, 'prize' => $prize, 'created_at' => $created_at, 'coverImage' => $fileName, 'publisherID' => $_SESSION['user_id']]);
+        $allowedTypes = ['image/jpeg', 'image/png'];
+        $maxFileSize = 2 * 1024 * 1024; // 2MB in bytes
+        if (!in_array($coverImage['type'], $allowedTypes)) {
+            die('Error: Only JPG or PNG files are allowed.');
         }
-        header('Location: /Free-Write/public/User/Profile');
+        if ($coverImage['size'] > $maxFileSize) {
+            die('Error: File size exceeds 2MB limit.');
+        }
+    
+        // Move the uploaded file
+        $fileName = time() . '_' . basename($coverImage['name']);
+        $targetPath = '../app/images/coverDesign/' . $fileName;
+        if (!move_uploaded_file($coverImage['tmp_name'], $targetPath)) {
+            die('Error: Failed to upload book cover.');
+        }
+    
+        // Insert into database
+        $publisherBooks_table = new publisherBooks();
+        $data = [
+            'title' => $title,
+            'isbnID' => $isbnID,
+            'author_name' => $author_name,
+            'contributor_name' => $contributor_name,
+            'genre' => $genre,
+            'publication_year' => $publication_year,
+            'synopsis' => $synopsis,
+            'prize' => $prize,
+            'created_at' => $created_at,
+            'coverImage' => $fileName,
+            'publisherID' => $_SESSION['user_id']
+        ];
+        $result = $publisherBooks_table->insert($data);
+    
+        if ($result) {
+            header('Location: /Free-Write/public/User/Profile?success=Book uploaded successfully');
+        } else {
+            // Clean up the uploaded file if database insertion fails
+            if (file_exists($targetPath)) {
+                unlink($targetPath);
+            }
+            die('Error: Failed to save book details to the database.');
+        }
     }
+
 
 
     public function bookProfile4publishers()
@@ -70,13 +123,13 @@ class PublisherController extends Controller
     public function bookProfile4Users()
     {
         $URL = splitURL();
-        $bookID = $URL[2];        //model-method-id
-        $book_table = new publisherBooks();        //creating the model and assiging to a variable 
-        $bookDetails = $book_table->first(['isbnID' => $bookID]);   //orange one is table name and blue one is the variable we created 
-        // above one should be returned so put it into the arguement 
-
-
-        $this->view('publisher/bookDesign4Users', ['bookDetails' => $bookDetails]);
+        $bookID = $URL[2];        
+        $book_table = new publisherBooks();       
+        $bookDetails = $book_table->first(['isbnID' => $bookID]); 
+        $cartTable = new Cart();
+        $cartItems = $cartTable->first(['bookID' => $bookID, 'userID' => $_SESSION['user_id']]);
+        
+        $this->view('publisher/bookDesign4Users', ['bookDetails' => $bookDetails,'cartItems' => $cartItems]);
     }
     public function deletebookProfile()
     {
@@ -104,25 +157,36 @@ class PublisherController extends Controller
 
 
     public function Profile()
-    {
-        $URL = splitURL();
-        $userID = $URL[2];
-        $publisher_table = new Publisher();
-        $publisherDetails = $publisher_table->first(['pubID' => $userID]);
-        $publisherBooks = new PublisherBooks();
-        $recentBooks = $publisherBooks->getRecentBooks();
+{
+    $URL = splitURL();
+    $userID = $URL[2];
+    $publisher_table = new Publisher();
+    $publisherDetails = $publisher_table->first(['pubID' => $userID]);
+    $publisherBooks = new PublisherBooks();
+    $recentBooks = $publisherBooks->getRecentBooks($userID); // Pass userID
+    $this->view('publisher/publisherProfile4User', ['publisherDetails' => $publisherDetails, 'recentBooks' => $recentBooks]);
+}
 
-        $this->view('publisher/publisherProfile4User', ['publisherDetails' => $publisherDetails, 'recentBooks' => $recentBooks]);
-    }
-
-    public function bookList()
-    {
-        $allBookDetails_table = new publisherBooks();
-        $allBookDetails = $allBookDetails_table->where(['publisherID' => $_SESSION['user_id']]);
-        $pubDetails_table = new Publisher();
-        $pubDetails = $pubDetails_table->first(['pubID' => $_SESSION['user_id']]);
-        $this->view('publisher/allPublicationList', ['allBookDetails' => $allBookDetails, 'pubDetails' => $pubDetails]);
-    }
+public function bookList()
+{
+    $URL=splitURL();
+    $publisherID = $URL[2];
+    $allBookDetails_table = new publisherBooks();
+    $allBookDetails = $allBookDetails_table->where(['publisherID' => $publisherID]);
+    
+    $pubDetails_table = new Publisher();
+    $pubDetails = $pubDetails_table->first(['pubID' => $publisherID]);
+    
+    $userDetailsTable = new UserDetails();
+    $userDetails = $userDetailsTable->first(['user' => $publisherID]);
+    
+    
+    $this->view('publisher/allPublicationList', [
+        'allBookDetails' => $allBookDetails, 
+        'pubDetails' => $pubDetails,
+        'userDetails' => $userDetails // Pass user details to the view
+    ]);
+}
 
     public function regPage()
     {
@@ -132,8 +196,8 @@ class PublisherController extends Controller
             $publisher = new Publisher();
 
 
-            $user->updateToPub("pub", $_SESSION['user_id']);
-            $publisher->insertPublisher($_POST['email'], $_POST['officeEmail'], $_POST['website'], $_POST['address'], $_POST['contactNumber'], $_POST['dob'], $_POST['description'], $_SESSION['user_id']);
+            $user->updateToPub("cov", $_SESSION['user_id']);
+            // $publisher->insertPublisher($_POST['email'], $_POST['officeEmail'], $_POST['website'], $_POST['address'], $_POST['contactNumber'], $_POST['dob'], $_POST['description'], $_SESSION['user_id']);
             // Update user details
             $userDetails->updatePubDetail($_POST['description'], $_POST['dob'], $_POST['country'], $_SESSION['user_id']);
 
@@ -149,18 +213,9 @@ class PublisherController extends Controller
         $this->view('publisher/publisherRegistrationPage', ['userDetails' => $userDetails]);
     }
 
-    public function orderDetail()
+public function courier()
     {
-        $this->view('publisher/orderDetailPage');
-    }
 
-    public function newOrder()
-    {
-        $this->view('publisher/newOrder');
-    }
-
-    public function courier()
-    {
         $this->view('publisher/courierLandingPage');
     }
     public function courierReview()
@@ -172,7 +227,8 @@ class PublisherController extends Controller
     {
         $URL = splitURL();
         $bookID = $URL[2];
-        $quantity = isset($_GET['quantity']) ? (int) $_GET['quantity'] : 1;
+        $quantityFromCart = isset($URL[3]) ? $URL[3] : null ;
+        $quantity = isset($_GET['quantity']) ? (int)$_GET['quantity'] : 1;
 
         $book_table = new publisherBooks();
         $bookDetails = $book_table->first(['isbnID' => $bookID]);
@@ -182,7 +238,7 @@ class PublisherController extends Controller
 
         $this->view('publisher/paymentPage', [
             'bookDetails' => $bookDetails,
-            'quantity' => $quantity,
+            'quantity' => isset($quantityFromCart) ? $quantityFromCart : $quantity,
             'totalPrice' => $totalPrice
         ]);
     }
@@ -210,7 +266,19 @@ class PublisherController extends Controller
 
     public function applyingAdvertisement()
     {
-        $this->view('publisher/advertisementApplication');
+        $URL = splitURL();
+        $adDetails = null;
+        if(!empty($URL[2])){
+        $adID = $URL[2];
+        $adModel = new Advertisement();
+        $adDetails = $adModel->first(['adID' => $adID]);}
+
+    $adModel = new Advertisement();
+     $latestEndDate = $adModel->getLatestEndDate();
+    
+
+    // Pass the data to the view
+    $this->view('publisher/advertisementApplication', ['latestEndDate' => $latestEndDate,'adDetails' => $adDetails]);
     }
 
     public function ApplyAdvertisement()
@@ -229,6 +297,8 @@ class PublisherController extends Controller
 
         if (move_uploaded_file($adImage['tmp_name'], $targetPath)) {
             $advertisement_table = new Advertisement();
+            $existingAds = $advertisement_table->where(['pubID' => $_SESSION['user_id']]);
+            $status = empty($existingAds) ? 'active' : 'pending';
             $advertisement_table->insert([
                 'advertisementType' => $ad_type,
                 'startDate' => $start_date,
@@ -236,19 +306,35 @@ class PublisherController extends Controller
                 'contactEmail' => $contact_email,
                 'adImage' => $fileName,
                 'pubID' => $_SESSION['user_id'],
-                'status' => 'pending'
+                'status' => $status
             ]);
         }
+        header('Location: /Free-Write/public/User/Profile');
+    }
+    public function RenewAdvertisement(){
+        $adID = $_POST['adID'];
+        $start_date = $_POST['start_date'];
+        $end_date = $_POST['end_date'];
+        $advertisement_table = new Advertisement();
+        $expiredAd=$advertisement_table->first(['adID' => $adID]);
+        $renewedData=[
+            'advertisementType' => $expiredAd['advertisementType'],
+            'adImage' => $expiredAd['adImage'],
+            'pubID' => $_SESSION['user_id'],
+          'startDate' => $start_date,
+            'endDate' => $end_date,
+            'contactEmail' => $expiredAd['contactEmail'],
+            'status' => 'pending'
+        ];
+        $advertisement_table->insert($renewedData);
+        $advertisement_table->update($adID,['status' => 'renewed'],'adID');
+        
         header('Location: /Free-Write/public/User/Profile');
     }
 
     public function deleteAdvertisement()
     {
-        if (!isset($_POST['adID'])) {
-            header('Location: /Free-Write/public/User/Profile');
-            exit();
-        }
-
+        
         $adID = $_POST['adID'];
         $advertisement_table = new Advertisement();
 
@@ -259,45 +345,45 @@ class PublisherController extends Controller
         ]);
 
         if ($advertisement) {
-            $advertisement_table->delete($adID, 'adID');
+            $advertisement_table->update($adID,['status' => 'deleted'],'adID');
         }
 
         header('Location: /Free-Write/public/User/Profile');
         exit();
     }
 
-    public function updateAdvertisement()
-    {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $adID = $_POST['adID'];
-            $newEndDate = $_POST['newEndDate'];
+    // public function updateAdvertisement()
+    // {
+    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //         $adID = $_POST['adID'];
+    //         $newEndDate = $_POST['newEndDate'];
 
-            $data = [
-                'endDate' => $newEndDate
-            ];
+    //         $data = [
+    //             'endDate' => $newEndDate
+    //         ];
 
-            // Handle new image upload if provided
-            if (isset($_FILES['newAdImage']) && $_FILES['newAdImage']['size'] > 0) {
-                $adImage = $_FILES['newAdImage'];
-                $fileName = time() . '_' . $adImage['name'];
-                $targetPath = '../app/images/advertisements/' . $fileName;
+    //         // Handle new image upload if provided
+    //         if (isset($_FILES['newAdImage']) && $_FILES['newAdImage']['size'] > 0) {
+    //             $adImage = $_FILES['newAdImage'];
+    //             $fileName = time() . '_' . $adImage['name'];
+    //             $targetPath = '../app/images/advertisements/' . $fileName;
 
-                if (move_uploaded_file($adImage['tmp_name'], $targetPath)) {
-                    $data['adImage'] = $fileName;
-                }
-            }
+    //             if (move_uploaded_file($adImage['tmp_name'], $targetPath)) {
+    //                 $data['adImage'] = $fileName;
+    //             }
+    //         }
 
-            $advertisement_table = new Advertisement();
-            $advertisement = $advertisement_table->first(['adID' => $adID]);
+    //         $advertisement_table = new Advertisement();
+    //         $advertisement = $advertisement_table->first(['adID' => $adID]);
 
-            if ($advertisement) {
-                $advertisement_table->update($adID, $data, 'adID');
-            }
+    //         if ($advertisement) {
+    //             $advertisement_table->update($adID, $data, 'adID');
+    //         }
 
-            header('Location: /Free-Write/public/Publisher/payPage4ad');
-            exit();
-        }
-    }
+    //         header('Location: /Free-Write/public/Publisher/payPage4ad');
+    //         exit();
+    //     }
+    // }
 
     public function payPage4ad()
     {
@@ -383,6 +469,62 @@ class PublisherController extends Controller
         header('Location: /Free-Write/public/Publisher/viewQuotationHistory?writer_id=' . $writerId . '&book_id=' . $bookId);
         exit();
     }
+    public function sendQuotationChat()
+    {
+        $bookId = $_POST['book_id'];
+        $newMessage = $_POST['message'];
+        $userType = $_SESSION['user_type'];
+
+        // Determine writer and publisher IDs based on user type
+        if ($userType == 'pub') {
+            $writerId = $_POST['writer_id'];
+            $publisherId = $_SESSION['user_id'];
+            $senderLabel = "Publisher";
+        } else if ($userType == 'writer') {
+            $writerId = $_SESSION['user_id'];
+            $publisherId = $_POST['publisher_id'];
+            $senderLabel = "Writer";
+        } else {
+            // Handle invalid user type
+            header('Location: /Free-Write/public/User/Profile');
+            exit();
+        }
+
+        $quotation_table = new Quotation();
+
+        $existingQuotation = $quotation_table->first([
+            'publisher' => $publisherId,
+            'writer' => $writerId
+        ]);
+
+        $currentDate = date('Y-m-d H:i:s');
+        $formattedMessage = "\n[" . $currentDate . " - " . $senderLabel . "] " . $newMessage;
+
+
+        if ($existingQuotation) {
+
+            $updatedMessage = $existingQuotation['message'] . $formattedMessage;
+
+            $primaryKeyField = 'quotaID';
+
+            $quotation_table->update($existingQuotation[$primaryKeyField], [
+                'message' => $updatedMessage,
+                'sendDate' => date('Y-m-d')
+            ], $primaryKeyField);
+        } else {
+
+            $quotation_table->insert([
+                'publisher' => $publisherId,
+                'message' => $formattedMessage,
+                'sendDate' => date('Y-m-d'),
+                'writer' => $writerId,
+            ]);
+        }
+
+        header('Location: /Free-Write/public/Publisher/viewQuotationHistory/User/Profile#quotations');
+        exit();
+    }
+
     public function viewQuotationHistory()
     {
 
@@ -413,8 +555,7 @@ class PublisherController extends Controller
             // Split the message by newlines and parse each line
             $lines = explode("\n", $quotationHistory['message']);
             foreach ($lines as $line) {
-                if (empty(trim($line)))
-                    continue;
+                if (empty(trim($line))) continue;
 
                 // Parse the message format: [timestamp - sender_type] message
                 if (preg_match('/\[(.*?) - (.*?)\] (.*)/', $line, $matches)) {
@@ -473,8 +614,7 @@ class PublisherController extends Controller
         $messages = [];
         $lines = explode("\n", $quotationData['message']);
         foreach ($lines as $line) {
-            if (empty(trim($line)))
-                continue;
+            if (empty(trim($line))) continue;
 
             if (preg_match('/\[(.*?) - (.*?)\] (.*)/', $line, $matches)) {
                 $timestamp = $matches[1];
@@ -556,8 +696,7 @@ class PublisherController extends Controller
         $messages = [];
         $lines = explode("\n", $quotationData['message']);
         foreach ($lines as $line) {
-            if (empty(trim($line)))
-                continue;
+            if (empty(trim($line))) continue;
 
             if (preg_match('/\[(.*?) - (.*?)\] (.*)/', $line, $matches)) {
                 $timestamp = $matches[1];
@@ -610,7 +749,4 @@ class PublisherController extends Controller
         header('Location: /Free-Write/public/Publisher/viewQuotationHistory?writer_id=' . $writerId . '&book_id=' . $bookId);
         exit();
     }
-
-
-
 }

@@ -197,6 +197,79 @@
             transform: translateY(-2px);
         }
 
+        /* Popup styles */
+        .popup-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 500px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .close-popup {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .popup-content h3 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .popup-content p {
+            margin-bottom: 25px;
+            color: #475569;
+        }
+
+        .popup-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #continueShoppingBtn {
+            padding: 12px 20px;
+            background-color: #8C805E;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        #viewCartBtn {
+            padding: 12px 20px;
+            background-color: #FFD052;
+            color: #1e293b;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        #continueShoppingBtn:hover,
+        #viewCartBtn:hover {
+            transform: translateY(-2px);
+            transition: transform 0.3s ease;
+        }
+
         /* Responsive design */
         @media (max-width: 1200px) {
             .book-container {
@@ -283,7 +356,6 @@
         <div class="book-image">
             <img src="/Free-Write/app/images/coverDesign/<?= !empty($bookDetails['coverImage']) ? htmlspecialchars($bookDetails['coverImage']) : 'sampleCover.jpg' ?>"
                 alt="<?= htmlspecialchars($bookDetails['title']) ?>">
-            <img src="/Free-Write/public/images/collectionThumb.jpeg" alt="The Art of War Book Cover">
         </div>
         <div class="book-info">
             <div class="Names">
@@ -334,31 +406,85 @@
                         <p><?= htmlspecialchars($bookDetails['publication_year']) ?></p>
                     </div>
                 </div>
-                <div class="quantity-selector" style="margin-bottom: 20px;">
-                    <label for="quantity"><strong>Quantity:</strong></label>
-                    <select name="quantity" id="quantity"
-                        style="padding: 8px; margin-left: 10px; border-radius: 8px; border: 1px solid #ddd;">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
-                </div>
+                <?php if ($_SESSION['user_type'] !== 'pub'): ?>
+                    <div class="quantity-selector" style="margin-bottom: 20px;">
+                        <label for="quantity"><strong>Quantity:</strong></label>
+                        <select name="quantity" id="quantity"
+                            style="padding: 8px; margin-left: 10px; border-radius: 8px; border: 1px solid #ddd;">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                <?php endif; ?>
 
             </div>
-            <button class="resButton">Add to WishList</button>
-            <a href="/Free-Write/public/Publisher/paymentPage/<?= htmlspecialchars($bookDetails['isbnID']) ?>">
-                <?php if ($_SESSION['user_type'] !== 'pub'): ?>
+            <?php if ($_SESSION['user_type'] !== 'pub'): ?>
+                <form action="/Free-Write/public/Cart/addToCart" method="POST">
+                    <input type="hidden" name="isbnID" value="<?= htmlspecialchars($bookDetails['isbnID']) ?>">
+                    
+                    <input type="hidden" name="price" value="<?= htmlspecialchars($bookDetails['prize']) ?>">
+                    <input type="hidden" name="quantity" id="cart-quantity">
+                    <?php if (!empty($cartItems)): ?>
+                        <button type="submit" class="resButton" disabled>Item already added to Cart</button>
+                    <?php else: ?>
+                        <button type="submit" class="resButton">Add to Cart</button>
+                        <?php endif; ?>
+                </form>
+
+                <a href="/Free-Write/public/Publisher/paymentPage/<?= htmlspecialchars($bookDetails['isbnID']) ?>">
+
                     <button class="buyButton"
                         onclick="window.location.href=this.parentElement.href + '?quantity=' + document.getElementById('quantity').value; return false;">Buy
                         Now</button>
-                <?php endif; ?>
-            </a>
-
+                </a>
+            <?php endif; ?>
 
         </div>
     </div>
+
+    <div id="popupMessage" class="popup-container">
+        <div class="popup-content">
+            <span class="close-popup">&times;</span>
+            <h3>Here is the message</h3>
+            <p>Your item has been added to the cart successfully!</p>
+            <div class="popup-buttons">
+                <button id="continueShoppingBtn">Continue Shopping</button>
+                <button id="viewCartBtn">View Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        // Set initial value
+        document.getElementById('cart-quantity').value = document.getElementById('quantity').value;
+        
+        // Update hidden input when quantity changes
+        document.getElementById('quantity').addEventListener('change', function() {
+            document.getElementById('cart-quantity').value = this.value;
+        });
+    });
+        // Add this script at the end of the file
+        // document.querySelector('.resButton').addEventListener('click', function() {
+        //     document.getElementById('popupMessage').style.display = 'flex';
+        // });
+
+        // document.querySelector('.close-popup').addEventListener('click', function() {
+        //     document.getElementById('popupMessage').style.display = 'none';
+        // });
+
+        // document.getElementById('continueShoppingBtn').addEventListener('click', function() {
+        //     document.getElementById('popupMessage').style.display = 'none';
+        // });
+
+        // document.getElementById('viewCartBtn').addEventListener('click', function() {
+        //     window.location.href = '/Free-Write/public/Cart';
+        // });
+    </script>
+
     <?php
     require_once "../app/views/layout/footer.php";
     ?>

@@ -121,6 +121,21 @@ class Book
 
         return $this->query($query);
     }
+    public function getBook4Competition($uid) {
+        $query = "SELECT b.[bookID], b.[title], b.[Synopsis], b.[accessType], b.[lastUpdateDate], 
+                         b.[isCompleted], b.[price], 
+                         CONCAT(u.[firstName], ' ', u.[lastName]) AS author, 
+                         c.[name] AS cover_image 
+                  FROM [Book] b 
+                  JOIN [UserDetails] u ON b.[author] = u.[user] 
+                  LEFT JOIN [CoverImage] c ON b.[coverImage] = c.[covID] 
+                  WHERE b.[author] = :uid 
+                  AND (b.[price] IS NULL OR b.[price] = 0) 
+                  AND b.[accessType] != 'deleted'";
+        
+        return $this->query($query, [':uid' => $uid]);
+    }
+    
 
 }
 

@@ -23,11 +23,17 @@ class PublisherBooks
         return $this->query($query);
     }
 
-    public function getRecentBooks($count = 5)
-{
-    $query = "SELECT TOP 5 * FROM publisherbooks WHERE publisherID = " . $_SESSION['user_id'] . " ORDER BY created_at DESC";
-    return $this->query($query);
-}
+    public function getRecentBooks($publisherID, $count = 5)
+    {
+        // Sanitize $count to ensure it's a positive integer
+        $count = max(1, (int)$count); // Ensure $count is at least 1
+    
+        // Build the query with TOP and sanitized $count
+        $query = "SELECT TOP $count * FROM publisherbooks WHERE publisherID = :publisherID ORDER BY created_at DESC";
+    
+        // Execute the query with the publisherID parameter
+        return $this->query($query, ['publisherID' => $publisherID]);
+    }
 
 public function updateBookDetails($isbnID, $data) {
     $bookData = [
