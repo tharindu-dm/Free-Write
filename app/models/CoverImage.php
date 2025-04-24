@@ -40,7 +40,7 @@ class CoverImage
     public function getAllCoverImages()
     {
         // Custom SQL query to fetch all cover images
-        $query = "SELECT covID, name, license, description, artist FROM {$this->table}";
+        $query = "SELECT covID, [name], license, [description], artist FROM {$this->table}";
         return $this->query($query);
     }
 
@@ -56,7 +56,7 @@ class CoverImage
     {
         $limit = (int) $limit;
         $offset = (int) $offset;
-        $query = "SELECT covID, name, license, description, artist FROM {$this->table} ORDER BY covID DESC OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+        $query = "SELECT covID, [name], license, [description], artist FROM {$this->table} WHERE artist IS NOT NULL ORDER BY covID DESC OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
 
         return $this->query($query);
     }

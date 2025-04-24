@@ -699,7 +699,6 @@ class WriterController extends Controller
                 $cover = new CoverImage();
                 $coverData = [
                     'name' => $FileName,
-                    'artist' => $author,
                     'uploadDate' => $lastUpdated
                 ];
                 $cover->insert($coverData);
