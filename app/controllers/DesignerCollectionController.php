@@ -34,18 +34,6 @@ class DesignerCollectionController extends Controller
         ]);
     }
 
-    // Dashboard: show all collections for the logged-in designer
-    // public function dashboard()
-    // {
-    //     $collectionDetails = new CollectionDetails();
-    //     $userID = $_SESSION['user_id'];
-    //     $collections = $collectionDetails->getCollectionsByUser($userID);
-
-    //     $this->view('CoverPageDesigner/collectionDashboard', [
-    //         'collections' => $collections
-    //     ]);
-    // }
-
     // View a single collection 
     public function viewCollection($collectionID)
     {

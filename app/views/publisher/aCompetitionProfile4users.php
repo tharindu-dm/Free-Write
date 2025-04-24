@@ -114,7 +114,10 @@
             <h1><?= htmlspecialchars($details['title']) ?></h1>
             <h2>A <?= htmlspecialchars($details['type']) ?> competition</h2>
         </div>
-        <a href="#" class="enter-btn"><button>Enter Competition</button></a>
+        <a href="/Free-Write/public/DesignerCompetition/createSubmission/<?= htmlspecialchars($details['competitionID']) ?>"
+            class="enter-btn">
+            <button>Enter Competition</button>
+        </a>
     </div>
 
     <div class="container">
@@ -159,7 +162,7 @@
 
         <div class="card">
             <h3 class="section-title">Submission Details</h3>
-            <p><strong>Submission Deadline:</strong> <?= htmlspecialchars($details['end_date'])?></p>
+            <p><strong>Submission Deadline:</strong> <?= htmlspecialchars($details['end_date']) ?></p>
             <p><strong>Eligibility:</strong> Open to all writers</p>
         </div>
     </div>

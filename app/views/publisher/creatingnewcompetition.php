@@ -153,12 +153,12 @@
     }
 
     .error-message {
-    color: #dc3545;
-    font-size: 0.875rem;
-    margin-top: -1rem;
-    margin-bottom: 1rem;
-    display: none;
-}
+      color: #dc3545;
+      font-size: 0.875rem;
+      margin-top: -1rem;
+      margin-bottom: 1rem;
+      display: none;
+    }
   </style>
 </head>
 
@@ -205,199 +205,213 @@
 
 
       <form action="/Free-Write/public/Competition/CreateCompetition" method="POST" onsubmit="return validateForm()">
-    <input type="hidden" name="compID" value="<?= htmlspecialchars($competitionDetails['competitionID']) ?>">
-    
-    <label for="title">Competition Name</label>
-    <input type="text" maxlength="45" id="title" name="title" placeholder="Enter competition name" required />
-    <div id="title_error" class="error-message"></div>
-    
-    <label for="description">Competition Description</label>
-    <textarea id="description" maxlength="255" name="description" placeholder="Describe your competition" required></textarea>
-    <div id="description_error" class="error-message"></div>
-    
-    <label for="rules">Judging criteria</label>
-    <textarea id="rules" maxlength="25" name="rules" placeholder="Enter your competition judging criteria" required></textarea>
-    <div id="rules_error" class="error-message"></div>
-    
-    <label for="category">Category</label>
-    <input type="text" id="category" maxlength="45" name="category" placeholder="Enter category" required />
-    <div id="category_error" class="error-message"></div>
-    
-    <label for="first_prize">Prize Amount</label>
-    <input type="number" id="first_prize" name="first_prize" placeholder="Enter first prize amount" required min="0" step="0.01" />
+        <input type="hidden" name="compID" value="<?= htmlspecialchars($competitionDetails['competitionID']) ?>">
 
-    <label for="second_prize">Second Prize Amount</label>
-<input type="number" id="second_prize" name="second_prize" placeholder="Enter second prize amount" required min="0" step="0.01" />
+        <label for="title">Competition Name</label>
+        <input type="text" maxlength="45" id="title" name="title" placeholder="Enter competition name" required />
+        <div id="title_error" class="error-message"></div>
 
-<label for="third_prize">Third Prize Amount</label>
-<input type="number" id="third_prize" name="third_prize" placeholder="Enter third prize amount" required min="0" step="0.01" />
-    
-    <label for="start_date">Start Date</label>
-    <input type="date" id="start_date" name="start_date" required />
-    <div id="start_date_error" class="error-message"></div>
-    
-    <label for="end_date">End Date</label>
-    <input type="date" id="end_date" name="end_date" required />
-    <div id="end_date_error" class="error-message"></div>
-    
-    <!-- <div class="optional-section">
+        <label for="description">Competition Description</label>
+        <textarea id="description" maxlength="255" name="description" placeholder="Describe your competition"
+          required></textarea>
+        <div id="description_error" class="error-message"></div>
+
+        <label for="rules">Judging criteria</label>
+        <textarea id="rules" maxlength="25" name="rules" placeholder="Enter your competition judging criteria"
+          required></textarea>
+        <div id="rules_error" class="error-message"></div>
+
+        <label for="category">Category</label>
+        <input type="text" id="category" maxlength="45" name="category" placeholder="Enter category" required />
+        <div id="category_error" class="error-message"></div>
+
+        <label for="first_prize">Prize Amount</label>
+        <input type="number" id="first_prize" name="first_prize" placeholder="Enter first prize amount" required min="0"
+          step="0.01" />
+
+        <label for="second_prize">Second Prize Amount</label>
+        <input type="number" id="second_prize" name="second_prize" placeholder="Enter second prize amount" required
+          min="0" step="0.01" />
+
+        <label for="third_prize">Third Prize Amount</label>
+        <input type="number" id="third_prize" name="third_prize" placeholder="Enter third prize amount" required min="0"
+          step="0.01" />
+
+        <label for="type"> Type(For whom) </label>
+        <!-- <input type="option" id="type" name="type" placeholder="Enter the type of competition" required > -->
+        <select id="type" name="type">
+          <option value="writer">for writers</option>
+          <option value="covdes">for cover page designers</option>
+        </select>
+
+
+        <label for="start_date">Start Date</label>
+        <input type="date" id="start_date" name="start_date" required />
+        <div id="start_date_error" class="error-message"></div>
+
+        <label for="end_date">End Date</label>
+        <input type="date" id="end_date" name="end_date" required />
+        <div id="end_date_error" class="error-message"></div>
+
+        <!-- <div class="optional-section">
         <h3>Add Competition Image</h3>
         <p>JPG or PNG, 2MB max</p>
         <input type="file" name="competition_image" accept="image/jpeg,image/png" />
     </div> -->
-    
-    <button type="submit" class="submit-btn">Create Competition</button>
-    <button type="button" class="cancel-btn" onclick="location.href='/Free-Write/public/Competition/'">Cancel</button>
-</form>
+
+        <button type="submit" class="submit-btn">Create Competition</button>
+        <button type="button" class="cancel-btn"
+          onclick="location.href='/Free-Write/public/Competition/'">Cancel</button>
+      </form>
     </div>
   </main>
   <?php require_once "../app/views/layout/footer.php"; ?>
 
   <script>
-function countWords(str) {
-    return str.trim().split(/\s+/).filter(word => word.length > 0).length;
-}
+    function countWords(str) {
+      return str.trim().split(/\s+/).filter(word => word.length > 0).length;
+    }
 
-function validateForm() {
-    let isValid = true;
-    const errorMessages = {
+    function validateForm() {
+      let isValid = true;
+      const errorMessages = {
         title: document.getElementById('title_error'),
         category: document.getElementById('category_error'),
         description: document.getElementById('description_error'),
         rules: document.getElementById('rules_error'),
         startDate: document.getElementById('start_date_error'),
         endDate: document.getElementById('end_date_error')
-    };
+      };
 
-    // Reset all error messages
-    Object.values(errorMessages).forEach(elem => {
+      // Reset all error messages
+      Object.values(errorMessages).forEach(elem => {
         if (elem) elem.style.display = 'none';
-    });
+      });
 
-    // Competition Name Validation
-    const title = document.getElementById('title').value;
-    if (/\d/.test(title)) {
+      // Competition Name Validation
+      const title = document.getElementById('title').value;
+      if (/\d/.test(title)) {
         errorMessages.title.textContent = 'Competition name cannot contain numbers';
         errorMessages.title.style.display = 'block';
         isValid = false;
-    }
+      }
 
-    // Category Validation
-    const category = document.getElementById('category').value;
-    if (/\d/.test(category)) {
+      // Category Validation
+      const category = document.getElementById('category').value;
+      if (/\d/.test(category)) {
         errorMessages.category.textContent = 'Category cannot contain numbers';
         errorMessages.category.style.display = 'block';
         isValid = false;
-    }
+      }
 
-    // Description Validation
-    const description = document.getElementById('description').value;
-    if (countWords(description) < 5) {
+      // Description Validation
+      const description = document.getElementById('description').value;
+      if (countWords(description) < 5) {
         errorMessages.description.textContent = 'Description must be at least 10 words';
         errorMessages.description.style.display = 'block';
         isValid = false;
-    }
+      }
 
-    // Rules Validation
-    const rules = document.getElementById('rules').value;
-    if (countWords(rules) < 5) {
+      // Rules Validation
+      const rules = document.getElementById('rules').value;
+      if (countWords(rules) < 5) {
         errorMessages.rules.textContent = 'Rules must be at least 10 words';
         errorMessages.rules.style.display = 'block';
         isValid = false;
-    }
+      }
 
-    // Date Validations
-    const startDate = new Date(document.getElementById('start_date').value);
-    const endDate = new Date(document.getElementById('end_date').value);
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+      // Date Validations
+      const startDate = new Date(document.getElementById('start_date').value);
+      const endDate = new Date(document.getElementById('end_date').value);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
 
-    if (startDate < today) {
+      if (startDate < today) {
         errorMessages.startDate.textContent = 'Start date cannot be in the past';
         errorMessages.startDate.style.display = 'block';
         isValid = false;
-    }
+      }
 
-    if (endDate <= startDate) {
+      if (endDate <= startDate) {
         errorMessages.endDate.textContent = 'End date must be at least one day after start date';
         errorMessages.endDate.style.display = 'block';
         isValid = false;
+      }
+
+      return isValid;
     }
 
-    return isValid;
-}
-
-// Real-time validation for text inputs
-document.getElementById('title').addEventListener('input', function() {
-    const errorElem = document.getElementById('title_error');
-    if (/\d/.test(this.value)) {
+    // Real-time validation for text inputs
+    document.getElementById('title').addEventListener('input', function () {
+      const errorElem = document.getElementById('title_error');
+      if (/\d/.test(this.value)) {
         errorElem.textContent = 'Competition name cannot contain numbers';
         errorElem.style.display = 'block';
-    } else {
+      } else {
         errorElem.style.display = 'none';
-    }
-});
+      }
+    });
 
-document.getElementById('category').addEventListener('input', function() {
-    const errorElem = document.getElementById('category_error');
-    if (/\d/.test(this.value)) {
+    document.getElementById('category').addEventListener('input', function () {
+      const errorElem = document.getElementById('category_error');
+      if (/\d/.test(this.value)) {
         errorElem.textContent = 'Category cannot contain numbers';
         errorElem.style.display = 'block';
-    } else {
+      } else {
         errorElem.style.display = 'none';
-    }
-});
+      }
+    });
 
-document.getElementById('description').addEventListener('input', function() {
-    const errorElem = document.getElementById('description_error');
-    if (countWords(this.value) < 5) {
+    document.getElementById('description').addEventListener('input', function () {
+      const errorElem = document.getElementById('description_error');
+      if (countWords(this.value) < 5) {
         errorElem.textContent = 'Description must be at least 10 words';
         errorElem.style.display = 'block';
-    } else {
+      } else {
         errorElem.style.display = 'none';
-    }
-});
+      }
+    });
 
-document.getElementById('rules').addEventListener('input', function() {
-    const errorElem = document.getElementById('rules_error');
-    if (countWords(this.value) < 5) {
+    document.getElementById('rules').addEventListener('input', function () {
+      const errorElem = document.getElementById('rules_error');
+      if (countWords(this.value) < 5) {
         errorElem.textContent = 'Rules must be at least 10 words';
         errorElem.style.display = 'block';
-    } else {
+      } else {
         errorElem.style.display = 'none';
+      }
+    });
+
+    const firstPrize = document.getElementById('first_prize').value;
+    const secondPrize = document.getElementById('second_prize').value;
+    const thirdPrize = document.getElementById('third_prize').value;
+
+    if (parseFloat(firstPrize) <= parseFloat(secondPrize) || parseFloat(secondPrize) <= parseFloat(thirdPrize)) {
+      errorMessages.prizes.textContent = 'First prize must be greater than second prize, which must be greater than third prize';
+      errorMessages.prizes.style.display = 'block';
+      isValid = false;
     }
-});
 
-const firstPrize = document.getElementById('first_prize').value;
-const secondPrize = document.getElementById('second_prize').value;
-const thirdPrize = document.getElementById('third_prize').value;
+    // Set minimum date for start date (today)
+    const today = new Date();
+    const todayFormatted = today.toISOString().split('T')[0];
+    document.getElementById('start_date').setAttribute('min', todayFormatted);
 
-if (parseFloat(firstPrize) <= parseFloat(secondPrize) || parseFloat(secondPrize) <= parseFloat(thirdPrize)) {
-    errorMessages.prizes.textContent = 'First prize must be greater than second prize, which must be greater than third prize';
-    errorMessages.prizes.style.display = 'block';
-    isValid = false;
-}
+    // Update minimum date for end date when start date changes
+    document.getElementById('start_date').addEventListener('change', function () {
+      const startDate = new Date(this.value);
+      const minEndDate = new Date(startDate);
+      minEndDate.setDate(startDate.getDate() + 1);
+      const minEndDateFormatted = minEndDate.toISOString().split('T')[0];
 
-// Set minimum date for start date (today)
-const today = new Date();
-const todayFormatted = today.toISOString().split('T')[0];
-document.getElementById('start_date').setAttribute('min', todayFormatted);
+      const endDateInput = document.getElementById('end_date');
+      endDateInput.setAttribute('min', minEndDateFormatted);
 
-// Update minimum date for end date when start date changes
-document.getElementById('start_date').addEventListener('change', function() {
-    const startDate = new Date(this.value);
-    const minEndDate = new Date(startDate);
-    minEndDate.setDate(startDate.getDate() + 1);
-    const minEndDateFormatted = minEndDate.toISOString().split('T')[0];
-    
-    const endDateInput = document.getElementById('end_date');
-    endDateInput.setAttribute('min', minEndDateFormatted);
-    
-    if (endDateInput.value && new Date(endDateInput.value) <= startDate) {
+      if (endDateInput.value && new Date(endDateInput.value) <= startDate) {
         endDateInput.value = '';
-    }
-});
-</script>
+      }
+    });
+  </script>
 </body>
 
 </html>

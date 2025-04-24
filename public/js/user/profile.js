@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const overlay = document.querySelector(".edit-profile");
   const cancelBtn = document.querySelector(".discard-change-btn");
   const editForm = document.getElementById("edit-profile-form");
+  const deleteAccountBtn = document.querySelector(".delete-account-btn");
 
   if (profileEditBtn && overlay) {
     profileEditBtn.addEventListener("click", (e) => {
@@ -93,14 +94,23 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
     });
+
+    /* Delete account confirmation */
+    if (deleteAccountBtn) {
+      deleteAccountBtn.addEventListener("click", (e) => {
+        e.preventDefault(); // Prevent immediate form submission
+        const confirmDelete = confirm(
+          "Are you sure you want to delete your account? This action cannot be undone and will permanently remove all your posts, profile information, comments, and associated data."
+        );
+        if (confirmDelete) {
+          // If confirmed, submit the delete form
+          deleteAccountBtn.closest("form").submit();
+        }
+      });
+    } else {
+      console.error("Delete account button not found in the DOM.");
+    }
   } else {
     console.error("profileEdit Btn or Overlay not found in the DOM.");
   }
-  /**
-   * End of Edit profile front-end validation
-   */
-
-  /*
-   * Beginning of profile 2nd section My spinoffs, collections and bought books
-   */
 });

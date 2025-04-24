@@ -54,11 +54,11 @@
                 <textarea id="description" name="description" rows="4"></textarea>
             </div>
 
-            <!-- Optional: Price -->
+            <!-- Optional: Price
             <div class="form-group">
                 <label for="price">Price (optional)</label>
                 <input type="number" id="price" name="price" min="0" step="0.01">
-            </div>
+            </div> -->
 
             <!--  Cover Image File Input -->
             <div class="form-group">

@@ -41,14 +41,19 @@
 
     <main class="dashboard-container">
 
-        <aside class="side-nav">
+        <!-- <aside class="side-nav">
             <ul>
                 <li><a href="/Free-Write/public/Designer/Dashboard" class="active">Dashboard</a></li>
-                <li><a href="/Free-Write/public/Designer/Competition">Competitions</a></li>
+                <li><a href="/Free-Write/public/DesignerCompetition/index">Competitions</a></li>
                 <li><a href="/Free-Write/public/Designer/New">Create New Design</a></li>
                 <li><a href="/Free-Write/public/User/profile">Profile</a></li>
             </ul>
-        </aside>
+        </aside> -->
+
+        <?php
+        require_once "../app/views/CoverPageDesigner/sidebar.php";
+        ?>
+
         <section class="main-content">
             <section class="user-profile">
                 <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>"
@@ -59,7 +64,7 @@
 
             <nav class="profile-nav">
                 <a href="#" class="active">Your Designs</a>
-                <a href="/Free-Write/public/Designer/Competition">Competitions</a>
+                <a href="/Free-Write/public/DesignerCompetition/index">Competitions</a>
             </nav>
 
             <section class="designs">
@@ -165,26 +170,90 @@
     ?>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const openBtn = document.getElementById('openCollectionPopup'); // Attach this ID to your "Create Collection" button
-            const overlay = document.getElementById('designCollectionOverlay');
-            const closeBtn = document.getElementById('closeDesignCollection');
-            const cancelBtn = document.getElementById('cancelDesignCollection');
+       document.addEventListener("DOMContentLoaded", function () {
+  // Get DOM elements
+  const openCollectionBtn = document.getElementById("openCollectionPopup");
+  const collectionOverlay = document.getElementById("designCollectionOverlay");
+  const closeBtn = document.getElementById("closeDesignCollection");
+  const cancelBtn = document.getElementById("cancelDesignCollection");
+  const form = document.getElementById("designCollectionForm");
+  const titleInput = document.getElementById("collectionTitle");
+  const descriptionInput = document.getElementById("CollectionDescription");
 
-            if (openBtn) {
-                openBtn.addEventListener('click', () => {
-                    overlay.classList.add('active');
-                });
-            }
+  // Function to show the popup
+  function showPopup() {
+    if (collectionOverlay) {
+      collectionOverlay.style.display = "flex";
+    }
+  }
 
-            [closeBtn, cancelBtn].forEach(btn => {
-                if (btn) {
-                    btn.addEventListener('click', () => {
-                        overlay.classList.remove('active');
-                    });
-                }
-            });
-        });
+  // Function to hide the popup
+  function hidePopup() {
+    if (collectionOverlay) {
+      collectionOverlay.style.display = "none";
+      form.reset(); // Reset form fields
+    }
+  }
+
+  // Event listener for opening the popup
+  if (openCollectionBtn) {
+    openCollectionBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      showPopup();
+    });
+  }
+
+  // Event listener for closing the popup
+  if (closeBtn) {
+    closeBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      hidePopup();
+    });
+  }
+
+  // Event listener for cancel button
+  if (cancelBtn) {
+    cancelBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      hidePopup();
+    });
+  }
+
+  // Close the popup when clicking outside the form
+  if (collectionOverlay) {
+    collectionOverlay.addEventListener("click", (e) => {
+      if (e.target === collectionOverlay) {
+        hidePopup();
+      }
+    });
+  }
+
+  // Form validation
+  form.addEventListener("submit", function (e) {
+    let isValid = true;
+
+    // Validate title
+    if (!titleInput.value.trim()) {
+      isValid = false;
+      titleInput.classList.add("error");
+    } else {
+      titleInput.classList.remove("error");
+    }
+
+    // Validate description
+    if (!descriptionInput.value.trim()) {
+      isValid = false;
+      descriptionInput.classList.add("error");
+    } else {
+      descriptionInput.classList.remove("error");
+    }
+
+    if (!isValid) {
+      e.preventDefault(); // Prevent form submission if validation fails
+    }
+  });
+});
+            
     </script>
 
 </body>

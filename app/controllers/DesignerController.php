@@ -5,9 +5,32 @@ class DesignerController extends Controller
     public function index()
     {
         $model = new CoverImage();
-        //$designs = $model->getAll();
-        $this->view('CoverPageDesigner/Designers_and_Design');
-        //$this->view('CoverPage/index', ['designs' => $designs]);
+        $userModel = new User();
+
+        // Designers pagination
+        $designerPerPage = 5;
+        $designerPage = isset($_GET['designer_page']) ? max(1, (int)$_GET['designer_page']) : 1;
+        $totalDesigners = $userModel->getTotalCoverDesignersCount();
+        $totalDesignerPages = max(1, ceil($totalDesigners / $designerPerPage));
+        $designerOffset = ($designerPage - 1) * $designerPerPage;
+        $designers = $userModel->getCoverDesignersPaginated($designerPerPage, $designerOffset);
+
+        // Designs pagination 
+        $perPage = 5;
+        $page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
+        $totalDesigns = $model->getTotalCoverImagesCount();
+        $totalPages = max(1, ceil($totalDesigns / $perPage));
+        $offset = ($page - 1) * $perPage;
+        $designs = $model->getCoverImagesPaginated($perPage, $offset);
+
+        $this->view('CoverPageDesigner/Designers_and_Design',[
+            'designers' => $designers,
+            'designs' => $designs,
+            'currentPage' => $page,
+            'totalPages' => $totalPages,
+            'designerCurrentPage' => $designerPage,
+            'designerTotalPages' => $totalDesignerPages
+        ]);
     }
 
 
@@ -55,8 +78,39 @@ class DesignerController extends Controller
         $this->view('CoverPageDesigner/CreateDesign');
     }
 
-    public function Competition(){
+    public function Competition()
+    {
         $this->view('CoverPageDesigner/Competition');
+    }
+
+    public function showCollectionForUsers($collectionID)
+    {
+        $collectionDetailsModel = new CollectionDetails();
+        $collectionDesignsModel = new CollectionDesigns();
+        $coverImageModel = new CoverImage();
+
+        // Fetch the collection details
+        $collection = $collectionDetailsModel->first(['collectionID' => $collectionID]);
+        if (!$collection) {
+            echo "Collection not found.";
+            return;
+        }
+
+        // Fetch all designs in the collection
+        $designLinks = $collectionDesignsModel->getDesignsByCollection($collectionID);
+        $designs = [];
+        foreach ($designLinks as $link) {
+            $design = $coverImageModel->first(['covID' => $link['designID']]);
+            if ($design) {
+                $designs[] = $design;
+            }
+        }
+
+        // Pass the data to the view
+        $this->view('CoverPageDesigner/showCollectionForUsers', [
+            'collection' => $collection,
+            'designs' => $designs
+        ]);
     }
 
     public function createCover()
@@ -65,9 +119,9 @@ class DesignerController extends Controller
             $coverModel = new CoverImage();
 
             $title = $_POST['title'];
-            $description = $_POST['description'] ?? ''; // Optional description
-            $price = $_POST['price'] ?? null; // Optional price
-            $designer_id = $_SESSION['user_id']; // Use the logged-in designer's ID from the session
+            $description = $_POST['description'] ?? ''; 
+            $price = $_POST['price'] ?? null; 
+            $designer_id = $_SESSION['user_id']; 
             $uploadDate = date('Y-m-d H:i:s');
 
             $newFileName = null;
@@ -183,7 +237,7 @@ class DesignerController extends Controller
 
     public function viewDesign($id)
     {
-        var_dump($id);
+        //var_dump($id);
 
         $coverModel = new CoverImage();
 
@@ -225,6 +279,134 @@ class DesignerController extends Controller
         }
     }
 
+
+    //Designer and Design page
+    public function rateDesign()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = json_decode(file_get_contents('php://input'), true);
+
+            $userID = $_SESSION['user_id']; // Logged-in user ID
+            $covID = $data['covID']; // Cover design ID
+            $rating = $data['rating']; // Rating (1-5)
+
+            $covDesignRatingModel = new CovDesignRating();
+
+            // Add or update the rating
+            if ($covDesignRatingModel->addOrUpdateRating($userID, $covID, $rating)) {
+                // Fetch the updated average rating
+                $ratingData = $covDesignRatingModel->getAverageRating($covID);
+                echo json_encode(['success' => true, 'newAverageRating' => $ratingData['averageRating']]);
+            } else {
+                echo json_encode(['success' => false]);
+            }
+        }
+    }
+
+    public function viewDesignForNonOwner($id)
+    {
+        $coverModel = new CoverImage();
+        $userDetailsModel = new UserDetails();
+        $covDesignRatingModel = new CovDesignRating();
+
+        // Fetch the design details by ID
+        $design = $coverModel->first(['covID' => $id]);
+
+        if ($design) {
+            //fetch the designer details using the artistID
+            $designer = $userDetailsModel -> first(['user' => $design['artist']]);
+
+            //fetch the average rating
+            $ratingData = $covDesignRatingModel->getAverageRating($id);
+
+            // Pass the design details to the correct view
+            $this->view('CoverPageDesigner/viewDesign', [
+                'design' => $design,
+                'designer' => $designer,
+                'ratingData' => $ratingData
+            ]);
+        } else {
+            echo "Design not found.";
+        }
+    }
+
+    public function publicProfile($userID)
+    {
+        //create objects
+        $userModel = new User();
+        $userDetailsModel = new UserDetails();
+        $coverImageModel = new CoverImage();
+        $collectionDetailsModel = new CollectionDetails();
+        $collectionDesignsModel = new CollectionDesigns();
+        $followModel = new Follow();
+
+        $designer = $userModel->first(['userID' => (int)$userID]);
+        if (!$designer){
+            echo 'designer not found';
+            return;
+        }
+
+        $designerDetails = $userDetailsModel->first(['user' => $userID]);
+
+        $designs = $coverImageModel->getByDesigner($userID);
+
+        $collections = $collectionDetailsModel->where(['userID' => $userID]);
+
+        // Assign the first image as the front image for each collection
+        foreach ($collections as &$collection) {
+            $firstDesignLink = $collectionDesignsModel->getFirstDesignByCollection($collection['collectionID']);
+            if ($firstDesignLink) {
+                // Fetch the actual design to get the image filename
+                $design = $coverImageModel->first(['covID' => $firstDesignLink['designID']]);
+                $collection['frontImage'] = $design ? $design['license'] : 'default-collection.jpg';
+            } else {
+                $collection['frontImage'] = 'default-collection.jpg'; 
+            }
+        }
+
+        $followersCount = $followModel->getFollowCount($userID);
+
+        $isFollowing = false;
+        if(isset($_SESSION['user_id'])){
+            $isFollowing = $followModel->isFollowing($_SESSION['user_id'], $userID);
+        }
+        //$isFollowing = $followModel->isFollowing($_SESSION['user_id'], $userID);
+
+        //pass data to view page
+        $this->view('CoverPageDesigner/PublicProfile',[
+            'designer' => $designer,
+            'designerDetails' => $designerDetails,
+            'designs' => $designs,
+            'collections' => $collections,
+            'followersCount' => $followersCount,
+            'isFollowing' => $isFollowing
+        ]);
+    }
+
+    public function follow()
+    {
+        $userID = $_SESSION['user_id'];
+        $designerID = $_POST['designerID'];
+
+        $followersModel = new Follow();
+        $followersModel->insert(['FollowerID' => $userID, 'FollowedID' => $designerID]);
+
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        exit;
+    }
+
+    public function unfollow()
+    {
+        $userID = $_SESSION['user_id'];
+        $designerID = $_POST['designerID'];
+
+        $followersModel = new Follow();
+        $followersModel->unfollow(['followerID' => $userID, 'followedID' => $designerID]);
+
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        exit;
+    }
+
     //collection
 
     public function createCollection()
@@ -247,64 +429,5 @@ class DesignerController extends Controller
             exit;
         }
     }
-
-    // public function showCollection()
-    // {
-    //     $collectionDetails = new CollectionDetails();
-
-    //     // Fetch collections for the logged-in user
-    //     $collections = $collectionDetails->getCollectionsByUser($_SESSION['user_id']);
-
-    //     // Debugging: Log the collections
-    //     error_log("Collections fetched: " . print_r($collections, true));
-
-    //     // Fetch designs for the logged-in user (if applicable)
-    //     $designs = []; // Replace with your logic to fetch designs
-
-    //     // Pass the data to the view
-    //     $this->view('CoverPageDesigner/Dashboard', [
-    //         'collections' => $collections,
-    //         //'designs' => $designs,
-    //     ]);
-    // }
-
-    // public function viewCollection($collectionID)
-    // {
-    //     $collectionDetails = new CollectionDetails();
-    //     $collectionDesigns = new CollectionDesigns();
-    
-    //     // Fetch the collection details
-    //     $collection = $collectionDetails->first(['collectionID' => $collectionID]);
-    
-    //     if (!$collection) {
-    //         echo "Collection not found.";
-    //         return;
-    //     }
-    
-    //     // Fetch the designs (images) associated with the collection
-    //     $designs = $collectionDesigns->getDesignsByCollection($collectionID);
-    
-    //     // Pass the collection and designs to the view
-    //     $this->view('CoverPageDesigner/ViewCollection', [
-    //         'collection' => $collection,
-    //         'designs' => $designs,
-    //     ]);
-    // }
-
-    // public function addDesignToCollection($collectionID)
-    // {
-    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //         $collectionDesigns = new CollectionDesigns();
-
-    //         $designID = $_POST['designID']; // Assume this is passed from the form
-    //         $collectionDesigns->addDesignToCollection($collectionID, $designID);
-
-    //         // Redirect to the collection view
-    //         header('Location: /Free-Write/public/Designer/viewCollection/' . $collectionID);
-    //         exit;
-    //     }
-    // }
-
-    
 
 }

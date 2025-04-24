@@ -14,7 +14,7 @@ class CompetitionController extends Controller
 
         $data = [
             'writer' => $competition_writer,
-            'cover' => $competition_cover
+            'covdes' => $competition_cover
         ];
         $this->view('OpenUser/competitions', $data);
     }
@@ -48,9 +48,10 @@ class CompetitionController extends Controller
         $category = $_POST['category'];
         $status = 'active';
         $competitionID = $_POST['compID'];
+        $type = $_POST['type'];
         $competition_table = new Competition();
 
-        $competition_table->insert(['title' => $title, 'description' => $desc, 'rules' => $rules, 'first_prize' => $firstPrize, 'second_prize' => $secondPrize, 'third_prize' => $thirdPrize, 'status' => $status, 'start_date' => $start_date, 'end_date' => $end_date, 'category' => $category, 'publisherID' => $_SESSION['user_id']]);
+        $competition_table->insert(['title' => $title, 'description' => $desc, 'rules' => $rules, 'first_prize' => $firstPrize, 'second_prize' => $secondPrize, 'third_prize' => $thirdPrize, 'status' => $status, 'start_date' => $start_date, 'end_date' => $end_date, 'category' => $category, 'publisherID' => $_SESSION['user_id'], 'type' => $type]);
 
         header('Location: /Free-Write/public/Competition/MyCompetitions');
     }
@@ -97,42 +98,42 @@ class CompetitionController extends Controller
     }
 
     /*public function ProfileUser()
-    {
+     {
 
-        $this->view('publisher/aCompetitionProfile4users');
-    }*/
+         $this->view('publisher/aCompetitionProfile4users');
+     }*/
 
-    public function WriterCompetition()
-    {
-        $competiion = new Competition();
-        $compID = $_GET['compID'] ?? null;
-        $compDetails = null;
+    // public function WriterCompetition()
+    // {
+    //     $competiion = new Competition();
+    //     $compID = $_GET['compID'] ?? null;
+    //     $compDetails = null;
 
-        if ($compID != null) {
-            $compDetails = $competiion->first(['competitionID' => $compID]);
-        }
+    //     if ($compID != null) {
+    //         $compDetails = $competiion->first(['competitionID' => $compID]);
+    //     }
 
-        $data = [
-            'details' => $compDetails,
-        ];
-        $this->view('publisher/aCompetitionProfile4users', $data);
-    }
+    //     $data = [
+    //         'details' => $compDetails,
+    //     ];
+    //     $this->view('publisher/aCompetitionProfile4users', $data);
+    // }
 
-    public function CoverCompetition()
-    {
-        $competiion = new Competition();
-        $compID = $_GET['compID'] ?? null;
-        $compDetails = null;
+    // public function CoverCompetition()
+    // {
+    //     $competiion = new Competition();
+    //     $compID = $_GET['compID'] ?? null;
+    //     $compDetails = null;
 
-        if ($compID != null) {
-            $compDetails = $competiion->first(['competitionID' => $compID]);
-        }
+    //     if ($compID != null) {
+    //         $compDetails = $competiion->first(['competitionID' => $compID]);
+    //     }
 
-        $data = [
-            'details' => $compDetails,
-        ];
-        $this->view('publisher/aCompetitionProfile4users', $data);
-    }
+    //     $data = [
+    //         'details' => $compDetails,
+    //     ];
+    //     $this->view('publisher/aCompetitionProfile4users', $data);
+    // }
 
     public function Completed()
     {
@@ -161,20 +162,58 @@ class CompetitionController extends Controller
         $this->view('publisher/bookUploadForm4Publishers');
     }
 
-    public function Competitions()
+    /*public function ProfileUser()
     {
-        $competitionModel = new Competition();
 
-        // Fetch competitions based on their status
-        $activeCompetitions = $competitionModel->where(['status' => 'active']);
-        $previousCompetitions = $competitionModel->where(['status' => 'ended']);
-        $upcomingCompetitions = $competitionModel->where(['status' => 'upcoming']);
+        $this->view('publisher/aCompetitionProfile4users');
+    }*/
 
-        // Pass data to the view
-        $this->view('CoverPageDesigner/Competition', [
-            'activeCompetitions' => $activeCompetitions,
-            'previousCompetitions' => $previousCompetitions,
-            'upcomingCompetitions' => $upcomingCompetitions
-        ]);
+    public function WriterCompetition()
+    {
+        $competiion = new Competition();
+        $compID = $_GET['compID'] ?? null;
+        $compDetails = null;
+
+        if ($compID != null) {
+            $compDetails = $competiion->first(['competitionID' => $compID]);
+        }
+
+        $data = [
+            'details' => $compDetails,
+        ];
+        $this->view('publisher/aCompetitionProfile4users', $data);
     }
+
+    public function CoverCompetition()
+    {
+        $competiion = new Competition();
+        $competitionID = $_GET['compID'] ?? null;
+        $compDetails = null;
+
+        if ($competitionID != null) {
+            $compDetails = $competiion->first(['competitionID' => $competitionID]);
+        }
+
+        $data = [
+            'details' => $compDetails,
+        ];
+        $this->view('publisher/aCompetitionProfile4users', $data);
+    }
+
+    // public function Competitions()
+    // {
+    //     $competitionModel = new Competition();
+
+    //     // Fetch competitions based on their status
+    //     $activeCompetitions = $competitionModel->where(['status' => 'active']);
+    //     $previousCompetitions = $competitionModel->where(['status' => 'ended']);
+    //     $upcomingCompetitions = $competitionModel->where(['status' => 'upcoming']);
+
+    //     // Pass data to the view
+    //     $this->view('CoverPageDesigner/Competition', [
+    //         'activeCompetitions' => $activeCompetitions,
+    //         'previousCompetitions' => $previousCompetitions,
+    //         'upcomingCompetitions' => $upcomingCompetitions
+    //     ]);
+    // }
 }
