@@ -42,4 +42,19 @@ class CoverImage
         $query = "SELECT covID, name, license, description, artist FROM {$this->table}";
         return $this->query($query);
     }
+
+    public function getTotalCoverImagesCount() {
+        $query = "SELECT COUNT(*) as total FROM {$this->table}";
+        $result = $this->query($query);
+        return $result ? (int)$result[0]['total'] : 0;
+    }
+
+    // Get cover images with limit and offset for pagination
+    public function getCoverImagesPaginated($limit, $offset) {
+        $limit = (int)$limit;
+        $offset = (int)$offset;
+        $query = "SELECT covID, name, license, description, artist FROM {$this->table} ORDER BY covID DESC OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+        
+        return $this->query($query);
+    }
 }

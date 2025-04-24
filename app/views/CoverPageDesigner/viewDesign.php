@@ -153,11 +153,9 @@
             <div class="cover-details">
                 <h1><?= htmlspecialchars($design['name']) ?></h1>
                 <p class="designer">By <?= htmlspecialchars($designer['firstName'] . ' ' . $designer['lastName']) ?></p>
-                <p class="price">$<?= htmlspecialchars(number_format($design['price'], 2)) ?></p>
-                <p class="status">In Stock</p>
+                <p class="uploadDate">Uploaded At : <?= date('M d, Y', strtotime($design['uploadDate']))?></p>
+                <!-- <p class="status">In Stock</p> -->
                 <p class="description"><?= htmlspecialchars($design['description']) ?></p>
-                <!-- <button class="btn btn-primary">Add to Wishlist</button> -->
-                <button class="btn btn-secondary">Buy Now</button>
             </div>
         </div>
 

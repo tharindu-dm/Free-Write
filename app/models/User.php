@@ -98,4 +98,22 @@ class User
         return $this->query($query);
     }
 
+    public function getTotalCoverDesignersCount() {
+        $query = "SELECT COUNT(*) as total FROM [dbo].[User] WHERE [userType] IN ('covdes', 'wricov') AND [isActivated] = 1";
+        $result = $this->query($query);
+        return $result ? (int)$result[0]['total'] : 0;
+    }
+    
+    public function getCoverDesignersPaginated($limit, $offset) {
+        $limit = (int)$limit;
+        $offset = (int)$offset;
+        $query = "SELECT u.[userID], u.[email], u.[userType], ud.[firstName], ud.[lastName], ud.[profileImage]
+                  FROM [dbo].[User] u
+                  JOIN [dbo].[UserDetails] ud ON u.[userID] = ud.[user]
+                  WHERE u.[userType] IN ('covdes', 'wricov') AND u.[isActivated] = 1
+                  ORDER BY u.[userID] DESC
+                  OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+        return $this->query($query);
+    }
+
 }

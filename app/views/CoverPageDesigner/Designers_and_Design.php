@@ -55,7 +55,7 @@
         <?php if(!empty($designers)): ?>
           <?php foreach($designers as $designer): ?>
             <div class="designer-profile">
-              <a href="/Free-Write/public/User/Profile?user=<?htmlspecialchars($designer['userID'])?>">
+              <a href="/Free-Write/public/Designer/publicProfile/<?= htmlspecialchars($designer['userID']) ?>">
                 <img src="/Free-Write/app/images/profile/<?=htmlspecialchars($designer['profileImage']??'profile-image.jpg')?>" alt="<?=htmlspecialchars($designer['firstName'] . ' ' . $designer['lastName'])?>">
                 <h3><?=htmlspecialchars($designer['firstName'].' '.$designer['lastName'])?></h3>
               </a>
@@ -63,28 +63,38 @@
           <?php endforeach;?>
         <?php else: ?>
           <p>No designers found</p>
-        <?php endif; ?>
-        
+        <?php endif; ?>  
       </div>
+
       <div class="pagination">
-        <button>&lt;</button>
-        <button>1</button>
-        <button>2</button>
-        <button>3</button>
-        <button>4</button>
-        <button>&gt;</button>
+        <?php
+          $designerPrevPage = max(1, $designerCurrentPage - 1);
+          $designerNextPage = min($designerTotalPages, $designerCurrentPage + 1);
+        ?>
+        <form method="get" style="display:inline;">
+          <input type="hidden" name="designer_page" value="<?= $designerPrevPage ?>">
+          <input type="hidden" name="page" value="<?= $currentPage ?>">
+          <button type="submit" <?= $designerCurrentPage <= 1 ? 'disabled' : '' ?>>Previous</button>
+        </form>
+        <span style="margin: 0 1rem; font-weight: bold;"><?= $designerCurrentPage ?></span>
+        <form method="get" style="display:inline;">
+          <input type="hidden" name="designer_page" value="<?= $designerNextPage ?>">
+          <input type="hidden" name="page" value="<?= $currentPage ?>">
+          <button type="submit" <?= $designerCurrentPage >= $designerTotalPages ? 'disabled' : '' ?>>Next</button>
+        </form>
       </div>
     </section>
 
     <section class="cover-pages">
     <h2>Popular Cover Pages</h2>
     <div class="cover-page-designs">
-      <?php if (!empty($designs)): ?>
+      <?php if (!empty($designs) && is_array($designs)): ?>
         <?php foreach ($designs as $design): ?>
           <div class="cover-page-design">
             <a href="/Free-Write/public/Designer/viewDesignForNonOwner/<?= htmlspecialchars($design['covID']) ?>">
               <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($design['license']) ?>" alt="<?= htmlspecialchars($design['name']) ?>">
               <h3><?= htmlspecialchars($design['name']) ?></h3>
+              <!-- <p>Rating: <?//= isset($design['rating']) ? number_format($design['rating'], 2) : '0.00' ?></p> -->
             </a>
           </div>
         <?php endforeach; ?>
@@ -94,12 +104,19 @@
     </div>
 
       <div class="pagination">
-        <button>&lt;</button>
-        <button>1</button>
-        <button>2</button>
-        <button>3</button>
-        <button>4</button>
-        <button>&gt;</button>
+        <?php
+          $prevPage = max(1, $currentPage - 1);
+          $nextPage = min($totalPages, $currentPage + 1);
+        ?>
+        <form method="get" style="display:inline;">
+          <input type="hidden" name="page" value="<?= $prevPage ?>">
+          <button type="submit" <?= $currentPage <= 1 ? 'disabled' : '' ?>>Previous</button>
+        </form>
+        <span style="margin: 0 1rem; font-weight: bold;"><?= $currentPage ?></span>
+        <form method="get" style="display:inline;">
+          <input type="hidden" name="page" value="<?= $nextPage ?>">
+          <button type="submit" <?= $currentPage >= $totalPages ? 'disabled' : '' ?>>Next</button>
+        </form>
       </div>
 
     </section>

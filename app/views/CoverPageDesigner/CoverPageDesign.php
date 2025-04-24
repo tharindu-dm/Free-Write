@@ -38,15 +38,15 @@
         ?>
     </header>
     <main>
-        <aside class="side-nav">
+        <!-- <aside class="side-nav">
             <ul>
                 <li><a href="/Free-Write/public/Designer/Dashboard" class="active">Dashboard</a></li>
                 <li><a href="/Free-Write/public/Designer/Competition">Competitions</a></li>
                 <li><a href="/Free-Write/public/Designer/New">Create New Design</a></li>
-                <!-- <li><a href="/Free-Write/public/Designer/MyOrders">My Orders</a></li> -->
-                <li><a href="/Free-Write/public/User/profile">Profile</a></li>
+                <li><a href="/Free-Write/public/Designer/MyOrders">My Orders</a></li> -->
+                <!--<li><a href="/Free-Write/public/User/profile">Profile</a></li>
             </ul>
-        </aside>
+        </aside> -->
 
         <div class="product-container">
             <div class="product-image">
@@ -56,7 +56,6 @@
             <div class="product-details">
                 <h1><?= htmlspecialchars($design['name']) ?></h1>
                 <p class="product-description"><?= htmlspecialchars($design['description']) ?></p>
-                <p class="product-price"><?= htmlspecialchars($design['price']) ?>$</p>
                 <div class="action-buttons">
                     <?php if ($_SESSION['user_id'] == $design['artist']): ?>
                         <a href="/Free-Write/public/Designer/edit/<?= $design['covID'] ?>"><button
