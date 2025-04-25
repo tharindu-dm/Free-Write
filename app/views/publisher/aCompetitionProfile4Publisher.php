@@ -93,6 +93,20 @@
             margin-top: 20px;
         }
 
+        .competition-image-container {
+            margin: -30px auto 20px;
+            max-width: 300px;
+            text-align: center;
+        }
+
+        .competition-image {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 3px solid white;
+        }
+
         @media (max-width: 768px) {
             .prize-list {
                 flex-direction: column;
@@ -106,47 +120,38 @@
 </head>
 
 <body>
-
-    <?php
-    if (isset($_SESSION['user_type'])) {
-        $userType = $_SESSION['user_type'];
-    } else {
-        $userType = 'guest';
-    }
-    switch ($userType) {
-        case 'admin':
-        case 'mod':
-            require_once "../app/views/layout/header-user.php";
-            break;
-        case 'pub':
-            require_once "../app/views/layout/header-pub.php";
-            break;
-        default:
-            require_once "../app/views/layout/header.php";
-    }
+    <?php require_once "../app/views/layout/headerSelector.php";
+    //show($data);
     ?>
+    
     <div class="header">
         <div class="container">
-            <h1>Storytellers' Challenge</h1>
-            <h2>CodeChamp's Most Wanted</h2>
+            <h1><?= htmlspecialchars($competitionDetails['title'] ?? 'Competition Details') ?></h1>
+            <h2><?= htmlspecialchars($competitionDetails['category'] ?? '') ?></h2>
+
+
         </div>
-        <a href="/Free-Write/public/Competition/ViewStats" class="enter-btn"><button>View Stats</button></a>
+        <a href="/Free-Write/public/Competition/ViewStats/<?= htmlspecialchars($competitionDetails['competitionID']) ?>"
+            class="enter-btn"><button>View Stats</button></a>
+
     </div>
 
     <div class="container">
+        <?php if (!empty($competitionDetails['compImage'])): ?>
+            <div class="competition-image-container">
+                <img src="/Free-Write/app/images/competition/<?= htmlspecialchars($competitionDetails['compImage']) ?>"
+                    alt="Competition Image" class="competition-image">
+            </div>
+        <?php endif; ?>
+
         <div class="card">
-            <p>Join us in this exciting competition where writers will craft captivating stories centered around the
-                theme of "CodeChamp's Most Wanted." Unleash your creativity and imagination as you delve into the world
-                of coding, technology, and adventure!</p>
+            <h3 class="section-title">Description</h3>
+            <p><?= htmlspecialchars($competitionDetails['description'] ?? '') ?></p>
         </div>
 
         <div class="card">
-            <h3 class="section-title">Challenge Details</h3>
-            <ul>
-                <li>Write an original story that explores the journey of a coder on a quest to uncover hidden bugs in a
-                    mysterious program.</li>
-                <li>Your story can be in any genre: thriller, sci-fi, fantasy, or even a romantic comedy!</li>
-            </ul>
+            <h3 class="section-title">Judging criteria</h3>
+            <div><?= nl2br(htmlspecialchars($competitionDetails['rules'] ?? '')) ?></div>
         </div>
 
         <div class="card">
@@ -154,33 +159,26 @@
             <div class="prize-list">
                 <div class="prize-item">
                     <h4>🥇 First Place</h4>
-                    <p>$5,000 USD</p>
+                    <p>$<?= number_format($competitionDetails['first_prize'] ?? 0, 2) ?> USD</p>
                 </div>
                 <div class="prize-item">
                     <h4>🥈 Second Place</h4>
-                    <p>$3,000 USD</p>
+                    <p>$<?= number_format($competitionDetails['second_prize'] ?? 0, 2) ?> USD</p>
                 </div>
                 <div class="prize-item">
                     <h4>🥉 Third Place</h4>
-                    <p>$2,000 USD</p>
+                    <p>$<?= number_format($competitionDetails['third_prize'] ?? 0, 2) ?> USD</p>
                 </div>
             </div>
         </div>
 
         <div class="card">
-            <h3 class="section-title">Judging Criteria</h3>
-            <ul>
-                <li>Creativity and Originality (40%)</li>
-                <li>Writing Style and Voice (30%)</li>
-                <li>Engagement and Emotional Impact (20%)</li>
-                <li>Adherence to Theme (10%)</li>
-            </ul>
-        </div>
-
-        <div class="card">
             <h3 class="section-title">Submission Details</h3>
-            <p><strong>Submission Deadline:</strong> August 15, 2024</p>
-            <p><strong>Eligibility:</strong> Open to all writers, ages 13 and older.</p>
+            <p><strong>Submission Deadline:</strong>
+                <?= date('F j, Y', strtotime($competitionDetails['end_date'] ?? 'now')) ?></p>
+            <p><strong>Start Date:</strong> <?= date('F j, Y', strtotime($competitionDetails['start_date'] ?? 'now')) ?>
+            </p>
+            <p><strong>Status:</strong> <?= htmlspecialchars(ucfirst($competitionDetails['status'] ?? 'active')) ?></p>
         </div>
     </div>
 

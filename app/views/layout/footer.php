@@ -14,8 +14,11 @@
                 <a href="/Free-Write/public/Home/About">About</a>
                 <a href="/Free-Write/public/Home/Terms_of_Service">Terms of Service</a>
                 <a href="/Free-Write/public/Home/Privacy_Policy">Privacy Policy</a>
+                <a href="/Free-Write/public/Home/Feedback">Send Feedback</a>
             </div>
             <div class="social-icons">
+
+
                 <a href="#" aria-label="Instagram">
                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 24 24">
                         <path

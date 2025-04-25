@@ -15,11 +15,6 @@ class Notification
         return $this->insert($arr);
     }
 
-    public function getNotification()
-    {
-        
-    }
-
     public function deleteNotification($id)
     {
         return $this->delete(['id' => $id]);

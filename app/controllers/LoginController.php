@@ -6,54 +6,6 @@ class LoginController extends Controller
     {
         //echo "this is the User Controller\n";
         $this->view('login');
-
-    }
-
-    //set expire
-    //set login attempt counter
-    //set logging login time
-    //set site logs
-
-    public function handleLogin()
-    {
-        if (session_status() == PHP_SESSION_NONE) {
-
-            echo "session is not started\n";
-            session_start();
-        }
-
-        // Checking if user is already logged in
-        if (isset($_SESSION['user_id'])) {
-            switch ($_SESSION['user_type']) {
-                case 'admin':
-                    header('Location: /Free-Write/public/Admin/Dashboard');
-                    break;
-                case 'mod':
-                    $this->modLogUpdate();
-                    header('Location: /Free-Write/public/Mod/Dashboard');
-                    break;
-                case 'reader':
-                case 'writer':
-                case 'covdes':
-                case 'wricov':
-                    header('Location: /Free-Write/public/User/Profile');
-                    break;
-                case 'courier':
-                    header('Location: /Free-Write/public/courier');
-                    break;
-                case 'publisher':
-                    header('Location: /Free-Write/public/publisher');
-                    break;
-                case 'inst':
-                    header('Location: /Free-Write/public/Institute');
-                    break;
-                default:
-                    header('Location: /Free-Write/public/');
-                    break;
-            }
-            exit;
-        }
-
     }
 
     public function register()
@@ -63,7 +15,9 @@ class LoginController extends Controller
             $user = new User();
             $userDetails = new UserDetails();
 
-            $result = $user->createUser($_POST['signup-email'], $_POST['pw'], "reader", 0, 1);
+            $hashedpw = password_hash($_POST['pw'], PASSWORD_DEFAULT);
+
+            $result = $user->createUser($_POST['signup-email'], $hashedpw /*$_POST['pw']*/ , "reader", 0, 1);
 
             if ($result) {
                 $newUserID = $user->first(['email' => $_POST['signup-email']]);
@@ -111,30 +65,37 @@ class LoginController extends Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $user_email = $_POST['log-email'] ?? '';
             $password = $_POST['log-password'] ?? '';
+
             $response = ['success' => false, 'message' => '', 'lockout' => false, 'remainingTime' => 0];
 
             $user = new User();
-            $userData = $user->first(['email' => $user_email]);
+            $userData = $user->first(['email' => $user_email, 'isActivated' => 1]); //checking email in user table 
 
-            // Check institution if user not found
+            // Check institution - if user not found
             if ($userData == null) {
                 $institution = new Institution();
                 $userData = $institution->first(['username' => $user_email]);
 
                 if ($userData) {
-                    return $this->InstitutionLogin($userData);
+                    $this->InstitutionLogin($userData);
+                    return;
+                } else {
+                    $response['message'] = 'user_not_found';
+                    header('Content-Type: application/json');
+                    echo json_encode($response);
+                    exit;
                 }
             }
 
             if (!$userData) {
                 $response['message'] = 'user_not_found';
                 echo json_encode($response);
-                return;
+                return; // user nor institution found
             }
 
             // Handle lockout status using cookies
             if ($userData['loginAttempt'] >= 3) {
-                $lockoutTime = $_COOKIE['lockout_time'] ?? 0;
+                $lockoutTime = $_COOKIE['lockout_time'] ?? 0; // Check if lockout time is set in cookies
                 $currentTime = time();
                 $remainingTime = $lockoutTime - $currentTime;
 
@@ -160,7 +121,7 @@ class LoginController extends Controller
             }
 
             // Verify password
-            if ($password === $userData['password']) {
+            if (password_verify($password, $userData['password'])) {/*$password === $userData['password']*/
                 // Successful login
                 $_SESSION['user_id'] = $userData['userID'];
                 $_SESSION['user_type'] = $userData['userType'];
@@ -186,7 +147,48 @@ class LoginController extends Controller
 
                 $response['success'] = true;
                 $response['message'] = 'login_success';
-                $response['redirect'] = '/Free-Write/public/User/Profile';
+                //$response['redirect'] = '/Free-Write/public/User/Profile';
+
+                if ($userData['isPremium'] != 1 || !isset($_SESSION['user_id'])) {
+                    $advertisement = new Advertisement();
+                    $ad = $advertisement->first(['status' => 'active']);
+
+                    ($ad) ? $_SESSION['user_ads'] = $ad['adImage'] : null;
+                }
+
+                switch ($userData['userType']) {
+                    case 'admin':
+                        $response['redirect'] = '/Free-Write/public/Mod/Dashboard';
+                        break;
+
+                    case 'mod':
+                        $this->modLogUpdate();
+                        $response['redirect'] = '/Free-Write/public/Mod/Dashboard';
+                        break;
+
+                    case 'reader':
+                    case 'writer':
+                    case 'covdes':
+                    case 'wricov':
+                        $response['redirect'] = '/Free-Write/public/User/Profile';
+                        break;
+
+                    case 'courier':
+                        $response['redirect'] = '/Free-Write/public/courier';
+                        break;
+
+                    case 'publisher':
+                        $response['redirect'] = '/Free-Write/public/publisher';
+                        break;
+
+                    case 'inst':
+                        $response['redirect'] = '/Free-Write/public/Institute';
+                        break;
+
+                    default:
+                        $response['redirect'] = '/Free-Write/public/';
+                        break;
+                }
 
                 echo json_encode($response);
                 return;
@@ -208,6 +210,7 @@ class LoginController extends Controller
                     $response['lockout'] = true;
                     $response['remainingTime'] = 300; // 5 minutes in seconds
                     $response['message'] = 'account_locked';
+
                 } else {
                     $response['message'] = 'invalid_password';
                     $response['remainingAttempts'] = 3 - $newAttempts;
@@ -231,11 +234,9 @@ class LoginController extends Controller
         }
     }
 
-
     public function InstitutionLogin($institutionData)
     {
         $sitelog = new SiteLog();
-        //$institution = new Institution();
 
         // Start the session if it's not already started
         if (session_status() == PHP_SESSION_NONE) {
@@ -243,6 +244,7 @@ class LoginController extends Controller
         }
 
         $pw = $_POST['log-password'];
+        $response = ['success' => false, 'message' => '', 'redirect' => ''];
 
         if ($institutionData) {
 
@@ -262,19 +264,24 @@ class LoginController extends Controller
                 );
                 $sitelog->insert($dataset);
 
-                // Redirect to the appropriate page based on user type
-                $this->handleLogin();
+                $response['success'] = true;
+                $response['message'] = 'login_success';
+                $response['redirect'] = '/Free-Write/public/Institute';
+
+                //header('Location: /Free-Write/public/Institute');
+                echo json_encode($response);
                 exit;
             } else {
-                echo "<script>alert('Password is incorrect.')</script>";
-                $this->view('login');
+                $response['message'] = 'invalid_password';
             }
         } else {
-            echo "<script>alert('User  not found.')</script>";
+            $response['message'] = 'user_not_found';
         }
-
-        $this->view('login');
+        header('Content-Type: application/json');
+        echo json_encode($response);
+        exit;
     }
+
     public function logout()
     {
         //echo "inside the logout function\n";

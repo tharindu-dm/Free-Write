@@ -6,9 +6,20 @@ class ModLog
 
     protected $table = 'ModLog'; //when using the Model trait, this table name ise used 
 
-    public function getAllTables()
+    public function filterByDate($params, $date)
     {
-        $query = "SELECT name FROM sys.tables where name!= 'sysdiagrams' ORDER BY name;";
-        return $this->query(query: $query);
+        $date = DateTime::createFromFormat('Y-m-d', $date)->format('Y-m-d');
+        $query = "SELECT * FROM [ModLog] WHERE ";
+
+        if (isset($params['user']))
+            $query .= '[user] = ' . $params['user'];
+
+        if (isset($params['modlogID']))
+            $query .= '[modlogID] = ' . $params['modlogID'];
+
+        $query .= " CAST([occurrence] AS DATE) = '" . $date . "'";
+
+        //show($query);
+        return $this->query( $query);
     }
 }

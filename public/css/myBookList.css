@@ -55,6 +55,7 @@ main {
 /*table styles*/
 .table-section {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 1rem;
@@ -83,6 +84,15 @@ th {
   background-color: #ffd700;
 
   border-spacing: 1rem;
+}
+
+.table-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 60vw;
+  height: 100vh;
+  overflow-y: auto;
 }
 
 tbody tr {
@@ -187,7 +197,7 @@ img {
 
 /* ------------------------------------------------------------------------------ */
 /*DELETE Record*/
-.delete-from-list{  
+.delete-from-list {
   display: none;
   position: fixed; /* Make it fixed to the viewport */
   top: 0;

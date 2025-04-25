@@ -9,68 +9,18 @@
 </head>
 
 <body>
-    <?php
-    if (isset($_SESSION['user_type'])) {
-        $userType = $_SESSION['user_type'];
-    } else {
-        $userType = 'guest';
-    }
-    switch ($userType) {
-        case 'admin':
-        case 'mod':
-        case 'writer':
-        case 'covdes':
-        case 'wricov':
-        case 'reader':
-            require_once "../app/views/layout/header-user.php";
-            break;
-        case 'pub':
-            require_once "../app/views/layout/header-pub.php";
-            break;
-        case 'inst':
-            require_once "../app/views/layout/header-inst.php";
-            break;
-        default:
-            require_once "../app/views/layout/header.php";
-    }
+    <?php require_once "../app/views/layout/headerSelector.php";
     //show($data);
     ?>
 
     <div class="inst-container">
         <!-- Sidebar Navigation -->
-        <aside class="sidebar">
-            <div class="institution-info">
-                <div class="institution-icon"></div>
-                <div>
-                    <h3><?= htmlspecialchars($instDetails['name']) ?></h3>
-                </div>
-            </div>
-            <nav class="menu">
-                <div class="menu-item"><a href="/Free-Write/public/Institute/Dashboard">Dashboard</a></div>
-                <div class="menu-item"><a href="/Free-Write/public/Institute/Library">Library</a></div>
-                <div class="menu-item"><a href="/Free-Write/public/Institute/PurchasePackage">Packages</a></div>
-                <div class="menu-item active"><a href="/Free-Write/public/Institute/ManageUser">User Management</a>
-                </div>
-            </nav>
-        </aside>
+        <?php include_once "../app/views/Institute/sidebar.php"; ?>
 
         <!-- Main Content -->
         <main class="inst-main-content">
             <h1>Manage Users</h1>
-
-            <!-- Search Bar -->
-            <div class="inst-search-container">
-                <input type="text" id="searchInput" placeholder="Search by username, email or name">
-                <i class="inst-icon-search"></i>
-            </div>
-
-            <!-- User Type Tabs -->
-            <div class="inst-tabs">
-                <button class="inst-tab-btn active" data-type="all">All Users</button>
-                <button class="inst-tab-btn" data-type="writers">Writers</button>
-                <button class="inst-tab-btn" data-type="readers">Readers</button>
-            </div>
-
+            
             <!-- Users Table -->
             <div class="inst-table-container">
                 <table id="usersTable">
@@ -213,7 +163,7 @@
             </form>
         </div>
     </div>
-
+    <?php require_once "../app/views/layout/footer.php"; ?>
 
     <script src="\Free-Write\public\js\Institute\InstituteManageUser.js"></script>
 </body>

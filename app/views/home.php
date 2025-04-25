@@ -9,28 +9,7 @@
 </head>
 
 <body>
-    <?php
-    if (isset($_SESSION['user_type'])) {
-        $userType = $_SESSION['user_type'];
-    } else {
-        $userType = 'guest';
-    }
-    switch ($userType) {
-        case 'admin':
-        case 'mod':
-        case 'writer':
-        case 'covdes':
-        case 'wricov':
-        case 'reader':
-            require_once "../app/views/layout/header-user.php";
-            break;
-        case 'pub':
-            require_once "../app/views/layout/header-pub.php";
-            break;
-        default:
-            require_once "../app/views/layout/header.php";
-    }
-    ?>
+    <?php require_once "../app/views/layout/headerSelector.php"; ?>
 
     <main>
         <section class="hero">
@@ -111,7 +90,8 @@
             <div class="plan premium">
                 <h3>Premium Reader</h3>
                 <p class="price">LKR.&nbsp;899 <span>per month</span></p>
-                <a href="/Free-Write/public/Payment/Premium?type=reader"><button class="upgrade-btn">Upgrade Now</button></a>
+                <a href="/Free-Write/public/Payment/Premium?type=reader"><button class="upgrade-btn">Upgrade
+                        Now</button></a>
                 <ul>
                     <li>10% Discount on virtual book/chapters</li>
                     <li>Ad-free experience</li>
@@ -121,7 +101,8 @@
             <div class="plan premium">
                 <h3>Premium Writer</h3>
                 <p class="price">LKR.&nbsp;1,199 <span>per month</span></p>
-                <a href="/Free-Write/public/Payment/Premium?type=writer"><button class="upgrade-btn">Upgrade Now</button></a>
+                <a href="/Free-Write/public/Payment/Premium?type=writer"><button class="upgrade-btn">Upgrade
+                        Now</button></a>
                 <ul>
                     <li>Ad-free experience</li>
                     <li>Create contests</li>

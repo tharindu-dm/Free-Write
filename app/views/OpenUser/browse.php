@@ -9,27 +9,8 @@
 </head>
 
 <body>
-    <?php
-    if (isset($_SESSION['user_type'])) {
-        $userType = $_SESSION['user_type'];
-    } else {
-        $userType = 'guest';
-    }
-    switch ($userType) {
-        case 'admin':
-        case 'mod':
-        case 'writer':
-        case 'covdes':
-        case 'wricov':
-        case 'reader':
-            require_once "../app/views/layout/header-user.php";
-            break;
-        case 'pub':
-            require_once "../app/views/layout/header-pub.php";
-            break;
-        default:
-            require_once "../app/views/layout/header.php";
-    }
+    <?php require_once "../app/views/layout/headerSelector.php";
+    //show($data);
     ?>
 
     <!-- Page Title -->
@@ -39,105 +20,71 @@
 
     <div class="browse-main-container">
         <!-- Ad image -->
-        <div>
-            <img src="../public/images/ad.png" alt="Ad" class="ad-image">
-        </div>
+        <?php include "../app/views/layout/advertisement.php"; ?>
 
         <main>
             <section class="browse-body-section">
                 <!-- Search Bar Section -->
                 <section class="search-section">
                     <form action="/Free-Write/public/Browse/search" method="GET">
-                        <input type="text" id="search-bar" name="bookName" placeholder="Search books..." />
-                        <button type="submit" id="search-btn">Search</button>
+                        <div class="search-container">
+                            <select id="search-type" name="searchType" aria-label="Search type">
+                                <option value="book">Book</option>
+                                <option value="spinoff">Spinoff</option>
+                                <option value="user">User</option>
+                                <option value="writer">Author</option>
+                                <option value="covdes">Cover Designer</option>
+                            </select>
+                            <input type="text" id="search-bar" name="itemName" placeholder="Search..."
+                                aria-label="Search query" />
+                            <button type="submit" id="search-btn" aria-label="Search">
+                                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
+                                Search
+                            </button>
+                        </div>
                     </form>
                 </section>
 
                 <!-- Book Categories -->
-                <section class="book-category">
-                    <h2>Freewrite Originals For You</h2>
-                    <div class="book-grid">
-
-                        <?php if (!empty($FWObooks) && is_array($FWObooks)): ?>
-                            <?php foreach ($FWObooks as $book): ?>
-                                <a href="/Free-Write/public/book/Overview/<?= htmlspecialchars($book['bookID']); ?>">
-                                    <div class="book-card">
-                                        <img src="../app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
-                                            alt="Cover Image of <?= htmlspecialchars($book['title']); ?>">
-
-                                        <h3>
-                                            <?= strlen($book['title']) > 20 ? htmlspecialchars(substr($book['title'], 0, 17)) . '...' : htmlspecialchars($book['title']); ?>
-                                        </h3>
-                                        <p>
-                                            <?= htmlspecialchars($book['author']); ?>
-                                        </p>
-                                        <h4>
-                                            <?= $book['price'] === null ? 'FREE' : 'LKR ' . number_format($book['price'], 2); ?>
-                                        </h4>
-                                    </div>
-                                </a>
-
-                            <?php endforeach; ?>
-
-                        <?php else: ?>
-                            <p>No books available.</p>
-                        <?php endif; ?>
-                    </div>
-                </section>
-
-                <section class="book-category">
-                    <h2>Top Paid Books</h2>
-                    <div class="book-grid">
-                        <?php if (!empty($paidBooks) && is_array($paidBooks)): ?>
-                            <?php foreach ($paidBooks as $pbook): ?>
-                                <a href="/Free-Write/public/book/Overview/<?= htmlspecialchars($pbook['bookID']); ?>">
-                                <div class="book-card">
-                                    <img src="../app/images/coverDesign/<?= htmlspecialchars($pbook['cover_image'] ?? 'sampleCover.jpg'); ?>"
-                                        alt="Cover Image of <?= htmlspecialchars($pbook['title']); ?>">
-                                    <h3>
-                                        <?= strlen($pbook['title']) > 20 ? htmlspecialchars(substr($pbook['title'], 0, 17)) . '...' : htmlspecialchars($pbook['title']); ?>
-                                    </h3>
-                                    <p> <?= htmlspecialchars($pbook['author']); ?></p>
-                                    <h4><?= $pbook['price'] === null ? 'FREE' : 'LKR ' . number_format($pbook['price'], 2); ?>
-                                    </h4>
-                                </div>
-                                </a>
-                            <?php endforeach; ?>
-
-                        <?php else: ?>
-                            <p>No books available.</p>
-                        <?php endif; ?>
-                    </div>
-                </section>
-
-                <section class="book-category">
-                    <h2>Who Will Be Left Standing?</h2>
-                    <div class="book-grid">
-                        <div class="book-card">
-                            <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Heartless">
-                            <h3>Heartless</h3>
-                            <p>Romance</p>
+                <?php foreach ($data as $categoryVar => $books): ?>
+                    <?php
+                    // Convert camelCase to Title Case for section title
+                    $sectionTitle = ucwords(preg_replace('/([a-z])([A-Z])/', '$1 $2', $categoryVar));
+                    ?>
+                    <section class="book-category">
+                        <h2><?= htmlspecialchars($sectionTitle); ?></h2>
+                        <div class="book-grid">
+                            <?php if (!empty($books) && is_array($books)): ?>
+                                <?php foreach ($books as $book): ?>
+                                    <a href="/Free-Write/public/book/Overview/<?= htmlspecialchars($book['bookID']); ?>">
+                                        <div class="book-card">
+                                            <img src="../app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                                                alt="Cover Image of <?= htmlspecialchars($book['title']); ?>">
+                                            <h3>
+                                                <?= strlen($book['title']) > 20 ? htmlspecialchars(substr($book['title'], 0, 17)) . '...' : htmlspecialchars($book['title']); ?>
+                                            </h3>
+                                            <p><?= htmlspecialchars($book['author']); ?></p>
+                                            <h4>
+                                                <?= $book['price'] === null || $book['price'] === '' ? 'FREE' : 'LKR ' . number_format($book['price'], 2); ?>
+                                            </h4>
+                                        </div>
+                                    </a>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <p>No books available.</p>
+                            <?php endif; ?>
                         </div>
-                        <div class="book-card">
-                            <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="GroundBound">
-                            <h3>GroundBound</h3>
-                            <p>Horror</p>
-                        </div>
-                        <div class="book-card">
-                            <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Comatose">
-                            <h3>Comatose</h3>
-                            <p>Psychology</p>
-                        </div>
-
-                    </div>
-                </section>
+                    </section>
+                <?php endforeach; ?>
             </section>
         </main>
 
         <!-- Ad image -->
-        <div>
-            <img src="../public/images/ad.png" alt="Ad" class="ad-image">
-        </div>
+        <?php include "../app/views/layout/advertisement.php"; ?>
     </div>
 
     <?php

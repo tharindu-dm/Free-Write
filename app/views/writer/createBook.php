@@ -9,88 +9,95 @@
 </head>
 
 <body>
-
-    <?php
-    if (isset($_SESSION['user_type'])) {
-        $userType = $_SESSION['user_type'];
-    } else {
-        $userType = 'guest';
-    }
-    switch ($userType) {
-        case 'admin':
-        case 'mod':
-        case 'writer':
-        case 'wricov':
-            require_once "../app/views/layout/header-user.php";
-            break;
-        default:
-            require_once "../app/views/layout/header.php";
-    }
+    <?php require_once "../app/views/layout/headerSelector.php";
+    //show($data);
     ?>
+
     <!-- Main Content -->
-    <main class="book-section">
-        <div class="book-form-container">
-            <h2>Create a New Book</h2>
+    <main>
+        <div class="book-section">
 
 
             <form action="/Free-Write/public/Writer/createBook" method="POST" enctype="multipart/form-data">
 
-                <!-- Book Cover Section -->
-                <div class="book-cover">
-                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Cover Preview" class="cover-img">
-                    <div class="cover-upload">
-                        <input type="file" id="cover" name="cover" accept="image/*" class="file-input">
-                        <button type="button" class="upload-btn">Upload Cover Photo</button>
-                        <?php if (!empty($errors['cover'])): ?>
-                            <p class="error"><?php echo $errors['cover']; ?></p>
-                        <?php endif; ?>
+                <h1>Create a New Story</h1>
+                <p>Bring your imagination to life ✨create a book that leaves a mark on readers everywhere.</p>
+                <div class="book-form">
+
+                    <!-- Book Details Section -->
+                    <div class="book-info">
+                        <div class="input-group">
+                            <label for="title">Title</label>
+
+                            <input type="text" maxlength="45" rows="7" id="title" name="title"
+                                placeholder="Enter a title for your story" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="synopsis">Synopsis</label>
+
+                            <textarea id="Synopsis" maxlength="255" name="Synopsis" placeholder="Enter a Synopsis"
+                                required></textarea>
+
+                        </div>
+
+                        <div class="input-group">
+                            <label for="genre">Genre</label>
+                            <div class="book-checkbox-group">
+                                <?php
+                                foreach ($genres as $genre) {
+                                    $genreID = htmlspecialchars($genre['genreID']);
+                                    $genreName = htmlspecialchars($genre['name']);
+
+                                    echo "<div class=\"book-checkbox-item\">";
+                                    echo "<input type=\"checkbox\" name=\"genre[]\" id=\"genre_{$genreID}\" value=\"{$genreID}\">";
+                                    echo "<label for=\"genre_{$genreID}\">{$genreName}</label>";
+                                    echo "</div>";
+                                }
+                                ?>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="price">Price(LKR)</label>
+                            <input type="number" min="0" id="price" name="price" placeholder="Free">
+                        </div>
+
+                        <div class="input-group">
+                            <label for="type">Release Type</label>
+                            <div class="privacy-toggle">
+                                <label><input required type="radio" name="type" value="book"> Book Wise</label>
+                                <label><input required type="radio" name="type" value="chapter"> Chapter Wise</label>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="privacy">Privacy</label>
+                            <div class="privacy-toggle">
+
+
+                                <label><input required type="radio" name="privacy" value="public"> Public</label>
+                                <label><input required type="radio" name="privacy" value="private"> Private</label>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <!-- Right: Cover Image -->
+                    <div class="book-cover">
+                        <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                            alt="Cover Image of <?= htmlspecialchars($book['title']); ?>">
+
                     </div>
                 </div>
 
-                <!-- Book Details Section -->
-                <div class="book-info">
-                    <div class="input-group">
-                        <label for="title">Title</label>
-
-                        <input type="text" maxlength="45" rows="7" id="title" name="title"
-                            placeholder="Enter a title for your story" required>
-                    </div>
-
-                    <div class="input-group">
-                        <label for="synopsis">Synopsis</label>
-
-                        <textarea id="Synopsis" maxlength="255" name="Synopsis" placeholder="Enter a Synopsis"
-                            required></textarea>
-
-                    </div>
-
-                    <div class="input-group">
-                        <label for="price">Price</label>
-                        <input type="number" min="0" id="price" name="price" placeholder="Free (Enter a Price)">
-                    </div>
-
-                    <div class="input-group">
-                        <label for="type">Release Type</label>
-                        <div class="privacy-toggle">
-                            <label><input required type="radio" name="type" value="book"> Book Wise</label>
-                            <label><input required type="radio" name="type" value="chapter"> Chapter Wise</label>
-                        </div>
-                    </div>
-
-                    <div class="input-group">
-                        <label for="privacy">Privacy</label>
-                        <div class="privacy-toggle">
-
-
-                            <label><input required type="radio" name="privacy" value="public"> Public</label>
-                            <label><input required type="radio" name="privacy" value="private"> Private</label>
-                        </div>
-                    </div>
-
+                <!-- Buttons -->
+                <div class="right-buttons">
+                    <button type="button" class="edit-btn cancel-btn" onclick="window.history.back();">Back</button>
                     <button type="submit" class="create-btn">Create</button>
                 </div>
             </form>
-        </div>
+
     </main>
 
     <!-- Footer -->
@@ -99,8 +106,7 @@
     require_once "../app/views/layout/footer.php";
     ?>
 
-<script src="/Free-Write/public/js/writer/createBook.js"></script>
-
+    <script src="/Free-Write/public/js/writer/editBook.js"></script>
 
 </body>
 

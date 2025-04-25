@@ -1,8 +1,3 @@
-<?php
-//profile of user. reader, writer and covdes. check userType and display the profile accordingly 
-//for example, if only reader, display only the reader profile and add a button to upgrade to writer or covdes
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,28 +8,7 @@
 </head>
 
 <body>
-    <?php
-    if (isset($_SESSION['user_type'])) {
-        $userType = $_SESSION['user_type'];
-    } else {
-        $userType = 'guest';
-    }
-    switch ($userType) {
-        case 'admin':
-        case 'mod':
-        case 'writer':
-        case 'covdes':
-        case 'wricov':
-        case 'reader':
-            require_once "../app/views/layout/header-user.php";
-            break;
-        case 'pub':
-            require_once "../app/views/layout/header-pub.php";
-            break;
-        default:
-            require_once "../app/views/layout/header.php";
-    }
-    ?>
+    <?php require_once "../app/views/layout/headerSelector.php"; ?>
 
     <main>
         <section class="secondary-nav">
@@ -57,7 +31,7 @@
                                 <th style="width: 500px">Book</th>
                                 <th style="width: 90px">Chapter</th>
                                 <th style="width: 90px">Status</th>
-                                <?php if ($_SESSION['user_id'] === $_GET['user']): ?>
+                                <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] === $_GET['user']): ?>
                                     <th colspan="2" style="width: 120px">Action</th>
                                 <?php endif; ?>
                             </tr>
@@ -81,7 +55,7 @@
                                         <td><?php echo $book['chapterProgress'] === null ? '0' : $book['chapterProgress']; ?>
                                         </td>
                                         <td><?php echo $book['status']; ?></td>
-                                        <?php if ($_SESSION['user_id'] === $_GET['user']): ?>
+                                        <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] === $_GET['user']): ?>
                                             <td><button class="listEdit-btn">Edit</button></td>
                                             <td><button class="listDelete-btn">Delete</button></td>
                                         <?php endif; ?>
@@ -103,7 +77,9 @@
                                 <th style="width: 500px">Book</th>
                                 <th style="width: 90px">Chapter</th>
                                 <th style="width: 90px">Status</th>
-                                <th colspan="2" style="width: 120px">Action</th>
+                                <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] === $_GET['user']): ?>
+                                    <th colspan="2" style="width: 120px">Action</th>
+                                <?php endif; ?>
                             </tr>
                         </thead>
                         <tbody>
@@ -124,8 +100,10 @@
                                         <td><?php echo $book['chapterProgress'] === null ? '0' : $book['chapterProgress']; ?>
                                         </td>
                                         <td><?php echo $book['status']; ?></td>
-                                        <td><button class="listEdit-btn">Edit</button></td>
-                                        <td><button class="listDelete-btn">Delete</button></td>
+                                        <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] === $_GET['user']): ?>
+                                            <td><button class="listEdit-btn">Edit</button></td>
+                                            <td><button class="listDelete-btn">Delete</button></td>
+                                        <?php endif; ?>
                                     </tr>
                                 <?php endforeach; ?>
 
@@ -144,7 +122,9 @@
                                 <th style="width: 500px">Book</th>
                                 <th style="width: 90px">Chapter</th>
                                 <th style="width: 90px">Status</th>
-                                <th colspan="2" style="width: 120px">Action</th>
+                                <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] === $_GET['user']): ?>
+                                    <th colspan="2" style="width: 120px">Action</th>
+                                <?php endif; ?>
                             </tr>
                         </thead>
                         <tbody>
@@ -165,8 +145,10 @@
                                         <td><?php echo $book['chapterProgress'] === null ? '0' : $book['chapterProgress']; ?>
                                         </td>
                                         <td><?php echo $book['status']; ?></td>
-                                        <td><button class="listEdit-btn">Edit</button></td>
-                                        <td><button class="listDelete-btn">Delete</button></td>
+                                        <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] === $_GET['user']): ?>
+                                            <td><button class="listEdit-btn">Edit</button></td>
+                                            <td><button class="listDelete-btn">Delete</button></td>
+                                        <?php endif; ?>
                                     </tr>
                                 <?php endforeach; ?>
 
@@ -185,7 +167,9 @@
                                 <th style="width: 500px">Book</th>
                                 <th style="width: 90px">Chapter</th>
                                 <th style="width: 90px">Status</th>
-                                <th colspan="2" style="width: 120px">Action</th>
+                                <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] === $_GET['user']): ?>
+                                    <th colspan="2" style="width: 120px">Action</th>
+                                <?php endif; ?>
                             </tr>
                         </thead>
                         <tbody>
@@ -206,8 +190,10 @@
                                         <td><?php echo $book['chapterProgress'] === null ? '0' : $book['chapterProgress']; ?>
                                         </td>
                                         <td><?php echo $book['status']; ?></td>
-                                        <td><button class="listEdit-btn">Edit</button></td>
-                                        <td><button class="listDelete-btn">Delete</button></td>
+                                        <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] === $_GET['user']): ?>
+                                            <td><button class="listEdit-btn">Edit</button></td>
+                                            <td><button class="listDelete-btn">Delete</button></td>
+                                        <?php endif; ?>
                                     </tr>
                                 <?php endforeach; ?>
 
@@ -226,7 +212,9 @@
                                 <th style="width: 500px">Book</th>
                                 <th style="width: 90px">Chapter</th>
                                 <th style="width: 90px">Status</th>
-                                <th colspan="2" style="width: 120px">Action</th>
+                                <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] === $_GET['user']): ?>
+                                    <th colspan="2" style="width: 120px">Action</th>
+                                <?php endif; ?>
                             </tr>
                         </thead>
                         <tbody>
@@ -247,8 +235,10 @@
                                         <td><?php echo $book['chapterProgress'] === null ? '0' : $book['chapterProgress']; ?>
                                         </td>
                                         <td><?php echo $book['status']; ?></td>
-                                        <td><button class="listEdit-btn">Edit</button></td>
-                                        <td><button class="listDelete-btn">Delete</button></td>
+                                        <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] === $_GET['user']): ?>
+                                            <td><button class="listEdit-btn">Edit</button></td>
+                                            <td><button class="listDelete-btn">Delete</button></td>
+                                        <?php endif; ?>
                                     </tr>
                                 <?php endforeach; ?>
 
@@ -265,7 +255,7 @@
                     <h3>Edit Record</h3>
                     <h4 id="bookTitle-header">Title:</h4>
 
-                    <form id="add-to-list-form" action="/Free-Write/public/BookList/Update" method="POST">
+                    <form id="add-to-list-form" action="/Free-Write/public/BookList/updateList" method="POST">
                         <div class="form-content">
                             <div class="chapter-counter">
                                 <label for="chapterCount">Edit Chapter Count</label>
@@ -311,12 +301,6 @@
                     </form>
                 </div>
             </div>
-
-            <?php
-            if ($userType == 'guest') {
-                echo "<h1>you better if you login</h1>";
-            }
-            ?>
         </section>
     </main>
 

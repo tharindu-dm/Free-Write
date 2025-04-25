@@ -2,8 +2,16 @@
 
 class Courier
 {
-    use Model; // Use the Model trait
+    use Model; 
 
-    protected $table = 'Courier'; //when using the Model trait, this table name ise used 
+    protected $table = 'Courier'; 
+
+    public function getCourierByAssignedDate()
+{
+    $query = "SELECT TOP 1 * FROM Courier 
+              WHERE assignedDate IS NOT NULL 
+              ORDER BY assignedDate ASC";
+    return $this->query($query);
+}
 
 }

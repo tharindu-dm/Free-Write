@@ -1,11 +1,10 @@
 .login-page {
   display: flex;
-  min-height: 100vh;
+  min-height: 78vh;
 }
 
 .creativity-section {
   flex: 1;
-  /*background: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%);*/
   background-image: url("/Free-Write/public/images/designer-hero.webp");
   background-size: cover;
   display: flex;

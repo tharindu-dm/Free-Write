@@ -10,15 +10,48 @@ class BrowseController extends Controller
     public function loadBrowsePage()
     {
         $book = new Book();
+        //$advertisement = new Advertisement();
+
         $FWObooks = $book->getFWOBooks();
         $paidBooks = $book->getPaidBooks();
-        $this->view('OpenUser/browse', ['FWObooks' => $FWObooks, 'paidBooks' => $paidBooks]);
+        $freeBooks = $book->getFreeBooks();
+
+        //    $activeAd = $advertisement->first(['status' => 'active', 'advertisementType'=>'sidebar']);
+
+        $this->view('OpenUser/browse', [
+            'freewriteOriginals' => $FWObooks,
+            'paidBooks' => $paidBooks,
+            'freeBooks' => $freeBooks,
+            //   'ads'=> $activeAd
+        ]);
     }
     public function search()
     {
-        $search = $_GET['bookName'];
-        $book = new Book();
-        $searchResult = $book->searchBook($search);
+        $searchType = $_GET['searchType'];
+        $item = $_GET['itemName'];
+        $searchResult = null;
+
+        switch ($searchType) {
+            case 'user':
+                $users = new UserDetails();
+                $searchResult = $users->getUserDetailsByName($item);
+                break;
+            case 'covdes':
+            case 'writer':
+                $users = new UserDetails();
+                $searchResult = $users->getUserDetailsByName($item, $searchType);
+                break;
+            case 'spinoff':
+                $spinoff = new Spinoff();
+                $searchResult = $spinoff->getSpinoffByName($item);
+                break;
+            case 'book':
+            default:
+                $book = new Book();
+                $searchResult = $book->searchBook($item);
+                break;
+        }
+
 
         $this->view('OpenUser/bookSearch', ['searchResult' => $searchResult]);
     }

@@ -23,22 +23,28 @@ class BookController extends Controller
         $BookChapter_table = new BookChapter();
         $spinoff = new Spinoff();
         $buybook = new BuyBook();
+        $buychapter = new BuyChapter(); 
         $bookList = new BookList();
         $rating = new Rating();
         $collections = new Collection();
+        $review = new Review();
 
         $bookFound = $book->getBookByID($bookID);
         $bookChapters = $BookChapter_table->getBookChapters($bookID); //list of chapters related to the specific book
-        $spinoffs = $spinoff->where(['fromBook' => $bookID]);
+        $spinoffs = $spinoff->where(['fromBook' => $bookID, 'accessType' => 'public']); //list of spinoffs related to the specific book
         $bookRating = $rating->getBookRating($bookID);
         $bookBought = null;
         $bookInListStatus = null;
         $chapterProgress = null;
         $collectionsFound = null;
 
+        
+        foreach ($bookChapters as $key => $chapterItem) {
+            $chapterDetails = $buychapter->ChapPurchaseStatus($chapterItem['chapterID']);  
+            $bookChapters[$key]['isPurchased'] = $chapterDetails; 
+        }
 
         if (isset($_SESSION['user_id'])) {
-            //if logged user avaialble, then check if the book is bought by the user
             $bookBought = $buybook->first(['user' => $_SESSION['user_id'], 'book' => $bookID]);
             if ($bookBought)
                 $bookBought = true;
@@ -66,6 +72,21 @@ class BookController extends Controller
             // Add the book ID to the session
             $_SESSION['viewed_books'][] = $bookID;
         }
+        $hasExistingQuotation = false;
+
+        if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'pub') {
+
+            $quotation = new Quotation();
+            $existingQuotation = $quotation->first([
+                'publisher' => $_SESSION['user_id'],
+                'writer' => $bookFound[0]['author']
+            ]);
+
+            $hasExistingQuotation = !empty($existingQuotation);
+        }
+
+        //getting reviews
+        $reviewsFound = $review->getReviews($bookID);
 
         $this->view(
             'book/Overview',
@@ -77,7 +98,9 @@ class BookController extends Controller
                 'bought' => $bookBought,
                 'inList' => $bookInListStatus,
                 'chapterProgress' => $chapterProgress,
-                'collections' => $collectionsFound
+                'collections' => $collectionsFound,
+                'reviews' => $reviewsFound,
+                'hasExistingQuotation' => $hasExistingQuotation
             ]
         );
 
@@ -94,10 +117,35 @@ class BookController extends Controller
         if ($chapterID < 1 || !is_numeric($chapterID))
             $chapterID = $URL[2]; //get the chapter id from the url
 
+        $book = new Book();
         $chapter = new Chapter();
         $bookchap = new BookChapter();
         $chapterFound = $chapter->getChapterByID($chapterID);
-        $chapterList = $bookchap->getBookChapters($chapterFound['title_author'][0]['BookID']);
+
+        $bookID = $chapterFound['title_author'][0]['BookID'];
+        $chapterList = $bookchap->getBookChapters($bookID);
+
+        //check if user logged in or not
+        // if loggedin and book has a price
+        // if has a price, has it been bought? if not bought and not loggedin transfer to bookOverview
+
+        $bookDetails = $book->where(['bookID' => $bookID]);
+
+        if ($bookDetails[0]['price'] > 0) {
+            if (!isset($_SESSION['user_id'])) {
+                header('Location: /Free-Write/public/Book/Overview/' . $bookID);
+                return;
+            } else {
+                // if loggedin
+                $buybook = new BuyBook();
+                $bought = $buybook->where(['book' => $bookID, 'user' => $_SESSION['user_id']]);
+
+                if (!$bought) {
+                    header('Location: /Free-Write/public/Book/Overview/' . $bookID);
+                    return;
+                }
+            }
+        }
 
         $this->view('book/Chapter', ['chapterDetails' => $chapterFound, 'chapterList' => $chapterList]);
     }
@@ -146,4 +194,80 @@ class BookController extends Controller
 
         header('Location: /Free-Write/public/Book/Overview/' . $bookID);
     }
+
+    public function addReview()
+    {
+        $review = new Review();
+
+        $user = $_SESSION['user_id'];
+
+        if ($user == null) {
+            header('/Free-Write/public/Login');
+            return;
+        }
+
+        $bookID = $_POST['bookID']; //hidden there for user cannot interact with this value
+        $content = $_POST['reviewText'];
+
+        //validate the review: length greater thatn 5 char, less than 255 char
+        if (strlen($content) < 5 || strlen($content) > 255) {
+            header('Location: /Free-Write/public/Book/Overview/' . $bookID);
+            return;
+        }
+
+        $review->insert(['book' => $bookID, 'user' => $user, 'content' => $content, 'postDate' => date('Y-m-d H:i:s')]);
+
+        header('Location: /Free-Write/public/Book/Overview/' . $bookID);
+
+    }
+
+    public function deleteReview()
+    {
+        $review = new Review();
+        $reviewID = $_POST['reviewID'];
+
+        $review->delete($reviewID, 'reviewID');
+        header('Location: /Free-Write/public/Book/Overview/' . $_POST['bookID']);
+    }
+
+    //book or chapter reporting
+
+    public function ReportOnBook()
+    {
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: /Free-Write/public/Login');
+            exit;
+        }
+
+        $bookID = splitURL()[2];
+        $book = new Book();
+        $title = $book->first(['bookID' => $bookID])['title'];
+        $this->view('book/reportBookChap', ['bookTitle' => $title]);
+    }
+
+    public function SendReport()
+    {
+        $report = new Report();
+        $user = new User();
+        $userid = $_SESSION['user_id'];
+
+        $desc = $_POST['report'] ?? null;
+
+        if ($desc == null) {
+            return;
+        }
+
+        $data = [
+            "email" => $user->first(['userID' => $userid])['email'], //get from userID,
+            "type" => "Book/Chapter Report",
+            "description" => $desc,
+            "submitTime" => date('Y-m-d H:i:s'),
+            "handler" => null,
+            "status" => "Pending"
+        ];
+
+        $report->insert($data);
+        header('Location: /Free-Write/public/Browse');
+    }
+
 }

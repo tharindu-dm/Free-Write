@@ -50,7 +50,6 @@
 
             <div class="form-section">
                 <section class="login-container">
-                    <!-- Your existing form content remains the same -->
                     <div class="two-forms-container">
                         <div id="login-form-div">
                             <h1>Log In</h1><br>

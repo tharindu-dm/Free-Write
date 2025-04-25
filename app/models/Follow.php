@@ -45,6 +45,17 @@ class Follow
         return $resultSet;
     }
 
+    public function isFollowing($userID, $designerID)
+    {
+        $result = $this->where(['FollowerID' => $userID, 'FollowedID' => $designerID]);
+        return !empty($result);
+    }
+
+    public function follow($userID, $designerID)
+    {
+        return $this->insert(['userID' => $userID, 'designerID' => $designerID]);
+    }
+
     public function unfollow($data = [])
     {
         $query = "DELETE FROM Follow WHERE FollowerID = :followerID AND FollowedID = :followedID";

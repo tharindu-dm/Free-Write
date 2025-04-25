@@ -8,7 +8,7 @@
   <title>Free Write - Competitions</title>
   <style>
     .content {
-      max-width: 1200px;
+      max-width: 1600px;
       margin: 2rem auto;
       padding: 0 2rem;
     }
@@ -170,12 +170,21 @@
     .status-badge {
       display: inline-block;
       padding: 0.25rem 0.75rem;
-      background-color: #FFD700;
-      color: #1C160C;
       border-radius: 16px;
       font-size: 0.875rem;
       font-weight: 600;
     }
+
+    .status-badge.active {
+      background-color: #FFD700;
+      color: #1C160C;
+    }
+
+    .status-badge.ended {
+      background-color: #8C805E;
+      color: #FFFFFF;
+    }
+
 
     .action-link {
       color: #c47c15;
@@ -186,6 +195,13 @@
 
     .action-link:hover {
       color: #1C160C;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 2rem;
+      color: #8C805E;
+      font-style: italic;
     }
 
     @media (max-width: 768px) {
@@ -205,30 +221,13 @@
 </head>
 
 <body>
-  <?php
-  if (isset($_SESSION['user_type'])) {
-    $userType = $_SESSION['user_type'];
-  } else {
-    $userType = 'guest';
-  }
-  switch ($userType) {
-    case 'admin':
-    case 'writer':
-    case 'covdes':
-    case 'wricov':
-    case 'reader':
-      require_once "../app/views/layout/header-user.php";
-      break;
-    case 'pub':
-      require_once "../app/views/layout/header-pub.php";
-      break;
-    default:
-      require_once "../app/views/layout/header.php";
-  }
+  <?php require_once "../app/views/layout/headerSelector.php";
+  //show($data);
   ?>
 
   <div class="content">
     <h1>Competitions</h1>
+
 
     <div class="competition-search-container">
       <div class="competition-search-bar">
@@ -237,15 +236,17 @@
             d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z">
           </path>
         </svg>
-        <input type="text" placeholder="competition-Search for competitions">
+        <input type="text" id="competition-search-input"
+          placeholder="Search for competitions by title, category, or prize">
+
       </div>
       <a href="/Free-Write/public/Competition/New"><button class="new-competition-button">New Competition</button></a>
     </div>
 
     <div class="tabs">
-      <a href="/Free-Write/public/Competition/" class="active">All</a>
+      <a href="/Free-Write/public/Competition/MyCompetitions" class="active">All</a>
       <a href="/Free-Write/public/Competition/Active">Active</a>
-      <a href="/Free-Write/public/Competition/Completed">Completed</a>
+      <a href="/Free-Write/public/Competition/Completed">Ended</a>
     </div>
 
     <div class="table-container">
@@ -257,13 +258,16 @@
             <th>Start Date</th>
             <th>End Date</th>
             <th>Category</th>
-            <th>Prize</th>
+            <th>First Prize</th>
+            <th>Second Prize</th>
+            <th>Third Prize</th>
             <th>Participants</th>
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="competitions-table-body">
           <?php if (!empty($data['competitionDetails'])): ?>
+
             <?php foreach ($data['competitionDetails'] as $competitionDetails): ?>
               <tr>
                 <td>
@@ -272,18 +276,24 @@
                   </a>
                 </td>
                 <td>
-                  <span class="status-badge">
-                    Active
+                  <span
+                    class="status-badge <?= strtotime($competitionDetails['end_date']) < time() ? 'ended' : 'active' ?>">
+                    <?php echo htmlspecialchars(string: $competitionDetails['status']); ?>
                   </span>
                 </td>
+
                 <td><?php echo date('m/d/Y', strtotime($competitionDetails['start_date'])); ?></td>
                 <td><?php echo date('m/d/Y', strtotime($competitionDetails['end_date'])); ?></td>
                 <td><?php echo htmlspecialchars($competitionDetails['category'] ?? ''); ?></td>
-                <td><?php echo '$' . number_format($competitionDetails['prizes'], 2); ?></td>
-                <td>0</td>
+                <td><?php echo '$' . number_format($competitionDetails['first_prize'], 2); ?></td>
+                <td><?php echo '$' . number_format($competitionDetails['second_prize'], 2); ?></td>
+                <td><?php echo '$' . number_format($competitionDetails['third_prize'], 2); ?></td>
+                <td><?php echo htmlspecialchars(string: $competitionDetails['participants'] ?? ''); ?></td>
                 <td>
-                  <a href="/Free-Write/public/Competition/Manage/<?php echo $competitionDetails['competitionID']; ?>"
-                    class="action-link">Manage</a>
+                  <?php if (strtotime($competitionDetails['end_date']) > time()): ?>
+                    <a href="/Free-Write/public/Competition/Manage/<?php echo $competitionDetails['competitionID']; ?>"
+                      class="action-link">Manage</a>
+                  <?php endif; ?>
                 </td>
               </tr>
             <?php endforeach; ?>
@@ -296,7 +306,50 @@
       </table>
     </div>
   </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const searchInput = document.getElementById('competition-search-input');
+      const tableBody = document.getElementById('competitions-table-body');
+      const originalTableContent = tableBody.innerHTML;
+
+      searchInput.addEventListener('keyup', function () {
+        const searchTerm = this.value.toLowerCase();
+
+        if (!searchTerm.trim()) {
+          tableBody.innerHTML = originalTableContent;
+          return;
+        }
+
+        const rows = tableBody.querySelectorAll('tr');
+        let matchFound = false;
+        let newTableContent = '';
+
+        rows.forEach(function (row) {
+          const title = row.querySelector('td:first-child a')?.textContent?.trim().toLowerCase() || '';
+          const category = row.querySelector('td:nth-child(5)')?.textContent?.trim().toLowerCase() || '';
+          const prize = row.querySelector('td:nth-child(6)')?.textContent?.trim().toLowerCase() || '';
+
+          if (title.includes(searchTerm) || category.includes(searchTerm) || prize.includes(searchTerm)) {
+            newTableContent += row.outerHTML;
+            matchFound = true;
+          }
+        });
+
+        if (matchFound) {
+          tableBody.innerHTML = newTableContent;
+        } else {
+          tableBody.innerHTML = `
+          <tr>
+            <td colspan="8" class="no-results">No competitions found matching "${searchTerm}"</td>
+          </tr>
+        `;
+        }
+      });
+    });
+  </script>
+  <?php
+  require_once "../app/views/layout/footer.php";
+  ?>
 </body>
 
 </html>
-

@@ -14,8 +14,8 @@ class App
             $this->controller = ucfirst($URL[0]) . "Controller";
 
             // Check if a method is specified in the URL
-            if(isset($URL[1])) {
-                if(method_exists($this->controller, $URL[1])) {
+            if (isset($URL[1])) {
+                if (method_exists($this->controller, $URL[1])) {
                     $this->method = $URL[1];
                 }
             }
@@ -28,7 +28,7 @@ class App
 
         $controller = new $this->controller();
 
-        if(method_exists($controller, $this->method)) { //
+        if (method_exists($controller, $this->method)) { //
             call_user_func_array([$controller, $this->method], []);
         } else {
             // Fallback to index method if the specified method doesn't exist

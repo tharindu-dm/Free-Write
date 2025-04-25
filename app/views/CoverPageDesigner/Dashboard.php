@@ -9,74 +9,227 @@
 </head>
 
 <body>
-    <?php
-    if (isset($_SESSION['user_type'])) {
-        $userType = $_SESSION['user_type'];
-    } else {
-        $userType = 'guest';
-    }
-    switch ($userType) {
-        case 'admin':
-        case 'mod':
-        case 'covdes':
-        case 'wricov':
-        case 'reader':
-            require_once "../app/views/layout/header-user.php";
-            break;
-        default:
-            require_once "../app/views/layout/header.php";
-    }
+    <?php require_once "../app/views/layout/headerSelector.php";
     //show($data);
     ?>
 
-    <main>
-        <section class="user-profile">
-            <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="Michael Thompson" class="profile-picture">
-            <h1>Michael Thompson</h1>
-            <p>250 followers</p>
-        </section>
+    <main class="dashboard-container">
 
-        <nav class="profile-nav">
-            <a href="#" class="active">Your Designs</a>
-            <a href="/Free-Write/public/Designer/Competition">Competitions</a>
-        </nav>
+        <!-- <aside class="side-nav">
+            <ul>
+                <li><a href="/Free-Write/public/Designer/Dashboard" class="active">Dashboard</a></li>
+                <li><a href="/Free-Write/public/DesignerCompetition/index">Competitions</a></li>
+                <li><a href="/Free-Write/public/Designer/New">Create New Design</a></li>
+                <li><a href="/Free-Write/public/User/profile">Profile</a></li>
+            </ul>
+        </aside> -->
 
-        <section class="designs">
+        <?php
+        require_once "../app/views/CoverPageDesigner/sidebar.php";
+        ?>
 
-            <div class="designs-header">
-                <h2>Your Designs</h2>
-                <a href="/Free-Write/public/Designer/New"><button class="new-design-btn">+New</button></a>
+        <section class="main-content">
+            <section class="user-profile">
+                <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>"
+                    alt="Profile Picture" class="profile-picture">
+                <h1><?= htmlspecialchars($userDetails['firstName'] ?? 'Designer Name') ?></h1>
+                <p><?= htmlspecialchars($userDetails['followers'] ?? '0') ?> followers</p>
+            </section>
+
+            <nav class="profile-nav">
+                <a href="#" class="active">Your Designs</a>
+                <a href="/Free-Write/public/DesignerCompetition/index">Competitions</a>
+            </nav>
+
+            <section class="designs">
+                <div class="designs-header">
+                    <h2>Your Designs</h2>
+                    <a href="/Free-Write/public/Designer/New"><button class="new-design-btn">+New</button></a>
+                </div>
+                <div class="design-grid">
+                    <?php if (!empty($designs)): ?>
+                        <?php foreach ($designs as $design): ?>
+                            <div class="design-item">
+                                <a href="/Free-Write/public/Designer/viewDesign/<?= $design['covID'] ?>">
+                                    <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($design['license']) ?>"
+                                        alt="<?= htmlspecialchars($design['name']) ?>">
+                                </a>
+                                <p><?= htmlspecialchars($design['name']) ?></p>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>No designs found. Start creating your first design!</p>
+                    <?php endif; ?>
+                </div>
+            </section>
+
+            <div class="create-collection-section">
+                <h2>Manage Your Collections</h2>
+                <button class="btn btn-primary" id="openCollectionPopup">Create Collection</button>
             </div>
-            <div class="design-grid">
-                <div class="design-item">
-                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Flying bird design">
-                </div>
-                <div class="design-item">
-                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Forest landscape design">
-                </div>
-                <div class="design-item">
-                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Misty forest design">
-                </div>
-                <div class="design-item">
-                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Girl in moonlight design">
-                </div>
-                <div class="design-item">
-                    <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Day after design">
-                </div>
-                <div class="pagination">
-                    <button>&lt;</button>
-                    <button>1</button>
-                    <button>2</button>
-                    <button>3</button>
-                    <button>4</button>
-                    <button>&gt;</button>
-                </div>
+
+            <!-- Display Collections -->
+            <h2>Your Image Collections</h2>
+            <div class="collections-section">
+                <?php if (!empty($collections)): ?>
+                    <?php foreach ($collections as $collection): ?>
+                        <a href="/Free-Write/public/DesignerCollection/viewCollection/<?= $collection['collectionID'] ?>"
+                            class="collection-link" style="text-decoration:none;color:inherit;">
+                            <div class="collection-item">
+                                <?php if (!empty($collection['frontImage'])): ?>
+                                    <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($collection['frontImage']) ?>"
+                                        alt="Collection Cover" style="width:120px;height:auto;">
+                                <?php else: ?>
+                                    <img src="/Free-Write/public/images/collectionThumb.jpeg" alt="No Image"
+                                        style="width:120px;height:auto;">
+                                <?php endif; ?>
+                                <h3><?= htmlspecialchars($collection['title']) ?></h3>
+                                <p><?= htmlspecialchars($collection['description']) ?></p>
+                                <span>Visibility: <?= $collection['isPublic'] ? 'Public' : 'Private' ?></span>
+                                <a href="/Free-Write/public/DesignerCollection/editCollection/<?= $collection['collectionID'] ?>"
+                                    class="edit-link">Edit</a>
+                                <form action="/Free-Write/public/DesignerCollection/deleteCollection" method="POST"
+                                    style="display:inline;"
+                                    onsubmit="return confirm('Are you sure you want to delete this collection?');">
+                                    <input type="hidden" name="collectionID"
+                                        value="<?= htmlspecialchars($collection['collectionID']) ?>">
+                                    <button type="submit" class="delete-link"
+                                        style="color:red;background:none;border:none;cursor:pointer;">Delete</button>
+                                </form>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>No collections found. Create your first collection!</p>
+                    <?php endif; ?>
             </div>
 
+
+            <!-- Create Collection Popup -->
+            <div class="design-collection-overlay" id="designCollectionOverlay">
+                <div class="design-collection-container">
+                    <div class="design-collection-header">
+                        <h2>Create New Design Collection</h2>
+                        <button class="close-btn" id="closeDesignCollection">&times;</button>
+                    </div>
+
+                    <form id="designCollectionForm" action="/Free-Write/public/Designer/createCollection" method="POST">
+                        <div class="form-group">
+                            <label for="collectionTitle">Collection Title</label>
+                            <input type="text" id="collectionTitle" name="collectionTitle" maxlength="100"
+                                placeholder="Enter Title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="collectionDescription">Description</label>
+                            <textarea id="CollectionDescription" name="CollectionDescription" maxlength="255"
+                                placeholder="Describe your collection..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="collectionVisibility">Visibility</label>
+                            <select id="collectionVisibility" name="collectionVisibility">
+                                <option value="1">Public</option>
+                                <option value="0">Private</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="create-btn">Create</button>
+                        <button type="button" class="cancel-btn" id="cancelDesignCollection">Cancel</button>
+                    </form>
+                </div>
+            </div>
         </section>
     </main>
 
-    <script src="script.js"></script>
+    <?php
+    require_once "../app/views/layout/footer.php";
+    ?>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get DOM elements
+            const openCollectionBtn = document.getElementById("openCollectionPopup");
+            const collectionOverlay = document.getElementById("designCollectionOverlay");
+            const closeBtn = document.getElementById("closeDesignCollection");
+            const cancelBtn = document.getElementById("cancelDesignCollection");
+            const form = document.getElementById("designCollectionForm");
+            const titleInput = document.getElementById("collectionTitle");
+            const descriptionInput = document.getElementById("CollectionDescription");
+
+            // Function to show the popup
+            function showPopup() {
+                if (collectionOverlay) {
+                    collectionOverlay.style.display = "flex";
+                }
+            }
+
+            // Function to hide the popup
+            function hidePopup() {
+                if (collectionOverlay) {
+                    collectionOverlay.style.display = "none";
+                    form.reset(); // Reset form fields
+                }
+            }
+
+            // Event listener for opening the popup
+            if (openCollectionBtn) {
+                openCollectionBtn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    showPopup();
+                });
+            }
+
+            // Event listener for closing the popup
+            if (closeBtn) {
+                closeBtn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    hidePopup();
+                });
+            }
+
+            // Event listener for cancel button
+            if (cancelBtn) {
+                cancelBtn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    hidePopup();
+                });
+            }
+
+            // Close the popup when clicking outside the form
+            if (collectionOverlay) {
+                collectionOverlay.addEventListener("click", (e) => {
+                    if (e.target === collectionOverlay) {
+                        hidePopup();
+                    }
+                });
+            }
+
+            // Form validation
+            form.addEventListener("submit", function (e) {
+                let isValid = true;
+
+                // Validate title
+                if (!titleInput.value.trim()) {
+                    isValid = false;
+                    titleInput.classList.add("error");
+                } else {
+                    titleInput.classList.remove("error");
+                }
+
+                // Validate description
+                if (!descriptionInput.value.trim()) {
+                    isValid = false;
+                    descriptionInput.classList.add("error");
+                } else {
+                    descriptionInput.classList.remove("error");
+                }
+
+                if (!isValid) {
+                    e.preventDefault(); // Prevent form submission if validation fails
+                }
+            });
+        });
+
+    </script>
+
 </body>
 
 </html>

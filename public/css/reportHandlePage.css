@@ -22,9 +22,9 @@
 
 .search-bar input {
   flex-grow: 1;
-  padding: 10px;
+  padding: 1.25rem;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 1rem;
 }
 
 .tabs {
@@ -37,6 +37,7 @@
   background-color: #f1f1f1;
   cursor: pointer;
   border: 1px solid #ddd;
+  border-radius: 1rem;
   margin-right: 5px;
 }
 
@@ -116,12 +117,17 @@ tr:hover {
 .form-group select {
   padding: 8px;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 1rem;
+  font-size: large;
+}
+.mod-response {
+  margin-top: 2rem;
 }
 
 .mod-response textarea {
   width: 100%;
   min-height: 150px;
+  font-size: large;
 }
 
 .action-buttons {
@@ -134,7 +140,7 @@ tr:hover {
   padding: 10px 15px;
   background-color: #ffd700;
   border: none;
-  border-radius: 4px;
+  border-radius: 1rem;
   cursor: pointer;
 }
 

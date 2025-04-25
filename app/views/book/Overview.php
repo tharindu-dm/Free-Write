@@ -5,31 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/Free-Write/public/css/bookOverview.css">
+    <link rel="stylesheet" href="/Free-Write/public/css/bookOverview_quotation.css">
 </head>
 
 <body>
-    <?php
-    if (isset($_SESSION['user_type'])) {
-        $userType = $_SESSION['user_type'];
-    } else {
-        $userType = 'guest';
-    }
-    switch ($userType) {
-        case 'admin':
-        case 'mod':
-        case 'writer':
-        case 'covdes':
-        case 'wricov':
-        case 'reader':
-            require_once "../app/views/layout/header-user.php";
-            break;
-        case 'pub':
-            require_once "../app/views/layout/header-pub.php";
-            break;
-        default:
-            require_once "../app/views/layout/header.php";
-    }
-
+    <?php require_once "../app/views/layout/headerSelector.php";
     //show($data);
     ?>
 
@@ -44,10 +24,11 @@
                         <div class="author-detail-btns">
                             <a
                                 href="/Free-Write/public/User/Profile?user=<?= htmlspecialchars($book[0]['author']); ?>"><button>Profile</button></a>
-                            <a
-                                href="/Free-Write/public/Writer/Donate?user=<?= htmlspecialchars($book[0]['author']); ?>"><button>Donate</button></a>
+                            <a href="/Free-Write/public/Writer/Donate?user=<?= htmlspecialchars($book[0]['author']); ?>"><button>Donate
+                                    Author</button></a>
                         </div>
                     </div>
+
                     <div class="other-details">
                         <h3>Other Details</h3>
                         <p><strong>Last Updated:</strong> <?= explode(' ', $book[0]['lastUpdateDate'])[0]; ?></p>
@@ -55,6 +36,21 @@
                             <?= ($book[0]['isCompleted'] == 1) ? "Completed" : "Ongoing";
                             ?>
                         </p>
+                    </div>
+
+                    <div style="margin-top: 1rem;">
+                        <?php if (isset($_SESSION['user_id'])): ?>
+                            <a href="/Free-Write/public/book/ReportOnBook/<?= htmlspecialchars(splitURL()[2]) ?>">
+                                <button id="reportBtn" class="report-book-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                        stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M3 3v1.5M3 21v-6m0 0 2.77-.693a9 9 0 0 1 6.208.682l.108.054a9 9 0 0 0 6.086.71l3.114-.732a48.524 48.524 0 0 1-.005-10.499l-3.11.732a9 9 0 0 1-6.085-.711l-.108-.054a9 9 0 0 0-6.208-.682L3 4.5M3 15V4.5" />
+                                    </svg>
+                                    Report Book
+                                </button>
+                            </a>
+                        <?php endif; ?>
                     </div>
                 </div>
 
@@ -78,63 +74,65 @@
                                     clip-rule="evenodd" />
                             </svg>
                             &nbsp;<?php if (!$rating): ?>
-                                <?= 'Be the first to rate!'; ?>
+                                <?php if (isset($_SESSION['user_id'])): ?>
+                                    <?= 'Be the first to rate!'; ?>
+                                <?php else: ?>
+                                    <?= 'Log in to add a rating'; ?>
+                                <?php endif; ?>
                             <?php else: ?>
                                 <?= htmlspecialchars($rating[0]['AverageRating']); ?>
                                 | <?= htmlspecialchars($rating[0]['RatingCount']); ?> ratings
                             <?php endif; ?>
                         </div>
-                        <div class="rating-select">
-                            <form action="/Free-Write/public/Book/AddRating" method="POST">
-                                <input type="hidden" name="book_id" value="<?= htmlspecialchars($book[0]['bookID']); ?>">
-                                <select name="rating" id="rating">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
-                                <button type="submit" class="rate-btn">Rate</button>
-                            </form>
-                        </div>
-                        <div class="rating-select">
-                            <form action="/Free-Write/public/Book/AddToCollection" method="POST">
-                                <input type="hidden" name="book_id" value="<?= htmlspecialchars($book[0]['bookID']); ?>">
+                        <?php if (isset($_SESSION['user_id'])): ?>
+                            <div class="rating-select">
+                                <form action="/Free-Write/public/Book/AddRating" method="POST">
+                                    <input type="hidden" name="book_id" value="<?= htmlspecialchars($book[0]['bookID']); ?>">
+                                    <select name="rating" id="rating">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                    </select>
+                                    <button type="submit" class="rate-btn">Rate</button>
+                                </form>
+                            </div>
+                            <div class="rating-select">
+                                <form action="/Free-Write/public/Book/AddToCollection" method="POST">
+                                    <input type="hidden" name="book_id" value="<?= htmlspecialchars($book[0]['bookID']); ?>">
 
-                                <div class="dropdown">
-                                    <button type="button" class="dropbtn">Select Collection</button>
-                                    <div class="dropdown-content">
-                                        <?php foreach ($collections as $collection): ?>
-                                            <label>
-                                                <input type="checkbox" name="collections[]"
-                                                    value="<?= htmlspecialchars($collection['collectionID']); ?>"
-                                                    <?= ($collection['BookExist'] == 1) ? 'checked' : ''; ?>>
-                                                <?= htmlspecialchars($collection['title']); ?>
-                                            </label>
-                                        <?php endforeach; ?>
-                                        <button type="submit" class="addCollection-btn">Edit Collections</button>
+                                    <div class="dropdown">
+                                        <button type="button" class="dropbtn">Select Collection</button>
+                                        <div class="dropdown-content">
+                                            <?php if ($collections != null): ?>
+                                                <?php foreach ($collections as $collection): ?>
+                                                    <label>
+                                                        <input type="checkbox" name="collections[]"
+                                                            value="<?= htmlspecialchars($collection['collectionID']); ?>"
+                                                            <?= ($collection['BookExist'] == 1) ? 'checked' : ''; ?>>
+                                                        <?= htmlspecialchars($collection['title']); ?>
+                                                    </label>
+                                                <?php endforeach; ?>
+                                            <?php else: ?>
+                                                <p>You have not created any collections</p>
+                                            <?php endif; ?>
+                                            <button type="submit" class="addCollection-btn">Edit Collections</button>
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
-                        </div>
+                                </form>
+                            </div>
+                        <?php endif; ?>
                     </div>
                     <p class="description">
                         <?= htmlspecialchars($book[0]['Synopsis']); ?>
                     </p>
                     <div class="read-button-container">
-
-                        <button id="btn-addToList" class="read-button">
-                            <?php if ($inList === null): ?>
-                                <p><?= 'Add To List'; ?></p>
-                            <?php else: ?>
-                                In <?= htmlspecialchars(ucfirst($inList)) ?> List
-                            <?php endif; ?>
-                        </button>
                         <div class="buy-button">
                             <?php if ($book[0]['price'] === null): ?>
                                 <p><?= 'Read for Free'; ?></p>
@@ -147,8 +145,29 @@
                                 </a>
                             <?php endif; ?>
                         </div>
-                        <button id="btn-create-spinoff" class="read-button">Create A Spinoff
-                        </button>
+                        <?php if (($book[0]['price'] === null || $bought) && isset($_SESSION['user_id'])): ?>
+                            <button id="btn-addToList" class="read-button">
+                                <?php if ($inList === null): ?>
+                                    <p><?= 'Add To List'; ?></p>
+                                <?php else: ?>
+                                    In <?= htmlspecialchars(ucfirst($inList)) ?> List
+                                <?php endif; ?>
+                            </button>
+
+
+                            <?php if (sizeof($chapters) >= 2): ?>
+                                <button id="btn-create-spinoff" class="read-button">Create A Spinoff
+                                </button>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                        <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'pub'): ?>
+                            <?php if (!$hasExistingQuotation): ?>
+                                <button id="write-quotation" class="read-button">Write Quotation</button>
+                            <?php else: ?>
+                                <a href="/Free-Write/public/Publisher/viewQuotationHistory?writer_id=<?= htmlspecialchars($book[0]['author']); ?>&book_id=<?= htmlspecialchars($book[0]['bookID']); ?>"
+                                    class="read-button">View Quotation Chat</a>
+                            <?php endif; ?>
+                        <?php endif; ?>
                     </div>
 
                     <div class="add-to-list">
@@ -162,30 +181,32 @@
                             <form id="add-to-list-form" action="<?= $action ?>" method="POST">
 
                                 <div class="list-add-radios">
-                                    <div>
-                                        <label class="add-list-radio-labels">
-                                            <input type="radio" name="status" value="reading">
-                                            <h5>Reading</h5>
-                                        </label>
-                                    </div>
-                                    <div>
-                                        <label class="add-list-radio-labels">
-                                            <input type="radio" name="status" value="completed">
-                                            <h5>Completed</h5>
-                                        </label>
-                                    </div>
-                                    <div>
-                                        <label class="add-list-radio-labels">
-                                            <input type="radio" name="status" value="hold">
-                                            <h5>On Hold</h5>
-                                        </label>
-                                    </div>
-                                    <div>
-                                        <label class="add-list-radio-labels">
-                                            <input type="radio" name="status" value="dropped">
-                                            <h5>Dropped</h5>
-                                        </label>
-                                    </div>
+                                    <?php if (!empty($chapters)): ?>
+                                        <div>
+                                            <label class="add-list-radio-labels">
+                                                <input type="radio" name="status" value="reading">
+                                                <h5>Reading</h5>
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <label class="add-list-radio-labels">
+                                                <input type="radio" name="status" value="completed">
+                                                <h5>Completed</h5>
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <label class="add-list-radio-labels">
+                                                <input type="radio" name="status" value="hold">
+                                                <h5>On Hold</h5>
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <label class="add-list-radio-labels">
+                                                <input type="radio" name="status" value="dropped">
+                                                <h5>Dropped</h5>
+                                            </label>
+                                        </div>
+                                    <?php endif; ?>
                                     <div>
                                         <label class="add-list-radio-labels">
                                             <input require type="radio" name="status" value="planned">
@@ -198,6 +219,12 @@
                                                 value="<?= htmlspecialchars($book[0]['bookID']); ?>">
                                         </label>
                                     </div>
+                                </div>
+
+                                <div>
+                                    <label for="chapCount">Chapter Count</label>
+                                    <input type="number" id="chapterCount" name="chapterCount"
+                                        value="<?= htmlspecialchars($chapterProgress ?? 0); ?>">
                                 </div>
 
                                 <div class="list-add-actionBtns">
@@ -219,13 +246,37 @@
                                 <tr>
                                     <th>Chapter</th>
                                     <th>Last Updated</th>
+                                    <?php if ($book[0]['price'] === null): ?>
+                                        <th>Price</th>
+                                    <?php endif; ?>
                                 </tr>
                                 <?php foreach ($chapters as $chap): ?>
                                     <tr>
-                                        <td><a
-                                                href="/Free-Write/public/book/Chapter/<?= htmlspecialchars($chap['chapterID']); ?>"><?= htmlspecialchars($chap['title']); ?></a>
+                                        <td>
+                                            <?php if ($chap['isPurchased'] || $bought || $chap['price'] === NULL): ?>
+                                                <a
+                                                    href="/Free-Write/public/Book/Chapter/<?= htmlspecialchars($chap['chapterID']); ?>"><?= htmlspecialchars($chap['title']); ?></a>
+                                            <?php else: ?>
+                                                <p>Purchase to read chapters</p>
+                                            <?php endif; ?>
                                         </td>
                                         <td><?= htmlspecialchars($chap['lastUpdated']); ?></td>
+                                        <?php if ($book[0]['price'] === null): ?>
+                                            <td>
+                                                <div class="buy-button">
+                                                    <?php if ($chap['price'] === null): ?>
+                                                        <p><?= 'Read for Free'; ?></p>
+                                                    <?php elseif ($chap['isPurchased']): ?>
+                                                        <p> <?= 'Already Purchased'; ?></p>
+                                                    <?php else: ?>
+                                                        <a
+                                                            href='/Free-Write/public/Payment/Chapter/<?= htmlspecialchars($chap['chapterID']); ?>'>
+                                                            <?= 'Buy LKR. ' . number_format($chap['price'], 2); ?>
+                                                        </a>
+                                                    <?php endif; ?>
+                                                </div>
+                                            </td>
+                                        <?php endif; ?>
                                     </tr>
                                 <?php endforeach; ?>
                             </table>
@@ -257,6 +308,62 @@
                             <p>No spinoffs found</p>
                         <?php endif; ?>
                     </div>
+
+                    <div class="table-of-contents">
+                        <h2>Reviews</h2>
+                        <div class="review-form">
+
+                            <?php if (isset($_SESSION['user_id']) && ($book[0]['price'] === null || $bought)): ?>
+                                <form action="/Free-Write/public/Book/addReview" method="POST">
+                                    <input type="hidden" name="bookID" value="<?= htmlspecialchars($book[0]['bookID']); ?>">
+
+                                    <textarea name="reviewText" id="reviewText" placeholder="Add your review"></textarea>
+                                    <p id="charFeedback" style="color: red; font-size: 0.9em;"></p>
+
+                                    <input type="hidden" name="bookID" value="<?= htmlspecialchars($book[0]['bookID']); ?>">
+
+                                    <button class="btn" type="submit">Post Review</button>
+                                </form>
+                            <?php else: ?>
+                                <p>Log in to add a review</p>
+                            <?php endif; ?>
+
+                        </div>
+                        <?php if (!empty($reviews) && is_array($reviews)): ?>
+                            <table class="reviews-table">
+                                <thead>
+                                    <tr>
+                                        <th>User</th>
+                                        <th>Review</th>
+                                        <th colspan="2">Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($reviews as $review): ?>
+                                        <tr>
+                                            <td><?= htmlspecialchars($review['fullName']); ?></td>
+                                            <td><?= htmlspecialchars($review['content']); ?></td>
+                                            <td><?= (new DateTime($review['postDate']))->format('F j, Y'); ?>
+                                            </td>
+                                            <td>
+                                                <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $review['user']): ?>
+                                                    <!-- Show delete button if the logged-in user matches the review user -->
+                                                    <form action="/Free-Write/public/Book/deleteReview" method="POST">
+                                                        <input type="hidden" name="reviewID" value="<?= $review['reviewID']; ?>">
+                                                        <input type="hidden" name="bookID" value="<?= $book[0]['bookID']; ?>">
+                                                        <button type="submit" class="delete-btn">Delete</button>
+                                                    </form>
+                                                <?php endif; ?>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        <?php else: ?>
+                            <p>Be the first to write a review</p>
+                        <?php endif; ?>
+
+                    </div>
                 </div>
             </div>
         </main>
@@ -264,9 +371,49 @@
         <p>No book found.</p>
     <?php endif; ?>
 
+    <div id="quotation-popup">
+        <div>
+            <h3>Write a Quotation</h3>
+            <form action="/Free-Write/public/Publisher/sendQuotation2Wri" method="post">
+                <input type="hidden" name="book_id" value="<?= htmlspecialchars($book[0]['bookID'] ?? ''); ?>">
+                <input type="hidden" name="book_title" value="<?= htmlspecialchars($book[0]['title'] ?? ''); ?>">
+                <input type="hidden" name="writer_id" value="<?= htmlspecialchars($book[0]['author'] ?? ''); ?>">
+                <input type="hidden" name="publisher_id" value="<?= htmlspecialchars($_SESSION['user_id'] ?? ''); ?>">
+                <textarea name="message" placeholder="Enter your quotation here..."></textarea>
+                <div class="button-container">
+                    <button type="button" class="cancel-btn"
+                        onclick="document.getElementById('quotation-popup').style.display='none';">Cancel</button>
+                    <button type="submit" class="send-btn">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <?php require_once "../app/views/layout/footer.php"; ?>
 
     <script src="/Free-Write/public/js/Book/bookOverview.js"></script>
+    <script>
+        // Get the button and popup elements
+        const writeQuotationBtn = document.getElementById('write-quotation');
+        const quotationPopup = document.getElementById('quotation-popup');
+
+        // Add click event to the button
+        if (writeQuotationBtn) {
+            writeQuotationBtn.addEventListener('click', function () {
+                quotationPopup.style.display = 'block';
+            });
+        }
+    </script>
+    <?php
+    if (isset($_SESSION['success_message'])) {
+        echo '<div class="success-message" style="background-color: #dff0d8; color: #3c763d; padding: 15px; margin-bottom: 20px; border: 1px solid #d6e9c6; border-radius: 4px;">';
+        echo $_SESSION['success_message'];
+        echo '</div>';
+
+        unset($_SESSION['success_message']);
+    }
+    ?>
+
 </body>
 
 </html>

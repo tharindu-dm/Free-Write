@@ -13,11 +13,12 @@ class UserController extends Controller
 
     public function Profile()
     {
-
-        if (isset($_SESSION['user_id']))
+        if (isset($_SESSION['user_id'])) {
             if (isset($_GET['user']) && $_GET['user'] == $_SESSION['user_id'])
                 header('Location: /Free-Write/public/User/Profile'); //to avoid user to see his own public view profile.
-
+        } else {
+            header('Location: /Free-Write/public/Login');
+        }
         $uid = isset($_GET['user']) ? $_GET['user'] : $_SESSION['user_id'];
 
         //echo "inside the userProfile function\n";
@@ -29,8 +30,40 @@ class UserController extends Controller
         $BuyBook = new BuyBook();
         $bookGenre = new BookGenre();
         $collection = new Collection();
+        $orderTable = new Order();
+        $publisherTable = new Publisher();
+        $advertisement_table = new Advertisement();
+        $publisherBook_table = new publisherBooks();
 
-        $userDetails = $userDetailsTable->first(['user' => $uid]);//getUserDetails($uid);
+        $bookDetails = null;
+        $advertisements = null;
+        $orders = null;
+        $publisher = null;
+
+        if (isset($_SESSION['user_id'])) {
+            $bookDetails = $publisherBook_table->where(['publisherID' => $_SESSION['user_id']]);
+            $advertisements = $advertisement_table->where(['pubID' => $_SESSION['user_id']]);
+            $orders = $orderTable->where(['customer_userID' => $_SESSION['user_id']]);
+            $publisher = $publisherTable->first(['pubID' => $_SESSION['user_id']]);
+        }
+
+        $activatingID = $advertisement_table->getAdIDwithinCurrentDateRange();
+        if (!empty($activatingID)) {
+            $adID = $activatingID[0]['adID'];
+            $advertisement_table->update($adID, ['status' => 'active'], 'adID');
+        }
+
+        $expiredAds = $advertisement_table->getAdIDExpired();
+        if (!empty($expiredAds) && isset($expiredAds[0]) && isset($expiredAds[0]['adID'])) {
+            $expiredAdID = $expiredAds[0]['adID'];
+            $updateData = [
+                'status' => 'expired',
+            ];
+            $advertisement_table->update($expiredAdID, $updateData, 'adID');
+        }
+
+
+        $userDetails = $userDetailsTable->first(['user' => $uid]); //getUserDetails($uid);
         $list = $Booklist->getBookListCount($uid);
         $userAcc = $user->first(['userID' => $uid]);
         $myspinoffs = $spinoff->getUserSpinoff($uid);
@@ -46,6 +79,20 @@ class UserController extends Controller
         $followingList = $follow->getUserDetails(['FollowerID' => $uid]);
         $followedByList = $follow->getUserDetails(['FollowedID' => $uid]);
 
+        // In the controller method that loads the profile
+        $quotationData = [];
+        if ($_SESSION['user_type'] == 'pub') {
+            $quotationData = $this->getQuotation4Pub();
+        } elseif ($_SESSION['user_type'] == 'writer') {
+            $quotationData = $this->getQuotation4Wri();
+        }
+
+        $cartItems = [];
+        if (isset($_SESSION['user_id'])) {
+            $cartTable = new Cart(); // You'll need to create this model
+            $cartItems = $cartTable->where(['userID' => $_SESSION['user_id'], 'status' => 'active']);
+        }
+
         $this->view(
             'Profile/userProfile',
             [
@@ -57,9 +104,15 @@ class UserController extends Controller
                 'isFollowing' => $isFollowing,
                 'followingList' => $followingList,
                 'followedByList' => $followedByList,
+                'orders' => $orders,
                 'purchasedBooks' => $myboughtBooks,
                 'genreFrequency' => $genreFrequency,
-                'collections' => $getUserCollections
+                'collections' => $getUserCollections,
+                'bookDetails' => $bookDetails,
+                'publisher' => $publisher,
+                'advertisements' => $advertisements,
+                'quotationData' => $quotationData,
+                'cartItems' => $cartItems,
             ]
         );
     }
@@ -133,8 +186,8 @@ class UserController extends Controller
             $dateTime = date('Y-m-d_H-i-s'); // Format: YYYY-MM-DD_HH-MM-SS
             $newFileName = "PROFILE_{$uid}_{$dateTime}.{$fileExtension}";
 
-            // Define the target directory
-            $targetDirectory = 'D:/XAMPP/htdocs/Free-Write/app/images/profile/';
+            // the target directory
+            $targetDirectory = 'C:/xampp/htdocs/Free-Write/app/images/profile/';
 
             // Move the uploaded file to the target directory with the new name
             if (move_uploaded_file($profileImage['tmp_name'], $targetDirectory . $newFileName)) {
@@ -158,14 +211,11 @@ class UserController extends Controller
     {
         $uid = $_SESSION['user_id'];
         $user = new User();
-        $userDetailsTable = new UserDetails();
 
         $userTableData = $user->first(['userID' => $uid]);
-        $userDetailsTableData = $userDetailsTable->first(['user' => $uid]);
 
         //deleting the data from the user and userdetails table
-        $userDetailsTable->delete($uid, 'user');
-        $user->delete($uid, 'userID');
+        $user->update($uid, ['isActivated' => 9, 'password' => "", 'email' => $userTableData['email'] . "-deleted"], 'userID');
         //this will activate the trigger to archive the data
 
         session_destroy();
@@ -187,7 +237,7 @@ class UserController extends Controller
 
     public function ReportProfile()
     {
-        // Initialize an array to hold error messages
+        // an array to hold error messages
         $errors = [];
 
         // Validate email
@@ -207,8 +257,6 @@ class UserController extends Controller
 
         // If there are validation errors, handle them
         if (!empty($errors)) {
-            // You can either redirect back with errors or display them
-            // For example, redirecting back with error messages in the session
             session_start();
             $_SESSION['errors'] = $errors;
             header('Location: /Free-Write/public/User/Profile?user=' . $_GET['user']);
@@ -281,5 +329,156 @@ class UserController extends Controller
         // Redirect to the user's profile after successful creation
         header('Location: /Free-Write/public/User/Profile');
         exit;
+    }
+
+    public function Notifications()
+    {
+        if (isset($_SESSION["user_id"])) {
+            $userNotification = new UserNotification();
+            $allNotifications = $userNotification->getAllNotifications($_SESSION['user_id']);
+
+            $this->view('Profile/MyNotifications', ['notifications' => $allNotifications]);
+        } else {
+            header('Location: /Free-Write/public/User/Login');
+            exit;
+        }
+    }
+
+    public function MarkAllRead()
+    {
+        if (empty($_SESSION['user_id'])) {
+            header('Location: /Free-Write/public/User/Login');
+            exit;
+        }
+        $un = new UserNotification();
+
+        $un->update($_SESSION['user_id'], ['isRead' => 1, 'isReadDate' => date('Y-m-d H:i:s')], 'user');
+
+        return;
+    }
+
+    //Nalan upload design
+    public function uploadFirstDesign()
+    {
+        $userID = $_SESSION['user_id'];
+        $user = new User();
+
+        // Update user type to 'covdes'
+        $user->updateUserTypeToCovdes($userID);
+
+        // Update the session
+        $_SESSION['user type'] = 'covdes';
+
+        // Redirect to the insert page
+        header('Location: /Free-Write/public/Designer/new');
+
+        // header('Location: /Free-Write/public/User/Profile');
+        exit;
+    }
+
+
+    //jathu update
+    public function getQuotation4Pub()
+    {
+        $quotationDetails = new Quotation();
+
+        $userId = $_SESSION['user_id'];
+        $quotations = $quotationDetails->where(['publisher' => $userId]);
+
+
+        $quotationData = [];
+        foreach ($quotations as $q) {
+            // Get writer details
+            $writer = new UserDetails();
+            $writerDetails = $writer->first(['user' => $q['writer']]);
+
+            if ($writerDetails) {
+                $writerName = $writerDetails['firstName'] . ' ' . $writerDetails['lastName'];
+
+                // Parse messages
+                $messages = [];
+                if (!empty($q['message'])) {
+                    $lines = explode("\n", $q['message']);
+                    foreach ($lines as $line) {
+                        if (empty(trim($line)))
+                            continue;
+
+                        // Parse the message format: [timestamp - sender_type] message
+                        if (preg_match('/\[(.*?) - (.*?)\] (.*)/', $line, $matches)) {
+                            $timestamp = $matches[1];
+                            $senderType = strtolower($matches[2]);
+                            $content = $matches[3];
+
+                            $messages[] = [
+                                'timestamp' => $timestamp,
+                                'sender_type' => $senderType,
+                                'sender_name' => $senderType == 'publisher' ? 'You' : $writerName,
+                                'text' => $content
+                            ];
+                        }
+                    }
+                }
+
+                $quotationData[] = [
+                    'writerId' => $q['writer'],
+                    'writerName' => $writerName,
+                    'messages' => $messages
+                ];
+            }
+        }
+
+
+        return $quotationData;
+    }
+    
+    public function getQuotation4Wri()
+    {
+        $quotationDetails = new Quotation();
+
+        $userId = $_SESSION['user_id'];
+        $quotations = $quotationDetails->where(['writer' => $userId]);
+
+        $quotationData = [];
+        foreach ($quotations as $q) {
+            // Get publisher details
+            $publisher = new Publisher();
+            $publisherDetails = $publisher->first(['pubID' => $q['publisher']]);
+
+            if ($publisherDetails) {
+                $publisherName = $publisherDetails['name'] ?? 'Publisher';
+
+                // Parse messages
+                $messages = [];
+                if (!empty($q['message'])) {
+                    $lines = explode("\n", $q['message']);
+                    foreach ($lines as $line) {
+                        if (empty(trim($line)))
+                            continue;
+
+                        // Parse the message format: [timestamp - sender_type] message
+                        if (preg_match('/\[(.*?) - (.*?)\] (.*)/', $line, $matches)) {
+                            $timestamp = $matches[1];
+                            $senderType = strtolower($matches[2]);
+                            $content = $matches[3];
+
+                            $messages[] = [
+                                'timestamp' => $timestamp,
+                                'sender_type' => $senderType,
+                                'sender_name' => $senderType == 'writer' ? 'You' : $publisherName,
+                                'text' => $content
+                            ];
+                        }
+                    }
+                }
+
+                $quotationData[] = [
+                    'publisherId' => $q['publisher'],
+                    'publisherName' => $publisherName,
+                    'messages' => $messages
+                ];
+            }
+        }
+
+        return $quotationData;
     }
 }

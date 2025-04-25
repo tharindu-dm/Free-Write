@@ -4,20 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>bookDesignForUsers</title>
-    
+    <title>Book Details Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body {
             background-color: #F5F0E5;
             font-family: Arial, sans-serif;
-            
+            margin: 0;
+            padding: 20px;
         }
 
         .book-container {
             display: flex;
             gap: 40px;
-            margin-left: 10%;
+            margin: 20px auto;
             width: 80%;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .book-image {
@@ -26,24 +31,69 @@
 
         .book-image img {
             width: 100%;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .book-info {
             flex: 1;
         }
 
-        .Names {
+        .header-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 20px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .edit-btn {
+            background-color: #FFD052;
+            color: white;
+        }
+
+        .delete-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .save-btn {
+            background-color: #28a745;
+            color: white;
+            display: none;
+        }
+
+        .cancel-btn {
+            background-color: #6c757d;
+            color: white;
+            display: none;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .Names h1 {
+            margin: 0;
+            color: #2c3e50;
         }
 
         .Names p {
             color: gray;
-        }
-
-        .Names h4 {
-            font-weight: normal;
+            margin: 5px 0;
         }
 
         .price-rating {
@@ -69,23 +119,22 @@
             color: #FFD052;
         }
 
-        .rating-count {
-            color: #6c757d;
+        .availability-badge {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
             font-size: 14px;
+            margin: 10px 0;
         }
 
         .details {
             margin: 20px 0;
         }
 
-        .details h3 {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
         .row {
             display: flex;
-            justify-content: space-between;
             margin-bottom: 10px;
             border-bottom: 1px solid #eee;
         }
@@ -96,77 +145,90 @@
         }
 
         .column p {
-            color: #333;
+            margin: 5px 0;
         }
 
-        .column p:first-of-type {
-            color: #6c757d;
-            font-weight: bold;
+        .editable {
+            padding: 5px;
+            border: 1px solid transparent;
         }
 
-        .resButton {
-            background-color: #FFD052;
-            padding: 15px 40px;
-            font-size: 24px;
-            font-weight: normal;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+        .editing .editable {
+            border: 1px solid #FFD052;
+            border-radius: 4px;
         }
 
-        .resButton:hover {
-            background-color: #e6bb49;
-        }
-
-        .availability-badge {
-            display: inline-block;
-            background-color: #4CAF50;
-            color: white;
-            padding: 5px 10px;
+        /* Style for form inputs when editing */
+        .book-info.editing .editable-input {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #FFD052;
             border-radius: 4px;
             font-size: 14px;
-            margin: 10px 0;
+        }
+
+        /* Hide text elements when editing, show inputs */
+        .book-info.editing .editable-text {
+            display: none;
+        }
+
+        .book-info:not(.editing) .editable-input {
+            display: none;
         }
     </style>
 </head>
 
 <body>
-
-<?php
-    if (isset($_SESSION['user_type'])) {
-        $userType = $_SESSION['user_type'];
-    } else {
-        $userType = 'guest';
-    }
-    switch ($userType) {
-        case 'admin':
-        case 'mod':
-        case 'writer':
-        case 'covdes':
-        case 'wricov':
-        case 'reader':
-            require_once "../app/views/layout/header-user.php";
-            break;
-        case 'pub':
-            require_once "../app/views/layout/header-pub.php";
-            break;
-        default:
-            require_once "../app/views/layout/header.php";
-    }
+    <?php require_once "../app/views/layout/headerSelector.php";
+    //show($data);
     ?>
+    
     <div class="book-container">
         <div class="book-image">
-            <img src="/Free-Write/public/images/sampleCover.jpg" alt="The Art of War Book Cover">
+            <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($bookDetails['coverImage'] ?? 'sampleCover.jpg'); ?>"
+                alt="Book Cover">
+
         </div>
+
         <div class="book-info">
-            <div class="Names">
-                <h1>The Art of War</h1>
-                <p>By Sun Tzu</p>
+            <form id="book-details-form" action="/Free-Write/public/Publisher/updateBookDetails" method="POST">
+                <input type="hidden" name="isbnID"
+                    value="<?= htmlspecialchars($bookDetails['isbnID'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+
+                <div class="header-actions">
+                    <div class="Names">
+                        <h1>
+                            <span
+                                class="editable editable-text"><?= htmlspecialchars($bookDetails['title'] ?? 'Untitled', ENT_QUOTES, 'UTF-8') ?></span>
+                            <input type="text" name="title" class="editable editable-input"
+                                value="<?= htmlspecialchars($bookDetails['title'] ?? 'Untitled', ENT_QUOTES, 'UTF-8') ?>"
+                                required>
+                        </h1>
+                        <p>
+                            By <span
+                                class="editable editable-text"><?= htmlspecialchars($bookDetails['author_name'] ?? 'Unknown', ENT_QUOTES, 'UTF-8') ?></span>
+                            <input type="text" name="author_name" class="editable editable-input"
+                                value="<?= htmlspecialchars($bookDetails['author_name'] ?? 'Unknown', ENT_QUOTES, 'UTF-8') ?>"
+                                required>
+                        </p>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button type="button" class="btn edit-btn" onclick="toggleEditMode()">Edit</button>
+                        <button type="submit" class="btn save-btn">Save</button>
+                        <button type="button" class="btn cancel-btn" onclick="cancelEdit()">Cancel</button>
+                        <button type="button" class="btn delete-btn" onclick="deleteBook()">Delete</button>
+                    </div>
+                </div>
 
                 <div class="price-rating">
-                    <span class="price">$24.99</span>
+                    <span class="price">
+                        <span
+                            class="editable editable-text"><?= htmlspecialchars($bookDetails['prize'] ?? '0.00', ENT_QUOTES, 'UTF-8') ?></span>
+                        <input type="text" name="prize" class="editable editable-input"
+                            value="<?= htmlspecialchars($bookDetails['prize'] ?? '0.00', ENT_QUOTES, 'UTF-8') ?>"
+                            required pattern="\d+(\.\d{1,2})?" title="Enter a valid price (e.g., 19.99)">
+                    </span>
                     <div class="rating">
                         <div class="stars">
                             <i class="fas fa-star"></i>
@@ -180,37 +242,138 @@
                 </div>
 
                 <div class="availability-badge">In Stock</div>
-                <p>Due back: 2023-10-23</p>
 
-                <h3>Synopsis</h3>
-                <h4>The Art of War is an ancient Chinese military treatise attributed to Sun Tzu, a military strategist, and philosopher. The text is composed of 13 chapters, each of which is devoted to one aspect of warfare. It is commonly known to be the definitive work on strategy and tactics.</h4>
-            </div>
-            <div class="details">
-                <h3>Details</h3>
-                <div class="row">
-                    <div class="column">
-                        <p><strong>Author</strong></p>
-                        <p>Sun Tzu</p>
+                <div class="synopsis">
+                    <h3>Synopsis</h3>
+                    <p>
+                        <span
+                            class="editable editable-text"><?= htmlspecialchars($bookDetails['synopsis'] ?? 'No synopsis available', ENT_QUOTES, 'UTF-8') ?></span>
+                        <textarea name="synopsis" class="editable editable-input" rows="4"
+                            style="width: 100%;"><?= htmlspecialchars($bookDetails['synopsis'] ?? 'No synopsis available', ENT_QUOTES, 'UTF-8') ?></textarea>
+                    </p>
+                </div>
+
+                <div class="details">
+                    <h3>Details</h3>
+                    <div class="row">
+                        <div class="column">
+                            <p><strong>Author</strong></p>
+                            <p>
+                                By <span
+                                    class="editable editable-text"><?= htmlspecialchars($bookDetails['author_name'] ?? 'Unknown', ENT_QUOTES, 'UTF-8') ?></span>
+                                <!-- Author is already in the header, so no need for a separate input here -->
+                            </p>
+                        </div>
+                        <div class="column">
+                            <p><strong>Genre</strong></p>
+                            <p>
+                                <span
+                                    class="editable editable-text"><?= htmlspecialchars($bookDetails['genre'] ?? 'Unknown', ENT_QUOTES, 'UTF-8') ?></span>
+                                <input type="text" name="genre" class="editable editable-input"
+                                    value="<?= htmlspecialchars($bookDetails['genre'] ?? 'Unknown', ENT_QUOTES, 'UTF-8') ?>">
+                            </p>
+                        </div>
                     </div>
-                    <div class="column">
-                        <p><strong>Genre</strong></p>
-                        <p>Non-fiction, Philosophy</p>
+                    <div class="row">
+                        <div class="column">
+                            <p><strong>Publisher</strong></p>
+                            <p>
+                                <span
+                                    class="editable editable-text"><?= htmlspecialchars($bookDetails['publisher'] ?? 'Unknown', ENT_QUOTES, 'UTF-8') ?></span>
+                                <input type="text" name="publisher" class="editable editable-input"
+                                    value="<?= htmlspecialchars($bookDetails['publisher'] ?? 'Unknown', ENT_QUOTES, 'UTF-8') ?>">
+                            </p>
+                        </div>
+                        <div class="column">
+                            <p><strong>Published Date</strong></p>
+                            <p>
+                                <span
+                                    class="editable editable-text"><?= htmlspecialchars($bookDetails['published_date'] ?? 'Unknown', ENT_QUOTES, 'UTF-8') ?></span>
+                                <input type="date" name="published_date" class="editable editable-input"
+                                    value="<?= htmlspecialchars($bookDetails['published_date'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+                            </p>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="column">
-                        <p><strong>Publisher</strong></p>
-                        <p>Penguin Classics</p>
-                    </div>
-                    <div class="column">
-                        <p><strong>Published Date</strong></p>
-                        <p>5th century BC</p>
-                    </div>
-                </div>
-            </div>
-            <button class="resButton">Reserve Book</button>
+            </form>
         </div>
     </div>
+
+    <script>
+        // Store original values to revert on cancel
+        
+
+        let originalValues = {};
+
+function toggleEditMode() {
+    const form = document.getElementById('book-details-form');
+    const inputs = form.querySelectorAll('input, textarea');
+    originalValues = Object.fromEntries(new FormData(form));
+
+    document.querySelector('.book-info').classList.add('editing');
+    document.querySelector('.edit-btn').style.display = 'none';
+    document.querySelector('.save-btn').style.display = 'inline-block';
+    document.querySelector('.cancel-btn').style.display = 'inline-block';
+}
+
+function cancelEdit() {
+    const form = document.getElementById('book-details-form');
+    const inputs = form.querySelectorAll('input, textarea');
+    inputs.forEach(input => {
+        input.value = originalValues[input.name] || '';
+    });
+
+    document.querySelector('.book-info').classList.remove('editing');
+    document.querySelector('.edit-btn').style.display = 'inline-block';
+    document.querySelector('.save-btn').style.display = 'none';
+    document.querySelector('.cancel-btn').style.display = 'none';
+}
+
+
+        function deleteBook() {
+            if (confirm('Are you sure you want to delete this book?')) {
+                const isbnID = document.querySelector('input[name="isbnID"]').value;
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '/Free-Write/public/Publisher/deletebookProfile';
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'isbnID';
+                input.value = isbnID;
+                form.appendChild(input);
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
+
+        // Handle form submission
+        document.getElementById('book-details-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+
+            fetch(this.action, {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        alert('Book details updated successfully!');
+                        location.reload();
+                    } else {
+                        alert('Failed to update book details: ' + (data.message || 'Unknown error'));
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while updating book details.');
+                });
+        });
+    </script>
+
+    <?php
+    require_once "../app/views/layout/footer.php";
+    ?>
 </body>
 
 </html>

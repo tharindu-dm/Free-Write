@@ -1,6 +1,5 @@
 main {
   display: flex;
-  justify-content: space-between;
 }
 
 .container {
@@ -133,4 +132,11 @@ p {
   max-width: 100%;
   object-fit: cover;
   height: auto;
+}
+
+.active{
+  color: #ffd700;
+  padding-left: 1rem;
+  border: 1px solid #ffd700;
+  border-radius: 1rem;
 }

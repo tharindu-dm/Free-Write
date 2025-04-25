@@ -1,123 +1,43 @@
-<!-- views/settings.view.php -->
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings - Institution Dashboard</title>
     <link rel="stylesheet" href="/Free-Write/public/css/InstituteSetting.css">
 </head>
-
 <body>
-    <!-- Sidebar Navigation -->
-    <?php
-    if (isset($_SESSION['user_type'])) {
-        $userType = $_SESSION['user_type'];
-    } else {
-        $userType = 'guest';
-    }
-    switch ($userType) {
-        case 'admin':
-        case 'mod':
-        case 'writer':
-        case 'covdes':
-        case 'wricov':
-        case 'reader':
-            require_once "../app/views/layout/header-user.php";
-            break;
-        case 'pub':
-            require_once "../app/views/layout/header-pub.php";
-            break;
-        case 'inst':
-            require_once "../app/views/layout/header-inst.php";
-            break;
-        default:
-            require_once "../app/views/layout/header.php";
-    }
-    //show($data);
-    ?>
+    <?php require_once "../app/views/layout/headerSelector.php"; ?>
 
     <div class="container">
-        <!-- Main Content -->
+        <?php include_once "../app/views/Institute/sidebar.php"; ?>
         <main class="main-content">
-            <!-- <header>
-                <div class="search-bar">
-                    <input type="search" placeholder="Search">
-                </div>
-                <div class="header-actions">
-                    <button class="btn-publish">Publish</button>
-                    <button class="btn-signin">Sign In</button>
-                    <div class="user-profile">
-                        <img src="<?php echo htmlspecialchars($userProfileImage); ?>" alt="Profile">
-                    </div>
-                </div>
-            </header> -->
-
             <section class="settings-section">
-                <h1>Settings</h1>
-                <p>Manage your Freewrite account settings.</p>
+                <h1>Institution Settings</h1>
+                <p>Manage your institution details.</p>
 
-                <div class="tabs">
-                    <button class="tab active" data-tab="account">Account</button>
-                    <button class="tab" data-tab="preferences">Preferences</button>
-                    <button class="tab" data-tab="notifications">Notifications</button>
-                </div>
+                <?php if (!empty($success)): ?>
+                    <div class="alert alert-success">Details updated successfully!</div>
+                <?php elseif (!empty($error)): ?>
+                    <div class="alert alert-danger">Failed to update details.</div>
+                <?php endif; ?>
 
-                <form id="settingsForm" class="settings-form">
+                <form method="POST" action="/Free-Write/public/Institute/updateSetting" class="settings-form">
                     <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" value="<?php echo htmlspecialchars($userEmail); ?>" readonly>
+                        <label for="name">Institution Name</label>
+                        <input type="text" id="name" name="name" value="<?= htmlspecialchars($instDetails['name'] ?? '') ?>" required>
                     </div>
-
                     <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" value="********" readonly>
+                        <label for="username">Institution Email</label>
+                        <input type="text" id="username" name="username" value="<?= htmlspecialchars($instDetails['username'] ?? '') ?>" required>
                     </div>
-
-                    <div class="form-group">
-                        <label>Connected Accounts</label>
-                        <div class="connected-accounts">
-                            <span>Facebook, Google</span>
-                        </div>
-                    </div>
-
-                    <div class="button-group">
-                        <button type="button" class="btn-change-email">Change Email</button>
-                        <button type="button" class="btn-change-password">Change Password</button>
-                    </div>
-
-                    <div class="profile-visibility">
-                        <button type="button" class="btn-profile active" data-profile="public">Public Profile</button>
-                        <button type="button" class="btn-profile" data-profile="private">Private Profile</button>
-                    </div>
-
-                    <div class="profile-content">
-                        <!-- Profile content area -->
-                    </div>
-
                     <div class="form-actions">
-                        <button type="button" class="btn-edit">Edit Profile</button>
-                        <div class="save-cancel">
-                            <button type="submit" class="btn-save">Save Changes</button>
-                            <button type="button" class="btn-cancel">Cancel</button>
-                        </div>
+                        <button type="submit" class="btn-save">Save Changes</button>
                     </div>
                 </form>
             </section>
         </main>
     </div>
-
-    <footer>
-        <nav>
-            <a href="/about">About</a>
-            <a href="/contact">Contact</a>
-            <a href="/privacy">Privacy Policy</a>
-            <a href="/terms">Terms of Service</a>
-        </nav>
-    </footer>
-
-    <script src="assets/js/settings.js"></script>
+    <?php require_once "../app/views/layout/footer.php"; ?>
 </body>
-
 </html>

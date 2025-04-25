@@ -33,7 +33,14 @@ class PaymentController extends Controller
             'Total' => $bookDetails[0]['price']
         ];
 
-        $this->view('paymentPage', ['type' => "Book", 'orderInfo' => $orderDetails]);
+        $this->view(
+            'paymentPage',
+            [
+                'type' => "Book",
+                'orderInfo' => $orderDetails,
+                'itemID' => $bookID
+            ]
+        );
     }
 
     public function buy_Book()
@@ -44,28 +51,49 @@ class PaymentController extends Controller
         $userID = $_SESSION['user_id'];
         $bookID = $_POST['itemID'];
 
-        if ($_POST['saveCard'] == 'yes') {
-            $card = new CardDetails();
+        //if ($_POST['saveCard'] == 'yes') {
+        //    $card = new CardDetails();
+        //    $cardData = [
+        //        "user" => $userID,
+        //        "card_number" => $_POST['cardNumber'],
+        //        "type" => $_POST['cardType'],
+        //        "host" => $_POST['cardHost'],
+        //        "exp_month" => $_POST['expMonth'],
+        //        "exp_year" => $_POST['expYear'],
+        //    ];
+        //    $card->insert($cardData);
+        //}
 
-            $cardData = [
-                "user" => $userID,
-                "card_number" => $_POST['cardNumber'],
-                "type" => $_POST['cardType'],
-                "host" => $_POST['cardHost'],
-                "exp_month" => $_POST['expMonth'],
-                "exp_year" => $_POST['expYear'],
-            ];
-            $card->insert($cardData);
-        }
-
+        $price = $_POST['totalPrice'];
         $buybook = new BuyBook();
         $buyBookDetails = [
             'user' => $userID,
             'book' => $bookID,
             'purchaseDateTime' => date("Y-m-d H:i:s"),
+            "price" => $price,
+
         ];
 
         $buybook->insert($buyBookDetails);
+        header('location:/Free-Write/public/Book/Overview/' . $bookID);
+    }
+
+    public function buy_chapter()
+    {
+        if (!$this->loggedUserExists())
+            header('location:/Free-Write/public/Login');
+
+        $userID = $_SESSION['user_id'];
+        $chapterID = $_POST['itemID'];
+        $bookID = $_POST['bookID'];
+        $buyChapter = new BuyChapter();
+        $buyChapterDetails = [
+            'user' => $userID,
+            'chapter' => $chapterID,
+            'purchaseDateTime' => date("Y-m-d H:i:s"),
+        ];
+
+        $buyChapter->insert($buyChapterDetails);
         header('location:/Free-Write/public/Book/Overview/' . $bookID);
     }
 
@@ -76,6 +104,29 @@ class PaymentController extends Controller
 
         $URL = splitURL();
         $chapterID = $URL[2];
+
+        $chapter = new chapter();
+
+        $chapterDetails = $chapter->getChapterByID($chapterID);
+        $chapter = $chapterDetails['title_author'][0];
+        $bookID = $chapter['BookID'];
+
+        $orderDetails = [
+            'Item' => $chapter['BookTitle'] . " | " . $chapter['ChapterTitle'],
+            'Quantity' => 1,
+            'Price' => $chapter['price'],
+            'Total' => $chapter['price']
+        ];
+
+        $this->view(
+            'paymentPage',
+            [
+                'type' => "Chapter",
+                'orderInfo' => $orderDetails,
+                'itemID' => $chapterID,
+                'bookID' => $bookID
+            ]
+        );
 
     }
 
@@ -89,12 +140,12 @@ class PaymentController extends Controller
         switch ($type) {
             case 'reader':
                 $orderDetails = ['Item' => "Premium Reader Account", 'Quantity' => 1, 'Price' => 899, 'Total' => 899];
-                $this->view('paymentPage', ['type' => "premium_reader", 'orderInfo' => $orderDetails]);
+                $this->view('paymentPage', ['type' => "premium_user", 'orderInfo' => $orderDetails]);
 
                 break;
             case 'writer':
                 $orderDetails = ['Item' => "Premium Writer Account", 'Quantity' => 1, 'Price' => 1199, 'Total' => 1199];
-                $this->view('paymentPage', ['type' => "premium_writer", 'orderInfo' => $orderDetails]);
+                $this->view('paymentPage', ['type' => "premium_user", 'orderInfo' => $orderDetails]);
                 break;
             default:
                 header('location:/Free-Write/public/Error404');
@@ -113,14 +164,94 @@ class PaymentController extends Controller
 
         header('location:/Free-Write/public/User/Profile');
     }
-    public function buy_premium_reader()
+
+    public function buy_premium_user()
     {
+        if (!$this->loggedUserExists())
+            header('location:/Free-Write/public/Login');
+
+        $userID = $_SESSION['user_id'];
+        $user = new User();
+
+        $user->update($userID, ['isPremium' => 1], 'userID');
         $this->makePremium();
     }
 
-    public function buy_premium_writer()
+    public function donateWriter()
     {
-        $this->makePremium();
+        $donation = new Donation();
+
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: /Free-Write/public/Login');
+            return;
+        }
+
+        $amount = $_POST['donateAmount'] ?? 100;
+        $user = $_SESSION['user_id'];
+        $writer = $_POST['writerID'];
+        $date = date('Y-m-d H:i:s');
+
+        $donation->insert(['writer' => $writer, 'user' => $user, 'amount' => $amount, 'date' => $date]);
+
+        //send notification also
+        $notification = new Notification();
+        $userNotification = new UserNotification();
+
+        $notification->insert(
+            [
+                'subject' => "new donation",
+                'message' => 'A user donated LKR.' . $amount,
+                'sentDate' => $date,
+                'userTypes' => $writer
+            ]
+        );
+
+        $sent = $notification->first(['sentDate' => $date]);
+        $userNotification->insert([
+            'user' => $writer,
+            'notification' => $sent['notificationID'],
+            'isRead' => 0
+        ]);
+
+        //redirect back to user profile
+        header('/Free-Write/public/User/Profile?user=' . $writer);
+        return;
     }
 
+    public function buy_PublisherBook()
+    {
+        $publisherBooks = new PublisherBooks();
+
+        $isbnID = $_POST['itemID'];
+        $userID = $_SESSION['user_id'];
+        $totalPrice = $_POST['totalPrice'];
+        $orderDate = date("Y-m-d H:i:s");
+        $quantity = $_POST['quantity'];
+
+        $bookItem = $publisherBooks->first(['isbnID' => $isbnID]);
+
+        $bookTitle = $bookItem['title'];
+        $bookPublisherID = $bookItem['publisherID'];
+        $deliveryStatus = 'Pending';
+        $shippingAddress = $_POST['shipping_address'];
+        $phoneNo = $_POST['phone_number'];
+
+        $orderTable = new Order();
+        $orderTable->insert(
+            [
+                'isbnID' => $isbnID,
+                'customer_userID' => $userID,
+                'totalPrice' => $totalPrice,
+                'orderDate' => $orderDate,
+                'quantity' => $quantity,
+                'bookTitle' => $bookTitle,
+                'status' => $deliveryStatus,
+                'bookPublisherID' => $bookPublisherID,
+                'shippingAddress' => $shippingAddress,
+                'phoneNo' => $phoneNo
+            ]
+        );
+        header('Location: /Free-Write/public/Publisher');
+
+    }
 }

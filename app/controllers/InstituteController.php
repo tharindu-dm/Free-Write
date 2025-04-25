@@ -10,7 +10,7 @@ class InstituteController extends Controller
     public function Dashboard()
     {
         $institute_table = new Institution();
-        $instDetails = $institute_table->first(['institutionID' => $_SESSION['user_id']]);
+        $instDetails = $institute_table->first(['creator' => $_SESSION['user_id']]);
         $this->view('Institute/InstituteDashboard', ['instDetails' => $instDetails]);
     }
 
@@ -19,9 +19,53 @@ class InstituteController extends Controller
         $this->view('OpenUser/browse');
     }
 
-    public function PurchasePackage()
+    public function Setting()
     {
-        $this->view('Institute/InstitutePurchasePackage');
+        $institute_table = new Institution();
+        $userID = $_SESSION['user_id'];
+
+        $instDetails = $institute_table->first(['creator' => $userID]);
+
+        $success = $_GET['success'] ?? null;
+        $error = $_GET['error'] ?? null;
+
+        $this->view('Institute/InstituteSetting', [
+            'instDetails' => $instDetails,
+            'success' => $success,
+            'error' => $error
+        ]);
+    }
+
+    public function updateSetting()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $institute_table = new Institution();
+            $userID = $_SESSION['user_id'];
+
+            $insDetails = $institute_table->first(['creator' => $userID]);
+
+
+            // Find the institution where the creator is the current user
+            $instDetails = $institute_table->first(['creator' => $userID]);
+            if ($instDetails) {
+                $id = $instDetails['institutionID'];
+                $data = [
+                    'name' => $_POST['name'],
+                    'username' => $_POST['username'],
+                ];
+                $result = $institute_table->updateInstitution($id, $data);
+                if ($result) {
+                    header('Location: /Free-Write/public/Institute/Setting?success=1');
+                } else {
+                    header('Location: /Free-Write/public/Institute/Setting?error=1');
+                }
+                exit;
+            } else {
+                header('Location: /Free-Write/public/Institute/Setting?error=1');
+                exit;
+            }
+        }
+        header('Location: /Free-Write/public/Institute/Setting');
     }
 
     public function ManageUser()
@@ -29,22 +73,29 @@ class InstituteController extends Controller
 
         $institute_table = new Institution();
         $user_table = new User();
-        $instDetails = $institute_table->first(['institutionID' => $_SESSION['user_id']]); // to get institute name
+        $instDetails = $institute_table->first(['creator' => $_SESSION['user_id']]); // to get institute name
 
-        $instDomainName = explode('@', $instDetails['username'])[0]; //get the name from username
-
-        $instUsers = null;
-        if ($instDomainName)
+        if (!$instDetails) {
+            // Handle the case where no institution is found
+            $data = [
+                'instDetails' => null,
+                'instUsers' => null,
+                'error' => 'Institution not found'
+            ];
+        } else {
+            // Only proceed if we have valid institution details
+            $instDomainName = explode('@', $instDetails['username'])[0];
             $instUsers = $user_table->getInstituteUsers($instDomainName);
 
-        $data = [
-            'instDetails' => $instDetails,
-            'instUsers' => $instUsers
-        ];
+            $data = [
+                'instDetails' => $instDetails,
+                'instUsers' => $instUsers
+            ];
+        }
 
         $this->view('Institute/InstituteManageUser', $data);
-    }
 
+    }
     public function Register()
     {
         if (!isset($_SESSION['user_id'])) {
@@ -62,68 +113,31 @@ class InstituteController extends Controller
         echo "<script>alert('now in signup funct')</script>";
         $name = $_POST['institutionName'];
         $username = $_POST['username'] . "@inst.fw";
+        $username = $_POST['username'] . "@inst.fw";
         $password = $_POST['password'];
         $subStartDate = date("Y-m-d H:i:s");
         //$subEndDate = nope
         //subplan is fixed
         $creator = $_SESSION['user_id'];
 
+
         //add a new institution with its own login and pw
+        $institution_table->insert(['name' => $name, 'username' => $username, 'password' => $password, 'subStartDate' => $subStartDate, 'subPlan' => 5, 'creator' => $creator]);
         $institution_table->insert(['name' => $name, 'username' => $username, 'password' => $password, 'subStartDate' => $subStartDate, 'subPlan' => 5, 'creator' => $creator]);
 
         $user = new User();//updating the user as a creator of an institution
+        $user->update($creator, ['userType' => 'inst'], 'userID');
         $user->update($creator, ['userType' => 'inst'], 'userID');
 
         //end session
         session_destroy();
         header('Location: /Free-Write/public/Login');
-    }
-
-    public function read()
-    {
-        $institutionModel = new Institution();
-        $institutions = $institutionModel->fetchAllInstitutions();
-        $this->view('institution/InstituteManageUser', ['institutions' => $institutions]);
-    }
-
-    public function update($id) //uipdate institute details
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $institutionModel = new Institution();
-            $data = [
-                'institutionName' => $_POST['institutionName'],
-                'username' => $_POST['username'],
-                'password' => password_hash($_POST['password'], PASSWORD_DEFAULT),
-                'subStartDate' => $_POST['subStartDate'],
-                'subEndDate' => $_POST['subEndDate'],
-                'subPlan' => $_POST['subPlan'],
-                'Creater' => $_POST['Creater']
-            ];
-
-            if ($institutionModel->updateInstitution($id, $data)) {
-                echo "Institution updated successfully!";
-            } else {
-                echo "Failed to update institution.";
-            }
-        }
-
-        $institutionModel = new Institution();
-        $institution = $institutionModel->findInstitutionById($id);
-        $this->view('editInstitution', ['institution' => $institution]);
-    }
-
-    public function delete($id)
-    {
-        $institutionModel = new Institution();
-        if ($institutionModel->deleteInstitution($id)) {
-            echo "Institution deleted successfully!";
-        } else {
-            echo "Failed to delete institution.";
-        }
+        //end session
+        session_destroy();
+        header('Location: /Free-Write/public/Login');
     }
 
     /**
-     * USER MANAGEMENT
      * INSERT
      * UPDATE
      * DELETE
@@ -196,5 +210,4 @@ class InstituteController extends Controller
 
         header('Location: /Free-Write/public/Institute/ManageUser');
     }
-
 }

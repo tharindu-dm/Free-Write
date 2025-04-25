@@ -3,6 +3,32 @@
   min-height: 100vh;
 }
 
+.create-collection-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 45rem;
+  width: 30rem;
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  z-index: 2;
+  margin-top: 1rem;
+}
+
+.create-collection-overlay {
+  display: none;
+  position: fixed; /* Make it fixed to the viewport */
+  top: 0;
+  left: 0;
+  width: 100vw; /* Full width of the viewport */
+  height: 100vh; /* Full height of the viewport */
+  background: rgba(0, 0, 0, 0.6); /* Adjust the opacity of the background */
+
+  justify-content: center; /* Center the form horizontally */
+  align-items: center; /* Center the form vertically */
+  z-index: 1;
+}
+
 .writing-section {
   display: flex;
   flex-direction: column;
@@ -26,7 +52,7 @@
 }
 
 .main-title::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -10px;
   left: 50%;
@@ -106,6 +132,29 @@ textarea {
   gap: 0.5rem;
 }
 
+.discard-change-btn-collection {
+  width: 100%;
+  padding: 1rem;
+  margin-top: 0.25rem;
+  background-color: #eee;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+#collection-cancelOverlayBtn{
+  top: 12.5rem !important;
+  right: 46rem !important;
+}
+
 .create-btn:hover {
   background-color: #000;
   color: #fff;
@@ -123,14 +172,14 @@ textarea {
 
 @media (max-width: 768px) {
   .create-collection {
-      padding: 1rem;
+    padding: 1rem;
   }
-  
+
   .form-container {
-      padding: 1.5rem;
+    padding: 1.5rem;
   }
-  
+
   .main-title {
-      font-size: 2rem;
+    font-size: 2rem;
   }
 }

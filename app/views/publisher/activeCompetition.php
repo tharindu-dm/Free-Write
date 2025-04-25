@@ -8,7 +8,7 @@
   <title>Free Write - Competitions</title>
   <style>
     .content {
-      max-width: 1200px;
+      max-width: 1600px;
       margin: 2rem auto;
       padding: 0 2rem;
     }
@@ -205,26 +205,8 @@
 </head>
 
 <body>
-  <?php
-  if (isset($_SESSION['user_type'])) {
-    $userType = $_SESSION['user_type'];
-  } else {
-    $userType = 'guest';
-  }
-  switch ($userType) {
-    case 'admin':
-    case 'writer':
-    case 'covdes':
-    case 'wricov':
-    case 'reader':
-      require_once "../app/views/layout/header-user.php";
-      break;
-    case 'pub':
-      require_once "../app/views/layout/header-pub.php";
-      break;
-    default:
-      require_once "../app/views/layout/header.php";
-  }
+  <?php require_once "../app/views/layout/headerSelector.php";
+  //show($data);
   ?>
 
   <div class="content">
@@ -243,12 +225,13 @@
     </div>
 
     <div class="tabs">
-      <a href="/Free-Write/public/Competition/">All</a>
+      <a href="/Free-Write/public/Competition/MyCompetitions">All</a>
       <a href="/Free-Write/public/Competition/Active" class="active">Active</a>
       <a href="/Free-Write/public/Competition/Completed">Completed</a>
     </div>
 
     <div class="table-container">
+
       <table>
         <thead>
           <tr>
@@ -256,31 +239,57 @@
             <th>Status</th>
             <th>Start Date</th>
             <th>End Date</th>
+            <th>Category</th>
+            <th>First prize</th>
+            <th>Second prize</th>
+            <th>Third prize</th>
             <th>Participants</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td><a href="#">Kaggle Days - Paris</a></td>
-            <td><span class="status-badge">Active</span></td>
-            <td>3/14/2022</td>
-            <td>4/6/2022</td>
-            <td>8,000</td>
-            <td><a href="#" class="action-link">Manage</a></td>
-          </tr>
-          <tr>
-            <td><a href="#">Kaggle Days - Paris</a></td>
-            <td><span class="status-badge">Active</span></td>
-            <td>3/14/2022</td>
-            <td>4/6/2022</td>
-            <td>8,000</td>
-            <td><a href="#" class="action-link">Manage</a></td>
-          </tr>
+          <?php if (!empty($data['activeCompetition_details'])): ?>
+
+            <?php foreach ($data['activeCompetition_details'] as $activeCompetition_details): ?>
+              <tr>
+                <td>
+                  <a
+                    href="/Free-Write/public/Competition/Profile/<?php echo $activeCompetition_details['competitionID']; ?>">
+                    <?php echo htmlspecialchars($activeCompetition_details['title']); ?>
+                  </a>
+                </td>
+                <td>
+                  <span
+                    class="status-badge <?= strtotime($activeCompetition_details['end_date']) < time() ? 'ended' : 'active' ?>">
+                    <?= strtotime($activeCompetition_details['end_date']) < time() ? 'Ended' : 'Active' ?>
+                  </span>
+                </td>
+
+                <td><?php echo date('m/d/Y', strtotime($activeCompetition_details['start_date'])); ?></td>
+                <td><?php echo date('m/d/Y', strtotime($activeCompetition_details['end_date'])); ?></td>
+                <td><?php echo htmlspecialchars($activeCompetition_details['category'] ?? ''); ?></td>
+                <td><?php echo '$' . number_format($activeCompetition_details['first_prize'], 2); ?></td>
+                <td><?php echo '$' . number_format($activeCompetition_details['second_prize'], 2); ?></td>
+                <td><?php echo '$' . number_format($activeCompetition_details['third_prize'], 2); ?></td>
+                <td>0</td>
+                <td>
+                  <a href="/Free-Write/public/Competition/Manage/<?php echo $activeCompetition_details['competitionID']; ?>"
+                    class="action-link">Manage</a>
+                </td>
+              </tr>
+            <?php endforeach; ?>
+          <?php else: ?>
+            <tr>
+              <td colspan="8" style="text-align: center;">No competitions found</td>
+            </tr>
+          <?php endif; ?>
         </tbody>
       </table>
     </div>
   </div>
+  <?php
+  require_once "../app/views/layout/footer.php";
+  ?>
 </body>
 
 </html>

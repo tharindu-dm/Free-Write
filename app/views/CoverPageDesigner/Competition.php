@@ -2,108 +2,169 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Free Write - Competitions</title>
-  <link rel="stylesheet" href="/Free-Write/public/css/Competition.css">
+    <meta charset="UTF-8">
+    <title>My Joined Competitions</title>
+    <link rel="stylesheet" href="/Free-Write/public/css/writer_competitions.css">
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color:rgb(247, 243, 193);
+            color: #1C160C;
+            margin: 0;
+            padding: 0;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        /* Competitions Header */
+        .competitions-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .competitions-header h1 {
+            font-size: 2rem;
+            color: #1C160C;
+            margin-bottom: 0.5rem;
+        }
+
+        .competitions-header hr {
+            border: 0.1rem solid #FFD700;
+        }
+
+        /* Joined Competitions Table */
+        .joined-competitions-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+            background-color: #FFFFFF;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .joined-competitions-table th,
+        .joined-competitions-table td {
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .joined-competitions-table th {
+            background-color: #FCFAF5;
+            color: #1C160C;
+            font-weight: 600;
+            border-bottom: 2px solid #FFD700;
+        }
+
+        .joined-competitions-table td {
+            border-bottom: 1px solid #FFD700;
+        }
+
+        .joined-competitions-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .joined-competitions-table td a {
+            color: #FFD700;
+            text-decoration: none;
+            font-weight: 500;
+            margin-right: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .joined-competitions-table td a:hover {
+            color: #1C160C;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-buttons a {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            color: #FFFFFF;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .view-button {
+            background-color: #FFD700;
+            color: #1C160C;
+        }
+
+        .edit-button {
+            background-color: #007BFF;
+        }
+
+        .delete-button {
+            background-color: #DC3545;
+        }
+
+        .view-button:hover,
+        .edit-button:hover,
+        .delete-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 
 <body>
-  <?php
-  if (isset($_SESSION['user_type'])) {
-    $userType = $_SESSION['user_type'];
-  } else {
-    $userType = 'guest';
-  }
-  switch ($userType) {
-    case 'admin':
-    case 'mod':
-    case 'writer':
-    case 'covdes':
-    case 'wricov':
-    case 'reader':
-      require_once "../app/views/layout/header-user.php";
-      break;
-    case 'pub':
-      require_once "../app/views/layout/header-pub.php";
-      break;
-    case 'inst':
-      require_once "../app/views/layout/header-inst.php";
-      break;
-    default:
-      require_once "../app/views/layout/header.php";
-  }
-  //show($data);
-  ?>
+    <?php require_once "../app/views/layout/headerSelector.php"; ?>
 
-  <main>
-    <section class="user-profile">
-      <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>" alt="Michael Thompson" class="profile-picture">
-      <h1>Michael Thompson</h1>
-      <p>250 followers</p>
-    </section>
-    <nav class="profile-nav">
-      <ul>
-        <li><a href="/Free-Write/public/Designer/Dashboard" class="inactive">Your Designs</a></li>
-        <li><a href="#" class="active">Competitions</a></li>
-      </ul>
-    </nav>
-    <section class="competitions">
-      <div class="active-competitions">
-        <h2>Active Competitions</h2>
-        <table class="competition-table">
-          <thead>
-            <tr>
-              <th>Competition</th>
-              <th>Deadline</th>
-              <th>Prizes</th>
-              <th>Enter</th>
-            </tr>
-          </thead>
-          <tbody id="active-competitions-table">
-            <!-- Active competitions data should get be added here -->
-          </tbody>
-        </table>
-      </div>
+    <?php
+      require_once "../app/views/CoverPageDesigner/sidebar.php";
+    ?>
 
-      <div class="previous-competitions">
-        <h2>Previous Competitions</h2>
-        <table class="competition-table">
-          <thead>
-            <tr>
-              <th>Competition</th>
-              <th>Deadline</th>
-              <th>Prizes</th>
-              <th>Results</th>
-            </tr>
-          </thead>
-          <tbody id="previous-competitions-table">
-            <!-- Previous competitions data should get be added here -->
-          </tbody>
-        </table>
-      </div>
+    <main>
+        <!-- User Joined Competitions -->
+        <section>
+            <div class="competitions-header">
+                <h1>Your Joined Competitions</h1>
+                <hr style="margin-bottom: 1rem; border: 0.1rem solid #ffd700;" />
+            </div>
 
-      <div class="upcoming-competitions">
-        <h2>Upcoming Competitions</h2>
-        <table class="competition-table">
-          <thead>
-            <tr>
-              <th>Competition</th>
-              <th>Deadline</th>
-              <th>Prizes</th>
-              <inder>Reminder</th>
-            </tr>
-          </thead>
-          <tbody id="upcoming-competitions-table">
-            <!-- Upcoming competitions data should get be added here -->
-          </tbody>
-        </table>
-      </div>
-    </section>
-  </main>
-  
-  <?php require_once "../app/views/layout/footer.php"; ?>
-  <script src="Competition.js"></script>
+            <?php if (!empty($joinedCompetitions)): ?>
+                <table class="joined-competitions-table">
+                    <thead>
+                        <tr>
+                            <th>Competition Name</th>
+                            <th>Submission Title</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($joinedCompetitions as $comp): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($comp['competitionName']) ?></td>
+                                <td><?= htmlspecialchars($comp['submissionTitle']) ?></td>
+                                <td><?= htmlspecialchars($comp['status']) ?></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="/Free-Write/public/DesignerCompetition/viewCompetitionAfterSubmission/<?= htmlspecialchars($comp['submissionID']) ?>" class="view-button">View</a>
+                                        <a href="/Free-Write/public/DesignerCompetition/editSubmission/<?= htmlspecialchars($comp['submissionID']) ?>" class="edit-button">Edit</a>
+                                        <a href="/Free-Write/public/DesignerCompetition/deleteSubmission/<?= htmlspecialchars($comp['submissionID']) ?>" class="delete-button" onclick="return confirm('Are you sure you want to delete this submission?');">Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php else: ?>
+                <p>You have not joined any competitions yet.</p>
+            <?php endif; ?>
+        </section>
+    </main>
+
+    <?php require_once "../app/views/layout/footer.php"; ?>
 </body>
 
 </html>

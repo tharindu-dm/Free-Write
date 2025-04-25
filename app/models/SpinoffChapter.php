@@ -21,4 +21,11 @@ class SpinoffChapter
         return $this->query($query);
     }
 
+    public function deleteChapters($spinoffID)
+    {
+        $query = "DELETE FROM [dbo].[SpinoffChapter] WHERE [spinoff] = $spinoffID;";
+
+        return $this->query($query);
+    }
+
 }
