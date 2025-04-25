@@ -125,8 +125,12 @@ class PublisherController extends Controller
         $bookID = $URL[2];
         $book_table = new publisherBooks();
         $bookDetails = $book_table->first(['isbnID' => $bookID]);
-        $cartTable = new Cart();
-        $cartItems = $cartTable->first(['bookID' => $bookID, 'userID' => $_SESSION['user_id']]);
+        $cartItems = null;
+
+        if (isset($_SESSION['user_id'])) {
+            $cartTable = new Cart();
+            $cartItems = $cartTable->first(['bookID' => $bookID, 'userID' => $_SESSION['user_id']]);
+        }
 
         $this->view('publisher/bookDesign4Users', ['bookDetails' => $bookDetails, 'cartItems' => $cartItems]);
     }
@@ -156,6 +160,7 @@ class PublisherController extends Controller
     public function Profile()
     {
         $URL = splitURL();
+
         $userID = $URL[2];
         $publisher_table = new Publisher();
         $publisherDetails = $publisher_table->first(['pubID' => $userID]);
@@ -187,6 +192,10 @@ class PublisherController extends Controller
 
     public function regPage()
     {
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: /Free-Write/public/Login');
+        }
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $user = new User();
             $userDetails = new UserDetails();

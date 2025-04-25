@@ -63,7 +63,8 @@
         }
 
         button {
-            background-color: #d4a017; /* Dark yellow */
+            background-color: #d4a017;
+            /* Dark yellow */
             color: #ffffff;
             padding: 10px 15px;
             border: none;
@@ -93,22 +94,29 @@
 </head>
 
 <body>
+    <?php require_once "../app/views/layout/headerSelector.php";
+    show($data);
+    ?>
+
     <div class="container">
         <h1>Create Submission</h1>
-        <form action="/Free-Write/public/DesignerCompetition/submitCompetition" method="POST" enctype="multipart/form-data">
+        <form action="/Free-Write/public/DesignerCompetition/submitCompetition" method="POST"
+            enctype="multipart/form-data">
             <!-- Hidden Competition ID -->
-            <input type="hidden" name="competitionID" value="<?= htmlspecialchars($competitionID) ?>">
+            <input type="hidden" name="competitionID" value="<?= htmlspecialchars($competition['competitionID']) ?>">
 
             <!-- Hidden User ID -->
             <input type="hidden" name="userID" value="<?= htmlspecialchars($userID) ?>">
 
             <!-- Competition Name (Read Only) -->
             <label for="competitionName">Competition Name</label>
-            <input type="text" id="competitionName" name="competitionName" value="<?= htmlspecialchars($competitionName)?>" readonly>
+            <input type="text" id="competitionName" name="competitionName"
+                value="<?= htmlspecialchars($competition['title']) ?>" readonly>
 
             <!-- User Name (Read-Only) -->
             <label for="userName">Your Name</label>
-            <input type="text" id="userName" name="userName" value="<?= htmlspecialchars($_SESSION['user_name']) ?>" readonly>
+            <input type="text" id="userName" name="userName" value="<?= htmlspecialchars($_SESSION['user_name']) ?>"
+                readonly>
 
             <!-- Title -->
             <label for="title">Title</label>
@@ -116,7 +124,8 @@
 
             <!-- Submission Content -->
             <label for="content">Submission Content</label>
-            <textarea id="content" name="content" rows="6" placeholder="Write your submission content here..." required></textarea>
+            <textarea id="content" name="content" rows="6" placeholder="Write your submission content here..."
+                required></textarea>
 
             <!-- Image Upload -->
             <label for="submissionImage">Upload Submission Image</label>
@@ -130,6 +139,11 @@
             <a href="/Free-Write/public/Designer/MyCompetitions">Back to Competitions</a>
         </div>
     </div>
+
+    <?php
+    require_once "../app/views/layout/footer.php";
+    ?>
+
 </body>
 
 </html>

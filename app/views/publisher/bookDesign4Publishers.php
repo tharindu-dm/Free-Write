@@ -301,34 +301,34 @@
 
     <script>
         // Store original values to revert on cancel
+        
+
         let originalValues = {};
 
-        function toggleEditMode() {
-            // Store original values before editing
-            const form = document.getElementById('book-details-form');
-            originalValues = Object.fromEntries(new FormData(form));
+function toggleEditMode() {
+    const form = document.getElementById('book-details-form');
+    const inputs = form.querySelectorAll('input, textarea');
+    originalValues = Object.fromEntries(new FormData(form));
 
-            // Enable editing mode
-            document.querySelector('.book-info').classList.add('editing');
-            document.querySelector('.edit-btn').style.display = 'none';
-            document.querySelector('.save-btn').style.display = 'inline-block';
-            document.querySelector('.cancel-btn').style.display = 'inline-block';
-        }
+    document.querySelector('.book-info').classList.add('editing');
+    document.querySelector('.edit-btn').style.display = 'none';
+    document.querySelector('.save-btn').style.display = 'inline-block';
+    document.querySelector('.cancel-btn').style.display = 'inline-block';
+}
 
-        function cancelEdit() {
-            // Revert to original values
-            const form = document.getElementById('book-details-form');
-            const inputs = form.querySelectorAll('input, textarea');
-            inputs.forEach(input => {
-                input.value = originalValues.get(input.name) || '';
-            });
+function cancelEdit() {
+    const form = document.getElementById('book-details-form');
+    const inputs = form.querySelectorAll('input, textarea');
+    inputs.forEach(input => {
+        input.value = originalValues[input.name] || '';
+    });
 
-            // Disable editing mode
-            document.querySelector('.book-info').classList.remove('editing');
-            document.querySelector('.edit-btn').style.display = 'inline-block';
-            document.querySelector('.save-btn').style.display = 'none';
-            document.querySelector('.cancel-btn').style.display = 'none';
-        }
+    document.querySelector('.book-info').classList.remove('editing');
+    document.querySelector('.edit-btn').style.display = 'inline-block';
+    document.querySelector('.save-btn').style.display = 'none';
+    document.querySelector('.cancel-btn').style.display = 'none';
+}
+
 
         function deleteBook() {
             if (confirm('Are you sure you want to delete this book?')) {

@@ -175,7 +175,10 @@ class CompetitionController extends Controller
         $URL = splitURL();
         $competitionID = $_POST['compID'];
         $competition_table = new competition();
-        $competition_table->delete($competitionID, 'competitionID');  //ensure what are id and id column
+        $competitionEntries = new CompetitionEntries();
+        $competitionEntries->delete($competitionID, 'competitionID');
+        $competition_table->update($competitionID, ['status' => 'deleted'], 'competitionID');
+          //ensure what are id and id column
         header('Location: /Free-Write/public/Competition/MyCompetitions');
     }
 
@@ -289,7 +292,10 @@ class CompetitionController extends Controller
         $compID = $_GET['compID'] ?? null;
         $compDetails = null;
         $competitionEntries = new CompetitionEntries();
-        $competitionEntries = $competitionEntries->first(['competitionID' => $compID, 'participantID' => $_SESSION['user_id']]);
+        $competition = null;
+        if (isset($_SESSION['user_id'])) {
+            $competition = $competitionEntries->first(['competitionID' => $compID, 'participantID' => $_SESSION['user_id']]);
+        }
 
         if ($compID != null) {
             $compDetails = $competiion->first(['competitionID' => $compID]);
@@ -304,7 +310,7 @@ class CompetitionController extends Controller
         $data = [
             'details' => $compDetails,
             'user' => $user,
-            'competitionEntries' => $competitionEntries
+            'competitionEntries' => $competition
         ];
         $this->view('publisher/aCompetitionProfile4users', $data);
     }
@@ -319,7 +325,12 @@ class CompetitionController extends Controller
             $compDetails = $competiion->first(['competitionID' => $compID]);
         }
         $userTable = new User();
-        $user = $userTable->first(['userID' => $_SESSION['user_id']]);
+        if (isset($_SESSION['user_id'])) {
+            $user = $userTable->first(['userID' => $_SESSION['user_id']]);
+        } else {
+            $user = null;
+        }
+
         $data = [
             'details' => $compDetails,
             'user' => $user
@@ -334,13 +345,19 @@ class CompetitionController extends Controller
         $competitionDetails = $competition_table->first(['competitionID' => $compID]);
         $book = new Book();
         $author = $_SESSION['user_id'];
+        $MyBooks = null;
 
-        $MyBooks = $book->getBook4Competition($author);
-
-        $this->view('publisher/submission4Competition', [
-            'books' => $MyBooks,
-            'competition' => $competitionDetails
-        ]);
+        if ($competitionDetails['type'] == 'writer') {
+            $MyBooks = $book->getBook4Competition($author);
+            $this->view('publisher/submission4Competition', [
+                'books' => $MyBooks,
+                'competition' => $competitionDetails
+            ]);
+        } else {
+            $this->view('CoverPageDesigner/competitionSubmissionForm', [
+                'competition' => $competitionDetails
+            ]);
+        }
     }
 
     public function SubmitEntry()
