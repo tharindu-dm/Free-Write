@@ -9,20 +9,8 @@
 </head>
 
 <body>
-
-    <?php
-    $userType = $_SESSION['user_type'] ?? 'guest';
-
-    switch ($userType) {
-        case 'admin':
-        case 'mod':
-        case 'writer':
-        case 'wricov':
-            require_once "../app/views/layout/header-user.php";
-            break;
-        default:
-            require_once "../app/views/layout/header.php";
-    }
+    <?php require_once "../app/views/layout/headerSelector.php";
+    //show($data);
     ?>
 
     <main>
@@ -48,23 +36,23 @@
                         </div>
 
                         <div class="input-group">
-                        <label for="genre">Genre</label>
-                        <div class="book-checkbox-group">
-                        <?php
-                          $selectedGenreIDs = array_column($genreDetails, 'genreID');
+                            <label for="genre">Genre</label>
+                            <div class="book-checkbox-group">
+                                <?php
+                                $selectedGenreIDs = array_column($genreDetails, 'genreID');
 
-                           foreach ($genres as $genre) {
-                               $genreID = htmlspecialchars($genre['genreID']);
-                                $genreName = htmlspecialchars($genre['name']);
-                                $isChecked = in_array($genreID, $selectedGenreIDs) ? 'checked' : '';
+                                foreach ($genres as $genre) {
+                                    $genreID = htmlspecialchars($genre['genreID']);
+                                    $genreName = htmlspecialchars($genre['name']);
+                                    $isChecked = in_array($genreID, $selectedGenreIDs) ? 'checked' : '';
 
-                                 echo "<div class=\"book-checkbox-item\">";
-                                echo "<input type=\"checkbox\" name=\"genre[]\" id=\"genre_{$genreID}\" value=\"{$genreID}\" {$isChecked}>";
-                                echo "<label for=\"genre_{$genreID}\">{$genreName}</label>";
-                                echo "</div>";
-                            }       
-                            ?>
-                         </div>
+                                    echo "<div class=\"book-checkbox-item\">";
+                                    echo "<input type=\"checkbox\" name=\"genre[]\" id=\"genre_{$genreID}\" value=\"{$genreID}\" {$isChecked}>";
+                                    echo "<label for=\"genre_{$genreID}\">{$genreName}</label>";
+                                    echo "</div>";
+                                }
+                                ?>
+                            </div>
                         </div>
                         <div class="input-group">
                             <label for="price">Price(LKR)</label>
@@ -109,7 +97,7 @@
                             alt="Cover Image of <?= htmlspecialchars($book['title']); ?>">
                         <button class="book-btn" type="button"
                             onclick="window.location.href='/Free-Write/public/writer/covers'">Find Cover Images</button>
-                            <input type="file" name="cover_image" accept="image/*"> 
+                        <input type="file" name="cover_image" accept="image/*">
                     </div>
                 </div>
 

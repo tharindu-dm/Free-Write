@@ -12,23 +12,36 @@ class OrderController extends Controller
         $userDetails = $userDetailsTable->first(['user' => $userName]);
         $this->view('publisher/order', ['orders' => $orders, 'userDetails' => $userDetails]);
     }
-    public function addOrder4Pub()
-    {
-        $isbnID = $_POST['isbnID'];
-        $userID = $_POST['userID'];
-        $totalPrice = $_POST['totalPrice'];
-        $orderDate = date("Y-m-d H:i:s");
-        $quantity = $_POST['quantity'];
-        $bookTitle = $_POST['bookTitle'];
-        $bookPublisherID = $_POST['bookPublisherID'];
-        $deliveryStatus = 'Pending';
-        $shippingAddress = $_POST['shipping_address'];
-        $phoneNo = $_POST['phone_number'];
+    // public function addOrder4Pub()
+    // {
+    //     $isbnID = $_POST['isbnID'];
+    //     $userID = $_POST['userID'];
+    //     $totalPrice = $_POST['totalPrice'];
+    //     $orderDate = date("Y-m-d H:i:s");
+    //     $quantity = $_POST['quantity'];
+    //     $bookTitle = $_POST['bookTitle'];
+    //     $bookPublisherID = $_POST['bookPublisherID'];
+    //     $deliveryStatus = 'Pending';
+    //     $shippingAddress = $_POST['shipping_address'];
+    //     $phoneNo = $_POST['phone_number'];
 
-        $orderTable = new Order();
-        $orderTable->insert(['isbnID' => $isbnID, 'customer_userID' => $userID, 'totalPrice' => $totalPrice, 'orderDate' => $orderDate, 'quantity' => $quantity, 'bookTitle' => $bookTitle, 'status' => $deliveryStatus, 'bookPublisherID' => $bookPublisherID, 'shippingAddress' => $shippingAddress, 'phoneNo' => $phoneNo]);
-        header('Location: /Free-Write/public/Publisher');
-    }
+    //     $orderTable = new Order();
+    //     $orderTable->insert(
+    //         [
+    //             'isbnID' => $isbnID,
+    //             'customer_userID' => $userID,
+    //             'totalPrice' => $totalPrice,
+    //             'orderDate' => $orderDate,
+    //             'quantity' => $quantity,
+    //             'bookTitle' => $bookTitle,
+    //             'status' => $deliveryStatus,
+    //             'bookPublisherID' => $bookPublisherID,
+    //             'shippingAddress' => $shippingAddress,
+    //             'phoneNo' => $phoneNo
+    //         ]
+    //     );
+    //     header('Location: /Free-Write/public/Publisher');
+    // }
 
     public function viewStats()
     {

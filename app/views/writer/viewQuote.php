@@ -62,7 +62,6 @@
 
     </main>
 
-    <script src="/Free-Write/public/js/writer/bookDetails.js"></script>
 
     <!-- Footer -->
     <?php

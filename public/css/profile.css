@@ -46,6 +46,31 @@ main {
   padding: 1rem;
 }
 
+.extra-profile-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  width: 100%;
+}
+
+.extra-btn-dashboard {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--primary-color);
+  color: var(--black);
+  border: none;
+  border-radius: 1rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*profile visitor view*/
 .writer-dashboard-btn {
   flex: 1;
   padding: 0.5rem 1rem;
@@ -385,7 +410,6 @@ main {
 
 .user-profile-content {
   flex-grow: 1;
-  padding: 40px;
   background-color: var(--white);
 }
 
@@ -394,6 +418,7 @@ main {
 }
 
 .view-section.active {
+  padding: 2rem;
   display: block;
 }
 

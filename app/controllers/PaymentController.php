@@ -64,11 +64,14 @@ class PaymentController extends Controller
         //    $card->insert($cardData);
         //}
 
+        $price = $_POST['totalPrice'];
         $buybook = new BuyBook();
         $buyBookDetails = [
             'user' => $userID,
             'book' => $bookID,
             'purchaseDateTime' => date("Y-m-d H:i:s"),
+            "price" => $price,
+
         ];
 
         $buybook->insert($buyBookDetails);
@@ -213,5 +216,42 @@ class PaymentController extends Controller
         //redirect back to user profile
         header('/Free-Write/public/User/Profile?user=' . $writer);
         return;
+    }
+
+    public function buy_PublisherBook()
+    {
+        $publisherBooks = new PublisherBooks();
+
+        $isbnID = $_POST['itemID'];
+        $userID = $_SESSION['user_id'];
+        $totalPrice = $_POST['totalPrice'];
+        $orderDate = date("Y-m-d H:i:s");
+        $quantity = $_POST['quantity'];
+
+        $bookItem = $publisherBooks->first(['isbnID' => $isbnID]);
+
+        $bookTitle = $bookItem['title'];
+        $bookPublisherID = $bookItem['publisherID'];
+        $deliveryStatus = 'Pending';
+        $shippingAddress = $_POST['shipping_address'];
+        $phoneNo = $_POST['phone_number'];
+
+        $orderTable = new Order();
+        $orderTable->insert(
+            [
+                'isbnID' => $isbnID,
+                'customer_userID' => $userID,
+                'totalPrice' => $totalPrice,
+                'orderDate' => $orderDate,
+                'quantity' => $quantity,
+                'bookTitle' => $bookTitle,
+                'status' => $deliveryStatus,
+                'bookPublisherID' => $bookPublisherID,
+                'shippingAddress' => $shippingAddress,
+                'phoneNo' => $phoneNo
+            ]
+        );
+        header('Location: /Free-Write/public/Publisher');
+
     }
 }

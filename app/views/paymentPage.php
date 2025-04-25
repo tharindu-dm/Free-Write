@@ -30,11 +30,23 @@
                 <p style="color: #666; font-style: italic;">
                     Secure payment for the best user experience.
                 </p>
+
             </div>
 
             <div class="payment-details">
-                <h2>Payment Information</h2>
                 <form action="/Free-Write/public/Payment/buy_<?= htmlspecialchars($data['type']) ?>" method="post">
+                    <?php if ($type === 'PublisherBook'): ?>
+                        <!-- Shipping Details Section -->
+                        <div class="shipping-details">
+                            <h2>Shipping Information</h2>
+                            <input type="text" required name="shipping_address" placeholder="Shipping Address"
+                                maxlength="200">
+                            <input type="tel" required name="phone_number" placeholder="Phone Number"
+                                pattern="[0-9+\-\s()]+" title="Enter a valid phone number">
+                        </div>
+                    <?php endif; ?>
+
+                    <h2>Payment Information</h2>
                     <div class="card-details">
                         <div class="card-type">
                             <label>
@@ -69,6 +81,9 @@
                         </label>-->
                         <input type="hidden" name="itemID" value="<?= htmlspecialchars($itemID) ?>">
                         <input type="hidden" name="bookID" value="<?= htmlspecialchars($bookID) ?>">
+                        <input type="hidden" name="totalPrice" value="<?= htmlspecialchars($orderInfo['Total']) ?>">
+                        <input type="hidden" name="quantity" value="<?= htmlspecialchars($orderInfo['Quantity']) ?>">
+
                         <div id="cardValidation"></div>
                         <button type="submit">Pay Now</button>
                     </div>

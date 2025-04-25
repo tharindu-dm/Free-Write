@@ -286,28 +286,10 @@
 </head>
 
 <body>
-  <?php
-  if (isset($_SESSION['user_type'])) {
-    $userType = $_SESSION['user_type'];
-  } else {
-    $userType = 'guest';
-  }
-  switch ($userType) {
-    case 'admin':
-    case 'writer':
-    case 'covdes':
-    case 'wricov':
-    case 'reader':
-      require_once "../app/views/layout/header-user.php";
-      break;
-    case 'pub':
-      require_once "../app/views/layout/header-pub.php";
-      break;
-    default:
-      require_once "../app/views/layout/header.php";
-  }
+  <?php require_once "../app/views/layout/headerSelector.php";
+  //show($data);
   ?>
-
+  
   <div class="stats-header">
     <h2 style="color: #1C160C; font-size: 1.5rem; font-weight: 600;">Statistics Overview</h2>
     <a href="/Free-Write/public/Order/viewStats" class="view-stats-button">View Statistics</a>
@@ -393,6 +375,6 @@
   <?php
   require_once "../app/views/layout/footer.php";
   ?>
-</body>
+  </>
 
 </html>

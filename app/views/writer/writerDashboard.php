@@ -10,28 +10,8 @@
 </head>
 
 <body>
-    <?php
-    if (isset($_SESSION['user_type'])) {
-        $userType = $_SESSION['user_type'];
-    } else {
-        $userType = 'guest';
-    }
-    switch ($userType) {
-        case 'admin':
-        case 'writer':
-        case 'covdes':
-        case 'wricov':
-        case 'reader':
-            require_once "../app/views/layout/header-user.php";
-            break;
-        case 'pub':
-            require_once "../app/views/layout/header-pub.php";
-            break;
-        default:
-            require_once "../app/views/layout/header.php";
-    }
-
-    //    show($data);
+    <?php require_once "../app/views/layout/headerSelector.php";
+    //show($data);
     ?>
 
     <main>
@@ -62,10 +42,10 @@
             <?php require_once "../app/views/writer/writerNav.php"; ?>
 
             <!-- Books Section -->
-             
+
             <div class="books-section" id="books">
-            <?php if (isset($_SESSION['user_id']) && ($userDetails['user'] == $_SESSION['user_id'])): ?>
-                <h2>My Books</h2>
+                <?php if (isset($_SESSION['user_id']) && ($userDetails['user'] == $_SESSION['user_id'])): ?>
+                    <h2>My Books</h2>
                 <?php endif; ?>
 
                 <!-- Button to Add New Book -->

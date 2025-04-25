@@ -35,8 +35,9 @@ class DesignerCollectionController extends Controller
     }
 
     // View a single collection 
-    public function viewCollection($collectionID)
+    public function viewCollection()
     {
+        $collectionID = splitURL()[2];
         $collectionDetails = new CollectionDetails();
         $collectionDesigns = new CollectionDesigns();
         $coverModel = new CoverImage();

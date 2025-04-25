@@ -255,7 +255,7 @@
                                         <td>
                                             <?php if ($chap['isPurchased'] || $bought || $chap['price'] === NULL): ?>
                                                 <a
-                                                    href="/Free-Write/public/book/Chapter/<?= htmlspecialchars($chap['chapterID']); ?>"><?= htmlspecialchars($chap['title']); ?></a>
+                                                    href="/Free-Write/public/Book/Chapter/<?= htmlspecialchars($chap['chapterID']); ?>"><?= htmlspecialchars($chap['title']); ?></a>
                                             <?php else: ?>
                                                 <p>Purchase to read chapters</p>
                                             <?php endif; ?>

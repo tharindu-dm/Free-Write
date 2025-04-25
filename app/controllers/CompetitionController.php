@@ -9,23 +9,18 @@ class CompetitionController extends Controller
         $competition_writer = null;
         $competition_cover = null;
 
-        $competition_writer = $competition->where(["type" => "writer", "status" => "active"]);
-        $competition_cover = $competition->where(["type" => "CoverDesigners", "status" => "active"]);
+        $competition_writer = $competition->getCompetitionDetails("writer");
+        $competition_cover = $competition->getCompetitionDetails("covdes");
 
         $publisherTable = new Publisher();
         $publisherName = null;
 
-        if (!empty($competition_writer)) {
-            $publisherID = $competition_writer[0]['publisherID'];
-            $publisherInfo = $publisherTable->first(['pubID' => $publisherID]);
-            $publisherName = $publisherInfo['name'] ?? 'Unknown Publisher';
-        }
 
         $data = [
             'writer' => $competition_writer,
-            'cover' => $competition_cover,
-            'publisherName' => $publisherName
+            'covdes' => $competition_cover,
         ];
+
         $this->view('OpenUser/competitions', $data);
     }
     public function MyCompetitions()
@@ -432,8 +427,8 @@ class CompetitionController extends Controller
 
         }
 
-    } 
-    
+    }
+
     /*public function ProfileUser()
      {
 

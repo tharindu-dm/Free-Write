@@ -30,10 +30,6 @@
                         </p>
                     </div>
                     <div class="card">
-                        <h3>Purchase Packages</h3>
-                        <p>Browse and purchase content packages to expand your library and resources.</p>
-                    </div>
-                    <div class="card">
                         <h3>Manage Users</h3>
                         <p>Add, remove, or modify user accounts and permissions within your institution.</p>
                     </div>
@@ -46,8 +42,8 @@
                     <p>Join a community of passionate writers and readers. Discover new narratives, participate in
                         contests, and connect with fellow creatives.</p>
                     <div class="feature-buttons">
-                        <button class="btn btn-primary">Browse Stories</button>
-                        <button class="btn btn-secondary">Start Writing</button>
+                    <a href="/Free-Write/public/Browse" class="btn btn-primary">Browse Stories</a>
+                    </div>
                     </div>
                 </div>
             </section>

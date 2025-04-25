@@ -288,30 +288,10 @@
 </head>
 
 <body>
-    <?php
-    if (isset($_SESSION['user_type'])) {
-        $userType = $_SESSION['user_type'];
-    } else {
-        $userType = 'guest';
-    }
-    switch ($userType) {
-        case 'admin':
-        case 'mod':
-        case 'writer':
-        case 'covdes':
-        case 'wricov':
-        case 'reader':
-            require_once "../app/views/layout/header-user.php";
-            break;
-        case 'pub':
-            require_once "../app/views/layout/header-pub.php";
-            break;
-        default:
-            require_once "../app/views/layout/header.php";
-    }
+    <?php require_once "../app/views/layout/headerSelector.php";
+    //show($data);
     ?>
-
-
+    
     <main>
         <div class="banner"></div>
 
@@ -389,7 +369,8 @@
                                     <div class="book-title"><?= htmlspecialchars($recentBooks['title']) ?></div>
                                     <div class="book-author">by <?= htmlspecialchars($recentBooks['author_name']) ?></div>
                                     <div class="book-date">Published:
-                                        <?= date('Y-m-d', strtotime($recentBooks['created_at'])) ?></div>
+                                        <?= date('Y-m-d', strtotime($recentBooks['created_at'])) ?>
+                                    </div>
 
                                 </div>
                             </div>

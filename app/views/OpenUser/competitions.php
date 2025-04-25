@@ -44,7 +44,7 @@
 
                             <div class="competition-details">
                                 <h2><?= htmlspecialchars($comp['title']) ?></h2>
-                                <div class="publisher">By <?= htmlspecialchars($publisherName); ?></div>
+                                <div class="publisher">By <?= htmlspecialchars($comp['creatorFullName']); ?></div>
                                 <div class="deadline">
                                     <span class="deadline-badge"><?= htmlspecialchars($comp['end_date']) ?></span>
                                     <a href="/Free-Write/public/Competition/WriterCompetition?compID=<?= htmlspecialchars($comp['competitionID']) ?>"
@@ -80,15 +80,15 @@
                    </div>-->
             </div>
             <div class="competitions-grid">
-                <?php if (!empty($cover)): ?>
+                <?php if (!empty($covdes)): ?>
 
-                    <?php foreach ($cover as $comp): ?>
+                    <?php foreach ($covdes as $comp): ?>
                         <div class="competition-card">
                             <img src="/Free-Write/app/images/competition/<?= htmlspecialchars($comp['compImage'] ?? 'coverComp.png'); ?>"
                                 alt="Competition Image">
                             <div class="competition-details">
                                 <h2><?= htmlspecialchars($comp['title']) ?></h2>
-                                <div class="publisher">By <?= htmlspecialchars($comp['publisherID']) ?></div>
+                                <div class="publisher">By <?= htmlspecialchars($comp['creatorFullName']) ?></div>
                                 <div class="deadline">
                                     <span class="deadline-badge"><?= htmlspecialchars($comp['end_date']) ?></span>
                                     <a href="/Free-Write/public/Competition/CoverCompetition?compID=<?= htmlspecialchars($comp['competitionID']) ?>"

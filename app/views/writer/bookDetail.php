@@ -9,25 +9,10 @@
 </head>
 
 <body>
-    <?php
-    $userType = $_SESSION['user_type'] ?? 'guest';
-
-    switch ($userType) {
-        case 'admin':
-        case 'writer':
-        case 'covdes':
-        case 'wricov':
-        case 'reader':
-            require_once "../app/views/layout/header-user.php";
-            break;
-        case 'pub':
-            require_once "../app/views/layout/header-pub.php";
-            break;
-        default:
-            require_once "../app/views/layout/header.php";
-    }
+    <?php require_once "../app/views/layout/headerSelector.php";
+    //show($data);
     ?>
-
+    
     <?php if (!empty($book) && is_array($book)): ?>
         <div class="container">
             <div class="product-layout">
@@ -44,16 +29,16 @@
 
                 <div class="product-info">
                     <h1><?= htmlspecialchars($book[0]['title']); ?></h1>
-                    <?php if(!empty($genres) && is_array($genres)): ?>
-                         <p><strong>
-                     <?php
-                         $genreNames = [];
-                        foreach ($genres as $genre):
-                          $genreNames[] = htmlspecialchars($genre['genreName']);
-                            endforeach;
-                         echo implode(' | ', $genreNames);
-                         ?>
-                         </strong></p>
+                    <?php if (!empty($genres) && is_array($genres)): ?>
+                        <p><strong>
+                                <?php
+                                $genreNames = [];
+                                foreach ($genres as $genre):
+                                    $genreNames[] = htmlspecialchars($genre['genreName']);
+                                endforeach;
+                                echo implode(' | ', $genreNames);
+                                ?>
+                            </strong></p>
                     <?php else: ?>
                         <p><strong>Genre Not specified </strong></p>
                     <?php endif; ?>

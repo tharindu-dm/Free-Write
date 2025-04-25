@@ -24,9 +24,10 @@ class PublisherController extends Controller
     {
         $publisherBook_table = new publisherBooks();
         $bookDetails = $publisherBook_table->where(['publisherID' => $_SESSION['user_id']]);
-        print_r($bookDetails);
-        //$this->view('Profile/publisherProfile', ['bookDetails' => $bookDetails]);
+        //print_r($bookDetails);
+        //$this->view('Profile/publisher layouts/publisherProfile', ['bookDetails' => $bookDetails]);
     }
+
     public function AddBook()
     {
         $this->view('publisher/bookUploadForm4Publishers');
@@ -108,8 +109,6 @@ class PublisherController extends Controller
         }
     }
 
-
-
     public function bookProfile4publishers()
     {
         $publisherBook_table = new publisherBooks();
@@ -154,8 +153,6 @@ class PublisherController extends Controller
         header('Location: /Free-Write/public/User/Profile');
         exit();
     }
-
-
     public function Profile()
     {
         $URL = splitURL();
@@ -196,7 +193,7 @@ class PublisherController extends Controller
             $publisher = new Publisher();
 
 
-            $user->updateToPub("cov", $_SESSION['user_id']);
+            $user->updateToPub("pub", $_SESSION['user_id']);
             // $publisher->insertPublisher($_POST['email'], $_POST['officeEmail'], $_POST['website'], $_POST['address'], $_POST['contactNumber'], $_POST['dob'], $_POST['description'], $_SESSION['user_id']);
             // Update user details
             $userDetails->updatePubDetail($_POST['description'], $_POST['dob'], $_POST['country'], $_SESSION['user_id']);
@@ -212,7 +209,6 @@ class PublisherController extends Controller
 
         $this->view('publisher/publisherRegistrationPage', ['userDetails' => $userDetails]);
     }
-
     public function courier()
     {
 
@@ -236,11 +232,27 @@ class PublisherController extends Controller
         // Calculate total price
         $totalPrice = $bookDetails['prize'] * $quantity;
 
-        $this->view('publisher/paymentPage', [
-            'bookDetails' => $bookDetails,
-            'quantity' => isset($quantityFromCart) ? $quantityFromCart : $quantity,
-            'totalPrice' => $totalPrice
-        ]);
+        //$this->view('publisher/paymentPage', [
+        //    'bookDetails' => $bookDetails,
+        //    'quantity' => isset($quantityFromCart) ? $quantityFromCart : $quantity,
+        //    'totalPrice' => $totalPrice
+        //]);
+
+        $orderDetails = [
+            'Item' => $bookDetails['title'],
+            'Quantity' => isset($quantityFromCart) ? $quantityFromCart : $quantity,
+            'Price' => $totalPrice,
+            'Total' => $totalPrice
+        ];
+
+        $this->view(
+            'paymentPage',
+            [
+                'type' => "PublisherBook",
+                'orderInfo' => $orderDetails,
+                'itemID' => $bookID
+            ]
+        );
     }
 
     public function updateBookDetails()

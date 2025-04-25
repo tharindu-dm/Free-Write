@@ -14,7 +14,7 @@
                 <a href="/Free-Write/public/Home/About">About</a>
                 <a href="/Free-Write/public/Home/Terms_of_Service">Terms of Service</a>
                 <a href="/Free-Write/public/Home/Privacy_Policy">Privacy Policy</a>
-                <a href="/Free-Write/public/Home/SendFeedback">Send Feedback</a>
+                <a href="/Free-Write/public/Home/Feedback">Send Feedback</a>
             </div>
             <div class="social-icons">
 

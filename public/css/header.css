@@ -123,14 +123,14 @@ a {
   color: #333;
 }
 
-.sign-in-btn button{
+.sign-in-btn button {
   background: none;
   color: #333;
   border: none;
   cursor: pointer;
 }
 
-.sign-in-btn:hover{
+.sign-in-btn:hover {
   background-color: #f0f0f0;
 }
 
@@ -167,17 +167,16 @@ svg {
   cursor: pointer;
 }
 
-.write-btn button{
+.write-btn button {
   background: none;
   color: #333;
   border: none;
   cursor: pointer;
 }
 
-.write-btn:hover{
+.write-btn:hover {
   background-color: #f0f0f0;
 }
-
 
 .go-premium-button {
   display: flex;
@@ -237,7 +236,6 @@ svg {
   justify-content: center;
   align-items: center;
 }
-
 
 /*overlay for notificaitron panel*/
 .notification-overlay {
@@ -314,4 +312,13 @@ svg {
 .notification-item .time {
   font-size: 12px;
   color: #666;
+}
+
+/* Ad image */
+.ad-image {
+  margin-top: 2.5rem;
+  border-radius: 0.5rem;
+  object-fit: cover;
+  height: 80rem;
+  width: 10rem;
 }

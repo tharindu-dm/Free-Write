@@ -9,35 +9,9 @@
 </head>
 
 <body>
-    <header>
-        <?php
-        if (isset($_SESSION['user_type'])) {
-            $userType = $_SESSION['user_type'];
-        } else {
-            $userType = 'guest';
-        }
-        switch ($userType) {
-            case 'admin':
-            case 'mod':
-            case 'writer':
-            case 'covdes':
-            case 'wricov':
-            case 'reader':
-                require_once "../app/views/layout/header-user.php";
-                break;
-            case 'pub':
-                require_once "../app/views/layout/header-pub.php";
-                break;
-            case 'inst':
-                require_once "../app/views/layout/header-inst.php";
-                break;
-            default:
-                require_once "../app/views/layout/header.php";
-        }
-        //show($data);
-        
-        ?>
-    </header>
+    <?php require_once "../app/views/layout/headerSelector.php";
+    //show($data);
+    ?>
 
     <main class="dashboard-container">
 
@@ -170,90 +144,90 @@
     ?>
 
     <script>
-       document.addEventListener("DOMContentLoaded", function () {
-  // Get DOM elements
-  const openCollectionBtn = document.getElementById("openCollectionPopup");
-  const collectionOverlay = document.getElementById("designCollectionOverlay");
-  const closeBtn = document.getElementById("closeDesignCollection");
-  const cancelBtn = document.getElementById("cancelDesignCollection");
-  const form = document.getElementById("designCollectionForm");
-  const titleInput = document.getElementById("collectionTitle");
-  const descriptionInput = document.getElementById("CollectionDescription");
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get DOM elements
+            const openCollectionBtn = document.getElementById("openCollectionPopup");
+            const collectionOverlay = document.getElementById("designCollectionOverlay");
+            const closeBtn = document.getElementById("closeDesignCollection");
+            const cancelBtn = document.getElementById("cancelDesignCollection");
+            const form = document.getElementById("designCollectionForm");
+            const titleInput = document.getElementById("collectionTitle");
+            const descriptionInput = document.getElementById("CollectionDescription");
 
-  // Function to show the popup
-  function showPopup() {
-    if (collectionOverlay) {
-      collectionOverlay.style.display = "flex";
-    }
-  }
+            // Function to show the popup
+            function showPopup() {
+                if (collectionOverlay) {
+                    collectionOverlay.style.display = "flex";
+                }
+            }
 
-  // Function to hide the popup
-  function hidePopup() {
-    if (collectionOverlay) {
-      collectionOverlay.style.display = "none";
-      form.reset(); // Reset form fields
-    }
-  }
+            // Function to hide the popup
+            function hidePopup() {
+                if (collectionOverlay) {
+                    collectionOverlay.style.display = "none";
+                    form.reset(); // Reset form fields
+                }
+            }
 
-  // Event listener for opening the popup
-  if (openCollectionBtn) {
-    openCollectionBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      showPopup();
-    });
-  }
+            // Event listener for opening the popup
+            if (openCollectionBtn) {
+                openCollectionBtn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    showPopup();
+                });
+            }
 
-  // Event listener for closing the popup
-  if (closeBtn) {
-    closeBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      hidePopup();
-    });
-  }
+            // Event listener for closing the popup
+            if (closeBtn) {
+                closeBtn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    hidePopup();
+                });
+            }
 
-  // Event listener for cancel button
-  if (cancelBtn) {
-    cancelBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      hidePopup();
-    });
-  }
+            // Event listener for cancel button
+            if (cancelBtn) {
+                cancelBtn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    hidePopup();
+                });
+            }
 
-  // Close the popup when clicking outside the form
-  if (collectionOverlay) {
-    collectionOverlay.addEventListener("click", (e) => {
-      if (e.target === collectionOverlay) {
-        hidePopup();
-      }
-    });
-  }
+            // Close the popup when clicking outside the form
+            if (collectionOverlay) {
+                collectionOverlay.addEventListener("click", (e) => {
+                    if (e.target === collectionOverlay) {
+                        hidePopup();
+                    }
+                });
+            }
 
-  // Form validation
-  form.addEventListener("submit", function (e) {
-    let isValid = true;
+            // Form validation
+            form.addEventListener("submit", function (e) {
+                let isValid = true;
 
-    // Validate title
-    if (!titleInput.value.trim()) {
-      isValid = false;
-      titleInput.classList.add("error");
-    } else {
-      titleInput.classList.remove("error");
-    }
+                // Validate title
+                if (!titleInput.value.trim()) {
+                    isValid = false;
+                    titleInput.classList.add("error");
+                } else {
+                    titleInput.classList.remove("error");
+                }
 
-    // Validate description
-    if (!descriptionInput.value.trim()) {
-      isValid = false;
-      descriptionInput.classList.add("error");
-    } else {
-      descriptionInput.classList.remove("error");
-    }
+                // Validate description
+                if (!descriptionInput.value.trim()) {
+                    isValid = false;
+                    descriptionInput.classList.add("error");
+                } else {
+                    descriptionInput.classList.remove("error");
+                }
 
-    if (!isValid) {
-      e.preventDefault(); // Prevent form submission if validation fails
-    }
-  });
-});
-            
+                if (!isValid) {
+                    e.preventDefault(); // Prevent form submission if validation fails
+                }
+            });
+        });
+
     </script>
 
 </body>

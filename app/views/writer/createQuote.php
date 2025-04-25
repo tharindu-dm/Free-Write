@@ -43,7 +43,7 @@
                             }
                             data.forEach(chapter => {
                                 let option = document.createElement('option');
-                                option.value = chapter.chapter;
+                                option.value = chapter.chapterID;
                                 option.textContent = chapter.title;
                                 chapterDropdown.appendChild(option);
                             });

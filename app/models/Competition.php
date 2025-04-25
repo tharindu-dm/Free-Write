@@ -81,4 +81,17 @@ class Competition
         return $this->query($query);
 
     }
+
+    public function getCompetitionDetails($type)
+    {
+        $query = "SELECT c.*,
+                    CONCAT(u.[firstName], ' ', u.[lastName]) AS creatorFullName
+                FROM [freewrite_v8].[dbo].[Competition] c
+                INNER JOIN [freewrite_v8].[dbo].[UserDetails] u
+                    ON c.[publisherID] = u.[user]
+                WHERE c.[type] = '$type' AND c.[status] = 'active'";
+
+
+        return $this->query($query);
+    }
 }

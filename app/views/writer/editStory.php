@@ -9,22 +9,8 @@
 </head>
 
 <body>
-    <?php
-    if (isset($_SESSION['user_type'])) {
-        $userType = $_SESSION['user_type'];
-    } else {
-        $userType = 'guest';
-    }
-    switch ($userType) {
-        case 'admin':
-        case 'mod':
-        case 'writer':
-        case 'wricov':
-            require_once "../app/views/layout/header-user.php";
-            break;
-        default:
-            require_once "../app/views/layout/header.php";
-    }
+    <?php require_once "../app/views/layout/headerSelector.php";
+    //show($data);
     ?>
 
     <!-- Writing Section -->
@@ -37,11 +23,11 @@
                     echo htmlspecialchars($chapter['BookTitle']); ?>
                 </h1>
                 <?php if ($book['price'] === NULL): ?>
-                <div class="input-group">
-                    <label for="price">Price(LKR):</label>
-                    <input type="number" id="price" name="price" min="0" step="0.01" placeholder="Free"
-                        value="<?= htmlspecialchars($chapter['price'] ?? ''); ?>">
-                </div>
+                    <div class="input-group">
+                        <label for="price">Price(LKR):</label>
+                        <input type="number" id="price" name="price" min="0" step="0.01" placeholder="Free"
+                            value="<?= htmlspecialchars($chapter['price'] ?? ''); ?>">
+                    </div>
                 <?php endif; ?>
             </div>
 

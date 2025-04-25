@@ -472,28 +472,10 @@
 </head>
 
 <body>
-
-    <?php
-    if (isset($_SESSION['user_type'])) {
-        $userType = $_SESSION['user_type'];
-    } else {
-        $userType = 'guest';
-    }
-    switch ($userType) {
-        case 'admin':
-        case 'writer':
-        case 'covdes':
-        case 'wricov':
-        case 'reader':
-            require_once "../app/views/layout/header-user.php";
-            break;
-        case 'pub':
-            require_once "../app/views/layout/header-pub.php";
-            break;
-        default:
-            require_once "../app/views/layout/header.php";
-    }
+    <?php require_once "../app/views/layout/headerSelector.php";
+    //show($data);
     ?>
+
     <main>
         <div class="breadcrumb">
             <a href="/Free-Write/public/Competition/Profile/<?= htmlspecialchars($compID ?? '') ?>">Back to
@@ -542,7 +524,8 @@
                             <h3><?php echo htmlspecialchars($competition['first_place_winner_name'] ?? 'Not Announced Yet'); ?>
                             </h3>
                             <p class="entry-title">
-                                <?php echo htmlspecialchars($competition['first_place_entry_title'] ?? ''); ?></p>
+                                <?php echo htmlspecialchars($competition['first_place_entry_title'] ?? ''); ?>
+                            </p>
                             <div class="prize-info">
                                 <span class="prize-label">Prize:</span>
                                 <span
@@ -583,7 +566,8 @@
                             <h3><?php echo htmlspecialchars($competition['second_place_winner_name'] ?? 'Not Announced Yet'); ?>
                             </h3>
                             <p class="entry-title">
-                                <?php echo htmlspecialchars($competition['second_place_entry_title'] ?? ''); ?></p>
+                                <?php echo htmlspecialchars($competition['second_place_entry_title'] ?? ''); ?>
+                            </p>
                             <div class="prize-info">
                                 <span class="prize-label">Prize:</span>
                                 <span
@@ -624,7 +608,8 @@
                             <h3><?php echo htmlspecialchars($competition['third_place_winner_name'] ?? 'Not Announced Yet'); ?>
                             </h3>
                             <p class="entry-title">
-                                <?php echo htmlspecialchars($competition['third_place_entry_title'] ?? ''); ?></p>
+                                <?php echo htmlspecialchars($competition['third_place_entry_title'] ?? ''); ?>
+                            </p>
                             <div class="prize-info">
                                 <span class="prize-label">Prize:</span>
                                 <span

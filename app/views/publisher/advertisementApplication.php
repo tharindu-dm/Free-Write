@@ -178,31 +178,8 @@
 </head>
 
 <body>
-    <?php
-    // Ensure session is started
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
-
-    // Determine user type
-    $userType = isset($_SESSION['user_type']) ? $_SESSION['user_type'] : 'guest';
-
-    // Include appropriate header based on user type
-    switch ($userType) {
-        case 'admin':
-        case 'mod':
-        case 'writer':
-        case 'covdes':
-        case 'wricov':
-        case 'reader':
-            require_once "../app/views/layout/header-user.php";
-            break;
-        case 'pub':
-            require_once "../app/views/layout/header-pub.php";
-            break;
-        default:
-            require_once "../app/views/layout/header.php";
-    }
+    <?php require_once "../app/views/layout/headerSelector.php";
+    //show($data);
     ?>
 
     <main>
@@ -217,7 +194,8 @@
                         <h4>Advertisement Slot Availability</h4>
                         <?php if ($latestEndDate): ?>
                             <p>Our advertisement slots are currently booked until
-                                <strong><?= date('F j, Y', strtotime($latestEndDate)) ?></strong>.</p>
+                                <strong><?= date('F j, Y', strtotime($latestEndDate)) ?></strong>.
+                            </p>
                             <p>You can schedule your advertisement to start after this date for the best visibility.</p>
                         <?php else: ?>
                             <p>Good news! All advertisement slots are currently available. Book now for maximum exposure!</p>
@@ -284,7 +262,8 @@
                         <h4>Advertisement Slot Availability</h4>
                         <?php if ($latestEndDate): ?>
                             <p>Our advertisement slots are currently booked until
-                                <strong><?= date('F j, Y', strtotime($latestEndDate)) ?></strong>.</p>
+                                <strong><?= date('F j, Y', strtotime($latestEndDate)) ?></strong>.
+                            </p>
                             <p>You can schedule your advertisement to start after this date for the best visibility.</p>
                         <?php else: ?>
                             <p>Good news! All advertisement slots are currently available. Book now for maximum exposure!</p>

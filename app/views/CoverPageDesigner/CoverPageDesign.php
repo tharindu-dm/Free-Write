@@ -9,34 +9,10 @@
 </head>
 
 <body>
-    <header>
-        <?php
-        if (isset($_SESSION['user_type'])) {
-            $userType = $_SESSION['user_type'];
-        } else {
-            $userType = 'guest';
-        }
-        switch ($userType) {
-            case 'admin':
-            case 'mod':
-            case 'writer':
-            case 'covdes':
-            case 'wricov':
-            case 'reader':
-                require_once "../app/views/layout/header-user.php";
-                break;
-            case 'pub':
-                require_once "../app/views/layout/header-pub.php";
-                break;
-            case 'inst':
-                require_once "../app/views/layout/header-inst.php";
-                break;
-            default:
-                require_once "../app/views/layout/header.php";
-        }
-        //show($data);
-        ?>
-    </header>
+    <?php require_once "../app/views/layout/headerSelector.php";
+    //show($data);
+    ?>
+    
     <main>
         <!-- <aside class="side-nav">
             <ul>
@@ -44,7 +20,7 @@
                 <li><a href="/Free-Write/public/Designer/Competition">Competitions</a></li>
                 <li><a href="/Free-Write/public/Designer/New">Create New Design</a></li>
                 <li><a href="/Free-Write/public/Designer/MyOrders">My Orders</a></li> -->
-                <!--<li><a href="/Free-Write/public/User/profile">Profile</a></li>
+        <!--<li><a href="/Free-Write/public/User/profile">Profile</a></li>
             </ul>
         </aside> -->
 

@@ -53,8 +53,8 @@
                     ?>
                 </div>
 
-                <div class="navigation">
-                    <!--<button class="btn" id="prevChapter" <?= $prevChapterID ? "onclick=\"location.href='?chapterID=$prevChapterID'\"" : 'disabled'; ?>>
+                <!--<div class="navigation">
+                   <button class="btn" id="prevChapter" <?= $prevChapterID ? "onclick=\"location.href='?chapterID=$prevChapterID'\"" : 'disabled'; ?>>
                         Previous Chapter
                     </button>
                     <button class="btn" id="nextChapter" <?= $nextChapterID ? "onclick=\"location.href='?chapterID=$nextChapterID'\"" : 'disabled'; ?>>
@@ -65,11 +65,11 @@
                     </button>
                     <button class="btn" id="nextChapter">
                         Next Chapter
-                    </button>-->
-                </div>
+                    </button>
+                </div>-->
 
                 <!-- Comments Section -->
-                <?php if (splitURL()[0] == 'book'): ?>
+                <?php if (splitURL()[1] == 'Chapter'): ?>
                     <div class="comments">
                         <h3>Comments</h3>
                         <?php if (isset($_SESSION['user_id'])): ?>

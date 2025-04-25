@@ -165,11 +165,3 @@ main {
   color: #888;
 }
 
-/* Ad image */
-.ad-image {
-  margin-top: 2.5rem;
-  border-radius: 0.5rem;
-  object-fit: cover;
-  height: 80rem;
-  width: 10rem;
-}

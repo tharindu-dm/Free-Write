@@ -226,6 +226,7 @@ class WriterController extends Controller
     {
         $chapter = $_POST['chapter'] ?? '';
         $content = $_POST['quote'] ?? '';
+        
         if (strlen($content) >= 255) {
             echo "Quote must be less than 255 characters.";
             exit;

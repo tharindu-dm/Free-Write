@@ -120,7 +120,7 @@ class DesignerController extends Controller
 
             $title = $_POST['title'];
             $description = $_POST['description'] ?? '';
-            $price = $_POST['price'] ?? null;
+            //$price = $_POST['price'] ?? null;
             $designer_id = $_SESSION['user_id'];
             $uploadDate = date('Y-m-d H:i:s');
 
@@ -147,7 +147,7 @@ class DesignerController extends Controller
                 'artist' => $designer_id,
                 'name' => $title,
                 'description' => $description,
-                'price' => $price,
+                //'price' => $price,
                 'uploadDate' => $uploadDate,
                 'license' => $newFileName,
             ];
@@ -303,8 +303,10 @@ class DesignerController extends Controller
         }
     }
 
-    public function viewDesignForNonOwner($id)
+    public function viewDesignForNonOwner()
     {
+        $id = splitURL()[2];
+
         $coverModel = new CoverImage();
         $userDetailsModel = new UserDetails();
         $covDesignRatingModel = new CovDesignRating();
@@ -330,8 +332,9 @@ class DesignerController extends Controller
         }
     }
 
-    public function publicProfile($userID)
+    public function publicProfile()
     {
+        $userID = splitURL()[2];
         //create objects
         $userModel = new User();
         $userDetailsModel = new UserDetails();
@@ -422,7 +425,7 @@ class DesignerController extends Controller
                 'isPublic' => $_POST['collectionVisibility'],
             ];
 
-            $collectionDetails->createCollection($data);
+            $collectionDetails->insert($data);
 
             // Redirect to the dashboard after creation
             header('Location: /Free-Write/public/Designer/Dashboard');

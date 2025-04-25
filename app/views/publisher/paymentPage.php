@@ -218,30 +218,9 @@
 </head>
 
 <body>
-    <?php
-    if (isset($_SESSION['user_type'])) {
-        $userType = $_SESSION['user_type'];
-    } else {
-        $userType = 'guest';
-    }
-    switch ($userType) {
-        case 'admin':
-        case 'writer':
-        case 'covdes':
-        case 'wricov':
-        case 'reader':
-            require_once "../app/views/layout/header-user.php";
-            break;
-        case 'pub':
-            require_once "../app/views/layout/header-pub.php";
-            break;
-        default:
-            require_once "../app/views/layout/header.php";
-    }
-
+    <?php require_once "../app/views/layout/headerSelector.php";
     //show($data);
     ?>
-
 
     <main>
         <div class="container">
@@ -314,21 +293,23 @@
                         <input type="hidden" name="bookTitle" value="<?= htmlspecialchars($bookDetails['title']) ?>">
                         <input type="hidden" name="bookPublisherID"
                             value="<?= htmlspecialchars($bookDetails['publisherID']) ?>">
+
                         <button type="submit" id="payNowBtn">Pay Now</button>
+
                     </div>
                 </form>
             </div>
         </div>
     </main>
     <!-- Payment Success Modal -->
-    <div class="payment-success-modal" id="paymentSuccessModal">
+    <!-- <div class="payment-success-modal" id="paymentSuccessModal">
         <div class="modal-content">
             <div class="success-icon">✓</div>
             <h2 class="modal-title">Payment Successful!</h2>
             <p class="modal-message">Your order has been placed successfully. Thank you for your purchase!</p>
             <button class="modal-button" id="continueShoppingBtn">Discover More Literary Treasures</button>
         </div>
-    </div>
+    </div> -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const paymentForm = document.getElementById('payment-form');
@@ -354,9 +335,9 @@
             });
 
             // Handle continue shopping button click
-            continueShoppingBtn.addEventListener('click', function () {
-                window.location.href = '/Free-Write/public/publisher/';
-            });
+            // continueShoppingBtn.addEventListener('click', function () {
+            //     window.location.href = '/Free-Write/public/publisher/';
+            // });
         });
     </script>
 
