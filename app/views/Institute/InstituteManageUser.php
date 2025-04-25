@@ -20,20 +20,7 @@
         <!-- Main Content -->
         <main class="inst-main-content">
             <h1>Manage Users</h1>
-
-            <!-- Search Bar -->
-            <div class="inst-search-container">
-                <input type="text" id="searchInput" placeholder="Search by username, email or name">
-                <i class="inst-icon-search"></i>
-            </div>
-
-            <!-- User Type Tabs -->
-            <div class="inst-tabs">
-                <button class="inst-tab-btn active" data-type="all">All Users</button>
-                <button class="inst-tab-btn" data-type="writers">Writers</button>
-                <button class="inst-tab-btn" data-type="readers">Readers</button>
-            </div>
-
+            
             <!-- Users Table -->
             <div class="inst-table-container">
                 <table id="usersTable">

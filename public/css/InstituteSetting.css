@@ -1,69 +1,7 @@
-/* assets/css/settings.css */
 :root {
-    --primary-color: #F8B84E;
-    --secondary-color: #4A90E2;
+    --primary-color: #ffd700;
     --text-color: #333333;
-    --background-color: #FFFFFF;
-    --sidebar-background: #F5F5F5;
     --border-color: #E5E5E5;
-}
-
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    font-weight: bold;
-    font-size: 1.2rem;
-}
-
-.logo img {
-    height: 30px;
-    margin-right: 0.5rem;
-}
-
-nav a {
-    margin: 0 1rem;
-    text-decoration: none;
-    color: #333;
-}
-
-.search-bar input {
-    padding: 0.5rem;
-    border-radius: 20px;
-    border: 1px solid #ddd;
-    width: 200px;
-}
-
-.btn {
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.btn-primary {
-    background-color: #ffd54f;
-    color: #333;
-}
-
-.btn-secondary {
-    background-color: #e0e0e0;
-    color: #333;
-}
-
-.user-avatar img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
 }
 
 * {
@@ -75,6 +13,7 @@ nav a {
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     color: var(--text-color);
+    background: #f9f9f9;
     line-height: 1.6;
 }
 
@@ -83,111 +22,36 @@ body {
     min-height: 100vh;
 }
 
-/* Sidebar Styles */
-.sidebar {
-    width: 250px;
-    background: var(--sidebar-background);
-    padding: 2rem;
-    border-right: 1px solid var(--border-color);
-}
-
-.institution-info {
-    display: flex;
-    align-items: center;
-    margin-bottom: 2rem;
-}
-
-.institution-icon {
-    width: 48px;
-    height: 48px;
-    background: #E8E8E8;
-    border-radius: 8px;
-    margin-right: 1rem;
-}
-
-.nav-links {
-    list-style: none;
-}
-
-.nav-links li {
-    margin-bottom: 1rem;
-}
-
-.nav-links a {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: var(--text-color);
-    padding: 0.5rem;
-    border-radius: 6px;
-}
-
-.nav-links .active a {
-    background: rgba(74, 144, 226, 0.1);
-    color: var(--secondary-color);
-}
-
 /* Main Content Styles */
 .main-content {
     flex: 1;
     padding: 2rem;
-}
-
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-}
-
-.search-bar input {
-    padding: 0.5rem 1rem;
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    width: 300px;
-}
-
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.btn-publish {
-    background: var(--primary-color);
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    cursor: pointer;
+    background: #fff;
+    min-height: 100vh;
 }
 
 .settings-section {
-    max-width: 800px;
+    max-width: 600px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    padding: 2rem 2.5rem;
 }
 
-.tabs {
-    display: flex;
-    margin: 2rem 0;
-    border-bottom: 2px solid var(--border-color);
+.settings-section h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: #222;
 }
 
-.tab {
-    padding: 1rem 2rem;
-    border: none;
-    background: none;
-    cursor: pointer;
-    color: var(--text-color);
-}
-
-.tab.active {
-    color: var(--secondary-color);
-    border-bottom: 2px solid var(--secondary-color);
-    margin-bottom: -2px;
+.settings-section p {
+    color: #666;
+    margin-bottom: 2rem;
 }
 
 .settings-form {
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
 
 .form-group {
@@ -198,6 +62,7 @@ header {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 500;
+    color: #222;
 }
 
 .form-group input {
@@ -205,95 +70,60 @@ header {
     padding: 0.75rem;
     border: 1px solid var(--border-color);
     border-radius: 6px;
-}
-
-.button-group {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 2rem;
-}
-
-.btn-change-email,
-.btn-change-password {
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-.btn-change-email {
-    background: var(--primary-color);
-    color: white;
-    border: none;
-}
-
-.btn-change-password {
-    background: white;
-    border: 1px solid var(--border-color);
-}
-
-.profile-visibility {
-    display: flex;
-    margin: 2rem 0;
-    background: #F5F5F5;
-    border-radius: 6px;
-    padding: 0.25rem;
-}
-
-.btn-profile {
-    flex: 1;
-    padding: 0.75rem;
-    border: none;
-    background: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.btn-profile.active {
-    background: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+    background: #fafafa;
+    color: #222;
 }
 
 .form-actions {
     margin-top: 2rem;
     display: flex;
-    justify-content: space-between;
-}
-
-.save-cancel {
-    display: flex;
-    gap: 1rem;
+    justify-content: flex-end;
 }
 
 .btn-save {
     background: var(--primary-color);
-    color: white;
+    color: #222;
     border: none;
     padding: 0.75rem 1.5rem;
     border-radius: 6px;
     cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background 0.2s, color 0.2s;
 }
 
-.btn-cancel {
-    background: white;
-    border: 1px solid var(--border-color);
-    padding: 0.75rem 1.5rem;
-    border-radius: 6px;
-    cursor: pointer;
+.btn-save:hover {
+    background: #222;
+    color: var(--primary-color);
 }
 
-footer {
-    padding: 2rem;
-    text-align: center;
-    border-top: 1px solid var(--border-color);
+.alert-success {
+    background: #d4edda;
+    color: #155724;
+    padding: 1rem;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    border: 1px solid #c3e6cb;
+}
+.alert-danger {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 1rem;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    border: 1px solid #f5c6cb;
 }
 
-footer nav {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-}
-
-footer a {
-    color: var(--text-color);
-    text-decoration: none;
+/* Responsive Design */
+@media (max-width: 900px) {
+    .container {
+        flex-direction: column;
+    }
+    .main-content {
+        padding: 1rem;
+    }
+    .settings-section {
+        padding: 1.5rem 1rem;
+    }
 }
