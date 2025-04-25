@@ -40,9 +40,15 @@
 
             <div class="button-container">
     <button type="button" class="edit-btn cancel-btn" onclick="window.location.href='/Free-Write/public/Writer/Submissions/<?= htmlspecialchars($submission['competitionID']); ?>'">Back</button>
+    <?php if($submission['status'] === 'selected' && $competition['status'] === 'ended') ?>
+        <button class="delete-btn" > Selected </button>
+    <?php elseif($competition['status'] === 'ended') ?>
+        <button class="delete-btn" > Rejected </button>
+    <?php else: ?>
     <div class="right-buttons">
       <button class="edit-btn" onclick="window.location.href='/Free-Write/public/Writer/Win/<?= htmlspecialchars($submission['submissionID']); ?>'">Choose As Winner</button>
     </div>
+    <?php endif; ?>
     </main>
 
     <!-- Footer -->

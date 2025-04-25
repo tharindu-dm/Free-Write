@@ -433,8 +433,9 @@ class WriterController extends Controller
         $startDate = date('Y-m-d');
         $endDate = date('Y-m-d', strtotime('+2 months'));
         $type = "covdes";
+        $status = "active";
 
-        if ($competition->insert(['title' => $title, 'description' => $description, 'first_prize' => $price, 'publisherID' => $author, 'start_date' => $startDate, 'end_date' => $endDate, 'type' => $type])) {
+        if ($competition->insert(['title' => $title, 'description' => $description, 'first_prize' => $price, 'publisherID' => $author, 'start_date' => $startDate, 'end_date' => $endDate, 'type' => $type, 'status' => $status])) {
             header('location: /Free-Write/public/Writer/Competitions');
             exit;
         } else {
@@ -562,8 +563,12 @@ class WriterController extends Controller
             $submissionID = $URL[2];
 
         $submission = new DesignSubmissions();
+        $competition = new Competition();
+        $competitionID = $submission['competitionID'];
 
-        $submission->update($submissionID, ['status' => 'Selected'], 'submissionID');
+
+        $submission->update($submissionID, ['status' => 'selected'], 'submissionID');
+        $competition->update($competitionID, ['status' => 'ended'], 'competitionID');
 
 
         header('location: /Free-Write/public/Writer/');
