@@ -23,9 +23,11 @@
                     <p>Quantity:</p>
                     <p>&nbsp;<?= htmlspecialchars($data['orderInfo']['Quantity']) ?></p>
                     <p>Unit Price:</p>
-                    <p>LKR.&nbsp;<?= htmlspecialchars($data['orderInfo']['Price']) ?></p>
+                    <p>LKR.&nbsp;<?= number_format((float) $data['orderInfo']['Price'], 2) ?></p>
+
                     <p>Total Price:</p>
-                    <p>LKR.&nbsp;<?= htmlspecialchars($data['orderInfo']['Total']) ?></p>
+                    <p>LKR.&nbsp;<?= number_format((float) $data['orderInfo']['Total'], 2) ?></p>
+
                 </div>
                 <p style="color: #666; font-style: italic;">
                     Secure payment for the best user experience.

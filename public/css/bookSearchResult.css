@@ -8,6 +8,7 @@
 
 main {
   width: 100%;
+  max-height: 105vh;
 }
 
 #title {
@@ -118,7 +119,7 @@ main {
 
 /*Result section*/
 .searchResult-grid {
-  max-height: 100vh;
+  max-height: 100%;
   padding: 0.2rem 1rem 1rem 0.5rem;
   margin: 0.2rem;
   display: flex;
@@ -146,7 +147,7 @@ main {
 
 .book-card {
   display: flex;
-  background: white;
+  background: rgba(255, 215, 0, 0.05);
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -154,6 +155,7 @@ main {
 }
 
 .book-card:hover {
+  background-color: #ffd700;
   transform: translateY(-1rem);
   box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.5);
 }

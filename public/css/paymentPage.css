@@ -1,17 +1,19 @@
 main {
   display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  height: 100vh;
-  padding: 2rem 3rem 2rem 3rem;
+  height: 78vh;
+  padding: 2rem 15rem 2rem 15rem;
 }
 
 .container {
   display: flex;
   width: 100%;
   height: 80%;
-  background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 215, 0, 0.05);
+  border: #ffd700 solid 1px;
+  border-radius: 1rem;
   overflow: hidden;
 }
 
@@ -94,7 +96,7 @@ select:focus {
   gap: 10px;
 }
 
-button {
+.payment-details button {
   background-color: #ffd700;
   color: #333;
   border: none;
@@ -105,7 +107,7 @@ button {
   transition: all 0.3s ease;
 }
 
-button:hover {
+.payment-details button:hover {
   background-color: #ffcc00;
   transform: translateY(-2px);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);

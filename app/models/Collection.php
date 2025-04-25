@@ -8,15 +8,30 @@ class Collection
 
     public function getUserCollections($uid)
     {
-        $query = "SELECT c.[collectionID], c.[title],
-       c.[isPublic],
-       (SELECT COUNT(*)
-        FROM [CollectionBook] bc
-        WHERE bc.collection = c.collectionID) AS BookCount
-FROM [dbo].[Collection] c WHERE [user] = $uid;";
+        $query = "SELECT 
+                    c.[collectionID], 
+                    c.[title],
+                    c.[isPublic],
+                    (
+                    SELECT COUNT(*) 
+                    FROM [CollectionBook] bc 
+                    WHERE bc.collection = c.collectionID
+                    ) AS BookCount,
+                    (
+                    SELECT TOP 1 ci.[name]
+                    FROM [CollectionBook] cb
+                    INNER JOIN [Book] b ON cb.[book] = b.[bookID]
+                    INNER JOIN [CoverImage] ci ON b.[coverImage] = ci.[covID]
+                    WHERE cb.collection = c.collectionID
+                    ORDER BY cb.[collection] 
+                    ) AS ThumbnailImageName
+                    FROM [dbo].[Collection] c 
+                    WHERE c.[user] = $uid;";
 
         return $this->query($query);
     }
+
+
 
     public function getCollectionsAndBooks($uid, $book)
     {

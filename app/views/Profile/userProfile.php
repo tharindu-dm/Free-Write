@@ -128,7 +128,7 @@
                         </button>
                     <?php endif; ?>
 
-                   
+
 
                     <?php if ($userType != 'pub' && $userType != 'inst' && $userType != 'courier'): ?>
                         <button class="user-nav-button" data-view="spinoffs">
@@ -317,19 +317,22 @@
 
                         <?php if ($genreFrequency != null): ?>
                             <!-- My Book Genre Section -->
+                             <div class="genre-section-container">
+                                <h3>My Favourite Genres</h3>
+                                
                             <div class="genre-section">
                                 <!-- Pie Chart Section -->
                                 <div class="chart-container">
                                     <canvas id="genrePieChart"></canvas>
-                                </div>
 
+                                </div>
                                 <!-- Genre List Section -->
                                 <div class="genre-list-container">
                                     <ul id="genreList">
                                         <!-- Genre list will be dynamically populated -->
                                     </ul>
                                 </div>
-                            </div>
+                            </div></div>
 
                             <!-- Include Chart.js -->
                             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -415,7 +418,7 @@
                                         href="/Free-Write/public/Collection/viewCollection/<?= htmlspecialchars($collection['collectionID']); ?>">
 
                                         <div class="collection-item">
-                                            <img src="/Free-Write/public/images/collectionThumb.jpeg"
+                                            <img src="/Free-Write/app/images/coverDesign/<?= $collection['ThumbnailImageName']; ?>"
                                                 alt="Collection Thumbnail">
                                             <div class="collection-details">
                                                 <span><?= htmlspecialchars($collection['title']) ?></span>
