@@ -135,7 +135,6 @@ class InstituteController extends Controller
         echo "<script>alert('now in signup funct')</script>";
         $name = $_POST['institutionName'];
         $username = $_POST['username'] . "@inst.fw";
-        $username = $_POST['username'] . "@inst.fw";
         $password = $_POST['password'];
         $subStartDate = date("Y-m-d H:i:s");
         //$subEndDate = nope
@@ -145,15 +144,10 @@ class InstituteController extends Controller
 
         //add a new institution with its own login and pw
         $institution_table->insert(['name' => $name, 'username' => $username, 'password' => $password, 'subStartDate' => $subStartDate, 'subPlan' => 4, 'creator' => $creator]);
-        //$institution_table->insert(['name' => $name, 'username' => $username, 'password' => $password, 'subStartDate' => $subStartDate, 'subPlan' => 4, 'creator' => $creator]);
+        
+        //$user = new User();//updating the user as a creator of an institution
+        //$user->update($creator, ['userType' => 'inst'], 'userID');
 
-        $user = new User();//updating the user as a creator of an institution
-        $user->update($creator, ['userType' => 'inst'], 'userID');
-        $user->update($creator, ['userType' => 'inst'], 'userID');
-
-        //end session
-        session_destroy();
-        header('Location: /Free-Write/public/Login');
         //end session
         session_destroy();
         header('Location: /Free-Write/public/Login');

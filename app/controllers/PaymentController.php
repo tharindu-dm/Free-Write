@@ -139,20 +139,41 @@ class PaymentController extends Controller
 
         switch ($type) {
             case 'reader':
-                $orderDetails = ['Item' => "Premium Reader Account", 'Quantity' => 1, 'Price' => 899, 'Total' => 899];
-                $this->view('paymentPage', ['type' => "premium_user", 'orderInfo' => $orderDetails]);
+                $orderDetails = [
+                    'Item' => "Premium Reader Account",
+                    'subID' => 2,
+                    'Quantity' => 1,
+                    'Price' => 899,
+                    'Total' => 899
+                ];
 
+                $this->view('paymentPage', [
+                    'type' => "premium_user",
+                    'orderInfo' => $orderDetails
+                ]);
                 break;
+
             case 'writer':
-                $orderDetails = ['Item' => "Premium Writer Account", 'Quantity' => 1, 'Price' => 1199, 'Total' => 1199];
-                $this->view('paymentPage', ['type' => "premium_user", 'orderInfo' => $orderDetails]);
+                $orderDetails = [
+                    'Item' => "Premium Writer Account",
+                    'subID' => 3,
+                    'Quantity' => 1,
+                    'Price' => 1199,
+                    'Total' => 1199
+                ];
+
+                $this->view('paymentPage', [
+                    'type' => "premium_user",
+                    'orderInfo' => $orderDetails
+                ]);
                 break;
+
             default:
                 header('location:/Free-Write/public/Error404');
         }
     }
 
-    private function makePremium()
+    private function makePremium()//enabling the isPremium
     {
         if (!$this->loggedUserExists())
             header('location:/Free-Write/public/Login');
@@ -165,15 +186,21 @@ class PaymentController extends Controller
         header('location:/Free-Write/public/User/Profile');
     }
 
-    public function buy_premium_user()
+    public function buy_premium_user()//subscribing to the tier
     {
         if (!$this->loggedUserExists())
             header('location:/Free-Write/public/Login');
 
         $userID = $_SESSION['user_id'];
-        $user = new User();
+        $subID = $_POST['subID'] ?? 1;
+        $user = new UserSubscription();
 
-        $user->update($userID, ['isPremium' => 1], 'userID');
+        $user->insert([
+            'user' => $userID,
+            'subscription' => $subID,
+            'subStartDate' => date('Y-m-d H:i:s')
+        ]);
+        
         $this->makePremium();
     }
 

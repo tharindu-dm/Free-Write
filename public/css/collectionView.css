@@ -1,8 +1,10 @@
 main {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 2rem auto;
   padding: 2rem;
   height: 100vh;
+  border: #ffd700 solid 1px;
+  border-radius: 12px;
 }
 
 .collection-header {

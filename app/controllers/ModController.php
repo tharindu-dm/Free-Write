@@ -687,6 +687,11 @@ class ModController extends Controller
 
         $startDate = $_POST['startDate'] ?? null;
         $endDate = $_POST['endDate'] ?? null;
+        $today = date('Y-m-d');
+
+        if ($endDate !== null && strtotime($endDate) > time()) {
+            $endDate = $today;
+        }
 
         //initializing the models
         $user = new User();
@@ -701,6 +706,8 @@ class ModController extends Controller
         $spinoff = new Spinoff();
         $coverImage = new CoverImage();
         $competition = new Competition();
+        
+        $UserSubscription = new UserSubscription();
 
 
         //getting the data
@@ -743,6 +750,9 @@ class ModController extends Controller
             $totalChapterSales += $purchase['price'];
         }
 
+        //subsctipyion sales:
+        $total_subs = $UserSubscription->getMonthlySubscriptionSummary($startDate, $endDate);
+
         // Count content creation items
         $booksCreated = count($INRANGE_book);
         $spinoffsCreated = count($INRANGE_spinoff);
@@ -755,7 +765,7 @@ class ModController extends Controller
         $data = [
             'startDate' => $startDate,
             'endDate' => $endDate,
-            'today' => date('Y-m-d'),
+            'today' => $today,
             'userTypeCounts' => $userTypeCounts,
             'feedbackCount' => $feedbackCount,
             'totalReports' => $totalReports,
@@ -763,6 +773,7 @@ class ModController extends Controller
             'escalatedReports' => $escalatedReports,
             'totalBookSales' => $totalBookSales,
             'totalChapterSales' => $totalChapterSales,
+            'totalSubs' => $total_subs,
             'booksCreated' => $booksCreated,
             'spinoffsCreated' => $spinoffsCreated,
             'coversCreated' => $coversCreated,
