@@ -117,3 +117,11 @@ document.addEventListener("DOMContentLoaded", () => {
     overlay_delete.style.display = "none";
   });
 });
+
+document.getElementById('addInstitutionForm').addEventListener('submit', function(e) {
+  const password = document.getElementById('password').value;
+  if (password.length < 8 || !/[A-Z]/.test(password) || !/[0-9]/.test(password)) {
+      e.preventDefault();
+      alert("Password must be at least 8 characters long, contain an uppercase letter, and a number.");
+  }
+});

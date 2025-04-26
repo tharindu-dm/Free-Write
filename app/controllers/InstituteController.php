@@ -42,17 +42,39 @@ class InstituteController extends Controller
             $institute_table = new Institution();
             $userID = $_SESSION['user_id'];
 
-            $insDetails = $institute_table->first(['creator' => $userID]);
-
-
             // Find the institution where the creator is the current user
             $instDetails = $institute_table->first(['creator' => $userID]);
             if ($instDetails) {
                 $id = $instDetails['institutionID'];
+
+                //check exsisting name
+                // $existingInst = $institute_table->first(['creator' =>  $userID]);
+                // if ($existingInst && $existingInst['institutionID'] != $id) {
+                //     header('Location: /Free-Write/public/Institute/Setting?error=Username+already+exists');
+                //     exit;
+                // }
+
+                // Check if username ends with @inst.fw
+                if (!str_ends_with($_POST['username'], '@inst.fw')) {
+                    header('Location: /Free-Write/public/Institute/Setting?error=Username+must+end+with+@inst.fw');
+                    exit;
+                }
+
+                // Check length of name and username
+                if (strlen($_POST['name']) > 25) {
+                    header('Location: /Free-Write/public/Institute/Setting?error=Institution+name+too+long');
+                    exit;
+                }
+                if (strlen($_POST['username']) > 25) {
+                    header('Location: /Free-Write/public/Institute/Setting?error=Username+too+long');
+                    exit;
+                }
+
                 $data = [
                     'name' => $_POST['name'],
                     'username' => $_POST['username'],
                 ];
+
                 $result = $institute_table->updateInstitution($id, $data);
                 if ($result) {
                     header('Location: /Free-Write/public/Institute/Setting?success=1');
@@ -145,6 +167,7 @@ class InstituteController extends Controller
 
     public function addNewUser()
     {
+        
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user_table = new User();
             $userDetails_table = new UserDetails();
