@@ -7,65 +7,91 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sidebar</title>
     <style>
-        /* Sidebar Styles */
-        .side-nav {
-            width: 250px;
-            background-color: var(--light-gray); /* Light gray */
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            border-right: 2px solid var(--primary-color); /* Primary gold color */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            height: 100vh; /* Full height of the viewport */
-            position: fixed; /* Fixed position for the sidebar */
-            top: 0;
-            left: 0;
-        }
+/* Sidebar Navigation */
+.side-nav {
+    width: 250px;
+    background-color: #ffffff;
+    padding: 6rem 1.5rem 2rem; 
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+    position: fixed;
+    top: 75px;
+    left: 0;
+    bottom: 60px;
+    height: calc(100vh - 215px);
+    border-right: 1px solid #eee;
+    z-index: 50; /* Reduced z-index to stay below header */
+    overflow-y: auto;
+}
 
-        .side-nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
+.side-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
 
-        .side-nav ul li {
-            margin-bottom: 15px;
-        }
+.side-nav ul li {
+    margin-bottom: 1rem;
+}
 
-        .side-nav ul li a {
-            text-decoration: none;
-            color: var(--black); /* Black */
-            font-weight: bold;
-            display: block;
-            padding: 10px 15px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
+.side-nav ul li a {
+    text-decoration: none;
+    color: #666;
+    font-size: 1rem;
+    display: block;
+    padding: 1rem 1.2rem;
+    border-radius: 2rem;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    background-color: transparent;
+}
 
-        .side-nav ul li a:hover,
-        .side-nav ul li a.active {
-            background-color: var(--primary-color); /* Primary gold color */
-            color: var(--black); /* Black text */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
+.side-nav ul li a:hover {
+    background-color: rgba(255, 215, 0, 0.1);
+    color: #000;
+    transform: translateX(5px);
+}
 
-        .side-nav ul li a.active {
-            font-weight: bold;
-        }
+.side-nav ul li a.active {
+    background-color: #ffd700;
+    color: #000;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(255, 215, 0, 0.2);
+}
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .side-nav {
-                width: 200px;
-                padding: 20px;
-            }
+/* Responsive Design */
+@media (max-width: 768px) {
+    .side-nav {
+        width: 100%;
+        height: auto;
+        position: relative;
+        bottom: auto;
+        padding: 1rem;
+        margin: 1rem 0;
+        min-height: auto;
+    }
 
-            .side-nav ul li a {
-                font-size: 0.9rem;
-                padding: 8px 12px;
-            }
-        }
-    </style>
+    .side-nav ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .side-nav ul li {
+        margin: 0;
+        flex: 1 1 auto;
+    }
+
+    .side-nav ul li a {
+        text-align: center;
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .side-nav ul li a:hover {
+        transform: translateY(-2px);
+    }
+}
+</style>
 </head>
 
 <body>
@@ -74,7 +100,6 @@
             <li><a href="/Free-Write/public/Designer/Dashboard" class="active">Dashboard</a></li>
             <li><a href="/Free-Write/public/Designer/Competition">Competitions</a></li>
             <li><a href="/Free-Write/public/Designer/New">Create New Design</a></li>
-            <!-- <li><a href="/Free-Write/public/Designer/MyOrders">My Orders</a></li> -->
             <li><a href="/Free-Write/public/User/profile">Profile</a></li>
         </ul>
     </aside>

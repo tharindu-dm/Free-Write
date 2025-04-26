@@ -80,7 +80,18 @@ class DesignerController extends Controller
 
     public function Competition()
     {
-        $this->view('CoverPageDesigner/Competition');
+        $designerId = $_SESSION['user_id'];
+
+        $userDetailsModel = new UserDetails();
+        $userDetails = $userDetailsModel->getDetails($designerId);
+
+        $submissionModel = new DesignSubmission();
+        $joinedCompetitions = $submissionModel->getJoinedCompetitions($designerId);
+
+        $this->view('CoverPageDesigner/Competition', [
+            'userDetails' => $userDetails,
+            'joinedCompetitions' => $joinedCompetitions ?? []
+        ]);
     }
 
     public function showCollectionForUsers($collectionID)
@@ -120,7 +131,6 @@ class DesignerController extends Controller
 
             $title = $_POST['title'];
             $description = $_POST['description'] ?? '';
-            //$price = $_POST['price'] ?? null;
             $designer_id = $_SESSION['user_id'];
             $uploadDate = date('Y-m-d H:i:s');
 
@@ -147,9 +157,8 @@ class DesignerController extends Controller
                 'artist' => $designer_id,
                 'name' => $title,
                 'description' => $description,
-                //'price' => $price,
                 'uploadDate' => $uploadDate,
-                'license' => $newFileName,
+                'license' => $newFileName
             ];
 
             if ($coverModel->insert($data)) {
@@ -174,8 +183,9 @@ class DesignerController extends Controller
     }
 
 
-    public function edit($id)
+    public function edit()
     {
+        $id = splitURL()[2];
         $coverModel = new CoverImage();
 
         // Fetch the current design details
@@ -197,8 +207,7 @@ class DesignerController extends Controller
             // Handle form submission to update the design
             $data = [
                 'name' => $_POST['title'],
-                'description' => $_POST['description'],
-                'price' => $_POST['price']
+                'description' => $_POST['description']
             ];
 
             // Handle optional image upload
@@ -235,10 +244,9 @@ class DesignerController extends Controller
         $this->view('CoverPageDesigner/EditDesign', ['design' => $design]);
     }
 
-    public function viewDesign($id)
+    public function viewDesign()
     {
-        //var_dump($id);
-
+        $id = splitURL()[2];
         $coverModel = new CoverImage();
 
         // Fetch the design details by ID
@@ -252,8 +260,9 @@ class DesignerController extends Controller
         }
     }
 
-    public function delete($id)
+    public function delete()
     {
+        $id = splitURL()[2];
         $coverModel = new CoverImage();
 
         // Fetch the design details to get the file name
