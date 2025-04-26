@@ -14,16 +14,6 @@
     ?>
     
     <main>
-        <!-- <aside class="side-nav">
-            <ul>
-                <li><a href="/Free-Write/public/Designer/Dashboard" class="active">Dashboard</a></li>
-                <li><a href="/Free-Write/public/Designer/Competition">Competitions</a></li>
-                <li><a href="/Free-Write/public/Designer/New">Create New Design</a></li>
-                <li><a href="/Free-Write/public/Designer/MyOrders">My Orders</a></li> -->
-        <!--<li><a href="/Free-Write/public/User/profile">Profile</a></li>
-            </ul>
-        </aside> -->
-
         <div class="product-container">
             <div class="product-image">
                 <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($design['license']) ?>"

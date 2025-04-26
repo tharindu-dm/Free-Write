@@ -31,13 +31,6 @@
                     rows="4"><?= htmlspecialchars($design['description'] ?? '') ?></textarea>
             </div>
 
-            <!-- Optional: Price
-            <div class="form-group">
-                <label for="price">Price (optional)</label>
-                <input type="number" id="price" name="price" min="0" step="0.01"
-                    value="<?//= htmlspecialchars($design['price'] ?? '') ?>">
-            </div> -->
-
             <!-- Cover Image File Input -->
             <div class="form-group">
                 <label for="coverImage">Cover Image <span
