@@ -262,6 +262,10 @@ class DesignerController extends Controller
 
     public function delete()
     {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') { 
+            die("Invalid request method"); 
+        }
+
         $id = splitURL()[2];
         $coverModel = new CoverImage();
 
@@ -397,6 +401,10 @@ class DesignerController extends Controller
 
     public function follow()
     {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') { 
+            die("Invalid request method"); 
+        }
+
         $userID = $_SESSION['user_id'];
         $designerID = $_POST['designerID'];
 
@@ -409,6 +417,10 @@ class DesignerController extends Controller
 
     public function unfollow()
     {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') { 
+            die("Invalid request method"); 
+        }
+        
         $userID = $_SESSION['user_id'];
         $designerID = $_POST['designerID'];
 
