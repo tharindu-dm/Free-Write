@@ -8,7 +8,8 @@ main {
 
 .feedback-container {
   border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 215, 0, 0.05);
+  border: #ffd700 solid 1px;
   padding: 2rem;
 }
 

@@ -169,7 +169,7 @@
             <h1>Publishers</h1>
             <div class="publisher-search">
                 <input type="text" placeholder="Search publisher...">
-                <?php if ($userType !== 'pub'): ?>
+                <?php if ($userType === 'reader'): ?>
                     <a href="/Free-Write/public/Publisher/regPage"><button>New Publisher</button></a>
                 <?php endif; ?>
             </div>

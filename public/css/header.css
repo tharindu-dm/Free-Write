@@ -42,6 +42,13 @@ a {
   justify-content: space-between;
 }
 
+.nav-button-container a:hover{
+  transition: ease-in 50ms;
+  color: #ffd700;
+  font-weight: bolder;
+  text-decoration: underline #ffd700 1px;
+}
+
 .nav-button {
   display: flex;
   align-items: center;

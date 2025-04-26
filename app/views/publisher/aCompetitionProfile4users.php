@@ -147,32 +147,41 @@
         </div>
 
         <?php if (isset($_SESSION['user_id'])): ?>
-            <?php if($details['type']=='writer' ) ?>
-            <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] != 'writer' && $_SESSION['user_type'] != 'covdes' && $_SESSION['user_type'] != 'wricov'): ?>
-                <div class="premium-message">
-                    <p>Only writers can participate in competitions</p>
-                </div>
-            <?php elseif ($details['type']=='covdes'): ?>
-            <div class="premium-message">
+    
+    <?php if (
+        isset($_SESSION['user_type']) &&
+        $_SESSION['user_type'] != 'writer' &&
+        $details['type'] == 'writer' &&
+        $_SESSION['user_type'] != 'wricov'  ): ?>
+        <div class="premium-message">
+            <p>Only writers can participate in competitions</p>
+        </div>
+
+    <?php elseif ($details['type'] == 'covdes' && $_SESSION['user_type'] != 'covdes' ): ?>
+        
+        <div class="premium-message">
             <p>Only Cover designers can participate in competitions</p>
         </div>
-        <?php endif; ?> 
-            <?php elseif (isset($competitionEntries) && $competitionEntries): ?>
-                <div class="premium-message">
-                    <p>You have already submitted an entry for this competition</p>
-                </div>
-            <?php elseif (strtotime($data['details']['start_date']) > time()): ?>
-                <div class="premium-message">
-                    <p>You can enter into the competition from <?= date('F j, Y', strtotime($data['details']['start_date'])) ?>
-                    </p>
-                </div>
-            <?php else: ?>
-                <a href="/Free-Write/public/Competition/Enter/<?= htmlspecialchars($data['details']['competitionID']) ?>"
-                    class="enter-btn">
-                    <button>Enter Competition</button>
-                </a>
-            
-            <?php endif; ?>
+
+    <?php elseif (isset($competitionEntries) && $competitionEntries): ?>
+        <div class="premium-message">
+            <p>You have already submitted an entry for this competition</p>
+        </div>
+
+    <?php elseif (strtotime($data['details']['start_date']) > time()): ?>
+        <div class="premium-message">
+            <p>You can enter into the competition from <?= date('F j, Y', strtotime($data['details']['start_date'])) ?></p>
+        </div>
+
+    <?php else: ?>
+        <a href="/Free-Write/public/Competition/Enter/<?= htmlspecialchars($data['details']['competitionID']) ?>"
+           class="enter-btn">
+            <button>Enter Competition</button>
+        </a>
+    <?php endif; ?>
+
+<?php endif; ?>
+
         
     </div>
 
@@ -202,17 +211,18 @@
             <div class="prize-list">
                 <div class="prize-item">
                     <h4>🥇 First Place</h4>
-                    <p><?= htmlspecialchars($details['first_prize'] ?? 0) ?></p>
+                    <p>LKR <?= htmlspecialchars($details['first_prize'] ?? 0) ?></p>
                 </div>
-               
+               <?php if ($details['type'] == 'writer'): ?>
                 <div class="prize-item">
                     <h4>🥈 Second Place</h4>
-                    <p><?= htmlspecialchars($details['second_prize'] ?? 0) ?></p>
+                    <p>LKR <?= htmlspecialchars($details['second_prize'] ?? 0) ?></p>
                 </div>
                 <div class="prize-item">
                     <h4>🥉 Third Place</h4>
-                    <p><?= htmlspecialchars($details['third_prize'] ?? 0) ?></p>
+                    <p>LKR <?= htmlspecialchars($details['third_prize'] ?? 0) ?></p>
                 </div>
+                <?php endif; ?> 
             </div>
         </div>
 

@@ -288,10 +288,10 @@
                                 <?= htmlspecialchars($message['timestamp']); ?>
 
                                 <?php if ($message['sender_type'] == 'publisher'): ?>
-                                    <div class="message-actions">
+                                    <!-- <div class="message-actions">
                                         <button class="edit-btn" data-message-index="<?= $index; ?>">Edit</button>
                                         <button onclick="confirmDelete(<?= $index; ?>)">Delete</button>
-                                    </div>
+                                    </div> -->
                                 <?php endif; ?>
                             </div>
                             <div class="message-content" id="message-content-<?= $index; ?>">

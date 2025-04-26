@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Free-Write</title>
-    <link rel="stylesheet" href="/Free-Write/public/css/feedback.css">
+    <link rel="stylesheet" href="/Free-Write/public/css/reportBookChap.css">
 </head>
 
 <body>

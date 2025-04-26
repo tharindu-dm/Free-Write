@@ -252,19 +252,22 @@
 
                 <div id="book-preview-modal" class="modal">
                     <div class="modal-content">
-                        <span class="close-modal">×</span>
+                        <span class="close-modal">x</span>
                         <h3>Your Books</h3>
                         <div class="book-preview-grid">
                             <?php if (!empty($data['books'])): ?>
                                 <?php foreach ($data['books'] as $book): ?>
                                     <div class="book-preview-item">
-                                        <img src="<?= !empty($book['coverImage']) ? '/Free-Write/public/uploads/covers/' . htmlspecialchars($book['coverImage']) : '/Free-Write/public/images/collectionThumb.jpeg' ?>"
-                                            alt="Book cover">
+
+                                        <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                                            alt="Cover Image of <?= htmlspecialchars($book['title']); ?>">
+
                                         <div><?= htmlspecialchars($book['title']) ?></div>
                                         <button type="button" class="select-book-btn"
                                             data-id="<?= htmlspecialchars($book['bookID']) ?>"
                                             data-title="<?= htmlspecialchars($book['title']) ?>">Select</button>
                                     </div>
+
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 <p>No books available.</p>
@@ -328,8 +331,12 @@
             }
 
             if (isValid) {
-                form.submit();
+                const confirmSubmit = confirm("Only you can submit once.If you submitted,you cant review or delete your submission.Are you sure you want to submit your entry?");
+                if (confirmSubmit) {
+                    form.submit();
+                }
             }
+
         });
 
         // Cancel button
