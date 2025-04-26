@@ -210,9 +210,10 @@ class DesignerCompetitionController extends Controller
 
     }
 
-    public function editSubmission($submissionID)
+    public function editSubmission()
     {
-        error_log("Received submissionID: " . $submissionID);
+        $URL = splitURL();
+        $submissionID = $URL[2] ?? null;
 
         $submissionModel = new DesignSubmissions();
 
@@ -229,8 +230,11 @@ class DesignerCompetitionController extends Controller
         ]);
     }
 
-    public function updateSubmission($submissionID)
+    public function updateSubmission()
     {
+        $URL = splitURL();
+        $submissionID = $URL[2] ?? null;
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $submissionModel = new DesignSubmissions();
 

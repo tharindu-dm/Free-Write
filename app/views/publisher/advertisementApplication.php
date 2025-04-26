@@ -215,9 +215,9 @@
                     <label>Advertisement Type</label>
                     <div class="ad-type-container">
                         <div class="ad-type-option" onclick="selectAdType('sidebar')">
-                            <h3>Writer Page Ad</h3>
+                            <h3>Browse Page Ad</h3>
                             <p>Displayed on page sides</p>
-                            <p>300×250 pixels</p>
+                            <p>160×1280 pixels</p>
                             <div class="price">$149/month</div>
                             <input type="radio" name="ad_type" value="sidebar" id="sidebar_type" style="display: none;"
                                 required />

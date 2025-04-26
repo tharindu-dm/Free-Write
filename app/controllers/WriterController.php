@@ -81,6 +81,10 @@ class WriterController extends Controller
         $book = new Book();
         $MyBooks = $book->getBookByAuthor($author);
 
+        $mostViewed = $book->getMostViewedBooks($author);
+        $latest = $book->getLatestBooks($author);
+
+
         // Fetch genre for each book
         $bookGenre = new BookGenre();
         foreach ($MyBooks as $key => $bookItem) {
@@ -93,7 +97,9 @@ class WriterController extends Controller
             'MyBooks' => $MyBooks,
             'userDetails' => $userDetails,
             'followers' => $followers,
-            'views' => $views
+            'views' => $views,
+            'MostViewed'=> $mostViewed,
+            'Latest'=> $latest
         ]);
 
     }
@@ -537,7 +543,7 @@ class WriterController extends Controller
         $submission = new DesignSubmissions();
         $submissionDetails = $submission->getSubmissionByCompetitionID($competitionID);
 
-        $this->view('writer/submissions', ['submissions' => $submissionDetails]);
+        $this->view('writer/submissions', ['submissions' => $submissionDetails, 'cID'=> $competitionID]);
     }
 
     public function viewSubmission($submissionID = 0)
@@ -923,44 +929,6 @@ class WriterController extends Controller
         }
     }
 
-    //quotations---------------------------------------------------------------------------
-    public function Quotations()
-    {
-        $author = $_SESSION['user_id'];
-        $userDetailsTable = new UserDetails();
-        $userDetails = $userDetailsTable->first(['user' => $author]);
-
-        $Followers = new Follow();
-        $followers = $Followers->getFollowCount($author);
-
-        $view = new Book();
-        $totViewsArray = $view->getAuthorViews($author);
-        $views = $totViewsArray[0]['totalViews'] ?? 0;
-
-        $quotation = new Quotation();
-        $quotations = $quotation->getQuotaByAuthor($author);
-
-        $this->view('writer/quotations', ['userDetails' => $userDetails, 'followers' => $followers, 'views' => $views, 'quotas' => $quotations]);
-    }
-
-    public function ViewQuota()
-    {
-        $URL = splitURL();
-        if ($URL[2] < 1)
-            $this->view('error');
-
-        $qID = $URL[2];
-
-        $quotation = new Quotation();
-        $quotationDetails = $quotation->getQuotaByID($qID);
-        $this->view('writer/viewQuota', ['quota' => $quotationDetails]);
-    }
-
-    public function RequestPublisher()
-    {
-        $this->view('writer/publishers');
-
-    }
 
 
     public function Insights()

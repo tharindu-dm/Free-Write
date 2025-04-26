@@ -9,22 +9,25 @@ class BookGenre
     public function getGenreFrequency($userID)
     {
         $query = "SELECT 
-                    g.[name] AS genre_name,
-
-                    CAST(COUNT(bg.[genre]) AS FLOAT) / (SELECT COUNT(*) FROM [dbo].[BookList] bl WHERE bl.[user] = $userID) * 100 AS percentage
-
-                    FROM [dbo].[BookGenre] bg
-                    INNER JOIN [dbo].[Genre] g ON bg.[genre] = g.[genreID]
-                    WHERE bg.[book] IN (
-                    SELECT bl.[book]
-                    FROM [dbo].[BookList] bl
-                    WHERE bl.[user] = $userID
-                    )
-                    GROUP BY g.[name]
-                    ORDER BY percentage DESC;";
+            g.[name] AS genre_name,
+            CAST(COUNT(bg.[genre]) AS FLOAT) / 
+            (
+                SELECT COUNT(*) 
+                FROM [dbo].[BookGenre] bg2
+                INNER JOIN [dbo].[BookList] bl2 ON bl2.[book] = bg2.[book]
+                WHERE bl2.[user] = $userID
+            ) * 100 AS percentage
+        FROM [dbo].[BookGenre] bg
+        INNER JOIN [dbo].[Genre] g ON bg.[genre] = g.[genreID]
+        INNER JOIN [dbo].[BookList] bl ON bg.[book] = bl.[book]
+        WHERE bl.[user] = $userID
+        GROUP BY g.[name]
+        ORDER BY percentage DESC;
+    ";
 
         return $this->query($query);
     }
+
 
     public function getBookGenre($bid)
     {
@@ -36,19 +39,19 @@ class BookGenre
         return $this->query($query);
     }
 
-    public function deleteBy($column, $value) 
+    public function deleteBy($column, $value)
     {
         if (!$this->table) {
             return false;
         }
-    
+
         $query = "DELETE FROM [{$this->table}] WHERE [$column] = :value";
         $data = [':value' => $value];
-    
+
         if ($this->query($query, $data)) {
             return true;
         }
         return false;
     }
-    
+
 }

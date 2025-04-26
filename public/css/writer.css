@@ -18,12 +18,24 @@ main {
   margin-top: 20px;
 }
 
+.new-section{
+  margin: 50px auto;
+  width: 100%;
+  max-width: 900px;
+  min-height: 600px;
+  flex-direction: column;
+  text-align: center;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
 /* Main Quote Section */
 .quote-section {
   margin: 50px auto;
   width: 100%;
   max-width: 900px;
-  min-height: 500px;
+  min-height: 600px;
   flex-direction: column;
   text-align: center;
   background-color: #fff;
@@ -218,7 +230,9 @@ main {
     flex-direction: row;
   }
 }
-
+.product-info{
+  min-width: 600px;
+}
 
 .product-image img {
   width: 300px;
@@ -252,6 +266,29 @@ h1 {
   padding: 0.5rem;
   border-radius: 0.5rem;
   background-color: #f9f9f9;
+}
+.submission-section{
+  margin: 0px auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  min-height: 600px;
+  max-width: 1000px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Aligns elements to the top */
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+
+}
+
+.submission-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
 }
 
 .books-grid {
@@ -674,7 +711,7 @@ select {
 
 .book-card img {
   width: 100%;
-  height: 400px;
+  height: 300px;
   object-fit: cover;
   border-radius: 1rem;
   margin-bottom: 10px;
@@ -781,6 +818,7 @@ select {
   width: 1200px;
   margin-top: 40px;
   margin-bottom: 40px;
+  min-height: 650px;
   flex-direction: column;
   padding: 2rem;
   background-color: #fff;

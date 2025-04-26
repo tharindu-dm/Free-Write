@@ -181,11 +181,10 @@ main {
 .my-book-list {
   flex: 1;
   min-width: 20rem;
-  background: white;
+  background: rgba(255, 215, 0, 0.05);
+  border: #ffd700 solid 1px;
   border-radius: 12px;
   padding: 1.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border: 1px solid #eee;
 }
 
 .my-book-list h3 {
@@ -256,23 +255,27 @@ main {
 }
 
 /* Genre Section */
+.genre-section-container {
+  display: flex;
+  flex-direction: column;
+  
+  gap: 1rem;
+  background: rgba(255, 215, 0, 0.05);
+  border: #ffd700 solid 1px;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
 .genre-section {
   min-width: 40rem;
   display: flex;
-  gap: 3rem;
-  flex: 1;
-  background: white;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border: 1px solid #eee;
 }
 
 /* Chart Container */
 .chart-container {
   width: 100%;
   max-width: 300px;
-  margin: 0 auto;
+  margin:  auto;
 }
 
 /* Genre List */

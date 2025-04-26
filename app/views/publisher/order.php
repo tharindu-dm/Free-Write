@@ -362,11 +362,11 @@
   ?>
 
   <!-- Statistics Header with View Button -->
-  <div class="stats-header">
+  <!-- <div class="stats-header">
     <h2 style="color: #1C160C; font-size: 1.5rem; font-weight: 600;">Statistics Overview</h2>
     <a href="/Free-Write/public/Order/viewStats" class="view-stats-button" aria-label="View detailed statistics">View
       Statistics</a>
-  </div>
+  </div> -->
 
   <!-- Statistics Cards -->
   <div class="stats-container">
@@ -402,7 +402,7 @@
           $processingCount = 0;
           if (isset($data['orders']) && !empty($data['orders'])) {
             foreach ($data['orders'] as $order) {
-              if ($order['status'] == 'collectingOrder')
+              if ($order['status'] == 'courierAcceptedTheOrder' || $order['status'] == 'courier Assigned')
                 $processingCount++;
             }
           }
@@ -417,7 +417,7 @@
           $shippedCount = 0;
           if (isset($data['orders']) && !empty($data['orders'])) {
             foreach ($data['orders'] as $order) {
-              if ($order['status'] == 'deliveryWithin1Day')
+              if ($order['status'] == 'outForDelivery')
                 $shippedCount++;
             }
           }
@@ -564,11 +564,11 @@
                       <select name="courier" class="courier-select" required aria-label="Select a courier for the order">
                         <option value="">Select Courier</option>
                         <option value="systemCourier">System Courier</option>
-                        <optgroup label="My Own Couriers">
+                        <!-- <optgroup label="My Own Couriers">
                           <option value="local1">Local Delivery Service</option>
                           <option value="personal">Personal Delivery</option>
                           <option value="custom">Custom Courier</option>
-                        </optgroup>
+                        </optgroup> -->
                       </select>
                   </td>
                   <td>
@@ -580,14 +580,12 @@
             <?php endforeach; ?>
             <?php if (!$newOrdersFound): ?>
               <tr>
-                <td colspan="6" class="empty-state">No new orders found. <a href="/Free-Write/public/Order/create">Create a
-                    new order</a>.</td>
+                <td colspan="6" class="empty-state">No new orders found.</td>
               </tr>
             <?php endif; ?>
           <?php else: ?>
             <tr>
-              <td colspan="6" class="empty-state">No new orders found. <a href="/Free-Write/public/Order/create">Create a
-                  new order</a>.</td>
+              <td colspan="6" class="empty-state">No new orders found.</td>
             </tr>
           <?php endif; ?>
         </tbody>
@@ -619,7 +617,7 @@
             <?php
             $processingOrdersFound = false;
             foreach ($data['orders'] as $order):
-              if ($order['status'] == 'collectingOrder'):
+              if ($order['status'] == 'courierAcceptedTheOrder' || $order['status'] == 'courier Assigned'):
                 $processingOrdersFound = true;
                 $userDetailsTable = new UserDetails();
                 $userDetails = $userDetailsTable->first(['user' => $order['customer_userID']]);
@@ -677,7 +675,7 @@
             <?php
             $shippedOrdersFound = false;
             foreach ($data['orders'] as $order):
-              if ($order['status'] == 'deliveryWithin1Day'):
+              if ($order['status'] == 'outForDelivery'):
                 $shippedOrdersFound = true;
                 $userDetailsTable = new UserDetails();
                 $userDetails = $userDetailsTable->first(['user' => $order['customer_userID']]);

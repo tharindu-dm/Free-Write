@@ -278,7 +278,7 @@
                 <td>
                   <span
                     class="status-badge <?= strtotime($competitionDetails['end_date']) < time() ? 'ended' : 'active' ?>">
-                    <?= strtotime($competitionDetails['end_date']) < time() ? 'Ended' : 'Active' ?>
+                    <?php echo htmlspecialchars(string: $competitionDetails['status']); ?>
                   </span>
                 </td>
 
@@ -288,7 +288,7 @@
                 <td><?php echo '$' . number_format($competitionDetails['first_prize'], 2); ?></td>
                 <td><?php echo '$' . number_format($competitionDetails['second_prize'], 2); ?></td>
                 <td><?php echo '$' . number_format($competitionDetails['third_prize'], 2); ?></td>
-                <td><?php echo htmlspecialchars($competitionDetails['participants'] ?? ''); ?></td>
+                <td><?php echo htmlspecialchars(string: $competitionDetails['participants'] ?? ''); ?></td>
                 <td>
                   <?php if (strtotime($competitionDetails['end_date']) > time()): ?>
                     <a href="/Free-Write/public/Competition/Manage/<?php echo $competitionDetails['competitionID']; ?>"

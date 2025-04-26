@@ -1,8 +1,6 @@
 .container {
   min-width: 85vw;
   background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 20px;
 }
 
@@ -88,9 +86,9 @@ tr:hover {
 }
 
 .report-details,
-.mod-response {
-  background-color: white;
-  border: 1px solid #e0e0e0;
+.mod-response {  
+  background-color: rgba(255, 215, 0, 0.05);
+  border: #ffd700 solid 1px;
   border-radius: 8px;
   padding: 20px;
 }

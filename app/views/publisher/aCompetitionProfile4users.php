@@ -147,10 +147,16 @@
         </div>
 
         <?php if (isset($_SESSION['user_id'])): ?>
-            <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'pub'): ?>
+            <?php if($details['type']=='writer' ) ?>
+            <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] != 'writer' && $_SESSION['user_type'] != 'covdes' && $_SESSION['user_type'] != 'wricov'): ?>
                 <div class="premium-message">
-                    <p>Publishers cannot participate in competitions</p>
+                    <p>Only writers can participate in competitions</p>
                 </div>
+            <?php elseif ($details['type']=='covdes'): ?>
+            <div class="premium-message">
+            <p>Only Cover designers can participate in competitions</p>
+        </div>
+        <?php endif; ?> 
             <?php elseif (isset($competitionEntries) && $competitionEntries): ?>
                 <div class="premium-message">
                     <p>You have already submitted an entry for this competition</p>
@@ -160,35 +166,23 @@
                     <p>You can enter into the competition from <?= date('F j, Y', strtotime($data['details']['start_date'])) ?>
                     </p>
                 </div>
-            <?php elseif (isset($data['user']) && isset($data['user']['isPremium']) && $data['user']['isPremium'] == 1): ?>
+            <?php else: ?>
                 <a href="/Free-Write/public/Competition/Enter/<?= htmlspecialchars($data['details']['competitionID']) ?>"
                     class="enter-btn">
                     <button>Enter Competition</button>
                 </a>
-            <?php else: ?>
-                <div class="premium-message">
-                    <p>This feature is only available for premium users</p>
-                    <a href="/Free-Write/public/User/Upgrade" class="enter-btn">
-                        <button>Go Premium to Enter the competition</button>
-                    </a>
-                </div>
+            
             <?php endif; ?>
-        <?php else: ?>
-            <div class="premium-message">
-                <p>Please log in and subscribe to premium to enter competitions</p>
-                <a href="/Free-Write/public/User/Login" class="enter-btn">
-                    <button>Log In</button>
-                </a>
-            </div>
-        <?php endif; ?>
+        
     </div>
 
     </div>
     <div class="container">
         <div class="competition-image-container">
-            <img src="/Free-Write/app/images/competition/<?= htmlspecialchars($details['compImage']) ?>"
+            <img src="/Free-Write/app/images/competition/<?= htmlspecialchars($details['compImage'] ?? 'coverComp.png') ?>"
                 alt="Competition Image" class="competition-image">
         </div>
+
 
 
         <div class="card">
@@ -210,6 +204,7 @@
                     <h4>🥇 First Place</h4>
                     <p><?= htmlspecialchars($details['first_prize'] ?? 0) ?></p>
                 </div>
+               
                 <div class="prize-item">
                     <h4>🥈 Second Place</h4>
                     <p><?= htmlspecialchars($details['second_prize'] ?? 0) ?></p>

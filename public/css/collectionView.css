@@ -9,9 +9,11 @@ main {
   display: flex;
   align-items: flex-start;
   gap: 2rem;
+  padding: 2rem;
   margin-bottom: 2rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid var(--medium-gray);
+  background: rgba(255, 215, 0, 0.05);
+  border: #ffd700 solid 1px;
+  border-radius: 12px;
 }
 
 .collection-image {
@@ -119,6 +121,7 @@ main {
 }
 
 .book-card:hover {
+  background-color: #ffd700;
   transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }

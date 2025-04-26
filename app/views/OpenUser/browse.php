@@ -15,7 +15,7 @@
 
     <!-- Page Title -->
     <div id="title">
-        <h1>Browse Books</h1>
+        <h1>Browse Masterpieces</h1>
     </div>
 
     <div class="browse-main-container">

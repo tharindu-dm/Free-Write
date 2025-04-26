@@ -119,5 +119,13 @@ trait Model
         return false;
     }
 
+    public function getDetailsInDateRange($startDate, $endDate)
+    {
+        $query = "SELECT * FROM [{$this->table}] 
+        WHERE 
+        CAST([{$this->dateTimeColumn}] AS DATE) >= '$startDate' AND 
+        CAST([{$this->dateTimeColumn}] AS DATE) <= '$endDate'";
 
+        return $this->query($query);
+    }
 }

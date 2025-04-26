@@ -5,6 +5,7 @@ class Book
     use Model; // Use the Model trait
 
     protected $table = 'Book'; //when using the Model trait, this table name ise used 
+    protected $dateTimeColumn = 'creationDate';
 
     public function getFWOBooks() //browse top page suggestions
     {
@@ -169,6 +170,16 @@ class Book
                   AND b.[accessType] != 'deleted'";
 
         return $this->query($query, [':uid' => $uid]);
+    }
+
+    public function totalViewsAndAverage()
+    {
+        $query = "SELECT 
+                    SUM(viewCount) AS TotalViews,
+                    AVG(CAST(viewCount AS FLOAT)) AS AverageViewsPerBook
+                    FROM [dbo].[Book];";
+
+        return $this->query($query)[0];
     }
 
 }

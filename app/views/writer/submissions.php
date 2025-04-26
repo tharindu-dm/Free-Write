@@ -15,7 +15,7 @@
     ?>
 
     <!-- Main Content -->
-    <main class="book-section">
+    <main class="submission-section">
 
         <div class="books-grid">
             <?php if (!empty($submissions) && is_array($submissions)): ?>
@@ -44,13 +44,13 @@
             <?php endif; ?>
         </div>
         </div>
+        
 
-
-        <!-- Centered Buttons -->
+         <!-- Centered Buttons -->
         <div class="button-container">
             <button type="button" class="edit-btn cancel-btn"
-                onclick="window.location.href='/Free-Write/public/Writer/ViewCompetition/<?= htmlspecialchars($submission['competitionID']); ?>'">Back</button>
-        </div>
+                onclick="window.location.href='/Free-Write/public/Writer/ViewCompetition/<?= htmlspecialchars($cID); ?>'">Back</button>
+                </div>
     </main>
 
     <!-- Footer -->

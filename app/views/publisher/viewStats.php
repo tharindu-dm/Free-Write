@@ -662,6 +662,7 @@
                             <th>Submission Date</th>
                             <th>Status</th>
                             <th>Actions</th>
+                            <th>Review</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -680,6 +681,7 @@
                                     <a href="/Free-Write/public/Book/Overview/<?= htmlspecialchars($entryData['bookID'] ?? '') ?>"
                                         class="view-btn">View Book</a>
                                 </td>
+                                <td><button>Reviewed</button></td>
                             </tr>
                         <?php else: ?>
                             <!-- Multiple entries display -->
@@ -697,6 +699,7 @@
                                         <a href="/Free-Write/public/Book/Overview/<?= htmlspecialchars($entry['bookID'] ?? '') ?>"
                                             class="view-btn">View Book</a>
                                     </td>
+                                    <td><button>Reviewed</button></td>
                                 </tr>
                             <?php endforeach; ?>
                         <?php endif; ?>
