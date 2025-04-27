@@ -11,7 +11,7 @@
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
     //show($data);
-        require_once "../app/views/CoverPageDesigner/sidebar.php";
+    require_once "../app/views/CoverPageDesigner/sidebar.php";
     ?>
 
     <main>
@@ -50,52 +50,52 @@
             <input type="hidden" name="designer_id" value="<?= $_SESSION['user_id'] ?? '' ?>">
 
             <!-- Submit -->
-            <div class="form-group">
+            <div class="form-group action-btn">
+                <a href="/Free-Write/public/Designer/Dashboard" ><button class="cancel-btn">Cancel</button></a>
                 <button type="submit" id="create-btn">Create</button>
-                <a href="/Free-Write/public/Designer/Dashboard" class="cancel-btn">Cancel</a>
             </div>
         </form>
     </main>
-    <?php 
+    <?php
     require_once "../app/views/layout/footer.php";
     ?>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-        const fileInput = document.getElementById('coverImage');
-        const fileNameDisplay = document.querySelector('.file-name-display');
-        const previewContainer = document.getElementById('filePreviewContainer');
-        const previewText = previewContainer.querySelector('.file-preview-text');
-        const imagePreview = document.getElementById('imagePreview');
-        const previewDiv = document.querySelector('.image-preview');
-        
-        fileInput.addEventListener('change', function(e) {
-            if (this.files && this.files[0]) {
-                // Display file name
-                const fileName = this.files[0].name;
-                fileNameDisplay.textContent = fileName;
-                
-                // Preview image
-                const reader = new FileReader();
-                
-                reader.onload = function(e) {
-                    imagePreview.src = e.target.result;
-                    previewDiv.style.display = 'block';
-                    previewContainer.classList.add('has-file');
-                    previewText.classList.add('has-file');
-                    previewText.textContent = 'Image Preview:';
+        document.addEventListener('DOMContentLoaded', function () {
+            const fileInput = document.getElementById('coverImage');
+            const fileNameDisplay = document.querySelector('.file-name-display');
+            const previewContainer = document.getElementById('filePreviewContainer');
+            const previewText = previewContainer.querySelector('.file-preview-text');
+            const imagePreview = document.getElementById('imagePreview');
+            const previewDiv = document.querySelector('.image-preview');
+
+            fileInput.addEventListener('change', function (e) {
+                if (this.files && this.files[0]) {
+                    // Display file name
+                    const fileName = this.files[0].name;
+                    fileNameDisplay.textContent = fileName;
+
+                    // Preview image
+                    const reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        imagePreview.src = e.target.result;
+                        previewDiv.style.display = 'block';
+                        previewContainer.classList.add('has-file');
+                        previewText.classList.add('has-file');
+                        previewText.textContent = 'Image Preview:';
+                    }
+
+                    reader.readAsDataURL(this.files[0]);
+                } else {
+                    fileNameDisplay.textContent = 'No file selected';
+                    previewDiv.style.display = 'none';
+                    previewContainer.classList.remove('has-file');
+                    previewText.classList.remove('has-file');
+                    previewText.textContent = 'Preview will appear here';
                 }
-                
-                reader.readAsDataURL(this.files[0]);
-            } else {
-                fileNameDisplay.textContent = 'No file selected';
-                previewDiv.style.display = 'none';
-                previewContainer.classList.remove('has-file');
-                previewText.classList.remove('has-file');
-                previewText.textContent = 'Preview will appear here';
-            }
+            });
         });
-    });
     </script>
 </body>
 

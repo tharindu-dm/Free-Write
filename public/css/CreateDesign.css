@@ -4,7 +4,9 @@ main {
   padding: 2rem;
   background-color: #fff;
   border-radius: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  background: rgba(255, 215, 0, 0.05);
+  border: #ffd700 solid 1px;
 }
 
 h1 {
@@ -18,6 +20,20 @@ h1 {
 
 .form-group {
   margin-bottom: 2rem;
+}
+
+.action-btn {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-group button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
 }
 
 label {
@@ -226,12 +242,13 @@ textarea {
     padding: 1.5rem;
     margin: 1rem;
   }
-  
+
   .button-group {
     flex-direction: column;
   }
-  
-  #create-btn, .cancel-btn {
+
+  #create-btn,
+  .cancel-btn {
     width: 100%;
     padding: 1rem;
   }

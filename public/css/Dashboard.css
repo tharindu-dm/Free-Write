@@ -1,50 +1,10 @@
 /* Base Layout */
 main {
-  max-width: 1200px;
+  display: flex;
+  max-width: 100vw;
+  height: 100%;
   margin: 0 auto;
   padding: 2rem;
-}
-
-.dashboard-container {
-  display: flex;
-  flex-direction: row;
-}
-
-/* Sidebar Navigation */
-.side-nav {
-  width: 250px;
-  background-color: #ffffff;
-  padding: 1.5rem;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
-  height: 100vh;
-  position: fixed;
-  border-right: 1px solid #eee;
-}
-
-.side-nav ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.side-nav ul li {
-  margin-bottom: 1rem;
-}
-
-.side-nav ul li a {
-  text-decoration: none;
-  color: #333;
-  font-size: 1rem;
-  display: block;
-  padding: 0.8rem 1rem;
-  border-radius: 0.5rem;
-  transition: all 0.3s ease;
-}
-
-.side-nav ul li a:hover,
-.side-nav ul li a.active {
-  background-color: #ffd700;
-  color: #000;
 }
 
 /* Main Content Area */
@@ -59,7 +19,8 @@ main {
   text-align: center;
   margin-bottom: 2.5rem;
   padding: 1.5rem;
-  background-color: #fff;
+  background: rgba(255, 215, 0, 0.05);
+  border: #ffd700 solid 1px;
   border-radius: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
@@ -90,10 +51,10 @@ main {
   display: flex;
   justify-content: center;
   margin-bottom: 2rem;
-  background-color: #fff;
+  background: rgba(255, 215, 0, 0.05);
+  border: #ffd700 solid 1px;
   padding: 1rem;
   border-radius: 0.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .profile-nav a {
@@ -112,7 +73,9 @@ main {
 
 /* Designs Section */
 .designs {
-  background-color: #fff;
+  
+  background: rgba(255, 215, 0, 0.05);
+  border: #ffd700 solid 1px;
   padding: 1.5rem;
   border-radius: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -180,7 +143,8 @@ main {
 .create-collection-section {
   margin: 2rem 0;
   padding: 1.5rem;
-  background-color: #fff;
+  background: rgba(255, 215, 0, 0.05);
+  border: #ffd700 solid 1px;
   border-radius: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
@@ -218,10 +182,10 @@ main {
 }
 
 .collection-item {
-  background-color: #fff;
+  background: rgba(255, 215, 0, 0.05);
+  border: #ffd700 solid 1px;
   border-radius: 0.8rem;
   padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .collection-item h3 {
@@ -234,7 +198,7 @@ main {
   height: 150px;
   object-fit: cover;
   border-radius: 0.5rem;
-} 
+}
 
 /* Collection Action Buttons */
 .collection-actions {
@@ -245,7 +209,8 @@ main {
   border-top: 1px solid #eee;
 }
 
-.edit-link, .delete-link {
+.edit-link,
+.delete-link {
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
   text-decoration: none;
@@ -331,7 +296,9 @@ main {
   justify-content: flex-start;
 }
 
-.view-button, .edit-button, .delete-button {
+.view-button,
+.edit-button,
+.delete-button {
   padding: 0.5rem 1rem;
   border-radius: 2rem;
   text-decoration: none;
@@ -505,13 +472,15 @@ main {
     display: block;
     overflow-x: auto;
   }
-  
+
   .competition-actions {
     flex-direction: column;
     gap: 0.5rem;
   }
-  
-  .view-button, .edit-button, .delete-button {
+
+  .view-button,
+  .edit-button,
+  .delete-button {
     width: 100%;
   }
 }

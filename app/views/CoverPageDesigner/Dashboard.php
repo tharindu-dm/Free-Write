@@ -23,7 +23,8 @@
             <section class="user-profile">
                 <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>"
                     alt="Profile Picture" class="profile-picture">
-                <h1><?= htmlspecialchars($userDetails['firstName'] ?? 'Designer Name') . ' ' . htmlspecialchars($userDetails['lastName'] ) ?></h1>
+                <h1><?= htmlspecialchars($userDetails['firstName'] ?? 'Designer Name') . ' ' . htmlspecialchars($userDetails['lastName']) ?>
+                </h1>
                 <p><?= htmlspecialchars($userDetails['followers'] ?? '0') ?> followers</p>
             </section>
 
@@ -66,7 +67,7 @@
                     <?php foreach ($collections as $collection): ?>
                         <a href="/Free-Write/public/DesignerCollection/viewCollection/<?= $collection['collectionID'] ?>"
                             class="collection-link">
-                            
+
                             <div class="collection-item">
                                 <?php if (!empty($collection['frontImage'])): ?>
                                     <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($collection['frontImage']) ?>"
@@ -138,16 +139,16 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-    // Get DOM elements
-    const openCollectionBtn = document.getElementById("openCollectionPopup");
-    const collectionOverlay = document.getElementById("designCollectionOverlay");
-    const closeBtn = document.getElementById("closeDesignCollection");
-    const cancelBtn = document.getElementById("cancelDesignCollection");
-    const form = document.getElementById("designCollectionForm");
+            // Get DOM elements
+            const openCollectionBtn = document.getElementById("openCollectionPopup");
+            const collectionOverlay = document.getElementById("designCollectionOverlay");
+            const closeBtn = document.getElementById("closeDesignCollection");
+            const cancelBtn = document.getElementById("cancelDesignCollection");
+            const form = document.getElementById("designCollectionForm");
 
-    // Add CSS for overlay if not already in your CSS file
-    const style = document.createElement('style');
-    style.textContent = `
+            // Add CSS for overlay if not already in your CSS file
+            const style = document.createElement('style');
+            style.textContent = `
         .design-collection-overlay {
             display: none;
             position: fixed;
@@ -306,92 +307,92 @@
   resize: vertical;
 }
     `;
-    document.head.appendChild(style);
+            document.head.appendChild(style);
 
-    // Function to show popup
-    function showPopup() {
-        if (collectionOverlay) {
-            collectionOverlay.style.display = "flex";
-            // Reset form and remove any error states
-            form.reset();
-            clearErrors();
-        }
-    }
-
-    // Function to hide popup
-    function hidePopup() {
-        if (collectionOverlay) {
-            collectionOverlay.style.display = "none";
-            clearErrors();
-        }
-    }
-
-    // Function to clear error states
-    function clearErrors() {
-        const inputs = form.querySelectorAll('.error');
-        inputs.forEach(input => input.classList.remove('error'));
-    }
-
-    // Event listeners
-    if (openCollectionBtn) {
-        openCollectionBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            showPopup();
-        });
-    }
-
-    if (closeBtn) {
-        closeBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            hidePopup();
-        });
-    }
-
-    if (cancelBtn) {
-        cancelBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            hidePopup();
-        });
-    }
-
-    // Close when clicking outside
-    if (collectionOverlay) {
-        collectionOverlay.addEventListener("click", (e) => {
-            if (e.target === collectionOverlay) {
-                hidePopup();
-            }
-        });
-    }
-
-    // Form validation
-    if (form) {
-        form.addEventListener("submit", function (e) {
-            let isValid = true;
-            const title = document.getElementById("collectionTitle");
-            const description = document.getElementById("CollectionDescription");
-
-            // Validate title
-            if (!title.value.trim()) {
-                isValid = false;
-                title.classList.add("error");
-            } else {
-                title.classList.remove("error");
+            // Function to show popup
+            function showPopup() {
+                if (collectionOverlay) {
+                    collectionOverlay.style.display = "flex";
+                    // Reset form and remove any error states
+                    form.reset();
+                    clearErrors();
+                }
             }
 
-            // Validate description
-            if (!description.value.trim()) {
-                isValid = false;
-                description.classList.add("error");
-            } else {
-                description.classList.remove("error");
+            // Function to hide popup
+            function hidePopup() {
+                if (collectionOverlay) {
+                    collectionOverlay.style.display = "none";
+                    clearErrors();
+                }
             }
 
-            if (!isValid) {
-                e.preventDefault();
+            // Function to clear error states
+            function clearErrors() {
+                const inputs = form.querySelectorAll('.error');
+                inputs.forEach(input => input.classList.remove('error'));
+            }
+
+            // Event listeners
+            if (openCollectionBtn) {
+                openCollectionBtn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    showPopup();
+                });
+            }
+
+            if (closeBtn) {
+                closeBtn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    hidePopup();
+                });
+            }
+
+            if (cancelBtn) {
+                cancelBtn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    hidePopup();
+                });
+            }
+
+            // Close when clicking outside
+            if (collectionOverlay) {
+                collectionOverlay.addEventListener("click", (e) => {
+                    if (e.target === collectionOverlay) {
+                        hidePopup();
+                    }
+                });
+            }
+
+            // Form validation
+            if (form) {
+                form.addEventListener("submit", function (e) {
+                    let isValid = true;
+                    const title = document.getElementById("collectionTitle");
+                    const description = document.getElementById("CollectionDescription");
+
+                    // Validate title
+                    if (!title.value.trim()) {
+                        isValid = false;
+                        title.classList.add("error");
+                    } else {
+                        title.classList.remove("error");
+                    }
+
+                    // Validate description
+                    if (!description.value.trim()) {
+                        isValid = false;
+                        description.classList.add("error");
+                    } else {
+                        description.classList.remove("error");
+                    }
+
+                    if (!isValid) {
+                        e.preventDefault();
+                    }
+                });
             }
         });
-    }
-});
 
     </script>
 
