@@ -317,22 +317,23 @@
 
                         <?php if ($genreFrequency != null): ?>
                             <!-- My Book Genre Section -->
-                             <div class="genre-section-container">
+                            <div class="genre-section-container">
                                 <h3>My Favourite Genres</h3>
-                                
-                            <div class="genre-section">
-                                <!-- Pie Chart Section -->
-                                <div class="chart-container">
-                                    <canvas id="genrePieChart"></canvas>
 
+                                <div class="genre-section">
+                                    <!-- Pie Chart Section -->
+                                    <div class="chart-container">
+                                        <canvas id="genrePieChart"></canvas>
+
+                                    </div>
+                                    <!-- Genre List Section -->
+                                    <div class="genre-list-container">
+                                        <ul id="genreList">
+                                            <!-- Genre list will be dynamically populated -->
+                                        </ul>
+                                    </div>
                                 </div>
-                                <!-- Genre List Section -->
-                                <div class="genre-list-container">
-                                    <ul id="genreList">
-                                        <!-- Genre list will be dynamically populated -->
-                                    </ul>
-                                </div>
-                            </div></div>
+                            </div>
 
                             <!-- Include Chart.js -->
                             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -498,8 +499,12 @@
     <!-- Create Collection Form --------------------------------------- -->
     <?php require_once "../app/views/Profile/layouts/create collection form.php" ?>
 
+    <!-- Delete Confirmation Modal -->
+    <?php require_once "../app/views/Profile/layouts/deleteuserConfim.php" ?>
+
     <script src="/Free-Write/public/js/user/profile.js"></script>
     <script src="/Free-Write/public/js/user/createCollection.js"></script>
+    <script src="/Free-Write/public/js/user/deleteUser.js"></script>
     <script src="/Free-Write/public/js/user/reportUser.js"></script>
     <script src="/Free-Write/public/js/imageAdd.js"></script>
     <script src="/Free-Write/public/js/user/advertisement.js"></script>

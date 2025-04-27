@@ -207,19 +207,28 @@ class UserController extends Controller
         header('Location: /Free-Write/public/User/Profile');
     }
 
-    public function DeleteProfile()
+    public function DeleteUser()
     {
         $uid = $_SESSION['user_id'];
+        $pw = $_POST['deleteConfirmText'];
         $user = new User();
 
         $userTableData = $user->first(['userID' => $uid]);
 
-        //deleting the data from the user and userdetails table
-        $user->update($uid, ['isActivated' => 9, 'password' => "", 'email' => $userTableData['email'] . "-deleted"], 'userID');
-        //this will activate the trigger to archive the data
+        if (password_verify($pw, $userTableData['password'])) {
 
-        session_destroy();
-        header('Location: /Free-Write/public/User/Login');
+            //deleting the data from the user and userdetails table
+            $user->update($uid, ['isActivated' => 9, 'password' => "", 'email' => $userTableData['email'] . "-deleted"], 'userID');
+            //this will activate the trigger to archive the data
+
+            session_destroy();
+            header('Location: /Free-Write/public/Home');
+            exit;
+        } else {
+            echo json_encode(['status' => 0, 'msg' => 'Account Not Deleted - Incorrect Password']);
+        }
+
+        header('Location: /Free-Write/public/User/Profile');
     }
 
     public function followUser()
@@ -430,7 +439,7 @@ class UserController extends Controller
 
         return $quotationData;
     }
-    
+
     public function getQuotation4Wri()
     {
         $quotationDetails = new Quotation();
