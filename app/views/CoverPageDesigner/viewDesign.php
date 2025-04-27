@@ -127,7 +127,7 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    //show($data);
+    show($data);
     ?>
 
     <main>
@@ -151,12 +151,14 @@
                 <?= number_format($ratingData['averageRating'], 1) ?>/5</h3>
             <p>Total Rating: <?= $ratingData['totalUsers'] ?></p>
 
-            <div class="stars">
-                <?php for ($i = 1; $i <= 5; $i++): ?>
-                    <span class="star" data-value="<?= $i ?>">&#9733;</span>
-                <?php endfor; ?>
-            </div>
-            <input type="hidden" id="covID" value="<?= $design['covID'] ?>">
+            <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] != $design['artist']): ?>
+                <div class="stars">
+                    <?php for ($i = 1; $i <= 5; $i++): ?>
+                        <span class="star" data-value="<?= $i ?>">&#9733;</span>
+                    <?php endfor; ?>
+                </div>
+                <input type="hidden" id="covID" value="<?= $design['covID'] ?>">
+            <?php endif; ?>
         </div>
 
     </main>
@@ -165,59 +167,42 @@
     require_once "../app/views/layout/footer.php";
     ?>
 
-    <script>
+<script>
         document.addEventListener('DOMContentLoaded', () => {
             const stars = document.querySelectorAll('.star');
-            const covID = document.getElementById('covID').value;
+            const covIDInput = document.getElementById('covID');
+            if (!stars.length || !covIDInput) return; // Only run if stars exist
 
-            let selectedRating = 0; // Store the selected rating
+            const covID = covIDInput.value;
+            let selectedRating = 0;
 
-            // Highlight stars based on the hovered or selected rating
             const highlightStars = (rating) => {
                 stars.forEach((star, index) => {
-                    if (index < rating) {
-                        star.style.color = '#ff0'; // Highlight stars in yellow
-                    } else {
-                        star.style.color = '#ccc'; // Reset unselected stars to gray
-                    }
+                    star.style.color = index < rating ? '#ff0' : '#ccc';
                 });
             };
 
             stars.forEach((star, index) => {
-                // Highlight stars on hover
-                star.addEventListener('mouseover', () => {
-                    highlightStars(index + 1);
-                });
-
-                // Reset stars to the selected rating on mouse out
-                star.addEventListener('mouseout', () => {
-                    highlightStars(selectedRating);
-                });
-
-                // Set the selected rating on click
+                star.addEventListener('mouseover', () => highlightStars(index + 1));
+                star.addEventListener('mouseout', () => highlightStars(selectedRating));
                 star.addEventListener('click', () => {
                     selectedRating = index + 1;
-
-                    // Send the rating to the backend
                     fetch('/Free-Write/public/Designer/rateDesign', {
                         method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
+                        headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ covID, rating: selectedRating })
                     })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                // Update the average rating dynamically
-                                document.getElementById(`average-rating-${covID}`).textContent =
-                                    `Average Rating: ${parseFloat(data.newAverageRating).toFixed(1)}/5`;
-                                alert('Rating submitted successfully!');
-                            } else {
-                                alert('Failed to submit rating.');
-                            }
-                        })
-                        .catch(error => console.error('Error:', error));
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            document.getElementById(`average-rating-${covID}`).textContent =
+                                `Average Rating: ${parseFloat(data.newAverageRating).toFixed(1)}/5`;
+                            alert('Rating submitted successfully!');
+                        } else {
+                            alert('Failed to submit rating.');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
                 });
             });
         });
