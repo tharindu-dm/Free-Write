@@ -446,6 +446,15 @@ class CompetitionController extends Controller
 
     }
 
+    public function updatestatus(){
+        $URL = splitURL();
+        $entryID = $URL[2];
+        $entryTable = new CompetitionEntries();
+        $entryTable->update($entryID,['status'=> 'reviewed'],'entryID');
+
+        header('Location: /Free-Write/public/Competition/ViewStats/'.$entryID);        
+    }
+
     /*public function ProfileUser()
      {
 

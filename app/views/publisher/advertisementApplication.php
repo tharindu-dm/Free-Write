@@ -218,7 +218,7 @@
                             <h3>Browse Page Ad</h3>
                             <p>Displayed on page sides</p>
                             <p>160×1280 pixels</p>
-                            <div class="price">$149/month</div>
+                            <div class="price">LKR 100 / DAY</div>
                             <input type="radio" name="ad_type" value="sidebar" id="sidebar_type" style="display: none;"
                                 required />
                         </div>

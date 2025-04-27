@@ -389,7 +389,7 @@
             color: #1565c0;
         }
 
-        .status-approved {
+        .status-reviewed {
             background-color: #e8f5e9;
             color: #2e7d32;
         }
@@ -427,6 +427,23 @@
             background-color: #f9f9f9;
             border-radius: 4px;
         }
+
+        .reviewed-btn {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background-color: #E5BB4A;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .reviewed-btn:hover {
+            background-color: #d4a939;
+        }
+
 
         /* Media Queries from Second Set */
         @media (max-width: 768px) {
@@ -594,7 +611,7 @@
                             <div class="prize-info">
                                 <span class="prize-label">Prize:</span>
                                 <span
-                                    class="prize-value">$<?php echo htmlspecialchars($competition['second_prize'] ?? 'N/A'); ?></span>
+                                    class="prize-value">LKR<?php echo htmlspecialchars($competition['second_prize'] ?? 'N/A'); ?></span>
                             </div>
                         <?php endif; ?>
                     </div>
@@ -613,7 +630,7 @@
                             <div class="prize-info">
                                 <span class="prize-label">Prize:</span>
                                 <span
-                                    class="prize-value">$<?php echo htmlspecialchars($competition['third_prize'] ?? 'N/A'); ?></span>
+                                    class="prize-value">LKR<?php echo htmlspecialchars($competition['third_prize'] ?? 'N/A'); ?></span>
                             </div>
                         <?php else: ?>
                             <p class="not-announced">Select third winner</p>
@@ -636,7 +653,7 @@
                             <div class="prize-info">
                                 <span class="prize-label">Prize:</span>
                                 <span
-                                    class="prize-value">$<?php echo htmlspecialchars($competition['third_prize'] ?? 'N/A'); ?></span>
+                                    class="prize-value">LKR<?php echo htmlspecialchars($competition['third_prize'] ?? 'N/A'); ?></span>
                             </div>
                         <?php endif; ?>
                     </div>
@@ -699,7 +716,16 @@
                                         <a href="/Free-Write/public/Book/Overview/<?= htmlspecialchars($entry['bookID'] ?? '') ?>"
                                             class="view-btn">View Book</a>
                                     </td>
-                                    <td><button>Reviewed</button></td>
+                                    <?php if ($entry['status'] === 'submitted'): ?>
+                                        <td>
+                                            <a href="/Free-Write/public/Competition/updatestatus/<?= htmlspecialchars($entry['entryID']) ?>"
+                                                class="reviewed-btn">
+                                                ✅ Reviewed
+                                            </a>
+                                        </td>
+                                    <?php endif; ?>
+
+
                                 </tr>
                             <?php endforeach; ?>
                         <?php endif; ?>
@@ -714,7 +740,7 @@
 
 
 
-        <div class="download-all-container">
+        <!-- <div class="download-all-container">
             <button class="download-all-btn">
                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
@@ -724,7 +750,7 @@
                 </svg>
                 Download All Statistics
             </button>
-        </div>
+        </div> -->
     </main>
 
     <?php

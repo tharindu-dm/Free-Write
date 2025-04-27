@@ -10,7 +10,7 @@
 <body>
 
     <?php require_once "../app/views/layout/headerSelector.php";
-    //show($data);
+    show($data);
     ?>
 
     <main>
@@ -86,8 +86,12 @@
                         <input type="hidden" name="totalPrice" value="<?= htmlspecialchars($orderInfo['Total']) ?>">
                         <input type="hidden" name="quantity" value="<?= htmlspecialchars($orderInfo['Quantity']) ?>">
 
+                        <?php if (isset($orderInfo['subID'])): ?>
+                            <input type="hidden" name="subID" value="<?= htmlspecialchars($orderInfo['subID']) ?>">
+                        <?php endif; ?>
+
                         <div id="cardValidation"></div>
-                        <button type="submit">Pay Now</button>
+                        <button type="submit"><?= $type == 'premium_user' ? 'Subscribe' : 'Pay Now'; ?></button>
                     </div>
                 </form>
             </div>

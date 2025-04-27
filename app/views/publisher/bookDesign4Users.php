@@ -343,21 +343,7 @@
                 <h1><?= htmlspecialchars($bookDetails['title']) ?></h1>
                 <p>By <?= htmlspecialchars($bookDetails['author_name']) ?></p>
 
-                <div class="price-rating">
-                    <span class="price">$<?= htmlspecialchars($bookDetails['prize']) ?></span>
-                    <div class="rating">
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                        <span class="rating-count">(4.5/5 - 2,345 reviews)</span>
-                    </div>
-                </div>
 
-                <div class="availability-badge">In Stock</div>
                 <p>Due back: 2023-10-23</p>
 
                 <h3>Synopsis</h3>
@@ -387,22 +373,25 @@
                         <p><?= htmlspecialchars($bookDetails['publication_year']) ?></p>
                     </div>
                 </div>
-                <?php if ($_SESSION['user_type'] !== 'pub'): ?>
+                <?php if (!empty($_SESSION['user_type'])): ?>
+                    <?php if($_SESSION['user_type'] !== 'pub'  ): ?>
                     <div class="quantity-selector" style="margin-bottom: 20px;">
-                        <label for="quantity"><strong>Quantity:</strong></label>
-                        <select name="quantity" id="quantity"
-                            style="padding: 8px; margin-left: 10px; border-radius: 8px; border: 1px solid #ddd;">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
+                    <label for="quantity"><strong>Quantity;</strong></label>   
+                    <select for="quantity" id="quantity"
+                        style="padding: 8px; margin-left:10px; border-radius:8px; border:1px solid #ddd;">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    </select>
                     </div>
+                    <?php endif; ?>
                 <?php endif; ?>
 
             </div>
-            <?php if ($_SESSION['user_type'] !== 'pub'): ?>
+            <?php if ( !empty($_SESSION['user_type'])): ?>
+                <?php if($_SESSION['user_type'] !== 'pub'  ): ?>
                 <form action="/Free-Write/public/Cart/addToCart" method="POST">
                     <input type="hidden" name="isbnID" value="<?= htmlspecialchars($bookDetails['isbnID']) ?>">
 
@@ -421,6 +410,7 @@
                         onclick="window.location.href=this.parentElement.href + '?quantity=' + document.getElementById('quantity').value; return false;">Buy
                         Now</button>
                 </a>
+                <?php endif; ?>
             <?php endif; ?>
 
         </div>

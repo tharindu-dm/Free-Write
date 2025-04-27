@@ -26,8 +26,10 @@
                             <td class="order-total">$<?= number_format($order['totalPrice'], 2); ?></td>
                             <td class="order-date"><?= htmlspecialchars($order['delivery_status']); ?></td>
                             <td class="order-actions">
-                                <a href="cancel-order.php?id=<?= htmlspecialchars($order['orderID']); ?>"
+                                <?php if ($order['status'] == 'Pending'): ?>
+                                <a href="/Free-Write/public/Order/cancelOrder/<?= htmlspecialchars($order['orderID']) ?>"
                                     class="btn btn-cancel">Cancel</a>
+                                    <?php endif; ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>

@@ -30,15 +30,13 @@ class PublisherController extends Controller
 
     public function AddBook()
     {
+        
         $this->view('publisher/bookUploadForm4Publishers');
     }
 
     public function BookUpload()
     {
-        // Check if the form was submitted
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            die('Invalid request method.');
-        }
+        
 
         // Validate required fields
         $requiredFields = ['title', 'isbnID', 'author_name', 'genre', 'publication_year', 'synopsis', 'prize'];
@@ -63,6 +61,8 @@ class PublisherController extends Controller
         $prize = (float) $_POST['prize'];
         $created_at = date("Y-m-d H:i:s");
 
+        
+
         // Validate file type and size
         $coverImage = $_FILES['bookCover'];
         $allowedTypes = ['image/jpeg', 'image/png'];
@@ -81,8 +81,10 @@ class PublisherController extends Controller
             die('Error: Failed to upload book cover.');
         }
 
-        // Insert into database
+       
         $publisherBooks_table = new publisherBooks();
+        
+        
         $data = [
             'title' => $title,
             'isbnID' => $isbnID,
@@ -111,7 +113,7 @@ class PublisherController extends Controller
 
     public function bookProfile4publishers()
     {
-        $publisherBook_table = new publisherBooks();
+        //$publisherBook_table = new publisherBooks();
         $URL = splitURL();
         $bookID = $URL[2];        //model-method-id
         $book_table = new publisherBooks();        //creating the model and assiging to a variable 
@@ -126,13 +128,15 @@ class PublisherController extends Controller
         $book_table = new publisherBooks();
         $bookDetails = $book_table->first(['isbnID' => $bookID]);
         $cartItems = null;
+        $publisherTable = new Publisher();
+        $publisherDetails = $publisherTable->first(['pubID' => $bookDetails['publisherID']]);
 
         if (isset($_SESSION['user_id'])) {
             $cartTable = new Cart();
             $cartItems = $cartTable->first(['bookID' => $bookID, 'userID' => $_SESSION['user_id']]);
         }
 
-        $this->view('publisher/bookDesign4Users', ['bookDetails' => $bookDetails, 'cartItems' => $cartItems]);
+        $this->view('publisher/bookDesign4Users', ['bookDetails' => $bookDetails, 'cartItems' => $cartItems,]);
     }
     public function deletebookProfile()
     {
@@ -272,11 +276,15 @@ class PublisherController extends Controller
                 'author_name' => trim($_POST['author_name']),
                 'synopsis' => trim($_POST['synopsis']),
                 'prize' => trim($_POST['prize']),
-                'genre' => trim($_POST['genre'])
-            ];
+                'genre' => trim($_POST['genre']),
+                'contributor_name'=> trim($_POST['publisher']),
+                'publication_year'=> trim($_POST['published_date']),
 
+            ];
+            $isbnID = (string) trim($_POST['isbnID']);
+            
             $publisherBooks = new PublisherBooks();
-            if ($publisherBooks->updateBookDetails($_POST['isbnID'], $data)) {
+            if ($publisherBooks->updateBookDetails($isbnID, $data)) {
                 echo json_encode(['status' => 'success']);
             } else {
                 echo json_encode(['status' => 'error']);

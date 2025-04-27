@@ -137,8 +137,8 @@ class OrderController extends Controller
             header('Location: /Free-Write/public/User/Profile');
             exit;
         }
-
-        $orderID = $_GET['id'];
+            $URL= splitURL();
+             $orderID =$URL[2];
         $userID = $_SESSION['user_id'];
 
         // Get the order from database
@@ -153,16 +153,17 @@ class OrderController extends Controller
         }
 
         // Check if order can be canceled (not already delivered or canceled)
-        $nonCancelableStatuses = ['delivered', 'completed', 'canceled'];
-        if (in_array($order['delivery_status'], $nonCancelableStatuses)) {
-            $_SESSION['error'] = "This order cannot be canceled because it is already " . $order['delivery_status'];
-            header('Location: /Free-Write/public/User/Profile');
-            exit;
-        }
+        // $nonCancelableStatuses = ['delivered', 'completed', 'canceled'];
+        // if (in_array($order['delivery_status'], $nonCancelableStatuses)) {
+        //     $_SESSION['error'] = "This order cannot be canceled because it is already " . $order['delivery_status'];
+        //     header('Location: /Free-Write/public/User/Profile');
+        //     exit;
+        // }
 
         // Update order status to canceled
         $updateData = [
-            'delivery_status' => 'canceled'
+            'delivery_status' => 'canceled',
+            'status' =>'canceled'
         ];
 
         $result = $orderTable->update($orderID, $updateData, 'orderID');

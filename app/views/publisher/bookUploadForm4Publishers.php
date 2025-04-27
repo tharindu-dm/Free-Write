@@ -12,9 +12,11 @@
       width: 90%;
       margin: 2rem auto;
       padding: 2rem;
-      background-color: #FFFFFF;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+      background-color: rgba(255, 215, 0, 0.05);
+      border: #ffd700 solid 1px;
+      border-radius: 1rem;
+      
     }
 
     .form-container h1 {
@@ -72,7 +74,13 @@
       box-shadow: 0 0 0 3px rgba(255, 208, 82, 0.2);
     }
 
-    button {
+    .submit-button {
+      width: 100%;
+      background-color: #FFD052;
+      color: #1C160C;
+      margin-top: 1rem;
+
+
       padding: 1rem 1.5rem;
       border: none;
       border-radius: 8px;
@@ -82,20 +90,11 @@
       transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .submit-button {
-      width: 100%;
-      background-color: #FFD052;
-      color: #1C160C;
-      margin-top: 1rem;
-    }
-
     .submit-button:hover {
       background-color: #E0B94A;
+
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     .form-field input[type="file"] {
@@ -231,6 +230,7 @@
         alert(`Publication year must be between 1500 and ${currentYear}`);
         return false;
       }
+    
 
       // Validate ISBN (10 or 13 digits)
       // const isbnRegex = /^\d{10}$|^\d{13}$/;

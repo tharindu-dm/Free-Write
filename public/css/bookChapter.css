@@ -46,6 +46,10 @@ p {
   position: relative;
 }
 
+.chapter-content p {
+  text-align: justify;
+}
+
 .navigation {
   display: flex;
   justify-content: space-between;
@@ -134,7 +138,7 @@ p {
   height: auto;
 }
 
-.active{
+.active {
   color: #ffd700;
   padding-left: 1rem;
   border: 1px solid #ffd700;

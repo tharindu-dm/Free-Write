@@ -9,6 +9,7 @@
   <style>
     .content {
       max-width: 1600px;
+      height: 78vh;
       margin: 2rem auto;
       padding: 0 2rem;
     }
@@ -21,6 +22,8 @@
 
     .competition-search-container {
       display: flex;
+      justify-content: center;
+      align-items: center;
       gap: 1rem;
       margin-bottom: 2rem;
     }
@@ -61,10 +64,10 @@
 
     .new-competition-button {
       padding: 0.75rem 1.5rem;
-      background-color: #FFD052;
+      background-color: #ffd700;
       color: #1C160C;
       border: none;
-      border-radius: 8px;
+      border-radius: 1rem;
       font-weight: 600;
       cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s;
