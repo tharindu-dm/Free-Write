@@ -455,6 +455,15 @@ class CompetitionController extends Controller
         header('Location: /Free-Write/public/Competition/ViewStats/'.$entryID);        
     }
 
+    public function AnnounceWinners(){
+        $compID = $_POST['winners[first][competition_id]'];
+        $first_place_winner =  $_POST['"winners[first][place]'];
+        $second_place_winner = $_POST['winners[second][place]'];
+        $third_place_winner = $_POST['winners[second][place]'];
+        $competitionTable = new Competition();
+        
+    }
+
     /*public function ProfileUser()
      {
 

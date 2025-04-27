@@ -281,4 +281,36 @@ class PaymentController extends Controller
         header('Location: /Free-Write/public/Publisher');
 
     }
+    public function pay4Ad()
+    {
+
+        $ad_title = $_POST['ad_title'];
+        $ad_type = $_POST['advertisementType'];
+        $start_date = $_POST['start_date'];
+        $end_date = $_POST['end_date'];
+        $contact_email = $_POST['contact_email'];
+        $advertisement_table = new Advertisement;
+        if(isset( $_POST['adID'])){
+
+            // $advertisement_table->insert($renewedData); 
+        $advertisement_table->delete($_POST['adID'], 'adID');
+        }
+
+        // Handle image upload
+        $adImage = $_POST['adImage'];
+        
+        $advertisement_table = new Advertisement;
+       
+        
+            $advertisement_table->insert([
+                'advertisementType' => $ad_type,
+                'startDate' => $start_date,
+                'endDate' => $end_date,
+                'contactEmail' => $contact_email,
+                'adImage' => $adImage,
+                'pubID' => $_SESSION['user_id'],
+                'status' => 'pending']);
+        
+        header('Location: /Free-Write/public/User/Profile');
+    }
 }

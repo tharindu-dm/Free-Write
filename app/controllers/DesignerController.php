@@ -328,11 +328,16 @@ class DesignerController extends Controller
     public function rateDesign()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!isset($_SESSION['user_id'])) {
+                echo json_encode(['success' => false, 'error' => 'User not logged in']);
+                return;
+            }
+
             $data = json_decode(file_get_contents('php://input'), true);
 
             $userID = $_SESSION['user_id']; // Logged-in user ID
             $covID = $data['covID']; // Cover design ID
-            $rating = $data['rating']; // Rating (1-5)
+            $rating = $data['rating']; 
 
             $covDesignRatingModel = new CovDesignRating();
 
@@ -344,6 +349,8 @@ class DesignerController extends Controller
             } else {
                 echo json_encode(['success' => false]);
             }
+        } else{
+            echo json_encode(['success' => false]);
         }
     }
 
