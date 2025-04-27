@@ -227,16 +227,6 @@
         </div>
 
         <div class="card">
-            <h3 class="section-title">Judging Criteria</h3>
-            <ul>
-                <li>Creativity and Originality (40%)</li>
-                <li>Writing Style and Voice (30%)</li>
-                <li>Engagement and Emotional Impact (20%)</li>
-                <li>Adherence to Theme (10%)</li>
-            </ul>
-        </div>
-
-        <div class="card">
             <h3 class="section-title">Submission Details</h3>
             <p><strong>Submission Deadline:</strong> <?= htmlspecialchars($details['end_date']) ?></p>
             <p><strong>Eligibility:</strong> Open to all writers</p>

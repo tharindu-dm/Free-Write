@@ -12,7 +12,7 @@
                         <th>Quantity</th>
                         <th>Price</th>
                         <th>Total Price</th>
-                        <th>Action</th>
+                        <th colspan="2">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,6 +43,8 @@
                                         Remove
                                     </button>
                                 </form>
+                            </td>
+                            <td>
                                 <a href="/Free-Write/public/Publisher/paymentPage/<?= htmlspecialchars($item['bookID']) ?>/<?= htmlspecialchars($item['quantity']) ?>"
                                     class="checkout-btn-small">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -50,7 +52,6 @@
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" />
                                     </svg>Checkout</a>
-                            </form>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -123,7 +124,7 @@
             display: inline-flex;
             align-items: center;
             gap: 5px;
-            background-color: #fcba03;
+            background-color: #ffd700;
             color: #1a1a1a;
             border: none;
             border-radius: 4px;
@@ -136,7 +137,7 @@
         }
 
         .checkout-btn-small:hover {
-            background-color: #e5aa00;
+            background-color: #fcba03;
             transform: translateY(-2px);
         }
 
@@ -147,7 +148,7 @@
 
 
         .cart-table thead {
-            background-color: #fcba03;
+            background-color: #ffd700;
             color: #1a1a1a;
         }
 
@@ -228,12 +229,12 @@
         }
 
         .checkout-btn {
-            background-color: #fcba03;
+            background-color: #ffd700;
             color: #1a1a1a;
         }
 
         .checkout-btn:hover {
-            background-color: #e5aa00;
+            background-color: #fcba03;
             transform: translateY(-2px);
         }
 
@@ -275,7 +276,7 @@
         }
 
         .btn-shop {
-            background-color: #fcba03;
+            background-color: #ffd700;
             color: #1a1a1a;
             padding: 10px 24px;
             font-size: 16px;
@@ -285,7 +286,7 @@
         }
 
         .btn-shop:hover {
-            background-color: #e5aa00;
+            background-color: #fcba03;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }

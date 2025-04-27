@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= htmlspecialchars($designer['firstName'] . ' ' . $designer['lastName']) ?>'s Profile</title>
+    <title><?= htmlspecialchars($designerDetails['firstName'] . ' ' . $designerDetails['lastName']) ?>'s Profile</title>
     <link rel="stylesheet" href="/Free-Write/public/css/PublicProfile.css">
     <style>
         /* Main Layout */

@@ -51,11 +51,9 @@ button {
   border-radius: 0.5rem !important;
 }
 
-
 /** OVERLAY STYLES **/
 .delete_spinoff_chapter_overlay,
-.edit_spinoff_chapter_overlay
-{  
+.edit_spinoff_chapter_overlay {
   display: none;
   position: fixed;
   top: 0;
@@ -69,9 +67,10 @@ button {
 }
 
 .overlay-content {
-  background-color: white;
+  background: rgb(255, 251, 230);
+  border: #ffd700 solid 1px;
   padding: 2rem;
-  border-radius: 8px;
+  border-radius: 1rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   max-width: 500px;
   width: 90%;
@@ -94,7 +93,7 @@ button {
   gap: 1rem;
 }
 
-.overlay-buttons form{
+.overlay-buttons form {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -117,7 +116,7 @@ button {
 .overlay-buttons button {
   padding: 12px 25px;
   font-size: 1rem;
-  
+
   border-radius: 8px;
   cursor: pointer;
 }
@@ -155,4 +154,3 @@ button {
 #deleteChapterBtn:hover {
   background-color: #600000;
 }
-

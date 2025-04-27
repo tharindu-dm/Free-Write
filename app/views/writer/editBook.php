@@ -93,7 +93,7 @@
 
                     <!-- Right: Cover Image -->
                     <div class="book-cover">
-                        <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($coverDetails['name'] ?? 'sampleCover.jpg'); ?>"
+                        <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($coverDetails['name'] ?? 'sampleCover.png'); ?>"
                             alt="Cover Image of <?= htmlspecialchars($book['title']); ?>">
                         <button class="book-btn" type="button"
                             onclick="window.location.href='/Free-Write/public/writer/covers'">Find Cover Images</button>

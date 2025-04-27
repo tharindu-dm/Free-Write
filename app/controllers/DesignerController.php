@@ -33,6 +33,14 @@ class DesignerController extends Controller
         ]);
     }
 
+    private function checkLoggedUser()
+    {
+        if ($_SESSION['user_type'] != 'covdes' && $_SESSION['user_type'] != 'wricov') {
+            header('location: /Free-Write/public/');
+            exit();
+        }
+    }
+
 
     public function Dashboard()
     {
@@ -169,6 +177,20 @@ class DesignerController extends Controller
 
                 $designs = $coverModel->getByDesigner($designer_id);
 
+                $userModel = new User();
+
+
+                $userType = $_SESSION['user_type'];
+                if ($userType === 'reader') {
+                    $userModel->updateUserTypeToCovdes($designer_id);
+                    $userType = 'covdes';
+                } elseif ($userType === 'writer') {
+                    $userModel->updateUserTypeToWricov($designer_id);
+                    $userType = 'wricov';
+                }
+
+                $_SESSION['user_type'] = $userType;
+                // show($userType);
                 // Pass the updated data to the Dashboard view
                 $this->view('CoverPageDesigner/Dashboard', [
                     'userDetails' => $userDetails,
@@ -257,10 +279,13 @@ class DesignerController extends Controller
 
         if ($design) {
             // Pass the design details to the CoverPageDesign view
-            $this->view('CoverPageDesigner/CoverPageDesign', [
-                            'design' => $design,
-                            'ratingData' => $ratingData]
-                        );
+            $this->view(
+                'CoverPageDesigner/CoverPageDesign',
+                [
+                    'design' => $design,
+                    'ratingData' => $ratingData
+                ]
+            );
         } else {
             echo "Design not found.";
         }
@@ -268,8 +293,8 @@ class DesignerController extends Controller
 
     public function delete()
     {
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') { 
-            die("Invalid request method"); 
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            die("Invalid request method");
         }
 
         $id = splitURL()[2];
@@ -407,8 +432,8 @@ class DesignerController extends Controller
 
     public function follow()
     {
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') { 
-            die("Invalid request method"); 
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            die("Invalid request method");
         }
 
         $userID = $_SESSION['user_id'];
@@ -423,10 +448,10 @@ class DesignerController extends Controller
 
     public function unfollow()
     {
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') { 
-            die("Invalid request method"); 
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            die("Invalid request method");
         }
-        
+
         $userID = $_SESSION['user_id'];
         $designerID = $_POST['designerID'];
 

@@ -20,7 +20,7 @@
             <h1><?php echo htmlspecialchars($spinoff['title']); ?></h1>
             <div class="spinoff-content">
                 <div class="cover-image">
-                    <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($spinoff['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                    <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($spinoff['cover_image'] ?? 'sampleCover.png'); ?>"
                         alt="Cover Image of <?= htmlspecialchars($spinoff['title']); ?>">
                 </div>
 

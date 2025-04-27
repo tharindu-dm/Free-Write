@@ -62,7 +62,7 @@
                         <?php foreach ($searchResult as $book): ?>
                             <a href="/Free-Write/public/book/Overview/<?= htmlspecialchars($book['bookID']); ?>">
                                 <div class="book-card">
-                                    <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                                    <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.png'); ?>"
                                         alt="Cover Image of <?= htmlspecialchars($book['title']); ?>" class="book-cover">
                                     <div class="book-info">
                                         <div class="book-title">
@@ -141,7 +141,7 @@
                         <?php foreach ($searchResult as $spinoff): ?>
                             <a href="/Free-Write/public/Spinoff/Overview/<?= htmlspecialchars($spinoff['spinoffID']); ?>">
                                 <div class="book-card">
-                                    <img src="/Free-Write/public/images/spinoff.jpg"
+                                    <img src="/Free-Write/public/images/spinoff.png"
                                         alt="Cover of <?= htmlspecialchars($spinoff['title']); ?>" class="book-cover">
                                     <div class="book-info">
                                         <div class="book-title">
@@ -184,7 +184,7 @@
                         <?php foreach ($searchResult as $book): ?>
                             <a href="/Free-Write/public/book/Overview/<?= htmlspecialchars($book['bookID']); ?>">
                                 <div class="book-card">
-                                    <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                                    <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.png'); ?>"
                                         alt="Cover Image of <?= htmlspecialchars($book['title']); ?>" class="book-cover">
                                     <div class="book-info">
                                         <div class="book-title">

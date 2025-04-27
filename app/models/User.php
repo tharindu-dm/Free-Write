@@ -91,6 +91,12 @@ class User
         return $this->update($userID, $data, 'userID');
     }
 
+    public function updateUserTypeToWricov($userID)
+    {
+        $data=['userType' => 'wricov'];
+        return $this->update($userID, $data, 'userID');
+    }
+
     public function getCoverDesigners()
     {
         $query = "SELECT u.[userID], u.[email], u.[userType], ud.[firstName], ud.[lastName], ud.[profileImage]
