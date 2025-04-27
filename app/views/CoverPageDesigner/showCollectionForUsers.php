@@ -100,7 +100,6 @@
                         <div class="design-card">
                             <a href="/Free-Write/public/Designer/viewDesignForNonOwner/<?= htmlspecialchars($design['covID']) ?>">
                                 <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($design['license']) ?>" alt="<?= htmlspecialchars($design['name']) ?>">
-                                     alt="<?= htmlspecialchars($design['name']) ?>">
                                 <div class="design-info">
                                     <h3><?= htmlspecialchars($design['name']) ?></h3>
                                     <p>Bio: <?= htmlspecialchars($design['description'])?></p>

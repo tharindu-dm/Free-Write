@@ -79,6 +79,13 @@
             <button id="openPopupBtn" class="inst-open-popup-btn">Add New User</button>
 
             <!-- Popup Window -->
+            <?php if (isset($_SESSION['add_user_error'])): ?>
+                <div id="addUserError" class="inst-error-message">
+                    <?= htmlspecialchars($_SESSION['add_user_error']) ?>
+                </div>
+                <?php unset($_SESSION['add_user_error']); ?>
+            <?php endif; ?>
+
             <div id="popupForm" class="inst-popup-overlay">
                 <div class="inst-popup-content">
                     <span id="closePopupBtn" class="inst-close-btn">&times;</span>

@@ -78,24 +78,25 @@ class DesignerController extends Controller
         $this->view('CoverPageDesigner/CreateDesign');
     }
 
-    public function Competition()
+    // public function Competition()
+    // {
+    //     $designerId = $_SESSION['user_id'];
+
+    //     $userDetailsModel = new UserDetails();
+    //     $userDetails = $userDetailsModel->getDetails($designerId);
+
+    //     $submissionModel = new DesignSubmissions();
+    //     $joinedCompetitions = $submissionModel->getJoinedCompetitions($designerId);
+
+    //     $this->view('CoverPageDesigner/Competition', [
+    //         'userDetails' => $userDetails,
+    //         'joinedCompetitions' => $joinedCompetitions ?? []
+    //     ]);
+    // }
+
+    public function showCollectionForUsers()
     {
-        $designerId = $_SESSION['user_id'];
-
-        $userDetailsModel = new UserDetails();
-        $userDetails = $userDetailsModel->getDetails($designerId);
-
-        $submissionModel = new DesignSubmission();
-        $joinedCompetitions = $submissionModel->getJoinedCompetitions($designerId);
-
-        $this->view('CoverPageDesigner/Competition', [
-            'userDetails' => $userDetails,
-            'joinedCompetitions' => $joinedCompetitions ?? []
-        ]);
-    }
-
-    public function showCollectionForUsers($collectionID)
-    {
+        $collectionID = splitURL()[2];
         $collectionDetailsModel = new CollectionDetails();
         $collectionDesignsModel = new CollectionDesigns();
         $coverImageModel = new CoverImage();
@@ -248,13 +249,18 @@ class DesignerController extends Controller
     {
         $id = splitURL()[2];
         $coverModel = new CoverImage();
+        $ratingModel = new CovDesignRating();
 
         // Fetch the design details by ID
         $design = $coverModel->first(['covID' => $id]);
+        $ratingData = $ratingModel->getAverageRating($id);
 
         if ($design) {
             // Pass the design details to the CoverPageDesign view
-            $this->view('CoverPageDesigner/CoverPageDesign', ['design' => $design]);
+            $this->view('CoverPageDesigner/CoverPageDesign', [
+                            'design' => $design,
+                            'ratingData' => $ratingData]
+                        );
         } else {
             echo "Design not found.";
         }

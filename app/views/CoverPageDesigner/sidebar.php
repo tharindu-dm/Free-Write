@@ -1,12 +1,11 @@
-<!-- filepath: c:\xampp\htdocs\Free-Write\app\views\CoverPageDesigner\sidebar.php -->
-<!DOCTYPE html>
-<html lang="en">
+<?php 
+$currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$activeClass = function($path) use ($currentPath) {
+    return str_contains($currentPath, $path) ? 'active' : '';
+};
+?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sidebar</title>
-    <style>
+<style>
 /* Sidebar Navigation */
 .side-nav {
     width: 250px;
@@ -97,12 +96,15 @@
 <body>
     <aside class="side-nav">
         <ul>
-            <li><a href="/Free-Write/public/Designer/Dashboard" class="active">Dashboard</a></li>
-            <li><a href="/Free-Write/public/Designer/Competition">Competitions</a></li>
-            <li><a href="/Free-Write/public/Designer/New">Create New Design</a></li>
-            <li><a href="/Free-Write/public/User/profile">Profile</a></li>
+            <li>
+                <a href="/Free-Write/public/Designer/Dashboard" class="<?= $activeClass('/Designer/Dashboard') ?>">Dashboard</a>
+            </li>
+            <li>
+                <a href="/Free-Write/public/DesignerCompetition/index" class="<?= $activeClass('/DesignerCompetition/index') ?>">Competitions</a>
+            </li>
+            <li>
+                <a href="/Free-Write/public/Designer/New" class="<?= $activeClass('/Designer/New') ?>">Create New Design</a>
+            </li>
         </ul>
     </aside>
 </body>
-
-</html>
