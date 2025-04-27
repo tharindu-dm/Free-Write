@@ -531,7 +531,7 @@
         </div>
         <div class="winners-section">
             <h2>Competition Winners</h2>
-            <!-- <form method="post" action="/Free-Write/public/Competition/AnnounceWinners" id="winners-form"> -->
+            <form method="post" action="/Free-Write/public/Competition/AnnounceWinners" id="winners-form">
             <div class="winners-container">
                 <!-- First Place -->
                 <div class="winner-card first-place">
@@ -663,7 +663,7 @@
             <?php if ($competition['status'] === 'ended'): ?>
                 <p class="announcement-message">You cant select winners before competition finish</p>
             <?php endif; ?>
-            <!-- </form> -->
+            </form>
         </div>
 
 

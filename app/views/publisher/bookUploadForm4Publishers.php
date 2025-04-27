@@ -143,8 +143,8 @@
     <h1>Add a New Book</h1>
     <h4>Enter the details for your book</h4>
 
-    <form action="/Free-Write/public/Publisher/BookUpload" method="POST" enctype="multipart/form-data"
-      onsubmit="return validateForm()">
+    <form id="bookForm" action="/Free-Write/public/Publisher/BookUpload" method="POST" enctype="multipart/form-data">
+
       <div class="form-field">
         <label for="title">Title</label>
         <input type="text" id="title" name="title" placeholder="Enter title" required>
@@ -209,35 +209,48 @@
 
   <?php
   require_once "../app/views/layout/footer.php";
-  ?>
-  <script>
-    function validateForm() {
+  ?><script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('bookForm');
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault(); // Stop form from submitting
+
       const prize = document.getElementById('prize').value;
       const publicationYear = document.getElementById('publication-year').value;
       const isbn = document.getElementById('isbn').value;
       const bookCover = document.getElementById('bookCover').files[0];
 
-      // Validate prize format
+      // Validate prize
       const prizeRegex = /^\d+(\.\d{1,2})?$/;
       if (!prizeRegex.test(prize)) {
         alert('Please enter a valid prize (e.g., 19.99)');
-        return false;
+        return;
       }
 
       // Validate publication year
       const currentYear = new Date().getFullYear();
       if (publicationYear < 1500 || publicationYear > currentYear) {
         alert(`Publication year must be between 1500 and ${currentYear}`);
-        return false;
+        return;
       }
-    
 
-      // Validate ISBN (10 or 13 digits)
-      // const isbnRegex = /^\d{10}$|^\d{13}$/;
-      // if (!isbnRegex.test(isbn)) {
-      //   alert('ISBN must be 10 or 13 digits');
-      //   return false;
-      // }
+      // Validate ISBN existence
+      try {
+        const response = await fetch('/Free-Write/public/Publisher/checkIsbn', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: 'isbnID=' + encodeURIComponent(isbn)
+        });
+        const data = await response.text();
+        if (data.trim() === 'exists') {
+          alert('This ISBN already exists! Please enter a different one.');
+          return;
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Error checking ISBN. Please try again.');
+        return;
+      }
 
       // Validate file
       if (bookCover) {
@@ -245,17 +258,18 @@
         const maxFileSize = 2 * 1024 * 1024; // 2MB
         if (!allowedTypes.includes(bookCover.type)) {
           alert('Only JPG or PNG files are allowed');
-          return false;
+          return;
         }
         if (bookCover.size > maxFileSize) {
           alert('File size exceeds 2MB limit');
-          return false;
+          return;
         }
       }
 
-      return true;
-    }
-  </script>
+      // If all validations pass, submit form
+      form.submit();
+    });
+  });
+</script>
 </body>
-
 </html>
