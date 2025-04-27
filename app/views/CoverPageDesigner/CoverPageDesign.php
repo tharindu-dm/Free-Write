@@ -33,8 +33,16 @@
                     </form>
                 </div>
             </div>
+            <div class='rating-container'>
+                <h3>Rating</h3>
+                <div class="rating-value"><?= number_format($ratingData['averageRating'] ?? 0, 1) ?>/5</div>
+                <p class="rating-count">Total Ratings: <?= $ratingData['totalUsers'] ?? 0 ?></p>
+            </div>
         </div>
     </main>
+    <?php
+    require_once "../app/views/layout/footer.php";
+    ?>
     <script src="script.js"></script>
 </body>
 

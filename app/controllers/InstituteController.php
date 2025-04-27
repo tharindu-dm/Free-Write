@@ -116,7 +116,6 @@ class InstituteController extends Controller
         }
 
         $this->view('Institute/InstituteManageUser', $data);
-
     }
     public function Register()
     {
@@ -145,10 +144,8 @@ class InstituteController extends Controller
 
         //add a new institution with its own login and pw
         $institution_table->insert(['name' => $name, 'username' => $username, 'password' => $password, 'subStartDate' => $subStartDate, 'subPlan' => 4, 'creator' => $creator]);
-        //$institution_table->insert(['name' => $name, 'username' => $username, 'password' => $password, 'subStartDate' => $subStartDate, 'subPlan' => 4, 'creator' => $creator]);
 
-        $user = new User();//updating the user as a creator of an institution
-        $user->update($creator, ['userType' => 'inst'], 'userID');
+        $user = new User(); //updating the user as a creator of an institution
         $user->update($creator, ['userType' => 'inst'], 'userID');
 
         //end session
@@ -167,16 +164,26 @@ class InstituteController extends Controller
 
     public function addNewUser()
     {
-        
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user_table = new User();
             $userDetails_table = new UserDetails();
 
             $userEmail = $_POST['username'] . "" . $_POST['instUserDomain'];
 
+            // Check if email already exists
+            $existingUser = $user_table->first(['email' => $userEmail]);
+
+            if ($existingUser) {
+                // Store error message in session
+                $_SESSION['add_user_error'] = "User email already exists!";
+                header('Location: /Free-Write/public/Institute/ManageUser');
+                exit();
+            }
+
             $dataUser = [
                 'email' => $userEmail,
-                'password' => $_POST['password'],
+                'password' => password_hash($_POST['password'], PASSWORD_DEFAULT),
                 'userType' => 'instUser',
                 'isPremium' => 0,
                 'isActivated' => 1,
@@ -196,7 +203,6 @@ class InstituteController extends Controller
             ];
 
             $userDetails_table->insert($dataDetails);
-
         } else {
             echo "Failed to add user.";
         }
@@ -214,6 +220,13 @@ class InstituteController extends Controller
         $firstName = $_POST['user_firstName'];
         $lastName = $_POST['user_lastName'];
 
+        $query = "SELECT * FROM User WHERE email = :email AND userID != :userID LIMIT 1";
+        $result = $user_table->query($query, ['email'=>$username, 'userID'=>$userID]);
+
+        if($result){
+            die("Error: This email is already taken by another user.");
+        }
+
         $userDetails_table->update($userID, ['firstName' => $firstName, 'lastName' => $lastName], 'user');
         $user_table->update($userID, ['email' => $username], 'userID');
 
@@ -223,14 +236,36 @@ class InstituteController extends Controller
 
     public function deleteUser()
     {
-        $user_table = new User();
-        $userDetails_table = new UserDetails();
-
         $userID = $_POST['userID'];
 
-        $userDetails_table->delete($userID, 'user');
-        $user_table->delete($userID, 'userID');
+        $userModel = new User();
+        $userModelData = $userModel->first(['userID' => $userID]);
+
+        $userModel->update($userID,['isActivated' => 9,'password' => "", 'email' => $userModelData['email']."-deleted"], 'userID');
 
         header('Location: /Free-Write/public/Institute/ManageUser');
     }
+
+    public function checkEmailExists()
+    {
+        if (isset($_GET['email']) && isset($_GET['userID'])) {
+            $email = $_GET['email'];
+            $userID = $_GET['userID'];
+
+            $user_table = new User();
+
+            // Find user by email but exclude the current user
+            $query = "SELECT * FROM user WHERE email = :email AND userID != :userID LIMIT 1";
+            $result = $user_table->query($query, ['email' => $email, 'userID' => $userID]);
+
+            if ($result) {
+                echo json_encode(['exists' => true]);
+            } else {
+                echo json_encode(['exists' => false]);
+            }
+        } else {
+            echo json_encode(['exists' => false]);
+        }
+    }
+
 }

@@ -82,11 +82,19 @@ tbody tr:hover {
 
 .listEdit-btn {
     background-color: var(--primary-color);
-    color: #000;
+    height: 35px;
+    width: 85px;
+    border: none;
+    border-radius: 2rem;
+    color: #fff;
 }
 
 .listDelete-btn {
     background-color: var(--danger-color);
+    height: 35px;
+    width: 85px;
+    border: none;
+    border-radius: 2rem;
     color: #fff;
 }
 
@@ -308,6 +316,14 @@ form h6 {
     cursor: pointer;
     transition: all 0.3s ease;
 }
+
+.inst-error-message {
+    color: red;
+    margin: 10px 0;
+    text-align: center;
+    font-weight: bold;
+}
+
 
 /* Responsive Design */
 @media (max-width: 768px) {

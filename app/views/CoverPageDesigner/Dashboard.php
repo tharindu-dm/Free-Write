@@ -65,7 +65,7 @@
                 <?php if (!empty($collections)): ?>
                     <?php foreach ($collections as $collection): ?>
                         <a href="/Free-Write/public/DesignerCollection/viewCollection/<?= $collection['collectionID'] ?>"
-                            class="collection-link" style="text-decoration:none;color:inherit;">
+                            class="collection-link">
                             
                             <div class="collection-item">
                                 <?php if (!empty($collection['frontImage'])): ?>
@@ -89,11 +89,11 @@
                                     </form>
                                 </div>
                             </div>
-
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <p>No collections found. Create your first collection!</p>
-                    <?php endif; ?>
+                        </a>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p>No collections found. Create your first collection!</p>
+                <?php endif; ?>
             </div>
 
 
