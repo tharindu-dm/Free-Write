@@ -37,8 +37,6 @@
               <label for="price">Price (LKR)</label>
               <input type="number" min="0" id="price" name="price" placeholder="Price" required>
             </div>
-
-            <p>*The competition expires two months after its creation date.</p>
           </div>
 
           <!-- Right: Book Cover -->

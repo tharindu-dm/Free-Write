@@ -178,7 +178,7 @@ class CompetitionController extends Controller
         $competitionEntries = new CompetitionEntries();
         $competitionEntries->delete($competitionID, 'competitionID');
         $competition_table->update($competitionID, ['status' => 'deleted'], 'competitionID');
-          //ensure what are id and id column
+        //ensure what are id and id column
         header('Location: /Free-Write/public/Competition/MyCompetitions');
     }
 
@@ -446,77 +446,30 @@ class CompetitionController extends Controller
 
     }
 
-    public function updatestatus(){
+    public function updatestatus()
+    {
         $URL = splitURL();
         $entryID = $URL[2];
         $entryTable = new CompetitionEntries();
-        $entryTable->update($entryID,['status'=> 'reviewed'],'entryID');
+        $entryTable->update($entryID, ['status' => 'reviewed'], 'entryID');
 
-        header('Location: /Free-Write/public/Competition/ViewStats/'.$entryID);        
+        header('Location: /Free-Write/public/Competition/ViewStats/' . $entryID);
     }
 
-    public function AnnounceWinners(){
-        $compID = $_POST['winners[first][competition_id]'];
-        $first_place_winner =  $_POST['"winners[first][place]'];
-        $second_place_winner = $_POST['winners[second][place]'];
-        $third_place_winner = $_POST['winners[second][place]'];
+    public function AnnounceWinners()
+    {
+        $compID = $_POST['winners']['first']['competition_id'];
+        $first_place_winner = $_POST['winners']['first']['entry_id'];
+        $second_place_winner = $_POST['winners']['second']['entry_id'];
+        $third_place_winner = $_POST['winners']['third']['entry_id'];
         $competitionTable = new Competition();
-        
+
+        $competitionTable->update($compID, [
+            'first_place_winner' => $first_place_winner,
+            'second_place_winner' => $second_place_winner,
+            'third_place_winner' => $third_place_winner
+        ], 'competitionID');
+
+        header('Location: /Free-Write/public/Competition/ViewStats/'. $compID);
     }
-
-    /*public function ProfileUser()
-     {
-
-         $this->view('publisher/aCompetitionProfile4users');
-     }*/
-
-    // public function WriterCompetition()
-    // {
-    //     $competiion = new Competition();
-    //     $compID = $_GET['compID'] ?? null;
-    //     $compDetails = null;
-
-    //     if ($compID != null) {
-    //         $compDetails = $competiion->first(['competitionID' => $compID]);
-    //     }
-
-    //     $data = [
-    //         'details' => $compDetails,
-    //     ];
-    //     $this->view('publisher/aCompetitionProfile4users', $data);
-    // }
-
-    // public function CoverCompetition()
-    // {
-    //     $competiion = new Competition();
-    //     $compID = $_GET['compID'] ?? null;
-    //     $compDetails = null;
-
-    //     if ($compID != null) {
-    //         $compDetails = $competiion->first(['competitionID' => $compID]);
-    //     }
-
-    //     $data = [
-    //         'details' => $compDetails,
-    //     ];
-    //     $this->view('publisher/aCompetitionProfile4users', $data);
-    // }
-
-    // public function Competitions()
-    // {
-    //     $competitionModel = new Competition();
-
-    //     // Fetch competitions based on their status
-    //     $activeCompetitions = $competitionModel->where(['status' => 'active']);
-    //     $previousCompetitions = $competitionModel->where(['status' => 'ended']);
-    //     $upcomingCompetitions = $competitionModel->where(['status' => 'upcoming']);
-
-    //     // Pass data to the view
-    //     $this->view('CoverPageDesigner/Competition', [
-    //         'activeCompetitions' => $activeCompetitions,
-    //         'previousCompetitions' => $previousCompetitions,
-    //         'upcomingCompetitions' => $upcomingCompetitions
-    //     ]);
-    // }
-
 }

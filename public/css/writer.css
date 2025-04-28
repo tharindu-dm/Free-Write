@@ -30,13 +30,13 @@ main {
   border-radius: 8px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
+
 /* Main Quote Section
 .quote-section {
   margin: 50px auto;
   width: 100%;
   max-width: 900px;
   min-height: 600px;
-  flex-direction: column;
   text-align: center;
   padding: 20px;
   border-radius: 1rem;
@@ -1377,7 +1377,7 @@ width: 440px;
   color: #333;
   font-weight: bold;
   border: none;
-  border-radius: 5px;
+  border-radius: 2rem;
   cursor: pointer;
   text-align: center;
   transition: background-color 0.3s;
@@ -1629,6 +1629,10 @@ label {
   display: flex;
   gap: 1rem;
   margin-bottom: 0.5rem;
+}
+
+.quotes-section a{
+  left: 10rem;
 }
 
 /* Responsive Adjustments */

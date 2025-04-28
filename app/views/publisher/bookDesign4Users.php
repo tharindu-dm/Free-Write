@@ -270,7 +270,7 @@
             transition: transform 0.3s ease;
         }
 
-        .buy-action-btns{
+        .buy-action-btns {
             display: flex;
             flex: 1;
             width: 100%;
@@ -338,7 +338,7 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    
+
     ?>
 
     <div class="book-container">
@@ -351,8 +351,7 @@
                 <h1><?= htmlspecialchars($bookDetails['title']) ?></h1>
                 <p>By <?= htmlspecialchars($bookDetails['author_name']) ?></p>
 
-
-                <p>Due back: 2023-10-23</p>
+                <p>Price: <?= htmlspecialchars($cartItems['price']) ?></p>
 
                 <h3>Synopsis</h3>
                 <h4><?= htmlspecialchars($bookDetails['synopsis']) ?></h4>
@@ -398,7 +397,7 @@
                 <?php endif; ?>
 
             </div>
-            <div  class="buy-action-btns">
+            <div class="buy-action-btns">
                 <?php if (!empty($_SESSION['user_type'])): ?>
                     <?php if ($_SESSION['user_type'] !== 'pub'): ?>
                         <form action="/Free-Write/public/Cart/addToCart" method="POST">
@@ -447,22 +446,6 @@
                 document.getElementById('cart-quantity').value = this.value;
             });
         });
-        // Add this script at the end of the file
-        // document.querySelector('.resButton').addEventListener('click', function() {
-        //     document.getElementById('popupMessage').style.display = 'flex';
-        // });
-
-        // document.querySelector('.close-popup').addEventListener('click', function() {
-        //     document.getElementById('popupMessage').style.display = 'none';
-        // });
-
-        // document.getElementById('continueShoppingBtn').addEventListener('click', function() {
-        //     document.getElementById('popupMessage').style.display = 'none';
-        // });
-
-        // document.getElementById('viewCartBtn').addEventListener('click', function() {
-        //     window.location.href = '/Free-Write/public/Cart';
-        // });
     </script>
 
     <?php

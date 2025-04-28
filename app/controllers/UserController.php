@@ -90,7 +90,7 @@ class UserController extends Controller
         $cartItems = [];
         if (isset($_SESSION['user_id'])) {
             $cartTable = new Cart(); // You'll need to create this model
-            $cartItems = $cartTable->where(['userID' => $_SESSION['user_id'], 'status' => 'active']);
+            $cartItems = $cartTable->getCartItems($_SESSION['user_id']);
         }
 
         $this->view(
