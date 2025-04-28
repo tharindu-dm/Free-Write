@@ -12,7 +12,7 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    
+
     ?>
 
     <main>
@@ -192,7 +192,7 @@
                         </div>
                     </div>
                     <div class="user-type-redirect-btn-container">
-                        <?php if (!isset($_SESSION['user_id']) || (isset($_GET['user']) && $_GET['user'] != $_SESSION['user_id'] && $userAccount['userType'] === 'writer')): ?>
+                        <?php if (!isset($_SESSION['user_id']) || (isset($_GET['user']) && $_GET['user'] != $_SESSION['user_id'] && ($userAccount['userType'] === 'writer' || $userAccount['userType'] === 'wricov'))): ?>
                             <div class="writer-dashboard-btn">
 
                                 <a
@@ -201,10 +201,11 @@
                                 </a>
                             </div>
                         <?php endif; ?>
-                        <?php if (!isset($_SESSION['user_id']) || (isset($_GET['user']) && $_GET['user'] != $_SESSION['user_id'])): ?>
+                        <?php if (!isset($_SESSION['user_id']) || (isset($_GET['user']) && $_GET['user'] != $_SESSION['user_id'] && ($userAccount['userType'] === 'covdes' || $userAccount['userType'] === 'wricov'))): ?>
                             <div class="writer-dashboard-btn">
 
-                                <a href="/Free-Write/public/Designer/publicProfile/<?= htmlspecialchars($userAccount['userID']) ?>">
+                                <a
+                                    href="/Free-Write/public/Designer/publicProfile/<?= htmlspecialchars($userAccount['userID']) ?>">
                                     <button>Covers</button>
                                 </a>
                             </div>
@@ -229,25 +230,6 @@
                         $plannedPercentage = ($listCounts[0]['planned'] / $totalEntries) * 100;
                     }
                     ?>
-
-                    <!-- <div class="extra-profile-buttons">
-                        <?php
-                        // if (!isset($_GET['user'])) {
-                        //     switch ($userType) {
-                        //         case 'writer':
-                        //             require_once "../app/views/Profile/Components/writerComponent.php";
-                        //             break;
-                        //         case 'covdes':
-                        //             require_once "../app/views/Profile/Components/covdesComponent.php";
-                        //             break;
-                        //         case 'wricov':
-                        //             require_once "../app/views/Profile/Components/writerComponent.php";
-                        //             require_once "../app/views/Profile/Components/covdesComponent.php";
-                        //             break;
-                        //     }
-                        // }
-                        ?>
-                    </div> -->
 
                     <div class="statistics-container">
                         <!-- Book Lists Section -->
@@ -419,8 +401,9 @@
                                         href="/Free-Write/public/Collection/viewCollection/<?= htmlspecialchars($collection['collectionID']); ?>">
 
                                         <div class="collection-item">
-                                            <img src="/Free-Write/app/images/coverDesign/<?= $collection['ThumbnailImageName']; ?>"
+                                            <img src="<?= $collection['ThumbnailImageName'] ? "/Free-Write/app/images/coverDesign/{$collection['ThumbnailImageName']}" : "/Free-Write/public/images/collectionThumb.jpeg"; ?>"
                                                 alt="Collection Thumbnail">
+
                                             <div class="collection-details">
                                                 <span><?= htmlspecialchars($collection['title']) ?></span>
                                                 <span><?= htmlspecialchars($collection['BookCount']) ?></span>

@@ -15,6 +15,7 @@ class PublisherBooks
             p.publisherID, 
             p.title,
             CONCAT(u.firstName, ' ', u.lastName) AS author,
+            u.profileImage,
             ROW_NUMBER() OVER (PARTITION BY p.publisherID ORDER BY p.isbnID /*p.created_at DESC,*/ ) as row_num 
             FROM PublisherBooks p
             JOIN [UserDetails] u ON p.publisherID = u.[user]

@@ -1,13 +1,14 @@
 <!-- My Shopping Cart Section -->
 <div id="my-cart" class="view-section">
     <h2>My Shopping Cart</h2>
+    <hr style="margin-bottom: 1rem; border:0.1rem solid #ffd700; " />
 
     <?php if (!empty($cartItems)): ?>
         <div class="table-responsive">
             <table class="cart-table">
                 <thead>
                     <tr>
-                        <th>Book ID</th>
+                        <th hidden>Book ID</th>
                         <th>Book Title</th>
                         <th>Quantity</th>
                         <th>Price</th>
@@ -18,7 +19,7 @@
                 <tbody>
                     <?php foreach ($cartItems as $item): ?>
                         <tr class="cart-row">
-                            <td><?= htmlspecialchars($item['bookID']) ?></td>
+                            <td hidden><?= htmlspecialchars($item['bookID']) ?></td>
                             <td><?= htmlspecialchars($item['bookTitle'] ?? 'Book Title') ?></td>
                             <td>
                                 <div class="quantity-control">

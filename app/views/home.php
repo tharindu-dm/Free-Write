@@ -19,8 +19,8 @@
                 and connect with fellow creatives.</p>
             <div class="cta-buttons">
                 <a href="/Free-Write/public/Browse"><button class="browse-btn">Browse Stories</button></a>
-                <a href="/Free-Write/public/#"><button class="start-writing-btn">Start Writing</button></a>
-                <a href="/Free-Write/public/#"><button class="share-designs-btn">Share Designs</button></a>
+                <a href="/Free-Write/public/Login"><button class="start-writing-btn">Start Writing</button></a>
+                <a href="/Free-Write/public/Login"><button class="share-designs-btn">Share Designs</button></a>
             </div>
         </section>
 

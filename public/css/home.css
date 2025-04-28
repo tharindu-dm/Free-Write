@@ -83,7 +83,6 @@ h1 {
   display: flex;
   justify-content: space-around;
   gap: 2rem;
-
   margin: 3rem 5rem 0 5rem;
 }
 
@@ -93,10 +92,13 @@ h1 {
   background-color: var(--accent-color);
   border-radius: 15px;
   transition: transform 0.3s ease;
+  border: #ffd700 1px solid;
 }
 
 .feature:hover {
   transform: translateY(-10px);
+  background-color: #ffd70050;
+  transition: ease-in-out 200ms;
 }
 
 .feature svg {
@@ -150,10 +152,13 @@ h1 {
   background-color: var(--background-color);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease;
+  border: #ffd700 2px solid;
 }
 
 .plan:hover {
   transform: translateY(-10px);
+  transition: ease-in 200ms;
+  background-color: #ffd70020;
 }
 
 .plan h3 {

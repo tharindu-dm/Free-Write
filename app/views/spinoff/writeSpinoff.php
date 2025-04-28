@@ -10,7 +10,7 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    
+
     ?>
 
     <!-- Writing Section -->
@@ -20,6 +20,9 @@
                 <h1>Write a Spinoff</h1>
                 <p>Write a spinoff of the book you just read. Let your imagination run wild!</p>
             </div>
+
+            <hr style="width:70%; margin-bottom: 1rem; border:0.1rem solid #ffd700 !important; " />
+
             <div class="form-container">
                 <form action="/Free-Write/public/Spinoff/Create" method="post">
                     <label for="title">Title</label>

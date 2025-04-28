@@ -56,7 +56,8 @@
             box-shadow: 0 0 0 3px rgba(255, 208, 82, 0.2);
         }
 
-        button {
+        .submit-btn,
+        .cancel-btn {
             padding: 1rem 1.5rem;
             margin-right: 1rem;
             border: none;
@@ -67,7 +68,8 @@
             transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        button:hover {
+        .submit-btn:hover,
+        .cancel-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
@@ -179,7 +181,7 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    
+
     ?>
 
     <main>

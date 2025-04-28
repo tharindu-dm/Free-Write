@@ -59,18 +59,6 @@
                 </table>
             </div>
 
-            <!-- Pagination -->
-            <div class="inst-pagination">
-                <button class="inst-prev-btn">&lt;</button>
-                <div class="inst-page-numbers">
-                    <span class="inst-page-number active">1</span>
-                    <span class="inst-page-number">2</span>
-                    <span class="inst-page-number">3</span>
-                    <span class="inst-page-number">4</span>
-                    <span class="inst-page-number">5</span>
-                </div>
-                <button class="inst-next-btn">&gt;</button>
-            </div>
 
             <!-- New User Button
             <button class="inst-new-user-btn">New User</button> -->
