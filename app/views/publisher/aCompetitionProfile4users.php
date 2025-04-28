@@ -226,7 +226,7 @@
             </div>
         </div>
 
-        <div class="card">
+        <!-- <div class="card">
             <h3 class="section-title">Judging Criteria</h3>
             <ul>
                 <li>Creativity and Originality (40%)</li>
@@ -234,7 +234,7 @@
                 <li>Engagement and Emotional Impact (20%)</li>
                 <li>Adherence to Theme (10%)</li>
             </ul>
-        </div>
+        </div> -->
 
         <div class="card">
             <h3 class="section-title">Submission Details</h3>
