@@ -10,7 +10,8 @@
     <?php require_once "../app/views/layout/headerSelector.php"; ?>
 
     <div class="container">
-        <?php include_once "../app/views/Institute/sidebar.php"; ?>
+        <?php include_once "../app/views/Institute/sidebar.php"; 
+        //show($data)?>
         <main class="main-content">
             <section class="settings-section">
                 <h1>Institution Settings</h1>
