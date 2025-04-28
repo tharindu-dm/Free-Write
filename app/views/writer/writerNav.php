@@ -1,4 +1,3 @@
-<!-- Navigation for Writer Options -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,13 +23,9 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Get current path
             const currentPath = window.location.pathname;
-
-            // Get all navigation links
             const navLinks = document.querySelectorAll('.writer-nav a');
 
-            // Loop through links and check if href matches current path
             navLinks.forEach(link => {
                 if (currentPath === link.getAttribute('href') ||
                     (currentPath.includes(link.getAttribute('href')) &&
@@ -39,7 +34,6 @@
                 }
             });
 
-            // Special case for Dashboard/Books which might be the default route
             if (currentPath === '/Free-Write/public/Writer/' ||
                 currentPath === '/Free-Write/public/Writer' ||
                 currentPath === '/Free-Write/public/Writer/Dashboard') {

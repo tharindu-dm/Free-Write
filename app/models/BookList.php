@@ -2,9 +2,9 @@
 
 class BookList
 {
-    use Model; // Use the Model trait
+    use Model; 
 
-    protected $table = 'BookList'; //when using the Model trait, this table name ise used 
+    protected $table = 'BookList'; 
 
     public function getBookList($userID)
     {
@@ -25,13 +25,13 @@ class BookList
         return $this->query($query);
     }
     public function addToList($userID, $bookID, $AddStatus)
-    { //$chapter to be added to the list : edit the query to add the chapter to the list
+    { 
         $this->insert(['user' => $userID, 'book' => $bookID, 'status' => $AddStatus]);
         return;
     }
 
     public function getUserBookList($userID, $staus)
-    { //get the list of books of the user with the status
+    { 
 
         $query = "SELECT b.[bookID], b.[title], l.chapterProgress, l.[status], 
         c.[name] AS cover_image FROM [Book] b 
@@ -39,7 +39,7 @@ class BookList
         LEFT JOIN [CoverImage] c ON b.[coverImage] = c.covID 
         WHERE l.[user] = $userID AND l.[status] = '$staus';";
 
-        //show($query);
+        
 
         return $this->query($query);
     }
@@ -49,7 +49,7 @@ class BookList
     {
         $query = "UPDATE [BookList] SET [chapterProgress] = $chaps, [status] = '$status' WHERE [user] = $uid AND [book] = $bid;";
 
-        //show($query);
+        
 
         $this->query($query);
         return;
@@ -59,7 +59,7 @@ class BookList
     {
         $query = "DELETE FROM [BookList] WHERE [user] = $uid AND [book] = $bid;";
 
-        //show($query);
+        
 
         $this->query($query);
         return;

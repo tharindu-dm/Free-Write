@@ -1,4 +1,3 @@
-/* Main Browse Page Styles */
 .browse-main-container {
   display: flex;
   width: 100%;
@@ -18,7 +17,6 @@ main {
   margin: 1rem 0 0 0;
 }
 
-/* Search Section */
 .search-section {
   display: flex;
   justify-content: center;
@@ -108,7 +106,6 @@ main {
   }
 }
 
-/* Book Category Section */
 .browse-body-section {
   width: 100%;
 }
@@ -122,14 +119,12 @@ main {
   margin-bottom: 10px;
 }
 
-/* Book Grid */
 .book-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 20px;
 }
 
-/* Book Card */
 .book-card {
   display: flex;
   flex-direction: column;
@@ -164,4 +159,3 @@ main {
   font-size: 14px;
   color: #888;
 }
-

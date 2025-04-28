@@ -1,4 +1,3 @@
-/* Base Layout */
 main {
   display: flex;
   max-width: 100vw;
@@ -7,14 +6,12 @@ main {
   padding: 2rem;
 }
 
-/* Main Content Area */
 .main-content {
   margin-left: 270px;
   padding: 1.5rem;
   flex: 1;
 }
 
-/* User Profile Section */
 .user-profile {
   text-align: center;
   margin-bottom: 2.5rem;
@@ -46,7 +43,6 @@ main {
   font-size: 1rem;
 }
 
-/* Profile Navigation */
 .profile-nav {
   display: flex;
   justify-content: center;
@@ -71,7 +67,6 @@ main {
   color: #000;
 }
 
-/* Designs Section */
 .designs {
   background: rgba(255, 215, 0, 0.05);
   border: #ffd700 solid 1px;
@@ -104,7 +99,6 @@ main {
   color: #ffd700;
 }
 
-/* Design Grid */
 .design-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -136,8 +130,6 @@ main {
   font-weight: 500;
   color: #333;
 }
-
-/* Collection Section */
 
 .create-collection-section {
   margin: 2rem 0;
@@ -205,7 +197,6 @@ main {
   border-radius: 0.5rem;
 }
 
-/* Collection Action Buttons */
 .collection-actions {
   display: flex;
   gap: 1rem;
@@ -255,7 +246,6 @@ main {
   width: 50%;
 }
 
-/* Competition Styles */
 .competitions {
   background-color: #fff;
   padding: 1.5rem;
@@ -346,7 +336,6 @@ main {
   color: #fff;
 }
 
-/* Edit Collection Form Styles */
 .edit-collection-section {
   background-color: #fff;
   padding: 2rem;
@@ -455,7 +444,6 @@ main {
   color: #ffd700;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .edit-collection-section {
     margin: 1rem;
@@ -490,7 +478,6 @@ main {
   }
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .dashboard-container {
     flex-direction: column;

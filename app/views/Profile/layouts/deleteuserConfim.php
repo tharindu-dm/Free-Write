@@ -114,7 +114,6 @@
 </head>
 
 <body>
-    <!-- Delete Confirmation Modal -->
     <div id="deleteConfirmModal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">

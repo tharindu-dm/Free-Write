@@ -13,7 +13,6 @@
     
     ?>
 
-    <!-- Chapter Content -->
     <div class="container">
         <h2 class="chapter-title">Write Your Chapter</h2>
         <h3 class="synopsis"><?= htmlspecialchars($spinoff['title']) ?></h3>
@@ -59,7 +58,6 @@
     require_once "../app/views/layout/footer.php";
     ?>
 
-    <!-- Delete Chapter Overlay-->
     <?php if (splitURL()[1] == 'ChapEdit'): ?>
         <div class="delete_spinoff_chapter_overlay">
             <div class="overlay-container">
@@ -81,7 +79,6 @@
         </div>
     <?php endif; ?>
 
-    <!-- Discard changes Chapter Overlay-->
     <div class="discard_spinoff_chapter_overlay">
         <div class="overlay-container">
             <div class="overlay-content">
@@ -95,7 +92,6 @@
         </div>
     </div>
 
-    <!-- Scripts -->
     <script src="/Free-Write/public/js/Spinoff/createChapter.js"></script>
     <script src="/Free-Write/public/js/Spinoff/spinoffChapDeleteDiscard.js"></script>
 </body>

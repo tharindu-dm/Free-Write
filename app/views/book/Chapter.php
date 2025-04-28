@@ -13,7 +13,6 @@
     ?>
 
     <main>
-        <!-- Chapter Menu -->
         <div class="chapter-menu">
             <h2>Chapters</h2>
             <ul id="chapterMenu">
@@ -26,9 +25,7 @@
             </ul>
         </div>
 
-        <!-- Main Content -->
         <div class="main-content">
-            <!-- Chapter Content -->
             <div class="container">
                 <div class="title-container">
                     <div class="title">
@@ -53,22 +50,6 @@
                     ?>
                 </div>
 
-                <!--<div class="navigation">
-                   <button class="btn" id="prevChapter" <?= $prevChapterID ? "onclick=\"location.href='?chapterID=$prevChapterID'\"" : 'disabled'; ?>>
-                        Previous Chapter
-                    </button>
-                    <button class="btn" id="nextChapter" <?= $nextChapterID ? "onclick=\"location.href='?chapterID=$nextChapterID'\"" : 'disabled'; ?>>
-                        Next Chapter
-                    </button>
-                    <button class="btn" id="prevChapter">
-                        Previous Chapter
-                    </button>
-                    <button class="btn" id="nextChapter">
-                        Next Chapter
-                    </button>
-                </div>-->
-
-                <!-- Comments Section -->
                 <?php if (splitURL()[1] == 'Chapter'): ?>
                     <div class="comments">
                         <h3>Comments</h3>
@@ -102,7 +83,6 @@
             </div>
         </div>
 
-        <!-- Ad image -->
         <?php include "../app/views/layout/advertisement.php"; ?>
     </main>
 

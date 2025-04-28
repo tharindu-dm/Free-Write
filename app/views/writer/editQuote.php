@@ -19,7 +19,6 @@
                 return;
             }
 
-            // Check quote length on input and show a warning if over 255 characters
             quoteTextarea.addEventListener('input', function () {
                 let quoteLength = quoteTextarea.value.length;
                 if (quoteLength > 255) {
@@ -41,7 +40,6 @@
     require_once "../app/views/layout/header-user.php";
     ?>
 
-    <!-- Main Content -->
     <main class="quote-section">
         <h2>A Quote by
             <?= htmlspecialchars($userDetails['firstName']) . " " . htmlspecialchars($userDetails['lastName']); ?>
@@ -77,7 +75,6 @@
         </form>
     </main>
 
-    <!-- Footer -->
     <?php
     require_once "../app/views/layout/footer.php";
     ?>

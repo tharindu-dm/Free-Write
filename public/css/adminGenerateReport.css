@@ -1,17 +1,17 @@
 main {
-  max-width: 210mm; /* A4 width */
+  max-width: 210mm; 
   margin: 20px auto;
   padding: 30px;
   background-color: rgba(255, 215, 0, 0.05);
   border: #ffd700 solid 1px;
 }
 
-/* Report Container */
+
 .report-container {
   width: 100%;
 }
 
-/* Header Styles */
+
 .report-header {
   text-align: center;
   margin-bottom: 40px;
@@ -31,14 +31,14 @@ main {
   color: #555;
 }
 
-/* Stats Grid Layout */
+
 .stats-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 30px;
 }
 
-/* Stats Cards */
+
 .stats-card {
   margin-bottom: 30px;
   break-inside: avoid;
@@ -52,7 +52,7 @@ main {
   color: #222;
 }
 
-/* Stats Items */
+
 .stat-item {
   display: flex;
   justify-content: space-between;
@@ -83,7 +83,7 @@ main {
   font-size: larger;
 }
 
-/* Disclaimer */
+
 .disclaimer {
   margin-top: 40px;
   text-align: center;
@@ -93,7 +93,7 @@ main {
   border-top: 1px solid #ddd;
 }
 
-/* Print Specific Styles */
+
 @media print {
   body {
     background-color: white;
@@ -119,12 +119,12 @@ main {
   }
 }
 
-/* Alternate Row Styling for Better Readability */
+
 .stat-item:nth-child(even) {
   background-color: #ffffff;
 }
 
-/* Page Numbers */
+
 @page {
   size: A4 portrait;
   margin: 2cm;
@@ -134,7 +134,7 @@ main {
   content: counter(page);
 }
 
-/*For the printing*/
+
 .download-btn {
   margin-top: 20px;
   background-color: #333;
@@ -156,7 +156,7 @@ main {
     display: none !important;
   }
 
-  /* Hide header and footer that might be included from your layout */
+  
   header,
   footer,
   nav {

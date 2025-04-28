@@ -142,7 +142,6 @@
       box-shadow: none;
     }
 
-    /* Statistics Styles */
     .stats-container {
       max-width: 1200px;
       width: 90%;

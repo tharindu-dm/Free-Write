@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  //COLLECTIONS
   const collectionBtn = document.getElementById("createCollectionBtn");
   const cancelBtn_collection = document.querySelector(
     ".discard-change-btn-collection"
@@ -18,20 +17,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (collectionBtn && collectionOverlay) {
     collectionBtn.addEventListener("click", (e) => {
-      e.preventDefault(); // Prevent the default action
+      e.preventDefault();
 
       collectionOverlay.style.display =
         collectionOverlay.style.display != "flex" ? "flex" : "none";
     });
 
-    // Close the overlay when the cancel/discard button is clicked
     cancelOverlayBtn_collection.addEventListener("click", (e) => {
-      e.preventDefault(); // Prevent the default action
+      e.preventDefault();
 
       collectionOverlay.style.display = "none";
     });
     cancelBtn_collection.addEventListener("click", (e) => {
-      e.preventDefault(); // Prevent the default action
+      e.preventDefault();
 
       collectionOverlay.style.display = "none";
     });
@@ -39,7 +37,6 @@ document.addEventListener("DOMContentLoaded", function () {
     console.error("CollectionBtn or its Overlay not found in the DOM.");
   }
 
-  // Validation functions
   const validateTitle = () => {
     const value = titleInput.value.trim();
     if (!value) {
@@ -85,11 +82,9 @@ document.addEventListener("DOMContentLoaded", function () {
     return true;
   };
 
-  // Real-time validation
   titleInput.addEventListener("input", validateTitle);
   descriptionInput.addEventListener("input", validateDescription);
 
-  // Form submission
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
@@ -97,12 +92,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const isDescriptionValid = validateDescription();
 
     if (isTitleValid && isDescriptionValid) {
-      // Add loading state to button
       const submitButton = form.querySelector(".create-btn");
       submitButton.innerHTML = "<span>Creating...</span>";
       submitButton.disabled = true;
 
-      // Submit the form
       form.submit();
     }
   });

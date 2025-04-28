@@ -2,9 +2,9 @@
 
 class UserSubscription
 {
-    use Model; // Use the Model trait
+    use Model;
 
-    protected $table = 'UserSubscription'; //when using the Model trait, this table name ise used 
+    protected $table = 'UserSubscription'; 
 
 
     public function getMonthlySubscriptionSummary($startDate, $endDate)

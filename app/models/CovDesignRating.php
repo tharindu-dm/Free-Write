@@ -14,17 +14,14 @@ class CovDesignRating
 
     public function addOrUpdateRating($userID, $covID, $rating)
     {
-        // Check if the user has already rated this design
         $existingRating = $this->query("SELECT * FROM {$this->table} WHERE userID = :userID AND covID = :covID", [
             'userID' => $userID,
             'covID' => $covID
         ]);
 
         if ($existingRating) {
-            // Update the existing rating
             $query = "UPDATE {$this->table} SET rating = :rating WHERE userID = :userID AND covID = :covID";
         } else {
-            // Insert a new rating
             $query = "INSERT INTO {$this->table} (userID, covID, rating) VALUES (:userID, :covID, :rating)";
         }
 

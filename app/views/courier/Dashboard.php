@@ -373,7 +373,6 @@
         </div>
 
         <div class="main-content">
-            <!-- Dashboard Section -->
             <div id="dashboard" class="view-section active">
                 <div class="section-title">
                     <h2>Delivery Overview</h2>
@@ -456,7 +455,7 @@
                 <?php
                 $recentDeliveries = false;
                 if (!empty($orders)) {
-                    // Sort orders by date (newest first)
+
                     usort($orders, function ($a, $b) {
                         return strtotime($b['orderDate']) - strtotime($a['orderDate']);
                     });
@@ -468,7 +467,7 @@
                         $recentDeliveries = true;
                         $count++;
 
-                        $statusClass = 'status-pending'; // Default
+                        $statusClass = 'status-pending';
                         if ($order['status'] == 'collectingOrder')
                             $statusClass = 'status-processing';
                         else if ($order['status'] == 'out4Delivery' || $order['status'] == 'deliveryWithin1Day')
@@ -778,15 +777,15 @@
     <script>
         document.querySelectorAll('.user-nav-button').forEach(button => {
             button.addEventListener('click', function () {
-                // Hide all sections
+
                 document.querySelectorAll('.view-section').forEach(section => {
                     section.classList.remove('active');
                 });
-                // Show the clicked section
+
                 const sectionId = this.getAttribute('data-view');
                 document.getElementById(sectionId).classList.add('active');
 
-                // Update the active class for the navigation button
+
                 document.querySelectorAll('.user-nav-button').forEach(btn => {
                     btn.classList.remove('active');
                 });

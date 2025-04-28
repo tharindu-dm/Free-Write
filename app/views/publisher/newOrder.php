@@ -142,7 +142,6 @@
       box-shadow: none;
     }
 
-    /* Statistics Styles */
     .stats-container {
       max-width: 1200px;
       width: 90%;
@@ -287,16 +286,13 @@
 
 <body>
   <?php require_once "../app/views/layout/headerSelector.php";
-  
   ?>
 
-  <!-- Statistics Header with View Button -->
   <div class="stats-header">
     <h2 style="color: #1C160C; font-size: 1.5rem; font-weight: 600;">Statistics Overview</h2>
     <a href="/Free-Write/public/Order/viewStats" class="view-stats-button">View Statistics</a>
   </div>
 
-  <!-- Statistics Cards -->
   <div class="stats-container">
     <div class="stats-grid">
       <a href="/Free-Write/public/Order/">
@@ -328,7 +324,6 @@
     </div>
   </div>
 
-  <!-- Main Content -->
   <main class="main-content">
     <h1>Orders</h1>
 
@@ -395,38 +390,7 @@
         <?php endif; ?>
       </tbody>
 
-
-
-
-
     </table>
-    <!-- </main>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const proceedForms = document.querySelectorAll('.proceed-form');
-
-      proceedForms.forEach(form => {
-        const button = form.querySelector('.order-action-button');
-        const courierSelect = form.querySelector('.courier-select');
-
-        button.addEventListener('click', function(e) {
-          if (!courierSelect.value) {
-            e.preventDefault(); // Stop form submission
-
-            alert('Please select a courier to proceed.');
-            courierSelect.style.borderColor = '#FF4D4D';
-            courierSelect.style.boxShadow = '0 0 0 3px rgba(255, 77, 77, 0.2)';
-
-            setTimeout(() => {
-              courierSelect.style.borderColor = '#FFD700';
-              courierSelect.style.boxShadow = 'none';
-            }, 3000);
-          }
-        });
-      });
-    });
-  </script> -->
-
     <?php
     require_once "../app/views/layout/footer.php";
     ?>

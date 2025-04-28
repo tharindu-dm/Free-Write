@@ -5,9 +5,9 @@ class Cart
     use Model;
     protected $table = 'Cart';
     
-    // You can add custom methods here as needed
     
-    // Get active cart items for a user with book details
+    
+    
     public function getCartWithBookDetails($userID)
     {
         $query = "SELECT c.*, b.title, b.price as bookPrice, b.coverImage, 
@@ -20,7 +20,7 @@ class Cart
         return $this->query($query, [$userID]);
     }
     
-    // Get cart total for a user
+    
     public function getCartTotal($userID)
     {
         $query = "SELECT SUM(c.quantity * c.price) as total
@@ -31,7 +31,7 @@ class Cart
         return $result[0]['total'] ?? 0;
     }
     
-    // Check if a book is already in the cart
+    
     public function isBookInCart($userID, $bookID)
     {
         $result = $this->first([

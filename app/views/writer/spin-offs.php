@@ -10,12 +10,11 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    
+
     ?>
 
     <main>
         <div class="dashboard">
-            <!-- Profile Section -->
             <div class="profile-section">
                 <div class="profile-image">
                     <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>"
@@ -35,10 +34,8 @@
                 <?php endif; ?>
             </div>
 
-            <!-- Navigation for Writer Options -->
             <?php require_once "../app/views/writer/writerNav.php"; ?>
 
-            <!-- Check if there are any spinoff requests -->
             <?php if (empty($pendingSpinoffs) && empty($acceptedSpinoffs) && empty($rejectedSpinoffs)): ?>
                 <div class="no-requests">
                     <h2><svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none"
@@ -52,7 +49,6 @@
                 </div>
             <?php else: ?>
                 <div class="spinoff-container">
-                    <!-- Navigation Tabs -->
                     <div class="spinoff-nav">
                         <button class="tab-btn active" onclick="showSection('pending')">Pending</button>
                         <button class="tab-btn" onclick="showSection('accepted')">Accepted</button>
@@ -60,7 +56,6 @@
                     </div>
 
                     <?php
-                    // Helper function to generate the spinoff section
                     function generateSpinoffSection($spinoffs, $sectionId, $sectionTitle)
                     {
                         echo "<section id=\"$sectionId\" class=\"spinoff-section\">";
@@ -82,17 +77,14 @@
                         echo "</section>";
                     }
 
-                    // Generate sections for Pending, Accepted, and Rejected spinoffs
                     generateSpinoffSection($pendingSpinoffs, 'pending', 'Pending');
                     generateSpinoffSection($acceptedSpinoffs, 'accepted', 'Accepted');
                     generateSpinoffSection($rejectedSpinoffs, 'rejected', 'Rejected');
                     ?>
                 </div>
             <?php endif; ?>
-        </div> <!-- End of Dashboard -->
-    </main>
+        </div>    </main>
 
-    <!-- Footer Section -->
     <?php require_once "../app/views/layout/footer.php"; ?>
     <script src="/Free-Write/public/js/writer/spin-offs.js"></script>
 </body>

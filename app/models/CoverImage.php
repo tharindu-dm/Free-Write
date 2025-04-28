@@ -2,12 +2,12 @@
 
 class CoverImage
 {
-    use Model; // Use the Model trait
+    use Model; 
 
-    protected $table = 'CoverImage'; //when using the Model trait, this table name ise used 
+    protected $table = 'CoverImage';  
     protected $dateTimeColumn = 'uploadDate';
 
-    //nalan
+    
     public function getAll()
     {
         return $this->findAll();
@@ -15,7 +15,7 @@ class CoverImage
 
     public function getById($id)
     {
-        return $this->where(['id' => $id]); // this returns an array
+        return $this->where(['id' => $id]); 
     }
 
     public function insertDesign($data)
@@ -40,7 +40,7 @@ class CoverImage
 
     public function getAllCoverImages()
     {
-        // Custom SQL query to fetch all cover images
+        
         $query = "SELECT covID, [name], license, [description], artist FROM {$this->table}";
         return $this->query($query);
     }
@@ -52,7 +52,7 @@ class CoverImage
         return $result ? (int) $result[0]['total'] : 0;
     }
 
-    // Get cover images with limit and offset for pagination
+    
     public function getCoverImagesPaginated($limit, $offset)
     {
         $limit = (int) $limit;

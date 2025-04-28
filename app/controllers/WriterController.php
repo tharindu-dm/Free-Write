@@ -5,14 +5,14 @@ class WriterController extends Controller
     {
         $this->DashboardNew();
     }
-    //dashboard---------------------------------------------------------------------------------
+
     public function DashboardNew()
     {
         $book = new Book();
 
         if (isset($_SESSION['user_id'])) {
             if (isset($_GET['writer']) && $_GET['writer'] == $_SESSION['user_id'])
-                header('Location: /Free-Write/public/Writer/DashboardNew'); //to avoid user to see his own public view profile.
+                header('Location: /Free-Write/public/Writer/DashboardNew');
         } else {
             header('Location: /Free-Write/public/Login');
             exit;
@@ -23,7 +23,7 @@ class WriterController extends Controller
         if (empty($MyBooks)) {
             if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'writer') {
                 $userDetails = new User();
-                $userDetails->update($author, ['userType' => 'reader'], 'userID');//if wricov =>covdes
+                $userDetails->update($author, ['userType' => 'reader'], 'userID');
 
                 $_SESSION['user_type'] = 'reader';
             } elseif (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'wricov') {
@@ -36,7 +36,7 @@ class WriterController extends Controller
             exit;
         } else {
             if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'reader') {
-                //wricov if cover
+
                 $userDetails = new User();
                 $userDetails->update($author, ['userType' => 'writer'], 'userID');
                 $_SESSION['user_type'] = 'writer';
@@ -54,8 +54,6 @@ class WriterController extends Controller
 
     public function DashboardNewView($author)
     {
-        //var_dump($_SESSION['user_type']);
-        //$author = $_SESSION['user_id'];
         $userDetailsTable = new UserDetails();
         $userDetails = $userDetailsTable->first(['user' => $author]);
 
@@ -65,20 +63,20 @@ class WriterController extends Controller
 
     public function Dashboard($author)
     {
-        // Fetch user details
+
         $userDetailsTable = new UserDetails();
         $userDetails = $userDetailsTable->first(['user' => $author]);
 
-        // Fetch follower count
+
         $Followers = new Follow();
         $followers = $Followers->getFollowCount($author);
 
-        // Fetch total views for the author
+
         $view = new Book();
         $totViewsArray = $view->getAuthorViews($author);
         $views = $totViewsArray[0]['totalViews'] ?? 0;
 
-        // Fetch books by the author
+
         $book = new Book();
         $MyBooks = $book->getBookByAuthor($author);
 
@@ -86,14 +84,13 @@ class WriterController extends Controller
         $latest = $book->getLatestBooks($author);
 
 
-        // Fetch genre for each book
+
         $bookGenre = new BookGenre();
         foreach ($MyBooks as $key => $bookItem) {
-            $genreDetails = $bookGenre->getBookGenre($bookItem['bookID']);  // Get genre for each book
-            $MyBooks[$key]['genre'] = $genreDetails;  // Add genre details to the book
+            $genreDetails = $bookGenre->getBookGenre($bookItem['bookID']);
+            $MyBooks[$key]['genre'] = $genreDetails;
         }
 
-        // Pass the data to the view
         $this->view('writer/writerDashboard', [
             'MyBooks' => $MyBooks,
             'userDetails' => $userDetails,
@@ -102,7 +99,6 @@ class WriterController extends Controller
             'MostViewed' => $mostViewed,
             'Latest' => $latest
         ]);
-
     }
 
     public function Overview($bookID = 0)
@@ -112,7 +108,7 @@ class WriterController extends Controller
             $this->view('error');
 
         if ($bookID < 1 || !is_numeric($bookID))
-            $bookID = $URL[2]; //get the book id from the url
+            $bookID = $URL[2];
 
         $book = new Book();
         $spinoff = new Spinoff();
@@ -124,24 +120,22 @@ class WriterController extends Controller
         $genres = $genreDetails->getBookGenre($bookID);
         $bookFound = $book->getBookByID($bookID);
         $bookRating = $rating->getBookRating($bookID);
-        $bookChapters = $bookChapter_table->getBookChapters($bookID); //list of chapters related to the specific book
-
+        $bookChapters = $bookChapter_table->getBookChapters($bookID);
 
         $this->view('writer/bookDetail', ['book' => $bookFound, 'chapters' => $bookChapters, 'rating' => $bookRating, 'spinoffs' => $spinoffs, 'genres' => $genres]);
     }
 
-    // QUOTES---------------------------------------------------------------------------------
+
     public function Quotes()
     {
         if (isset($_SESSION['user_id'])) {
             if (isset($_GET['writer']) && $_GET['writer'] == $_SESSION['user_id'])
-                header('Location: /Free-Write/public/Writer/Quotes'); //to avoid user to see his own public view profile.
+                header('Location: /Free-Write/public/Writer/Quotes');
         } else {
             header('Location: /Free-Write/public/Login');
         }
         $author = isset($_GET['writer']) ? $_GET['writer'] : $_SESSION['user_id'];
         $quoteModel = new Quote();
-        // $author = $_SESSION['user_id'];
 
         $userDetailsTable = new UserDetails();
         $userDetails = $userDetailsTable->first(['user' => $author]);
@@ -153,10 +147,8 @@ class WriterController extends Controller
         $totViewsArray = $view->getAuthorViews($author);
         $views = $totViewsArray[0]['totalViews'] ?? 0;
 
-        // Fetch all quotes
         $quotes = $quoteModel->getQuoteByAuthor($author);
 
-        // Pass the quotes to the view
         $this->view('writer/quotes', ['quotes' => $quotes, 'userDetails' => $userDetails, 'followers' => $followers, 'views' => $views]);
     }
 
@@ -186,22 +178,20 @@ class WriterController extends Controller
         $book_chapter = new BookChapter();
         $author = $_SESSION['user_id'];
 
-        // Fetch all books of the author
+
         $MyBooks = $book->getBookByAuthor($author);
 
-        // Check if the request is AJAX and contains book_id
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['book_id'])) {
             $bookID = $_POST['book_id'];
 
             $chapters = $book_chapter->getBookChapters($bookID);
 
-            // Return JSON response for AJAX
             header('Content-Type: application/json');
             echo json_encode($chapters);
             exit;
         }
 
-        // Load the view with books, no chapters initially
         $this->view('writer/createQuote', ['books' => $MyBooks, 'chapters' => []]);
     }
 
@@ -238,17 +228,14 @@ class WriterController extends Controller
             echo "Quote must be less than 255 characters.";
             exit;
         }
-
-
         $quote = new Quote();
 
         if ($quote->insert(['chapter' => $chapter, 'quote' => $content])) {
 
             header('Location: /Free-Write/public/Writer/quotes');
         }
-
-
     }
+
     public function updateQuote()
     {
         $quoteID = $_POST['quoteID'];
@@ -296,9 +283,6 @@ class WriterController extends Controller
         }
     }
 
-
-
-    // SPINOFFS---------------------------------------------------------------------------------
     public function Spinoffs()
     {
         $author = $_SESSION['user_id'];
@@ -388,7 +372,7 @@ class WriterController extends Controller
         $this->Spinoffs();
     }
 
-    // COMPETITIONS----------------------------------------------------------------------------------------------------
+
     public function Competitions()
     {
         $author = $_SESSION['user_id'];
@@ -471,7 +455,7 @@ class WriterController extends Controller
             $this->view('error');
 
         if ($competitionID < 1 || !is_numeric($competitionID))
-            $competitionID = $URL[2]; //get the competition id from the url
+            $competitionID = $URL[2];
 
         $competition = new Competition();
         $competitionDetails = $competition->first(['competitionID' => $competitionID]);
@@ -507,7 +491,7 @@ class WriterController extends Controller
         $competition = new Competition();
 
         if ($competition->update($competitionID, $data, 'competitionID')) {
-            header('location: /Free-Write/public/Writer/ViewCompetition/' . $competitionID); // Redirect to the competition overview page
+            header('location: /Free-Write/public/Writer/ViewCompetition/' . $competitionID);
             exit;
         } else {
             echo "Failed to update the competition.";
@@ -519,16 +503,16 @@ class WriterController extends Controller
         if ($URL[2] < 1)
             $this->view('error');
         if ($cID < 1 || !is_numeric($cID))
-            $cID = $URL[2]; //get the competition id from the url
+            $cID = $URL[2];
 
         $competition = new Competition();
 
-        // Attempt to delete the competition
+
         if ($competition->delete($cID, 'competitionID')) {
-            header('location: /Free-Write/public/Writer/Competitions'); // Redirect to the writer dashboard
+            header('location: /Free-Write/public/Writer/Competitions');
             exit;
         } else {
-            die('Failed to delete the competition.'); // Handle failure case
+            die('Failed to delete the competition.');
         }
     }
 
@@ -539,7 +523,7 @@ class WriterController extends Controller
             $this->view('error');
 
         if ($competitionID < 1 || !is_numeric($competitionID))
-            $competitionID = $URL[2]; //get the competition id from the url
+            $competitionID = $URL[2];
 
         $submission = new DesignSubmissions();
         $submissionDetails = $submission->getSubmissionByCompetitionID($competitionID);
@@ -553,13 +537,13 @@ class WriterController extends Controller
         if ($URL[2] < 1)
             $this->view('error');
         if ($submissionID < 1 || !is_numeric($submissionID))
-            $submissionID = $URL[2]; //get the competition id from the url
+            $submissionID = $URL[2];
 
         $submission = new DesignSubmissions();
         $submissionDetails = $submission->first(['submissionID' => $submissionID]);
         $competitioin = new Competition();
         $competitionID = $submissionDetails['competitionID'];
-        $competitioinDetails = $competitioin->first(['competitionID'=> $competitionID]);
+        $competitioinDetails = $competitioin->first(['competitionID' => $competitionID]);
 
         $this->view('writer/viewSubmission', ['submission' => $submissionDetails, 'competition' => $competitioinDetails]);
     }
@@ -585,10 +569,6 @@ class WriterController extends Controller
 
         header('location: /Free-Write/public/Writer/');
     }
-
-
-
-    //book------------------------------------------------------------------------
 
     public function New()
     {
@@ -648,7 +628,7 @@ class WriterController extends Controller
             $this->view('error');
 
         if ($bookID < 1 || !is_numeric($bookID))
-            $bookID = $URL[2]; //get the book id from the url
+            $bookID = $URL[2];
 
         $genre = new Genre();
         $genres = $genre->getGenres();
@@ -691,26 +671,26 @@ class WriterController extends Controller
         }
 
         $lastUpdated = date('Y-m-d H:i:s');
-        $coverImageID = null; // Default to null incase no coverimage submitted
+        $coverImageID = null;
 
-        // Handle cover image upload
+
         if (isset($_FILES['cover_image']) && $_FILES['cover_image']['error'] === UPLOAD_ERR_OK) {
             $author = $_SESSION['user_id'];
             $file = $_FILES['cover_image'];
 
-            // Validate file
+
             $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-            $maxSize = 5 * 1024 * 1024; // 5MB
+            $maxSize = 5 * 1024 * 1024;
             if (!in_array($file['type'], $allowedTypes) || $file['size'] > $maxSize) {
                 echo "Invalid file type or size. Please upload a JPEG, PNG, or GIF image under 5MB.";
                 exit;
             }
 
             $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
-            $dateTime = date('Y-m-d_H-i-s'); // Use a unique format to avoid conflicts
+            $dateTime = date('Y-m-d_H-i-s');
             $FileName = $author . '_' . $dateTime . '.' . $ext;
 
-            $uploadDir = __DIR__ . '/../images/coverDesign/'; // Absolute path on disk
+            $uploadDir = __DIR__ . '/../images/coverDesign/';
             $uploadPath = $uploadDir . $FileName;
 
             if (move_uploaded_file($file['tmp_name'], $uploadPath)) {
@@ -721,7 +701,7 @@ class WriterController extends Controller
                 ];
                 $cover->insert($coverData);
 
-                // Retrieve the newly inserted cover image ID
+
                 $coverImageDetails = $cover->first([
                     'name' => $FileName,
                     'artist' => $author
@@ -738,7 +718,7 @@ class WriterController extends Controller
             }
         }
 
-        // If no new cover image, retain existing coverImage ID (fetch from Book)
+
         if (!$coverImageID) {
             $bookModel = new Book();
             $existingBook = $bookModel->first(['bookID' => $bookID]);
@@ -762,7 +742,7 @@ class WriterController extends Controller
         $book->update($bookID, $data, 'bookID');
         $bookGenre->deleteby('book', $bookID);
 
-        // Insert the newly selected genres
+
         if (isset($_POST['genre']) && is_array($_POST['genre'])) {
             foreach ($_POST['genre'] as $genreID) {
                 $bookGenre->insert(['book' => $bookID, 'genre' => $genreID]);
@@ -780,16 +760,16 @@ class WriterController extends Controller
         $book = new Book();
 
 
-        // Attempt to delete the book
+
         if ($book->update($bookID, ['accessType' => 'deleted'], 'bookID')) {
-            header('location: /Free-Write/public/Writer/'); // Redirect to the writer dashboard
+            header('location: /Free-Write/public/Writer/');
             exit;
         } else {
-            die('Failed to delete the book.'); // Handle failure case
+            die('Failed to delete the book.');
         }
     }
 
-    //chapter---------------------------------------------------------------------------
+
     public function Chapter($chapterID = 0)
     {
         $URL = splitURL();
@@ -798,7 +778,7 @@ class WriterController extends Controller
             $this->view('error');
         }
         if ($chapterID < 1 || !is_numeric($chapterID))
-            $chapterID = $URL[2]; //get the chapter id from the url
+            $chapterID = $URL[2];
 
         $chapter = new Chapter();
         $chapterFound = $chapter->getChapterByID($chapterID);
@@ -926,7 +906,7 @@ class WriterController extends Controller
         $bookChapter->delete($chapterID, 'chapter');
         $comment->delete($chapterID, 'chapter');
 
-        // Now delete the chapter
+
         if ($chapter->delete($chapterID, 'chapterID')) {
             header('Location: /Free-Write/public/Writer/Overview/' . $bookID);
             exit;
@@ -934,8 +914,6 @@ class WriterController extends Controller
             die('Failed to delete the chapter.');
         }
     }
-
-
 
     public function Insights()
     {
@@ -968,7 +946,7 @@ class WriterController extends Controller
             exit;
         }
 
-        //need to implment validations for not be able to donate for deleted users
+
         $userDetail = new UserDetails();
         $userID = $_GET['user'] ?? null;
         $deet = null;

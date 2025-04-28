@@ -302,7 +302,7 @@
     ?>
 
     <script>
-        // Select advertisement type
+
         function selectAdType(type) {
             document.querySelectorAll('.ad-type-option').forEach(element => {
                 element.classList.remove('selected');
@@ -313,7 +313,7 @@
             document.getElementById('ad_type_error').style.display = 'none';
         }
 
-        // Validate form
+
         function validateForm() {
             let isValid = true;
             const errorMessages = {
@@ -325,12 +325,12 @@
                 contactEmail: document.getElementById('contact_email_error')
             };
 
-            // Reset error messages
+
             Object.values(errorMessages).forEach(elem => {
                 elem.style.display = 'none';
             });
 
-            // Title validation
+
             const adTitle = document.getElementById('ad_title').value;
             if (adTitle.length < 5) {
                 errorMessages.adTitle.textContent = 'Advertisement title must be at least 5 characters';
@@ -338,7 +338,7 @@
                 isValid = false;
             }
 
-            // Ad type validation
+
             const adTypeSelected = document.querySelector('input[name="ad_type"]:checked');
             if (!adTypeSelected) {
                 errorMessages.adType.textContent = 'Please select an advertisement type';
@@ -346,7 +346,7 @@
                 isValid = false;
             }
 
-            // Date validations
+
             const startDate = new Date(document.getElementById('start_date').value);
             const endDate = new Date(document.getElementById('end_date').value);
             const today = new Date();
@@ -372,7 +372,7 @@
                 isValid = false;
             }
 
-            // Image validation
+
             const adImage = document.getElementById('ad_image');
             if (adImage.files.length === 0) {
                 errorMessages.adImage.textContent = 'Please upload an advertisement image';
@@ -384,7 +384,7 @@
                 isValid = false;
             }
 
-            // Email validation
+
             const contactEmail = document.getElementById('contact_email').value;
             if (!contactEmail.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
                 errorMessages.contactEmail.textContent = 'Please enter a valid email address';
@@ -395,23 +395,23 @@
             return isValid;
         }
 
-        // Set minimum date for start date
+
         <?php if (isset($latestEndDate) && $latestEndDate): ?>
-            // Create a date object from the latest end date
+
             const latestEndDate = new Date('<?= $latestEndDate ?>');
-            // Add one day to the latest end date
+
             latestEndDate.setDate(latestEndDate.getDate() + 1);
-            // Format the date to YYYY-MM-DD for the input min attribute
+
             const minStartDate = latestEndDate.toISOString().split('T')[0];
             document.getElementById('start_date').setAttribute('min', minStartDate);
         <?php else: ?>
-            // If no latest end date, use today as minimum
+
             const today = new Date();
             const todayFormatted = today.toISOString().split('T')[0];
             document.getElementById('start_date').setAttribute('min', todayFormatted);
         <?php endif; ?>
 
-        // Update end date constraints
+
         document.getElementById('start_date').addEventListener('change', function () {
             const startDate = new Date(this.value);
             if (startDate) {
@@ -428,7 +428,7 @@
             }
         });
 
-        // Real-time validation
+
         document.getElementById('ad_title').addEventListener('input', function () {
             const errorElem = document.getElementById('ad_title_error');
             if (this.value.length < 5) {

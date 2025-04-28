@@ -1,4 +1,3 @@
-<!-- My Shopping Cart Section -->
 <div id="my-cart" class="view-section">
     <h2>My Shopping Cart</h2>
     <hr style="margin-bottom: 1rem; border:0.1rem solid #ffd700; " />
@@ -74,7 +73,6 @@
     <?php endif; ?>
 
     <script>
-        // Quantity adjustment functionality
         document.querySelectorAll('.quantity-btn').forEach(button => {
             button.addEventListener('click', function () {
                 const cartId = this.getAttribute('data-cart-id');
@@ -84,7 +82,6 @@
                     alert("Quantity cannot be less than 1");
                     return;
                 }
-                // Send AJAX request to update quantity
                 if (confirm("Are you sure you want to update the quantity?")) {
                     fetch('/Free-Write/public/Cart/UpdateQuantity', {
                         method: 'POST',
@@ -96,7 +93,6 @@
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
-                                // Refresh the page to show updated cart
                                 window.location.reload();
                             } else {
                                 alert(data.message || 'Failed to update quantity');

@@ -2,9 +2,9 @@
 
 class UserNotification
 {
-  use Model; // Use the Model trait
+  use Model;
 
-  protected $table = 'UserNotification'; //when using the Model trait, this table name ise used 
+  protected $table = 'UserNotification';
 
 
   public function getUnreadUserNotifications($userID)
@@ -13,7 +13,6 @@ class UserNotification
           JOIN [Notification] n ON un.[notification] = n.[notificationID]
           WHERE un.[user] = $userID AND un.[isRead] = 0";
 
-    // Debug log
     error_log("Executing query: " . $query);
 
     $result = $this->query($query);
@@ -46,7 +45,6 @@ class UserNotification
           JOIN [Notification] n ON un.[notification] = n.[notificationID]
           WHERE un.[user] = $userID";
 
-        // Debug log
         error_log("Executing query: " . $query);
 
         $result = $this->query($query);

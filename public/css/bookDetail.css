@@ -53,7 +53,7 @@ h1 {
   background-color: #f9f9f9;
 }
 
-/*RATING*/
+
 .rating-container {
   display: flex;
   margin-top: 30px;
@@ -95,7 +95,7 @@ select {
   margin-right: 5px;
 }
 
-/*READ BUTTON*/
+
 .read-button-container {
   padding: 10px;
   display: flex;
@@ -136,7 +136,7 @@ select {
   }
 }
 
-/* Table Container Styles */
+
 .table-of-contents {
   margin: 2rem 0;
   padding: 1rem;
@@ -154,7 +154,7 @@ select {
   padding-bottom: 0.5rem;
 }
 
-/* Table Styles */
+
 .table-of-contents table {
   width: 100%;
   border-collapse: separate;
@@ -195,7 +195,7 @@ select {
   background-color: rgba(255, 215, 0, 0.1);
 }
 
-/* Link Styles */
+
 .table-of-contents a {
   color: #333;
   text-decoration: none;
@@ -206,7 +206,7 @@ select {
   color: #ffd700;
 }
 
-/*Chapter Edit Delete buttons*/
+
 .edit-btn-chap {
   background-color: #ffd700;
 }
@@ -215,7 +215,7 @@ select {
   background-color: #ff0000;
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
   .table-of-contents {
     padding: 0.5rem;
@@ -236,25 +236,25 @@ select {
   }
 }
 
-/*Delete overlay*/
+
 
 .deleteOverlay-container {
   display: none;
   position: fixed;
-  /* Make it fixed to the viewport */
+  
   top: 0;
   left: 0;
   width: 100vw;
-  /* Full width of the viewport */
+  
   height: 100vh;
-  /* Full height of the viewport */
+  
   background: rgba(0, 0, 0, 0.6);
-  /* Adjust the opacity of the background */
+  
 
   justify-content: center;
-  /* Center the form horizontally */
+  
   align-items: center;
-  /* Center the form vertically */
+  
   z-index: 1;
 }
 

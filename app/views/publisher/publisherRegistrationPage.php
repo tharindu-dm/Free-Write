@@ -6,21 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create New Publisher Account</title>
     <style>
-        /* Global Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #FCFAF5;
-            color: #1C160C;
-            line-height: 1.6;
-        }
-
-        /* Form Section */
         .form-section {
             max-width: 900px;
             margin: 3rem auto;
@@ -108,7 +93,7 @@
             resize: vertical;
         }
 
-        /* Logo Upload Section */
+
         .logo-upload {
             display: flex;
             align-items: center;
@@ -170,7 +155,7 @@
             color: #666;
         }
 
-        /* Submit Button */
+
         .submit-button {
             width: 100%;
             padding: 1.2rem;
@@ -191,7 +176,7 @@
             background-color: #E0B94A;
         }
 
-        /* Form Validation Styles */
+
         .form-group.error input,
         .form-group.error textarea {
             border-color: #FF4D4D;
@@ -208,13 +193,13 @@
             display: block;
         }
 
-        /* Success Styles */
+
         .form-group.success input,
         .form-group.success textarea {
             border-color: #4CAF50;
         }
 
-        /* Password Strength Indicator */
+
         .password-strength {
             margin-top: 0.5rem;
             height: 4px;
@@ -244,7 +229,7 @@
             background-color: #4CAF50;
         }
 
-        /* Responsive Design */
+
         @media (max-width: 768px) {
             .form-section {
                 padding: 1rem;
@@ -270,7 +255,7 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    
+
     ?>
 
     <main>
@@ -290,16 +275,6 @@
                     <div class="error-message">Please enter a valid email address</div>
                 </div>
                 <input type="hidden" name="email" value="<?= htmlspecialchars($userDetails['email']) ?>">
-
-                <!-- <div class="form-group">
-        <label for="password">Password</label>
-        <div class="description">Use at least 8 characters with a mix of letters, numbers & symbols</div>
-        <input type="password" id="password" name="password" required>
-        <div class="password-strength">
-            <div class="password-strength-bar"></div>
-        </div>
-        <div class="error-message">Password must meet the requirements</div>
-    </div> -->
 
                 <div class="form-group">
                     <label for="description">Bio</label>
@@ -340,8 +315,9 @@
                 <div class="form-group">
                     <label for="website">Website</label>
                     <div class="description">Enter your website address</div>
-                    <input type="text" id="website" name="website" placeholder="https//" required>
-                    <div class="error-message">Please enter your country</div>
+                    <input type="text" id="website" name="website" placeholder="https
+                    <div class=" error-message">Please enter your country
+                </div>
                 </div>
 
                 <div class="form-group">
@@ -365,7 +341,7 @@
     ?>
 
     <script>
-        // Logo preview functionality
+
         document.getElementById('logo-input').addEventListener('change', function (e) {
             const file = e.target.files[0];
             if (file) {
@@ -377,12 +353,12 @@
             }
         });
 
-        // Simple password strength checker
+
         document.getElementById('password').addEventListener('input', function (e) {
             const password = e.target.value;
             const strengthBar = document.querySelector('.password-strength-bar');
 
-            // Simple password strength logic
+
             if (password.length >= 8) {
                 if (password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)) {
                     strengthBar.className = 'password-strength-bar strength-strong';

@@ -53,14 +53,14 @@
         .book-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            /* Adjust based on how many books you want per row */
+
             gap: 16px;
-            /* Space between the book items */
+
         }
 
         .book-item {
             text-align: center;
-            /* Center the text */
+
             background-color: rgba(255, 215, 0, 0.05);
             border: #ffd700 solid 1px;
             border-radius: 1rem;
@@ -81,12 +81,12 @@
 
         .book-title {
             margin-top: 8px;
-            /* Space between image and title */
+
             font-size: 16px;
-            /* Adjust font size */
+
             font-weight: bold;
             color: #333;
-            /* Color for the title */
+
         }
 
 
@@ -166,39 +166,6 @@
 
         <section class="library">
             <h2>Library</h2>
-            <!-- <div class="book-grid">
-    <div class="book-item">
-        <a href="/Free-Write/public/Publisher/BookDesign">
-            <img src="/Free-Write/public/images/collectionThumb.jpeg" alt="Book 1">
-            <p class="book-title">Book 1</p>
-        </a>
-    </div>
-    <div class="book-item">
-        <a href="link2.html">
-            <img src="/Free-Write/public/images/collectionThumb.jpeg" alt="Book 2">
-            <p class="book-title">Book 2</p>
-        </a>
-    </div>
-    <div class="book-item">
-        <a href="link3.html">
-            <img src="/Free-Write/public/images/collectionThumb.jpeg" alt="Book 3">
-            <p class="book-title">Book 3</p>
-        </a>
-    </div>
-    <div class="book-item">
-        <a href="link4.html">
-            <img src="/Free-Write/public/images/collectionThumb.jpeg" alt="Book 4">
-            <p class="book-title">Book 4</p>
-        </a>
-    </div>
-    <div class="book-item">
-        <a href="link5.html">
-            <img src="/Free-Write/public/images/collectionThumb.jpeg" alt="Book 5">
-            <p class="book-title">Book 5</p>
-        </a>
-    </div>
-</div> -->
-
             <div class="book-grid">
                 <?php if (!empty($data['bookDetails'])): ?>
                     <?php foreach (array_slice($data['bookDetails'], 0, 5) as $bookDetails): ?>
@@ -218,12 +185,13 @@
 
 
             <div class="publisher-profile-btn">
-            <a href="/Free-Write/public/Publisher/bookList/<?php echo htmlspecialchars($publisher['pubID'] ?? ''); ?>"><button class="add-books">View Books Library</button></a>
+                <a
+                    href="/Free-Write/public/Publisher/bookList/<?php echo htmlspecialchars($publisher['pubID'] ?? ''); ?>"><button
+                        class="add-books">View Books Library</button></a>
                 <a href="/Free-Write/public/Publisher/AddBook
                 "><button class="add-books">Add Books To Library</button></a>
                 <a href="/Free-Write/public/Competition/MyCompetitions"><button class="add-books">Manage My
                         Competitions</button></a>
-                <!-- <a href="/Free-Write/public/Publisher/courier"><button class="add-books">Manage My Couriers</button></a> -->
             </div>
         </section>
 

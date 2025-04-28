@@ -2,11 +2,11 @@
 
 class BookChapter
 {
-    use Model; // Use the Model trait
+    use Model; 
 
-    protected $table = 'BookChapter'; //when using the Model trait, this table name ise used 
+    protected $table = 'BookChapter'; 
 
-    public function getChapters($bookID) //when creating new spinoff need to block the first chapter from using
+    public function getChapters($bookID) 
     {
         $query = "SELECT bc.[chapter], ch.[title]
                     FROM [dbo].[BookChapter] bc 
@@ -16,7 +16,7 @@ class BookChapter
         return $this->query($query);
     }
 
-    public function getBookChapters($bid) //to the book Overview
+    public function getBookChapters($bid) 
     {
         $query = "SELECT C.[chapterID],C.[title], C.[lastUpdated], C.price
         FROM [dbo].[BookChapter] BC 

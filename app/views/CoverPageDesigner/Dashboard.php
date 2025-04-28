@@ -10,7 +10,7 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    
+
     ?>
 
     <main class="dashboard-container">
@@ -60,7 +60,6 @@
                 <button class="btn btn-primary" id="openCollectionPopup">+ Create Collection</button>
             </div>
 
-            <!-- Display Collections -->
             <h2>Your Image Collections</h2>
             <div class="collections-section">
                 <?php if (!empty($collections)): ?>
@@ -98,7 +97,6 @@
             </div>
 
 
-            <!-- Create Collection Popup -->
             <div class="design-collection-overlay" id="designCollectionOverlay">
                 <div class="design-collection-container">
                     <div class="design-collection-header">
@@ -139,14 +137,14 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            // Get DOM elements
+
             const openCollectionBtn = document.getElementById("openCollectionPopup");
             const collectionOverlay = document.getElementById("designCollectionOverlay");
             const closeBtn = document.getElementById("closeDesignCollection");
             const cancelBtn = document.getElementById("cancelDesignCollection");
             const form = document.getElementById("designCollectionForm");
 
-            // Add CSS for overlay if not already in your CSS file
+
             const style = document.createElement('style');
             style.textContent = `
         .design-collection-overlay {
@@ -274,7 +272,7 @@
         color: #000;
         }
 
-        /* Form button container */
+        
 .form-button-group {
   display: flex;
   gap: 1rem;
@@ -282,7 +280,7 @@
   justify-content: flex-end;
 }
 
-/* Update form input styles */
+
 #designCollectionForm input,
 #designCollectionForm textarea,
 #designCollectionForm select {
@@ -309,17 +307,17 @@
     `;
             document.head.appendChild(style);
 
-            // Function to show popup
+
             function showPopup() {
                 if (collectionOverlay) {
                     collectionOverlay.style.display = "flex";
-                    // Reset form and remove any error states
+
                     form.reset();
                     clearErrors();
                 }
             }
 
-            // Function to hide popup
+
             function hidePopup() {
                 if (collectionOverlay) {
                     collectionOverlay.style.display = "none";
@@ -327,13 +325,13 @@
                 }
             }
 
-            // Function to clear error states
+
             function clearErrors() {
                 const inputs = form.querySelectorAll('.error');
                 inputs.forEach(input => input.classList.remove('error'));
             }
 
-            // Event listeners
+
             if (openCollectionBtn) {
                 openCollectionBtn.addEventListener("click", (e) => {
                     e.preventDefault();
@@ -355,7 +353,7 @@
                 });
             }
 
-            // Close when clicking outside
+
             if (collectionOverlay) {
                 collectionOverlay.addEventListener("click", (e) => {
                     if (e.target === collectionOverlay) {
@@ -364,14 +362,14 @@
                 });
             }
 
-            // Form validation
+
             if (form) {
                 form.addEventListener("submit", function (e) {
                     let isValid = true;
                     const title = document.getElementById("collectionTitle");
                     const description = document.getElementById("CollectionDescription");
 
-                    // Validate title
+
                     if (!title.value.trim()) {
                         isValid = false;
                         title.classList.add("error");
@@ -379,7 +377,7 @@
                         title.classList.remove("error");
                     }
 
-                    // Validate description
+
                     if (!description.value.trim()) {
                         isValid = false;
                         description.classList.add("error");

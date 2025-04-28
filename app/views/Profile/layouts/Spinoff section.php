@@ -1,4 +1,3 @@
-<!-- Spin-offs Section -->
 <div id="spinoffs" class="view-section">
     <h2>My Spin-offs</h2>
     <div class="spin-off-message">

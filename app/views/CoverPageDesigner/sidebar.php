@@ -3,13 +3,11 @@ $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $activeClass = function ($path) use ($currentPath) {
     return str_contains($currentPath, $path) ? 'active' : '';
 };
-
-//sidebar component
 ?>
 
 <head>
     <style>
-        /* Sidebar Navigation */
+       
         .side-nav {
             width: 250px;
             background: rgba(255, 215, 0, 0.05);
@@ -20,7 +18,6 @@ $activeClass = function ($path) use ($currentPath) {
             top: 0;
             position: fixed;
             height: 100vh;
-            /* Changed from 78vh to full viewport height */
             z-index: 0;
             overflow-y: auto;
         }
@@ -45,7 +42,6 @@ $activeClass = function ($path) use ($currentPath) {
             transition: all 0.3s ease;
             font-weight: 500;
             background: rgba(255, 215, 0, 0.05);
-            /* Added card-like background */
         }
 
         .side-nav ul li a:hover {
@@ -61,7 +57,6 @@ $activeClass = function ($path) use ($currentPath) {
             box-shadow: 0 2px 4px rgba(255, 215, 0, 0.2);
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
             .side-nav {
                 width: 100%;

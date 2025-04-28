@@ -4,7 +4,6 @@ const onholdTable = document.getElementById("onhold-table");
 const droppedTable = document.getElementById("dropped-table");
 const plannedTable = document.getElementById("planned-table");
 
-//button
 const readingBtn = document.getElementById("reading-btn");
 const completedBtn = document.getElementById("completed-btn");
 const onholdBtn = document.getElementById("onhold-btn");
@@ -13,9 +12,9 @@ const plannedBtn = document.getElementById("planned-btn");
 
 document.addEventListener("DOMContentLoaded", function () {
   const url = window.location.href.split("/");
-  const type = url[url.length - 1].split("?")[0]; // the type?userID part
+  const type = url[url.length - 1].split("?")[0];
 
-  console.log("URL type:", window.location.href); // Debug the extracted type
+  console.log("URL type:", window.location.href);
   switchTable(type);
 });
 
@@ -107,7 +106,7 @@ function switchTable(type) {
       plannedTable.style.display = "flex";
       plannedBtn.style.backgroundColor = "#000000";
       plannedBtn.style.color = "#ffd700";
-      
+
       break;
     default:
       readingTable.style.display = "flex";
@@ -119,22 +118,18 @@ function switchTable(type) {
   }
 }
 
-///////////////////////////////////////////////////////////////////////////////////
-const cancelBtn = document.getElementById("cancel-button"); //in the overlay
+const cancelBtn = document.getElementById("cancel-button");
 const overlay = document.querySelector(".add-to-list");
 
 document.addEventListener("click", function (e) {
   if (e.target && e.target.classList.contains("listEdit-btn")) {
-    // Get the parent tr element
     const row = e.target.closest("tr");
 
-    // Get the data from data attributes
     const bookId = row.dataset.bookId;
     const bookTitle = row.dataset.bookTitle;
     const chapterCount = row.dataset.chapterProgress;
     const getBookStatus = row.dataset.status;
 
-    // Set the values in the inputsmybookListno
     const bookID_input = document.getElementById("List_bid");
     const bookTitle_header = document.getElementById("bookTitle-header");
     const chapterCounter = document.getElementById("chapterCount");
@@ -145,45 +140,39 @@ document.addEventListener("click", function (e) {
     chapterCounter.value = chapterCount;
     bookStatus_Select.value = getBookStatus;
 
-    // Toggle the overlay display
     overlay.style.display = overlay.style.display !== "flex" ? "flex" : "none";
   }
 });
 
 cancelBtn.addEventListener("click", (e) => {
-  e.preventDefault(); // Prevent the default action
+  e.preventDefault();
 
   overlay.style.display = "none";
 });
 
-///////////////////////////////////////////////////////////////////////////////////
-const cancelBtn_delete = document.getElementById("cancel-delete-button"); //in the overlay
+const cancelBtn_delete = document.getElementById("cancel-delete-button");
 const overlay_delete = document.querySelector(".delete-from-list");
 
 document.addEventListener("click", function (e) {
   if (e.target && e.target.classList.contains("listDelete-btn")) {
-    // Get the parent tr element
     const row = e.target.closest("tr");
 
-    // Get the data from data attributes
     const bookId = row.dataset.bookId;
     const bookTitle = row.dataset.bookTitle;
 
-    // Set the values in the inputs
     const bookID_input = document.getElementById("List_bid_delete");
     const bookTitle_header = document.getElementById("bookTitle-header-delete");
 
     bookID_input.value = bookId;
     bookTitle_header.innerHTML = bookTitle;
 
-    // Toggle the overlay display
     overlay_delete.style.display =
       overlay_delete.style.display !== "flex" ? "flex" : "none";
   }
 });
 
 cancelBtn_delete.addEventListener("click", (e) => {
-  e.preventDefault(); // Prevent the default action
+  e.preventDefault();
 
   overlay_delete.style.display = "none";
 });

@@ -10,14 +10,13 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    
+
     ?>
     <div id="title">
         <h1>Search Results</h1>
     </div>
 
     <div class="browse-main-container">
-        <!-- Ad image -->
         <?php include "../app/views/layout/advertisement.php"; ?>
 
         <main>
@@ -55,7 +54,6 @@
                 <?php endif; ?>
             </div>
 
-            <!-- Books -->
             <?php if (isset($_GET['searchType']) && $_GET['searchType'] == 'book'): ?>
                 <div class="searchResult-grid">
                     <?php if (isset($searchResult) && count($searchResult) > 0): ?>
@@ -102,7 +100,6 @@
             <?php endif; ?>
 
 
-            <!-- Users -->
             <?php if (isset($_GET['searchType']) && ($_GET['searchType'] == 'user' || $_GET['searchType'] == 'writer' || $_GET['searchType'] == 'covdes' || $_GET['searchType'] == 'pub')): ?>
                 <div class="searchResult-grid">
                     <?php if (isset($searchResult) && count($searchResult) > 0): ?>
@@ -134,7 +131,6 @@
                 </div>
             <?php endif; ?>
 
-            <!-- Spinoffs -->
             <?php if (isset($_GET['searchType']) && $_GET['searchType'] == 'spinoff'): ?>
                 <div class="searchResult-grid">
                     <?php if (isset($searchResult) && count($searchResult) > 0): ?>
@@ -177,7 +173,6 @@
                 </div>
             <?php endif; ?>
 
-            <!-- Covers -->
             <?php if (isset($_GET['searchType']) && $_GET['searchType'] == 'covers'): ?>
                 <div class="searchResult-grid">
                     <?php if (isset($searchResult) && count($searchResult) > 0): ?>
@@ -213,7 +208,6 @@
             <?php endif; ?>
         </main>
 
-        <!-- Ad image -->
         <?php include "../app/views/layout/advertisement.php"; ?>
     </div>
 

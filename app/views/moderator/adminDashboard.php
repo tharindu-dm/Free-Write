@@ -12,7 +12,7 @@
 <body>
 
     <?php require_once "../app/views/layout/headerSelector.php";
-    
+
     ?>
 
     <main>
@@ -148,28 +148,23 @@
             const allUsersCheckbox = form.querySelector('.all-users-checkbox');
             const otherCheckboxes = Array.from(form.querySelectorAll('.checkbox-group input[type="checkbox"]:not(.all-users-checkbox)'));
 
-            // Handle "All Users" checkbox
             allUsersCheckbox.addEventListener('change', function () {
                 otherCheckboxes.forEach(checkbox => {
                     checkbox.checked = this.checked;
                 });
             });
 
-            // Handle other checkboxes
             otherCheckboxes.forEach(checkbox => {
                 checkbox.addEventListener('change', function () {
-                    // If any checkbox is unchecked, uncheck "All Users"
                     if (!this.checked) {
                         allUsersCheckbox.checked = false;
                     }
-                    // If all other checkboxes are checked, check "All Users"
                     else if (otherCheckboxes.every(cb => cb.checked)) {
                         allUsersCheckbox.checked = true;
                     }
                 });
             });
 
-            // Handle form reset properly
             form.addEventListener('reset', function () {
                 setTimeout(() => {
                     allUsersCheckbox.checked = false;
@@ -187,10 +182,8 @@
 
             for (let item of navItems) {
                 item.addEventListener('click', function () {
-                    // Get the href from data-href attribute
                     const href = this.getAttribute('data-href');
 
-                    // Redirect to the specified URL
                     if (href) {
                         window.location.href = href;
                     }
@@ -199,40 +192,32 @@
         });
     </script>
 
-    <!--GENERATE REPORT-->
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const startDateInput = document.querySelector('input[name="startDate"]');
             const endDateInput = document.querySelector('input[name="endDate"]');
 
-            // Function to update the minimum date for the end date input
             function updateEndDateMin() {
                 if (startDateInput.value) {
-                    // Get the start date and add one day
                     const startDate = new Date(startDateInput.value);
                     const nextDay = new Date(startDate);
                     nextDay.setDate(startDate.getDate() + 1);
 
-                    // Format the date as YYYY-MM-DD for the min attribute
                     const minEndDate = nextDay.toISOString().split('T')[0];
 
-                    // Set the minimum date for the end date input
                     endDateInput.min = minEndDate;
 
-                    // If the current end date is before the new min date, clear it
                     if (endDateInput.value && new Date(endDateInput.value) <= startDate) {
                         endDateInput.value = '';
                     }
                 }
             }
 
-            // Update end date constraints when the start date changes
             startDateInput.addEventListener('change', updateEndDateMin);
 
-            // Initialize with current values if such available
             updateEndDateMin();
 
-            // validating the form on submit
             const form = document.querySelector('.publish-form form');
             form.addEventListener('submit', function (event) {
                 if (startDateInput.value && endDateInput.value) {

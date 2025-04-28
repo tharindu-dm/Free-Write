@@ -26,7 +26,7 @@ class BookListController extends Controller
         }
 
         $uid = $_GET['user'];
-        $Booklist = new BookList(); //List Table
+        $Booklist = new BookList();
 
         $Reading = $Booklist->getUserBookList($uid, 'reading');
         $Completed = $Booklist->getUserBookList($uid, 'completed');
@@ -35,7 +35,7 @@ class BookListController extends Controller
         $Planned = $Booklist->getUserBookList($uid, 'planned');
 
 
-        $this->view('myBookList', [ //view the list of books
+        $this->view('myBookList', [
             'readingList' => $Reading,
             'completedList' => $Completed,
             'onholdList' => $Onhold,
@@ -51,7 +51,7 @@ class BookListController extends Controller
         $status = $_POST['status'];
         $readchapters = $_POST['chapterCount'] ?? 0;
 
-        $list = new BookList(); //get chapter to be added to the list
+        $list = new BookList();
         $bookchapter = new BookChapter();
         $noOfChapters = $bookchapter->getChapterCount($bookID);
 

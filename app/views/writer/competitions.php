@@ -10,12 +10,11 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    
+
     ?>
 
     <main>
         <div class="dashboard">
-            <!-- Profile Section -->
             <div class="profile-section">
                 <div class="profile-image">
                     <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>"
@@ -35,10 +34,8 @@
                 <?php endif; ?>
             </div>
 
-            <!-- Navigation for Writer Options -->
             <?php require_once "../app/views/writer/writerNav.php"; ?>
 
-            <!-- Competition Section -->
             <section class="quotes-section">
                 <h2>My Competitions</h2>
 
@@ -56,7 +53,6 @@
                 <?php else: ?>
                     <a href="/Free-Write/public/Writer/NewCompetition" class="button-new">+ New</a>
 
-                    <!-- competition List -->
                     <ul class="quote-item">
                         <?php foreach ($competitions as $competition): ?>
                             <li>
@@ -77,12 +73,10 @@
                 <?php endif; ?>
             </section>
 
-        </div> <!-- End of Dashboard -->
-
+        </div>
     </main>
 
 
-    <!-- Footer Section -->
     <?php require_once "../app/views/layout/footer.php"; ?>
 
     <script src="../public/js/home.js"></script>

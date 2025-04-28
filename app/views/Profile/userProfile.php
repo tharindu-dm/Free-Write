@@ -95,7 +95,6 @@
                     </div>
                 </div>
 
-                <!-- USER NAV BAR ON LEFT-->
                 <hr class="user-profile-divider">
                 <div class="user-profile-navigation">
                     <button class="user-nav-button active" data-view="dashboard">
@@ -140,7 +139,7 @@
                             My Spin-offs
                         </button>
                         <?php if (isset($_SESSION['user_id'])):
-                            //if the user logged in then show the button ?>
+                            ?>
                             <button class="user-nav-button" data-view="my-network">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                     stroke="currentColor" class="size-6">
@@ -183,7 +182,6 @@
             <div class="user-profile-content">
                 <div id="dashboard" class="view-section active">
                     <h2>Dashboard</h2>
-                    <!-- Existing stats -->
                     <div class="dashboard-stats">
                         <div class="stat-card">
                             <h3>About</h3>
@@ -213,7 +211,6 @@
                     </div>
 
                     <?php
-                    //backend values
                     $totalEntries = $listCounts[0]['reading'] + $listCounts[0]['completed'] + $listCounts[0]['hold'] + $listCounts[0]['dropped'] + $listCounts[0]['planned'];
 
                     if ($totalEntries == 0) {
@@ -232,12 +229,10 @@
                     ?>
 
                     <div class="statistics-container">
-                        <!-- Book Lists Section -->
                         <div class="book-lists-container">
                             <div class="my-book-list">
                                 <h3>My Book List</h3>
 
-                                <!-- Progress Bar -->
                                 <div class="book-progress-bar">
                                     <div class="book-progress-segment book-progress-reading"
                                         style="width: <?= htmlspecialchars($readingPercentage) ?>%;"></div>
@@ -251,7 +246,6 @@
                                         style="width: <?= htmlspecialchars($plannedPercentage) ?>%;"></div>
                                 </div>
 
-                                <!-- List Items -->
                                 <div class="book-list-stats">
                                     <a
                                         href="/Free-Write/public/BookList/Reading?user=<?= htmlspecialchars($userAccount['userID']); ?>">
@@ -298,36 +292,31 @@
                         </div>
 
                         <?php if ($genreFrequency != null): ?>
-                            <!-- My Book Genre Section -->
                             <div class="genre-section-container">
                                 <h3>My Favourite Genres</h3>
 
                                 <div class="genre-section">
-                                    <!-- Pie Chart Section -->
                                     <div class="chart-container">
                                         <canvas id="genrePieChart"></canvas>
 
                                     </div>
-                                    <!-- Genre List Section -->
                                     <div class="genre-list-container">
                                         <ul id="genreList">
-                                            <!-- Genre list will be dynamically populated -->
                                         </ul>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Include Chart.js -->
                             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                             <script>
-                                // Convert PHP array to JavaScript array
+
                                 const genreFrequency = <?php echo json_encode($genreFrequency); ?>;
 
-                                // Extract genre names and percentages for the chart
+
                                 const genreNames = genreFrequency.map(item => item.genre_name);
                                 const genrePercentages = genreFrequency.map(item => item.percentage);
 
-                                // Generate random colors for each genre
+
                                 const generateColors = (count) => {
                                     if (count === 0) return [];
                                     const colors = [];
@@ -340,7 +329,7 @@
 
                                 const backgroundColor = generateColors(genreNames.length);
 
-                                // Create pie chart
+
                                 const ctx = document.getElementById('genrePieChart').getContext('2d');
                                 const genrePieChart = new Chart(ctx, {
                                     type: 'pie',
@@ -356,13 +345,13 @@
                                         responsive: true,
                                         plugins: {
                                             legend: {
-                                                display: false // Hide default legend
+                                                display: false
                                             }
                                         }
                                     }
                                 });
 
-                                // Populate the genre list
+
                                 const genreList = document.getElementById('genreList');
                                 genreFrequency.forEach((item, index) => {
                                     const listItem = document.createElement('li');
@@ -377,15 +366,14 @@
 
                     </div>
 
-                    <!-- My Book Collections Section -->
                     <div class="my-book-collections">
                         <div class="book-collection-heading">
                             <h3>My Book Collections</h3>
                             <hr color="#ffd700" />
                             <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $userAccount['userID']): ?>
                                 <button class="edit-profile-btn" id="createCollectionBtn">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 12"
-                                        stroke-width="0.5" stroke="currentColor">
+                                    <svg xmlns="http:
+                                        stroke-width=" 0.5" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M6 2.25v7.5m3.75-3.75h-7.5" />
                                     </svg>
@@ -394,7 +382,6 @@
                             <?php endif; ?>
                         </div>
                         <div class="collections-grid">
-                            <!-- Collection items will be dynamically populated -->
                             <?php if (!empty($collections)): ?>
                                 <?php foreach ($collections as $collection): ?>
                                     <a
@@ -427,19 +414,14 @@
                     </div>
                 </div>
 
-                <!-- Advertisement Section -->
                 <?php require_once "../app/views/Profile/publisher layouts/Advertisement section.php" ?>
 
-                <!-- My Quotation chat -->
                 <?php require_once "../app/views/Profile/publisher layouts/quotation section.php" ?>
 
-                <!-- Spin-offs Section -->
                 <?php require_once "../app/views/Profile/layouts/Spinoff section.php" ?>
 
-                <!-- Followers Section -->
                 <?php require_once "../app/views/Profile/layouts/Followers section.php" ?>
 
-                <!-- Purchased Books Section -->
                 <div id="purchased-books" class="view-section">
                     <h2>Purchased Books</h2>
                     <?php if (!empty($purchasedBooks)): ?>
@@ -458,10 +440,8 @@
                     <?php endif; ?>
                 </div>
 
-                <!-- Orders Section -->
                 <?php require_once "../app/views/Profile/layouts/Order section.php" ?>
 
-                <!-- My Shopping Cart Section -->
                 <?php require_once "../app/views/Profile/shopping cart component.php" ?>
 
 
@@ -473,16 +453,12 @@
     require_once "../app/views/layout/footer.php";
     ?>
 
-    <!-- Edit profile form --------------------------------------- -->
     <?php require_once "../app/views/Profile/layouts/Edit Profile Form.php" ?>
 
-    <!-- Report user form --------------------------------------- -->
     <?php require_once "../app/views/Profile/layouts/Report Profile.php" ?>
 
-    <!-- Create Collection Form --------------------------------------- -->
     <?php require_once "../app/views/Profile/layouts/create collection form.php" ?>
 
-    <!-- Delete Confirmation Modal -->
     <?php require_once "../app/views/Profile/layouts/deleteuserConfim.php" ?>
 
     <script src="/Free-Write/public/js/user/profile.js"></script>
@@ -492,10 +468,10 @@
     <script src="/Free-Write/public/js/imageAdd.js"></script>
     <script src="/Free-Write/public/js/user/advertisement.js"></script>
     <script>
-        //handle navigation button clicks
+
         document.querySelectorAll(".user-nav-button").forEach((button) => {
             button.addEventListener("click", () => {
-                // Remove active class from all buttons and sections
+
                 document
                     .querySelectorAll(".user-nav-button")
                     .forEach((btn) => btn.classList.remove("active"));
@@ -503,14 +479,14 @@
                     .querySelectorAll(".view-section")
                     .forEach((section) => section.classList.remove("active"));
 
-                // Add active class to clicked button and corresponding section
+
                 button.classList.add("active");
                 document.getElementById(button.dataset.view).classList.add("active");
             });
         });
     </script>
     <script>
-        //script for switching between followers and following tabs
+
         function switchTab(tab) {
             const followersGrid = document.getElementById('followers-grid');
             const followingGrid = document.getElementById('following-grid');

@@ -1,4 +1,4 @@
-/* Advertisement Section Styling */
+
 #advertisements {
   max-width: 1000px;
   margin: 2rem auto;
@@ -63,7 +63,7 @@
   border-bottom: none;
 }
 
-/* Status styling - adds colored dots for status */
+
 .advertisement-table td:last-child {
   font-weight: 600;
 }
@@ -80,7 +80,7 @@
   color: #dc3545;
 }
 
-/* No ads message styling */
+
 .no-ads-message {
   text-align: center;
   padding: 3rem 1rem;
@@ -96,7 +96,7 @@
   font-weight: 500;
 }
 
-/* Button styling */
+
 .edit-profile-btn {
   display: flex;
   align-items: center;
@@ -159,7 +159,7 @@
   opacity: 0.9;
 }
 
-/* Delete Overlay Styling */
+
 .deleteOverlay-container {
   position: fixed;
   top: 0;
@@ -224,7 +224,7 @@
   margin-top: 8px;
 }
 
-/* Responsive adjustments */
+
 @media (max-width: 768px) {
   .advertisement-table {
     display: block;
@@ -242,7 +242,7 @@
   }
 }
 
-/* Edit Overlay Styling */
+
 .editOverlay-container {
   position: fixed;
   top: 0;
@@ -294,7 +294,7 @@
   justify-content: flex-end;
 }
 
-/* Edit Button Styling */
+
 .edit-btn {
   background-color: #ffd052;
   color: #1c160c;

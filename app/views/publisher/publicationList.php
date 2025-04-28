@@ -122,10 +122,8 @@
 
 <body>
   <?php require_once "../app/views/layout/headerSelector.php";
-  
-  ?>
 
-  <!-- Modified publications section -->
+  ?>
   <section class="published-works">
     <div class="publications-header">
       <h2>Publications</h2>
@@ -221,7 +219,6 @@
     <a href="#" class="view-all-button">View All Publications</a>
   </section>
 
-  <!-- Previous sections remain the same -->
 </body>
 
 </html>

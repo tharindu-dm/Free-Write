@@ -1,4 +1,3 @@
-<!-- Create Collection Form --------------------------------------- -->
 <div class="create-collection-overlay">
     <div class="close-overlay-button">
         <button id="collection-cancelOverlayBtn">

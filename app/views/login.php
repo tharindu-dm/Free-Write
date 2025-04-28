@@ -94,7 +94,6 @@
         </div>
     </main>
 
-    <!-- Login Error Overlay -->
     <div class="overlay" id="loginErrorOverlay">
         <div class="overlay-content">
             <div class="overlay-header">
@@ -107,7 +106,6 @@
         </div>
     </div>
 
-    <!-- Timeout Overlay -->
     <div class="overlay" id="timeoutOverlay">
         <div class="overlay-content">
             <div class="overlay-header">

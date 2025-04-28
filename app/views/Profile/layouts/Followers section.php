@@ -1,4 +1,3 @@
-<!-- Followers Section -->
 <div id="my-network" class="view-section">
     <div class="myfollow-tabs">
         <div class="myfollow-tab active" onclick="switchTab('followers')">Followers</div>

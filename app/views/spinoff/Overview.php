@@ -97,7 +97,6 @@
 
     <?php require_once "../app/views/layout/footer.php"; ?>
 
-    <!-- Delete Chapter Overlay-->
     <?php if (isset($_SESSION['user_id']) && ($_SESSION['user_id'] == $content['creatorID'])): ?>
         <div class="delete_spinoff_chapter_overlay">
             <div class="overlay-container">
@@ -118,7 +117,6 @@
             </div>
         </div>
 
-        <!-- Edit changes Chapter Overlay-->
         <div class="edit_spinoff_chapter_overlay">
             <div class="overlay-container">
                 <div class="overlay-content">
@@ -172,7 +170,6 @@
         </div>
     <?php endif; ?>
 
-    <!-- Scripts -->
     <script src="/Free-Write/public/js/Spinoff/spinoffEditDelete.js"></script>
     <script src="/Free-Write/public/js/Spinoff/bookOverview.js"></script>
 </body>

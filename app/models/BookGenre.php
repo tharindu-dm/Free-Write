@@ -2,9 +2,9 @@
 
 class BookGenre
 {
-    use Model; // Use the Model trait
+    use Model; 
 
-    protected $table = 'BookGenre'; //when using the Model trait, this table name ise used 
+    protected $table = 'BookGenre'; 
 
     public function getGenreFrequency($userID)
     {

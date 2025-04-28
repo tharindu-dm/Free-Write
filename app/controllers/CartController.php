@@ -37,7 +37,6 @@ class CartController extends Controller
 
     public function UpdateQuantity()
     {
-// Simple backend handling
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $cartID = $_POST['cartID'];
             $action = $_POST['action'];

@@ -16,32 +16,32 @@ class BookController extends Controller
             return;
         }
 
-        if ($bookID < 1 || !is_numeric($bookID)) // if the book id is not valid
-            $bookID = $URL[2]; //get the book id from the url
+        if ($bookID < 1 || !is_numeric($bookID))
+            $bookID = $URL[2];
 
         $book = new Book();
         $BookChapter_table = new BookChapter();
         $spinoff = new Spinoff();
         $buybook = new BuyBook();
-        $buychapter = new BuyChapter(); 
+        $buychapter = new BuyChapter();
         $bookList = new BookList();
         $rating = new Rating();
         $collections = new Collection();
         $review = new Review();
 
         $bookFound = $book->getBookByID($bookID);
-        $bookChapters = $BookChapter_table->getBookChapters($bookID); //list of chapters related to the specific book
-        $spinoffs = $spinoff->where(['fromBook' => $bookID, 'accessType' => 'public']); //list of spinoffs related to the specific book
+        $bookChapters = $BookChapter_table->getBookChapters($bookID);
+        $spinoffs = $spinoff->where(['fromBook' => $bookID, 'accessType' => 'public']);
         $bookRating = $rating->getBookRating($bookID);
         $bookBought = null;
         $bookInListStatus = null;
         $chapterProgress = null;
         $collectionsFound = null;
 
-        
+
         foreach ($bookChapters as $key => $chapterItem) {
-            $chapterDetails = $buychapter->ChapPurchaseStatus($chapterItem['chapterID']);  
-            $bookChapters[$key]['isPurchased'] = $chapterDetails; 
+            $chapterDetails = $buychapter->ChapPurchaseStatus($chapterItem['chapterID']);
+            $bookChapters[$key]['isPurchased'] = $chapterDetails;
         }
 
         if (isset($_SESSION['user_id'])) {
@@ -56,20 +56,20 @@ class BookController extends Controller
                 $chapterProgress = $bookInList['chapterProgress'];
             }
 
-            //if user logged in find the collections made by the user
+
             $collectionsFound = $collections->getCollectionsAndBooks($_SESSION['user_id'], $bookID);
         }
 
-        //if the user decided to see a book and that book is added to the viewed list to avoid viewCount++ abuse
+
         if (!isset($_SESSION['viewed_books'])) {
             $_SESSION['viewed_books'] = [];
         }
 
         if (!in_array($bookFound[0]['bookID'], $_SESSION['viewed_books'])) {
-            //increase viewCOunt of the book
+
             $book->update($bookID, ['viewCount' => $bookFound[0]['viewCount'] + 1], 'bookID');
 
-            // Add the book ID to the session
+
             $_SESSION['viewed_books'][] = $bookID;
         }
         $hasExistingQuotation = false;
@@ -85,7 +85,7 @@ class BookController extends Controller
             $hasExistingQuotation = !empty($existingQuotation);
         }
 
-        //getting reviews
+
         $reviewsFound = $review->getReviews($bookID);
 
         $this->view(
@@ -115,7 +115,7 @@ class BookController extends Controller
             $this->view('error');
         }
         if ($chapterID < 1 || !is_numeric($chapterID))
-            $chapterID = $URL[2]; //get the chapter id from the url
+            $chapterID = $URL[2];
 
         $book = new Book();
         $chapter = new Chapter();
@@ -125,9 +125,9 @@ class BookController extends Controller
         $bookID = $chapterFound['title_author'][0]['BookID'];
         $chapterList = $bookchap->getBookChapters($bookID);
 
-        //check if user logged in or not
-        // if loggedin and book has a price
-        // if has a price, has it been bought? if not bought and not loggedin transfer to bookOverview
+
+
+
 
         $bookDetails = $book->where(['bookID' => $bookID]);
 
@@ -136,7 +136,7 @@ class BookController extends Controller
                 header('Location: /Free-Write/public/Book/Overview/' . $bookID);
                 return;
             } else {
-                // if loggedin
+
                 $buybook = new BuyBook();
                 $bought = $buybook->where(['book' => $bookID, 'user' => $_SESSION['user_id']]);
 
@@ -178,12 +178,12 @@ class BookController extends Controller
         $bookID = $_POST['book_id'];
         $selectedCollections = $_POST['collections'] ?? [];
 
-        //put the book in the selected collections
+
         foreach ($selectedCollections as $collectionID) {
             $collectionBook->insert(['Collection' => $collectionID, 'Book' => $bookID]);
         }
 
-        //if the book is already in a non-selected collection, then remove it
+
         $user_Collections = $collection->getUserCollections($userID);
 
         foreach ($user_Collections as $collection) {
@@ -206,10 +206,10 @@ class BookController extends Controller
             return;
         }
 
-        $bookID = $_POST['bookID']; //hidden there for user cannot interact with this value
+        $bookID = $_POST['bookID'];
         $content = $_POST['reviewText'];
 
-        //validate the review: length greater thatn 5 char, less than 255 char
+
         if (strlen($content) < 5 || strlen($content) > 255) {
             header('Location: /Free-Write/public/Book/Overview/' . $bookID);
             return;
@@ -230,7 +230,7 @@ class BookController extends Controller
         header('Location: /Free-Write/public/Book/Overview/' . $_POST['bookID']);
     }
 
-    //book or chapter reporting
+
 
     public function ReportOnBook()
     {
@@ -258,7 +258,7 @@ class BookController extends Controller
         }
 
         $data = [
-            "email" => $user->first(['userID' => $userid])['email'], //get from userID,
+            "email" => $user->first(['userID' => $userid])['email'],
             "type" => "Book/Chapter Report",
             "description" => $desc,
             "submitTime" => date('Y-m-d H:i:s'),

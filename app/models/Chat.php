@@ -2,8 +2,8 @@
 
 class Chat
 {
-    use Model; // Use the Model trait
+    use Model; 
 
-    protected $table = 'Chat'; //when using the Model trait, this table name ise used 
+    protected $table = 'Chat';  
 
 }

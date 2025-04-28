@@ -22,10 +22,10 @@
     ?>
 
     <script>
-        //handle navigation button clicks
+        
         document.querySelectorAll(".user-nav-button").forEach((button) => {
             button.addEventListener("click", () => {
-                // Remove active class from all buttons and sections
+                
                 document
                     .querySelectorAll(".user-nav-button")
                     .forEach((btn) => btn.classList.remove("active"));
@@ -33,7 +33,7 @@
                     .querySelectorAll(".view-section")
                     .forEach((section) => section.classList.remove("active"));
 
-                // Add active class to clicked button and corresponding section
+                
                 button.classList.add("active");
                 document.getElementById(button.dataset.view).classList.add("active");
             });

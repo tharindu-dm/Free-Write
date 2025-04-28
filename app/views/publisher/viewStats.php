@@ -7,7 +7,7 @@
     <meta name="description" content="Sales Insights for The Art of War">
     <title>The Art of War - Sales Insights</title>
     <style>
-        /* Winners Section and Related Styles (First Set, Takes Precedence) */
+        
         .winners-section {
             margin-top: 30px;
             padding: 20px;
@@ -98,7 +98,7 @@
             font-style: italic;
         }
 
-        /* Dropdown Menu Styling */
+        
         .winner-select {
             width: 100%;
             padding: 10px;
@@ -122,13 +122,13 @@
             cursor: not-allowed;
         }
 
-        /* Error state for duplicate selections */
+        
         .winner-select.error {
             border-color: #dc3545;
             background-color: #fff5f5;
         }
 
-        /* Button Styling */
+        
         .btn {
             display: inline-block;
             padding: 10px 20px;
@@ -160,13 +160,13 @@
             opacity: 0.6;
         }
 
-        /* Center button below winners-container */
+        
         .winners-section .btn {
             display: block;
             margin: 20px auto 0;
         }
 
-        /* Non-Conflicting Styles from Second Set */
+        
         main {
             padding: 2rem;
             position: relative;
@@ -445,7 +445,7 @@
         }
 
 
-        /* Media Queries from Second Set */
+        
         @media (max-width: 768px) {
             .chart-container {
                 margin: 1rem;
@@ -490,7 +490,7 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    //show($data);
+
     ?>
 
     <main>
@@ -533,7 +533,6 @@
             <h2>Competition Winners</h2>
             <form method="post" action="/Free-Write/public/Competition/AnnounceWinners" id="winners-form">
                 <div class="winners-container">
-                    <!-- First Place -->
                     <div class="winner-card first-place">
                         <div class="winner-badge">1st Place</div>
                         <div class="winner-details">
@@ -575,7 +574,6 @@
                         </div>
                     </div>
 
-                    <!-- Second Place -->
                     <div class="winner-card second-place">
                         <div class="winner-badge">2nd Place</div>
                         <div class="winner-details">
@@ -617,7 +615,6 @@
                         </div>
                     </div>
 
-                    <!-- Third Place -->
                     <div class="winner-card third-place">
                         <div class="winner-badge">3rd Place</div>
                         <div class="winner-details">
@@ -684,7 +681,6 @@
                     </thead>
                     <tbody>
                         <?php if (isset($entryData['participantID'])): ?>
-                            <!-- Single entry display -->
                             <tr>
                                 <td><?= htmlspecialchars($entryData['participantName'] ?? 'Unknown') ?></td>
                                 <td><?= htmlspecialchars($entryData['bookTitle'] ?? 'Unknown') ?></td>
@@ -701,7 +697,6 @@
                                 <td><button>Reviewed</button></td>
                             </tr>
                         <?php else: ?>
-                            <!-- Multiple entries display -->
                             <?php foreach ($entryData as $entry): ?>
                                 <tr>
                                     <td><?= htmlspecialchars($entry['participantName'] ?? 'Unknown') ?></td>
@@ -746,52 +741,52 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Get dropdowns and button
+
             const firstSelect = document.getElementById('first-place-select');
             const secondSelect = document.getElementById('second-place-select');
             const thirdSelect = document.getElementById('third-place-select');
             const announceBtn = document.getElementById('announce-winners-btn');
 
-            // Store all dropdowns for easy iteration
+
             const selects = [firstSelect, secondSelect, thirdSelect];
 
-            // Function to validate selections and update button state
+
             function validateSelections() {
-                // Reset error states
+
                 selects.forEach(select => select.classList.remove('error'));
 
-                // Get current values
+
                 const values = selects.map(select => select.value);
 
-                // Check for duplicates (ignore empty values)
+
                 let hasDuplicate = false;
                 for (let i = 0; i < values.length; i++) {
-                    if (values[i] === '') continue; // Skip empty selections
+                    if (values[i] === '') continue;
                     for (let j = i + 1; j < values.length; j++) {
                         if (values[i] === values[j] && values[j] !== '') {
                             hasDuplicate = true;
-                            selects[j].classList.add('error'); // Highlight duplicate
-                            selects[j].value = ''; // Reset duplicate selection
+                            selects[j].classList.add('error');
+                            selects[j].value = '';
                             alert('Cannot select the same entry for multiple places.');
                         }
                     }
                 }
 
-                // Check if all dropdowns have valid (non-empty) selections
+
                 const allSelected = values.every(value => value !== '');
                 const competitionStatus = '<?php echo strtolower($competition['status']); ?>';
 
-                // Enable button only if all selections are made and no duplicates
+
                 announceBtn.disabled = !allSelected || hasDuplicate || competitionStatus !== 'completed';
 
             }
 
-            // Add change event listeners to each dropdown
+
             selects.forEach(select => {
                 select.addEventListener('change', validateSelections);
             });
 
-            // Run validation on page load (in case of pre-filled values)
+
             validateSelections();
         });
 

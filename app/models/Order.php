@@ -1,9 +1,9 @@
 <?php
 class Order
 {
-    use Model; // Use the Model trait
+    use Model; 
 
-    protected $table = 'Order'; //when using the Model trait, this table name ise used 
+    protected $table = 'Order';  
      
     public function addOrder($isbnID,$userID,$totalPrice,$orderDate,$quantity)
     {

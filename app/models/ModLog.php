@@ -2,9 +2,9 @@
 
 class ModLog
 {
-    use Model; // Use the Model trait
+    use Model; 
 
-    protected $table = 'ModLog'; //when using the Model trait, this table name ise used 
+    protected $table = 'ModLog';  
 
     public function filterByDate($params, $date)
     {
@@ -19,7 +19,6 @@ class ModLog
 
         $query .= " CAST([occurrence] AS DATE) = '" . $date . "'";
 
-        //show($query);
         return $this->query( $query);
     }
 }

@@ -20,7 +20,6 @@
                 <input type="hidden" name="bID" value="<?= $book['bookID']; ?>">
 
                 <div class="book-form">
-                    <!-- Left: Book Info -->
                     <div class="book-info">
                         <div class="input-group">
                             <label for="title">Title</label>
@@ -93,7 +92,6 @@
                         </div>
                     </div>
 
-                    <!-- Right: Cover Image -->
                     <div class="book-cover">
                         <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($coverDetails['name'] ?? 'sampleCover.png'); ?>"
                             alt="Cover Image of <?= htmlspecialchars($book['title']); ?>">
@@ -103,7 +101,6 @@
                     </div>
                 </div>
 
-                <!-- Buttons -->
                 <div class="right-buttons">
                     <button type="button" class="edit-btn cancel-btn" onclick="window.history.back();">Back</button>
                     <button type="submit" class="create-btn">Update</button>

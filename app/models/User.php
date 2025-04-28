@@ -2,10 +2,9 @@
 
 class User
 {
-    use Model; // Use the Model trait
+    use Model; 
 
-    protected $table = 'User'; //when using the Model trait, this table name ise used 
-
+    protected $table = 'User'; 
     public function createUser($email, $password, $userType, $isPremium, $isActivated)
     {
         $arr = [
@@ -82,7 +81,6 @@ class User
         return $this->query($query);
     }
 
-    //nalan
     public function updateUserTypeToCovdes($userID)
     {
         $data = [

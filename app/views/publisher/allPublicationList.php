@@ -223,27 +223,7 @@
                 </div>
             </div>
         </div>
-
-        <!-- <section class="filters-section">
-           
-            <div class="filter-group">
-                <div class="filter-header">
-                    <h3>Publication Year</h3>
-                </div>
-                <div class="filter-options">
-                    <button class="filter-chip active">All Time</button>
-                    <button class="filter-chip">2024</button>
-                    <button class="filter-chip">2023</button>
-                    <button class="filter-chip">2022</button>
-                    <button class="filter-chip">2021</button>
-                    <button class="filter-chip">Earlier</button>
-                </div>
-            </div>
-        </section> -->
-
         <div class="publications-grid">
-            <!-- Example book cards -->
-
             <?php if (!empty($allBookDetails)): ?>
                 <?php foreach ($allBookDetails as $book): ?>
                     <a href="/Free-Write/public/Publisher/bookProfile4publishers/<?= $book['isbnID'] ?>">

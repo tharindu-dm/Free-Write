@@ -8,29 +8,27 @@
 
 .notification-page h1 {
   color: #000;
-  border-bottom: 2px solid #FFD700;
+  border-bottom: 2px solid #ffd700;
   padding-bottom: 0.5rem;
   margin-bottom: 1.5rem;
 }
 
-/* Notifications List */
 .notifications {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
-/* Single Notification */
 .notification {
   border: 1px solid #ddd;
   padding: 1rem 1.5rem;
-  border-left: 6px solid #FFD700;
+  border-left: 6px solid #ffd700;
   background-color: #f9f9f9;
   transition: background 0.3s;
 }
 
 .notification.unread {
-  background-color: #fff8dc; /* Light goldish hint */
+  background-color: #fff8dc;
 }
 
 .notification-header {

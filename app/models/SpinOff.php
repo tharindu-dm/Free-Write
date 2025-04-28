@@ -2,9 +2,9 @@
 
 class SpinOff
 {
-    use Model; // Use the Model trait
+    use Model; 
 
-    protected $table = 'SpinOff'; //when using the Model trait, this table name ise used 
+    protected $table = 'SpinOff';  
     protected $dateTimeColumn = 'lastUpdated';
     
     public function getUserSpinoff($uid)

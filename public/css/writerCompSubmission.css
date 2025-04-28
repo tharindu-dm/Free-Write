@@ -105,7 +105,7 @@
   box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
 }
 
-/* Responsive adjustments */
+
 @media (max-width: 768px) {
   .books-grid {
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));

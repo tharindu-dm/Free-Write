@@ -14,7 +14,6 @@
     ?>
 
     <main>
-        <!--sidebar-->
         <?php include_once "../app/views/Institute/sidebar.php"; ?>
 
         <section class="main-content">
@@ -22,7 +21,7 @@
                 <img src="/CRUD_OOP/public/assets/images/institution-header.png" alt="Institution Building">
                 <h1>Institution Name</h1>
                 <p>Welcome to your Freewrite dashboard</p>
-                <p>Last login: 1 day ago</p> <!-- static need to be retrieved-->
+                <p>Last login: 1 day ago</p>
             </div>
 
             <nav class="tabs">

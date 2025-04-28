@@ -14,12 +14,10 @@
     require_once "../app/views/layout/header-user.php";
     ?>
 
-    <!-- Main Content -->
     <main class="quote-section">
         <h1>Create a Quote</h1>
         <h4>Share your favorite passages from your books. Quotes can be up to 255 characters.</h4>
 
-        <!-- Form for Creating a Quote -->
         <form action="/Free-Write/public/Writer/saveQuote" method="post" class="quote-form">
             <select id="book_select" name="book_id" class="select-quote-input" required>
                 <option value="">Select Book</option>
@@ -53,20 +51,20 @@
     require_once "../app/views/layout/footer.php";
     ?>
 
-<script>
+    <script>
         document.addEventListener('DOMContentLoaded', function () {
             let bookSelect = document.getElementById('book_select');
             let chapterDropdown = document.getElementById('chapter');
             let quoteTextarea = document.getElementById('quote');
             let form = document.querySelector('.quote-form');
 
-            // Create character counter element
+
             let charCounter = document.createElement('div');
             charCounter.className = 'char-counter';
             charCounter.textContent = '0/255';
             document.querySelector('.quote-container').appendChild(charCounter);
 
-            // Create warning element
+
             let charWarning = document.createElement('div');
             charWarning.className = 'char-warning';
             charWarning.textContent = "Warning: Quote exceeds 255 characters.";
@@ -107,7 +105,7 @@
                 }
             });
 
-            // Update character counter and check length on input
+
             quoteTextarea.addEventListener('input', function () {
                 let quoteLength = quoteTextarea.value.length;
                 charCounter.textContent = quoteLength + '/255';
@@ -115,12 +113,12 @@
                 if (quoteLength > 255) {
                     charWarning.style.display = 'block';
                     charCounter.style.color = '#d9534f';
-                    // Disable the submit button if over limit
+
                     form.querySelector('[type="submit"]').disabled = true;
                 } else {
                     charWarning.style.display = 'none';
                     charCounter.style.color = quoteLength > 200 ? '#ffa500' : '#888';
-                    // Enable the submit button if under limit
+
                     form.querySelector('[type="submit"]').disabled = false;
                 }
             });

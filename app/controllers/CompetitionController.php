@@ -88,22 +88,22 @@ class CompetitionController extends Controller
     public function Manage()
     {
         $URL = splitURL();
-        $competitionID = $URL[2];        //model-method-id
-        $competition_table = new Competition();        //creating the model and assiging to a variable 
-        $competitionDetails = $competition_table->first(['competitionID' => $competitionID]);   //orange one is table name and blue one is the variable we created 
-        // above one should be returned so put it into the arguement 
+        $competitionID = $URL[2];
+        $competition_table = new Competition();
+        $competitionDetails = $competition_table->first(['competitionID' => $competitionID]);
+
         $this->view('publisher/editingcompetitiondetails', ['competitionDetails' => $competitionDetails]);
     }
 
     public function editCompetition()
     {
-        // Check if user is logged in
+
         if (!isset($_SESSION['user_id'])) {
             header('Location: /Free-Write/public/Login');
             exit;
         }
 
-        // Get form data
+
         $title = $_POST['title'];
         $desc = $_POST['description'];
         $rules = $_POST['rules'];
@@ -116,7 +116,7 @@ class CompetitionController extends Controller
         $competitionID = $_POST['compID'];
         $competitionType = $_POST['type'] ?? null;
 
-        // Verify competition exists and belongs to this user
+
         $competition_table = new Competition();
         $existingCompetition = $competition_table->first(['competitionID' => $competitionID]);
 
@@ -126,7 +126,7 @@ class CompetitionController extends Controller
             exit;
         }
 
-        // Prepare update data
+
         $updateData = [
             'title' => $title,
             'description' => $desc,
@@ -139,19 +139,19 @@ class CompetitionController extends Controller
             'end_date' => $end_date
         ];
 
-        // Add competition type if provided
+
         if ($competitionType) {
             $updateData['type'] = $competitionType;
         }
 
-        // Handle image upload if a new image is provided
+
         if (isset($_FILES['competition_image']) && $_FILES['competition_image']['error'] == 0) {
             $upload_dir = '../app/images/competition/';
             $filename = time() . '_' . $_FILES['competition_image']['name'];
             $upload_path = $upload_dir . $filename;
 
             if (move_uploaded_file($_FILES['competition_image']['tmp_name'], $upload_path)) {
-                // Delete old image if it exists
+
                 if (!empty($existingCompetition['compImage'])) {
                     $oldImagePath = $upload_dir . $existingCompetition['compImage'];
                     if (file_exists($oldImagePath)) {
@@ -163,7 +163,7 @@ class CompetitionController extends Controller
             }
         }
 
-        // Update the competition
+
         $competition_table->update($competitionID, $updateData, 'competitionID');
 
         $_SESSION['success'] = "Competition updated successfully";
@@ -178,15 +178,15 @@ class CompetitionController extends Controller
         $competitionEntries = new CompetitionEntries();
         $competitionEntries->delete($competitionID, 'competitionID');
         $competition_table->update($competitionID, ['status' => 'deleted'], 'competitionID');
-        //ensure what are id and id column
+
         header('Location: /Free-Write/public/Competition/MyCompetitions');
     }
 
-    public function Profile() //shows the publisher's POV for a competition
+    public function Profile()
     {
         $URL = splitURL();
-        $compID = $URL[2];        //model-method-id
-        $competition_table = new Competition();        //creating the model and assiging to a variable 
+        $compID = $URL[2];
+        $competition_table = new Competition();
         $competitionDetails = $competition_table->first(['competitionID' => $compID]);
 
         $this->view('publisher/aCompetitionProfile4Publisher', ['competitionDetails' => $competitionDetails]);
@@ -225,17 +225,17 @@ class CompetitionController extends Controller
         $competition_entries_table = new CompetitionEntries();
         $competition_entries = $competition_entries_table->where(['competitionID' => $compID]);
 
-        // Initialize an array to store all entry data
+
         $entriesData = [];
 
-        // Check if we have any entries
+
         if (!empty($competition_entries)) {
-            // Loop through each entry
+
             foreach ($competition_entries as $entry) {
                 $user_details_table = new UserDetails();
                 $user_details = $user_details_table->first(['user' => $entry['participantID']]);
 
-                // Check if user details exist
+
                 $participantName = '';
                 if ($user_details) {
                     $participantName = $user_details['firstName'] . ' ' . $user_details['lastName'];
@@ -244,25 +244,25 @@ class CompetitionController extends Controller
                 $book_table = new Book();
                 $book = $book_table->first(['bookID' => $entry['bookID']]);
 
-                // Check if book exists
+
                 $bookTitle = '';
                 if ($book) {
                     $bookTitle = $book['title'];
                 }
 
-                // Create entry data for this participant
+
                 $entryData = [
                     'entryID' => $entry['entryID'],
                     'competitionID' => $compID,
                     'participantID' => $entry['participantID'],
                     'bookID' => $entry['bookID'],
-                    'submissionDate' => $entry['submittedAt'], // Fixed: was using bookID
+                    'submissionDate' => $entry['submittedAt'],
                     'status' => $entry['status'],
                     'participantName' => $participantName,
                     'bookTitle' => $bookTitle,
                 ];
 
-                // Add to our collection
+
                 $entriesData[] = $entryData;
             }
         }
@@ -470,6 +470,6 @@ class CompetitionController extends Controller
             'third_place_winner' => $third_place_winner
         ], 'competitionID');
 
-        header('Location: /Free-Write/public/Competition/ViewStats/'. $compID);
+        header('Location: /Free-Write/public/Competition/ViewStats/' . $compID);
     }
 }

@@ -12,7 +12,6 @@
     
     ?>
 
-    <!-- Writing Section -->
     <main>
         <section class="writing-section">
             <div class="title">
@@ -54,9 +53,7 @@
         </section>
     </main>
 
-    <!-- Footer -->
     <?php
-    // Including the footer
     require_once "../app/views/layout/footer.php";
     ?>
 

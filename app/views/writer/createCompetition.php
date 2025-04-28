@@ -13,14 +13,12 @@
   
   ?>
 
-  <!-- Main Content -->
   <main class="book-section">
     <div class="competition-info">
       <form action="/Free-Write/public/Writer/createCompetition" method="POST" enctype="multipart/form-data">
         <h1>Create a Competition</h1>
         <p>Invite designers to submit their best book cover designs at competitive prices.</p>
         <div class="form-layout">
-          <!-- Left: Input Fields -->
           <div class="book-info">
             <div class="input-group">
               <label for="title">Title</label>
@@ -39,13 +37,11 @@
             </div>
           </div>
 
-          <!-- Right: Book Cover -->
           <div class="coverComp">
             <img src="/Free-Write/app/images/competition/coverComp.png" alt="Competition Cover">
           </div>
         </div>
 
-        <!-- Bottom Center: Buttons -->
         <div class="right-buttons">
           <button type="button" class="edit-btn cancel-btn" onclick="window.history.back();">Back</button>
           <button type="submit" class="create-btn">Create</button>
@@ -54,9 +50,7 @@
     </div>
   </main>
 
-  <!-- Footer -->
   <?php
-  // Including the footer
   require_once "../app/views/layout/footer.php";
   ?>
 

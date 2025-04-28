@@ -220,7 +220,7 @@
 
 <body>
   <?php require_once "../app/views/layout/headerSelector.php";
-  //show($data);
+
   ?>
 
   <div class="content">
@@ -339,10 +339,10 @@
         }
       });
     });
-  
-  document.querySelectorAll('form').forEach(form => {
-    form.addEventListener('submit', e => e.preventDefault());
-  });
+
+    document.querySelectorAll('form').forEach(form => {
+      form.addEventListener('submit', e => e.preventDefault());
+    });
 
 
   </script>

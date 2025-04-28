@@ -73,9 +73,9 @@
 
         <?php
         if (
-            !isset($_SESSION['user_id']) // guest user or
-            || (isset($_SESSION['user_premium']) && $_SESSION['user_premium'] != 1) //non premium user AND
-            && (isset($_SESSION['user_type']) && $_SESSION['user_type'] != 'pub' && $_SESSION['user_type'] != 'inst' && $_SESSION['user_type'] != 'courier')//not pub and not inst
+            !isset($_SESSION['user_id']) 
+            || (isset($_SESSION['user_premium']) && $_SESSION['user_premium'] != 1)
+            && (isset($_SESSION['user_type']) && $_SESSION['user_type'] != 'pub' && $_SESSION['user_type'] != 'inst' && $_SESSION['user_type'] != 'courier')
         ):
             ?>
             <section class="cta">

@@ -1,4 +1,4 @@
-/* Main Browse Page Styles */
+
 .browse-main-container {
   display: flex;
   justify-content: center;
@@ -18,7 +18,7 @@ main {
   margin: 1rem 0 0 0;
 }
 
-/* Ad image */
+
 .ad-image {
   margin-top: 2.5rem;
   border-radius: 0.5rem;
@@ -27,7 +27,7 @@ main {
   width: 10rem;
 }
 
-/* Search Section */
+
 .search-section {
   display: flex;
   justify-content: center;
@@ -117,7 +117,7 @@ main {
   }
 }
 
-/*Result section*/
+
 .searchResult-grid {
   max-height: 100%;
   padding: 0.2rem 1rem 1rem 0.5rem;
@@ -161,27 +161,27 @@ main {
 }
 
 .book-cover {
-  width: 200px; /* Fixed width for the image */
+  width: 200px; 
   height: 300px;
   object-fit: cover;
-  border-right: 3px solid #ffd700; /* Changed from bottom to right border */
-  flex-shrink: 0; /* Prevents image from shrinking */
+  border-right: 3px solid #ffd700; 
+  flex-shrink: 0; 
 }
 
 .profile-cover {
-  width: 100px; /* Fixed width for the image */
+  width: 100px; 
   height: 100px;
   border-radius: 100%;
   object-fit: cover;
   margin-left: 1rem;
   margin-top: 1.5rem;
-  border-right: 3px solid #ffd700; /* Changed from bottom to right border */
-  flex-shrink: 0; /* Prevents image from shrinking */
+  border-right: 3px solid #ffd700; 
+  flex-shrink: 0; 
 }
 
 .book-info {
   padding: 1.5rem;
-  flex-grow: 1; /* Allows the info section to take up remaining space */
+  flex-grow: 1; 
   display: flex;
   flex-direction: column;
 }
@@ -202,14 +202,14 @@ main {
 .book-synopsis {
   color: #666;
   font-size: 0.9rem;
-  flex-grow: 1; /* Makes synopsis take up available space */
+  flex-grow: 1; 
   margin-bottom: 1.5rem;
 }
 
 .book-meta {
   display: flex;
-  justify-content: flex-start; /* Changed to flex-start to align items to the left */
-  gap: 1.5rem; /* Adds space between meta detail items */
+  justify-content: flex-start; 
+  gap: 1.5rem; 
   align-items: center;
   border-top: 1px solid #eee;
   padding-top: 1rem;
@@ -235,7 +235,7 @@ main {
   width: 100%;
 }
 
-/* Responsivity */
+
 @media (max-width: 770px) {
   .book-card {
     flex-direction: column;

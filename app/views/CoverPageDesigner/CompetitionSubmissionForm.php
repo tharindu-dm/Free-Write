@@ -1,4 +1,3 @@
-<!-- filepath: c:\xampp\htdocs\Free-Write\app\views\CoverPageDesigner\createSubmission.php -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,9 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Submission</title>
-    <link rel="stylesheet" href="/Free-Write/public/css/style.css"> <!-- Link to your theme's CSS -->
+    <link rel="stylesheet" href="/Free-Write/public/css/style.css">
     <style>
-        /* Inline styles for quick customization */
         body {
             font-family: Arial, sans-serif;
             background-color: #f9f5e7;
@@ -64,7 +62,6 @@
 
         button {
             background-color: #d4a017;
-            /* Dark yellow */
             color: #ffffff;
             padding: 10px 15px;
             border: none;
@@ -102,36 +99,28 @@
         <h1>Create Submission</h1>
         <form action="/Free-Write/public/DesignerCompetition/submitCompetition" method="POST"
             enctype="multipart/form-data">
-            <!-- Hidden Competition ID -->
             <input type="hidden" name="competitionID" value="<?= htmlspecialchars($competition['competitionID']) ?>">
 
-            <!-- Hidden User ID -->
             <input type="hidden" name="userID" value="<?= htmlspecialchars($userID) ?>">
 
-            <!-- Competition Name (Read Only) -->
             <label for="competitionName">Competition Name</label>
             <input type="text" id="competitionName" name="competitionName"
                 value="<?= htmlspecialchars($competition['title']) ?>" readonly>
 
-            <!-- User Name (Read-Only) -->
             <label for="userName">Your Name</label>
             <input type="text" id="userName" name="userName" value="<?= htmlspecialchars($_SESSION['user_name']) ?>"
                 readonly>
 
-            <!-- Title -->
             <label for="title">Title</label>
             <input type="text" id="title" name="title" placeholder="Enter Submission Title" required>
 
-            <!-- Submission Content -->
             <label for="content">Submission Content</label>
             <textarea id="content" name="content" rows="6" placeholder="Write your submission content here..."
                 required></textarea>
 
-            <!-- Image Upload -->
             <label for="submissionImage">Upload Submission Image</label>
             <input type="file" id="submissionImage" name="submissionImage" accept="image/*" required>
 
-            <!-- Submit Button -->
             <button type="submit">Submit</button>
         </form>
 

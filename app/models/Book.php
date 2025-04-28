@@ -2,12 +2,12 @@
 
 class Book
 {
-    use Model; // Use the Model trait
+    use Model;
 
-    protected $table = 'Book'; //when using the Model trait, this table name ise used 
+    protected $table = 'Book';
     protected $dateTimeColumn = 'creationDate';
 
-    public function getFWOBooks() //browse top page suggestions
+    public function getFWOBooks()
     {
         $query = "SELECT TOP(5) b.bookID, b.title, b.price, CONCAT(u.firstName, ' ', u.lastName) AS author, c.[name] AS cover_image 
         FROM Book b 
@@ -17,7 +17,7 @@ class Book
 
         return $this->query($query);
     }
-    public function getPaidBooks()//top paid books
+    public function getPaidBooks()
     {
         $query = "SELECT TOP(5) b.bookID, b.title, b.price, CONCAT(u.firstName, ' ', u.lastName) AS author, c.[name] AS cover_image 
         FROM Book b 
@@ -28,7 +28,7 @@ class Book
         return $this->query($query);
     }
 
-    public function getFreeBooks()//top paid books
+    public function getFreeBooks()
     {
         $query = "SELECT TOP(5) b.bookID, b.title, b.price, CONCAT(u.firstName, ' ', u.lastName) AS author, c.[name] AS cover_image 
         FROM Book b 
@@ -39,13 +39,13 @@ class Book
         return $this->query($query);
     }
 
-    public function getBookByID($bid) //seeach for a book by given ID
+    public function getBookByID($bid)
     {
         $query = "SELECT b.[bookID], b.[author], b.[title], b.[Synopsis], b.[accessType], b.[publishType], b.[lastUpdateDate], b.[isCompleted], b.[viewCount] ,b.[price], CONCAT(u.[firstName], ' ', u.[lastName]) AS authorName, c.[name] AS cover_image 
         FROM [Book] b 
         JOIN [UserDetails] u ON b.author = u.[user] 
         LEFT JOIN [CoverImage] c ON b.[coverImage] = c.covID 
-        WHERE b.[bookID] = $bid;"; //////////// ACCESS TYPE NOT DELETED
+        WHERE b.[bookID] = $bid;";
 
         return $this->query($query);
     }

@@ -1,381 +1,381 @@
-/* Root Variables */
 :root {
-    --primary-color: #ffd700;
-    --text-color: #333333;
-    --danger-color: #dc3545;
-    --success-color: #28a745;
-    --border-color: #e1e1e1;
-    --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    --shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
+  --primary-color: #ffd700;
+  --text-color: #333333;
+  --danger-color: #dc3545;
+  --success-color: #28a745;
+  --border-color: #e1e1e1;
+  --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* General Styles */
 body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #f8f9fa;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f8f9fa;
 }
 
 .inst-container {
-    display: flex;
-    min-height: 100vh;
+  display: flex;
+  min-height: 100vh;
 }
 
 .inst-main-content {
-    flex: 1;
-    padding: 2rem;
-    background: #fff;
+  flex: 1;
+  padding: 2rem;
+  background: #fff;
 }
 
 h1 {
-    margin-bottom: 1.5rem;
-    color: #1a1a1a;
-    font-size: 2rem;
-    border-bottom: 2px solid var(--primary-color);
-    padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+  color: #1a1a1a;
+  font-size: 2rem;
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 0.5rem;
 }
 
-/* Table Styles */
 .inst-table-container {
-    background-color: rgba(255, 215, 0, 0.05);
-    border: 1px solid var(--primary-color);
-    border-radius: 8px;
-    box-shadow: var(--shadow);
-    overflow: hidden;
-    margin-bottom: 2rem;
-    width: 100%;
+  background-color: rgba(255, 215, 0, 0.05);
+  border: 1px solid var(--primary-color);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  margin-bottom: 2rem;
+  width: 100%;
 }
 
 #usersTable {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
 }
 
-th, td {
-    padding: 1rem;
-    text-align: left;
+th,
+td {
+  padding: 1rem;
+  text-align: left;
 }
 
 th {
-    background-color: var(--primary-color);
-    color: #000;
-    font-weight: 600;
+  background-color: var(--primary-color);
+  color: #000;
+  font-weight: 600;
 }
 
 th:first-child {
-    border-top-left-radius: 6px;
+  border-top-left-radius: 6px;
 }
 
 th:last-child {
-    border-top-right-radius: 6px;
+  border-top-right-radius: 6px;
 }
 
 tbody tr {
-    background-color: #fff;
-    transition: all 0.3s ease;
+  background-color: #fff;
+  transition: all 0.3s ease;
 }
 
 tbody tr:nth-child(even) {
-    background-color: rgba(255, 215, 0, 0.05);
+  background-color: rgba(255, 215, 0, 0.05);
 }
 
 tbody tr:hover {
-    background-color: rgba(255, 215, 0, 0.1);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
+  background-color: rgba(255, 215, 0, 0.1);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
 }
 
 td {
-    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
 }
 
-/* Button Styles */
-.listEdit-btn, .listDelete-btn {
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 0.5rem;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    min-width: 80px;
+.listEdit-btn,
+.listDelete-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 80px;
 }
 
 .listEdit-btn {
-    background-color: var(--primary-color);
-    color: #000;
+  background-color: var(--primary-color);
+  color: #000;
 }
 
 .listDelete-btn {
-    background-color: var(--danger-color);
-    color: #fff;
+  background-color: var(--danger-color);
+  color: #fff;
 }
 
 .listEdit-btn:hover {
-    background-color: #000;
-    color: var(--primary-color);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-hover);
+  background-color: #000;
+  color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
 }
 
 .listDelete-btn:hover {
-    background-color: #c82333;
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-hover);
+  background-color: #c82333;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
 }
 
-/* Add New User Button */
 .inst-open-popup-btn {
-    margin: 1rem 0;
-    padding: 0.75rem 1.5rem;
-    background-color: var(--primary-color);
-    color: #000;
-    border: none;
-    border-radius: 0.5rem;
-    font-weight: 600;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow);
+  margin: 1rem 0;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary-color);
+  color: #000;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow);
 }
 
 .inst-open-popup-btn:hover {
-    background-color: #000;
-    color: var(--primary-color);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-hover);
+  background-color: #000;
+  color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
 }
 
-/* Modal/Popup Styles */
-.inst-popup-overlay, .update-to-list, .delete-from-list {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(3px);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+.inst-popup-overlay,
+.update-to-list,
+.delete-from-list {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
-.inst-popup-content, .list-container {
-    background-color: #fff;
-    padding: 2rem;
-    width: 90%;
-    max-width: 500px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    position: relative;
+.inst-popup-content,
+.list-container {
+  background-color: #fff;
+  padding: 2rem;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  position: relative;
 }
 
-/* Form Header Styles */
-.inst-popup-content h2, .list-container h3 {
-    color: #333;
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--primary-color);
+.inst-popup-content h2,
+.list-container h3 {
+  color: #333;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--primary-color);
 }
 
-/* Close Button */
 .inst-close-btn {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    font-size: 1.8rem;
-    color: #666;
-    cursor: pointer;
-    transition: color 0.3s ease;
-    background: none;
-    border: none;
-    line-height: 1;
-    padding: 0;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.8rem;
+  color: #666;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  background: none;
+  border: none;
+  line-height: 1;
+  padding: 0;
 }
 
 .inst-close-btn:hover {
-    color: var(--danger-color);
+  color: var(--danger-color);
 }
 
-/* Form Fields */
-.inst-popup-content form, .list-container form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+.inst-popup-content form,
+.list-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 form label {
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 0.25rem;
-    display: block;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.25rem;
+  display: block;
 }
 
 form input {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
 }
 
 form input:focus {
-    border-color: var(--primary-color);
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.1);
+  border-color: var(--primary-color);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.1);
 }
 
 form input:disabled {
-    background-color: #f5f5f5;
-    cursor: not-allowed;
+  background-color: #f5f5f5;
+  cursor: not-allowed;
 }
 
 form h6 {
-    color: #666;
-    font-size: 0.8rem;
-    margin: -0.5rem 0 0.5rem 0;
-    font-weight: normal;
+  color: #666;
+  font-size: 0.8rem;
+  margin: -0.5rem 0 0.5rem 0;
+  font-weight: normal;
 }
 
 .form-content {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
-/* Action Buttons */
 .list-add-actionBtns {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1.5rem;
-    justify-content: flex-end;
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  justify-content: flex-end;
 }
 
 .add-list-cancel-button,
 .add-list-submit-button,
 .delete-list-submit-button,
 .inst-submit-btn {
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 0.5rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    min-width: 120px;
-    text-align: center;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 120px;
+  text-align: center;
 }
 
 .add-list-cancel-button {
-    background-color: #6c757d;
-    color: #fff;
+  background-color: #6c757d;
+  color: #fff;
 }
 
-.add-list-submit-button, .inst-submit-btn {
-    background-color: var(--primary-color);
-    color: #000;
+.add-list-submit-button,
+.inst-submit-btn {
+  background-color: var(--primary-color);
+  color: #000;
 }
 
 .delete-list-submit-button {
-    background-color: var(--danger-color);
-    color: #fff;
+  background-color: var(--danger-color);
+  color: #fff;
 }
 
-/* Button Hover States */
 .add-list-cancel-button:hover {
-    background-color: #5a6268;
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
+  background-color: #5a6268;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
 }
 
-.add-list-submit-button:hover, .inst-submit-btn:hover {
-    background-color: #000;
-    color: var(--primary-color);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
+.add-list-submit-button:hover,
+.inst-submit-btn:hover {
+  background-color: #000;
+  color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
 }
 
 .delete-list-submit-button:hover {
-    background-color: #c82333;
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
+  background-color: #c82333;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
 }
 
-/* Error Message */
 .inst-error-message {
-    background-color: rgba(220, 53, 69, 0.1);
-    border: 1px solid var(--danger-color);
-    color: var(--danger-color);
-    padding: 1rem;
-    margin: 1rem 0;
-    border-radius: 0.5rem;
-    font-weight: 500;
-    text-align: center;
+  background-color: rgba(220, 53, 69, 0.1);
+  border: 1px solid var(--danger-color);
+  color: var(--danger-color);
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  text-align: center;
 }
 
-/* User Edit and Delete Forms */
-#user-header, #user-header-delete {
-    margin-top: 0;
-    color: #333;
+#user-header,
+#user-header-delete {
+  margin-top: 0;
+  color: #333;
 }
 
-#user_update, #user_delete {
-    background-color: #f8f9fa;
-    padding: 0.75rem;
-    margin-bottom: 1.5rem;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 1rem;
-    font-weight: 500;
+#user_update,
+#user_delete {
+  background-color: #f8f9fa;
+  padding: 0.75rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
 }
 
 .list-container h3[style="color:crimson;"] {
-    color: var(--danger-color) !important;
-    font-weight: 600;
-    text-align: center;
+  color: var(--danger-color) !important;
+  font-weight: 600;
+  text-align: center;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
-    .inst-main-content {
-        padding: 1rem;
-    }
+  .inst-main-content {
+    padding: 1rem;
+  }
 
-    .inst-popup-content, .list-container {
-        width: 95%;
-        margin: 1rem;
-        padding: 1.5rem;
-    }
+  .inst-popup-content,
+  .list-container {
+    width: 95%;
+    margin: 1rem;
+    padding: 1.5rem;
+  }
 
-    .list-add-actionBtns {
-        flex-direction: column;
-        gap: 0.75rem;
-    }
+  .list-add-actionBtns {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
 
-    .add-list-cancel-button,
-    .add-list-submit-button,
-    .delete-list-submit-button,
-    .inst-submit-btn {
-        width: 100%;
-    }
+  .add-list-cancel-button,
+  .add-list-submit-button,
+  .delete-list-submit-button,
+  .inst-submit-btn {
+    width: 100%;
+  }
 
-    th, td {
-        padding: 0.75rem 0.5rem;
-        font-size: 0.9rem;
-    }
+  th,
+  td {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.9rem;
+  }
 
-    th:nth-child(1),
-    td:nth-child(1) {
-        display: none; /* Hide User ID column on mobile */
-    }
+  th:nth-child(1),
+  td:nth-child(1) {
+    display: none;
+  }
 
-    .listEdit-btn, .listDelete-btn {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.8rem;
-        min-width: 70px;
-    }
+  .listEdit-btn,
+  .listDelete-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+    min-width: 70px;
+  }
 }

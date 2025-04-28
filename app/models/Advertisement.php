@@ -2,9 +2,9 @@
 
 class Advertisement
 {
-    use Model; // Use the Model trait
+    use Model;
 
-    protected $table = 'Advertisement'; //when using the Model trait, this table name ise used 
+    protected $table = 'Advertisement'; 
     
     
     public function getLatestEndDate()
@@ -24,7 +24,6 @@ class Advertisement
     }
     
     public function getAdIDExpired() {
-        // This might have a syntax error
         $query = "SELECT adID FROM [Advertisement] WHERE endDate < GETDATE() AND (status = 'active' OR status = 'pending')";
         return $this->query($query);
     }

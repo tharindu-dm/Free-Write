@@ -2,9 +2,9 @@
 
 class UserDetails
 {
-    use Model; // Use the Model trait
+    use Model;
 
-    protected $table = 'UserDetails'; //when using the Model trait, this table name ise used 
+    protected $table = 'UserDetails';
 
     public function addUserDetails($user, $firstName, $lastName, $regDate, $lastlogin)
     {
@@ -28,7 +28,7 @@ class UserDetails
             'country' => $country
         ];
 
-        return $this->update($user_id, $data, 'user'); // Changed 'userID' to 'user'
+        return $this->update($user_id, $data, 'user');
     }
 
     public function getDetails($userId)

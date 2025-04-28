@@ -1,18 +1,14 @@
-// Function to show delete confirmation overlay
 function showDeleteConfirmation(adID) {
   const deleteOverlay = document.querySelector(".deleteOverlay-container");
   const adIDLabel = document.getElementById("adID-label");
   const deleteAdIDInput = document.getElementById("deleteAdID");
 
-  // Set the values
   adIDLabel.value = adID;
   deleteAdIDInput.value = adID;
 
-  // Show the overlay
   deleteOverlay.style.display = "flex";
 }
 
-// Function to handle delete confirmation
 document
   .getElementById("deleteAdForm")
   .addEventListener("submit", function (e) {
@@ -63,7 +59,6 @@ function hideEditOverlay() {
   document.querySelector(".editOverlay-container").style.display = "none";
 }
 
-// Add click handler to edit buttons
 document.querySelectorAll(".edit-btn").forEach((btn) => {
   btn.addEventListener("click", (e) => {
     const row = e.target.closest("tr");
@@ -96,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const editForm = document.querySelector(".editOverlay form");
   editForm.addEventListener("submit", function (e) {
     e.preventDefault();
-    // Add validation logic here
+
     this.submit();
   });
 });

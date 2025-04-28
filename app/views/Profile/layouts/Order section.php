@@ -1,4 +1,3 @@
-<!-- Orders Section -->
 <div id="orders" class="view-section">
     <h2 class="orders-title">My Orders</h2>
 

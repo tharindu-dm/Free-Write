@@ -1,5 +1,3 @@
-<!-- Report user form --------------------------------------- -->
-
 <?php if (!isset($_SESSION['user_id']) || (isset($_GET['user']) && $_GET['user'] != $_SESSION['user_id'])): ?>
     <div id="report-profile" class="edit-profile">
         <div class="close-overlay-button">

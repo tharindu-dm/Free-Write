@@ -2,8 +2,8 @@
 
 class CompetitionEntries
 {
-    use Model; // Use the Model trait
+    use Model; 
 
-    protected $table = 'CompetitionEntries'; //when using the Model trait, this table name ise used 
+    protected $table = 'CompetitionEntries';  
 
 }

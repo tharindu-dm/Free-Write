@@ -401,7 +401,6 @@
             }
         }
 
-        /* Enhanced no-books message */
         .no-books-message {
             text-align: center;
             padding: 2rem;

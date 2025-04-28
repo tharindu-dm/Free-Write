@@ -16,7 +16,6 @@
     require_once "../app/views/layout/header-user.php";
     ?>
 
-    <!-- Main Content -->
     <main class="quote-section">
 
         <h2>A Quote by
@@ -32,7 +31,6 @@
 
 
         <div class="button-container">
-            <!-- Left side: Cancel button -->
             <?php if (isset($_SESSION['user_id']) && ($userDetails['user'] == $_SESSION['user_id'])): ?>
                 <button type="button" class="edit-btn cancel-btn"
                     onclick="window.location.href='/Free-Write/public/Writer/Quotes'">Back</button>
@@ -41,7 +39,6 @@
             <?php endif; ?>
 
             <?php if (isset($_SESSION['user_id']) && ($userDetails['user'] == $_SESSION['user_id'])): ?>
-                <!-- Right side: Edit and Delete buttons -->
                 <div class="right-buttons">
                     <button class="edit-btn"
                         onclick="window.location.href='/Free-Write/public/Writer/editQuote/<?= htmlspecialchars($quote['quoteID']); ?>'">Edit</button>

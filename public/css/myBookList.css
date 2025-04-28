@@ -1,4 +1,3 @@
-/* Reset and general styles */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -12,19 +11,15 @@ body {
   background-color: #f8f8f8;
 }
 
-/* ------------------------------------------------------------------------------ */
-/* Header and navigation styles */
 header {
   background-color: #fff;
   padding: 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* list container styles */
 main {
   min-height: 100vh;
 }
-/* 2nd nav bar */
 
 .secondary-nav {
   display: flex;
@@ -51,8 +46,6 @@ main {
   cursor: pointer;
 }
 
-/* ------------------------------------------------------------------------------ */
-/*table styles*/
 .table-section {
   display: flex;
   flex-direction: column;
@@ -86,7 +79,7 @@ th {
   border-spacing: 1rem;
 }
 
-.table-container{
+.table-container {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -131,19 +124,17 @@ img {
   cursor: pointer;
 }
 
-/* ------------------------------------------------------------------------------ */
-/*EDITING to my booklist */
 .add-to-list {
   display: none;
-  position: fixed; /* Make it fixed to the viewport */
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100vw; /* Full width of the viewport */
-  height: 100vh; /* Full height of the viewport */
-  background: rgba(0, 0, 0, 0.6); /* Adjust the opacity of the background */
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
 
-  justify-content: center; /* Center the form horizontally */
-  align-items: center; /* Center the form vertically */
+  justify-content: center;
+  align-items: center;
   z-index: 1;
 }
 
@@ -195,19 +186,17 @@ img {
   border-radius: 0.5rem;
 }
 
-/* ------------------------------------------------------------------------------ */
-/*DELETE Record*/
 .delete-from-list {
   display: none;
-  position: fixed; /* Make it fixed to the viewport */
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100vw; /* Full width of the viewport */
-  height: 100vh; /* Full height of the viewport */
-  background: rgba(0, 0, 0, 0.6); /* Adjust the opacity of the background */
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
 
-  justify-content: center; /* Center the form horizontally */
-  align-items: center; /* Center the form vertically */
+  justify-content: center;
+  align-items: center;
   z-index: 1;
 }
 

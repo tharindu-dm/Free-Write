@@ -141,7 +141,6 @@
       box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
     }
 
-    /* Responsive adjustments */
     @media (max-width: 768px) {
       .form-layout {
         flex-direction: column;
@@ -158,7 +157,6 @@
 <body>
   <?php require_once "../app/views/layout/headerSelector.php"; ?>
 
-  <!-- Main Content -->
   <main class="book-section">
     <div class="competition-info">
       <form action="/Free-Write/public/Writer/updateCompetition" method="POST" enctype="multipart/form-data">
@@ -169,7 +167,6 @@
         <input type="hidden" name="cID" value="<?= $competition['competitionID']; ?>">
 
         <div class="form-layout">
-          <!-- Left: Input Fields -->
           <div class="book-info">
             <div class="input-group">
               <label for="title">Title</label>
@@ -193,7 +190,6 @@
             <p class="notice">*The competition expires two months after its creation date.</p>
           </div>
 
-          <!-- Right: Competition Cover -->
           <div class="coverComp">
             <img src="/Free-Write/app/images/competition/coverComp.png" alt="Competition Cover">
           </div>
@@ -201,7 +197,6 @@
 
         <hr style="margin: 1.5rem 0; border:0.1rem solid #ffd700;" />
 
-        <!-- Bottom Center: Buttons -->
         <div class="right-buttons">
           <button type="button" class="cancel-btn" onclick="window.history.back();">Cancel</button>
           <button type="submit" class="create-btn">Update Competition</button>
@@ -210,7 +205,6 @@
     </div>
   </main>
 
-  <!-- Footer -->
   <?php require_once "../app/views/layout/footer.php"; ?>
 
 </body>

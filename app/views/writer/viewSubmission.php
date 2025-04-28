@@ -178,7 +178,6 @@
             margin-top: 0.5rem;
         }
 
-        /* Responsive adjustments */
         @media (max-width: 768px) {
             .spinoff-content {
                 flex-direction: column;
@@ -211,7 +210,6 @@
     require_once "../app/views/layout/header-user.php";
     ?>
 
-    <!-- Main Content -->
     <main class="competition-section">
         <div class="spinoff-details">
             <h1><?php echo htmlspecialchars($submission['title']); ?></h1>
@@ -272,7 +270,6 @@
         </div>
     </main>
 
-    <!-- Footer -->
     <?php
     require_once "../app/views/layout/footer.php";
     ?>

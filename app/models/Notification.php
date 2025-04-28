@@ -2,9 +2,9 @@
 
 class Notification
 {
-    use Model; // Use the Model trait
+    use Model; 
 
-    protected $table = 'Notification'; //when using the Model trait, this table name ise used 
+    protected $table = 'Notification';  
 
     public function addNotification($notification)
     {
