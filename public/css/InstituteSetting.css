@@ -1,20 +1,19 @@
+/* Root Variables */
 :root {
     --primary-color: #ffd700;
     --text-color: #333333;
-    --border-color: #E5E5E5;
+    --border-color: #e1e1e1;
+    --danger-color: #dc3545;
+    --success-color: #28a745;
+    --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* General Layout */
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    color: var(--text-color);
-    background: #f9f9f9;
-    line-height: 1.6;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f9f9f9;
 }
 
 .container {
@@ -22,36 +21,50 @@ body {
     min-height: 100vh;
 }
 
-/* Main Content Styles */
 .main-content {
     flex: 1;
     padding: 2rem;
+    margin: 1rem;
     background: #fff;
-    min-height: 100vh;
+    min-height: calc(100vh - 2rem);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
 }
 
+/* Settings Section */
 .settings-section {
-    max-width: 600px;
+    max-width: 700px;
     margin: 0 auto;
     background: #fff;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    box-shadow: var(--shadow);
     padding: 2rem 2.5rem;
+    border-left: 4px solid var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.settings-section:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
 }
 
 .settings-section h1 {
     font-size: 2rem;
     margin-bottom: 0.5rem;
-    color: #222;
+    color: #333;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
 }
 
 .settings-section p {
     color: #666;
     margin-bottom: 2rem;
+    line-height: 1.5;
 }
 
+/* Form Styling */
 .settings-form {
-    margin-top: 1rem;
+    margin-top: 1.5rem;
 }
 
 .form-group {
@@ -61,58 +74,82 @@ body {
 .form-group label {
     display: block;
     margin-bottom: 0.5rem;
-    font-weight: 500;
-    color: #222;
+    font-weight: 600;
+    color: #333;
 }
 
 .form-group input {
     width: 100%;
     padding: 0.75rem;
     border: 1px solid var(--border-color);
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 1rem;
     background: #fafafa;
-    color: #222;
+    color: #333;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
 }
 
+.form-group input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.1);
+    background-color: #fff;
+}
+
+.form-group input:hover {
+    border-color: #ccc;
+}
+
+/* Form Actions */
 .form-actions {
-    margin-top: 2rem;
+    margin-top: 2.5rem;
     display: flex;
     justify-content: flex-end;
 }
 
 .btn-save {
-    background: var(--primary-color);
-    color: #222;
+    background-color: var(--primary-color);
+    color: #000;
     border: none;
     padding: 0.75rem 1.5rem;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
     font-size: 1rem;
-    transition: background 0.2s, color 0.2s;
+    transition: all 0.3s ease;
+    min-width: 140px;
+    text-align: center;
+    box-shadow: var(--shadow);
 }
 
 .btn-save:hover {
-    background: #222;
+    background-color: #000;
     color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* Alert Messages */
+.alert {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    box-shadow: var(--shadow);
+    border-left: 4px solid;
 }
 
 .alert-success {
-    background: #d4edda;
-    color: #155724;
-    padding: 1rem;
-    border-radius: 5px;
-    margin-bottom: 1rem;
-    border: 1px solid #c3e6cb;
+    background-color: rgba(40, 167, 69, 0.1);
+    border-color: var(--success-color);
+    color: var(--success-color);
 }
+
 .alert-danger {
-    background: #f8d7da;
-    color: #721c24;
-    padding: 1rem;
-    border-radius: 5px;
-    margin-bottom: 1rem;
-    border: 1px solid #f5c6cb;
+    background-color: rgba(220, 53, 69, 0.1);
+    border-color: var(--danger-color);
+    color: var(--danger-color);
 }
 
 /* Responsive Design */
@@ -120,10 +157,28 @@ body {
     .container {
         flex-direction: column;
     }
+    
     .main-content {
         padding: 1rem;
+        margin: 0.5rem;
     }
+    
     .settings-section {
         padding: 1.5rem 1rem;
+        max-width: 100%;
+    }
+    
+    .btn-save {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .settings-section h1 {
+        font-size: 1.5rem;
+    }
+    
+    .form-actions {
+        flex-direction: column;
     }
 }

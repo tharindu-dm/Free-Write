@@ -10,7 +10,7 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    //show($data);
+    
     ?>
 
     <main>
@@ -18,9 +18,9 @@
             <img src="/Free-Write/public/images/collectionThumb.jpeg" alt="Collection Cover" class="collection-image">
             <div class="collection-info">
                 <div class="collection-title-row">
-                    <h1 class="collection-title"><?= htmlspecialchars($collection['title']) ?></h1>
+                    <h1 class="collection-title"><?= ucfirst($collection['title']) ?> Collection</h1>
                     <span
-                        class="collection-status public"><?= htmlspecialchars(($collection['isPublic'] == 1 ? 'public' : 'private')) ?></span>
+                        class="collection-status public"><?= ($collection['isPublic'] == 1 ? 'public' : 'private') ?></span>
                     <?php if (isset($_SESSION['user_id']) && ($collection['user'] == $_SESSION['user_id'])): ?>
                         <div class="collection-actions">
                             <button class="btn btn-edit"
@@ -30,21 +30,22 @@
                         </div>
                     <?php endif; ?>
                 </div>
-                <p class="collection-description"><?= htmlspecialchars($collection['description']) ?></p>
-                <p class="books-count"><?= htmlspecialchars(sizeof($books)) ?> books in collection</p>
+                <p class="collection-description"><?= $collection['description'] ?></p>
+                <p class="books-count"><?= sizeof($books) ?> books in collection</p>
             </div>
         </div>
+        <hr style="margin-bottom: 1rem; border: 0.5rem solid #ffd700;" />
 
         <div class="books-grid">
             <?php foreach ($books as $book): ?>
                 <!-- Book card -->
                 <a href="/Free-Write/public/book/Overview/<?= htmlspecialchars($book['bookID']) ?>">
                     <div class="book-card">
-                        <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg') ?>"
+                        <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.png') ?>"
                             alt="Book Cover" class="book-cover">
                         <div class="book-info">
                             <h3 class="book-title"><?= htmlspecialchars($book['title'] ?? 'Untitled') ?></h3>
-                            <p class="book-author">By <?= htmlspecialchars($book['author'] ?? 'sampleCover.jpg') ?></p>
+                            <p class="book-author">By <?= htmlspecialchars($book['author'] ?? 'sampleCover.png') ?></p>
                             <!--<div class="book-meta">
                             <div class="book-rating">
                                 <span class="star">★</span>

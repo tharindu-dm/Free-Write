@@ -386,7 +386,6 @@ select {
 
 /* Table Container Styles */
 .table-of-contents {
-  width: max-content;
   margin: 2rem 0;
   padding: 1rem;
   border-radius: 8px;

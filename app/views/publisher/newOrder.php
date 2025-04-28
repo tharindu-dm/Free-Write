@@ -287,7 +287,7 @@
 
 <body>
   <?php require_once "../app/views/layout/headerSelector.php";
-  //show($data);
+  
   ?>
 
   <!-- Statistics Header with View Button -->

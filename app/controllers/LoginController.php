@@ -248,7 +248,7 @@ class LoginController extends Controller
 
         if ($institutionData) {
 
-            if (($pw == $institutionData['password'])) {
+            if (password_verify($pw, $institutionData['password'])) {
                 //echo "<script>alert('Password is correct!');</script>";
 
                 // Set session variables

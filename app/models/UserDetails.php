@@ -44,17 +44,23 @@ class UserDetails
                 INNER JOIN [dbo].[User] u ON ud.[user] = u.[userID] 
                 WHERE u.[userType] != 'admin' 
                 AND u.[userType] != 'mod' 
-                AND u.[userType] != 'pub' 
-                AND u.[userType] != 'inst' AND 
-                CONCAT(ud.firstName, ' ', ud.lastName) LIKE '%$name%'";
+                AND u.[userType] != 'courier'                 
+                AND u.[userType] != 'inst' 
+                AND CONCAT(ud.firstName, ' ', ud.lastName) LIKE '%$name%'";
 
         switch ($type) {
             case "covdes":
+                $query .= " AND u.[userType] != 'pub' AND u.[userType] = '$type' OR u.[userType] = 'wricov' AND u.[userType] != 'reader'";
+                break;
             case "writer":
-                $query .= " AND u.[userType] = '$type'";
+                $query .= " AND u.[userType] != 'pub' AND u.[userType] = '$type' OR u.[userType] = 'wricov' AND u.[userType] != 'reader'";
+                break;
+            case "pub":
+                $query .= " AND u.[userType] = 'pub' AND u.[userType] != 'wricov' AND u.[userType] != 'writer' AND u.[userType] != 'covdes' AND u.[userType] != 'reader'";
                 break;
             case "user":
             default:
+                $query .= " AND u.[userType] != 'pub'";
                 break;
         }
 

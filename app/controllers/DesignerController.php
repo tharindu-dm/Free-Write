@@ -33,6 +33,14 @@ class DesignerController extends Controller
         ]);
     }
 
+    private function checkLoggedUser()
+    {
+        if ($_SESSION['user_type'] != 'covdes' && $_SESSION['user_type'] != 'wricov') {
+            header('location: /Free-Write/public/');
+            exit();
+        }
+    }
+
 
     public function Dashboard()
     {
@@ -78,13 +86,25 @@ class DesignerController extends Controller
         $this->view('CoverPageDesigner/CreateDesign');
     }
 
-    public function Competition()
-    {
-        $this->view('CoverPageDesigner/Competition');
-    }
+    // public function Competition()
+    // {
+    //     $designerId = $_SESSION['user_id'];
 
-    public function showCollectionForUsers($collectionID)
+    //     $userDetailsModel = new UserDetails();
+    //     $userDetails = $userDetailsModel->getDetails($designerId);
+
+    //     $submissionModel = new DesignSubmissions();
+    //     $joinedCompetitions = $submissionModel->getJoinedCompetitions($designerId);
+
+    //     $this->view('CoverPageDesigner/Competition', [
+    //         'userDetails' => $userDetails,
+    //         'joinedCompetitions' => $joinedCompetitions ?? []
+    //     ]);
+    // }
+
+    public function showCollectionForUsers()
     {
+        $collectionID = splitURL()[2];
         $collectionDetailsModel = new CollectionDetails();
         $collectionDesignsModel = new CollectionDesigns();
         $coverImageModel = new CoverImage();
@@ -120,7 +140,6 @@ class DesignerController extends Controller
 
             $title = $_POST['title'];
             $description = $_POST['description'] ?? '';
-            //$price = $_POST['price'] ?? null;
             $designer_id = $_SESSION['user_id'];
             $uploadDate = date('Y-m-d H:i:s');
 
@@ -130,6 +149,13 @@ class DesignerController extends Controller
             if (isset($_FILES['coverImage']) && $_FILES['coverImage']['error'] == UPLOAD_ERR_OK) {
                 $file = $_FILES['coverImage'];
                 $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
+                $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+                $allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif'];
+
+                if (!in_array($fileExtension, $allowedExtensions) || !in_array(mime_content_type($file['tmp_name']), $allowedMimeTypes)) {
+                    die("Invalid file type. Only JPG, PNG, and GIF files are allowed.");
+                }
+
                 $dateTime = date('Y-m-d_H-i-s');
                 $newFileName = "COVER_" . $designer_id . "_" . $dateTime . "." . $fileExtension;
                 $targetDirectory = "../app/images/coverDesign/";
@@ -147,9 +173,8 @@ class DesignerController extends Controller
                 'artist' => $designer_id,
                 'name' => $title,
                 'description' => $description,
-                //'price' => $price,
                 'uploadDate' => $uploadDate,
-                'license' => $newFileName,
+                'license' => $newFileName
             ];
 
             if ($coverModel->insert($data)) {
@@ -159,6 +184,20 @@ class DesignerController extends Controller
 
                 $designs = $coverModel->getByDesigner($designer_id);
 
+                $userModel = new User();
+
+
+                $userType = $_SESSION['user_type'];
+                if ($userType === 'reader') {
+                    $userModel->updateUserTypeToCovdes($designer_id);
+                    $userType = 'covdes';
+                } elseif ($userType === 'writer') {
+                    $userModel->updateUserTypeToWricov($designer_id);
+                    $userType = 'wricov';
+                }
+
+                $_SESSION['user_type'] = $userType;
+                // show($userType);
                 // Pass the updated data to the Dashboard view
                 $this->view('CoverPageDesigner/Dashboard', [
                     'userDetails' => $userDetails,
@@ -174,8 +213,9 @@ class DesignerController extends Controller
     }
 
 
-    public function edit($id)
+    public function edit()
     {
+        $id = splitURL()[2];
         $coverModel = new CoverImage();
 
         // Fetch the current design details
@@ -197,14 +237,20 @@ class DesignerController extends Controller
             // Handle form submission to update the design
             $data = [
                 'name' => $_POST['title'],
-                'description' => $_POST['description'],
-                'price' => $_POST['price']
+                'description' => $_POST['description']
             ];
 
             // Handle optional image upload
             if (!empty($_FILES['coverImage']['name'])) {
                 $file = $_FILES['coverImage'];
                 $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
+                $allowedExtensions = ['jpeg', 'png', 'gif'];
+                $allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif'];
+
+                if (!in_array($fileExtension, $allowedExtensions) || !in_array(mime_content_type($file['tmp_name']), $allowedMimeTypes)) {
+                    die("Invalid file type. Only JPG, PNG, and GIF files are allowed.");
+                }
+
                 $newFileName = "COVER_" . $id . "_" . time() . "." . $fileExtension;
                 $targetDirectory = "../app/images/coverDesign/";
 
@@ -235,25 +281,37 @@ class DesignerController extends Controller
         $this->view('CoverPageDesigner/EditDesign', ['design' => $design]);
     }
 
-    public function viewDesign($id)
+    public function viewDesign()
     {
-        //var_dump($id);
-
+        $id = splitURL()[2];
         $coverModel = new CoverImage();
+        $ratingModel = new CovDesignRating();
 
         // Fetch the design details by ID
         $design = $coverModel->first(['covID' => $id]);
+        $ratingData = $ratingModel->getAverageRating($id);
 
         if ($design) {
             // Pass the design details to the CoverPageDesign view
-            $this->view('CoverPageDesigner/CoverPageDesign', ['design' => $design]);
+            $this->view(
+                'CoverPageDesigner/CoverPageDesign',
+                [
+                    'design' => $design,
+                    'ratingData' => $ratingData
+                ]
+            );
         } else {
             echo "Design not found.";
         }
     }
 
-    public function delete($id)
+    public function delete()
     {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            die("Invalid request method");
+        }
+
+        $id = splitURL()[2];
         $coverModel = new CoverImage();
 
         // Fetch the design details to get the file name
@@ -284,11 +342,16 @@ class DesignerController extends Controller
     public function rateDesign()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!isset($_SESSION['user_id'])) {
+                echo json_encode(['success' => false, 'error' => 'User not logged in']);
+                return;
+            }
+
             $data = json_decode(file_get_contents('php://input'), true);
 
             $userID = $_SESSION['user_id']; // Logged-in user ID
             $covID = $data['covID']; // Cover design ID
-            $rating = $data['rating']; // Rating (1-5)
+            $rating = $data['rating']; 
 
             $covDesignRatingModel = new CovDesignRating();
 
@@ -300,6 +363,8 @@ class DesignerController extends Controller
             } else {
                 echo json_encode(['success' => false]);
             }
+        } else{
+            echo json_encode(['success' => false]);
         }
     }
 
@@ -388,6 +453,10 @@ class DesignerController extends Controller
 
     public function follow()
     {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            die("Invalid request method");
+        }
+
         $userID = $_SESSION['user_id'];
         $designerID = $_POST['designerID'];
 
@@ -400,6 +469,10 @@ class DesignerController extends Controller
 
     public function unfollow()
     {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            die("Invalid request method");
+        }
+
         $userID = $_SESSION['user_id'];
         $designerID = $_POST['designerID'];
 

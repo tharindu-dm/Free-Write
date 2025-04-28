@@ -10,7 +10,7 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    //show($data);
+    
     ?>
 
     <main>
@@ -54,7 +54,6 @@
                         <a href="/Free-Write/public/Writer/NewCompetition" class="book-btn">+Create a New Competition</a>
                     </div>
                 <?php else: ?>
-
                     <a href="/Free-Write/public/Writer/NewCompetition" class="button-new">+ New</a>
 
                     <!-- competition List -->

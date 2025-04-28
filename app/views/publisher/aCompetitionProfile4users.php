@@ -56,16 +56,17 @@
         }
 
         .card {
-            background-color: white;
-            border-radius: 12px;
+            background-color:rgb(255, 215, 0, 0.05);
+            border-radius: 1rem;
+            border: var(--primary-color) 1px solid;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 30px;
             margin-bottom: 20px;
         }
 
         .section-title {
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--primary-color);
+            color: #ffbb00;
+            border-bottom: 2px solid #ffbb00;
             padding-bottom: 10px;
             margin-bottom: 20px;
             font-weight: 600;
@@ -147,32 +148,41 @@
         </div>
 
         <?php if (isset($_SESSION['user_id'])): ?>
-            <?php if($details['type']=='writer' ) ?>
-            <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] != 'writer' && $_SESSION['user_type'] != 'covdes' && $_SESSION['user_type'] != 'wricov'): ?>
-                <div class="premium-message">
-                    <p>Only writers can participate in competitions</p>
-                </div>
-            <?php elseif ($details['type']=='covdes'): ?>
-            <div class="premium-message">
+    
+    <?php if (
+        isset($_SESSION['user_type']) &&
+        $_SESSION['user_type'] != 'writer' &&
+        $details['type'] == 'writer' &&
+        $_SESSION['user_type'] != 'wricov'  ): ?>
+        <div class="premium-message">
+            <p>Only writers can participate in competitions</p>
+        </div>
+
+    <?php elseif ($details['type'] == 'covdes' && $_SESSION['user_type'] != 'covdes' ): ?>
+        
+        <div class="premium-message">
             <p>Only Cover designers can participate in competitions</p>
         </div>
-        <?php endif; ?> 
-            <?php elseif (isset($competitionEntries) && $competitionEntries): ?>
-                <div class="premium-message">
-                    <p>You have already submitted an entry for this competition</p>
-                </div>
-            <?php elseif (strtotime($data['details']['start_date']) > time()): ?>
-                <div class="premium-message">
-                    <p>You can enter into the competition from <?= date('F j, Y', strtotime($data['details']['start_date'])) ?>
-                    </p>
-                </div>
-            <?php else: ?>
-                <a href="/Free-Write/public/Competition/Enter/<?= htmlspecialchars($data['details']['competitionID']) ?>"
-                    class="enter-btn">
-                    <button>Enter Competition</button>
-                </a>
-            
-            <?php endif; ?>
+
+    <?php elseif (isset($competitionEntries) && $competitionEntries): ?>
+        <div class="premium-message">
+            <p>You have already submitted an entry for this competition</p>
+        </div>
+
+    <?php elseif (strtotime($data['details']['start_date']) > time()): ?>
+        <div class="premium-message">
+            <p>You can enter into the competition from <?= date('F j, Y', strtotime($data['details']['start_date'])) ?></p>
+        </div>
+
+    <?php else: ?>
+        <a href="/Free-Write/public/Competition/Enter/<?= htmlspecialchars($data['details']['competitionID']) ?>"
+           class="enter-btn">
+            <button>Enter Competition</button>
+        </a>
+    <?php endif; ?>
+
+<?php endif; ?>
+
         
     </div>
 
@@ -202,28 +212,19 @@
             <div class="prize-list">
                 <div class="prize-item">
                     <h4>🥇 First Place</h4>
-                    <p><?= htmlspecialchars($details['first_prize'] ?? 0) ?></p>
+                    <p>$ <?= htmlspecialchars($details['first_prize'] ?? 0) ?></p>
                 </div>
-               
+               <?php if ($details['type'] == 'writer'): ?>
                 <div class="prize-item">
                     <h4>🥈 Second Place</h4>
-                    <p><?= htmlspecialchars($details['second_prize'] ?? 0) ?></p>
+                    <p>$ <?= htmlspecialchars($details['second_prize'] ?? 0) ?></p>
                 </div>
                 <div class="prize-item">
                     <h4>🥉 Third Place</h4>
-                    <p><?= htmlspecialchars($details['third_prize'] ?? 0) ?></p>
+                    <p>$ <?= htmlspecialchars($details['third_prize'] ?? 0) ?></p>
                 </div>
+                <?php endif; ?> 
             </div>
-        </div>
-
-        <div class="card">
-            <h3 class="section-title">Judging Criteria</h3>
-            <ul>
-                <li>Creativity and Originality (40%)</li>
-                <li>Writing Style and Voice (30%)</li>
-                <li>Engagement and Emotional Impact (20%)</li>
-                <li>Adherence to Theme (10%)</li>
-            </ul>
         </div>
 
         <div class="card">

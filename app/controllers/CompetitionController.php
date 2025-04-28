@@ -178,7 +178,7 @@ class CompetitionController extends Controller
         $competitionEntries = new CompetitionEntries();
         $competitionEntries->delete($competitionID, 'competitionID');
         $competition_table->update($competitionID, ['status' => 'deleted'], 'competitionID');
-          //ensure what are id and id column
+        //ensure what are id and id column
         header('Location: /Free-Write/public/Competition/MyCompetitions');
     }
 
@@ -446,59 +446,30 @@ class CompetitionController extends Controller
 
     }
 
-    /*public function ProfileUser()
-     {
+    public function updatestatus()
+    {
+        $URL = splitURL();
+        $entryID = $URL[2];
+        $entryTable = new CompetitionEntries();
+        $entryTable->update($entryID, ['status' => 'reviewed'], 'entryID');
 
-         $this->view('publisher/aCompetitionProfile4users');
-     }*/
+        header('Location: /Free-Write/public/Competition/ViewStats/' . $entryID);
+    }
 
-    // public function WriterCompetition()
-    // {
-    //     $competiion = new Competition();
-    //     $compID = $_GET['compID'] ?? null;
-    //     $compDetails = null;
+    public function AnnounceWinners()
+    {
+        $compID = $_POST['winners']['first']['competition_id'];
+        $first_place_winner = $_POST['winners']['first']['entry_id'];
+        $second_place_winner = $_POST['winners']['second']['entry_id'];
+        $third_place_winner = $_POST['winners']['third']['entry_id'];
+        $competitionTable = new Competition();
 
-    //     if ($compID != null) {
-    //         $compDetails = $competiion->first(['competitionID' => $compID]);
-    //     }
+        $competitionTable->update($compID, [
+            'first_place_winner' => $first_place_winner,
+            'second_place_winner' => $second_place_winner,
+            'third_place_winner' => $third_place_winner
+        ], 'competitionID');
 
-    //     $data = [
-    //         'details' => $compDetails,
-    //     ];
-    //     $this->view('publisher/aCompetitionProfile4users', $data);
-    // }
-
-    // public function CoverCompetition()
-    // {
-    //     $competiion = new Competition();
-    //     $compID = $_GET['compID'] ?? null;
-    //     $compDetails = null;
-
-    //     if ($compID != null) {
-    //         $compDetails = $competiion->first(['competitionID' => $compID]);
-    //     }
-
-    //     $data = [
-    //         'details' => $compDetails,
-    //     ];
-    //     $this->view('publisher/aCompetitionProfile4users', $data);
-    // }
-
-    // public function Competitions()
-    // {
-    //     $competitionModel = new Competition();
-
-    //     // Fetch competitions based on their status
-    //     $activeCompetitions = $competitionModel->where(['status' => 'active']);
-    //     $previousCompetitions = $competitionModel->where(['status' => 'ended']);
-    //     $upcomingCompetitions = $competitionModel->where(['status' => 'upcoming']);
-
-    //     // Pass data to the view
-    //     $this->view('CoverPageDesigner/Competition', [
-    //         'activeCompetitions' => $activeCompetitions,
-    //         'previousCompetitions' => $previousCompetitions,
-    //         'upcomingCompetitions' => $upcomingCompetitions
-    //     ]);
-    // }
-
+        header('Location: /Free-Write/public/Competition/ViewStats/'. $compID);
+    }
 }

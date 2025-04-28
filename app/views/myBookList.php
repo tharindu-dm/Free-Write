@@ -44,7 +44,7 @@
                                         data-chapter-Progress="<?= htmlspecialchars($book['chapterProgress'] === null ? '0' : $book['chapterProgress']); ?>"
                                         data-status="<?= htmlspecialchars($book['status']); ?>">
 
-                                        <td><img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                                        <td><img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.png'); ?>"
                                                 alt="Cover Image of <?= htmlspecialchars($book['title']); ?>"></td>
                                         <td>
                                             <a
@@ -89,7 +89,7 @@
                                         data-book-title="<?= htmlspecialchars($book['title']); ?>"
                                         data-chapter-Progress="<?= htmlspecialchars($book['chapterProgress'] === null ? '0' : $book['chapterProgress']); ?>"
                                         data-status="<?= htmlspecialchars($book['status']); ?>">
-                                        <td><img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                                        <td><img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.png'); ?>"
                                                 alt="Cover Image of <?= htmlspecialchars($book['title']); ?>"></td>
                                         <td>
                                             <a
@@ -134,7 +134,7 @@
                                         data-book-title="<?= htmlspecialchars($book['title']); ?>"
                                         data-chapter-Progress="<?= htmlspecialchars($book['chapterProgress'] === null ? '0' : $book['chapterProgress']); ?>"
                                         data-status="<?= htmlspecialchars($book['status']); ?>">
-                                        <td><img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                                        <td><img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.png'); ?>"
                                                 alt="Cover Image of <?= htmlspecialchars($book['title']); ?>"></td>
                                         <td>
                                             <a
@@ -179,7 +179,7 @@
                                         data-book-title="<?= htmlspecialchars($book['title']); ?>"
                                         data-chapter-Progress="<?= htmlspecialchars($book['chapterProgress'] === null ? '0' : $book['chapterProgress']); ?>"
                                         data-status="<?= htmlspecialchars($book['status']); ?>">
-                                        <td><img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                                        <td><img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.png'); ?>"
                                                 alt="Cover Image of <?= htmlspecialchars($book['title']); ?>"></td>
                                         <td>
                                             <a
@@ -224,7 +224,7 @@
                                         data-book-title="<?= htmlspecialchars($book['title']); ?>"
                                         data-chapter-Progress="<?= htmlspecialchars($book['chapterProgress'] === null ? '0' : $book['chapterProgress']); ?>"
                                         data-status="<?= htmlspecialchars($book['status']); ?>">
-                                        <td><img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                                        <td><img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.png'); ?>"
                                                 alt="Cover Image of <?= htmlspecialchars($book['title']); ?>"></td>
                                         <td>
                                             <a

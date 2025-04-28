@@ -30,18 +30,18 @@ main {
   border-radius: 8px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
-/* Main Quote Section */
+
+/* Main Quote Section
 .quote-section {
   margin: 50px auto;
   width: 100%;
   max-width: 900px;
   min-height: 600px;
-  flex-direction: column;
   text-align: center;
-  background-color: #fff;
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  background: rgba(255, 215, 0, 0.05);
+  border: #ffd700 solid 1px;
 }
 
 .quote-section p {
@@ -56,7 +56,7 @@ main {
 
 .quote-section h2 {
   margin-bottom: 20px;
-}
+} */
 
 .spinoff-view {
   margin: 50px auto;
@@ -138,7 +138,7 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: flex-start; /* Aligns elements to the top */
-  background-color: #fff;
+  background: rgba(255, 217, 0, 0.010);
   padding: 40px;
 }
 
@@ -179,14 +179,16 @@ main {
 .book-checkbox-group {
   display: flex;
   flex-wrap: wrap; /* Allow items to wrap to the next line */
-  gap: 10px; /* Adjust spacing between checkbox items */
+  gap: 10px;
+  width: 500px;
 }
 
 .book-checkbox-item {
   display: flex;
   align-items: center;
   margin-right: 15px; /* Adjust spacing between items horizontally */
-  margin-bottom: 5px; /* Adjust spacing between lines */
+  margin-bottom: 5px;
+  width: 130px;
 }
 
 .book-checkbox-item input[type="checkbox"] {
@@ -218,11 +220,13 @@ main {
   flex-direction: column;
   gap: 100px;
   justify-content: center;
-  border-radius: 8px;
   margin-top: 40px;
   margin-bottom: 40px;
   padding: 50px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 1.5rem;
+  background: rgba(255, 215, 0, 0.08);
+  border: 1px solid rgba(255, 215, 0, 0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
 @media (min-width: 768px) {
@@ -308,8 +312,10 @@ h1 {
   align-items: center; /* Aligns elements to the top */
   background-color: #ffffff;
   padding: 40px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 1.5rem;
+ background: rgba(255, 215, 0, 0.08);
+ border: 1px solid rgba(255, 215, 0, 0.5);
+ box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
 .book-section p,
@@ -329,7 +335,7 @@ h1 {
 
 .input-group {
   margin-bottom: 20px;
-  width: 500px;
+  width: 250px !important;
 }
 
 .input-group label {
@@ -363,10 +369,12 @@ h1 {
   display: flex;
   align-items: center;
   gap: 20px;
+  width:300px
 }
 
 .privacy-toggle label {
   font-size: 16px;
+  width:300px;
 }
 
 .create-btn {
@@ -409,11 +417,17 @@ h1 {
   margin-top: 20px;
 }
 
-.cover-img {
+.cover-img{
   width: 100px;
   height: 200px;
   object-fit: cover;
   margin-bottom: 10px;
+}
+
+.cover-image img{
+  width: 240px;
+  height: 350px;
+  object-fit: cover;
 }
 
 .avatar-preview {
@@ -428,9 +442,10 @@ h1 {
   flex-direction: column;
   margin: 50px auto;
   max-width: 1000px;
-  background-color: #fff;
+  background: rgba(255, 215, 0, 0.05);
+  border: #ffd700 solid 1px;
   padding: 40px;
-  border-radius: 8px;
+  border-radius: 1rem;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
 
@@ -482,7 +497,7 @@ h1 {
 
 /* Text Editor */
 .text-editor {
-  background-color: #fdf4e5;
+  background-color: #fff;
   width: 100%;
   padding: 30px;
   margin-bottom: 20px;
@@ -684,6 +699,9 @@ select {
   flex-direction: row;
   width: 200px;
   gap: 10px;
+  border-radius: 1rem;
+  border: #ffd700 solid 1px;
+  padding: 0.5rem 0.5rem;
 }
 
 .space_between label {
@@ -747,6 +765,10 @@ select {
   width: 600px;
 }
 
+.book-info input, .book-info textarea{
+width: 440px;
+}
+
 .author-description {
   margin-bottom: 20px;
 }
@@ -767,7 +789,7 @@ select {
 }
 
 .edit-btn,
-.delete-btn {
+.delete-btn, .sub-btn {
   width: 100px;
   min-width: 120px;
   background-color: #ffcc00;
@@ -821,9 +843,9 @@ select {
   min-height: 650px;
   flex-direction: column;
   padding: 2rem;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  background: rgba(255, 215, 0, 0.05);
+  border: #ffd700 solid 1px;
 }
 
 .viewDashboard {
@@ -1035,7 +1057,7 @@ select {
   cursor: pointer;
 }
 
-.delete-btn {
+.delete-btn, .sub-btn {
   background-color: #000000;
   color: #ffffff;
 }
@@ -1355,7 +1377,7 @@ select {
   color: #333;
   font-weight: bold;
   border: none;
-  border-radius: 5px;
+  border-radius: 2rem;
   cursor: pointer;
   text-align: center;
   transition: background-color 0.3s;
@@ -1607,6 +1629,10 @@ label {
   display: flex;
   gap: 1rem;
   margin-bottom: 0.5rem;
+}
+
+.quotes-section a{
+  left: 10rem;
 }
 
 /* Responsive Adjustments */

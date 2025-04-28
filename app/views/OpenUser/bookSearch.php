@@ -10,10 +10,8 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    //show($data);
+    
     ?>
-
-    <!-- Page Title -->
     <div id="title">
         <h1>Search Results</h1>
     </div>
@@ -29,9 +27,11 @@
                         <select id="search-type" name="searchType" aria-label="Search type">
                             <option value="book">Book</option>
                             <option value="spinoff">Spinoff</option>
+                            <option value="covers">Design</option>
                             <option value="user">User</option>
                             <option value="writer">Author</option>
                             <option value="covdes">Cover Designer</option>
+                            <option value="pub">Publisher</option>
                         </select>
                         <input type="text" id="search-bar" name="itemName" placeholder="Search..."
                             value="<?= htmlspecialchars($_GET['itemName']) ?>" aria-label="Search query" />
@@ -51,7 +51,7 @@
             <div class="results-info">
                 <?php if (isset($searchResult) && count($searchResult) > 0): ?>
                     Found <?php echo count($searchResult); ?>
-                    <?= htmlspecialchars($_GET['searchType']) ?><?php echo count($searchResult) === 1 ? '' : 's'; ?>
+                    <span><?= htmlspecialchars($_GET['searchType']) ?><?= count($searchResult) === 1 ? '' : 's'; ?></span>
                 <?php endif; ?>
             </div>
 
@@ -62,7 +62,7 @@
                         <?php foreach ($searchResult as $book): ?>
                             <a href="/Free-Write/public/book/Overview/<?= htmlspecialchars($book['bookID']); ?>">
                                 <div class="book-card">
-                                    <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                                    <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.png'); ?>"
                                         alt="Cover Image of <?= htmlspecialchars($book['title']); ?>" class="book-cover">
                                     <div class="book-info">
                                         <div class="book-title">
@@ -103,7 +103,7 @@
 
 
             <!-- Users -->
-            <?php if (isset($_GET['searchType']) && ($_GET['searchType'] == 'user' || $_GET['searchType'] == 'writer' || $_GET['searchType'] == 'covdes')): ?>
+            <?php if (isset($_GET['searchType']) && ($_GET['searchType'] == 'user' || $_GET['searchType'] == 'writer' || $_GET['searchType'] == 'covdes' || $_GET['searchType'] == 'pub')): ?>
                 <div class="searchResult-grid">
                     <?php if (isset($searchResult) && count($searchResult) > 0): ?>
                         <?php foreach ($searchResult as $user): ?>
@@ -141,7 +141,7 @@
                         <?php foreach ($searchResult as $spinoff): ?>
                             <a href="/Free-Write/public/Spinoff/Overview/<?= htmlspecialchars($spinoff['spinoffID']); ?>">
                                 <div class="book-card">
-                                    <img src="/Free-Write/public/images/spinoff.jpg"
+                                    <img src="/Free-Write/public/images/spinoff.png"
                                         alt="Cover of <?= htmlspecialchars($spinoff['title']); ?>" class="book-cover">
                                     <div class="book-info">
                                         <div class="book-title">
@@ -178,34 +178,23 @@
             <?php endif; ?>
 
             <!-- Covers -->
-            <?php if (isset($_GET['searchType']) && $_GET['searchType'] == 'cover'): ?>
+            <?php if (isset($_GET['searchType']) && $_GET['searchType'] == 'covers'): ?>
                 <div class="searchResult-grid">
                     <?php if (isset($searchResult) && count($searchResult) > 0): ?>
-                        <?php foreach ($searchResult as $book): ?>
-                            <a href="/Free-Write/public/book/Overview/<?= htmlspecialchars($book['bookID']); ?>">
+                        <?php foreach ($searchResult as $cover): ?>
+                            <a href="/Free-Write/public/Designer/viewDesignForNonOwner/<?= htmlspecialchars($cover['covID']); ?>">
                                 <div class="book-card">
-                                    <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
-                                        alt="Cover Image of <?= htmlspecialchars($book['title']); ?>" class="book-cover">
+                                    <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($cover['license'] ?? 'sampleCover.png'); ?>"
+                                        alt="Cover Image of <?= htmlspecialchars($cover['name']); ?>" class="book-cover">
                                     <div class="book-info">
                                         <div class="book-title">
-                                            <?php echo htmlspecialchars($book['title']); ?>
+                                            <?php echo htmlspecialchars($cover['name']); ?>
                                         </div>
                                         <div class="book-author">
-                                            by <?php echo htmlspecialchars($book['author']); ?>
+                                            by <?php echo htmlspecialchars($cover['creator']); ?>
                                         </div>
                                         <div class="book-synopsis">
-                                            <?php echo htmlspecialchars($book['Synopsis']); ?>
-                                        </div>
-                                        <div class="book-meta">
-                                            <span class="book-price">
-                                                <?php echo $book['price'] ? 'LKR ' . number_format($book['price'], 2) : 'FREE'; ?>
-                                            </span>
-                                            <span class="book-price">
-                                                <?php echo ($book['isCompleted'] == 0) ? 'OnGoing ' : 'Completed'; ?>
-                                            </span>
-                                            <span class="book-type">
-                                                <?php echo htmlspecialchars($book['publishType']); ?>
-                                            </span>
+                                            <?php echo htmlspecialchars($cover['description']); ?>
                                         </div>
                                     </div>
                                 </div>

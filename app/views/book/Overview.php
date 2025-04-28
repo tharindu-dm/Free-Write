@@ -10,14 +10,14 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    //show($data);
+    
     ?>
 
     <?php if (!empty($book) && is_array($book)): ?>
         <main class="container">
             <div class="product-layout">
                 <div class="product-image">
-                    <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book[0]['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                    <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book[0]['cover_image'] ?? 'sampleCover.png'); ?>"
                         alt="Cover Image of <?= htmlspecialchars($book[0]['title']); ?>">
                     <div class="author-details">
                         <h3><?= htmlspecialchars($book[0]['authorName']); ?></h3>
@@ -296,8 +296,12 @@
                                 <?php foreach ($spinoffs as $spinoff): ?>
                                     <tr>
                                         <td><a
-                                                href="/Free-Write/public/Spinoff/Overview/<?= htmlspecialchars($spinoff['spinoffID']); ?>"><?= htmlspecialchars($spinoff['title']); ?></a>
-
+                                                href="/Free-Write/public/Spinoff/Overview/<?= htmlspecialchars($spinoff['spinoffID']); ?>">
+                                                <?= htmlspecialchars($spinoff['title']); ?>
+                                                <?php if ($spinoff['isAcknowledge'] == 1): ?>
+                                                    <span style="margin-left: 8px;">✔️</span>
+                                                <?php endif; ?>
+                                            </a>
                                         </td>
                                         <td><?= date('Y-m-d', strtotime($spinoff['lastUpdated']));
                                         ?></td>

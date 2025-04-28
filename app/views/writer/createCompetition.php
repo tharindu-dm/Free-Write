@@ -10,7 +10,7 @@
 
 <body>
   <?php require_once "../app/views/layout/headerSelector.php";
-  //show($data);
+  
   ?>
 
   <!-- Main Content -->
@@ -37,8 +37,6 @@
               <label for="price">Price (LKR)</label>
               <input type="number" min="0" id="price" name="price" placeholder="Price" required>
             </div>
-
-            <p>*The competition expires two months after its creation date.</p>
           </div>
 
           <!-- Right: Book Cover -->

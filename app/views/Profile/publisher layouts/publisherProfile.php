@@ -61,6 +61,14 @@
         .book-item {
             text-align: center;
             /* Center the text */
+            background-color: rgba(255, 215, 0, 0.05);
+            border: #ffd700 solid 1px;
+            border-radius: 1rem;
+        }
+
+        .book-item:hover {
+            transform: translateY(-5px);
+            background-color: #ffd700;
         }
 
         .book-item img {
@@ -112,11 +120,11 @@
 
         .location,
         .contact {
-            background-color: #FFFFFF;
+            background-color: rgba(255, 215, 0, 0.05);
+            border: #ffd700 solid 1px;
+            border-radius: 1rem;
             padding: 2rem;
-            border-radius: 12px;
             margin-top: 2rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         h2 {
@@ -210,6 +218,7 @@
 
 
             <div class="publisher-profile-btn">
+            <a href="/Free-Write/public/Publisher/bookList/<?php echo htmlspecialchars($publisher['pubID'] ?? ''); ?>"><button class="add-books">View Books Library</button></a>
                 <a href="/Free-Write/public/Publisher/AddBook
                 "><button class="add-books">Add Books To Library</button></a>
                 <a href="/Free-Write/public/Competition/MyCompetitions"><button class="add-books">Manage My

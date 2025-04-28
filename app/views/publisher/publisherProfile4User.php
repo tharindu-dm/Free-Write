@@ -6,6 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Publisher Profile - Reader View</title>
     <style>
+        :root {
+            --primary-color: #8C805E;
+            --accent-color: #FFD052;
+            --light-bg: #F5F0E5;
+            --text-dark: #1C160C;
+            --text-medium: #555;
+            --text-light: #777;
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: #f9f7f2;
+            margin: 0;
+            padding: 0;
+        }
+
         main {
             max-width: 1200px;
             margin: 2rem auto;
@@ -13,12 +37,25 @@
         }
 
         .banner {
-            height: 200px;
+            height: 250px;
             background-image: url('//Free-Write/app/images/coverDesign/sampleCover.jpg');
             background-size: cover;
             background-position: center;
-            border-radius: 12px;
+            border-radius: var(--radius-md);
             margin-bottom: 20px;
+            position: relative;
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+        }
+
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.1));
         }
 
         .profile {
@@ -27,8 +64,13 @@
             margin-bottom: 30px;
             background-color: #FFFFFF;
             padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .profile:hover {
+            box-shadow: var(--shadow-lg);
         }
 
         .profile-left {
@@ -43,8 +85,16 @@
         .profile-picture {
             width: 150px;
             height: 150px;
-            border-radius: 12px;
+            border-radius: var(--radius-md);
             margin-bottom: 1rem;
+            object-fit: cover;
+            box-shadow: var(--shadow-sm);
+            border: 3px solid white;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-picture:hover {
+            transform: scale(1.02);
         }
 
         .stats {
@@ -60,12 +110,12 @@
         .stat-number {
             font-size: 1.5rem;
             font-weight: 700;
-            color: #8C805E;
+            color: var(--primary-color);
         }
 
         .stat-label {
             font-size: 0.9rem;
-            color: #666;
+            color: var(--text-light);
         }
 
         .action-buttons {
@@ -75,21 +125,21 @@
         }
 
         .follow-button {
-            background-color: #FFD052;
+            background-color: var(--accent-color);
             border: none;
             padding: 0.8rem 1.5rem;
-            border-radius: 8px;
+            border-radius: var(--radius-sm);
             cursor: pointer;
             font-weight: 600;
             transition: transform 0.2s, box-shadow 0.2s;
         }
 
         .message-button {
-            background-color: #8C805E;
+            background-color: var(--primary-color);
             color: white;
             border: none;
             padding: 0.8rem 1.5rem;
-            border-radius: 8px;
+            border-radius: var(--radius-sm);
             cursor: pointer;
             font-weight: 600;
             transition: transform 0.2s, box-shadow 0.2s;
@@ -98,23 +148,58 @@
         .follow-button:hover,
         .message-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow-md);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-top: 0;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        h3 {
+            font-size: 1.6rem;
+            color: var(--primary-color);
+            margin-top: 0;
         }
 
         .publisher-info {
             background-color: #FFFFFF;
             padding: 2rem;
-            border-radius: 12px;
+            border-radius: var(--radius-md);
             margin-bottom: 2rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow-md);
+        }
+
+        .publisher-info p {
+            margin: 0.7rem 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .publisher-info p:before {
+            content: '•';
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 1.2rem;
         }
 
         .published-works {
             background-color: #FFFFFF;
             padding: 2rem;
-            border-radius: 12px;
+            border-radius: var(--radius-md);
             margin-bottom: 2rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow-md);
         }
 
         .book-grid {
@@ -127,19 +212,33 @@
         .book-card {
             position: relative;
             overflow: hidden;
-            border-radius: 8px;
-            transition: transform 0.2s;
+            border-radius: var(--radius-sm);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .book-card a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
         }
 
         .book-card:hover {
             transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
         }
 
         .book-card img {
             width: 100%;
             aspect-ratio: 2/3;
             object-fit: cover;
-            border-radius: 8px;
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+            transition: filter 0.3s ease;
+        }
+
+        .book-card:hover img {
+            filter: brightness(1.05);
         }
 
         .tags {
@@ -150,15 +249,19 @@
         }
 
         .tag {
-            background-color: #F5F0E5;
+            background-color: var(--light-bg);
             padding: 0.4rem 0.8rem;
-            border-radius: 20px;
+            border-radius: var(--radius-lg);
             font-size: 0.9rem;
-            color: #8C805E;
+            color: var(--primary-color);
+            transition: background-color 0.2s ease;
+        }
+
+        .tag:hover {
+            background-color: var(--accent-color);
         }
 
         @media (max-width: 768px) {
-
             .profile {
                 flex-direction: column;
             }
@@ -166,6 +269,7 @@
             .profile-left {
                 margin-right: 0;
                 margin-bottom: 2rem;
+                align-self: center;
             }
 
             .book-grid {
@@ -187,30 +291,30 @@
         }
 
         .filter-button {
-            background-color: #F5F0E5;
-            border: 1px solid #8C805E;
+            background-color: var(--light-bg);
+            border: 1px solid var(--primary-color);
             padding: 0.5rem 1rem;
-            border-radius: 20px;
-            color: #8C805E;
+            border-radius: var(--radius-lg);
+            color: var(--primary-color);
             cursor: pointer;
             transition: all 0.2s;
         }
 
         .filter-button.active {
-            background-color: #8C805E;
+            background-color: var(--primary-color);
             color: white;
         }
 
         .filter-button:hover {
-            background-color: #8C805E;
+            background-color: var(--primary-color);
             color: white;
         }
 
         .view-all-button {
-            background-color: #FFD052;
+            background-color: var(--accent-color);
             border: none;
             padding: 0.8rem 1.5rem;
-            border-radius: 8px;
+            border-radius: var(--radius-sm);
             cursor: pointer;
             font-weight: 600;
             transition: transform 0.2s, box-shadow 0.2s;
@@ -219,21 +323,13 @@
             text-align: center;
             display: block;
             text-decoration: none;
-            color: #1C160C;
+            color: var(--text-dark);
         }
 
         .view-all-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow-md);
             background-color: #E0B94A;
-        }
-
-        .book-card {
-            position: relative;
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .book-info {
@@ -241,20 +337,33 @@
         }
 
         .book-title {
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-weight: 600;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            transition: color 0.2s ease;
+        }
+
+        .book-card:hover .book-title {
+            color: var(--primary-color);
         }
 
         .book-author {
-            font-size: 0.8rem;
-            color: #8C805E;
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
         }
 
         .book-date {
             font-size: 0.8rem;
-            color: #666;
-            margin-top: 0.3rem;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+        }
+
+        .book-date:before {
+            content: '📅';
+            margin-right: 5px;
         }
 
         .publications-grid {
@@ -271,7 +380,14 @@
         .category-header {
             margin-bottom: 1.5rem;
             padding-bottom: 0.5rem;
-            border-bottom: 2px solid #FFD052;
+            border-bottom: 2px solid var(--accent-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .category-header h3 {
+            margin: 0;
         }
 
         @media (max-width: 768px) {
@@ -284,149 +400,75 @@
                 flex-wrap: wrap;
             }
         }
+
+        /* Enhanced no-books message */
+        .no-books-message {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--light-bg);
+            border-radius: var(--radius-md);
+            color: var(--text-medium);
+            font-style: italic;
+        }
     </style>
 </head>
 
 <body>
-    <?php require_once "../app/views/layout/headerSelector.php";
-    //show($data);
-    ?>
+    <?php require_once "../app/views/layout/headerSelector.php"; ?>
     
     <main>
-        <div class="banner"></div>
+        
 
         <section class="profile">
             <div class="profile-left">
                 <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>"
-                    alt="Acme Publishing" class="profile-picture">
-                <div class="stats">
-                    <div class="stat-item">
-                        <div class="stat-number">245</div>
-                        <div class="stat-label">Published</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">15.2K</div>
-                        <div class="stat-label">Followers</div>
-                    </div>
-                </div>
-                <div class="action-buttons">
-                    <button class="follow-button">Follow</button>
-                    <button class="message-button">Message</button>
-                </div>
+                    alt="<?= htmlspecialchars($publisherDetails['name']) ?>" class="profile-picture">
             </div>
 
             <div class="profile-right">
                 <h1><?= htmlspecialchars($publisherDetails['name']) ?></h1>
-                <p>Independent Publisher since 1995</p>
-                <div class="tags">
-                    <span class="tag">Fiction</span>
-                    <span class="tag">Non-Fiction</span>
-                    <span class="tag">Young Adult</span>
-                    <span class="tag">Poetry</span>
-                </div>
-                <p>A leading independent publisher dedicated to discovering new voices and bringing compelling stories
-                    to readers worldwide. We specialize in contemporary fiction, literary non-fiction, and
-                    groundbreaking poetry.</p>
+                <p><?= htmlspecialchars($publisherDetails['bio']) ?></p>
             </div>
         </section>
 
         <section class="publisher-info">
             <h2>About the Publisher</h2>
-            <p>Submission Guidelines</p>
-            <p>We accept manuscripts in the following categories:</p>
-            <div class="tags">
-                <span class="tag">Literary Fiction</span>
-                <span class="tag">Contemporary Romance</span>
-                <span class="tag">Science Fiction</span>
-                <span class="tag">Memoir</span>
-            </div>
-            <p>Average Response Time: 4-6 weeks</p>
+            <p>Office Address: <?= htmlspecialchars($publisherDetails['hqAddress']) ?></p>
+            <p>Office Email: <?= htmlspecialchars($publisherDetails['officeEmail']) ?></p>
+            <p>Contact No: <?= htmlspecialchars($publisherDetails['contactNo']) ?></p>
         </section>
 
         <section class="published-works">
-            <div class="publications-header">
-                <h2>Publications</h2>
-                <div class="filter-controls">
-                    <button class="filter-button active">All</button>
-                    <button class="filter-button">Fiction</button>
-                    <button class="filter-button">Non-Fiction</button>
-                    <button class="filter-button">Poetry</button>
-                    <button class="filter-button">Young Adult</button>
-                </div>
-            </div>
-
             <div class="publication-category">
                 <div class="category-header">
-                    <h3>Latest Releases</h3>
+                    <h3>All Releases</h3>
                 </div>
                 <div class="publications-grid">
                     <?php if (!empty($data['recentBooks'])): ?>
                         <?php foreach ($data['recentBooks'] as $recentBooks): ?>
                             <div class="book-card">
-                                <img src="/Free-Write/app/images/coverDesign/<?= !empty($recentBooks['coverImage']) ? htmlspecialchars($recentBooks['coverImage']) : 'sampleCover.jpg' ?>"
-                                    alt="Book 1">
-                                <div class="book-info">
-                                    <div class="book-title"><?= htmlspecialchars($recentBooks['title']) ?></div>
-                                    <div class="book-author">by <?= htmlspecialchars($recentBooks['author_name']) ?></div>
-                                    <div class="book-date">Published:
-                                        <?= date('Y-m-d', strtotime($recentBooks['created_at'])) ?>
+                                <a href="/Free-Write/public/Publisher/bookProfile4Users/<?= htmlspecialchars($recentBooks['isbnID']) ?>">
+                                    <img src="/Free-Write/app/images/coverDesign/<?= !empty($recentBooks['coverImage']) ? htmlspecialchars($recentBooks['coverImage']) : 'sampleCover.jpg' ?>"
+                                        alt="<?= htmlspecialchars($recentBooks['title']) ?>">
+                                    <div class="book-info">
+                                        <div class="book-title"><?= htmlspecialchars($recentBooks['title']) ?></div>
+                                        <div class="book-author">by <?= htmlspecialchars($recentBooks['author_name']) ?></div>
+                                        <div class="book-date">
+                                            <?= date('Y-m-d', strtotime($recentBooks['created_at'])) ?>
+                                        </div>
                                     </div>
-
-                                </div>
+                                </a>
                             </div>
-
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <p>No books available.</p>
+                        <div class="no-books-message">
+                            <p>No books available at this time.</p>
+                        </div>
                     <?php endif; ?>
                 </div>
             </div>
-
-            <div class="publication-category">
-                <div class="category-header">
-                    <h3>Best Sellers</h3>
-                </div>
-                <div class="publications-grid">
-                    <div class="book-card">
-                        <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 5">
-                        <div class="book-info">
-                            <div class="book-title">Winter's Edge</div>
-                            <div class="book-author">by Robert Frost</div>
-                            <div class="book-date">Published: Jul 2024</div>
-                        </div>
-                    </div>
-                    <div class="book-card">
-                        <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 6">
-                        <div class="book-info">
-                            <div class="book-title">Silent Echo</div>
-                            <div class="book-author">by Lisa Chang</div>
-                            <div class="book-date">Published: Jun 2024</div>
-                        </div>
-                    </div>
-                    <div class="book-card">
-                        <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 7">
-                        <div class="book-info">
-                            <div class="book-title">The Dark Woods</div>
-                            <div class="book-author">by James Black</div>
-                            <div class="book-date">Published: May 2024</div>
-                        </div>
-                    </div>
-                    <div class="book-card">
-                        <img src="/Free-Write/app/images/coverDesign/sampleCover.jpg" alt="Book 8">
-                        <div class="book-info">
-                            <div class="book-title">Morning Light</div>
-                            <div class="book-author">by Anna White</div>
-                            <div class="book-date">Published: Apr 2024</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <a href="/Free-Write/public/Publisher/bookList/<?= htmlspecialchars($recentBooks['publisherID']) ?>"
-                class="view-all-button">View All Publications</a>
         </section>
-
-        <!-- Previous sections remain the same -->
+    </main>
 </body>
 
 </html>

@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const openPopupBtn = document.getElementById("openPopupBtn");
   const popupForm = document.getElementById("popupForm");
   const closePopupBtn = document.getElementById("closePopupBtn");
+  const addUserError = document.getElementById("addUserError");
 
   const form = document.getElementById("addInstitutionForm");
   const passwordInput = document.getElementById("password");
@@ -9,6 +10,38 @@ document.addEventListener("DOMContentLoaded", () => {
   // Display the edit user form
   const cancelBtn = document.getElementById("cancel-button"); //in the overlay
   const overlay = document.querySelector(".update-to-list");
+
+  const editUserForm = document.getElementById("editUserForm");
+
+  editUserForm.addEventListener("submit", function (e) {
+    e.preventDefault(); // Stop form from submitting immediately
+
+    const userId = document.getElementById("user_update_post").value;
+    const newEmail = document.getElementById("user_username").value.trim();
+
+    // Check if the email already exists via AJAX
+    fetch(`/Free-Write/public/Institute/checkEmailExists?email=${encodeURIComponent(newEmail)}&userID=${encodeURIComponent(userId)}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.exists) {
+                alert("This email is already taken by another user. Please use a different email.");
+            } else {
+                editUserForm.submit(); // Safe to submit
+                alert("Your email changed successfully.");
+
+            }
+        })
+        .catch(error => {
+            console.error("Error checking email:", error);
+            alert("An error occurred while checking the email. Please try again.");
+        });
+  });
+  
 
   //Display the delete user form
   const cancelBtn_delete = document.getElementById("cancel-delete-button"); //in the overlay
@@ -30,23 +63,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Password hashing function
-  function hashPassword(password) {
-    let hash = 0;
-    for (let i = 0; i < password.length; i++) {
-      const char = password.charCodeAt(i);
-      hash = (hash << 5) - hash + char;
-      hash = hash & hash; // Convert to 32-bit integer
-    }
-    return Math.abs(hash).toString(36);
-  }
-
-  // Form submission validation
+  // Form submission validation - FIXED VERSION
   form.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    // If all validations pass, submit the form
-    passwordInput.value = hashPassword(passwordInput.value);
+    // Add password validation 
+    const password = passwordInput.value;
+    if (password.length < 8 || !/[A-Z]/.test(password) || !/[0-9]/.test(password)) {
+      alert("Password must be at least 8 characters long, contain an uppercase letter, and a number.");
+      return; // Stop the function here - don't submit the form
+    }
+
+    // If validation passes, submit the form
     form.submit();
   });
 
@@ -92,22 +120,28 @@ document.addEventListener("DOMContentLoaded", () => {
   //Display the delete user form
   document.addEventListener("click", function (e) {
     if (e.target && e.target.classList.contains("listDelete-btn")) {
-      // Get the parent tr element
-      const row = e.target.closest("tr");
+        // Get the parent tr element
+        const row = e.target.closest("tr");
 
-      // Get the data from data attributes
-      const userId = row.dataset.userId;
+        // Get the data from data attributes
+        const userId = row.dataset.userId;
+        const firstName = row.dataset.userFirstname;
+        const lastName = row.dataset.userLastname;
 
-      // Set the values in the inputs
-      const userID_input = document.getElementById("user_delete");
-      const userID_input_post = document.getElementById("user_delete_post");
+        // Set the values in the inputs
+        const userID_input = document.getElementById("user_delete");
+        const userID_input_post = document.getElementById("user_delete_post");
+        const userName_input = document.getElementById("user_name_delete");
 
-      userID_input.value = userId;
-      userID_input_post.value = userId;
+        userID_input.value = userId;
+        userID_input_post.value = userId;
+        
+        // Set the full name in the new field
+        userName_input.value = firstName + " " + lastName;
 
-      // Toggle the overlay display
-      overlay_delete.style.display =
-        overlay_delete.style.display !== "flex" ? "flex" : "none";
+        // Toggle the overlay display
+        overlay_delete.style.display =
+            overlay_delete.style.display !== "flex" ? "flex" : "none";
     }
   });
 

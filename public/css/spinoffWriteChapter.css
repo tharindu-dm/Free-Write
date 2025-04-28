@@ -6,7 +6,9 @@
   padding: 20px;
   background-color: white;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  
+  background: rgba(255, 215, 0, 0.05);
+  border: #ffd700 solid 1px;
 }
 
 h2 {

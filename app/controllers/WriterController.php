@@ -15,6 +15,7 @@ class WriterController extends Controller
                 header('Location: /Free-Write/public/Writer/DashboardNew'); //to avoid user to see his own public view profile.
         } else {
             header('Location: /Free-Write/public/Login');
+            exit;
         }
         $author = isset($_GET['writer']) ? $_GET['writer'] : $_SESSION['user_id'];
 
@@ -98,8 +99,8 @@ class WriterController extends Controller
             'userDetails' => $userDetails,
             'followers' => $followers,
             'views' => $views,
-            'MostViewed'=> $mostViewed,
-            'Latest'=> $latest
+            'MostViewed' => $mostViewed,
+            'Latest' => $latest
         ]);
 
     }
@@ -232,7 +233,7 @@ class WriterController extends Controller
     {
         $chapter = $_POST['chapter'] ?? '';
         $content = $_POST['quote'] ?? '';
-        
+
         if (strlen($content) >= 255) {
             echo "Quote must be less than 255 characters.";
             exit;
@@ -439,8 +440,9 @@ class WriterController extends Controller
         $startDate = date('Y-m-d');
         $endDate = date('Y-m-d', strtotime('+2 months'));
         $type = "covdes";
+        $status = "active";
 
-        if ($competition->insert(['title' => $title, 'description' => $description, 'first_prize' => $price, 'publisherID' => $author, 'start_date' => $startDate, 'end_date' => $endDate, 'type' => $type])) {
+        if ($competition->insert(['title' => $title, 'description' => $description, 'first_prize' => $price, 'publisherID' => $author, 'start_date' => $startDate, 'end_date' => $endDate, 'type' => $type, 'status' => $status])) {
             header('location: /Free-Write/public/Writer/Competitions');
             exit;
         } else {
@@ -542,7 +544,7 @@ class WriterController extends Controller
         $submission = new DesignSubmissions();
         $submissionDetails = $submission->getSubmissionByCompetitionID($competitionID);
 
-        $this->view('writer/submissions', ['submissions' => $submissionDetails, 'cID'=> $competitionID]);
+        $this->view('writer/submissions', ['submissions' => $submissionDetails, 'cID' => $competitionID]);
     }
 
     public function viewSubmission($submissionID = 0)
@@ -555,8 +557,11 @@ class WriterController extends Controller
 
         $submission = new DesignSubmissions();
         $submissionDetails = $submission->first(['submissionID' => $submissionID]);
+        $competitioin = new Competition();
+        $competitionID = $submissionDetails['competitionID'];
+        $competitioinDetails = $competitioin->first(['competitionID'=> $competitionID]);
 
-        $this->view('writer/viewSubmission', ['submission' => $submissionDetails]);
+        $this->view('writer/viewSubmission', ['submission' => $submissionDetails, 'competition' => $competitioinDetails]);
     }
 
     public function win($submissionID = 0)
@@ -565,11 +570,17 @@ class WriterController extends Controller
         if ($URL[2] < 1)
             $this->view('error');
         if ($submissionID < 1 || !is_numeric($submissionID))
-            $submissionID = $URL[2];
+            $this->view('error');
 
+        $submissionID = $URL[2];
         $submission = new DesignSubmissions();
+        $submissionDetails = $submission->first(['submissionID' => $submissionID]);
+        $competition = new Competition();
+        $competitionID = $submissionDetails['competitionID'];
 
-        $submission->update($submissionID, ['status' => 'Selected'], 'submissionID');
+
+        $submission->update($submissionID, ['status' => 'selected'], 'submissionID');
+        $competition->update($competitionID, ['status' => 'ended'], 'competitionID');
 
 
         header('location: /Free-Write/public/Writer/');

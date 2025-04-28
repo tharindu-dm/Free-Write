@@ -139,20 +139,41 @@ class PaymentController extends Controller
 
         switch ($type) {
             case 'reader':
-                $orderDetails = ['Item' => "Premium Reader Account", 'Quantity' => 1, 'Price' => 899, 'Total' => 899];
-                $this->view('paymentPage', ['type' => "premium_user", 'orderInfo' => $orderDetails]);
+                $orderDetails = [
+                    'Item' => "Premium Reader Account",
+                    'subID' => 2,
+                    'Quantity' => 1,
+                    'Price' => 899,
+                    'Total' => 899
+                ];
 
+                $this->view('paymentPage', [
+                    'type' => "premium_user",
+                    'orderInfo' => $orderDetails
+                ]);
                 break;
+
             case 'writer':
-                $orderDetails = ['Item' => "Premium Writer Account", 'Quantity' => 1, 'Price' => 1199, 'Total' => 1199];
-                $this->view('paymentPage', ['type' => "premium_user", 'orderInfo' => $orderDetails]);
+                $orderDetails = [
+                    'Item' => "Premium Writer Account",
+                    'subID' => 3,
+                    'Quantity' => 1,
+                    'Price' => 1199,
+                    'Total' => 1199
+                ];
+
+                $this->view('paymentPage', [
+                    'type' => "premium_user",
+                    'orderInfo' => $orderDetails
+                ]);
                 break;
+
             default:
                 header('location:/Free-Write/public/Error404');
         }
     }
 
-    private function makePremium()
+    private function makePremium()//enabling the isPremium
     {
         if (!$this->loggedUserExists())
             header('location:/Free-Write/public/Login');
@@ -165,15 +186,21 @@ class PaymentController extends Controller
         header('location:/Free-Write/public/User/Profile');
     }
 
-    public function buy_premium_user()
+    public function buy_premium_user()//subscribing to the tier
     {
         if (!$this->loggedUserExists())
             header('location:/Free-Write/public/Login');
 
         $userID = $_SESSION['user_id'];
-        $user = new User();
+        $subID = $_POST['subID'] ?? 1;
+        $user = new UserSubscription();
 
-        $user->update($userID, ['isPremium' => 1], 'userID');
+        $user->insert([
+            'user' => $userID,
+            'subscription' => $subID,
+            'subStartDate' => date('Y-m-d H:i:s')
+        ]);
+
         $this->makePremium();
     }
 
@@ -253,5 +280,110 @@ class PaymentController extends Controller
         );
         header('Location: /Free-Write/public/Publisher');
 
+    }
+    public function pay4Ad()
+    {
+
+        $ad_title = $_POST['ad_title'];
+        $ad_type = $_POST['advertisementType'];
+        $start_date = $_POST['start_date'];
+        $end_date = $_POST['end_date'];
+        $contact_email = $_POST['contact_email'];
+        $advertisement_table = new Advertisement;
+        if (isset($_POST['adID'])) {
+
+            // $advertisement_table->insert($renewedData); 
+            $advertisement_table->delete($_POST['adID'], 'adID');
+        }
+
+        // Handle image upload
+        $adImage = $_POST['adImage'];
+
+        $advertisement_table = new Advertisement;
+
+
+        $advertisement_table->insert([
+            'advertisementType' => $ad_type,
+            'startDate' => $start_date,
+            'endDate' => $end_date,
+            'contactEmail' => $contact_email,
+            'adImage' => $adImage,
+            'pubID' => $_SESSION['user_id'],
+            'status' => 'pending'
+        ]);
+
+        header('Location: /Free-Write/public/User/Profile');
+    }
+
+    public function buy_institute()
+    {
+        $name = $_POST['name'] ?? null;
+        $username = $_POST['username'] ?? null;
+        $password = $_POST['password'] ?? null;
+        $subStartDate = $_POST['subStartDate'] ?? null;
+        $creator = $_POST['creator'] ?? null;
+
+        $notification = new Notification();
+        $usernotification = new UserNotification();
+        $date = date("Y-m-d H:i:s");
+        $notiData = [];
+
+        //
+        // Log the POST data for debugging
+    error_log(print_r($_POST, true));
+
+    $name = $_POST['name'] ?? null;
+    $username = $_POST['username'] ?? null;
+    $password = $_POST['password'] ?? null;
+    $subStartDate = $_POST['subStartDate'] ?? null;
+    $creator = $_POST['creator'] ?? null;
+
+    // Log which fields are missing
+    $missing_fields = [];
+    if (empty($name)) $missing_fields[] = 'name';
+    if (empty($username)) $missing_fields[] = 'username';
+    if (empty($password)) $missing_fields[] = 'password';
+    if (empty($subStartDate)) $missing_fields[] = 'subStartDate';
+    if (empty($creator)) $missing_fields[] = 'creator';
+    if (!empty($missing_fields)) {
+        error_log("Missing fields: " . implode(", ", $missing_fields));
+    }
+        //
+
+        if (($name != null) && ($username != null) && ($password != null) && ($subStartDate != null) && ($creator != null)) {
+            $institution_table = new Institution();
+
+            //add a new institution with its own login and pw
+            $institution_table->insert(['name' => $name, 'username' => $username, 'password' => $password, 'subStartDate' => $subStartDate, 'subPlan' => 4, 'creator' => $creator]);
+
+            $user = new User(); //updating the user as a creator of an institution
+            $user->update($creator, ['isPremium' => 1], 'userID');
+
+            $notiData = [
+                'subject' => 'New Institute notification',
+                'message' => 'New institute login',
+                'sentDate' => $date,
+                'userTypes' => 'institute'
+            ];
+        } else {
+            $notiData = [
+                'subject' => 'Failed to create institute',
+                'message' => 'institution creations has been failed. try again later',
+                'sentDate' => $date,
+                'userTypes' => 'institute'
+            ];
+        }
+
+        $notification->insert($notiData);
+        $notifyID = $notification->first(['sentDate' => $date, 'userTypes' => 'institute'])['notificationID'];
+        $usernotification->insert(
+            [
+                'user' => $creator,
+                'notification' => $notifyID,
+                'isRead' => 0
+            ]
+        );
+
+        header('Location: /Free-Write/public/User/Profile');
     }
 }

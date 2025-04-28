@@ -208,7 +208,7 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    //show($data);
+    
     ?>
 
     <main>
@@ -224,23 +224,8 @@
             </div>
         </div>
 
-        <section class="filters-section">
-            <div class="filter-group">
-                <div class="filter-header">
-                    <h3>Categories</h3>
-                </div>
-                <div class="filter-options">
-                    <button class="filter-chip active">All</button>
-                    <button class="filter-chip">Fiction</button>
-                    <button class="filter-chip">Non-Fiction</button>
-                    <button class="filter-chip">Poetry</button>
-                    <button class="filter-chip">Young Adult</button>
-                    <button class="filter-chip">Children's</button>
-                    <button class="filter-chip">Romance</button>
-                    <button class="filter-chip">Mystery</button>
-                </div>
-            </div>
-
+        <!-- <section class="filters-section">
+           
             <div class="filter-group">
                 <div class="filter-header">
                     <h3>Publication Year</h3>
@@ -254,20 +239,7 @@
                     <button class="filter-chip">Earlier</button>
                 </div>
             </div>
-
-            <div class="filter-group">
-                <div class="filter-header">
-                    <h3>Sort By</h3>
-                    <select class="sort-select">
-                        <option value="newest">Newest First</option>
-                        <option value="oldest">Oldest First</option>
-                        <option value="title-asc">Title A-Z</option>
-                        <option value="title-desc">Title Z-A</option>
-                        <option value="popular">Most Popular</option>
-                    </select>
-                </div>
-            </div>
-        </section>
+        </section> -->
 
         <div class="publications-grid">
             <!-- Example book cards -->
@@ -293,9 +265,6 @@
                 <p>No books available.</p>
             <?php endif; ?>
         </div>
-
-
-        <button class="load-more">Load More</button>
     </main>
 </body>
 

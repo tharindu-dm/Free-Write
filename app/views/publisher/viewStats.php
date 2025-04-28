@@ -389,7 +389,7 @@
             color: #1565c0;
         }
 
-        .status-approved {
+        .status-reviewed {
             background-color: #e8f5e9;
             color: #2e7d32;
         }
@@ -427,6 +427,23 @@
             background-color: #f9f9f9;
             border-radius: 4px;
         }
+
+        .reviewed-btn {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background-color: #E5BB4A;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .reviewed-btn:hover {
+            background-color: #d4a939;
+        }
+
 
         /* Media Queries from Second Set */
         @media (max-width: 768px) {
@@ -514,139 +531,139 @@
         </div>
         <div class="winners-section">
             <h2>Competition Winners</h2>
-            <!-- <form method="post" action="/Free-Write/public/Competition/AnnounceWinners" id="winners-form"> -->
-            <div class="winners-container">
-                <!-- First Place -->
-                <div class="winner-card first-place">
-                    <div class="winner-badge">1st Place</div>
-                    <div class="winner-details">
-                        <?php if (isset($competition['first_place_winner'])): ?>
-                            <h3><?php echo htmlspecialchars($competition['first_place_winner_name'] ?? 'Not Announced Yet'); ?>
-                            </h3>
-                            <p class="entry-title">
-                                <?php echo htmlspecialchars($competition['first_place_entry_title'] ?? ''); ?>
-                            </p>
-                            <div class="prize-info">
-                                <span class="prize-label">Prize:</span>
-                                <span
-                                    class="prize-value">$<?php echo htmlspecialchars($competition['first_prize'] ?? 'N/A'); ?></span>
-                            </div>
-                        <?php else: ?>
-                            <p class="not-announced">Select first winner</p>
-                            <input type="hidden" name="winners[first][competition_id]"
-                                value="<?php echo htmlspecialchars($competition['competitionID'] ?? ''); ?>">
-                            <input type="hidden" name="winners[first][place]" value="first">
-                            <select name="winners[first][entry_id]" class="winner-select" id="first-place-select">
-                                <option value="">-- Select Entry --</option>
-                                <?php if (isset($entryData) && !empty($entryData)): ?>
-                                    <?php foreach ($entryData as $entry): ?>
-                                        <option value="<?php echo htmlspecialchars($entry['entryID']); ?>">
-                                            <?php echo htmlspecialchars($entry['bookTitle']); ?> by
-                                            <?php echo htmlspecialchars($entry['participantName']); ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                <?php else: ?>
-                                    <option disabled>No entries available</option>
-                                <?php endif; ?>
-                            </select>
-                            <div class="prize-info">
-                                <span class="prize-label">Prize:</span>
-                                <span
-                                    class="prize-value">$<?php echo htmlspecialchars($competition['first_prize'] ?? 'N/A'); ?></span>
-                            </div>
-                        <?php endif; ?>
+            <form method="post" action="/Free-Write/public/Competition/AnnounceWinners" id="winners-form">
+                <div class="winners-container">
+                    <!-- First Place -->
+                    <div class="winner-card first-place">
+                        <div class="winner-badge">1st Place</div>
+                        <div class="winner-details">
+                            <?php if (isset($competition['first_place_winner'])): ?>
+                                <h3><?php echo htmlspecialchars($competition['first_place_winner'] ?? 'Not Announced Yet'); ?>
+                                </h3>
+                                <p class="entry-title">
+                                    <?php echo htmlspecialchars($competition['first_place_entry_title'] ?? ''); ?>
+                                </p>
+                                <div class="prize-info">
+                                    <span class="prize-label">Prize:</span>
+                                    <span
+                                        class="prize-value">$<?php echo htmlspecialchars($competition['first_prize'] ?? 'N/A'); ?></span>
+                                </div>
+                            <?php else: ?>
+                                <p class="not-announced">Select first winner</p>
+                                <input type="hidden" name="winners[first][competition_id]"
+                                    value="<?php echo htmlspecialchars($competition['competitionID'] ?? ''); ?>">
+                                <input type="hidden" name="winners[first][place]" value="first">
+                                <select name="winners[first][entry_id]" class="winner-select" id="first-place-select">
+                                    <option value="">-- Select Entry --</option>
+                                    <?php if (isset($entryData) && !empty($entryData)): ?>
+                                        <?php foreach ($entryData as $entry): ?>
+                                            <option value="<?php echo htmlspecialchars($entry['entryID']); ?>">
+                                                <?php echo htmlspecialchars($entry['bookTitle']); ?> by
+                                                <?php echo htmlspecialchars($entry['participantName']); ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <option disabled>No entries available</option>
+                                    <?php endif; ?>
+                                </select>
+                                <div class="prize-info">
+                                    <span class="prize-label">Prize:</span>
+                                    <span
+                                        class="prize-value">$<?php echo htmlspecialchars($competition['first_prize'] ?? 'N/A'); ?></span>
+                                </div>
+                            <?php endif; ?>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Second Place -->
-                <div class="winner-card second-place">
-                    <div class="winner-badge">2nd Place</div>
-                    <div class="winner-details">
-                        <?php if (isset($competition['second_place_winner'])): ?>
-                            <h3><?php echo htmlspecialchars($competition['second_place_winner_name'] ?? 'Not Announced Yet'); ?>
-                            </h3>
-                            <p class="entry-title">
-                                <?php echo htmlspecialchars($competition['second_place_entry_title'] ?? ''); ?>
-                            </p>
-                            <div class="prize-info">
-                                <span class="prize-label">Prize:</span>
-                                <span
-                                    class="prize-value">$<?php echo htmlspecialchars($competition['second_prize'] ?? 'N/A'); ?></span>
-                            </div>
-                        <?php else: ?>
-                            <p class="not-announced">Select second winner</p>
-                            <input type="hidden" name="winners[second][competition_id]"
-                                value="<?php echo htmlspecialchars($competition['competitionID'] ?? ''); ?>">
-                            <input type="hidden" name="winners[second][place]" value="second">
-                            <select name="winners[second][entry_id]" class="winner-select" id="second-place-select">
-                                <option value="">-- Select Entry --</option>
-                                <?php if (isset($entryData) && !empty($entryData)): ?>
-                                    <?php foreach ($entryData as $entry): ?>
-                                        <option value="<?php echo htmlspecialchars($entry['entryID']); ?>">
-                                            <?php echo htmlspecialchars($entry['bookTitle']); ?> by
-                                            <?php echo htmlspecialchars($entry['participantName']); ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                <?php else: ?>
-                                    <option disabled>No entries available</option>
-                                <?php endif; ?>
-                            </select>
-                            <div class="prize-info">
-                                <span class="prize-label">Prize:</span>
-                                <span
-                                    class="prize-value">$<?php echo htmlspecialchars($competition['second_prize'] ?? 'N/A'); ?></span>
-                            </div>
-                        <?php endif; ?>
+                    <!-- Second Place -->
+                    <div class="winner-card second-place">
+                        <div class="winner-badge">2nd Place</div>
+                        <div class="winner-details">
+                            <?php if (isset($competition['second_place_winner'])): ?>
+                                <h3><?php echo htmlspecialchars($competition['second_place_winner'] ?? 'Not Announced Yet'); ?>
+                                </h3>
+                                <p class="entry-title">
+                                    <?php echo htmlspecialchars($competition['second_place_entry_title'] ?? ''); ?>
+                                </p>
+                                <div class="prize-info">
+                                    <span class="prize-label">Prize:</span>
+                                    <span
+                                        class="prize-value">$<?php echo htmlspecialchars($competition['second_prize'] ?? 'N/A'); ?></span>
+                                </div>
+                            <?php else: ?>
+                                <p class="not-announced">Select second winner</p>
+                                <input type="hidden" name="winners[second][competition_id]"
+                                    value="<?php echo htmlspecialchars($competition['competitionID'] ?? ''); ?>">
+                                <input type="hidden" name="winners[second][place]" value="second">
+                                <select name="winners[second][entry_id]" class="winner-select" id="second-place-select">
+                                    <option value="">-- Select Entry --</option>
+                                    <?php if (isset($entryData) && !empty($entryData)): ?>
+                                        <?php foreach ($entryData as $entry): ?>
+                                            <option value="<?php echo htmlspecialchars($entry['entryID']); ?>">
+                                                <?php echo htmlspecialchars($entry['bookTitle']); ?> by
+                                                <?php echo htmlspecialchars($entry['participantName']); ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <option disabled>No entries available</option>
+                                    <?php endif; ?>
+                                </select>
+                                <div class="prize-info">
+                                    <span class="prize-label">Prize:</span>
+                                    <span
+                                        class="prize-value">$<?php echo htmlspecialchars($competition['second_prize'] ?? 'N/A'); ?></span>
+                                </div>
+                            <?php endif; ?>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Third Place -->
-                <div class="winner-card third-place">
-                    <div class="winner-badge">3rd Place</div>
-                    <div class="winner-details">
-                        <?php if (isset($competition['third_place_winner'])): ?>
-                            <h3><?php echo htmlspecialchars($competition['third_place_winner_name'] ?? 'Not Announced Yet'); ?>
-                            </h3>
-                            <p class="entry-title">
-                                <?php echo htmlspecialchars($competition['third_place_entry_title'] ?? ''); ?>
-                            </p>
-                            <div class="prize-info">
-                                <span class="prize-label">Prize:</span>
-                                <span
-                                    class="prize-value">$<?php echo htmlspecialchars($competition['third_prize'] ?? 'N/A'); ?></span>
-                            </div>
-                        <?php else: ?>
-                            <p class="not-announced">Select third winner</p>
-                            <input type="hidden" name="winners[third][competition_id]"
-                                value="<?php echo htmlspecialchars($competition['competitionID'] ?? ''); ?>">
-                            <input type="hidden" name="winners[third][place]" value="third">
-                            <select name="winners[third][entry_id]" class="winner-select" id="third-place-select">
-                                <option value="">-- Select Entry --</option>
-                                <?php if (isset($entryData) && !empty($entryData)): ?>
-                                    <?php foreach ($entryData as $entry): ?>
-                                        <option value="<?php echo htmlspecialchars($entry['entryID']); ?>">
-                                            <?php echo htmlspecialchars($entry['bookTitle']); ?> by
-                                            <?php echo htmlspecialchars($entry['participantName']); ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                <?php else: ?>
-                                    <option disabled>No entries available</option>
-                                <?php endif; ?>
-                            </select>
-                            <div class="prize-info">
-                                <span class="prize-label">Prize:</span>
-                                <span
-                                    class="prize-value">$<?php echo htmlspecialchars($competition['third_prize'] ?? 'N/A'); ?></span>
-                            </div>
-                        <?php endif; ?>
+                    <!-- Third Place -->
+                    <div class="winner-card third-place">
+                        <div class="winner-badge">3rd Place</div>
+                        <div class="winner-details">
+                            <?php if (isset($competition['third_place_winner'])): ?>
+                                <h3><?php echo htmlspecialchars($competition['third_place_winner'] ?? 'Not Announced Yet'); ?>
+                                </h3>
+                                <p class="entry-title">
+                                    <?php echo htmlspecialchars($competition['third_place_entry_title'] ?? ''); ?>
+                                </p>
+                                <div class="prize-info">
+                                    <span class="prize-label">Prize:</span>
+                                    <span
+                                        class="prize-value">$<?php echo htmlspecialchars($competition['third_prize'] ?? 'N/A'); ?></span>
+                                </div>
+                            <?php else: ?>
+                                <p class="not-announced">Select third winner</p>
+                                <input type="hidden" name="winners[third][competition_id]"
+                                    value="<?php echo htmlspecialchars($competition['competitionID'] ?? ''); ?>">
+                                <input type="hidden" name="winners[third][place]" value="third">
+                                <select name="winners[third][entry_id]" class="winner-select" id="third-place-select">
+                                    <option value="">-- Select Entry --</option>
+                                    <?php if (isset($entryData) && !empty($entryData)): ?>
+                                        <?php foreach ($entryData as $entry): ?>
+                                            <option value="<?php echo htmlspecialchars($entry['entryID']); ?>">
+                                                <?php echo htmlspecialchars($entry['bookTitle']); ?> by
+                                                <?php echo htmlspecialchars($entry['participantName']); ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <option disabled>No entries available</option>
+                                    <?php endif; ?>
+                                </select>
+                                <div class="prize-info">
+                                    <span class="prize-label">Prize:</span>
+                                    <span
+                                        class="prize-value">$<?php echo htmlspecialchars($competition['third_prize'] ?? 'N/A'); ?></span>
+                                </div>
+                            <?php endif; ?>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <button type="submit" class="btn btn-primary" id="announce-winners-btn" disabled>Announce Winners</button>
-            <?php if ($competition['status'] === 'ended'): ?>
-                <p class="announcement-message">You cant select winners before competition finish</p>
-            <?php endif; ?>
-            <!-- </form> -->
+                <button type="submit" class="btn btn-primary" id="announce-winners-btn">Announce Winners</button>
+                <?php if ($competition['status'] === 'ended'): ?>
+                    <p class="announcement-message">You cant select winners before competition finish</p>
+                <?php endif; ?>
+            </form>
         </div>
 
 
@@ -699,7 +716,16 @@
                                         <a href="/Free-Write/public/Book/Overview/<?= htmlspecialchars($entry['bookID'] ?? '') ?>"
                                             class="view-btn">View Book</a>
                                     </td>
-                                    <td><button>Reviewed</button></td>
+                                    <?php if ($entry['status'] === 'submitted'): ?>
+                                        <td>
+                                            <a href="/Free-Write/public/Competition/updatestatus/<?= htmlspecialchars($entry['entryID']) ?>"
+                                                class="reviewed-btn">
+                                                ✅ Reviewed
+                                            </a>
+                                        </td>
+                                    <?php endif; ?>
+
+
                                 </tr>
                             <?php endforeach; ?>
                         <?php endif; ?>
@@ -712,19 +738,6 @@
             <?php endif; ?>
         </div>
 
-
-
-        <div class="download-all-container">
-            <button class="download-all-btn">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="7 10 12 15 17 10" />
-                    <line x1="12" y1="15" x2="12" y2="3" />
-                </svg>
-                Download All Statistics
-            </button>
-        </div>
     </main>
 
     <?php
@@ -769,7 +782,7 @@
                 const competitionStatus = '<?php echo strtolower($competition['status']); ?>';
 
                 // Enable button only if all selections are made and no duplicates
-                announceBtn.disabled = !allSelected || hasDuplicate || competitionStatus !== 'ended';
+                announceBtn.disabled = !allSelected || hasDuplicate || competitionStatus !== 'completed';
 
             }
 
@@ -782,19 +795,6 @@
             validateSelections();
         });
 
-        // Add JavaScript for download functionality if needed
-        document.querySelectorAll('.download-btn').forEach(button => {
-            button.addEventListener('click', function () {
-                const chartTitle = this.closest('.chart-header').querySelector('.chart-title').textContent;
-                alert('Downloading ' + chartTitle + ' as PDF...');
-                // Implement actual download functionality
-            });
-        });
-
-        document.querySelector('.download-all-btn').addEventListener('click', function () {
-            alert('Downloading all statistics...');
-            // Implement actual download functionality
-        });
     </script>
 </body>
 

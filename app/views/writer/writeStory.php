@@ -10,7 +10,7 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    //show($data);
+    
     ?>
 
     <!-- Writing Section -->
@@ -24,15 +24,16 @@
                 <?php if ($book['price'] === NULL): ?>
                     <div class="input-group">
                         <label for="price">Price(LKR):</label>
-                        <input type="number" min="0" id="price" name="price" placeholder="Free">
+                        <input type="number" min="0" step="0.01" id="price" name="price" placeholder="Free">
                     </div>
                 <?php endif; ?>
             </div>
 
             <!-- Chapter Name -->
             <div class="text-editor">
-                <textarea id="story-editor-chapter" name="story-editor-chapter" maxlength="45"
-                    placeholder="Chapter Name"><?= htmlspecialchars('Chapter ' . $chapterCount) ?></textarea>
+                <textarea id="story-editor-chapter" name="story-editor-chapter"
+                    placeholder="Chapter Name" maxlength="50"><?= htmlspecialchars('Chapter ' . $chapterCount) ?></textarea>
+                    <small id="title-warning" style="color: red; display: none;">Maximum 45 characters allowed.</small>
 
             </div>
 

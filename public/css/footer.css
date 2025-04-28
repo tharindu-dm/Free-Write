@@ -3,11 +3,14 @@ footer {
   padding: 2rem;
   text-align: center;
   border-top: 2px solid #ffd700; /* Primary color border on top */
+  position: relative;
+  z-index: 50;
 }
 
 .footer-content {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
 }

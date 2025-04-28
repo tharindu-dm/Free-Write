@@ -7,22 +7,17 @@
     <title>Book Details Management</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body {
-            background-color: #F5F0E5;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-        }
-
         .book-container {
             display: flex;
+            justify-content: center;
             gap: 40px;
-            margin: 20px auto;
+            margin: 1rem auto;
             width: 80%;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 3rem;
+           height: 78vh;
+            background-color: rgba(255, 215, 0, 0.05);
+            border: #ffd700 solid 1px;
+            border-radius: 3rem;
         }
 
         .book-image {
@@ -180,9 +175,9 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    //show($data);
-    ?>
     
+    ?>
+
     <div class="book-container">
         <div class="book-image">
             <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($bookDetails['coverImage'] ?? 'sampleCover.jpg'); ?>"
@@ -192,8 +187,7 @@
 
         <div class="book-info">
             <form id="book-details-form" action="/Free-Write/public/Publisher/updateBookDetails" method="POST">
-                <input type="hidden" name="isbnID"
-                    value="<?= htmlspecialchars($bookDetails['isbnID'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+                <input type="hidden" name="isbnID" value="<?= $bookDetails['isbnID'] ?? '' ?>">
 
                 <div class="header-actions">
                     <div class="Names">
@@ -224,24 +218,13 @@
                 <div class="price-rating">
                     <span class="price">
                         <span
-                            class="editable editable-text"><?= htmlspecialchars($bookDetails['prize'] ?? '0.00', ENT_QUOTES, 'UTF-8') ?></span>
+                            class="editable editable-text">LKR <?= htmlspecialchars($bookDetails['prize'] ?? '0.00', ENT_QUOTES, 'UTF-8') ?></span>
                         <input type="text" name="prize" class="editable editable-input"
                             value="<?= htmlspecialchars($bookDetails['prize'] ?? '0.00', ENT_QUOTES, 'UTF-8') ?>"
                             required pattern="\d+(\.\d{1,2})?" title="Enter a valid price (e.g., 19.99)">
                     </span>
-                    <div class="rating">
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                        <span class="rating-count">(4.5/5 - 2,345 reviews)</span>
-                    </div>
+                    
                 </div>
-
-                <div class="availability-badge">In Stock</div>
 
                 <div class="synopsis">
                     <h3>Synopsis</h3>
@@ -279,18 +262,18 @@
                             <p><strong>Publisher</strong></p>
                             <p>
                                 <span
-                                    class="editable editable-text"><?= htmlspecialchars($bookDetails['publisher'] ?? 'Unknown', ENT_QUOTES, 'UTF-8') ?></span>
+                                    class="editable editable-text"><?= htmlspecialchars($bookDetails['contributor_name'] ?? 'Unknown', ENT_QUOTES, 'UTF-8') ?></span>
                                 <input type="text" name="publisher" class="editable editable-input"
-                                    value="<?= htmlspecialchars($bookDetails['publisher'] ?? 'Unknown', ENT_QUOTES, 'UTF-8') ?>">
+                                    value="<?= htmlspecialchars($bookDetails['contributor_name'] ?? 'Unknown', ENT_QUOTES, 'UTF-8') ?>">
                             </p>
                         </div>
                         <div class="column">
                             <p><strong>Published Date</strong></p>
                             <p>
                                 <span
-                                    class="editable editable-text"><?= htmlspecialchars($bookDetails['published_date'] ?? 'Unknown', ENT_QUOTES, 'UTF-8') ?></span>
-                                <input type="date" name="published_date" class="editable editable-input"
-                                    value="<?= htmlspecialchars($bookDetails['published_date'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+                                    class="editable editable-text"><?= htmlspecialchars($bookDetails['publication_year'] ?? 'unknown', ENT_QUOTES, 'UTF-8') ?></span>
+                                <input type="number" name="published_date" class="editable editable-input"
+                                    value="<?= htmlspecialchars($bookDetails['publication_year'] ?? 'uneditable', ENT_QUOTES, 'UTF-8') ?>">
                             </p>
                         </div>
                     </div>
@@ -301,33 +284,33 @@
 
     <script>
         // Store original values to revert on cancel
-        
+
 
         let originalValues = {};
 
-function toggleEditMode() {
-    const form = document.getElementById('book-details-form');
-    const inputs = form.querySelectorAll('input, textarea');
-    originalValues = Object.fromEntries(new FormData(form));
+        function toggleEditMode() {
+            const form = document.getElementById('book-details-form');
+            const inputs = form.querySelectorAll('input, textarea');
+            originalValues = Object.fromEntries(new FormData(form));
 
-    document.querySelector('.book-info').classList.add('editing');
-    document.querySelector('.edit-btn').style.display = 'none';
-    document.querySelector('.save-btn').style.display = 'inline-block';
-    document.querySelector('.cancel-btn').style.display = 'inline-block';
-}
+            document.querySelector('.book-info').classList.add('editing');
+            document.querySelector('.edit-btn').style.display = 'none';
+            document.querySelector('.save-btn').style.display = 'inline-block';
+            document.querySelector('.cancel-btn').style.display = 'inline-block';
+        }
 
-function cancelEdit() {
-    const form = document.getElementById('book-details-form');
-    const inputs = form.querySelectorAll('input, textarea');
-    inputs.forEach(input => {
-        input.value = originalValues[input.name] || '';
-    });
+        function cancelEdit() {
+            const form = document.getElementById('book-details-form');
+            const inputs = form.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                input.value = originalValues[input.name] || '';
+            });
 
-    document.querySelector('.book-info').classList.remove('editing');
-    document.querySelector('.edit-btn').style.display = 'inline-block';
-    document.querySelector('.save-btn').style.display = 'none';
-    document.querySelector('.cancel-btn').style.display = 'none';
-}
+            document.querySelector('.book-info').classList.remove('editing');
+            document.querySelector('.edit-btn').style.display = 'inline-block';
+            document.querySelector('.save-btn').style.display = 'none';
+            document.querySelector('.cancel-btn').style.display = 'none';
+        }
 
 
         function deleteBook() {

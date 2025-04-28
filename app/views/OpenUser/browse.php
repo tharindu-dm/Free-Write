@@ -10,12 +10,12 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    //show($data);
+    
     ?>
 
     <!-- Page Title -->
     <div id="title">
-        <h1>Browse Books</h1>
+        <h1>Browse Masterpieces</h1>
     </div>
 
     <div class="browse-main-container">
@@ -31,9 +31,11 @@
                             <select id="search-type" name="searchType" aria-label="Search type">
                                 <option value="book">Book</option>
                                 <option value="spinoff">Spinoff</option>
+                                <option value="covers">Design</option>
                                 <option value="user">User</option>
                                 <option value="writer">Author</option>
                                 <option value="covdes">Cover Designer</option>
+                                <option value="pub">Publisher</option>
                             </select>
                             <input type="text" id="search-bar" name="itemName" placeholder="Search..."
                                 aria-label="Search query" />
@@ -62,7 +64,7 @@
                                 <?php foreach ($books as $book): ?>
                                     <a href="/Free-Write/public/book/Overview/<?= htmlspecialchars($book['bookID']); ?>">
                                         <div class="book-card">
-                                            <img src="../app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                                            <img src="../app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.png'); ?>"
                                                 alt="Cover Image of <?= htmlspecialchars($book['title']); ?>">
                                             <h3>
                                                 <?= strlen($book['title']) > 20 ? htmlspecialchars(substr($book['title'], 0, 17)) . '...' : htmlspecialchars($book['title']); ?>

@@ -74,7 +74,7 @@ require_once "../app/controllers/UserController.php"; //since this "navigation b
                         <a href="/Free-Write/public/User/Profile">
                             <div class="profile-btn">
                                 <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>"
-                                    alt="Profile"> Profile
+                                    alt="Profile"><?= htmlspecialchars($_SESSION['user_name']) ?>
                             </div>
                         </a>
                     </div>

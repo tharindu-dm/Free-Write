@@ -7,79 +7,138 @@
   <meta name="description" content="Edit a competition on Free Write">
   <title>Edit Competition</title>
   <style>
+    :root {
+      --gold: #FFD700;
+      --gold-light: rgba(255, 215, 0, 0.05);
+      --gold-medium: rgba(255, 215, 0, 0.2);
+      --orange: #c47c15;
+      --dark: #1C160C;
+      --cream: #FCFAF5;
+      --white: #FFFFFF;
+      --red: #dc3545;
+    }
+
     .form-container {
       max-width: 800px;
       margin: 2rem auto;
-      padding: 2rem;
-      background-color: #FFFFFF;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 2.5rem;
+      background-color: var(--white);
+      border-radius: 1rem;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      border: 1px solid var(--gold);
     }
 
-    .form-container h1 {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
-      color: #1C160C;
-    }
-
-    .form-container h4 {
-      color: #c47c15;
+    .form-header {
+      text-align: center;
       margin-bottom: 2rem;
+    }
+
+    .form-header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--dark);
+    }
+
+    .form-header h4 {
+      color: var(--orange);
       font-weight: 500;
+      font-size: 1.1rem;
+    }
+
+    .form-section {
+      margin-bottom: 2rem;
+      background-color: var(--gold-light);
+      padding: 1.5rem;
+      border-radius: 1rem;
+      border: 1px solid var(--gold);
+    }
+
+    .form-section h3 {
+      margin-bottom: 1rem;
+      color: var(--orange);
+      font-size: 1.3rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+
+    .form-section h3:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 0.1rem;
+      background-color: var(--gold);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group:last-child {
+      margin-bottom: 0;
     }
 
     label {
       display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 500;
-      color: #1C160C;
+      margin-bottom: 0.6rem;
+      font-weight: 600;
+      color: var(--dark);
     }
 
     input,
     select,
     textarea {
       width: 100%;
-      padding: 1rem;
-      margin-bottom: 1.5rem;
-      border: 2px solid #FFD700;
-      border-radius: 8px;
+      padding: 0.8rem 1rem;
+      border: 2px solid var(--gold);
+      border-radius: 0.5rem;
       font-size: 1rem;
-      transition: border-color 0.3s, box-shadow 0.3s;
-      background-color: #FCFAF5;
+      transition: all 0.3s ease;
+      background-color: var(--white);
     }
 
     input:focus,
     select:focus,
     textarea:focus {
       outline: none;
-      border-color: #FFD052;
-      box-shadow: 0 0 0 3px rgba(255, 208, 82, 0.2);
+      border-color: var(--orange);
+      box-shadow: 0 0 0 3px var(--gold-medium);
     }
 
     textarea {
-      min-height: 150px;
+      min-height: 120px;
       resize: vertical;
     }
 
-    button {
-      padding: 1rem 1.5rem;
-      margin-right: 1rem;
+    .button-group {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .button-group button {
+      padding: 0.8rem 1.5rem;
       border: none;
-      border-radius: 8px;
+      border-radius: 0.5rem;
       cursor: pointer;
       font-size: 1rem;
       font-weight: 600;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: all 0.2s ease;
+      flex: 1;
     }
 
-    button:hover {
+    .button-group button:hover {
       transform: translateY(-2px);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     .submit-btn {
-      background-color: #FFD052;
-      color: #1C160C;
+      background-color: var(--gold);
+      color: var(--dark);
     }
 
     .submit-btn:hover {
@@ -87,39 +146,77 @@
     }
 
     .cancel-btn {
-      background-color: #c47c15;
+      background-color: var(--orange);
       color: white;
     }
 
     .cancel-btn:hover {
-      background-color: #7A6F50;
+      background-color: #AA6A10;
     }
 
-    .optional-section {
-      padding: 1.5rem;
-      border: 2px dashed #FFD700;
-      border-radius: 8px;
-      margin-bottom: 1.5rem;
-      text-align: center;
-      background-color: #FCFAF5;
-    }
-
-    .optional-section h3 {
-      font-size: 1.1rem;
+    .delete-btn {
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-size: 1rem;
       font-weight: 600;
-      margin-bottom: 0.5rem;
-      color: #1C160C;
+      transition: all 0.2s ease;
+      flex: 1;
+      background-color: #FF5A5A;
+      color: white;
+      margin-top: 1rem;
     }
 
-    .optional-section p {
-      color: #c47c15;
-      margin-bottom: 1rem;
+    .delete-btn:hover {
+      background-color: #E04545;
     }
 
-    .optional-section button {
-      background-color: #FFFFFF;
-      border: 2px solid #FFD700;
-      color: #1C160C;
+    .file-upload {
+      padding: 1.5rem;
+      border: 2px dashed var(--gold);
+      border-radius: 0.5rem;
+      text-align: center;
+      background-color: var(--gold-light);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .file-upload:hover {
+      background-color: var(--gold-medium);
+    }
+
+    .file-upload p {
+      color: var(--orange);
+      margin: 0.5rem 0;
+    }
+
+    .file-upload input[type="file"] {
+      display: none;
+    }
+
+    .file-upload-label {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background-color: var(--white);
+      border: 1px solid var(--gold);
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-weight: 500;
+      margin-top: 0.5rem;
+    }
+
+    .error-message {
+      color: var(--red);
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+      display: none;
+    }
+
+    .horizontal-divider {
+      margin: 2rem 0;
+      border: 0.1rem solid var(--gold);
+      border-radius: 0.05rem;
     }
 
     .deleteOverlay-container {
@@ -129,74 +226,125 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.7);
       justify-content: center;
       align-items: center;
-      z-index: 1;
+      z-index: 1000;
     }
 
     .deleteOverlay {
-      display: flex;
-      flex-direction: column;
-      max-width: fit-content;
-      background-color: #fff;
+      width: 90%;
+      max-width: 500px;
+      background-color: var(--white);
       padding: 2rem;
       border-radius: 1rem;
-      z-index: 2;
+      z-index: 1001;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--gold);
+    }
+
+    .deleteOverlay h2 {
+      color: var(--red);
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .deleteOverlay .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .deleteOverlay-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+      gap: 1rem;
     }
 
     #deleteCompetition_Agree {
-      background-color: #FF0000;
+      background-color: var(--red);
       color: white;
+      flex: 1;
     }
 
     #deleteCompetition_Agree:hover {
-      background-color: #CC0000;
+      background-color: #c82333;
     }
 
     #cancelDelete {
-      background-color: #c47c15;
+      background-color: #6c757d;
       color: white;
-    }
-
-    #cancelDelete:hover {
-      background-color: #7A6F50;
+      flex: 1;
     }
 
     @media (max-width: 768px) {
       .form-container {
         margin: 1rem;
-        padding: 1rem;
+        padding: 1.5rem;
+      }
+
+      .button-group {
+        flex-direction: column;
       }
 
       button {
         width: 100%;
-        margin: 0.5rem 0;
       }
     }
 
-    .error-message {
-      color: #dc3545;
+    .prizes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .prizes-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .dates-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .dates-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Custom file input styling */
+    .custom-file-input {
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+      width: 100%;
+    }
+
+    .file-name {
+      margin-top: 0.5rem;
       font-size: 0.875rem;
-      margin-top: -1rem;
-      margin-bottom: 1rem;
-      display: none;
+      color: var(--orange);
+      text-align: center;
     }
   </style>
 </head>
 
 <body>
-  <?php require_once "../app/views/layout/headerSelector.php";
-  //show($data);
-  ?>
+  <?php require_once "../app/views/layout/headerSelector.php"; ?>
 
   <main>
     <div class="form-container">
-      <h1>Edit Competition</h1>
-      <h4>Update the details for your competition</h4>
+      <div class="form-header">
+        <h1>Edit Competition</h1>
+        <h4>Update the details for your competition</h4>
+      </div>
 
       <?php if (isset($_SESSION['error'])): ?>
-        <div class="error-message">
+        <div class="error-message"
+          style="display: block; margin-bottom: 1.5rem; text-align: center; padding: 0.75rem; background-color: #ffe6e6; border: 1px solid #ffcccc; border-radius: 0.5rem;">
           <?php
           echo $_SESSION['error'];
           unset($_SESSION['error']);
@@ -208,96 +356,169 @@
         onsubmit="return validateForm()">
         <input type="hidden" name="compID" value="<?= htmlspecialchars($competitionDetails['competitionID']) ?>">
 
-        <label for="title">Competition Name</label>
-        <input type="text" maxlength="45" id="title" name="title" placeholder="Enter competition name"
-          value="<?= htmlspecialchars($competitionDetails['title']) ?>" required />
-        <div id="title_error" class="error-message"></div>
+        <div class="form-section">
+          <h3>Basic Information</h3>
 
-        <label for="description">Competition Description</label>
-        <textarea id="description" name="description" placeholder="Describe your competition"
-          required><?= htmlspecialchars($competitionDetails['description']) ?></textarea>
-        <div id="description_error" class="error-message"></div>
+          <div class="form-group">
+            <label for="title">Competition Name</label>
+            <input type="text" maxlength="45" id="title" name="title" placeholder="Enter competition name"
+              value="<?= htmlspecialchars($competitionDetails['title']) ?>" required />
+            <div id="title_error" class="error-message"></div>
+          </div>
 
-        <label for="rules">Judging Criteria</label>
-        <textarea id="rules" name="rules" placeholder="Enter your competition judging criteria"
-          required><?= htmlspecialchars($competitionDetails['rules'] ?? '') ?></textarea>
-        <div id="rules_error" class="error-message"></div>
+          <div class="form-group">
+            <label for="description">Competition Description</label>
+            <textarea id="description" name="description" placeholder="Describe your competition"
+              required><?= htmlspecialchars($competitionDetails['description']) ?></textarea>
+            <div id="description_error" class="error-message"></div>
+          </div>
 
-        <label for="type">Competition For</label>
-        <select id="type" name="type" required>
-          <option value="writer" <?= $competitionDetails['type'] === 'writer' ? 'selected' : '' ?>>Writer</option>
-          <option value="CoverDesigners" <?= $competitionDetails['type'] === 'CoverDesigners' ? 'selected' : '' ?>>Cover
-            Designers</option>
-        </select>
-
-        <label for="category">Category</label>
-        <input type="text" id="category" maxlength="45" name="category" placeholder="Enter category"
-          value="<?= htmlspecialchars($competitionDetails['category']) ?>" required />
-        <div id="category_error" class="error-message"></div>
-
-        <label for="first_prize">Prize Amount</label>
-        <input type="number" id="first_prize" name="first_prize" placeholder="Enter first prize amount"
-          value="<?= htmlspecialchars($competitionDetails['first_prize'] ?? $competitionDetails['prizes']) ?>" required
-          min="0" step="0.01" />
-        <div id="first_prize_error" class="error-message"></div>
-
-        <label for="second_prize">Second Prize Amount</label>
-        <input type="number" id="second_prize" name="second_prize" placeholder="Enter second prize amount"
-          value="<?= htmlspecialchars($competitionDetails['second_prize'] ?? 0) ?>" required min="0" step="0.01" />
-        <div id="second_prize_error" class="error-message"></div>
-
-        <label for="third_prize">Third Prize Amount</label>
-        <input type="number" id="third_prize" name="third_prize" placeholder="Enter third prize amount"
-          value="<?= htmlspecialchars($competitionDetails['third_prize'] ?? 0) ?>" required min="0" step="0.01" />
-        <div id="third_prize_error" class="error-message"></div>
-
-        <label for="start_date">Start Date</label>
-        <input type="date" id="start_date" name="start_date"
-          value="<?= htmlspecialchars($competitionDetails['start_date']) ?>" required />
-        <div id="start_date_error" class="error-message"></div>
-
-        <label for="end_date">End Date</label>
-        <input type="date" id="end_date" name="end_date"
-          value="<?= htmlspecialchars($competitionDetails['end_date']) ?>" required />
-        <div id="end_date_error" class="error-message"></div>
-
-        <h3>Update Competition Image</h3>
-        <p>JPG or PNG, 2MB max</p>
-        <input type="file" name="competition_image" accept="image/jpeg,image/png" />
-
-        <button type="submit" class="submit-btn">Save Changes</button>
-        <button type="button" class="cancel-btn"
-          onclick="location.href='/Free-Write/public/Competition/'">Cancel</button>
-      </form>
-
-      <button type="button" id="DeleteCompetition" class="cancel-btn">Delete Competition</button>
-
-      <div class="deleteOverlay-container">
-        <div class="deleteOverlay">
-          <h1>Are you sure you want to delete this competition?</h1>
-          <form action="/Free-Write/public/Competition/deleteCompetition" method="POST">
-            <input type="hidden" name="compID" value="<?= htmlspecialchars($competitionDetails['competitionID']) ?>">
-
-            <label for="compID-label">Competition ID</label>
-            <input type="text" id="compID-label" disabled
-              value="<?= htmlspecialchars($competitionDetails['competitionID']) ?>">
-            <label for="title-label">Competition Name</label>
-            <input id="title-label" type="text" disabled value="<?= htmlspecialchars($competitionDetails['title']) ?>">
-            <button type="submit" id="deleteCompetition_Agree">Yes, Delete</button>
-            <button type="button" id="cancelDelete">Cancel</button>
-          </form>
+          <div class="form-group">
+            <label for="rules">Judging Criteria</label>
+            <textarea id="rules" name="rules" placeholder="Enter your competition judging criteria"
+              required><?= htmlspecialchars($competitionDetails['rules'] ?? '') ?></textarea>
+            <div id="rules_error" class="error-message"></div>
+          </div>
         </div>
-      </div>
+
+        <div class="form-section">
+          <h3>Competition Settings</h3>
+
+          <div class="form-group">
+            <label for="type">Competition For</label>
+            <select id="type" name="type" required>
+              <option value="writer" <?= $competitionDetails['type'] === 'writer' ? 'selected' : '' ?>>Writer</option>
+              <option value="CoverDesigners" <?= $competitionDetails['type'] === 'CoverDesigners' ? 'selected' : '' ?>>
+                Cover Designers</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="category">Category</label>
+            <input type="text" id="category" maxlength="45" name="category" placeholder="Enter category"
+              value="<?= htmlspecialchars($competitionDetails['category']) ?>" required />
+            <div id="category_error" class="error-message"></div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>Prize Information</h3>
+
+          <div class="prizes-grid">
+            <div class="form-group">
+              <label for="first_prize">First Prize Amount</label>
+              <input type="number" id="first_prize" name="first_prize" placeholder="Enter first prize amount"
+                value="<?= htmlspecialchars($competitionDetails['first_prize'] ?? $competitionDetails['prizes']) ?>"
+                required min="0" step="0.01" />
+              <div id="first_prize_error" class="error-message"></div>
+            </div>
+
+            <div class="form-group">
+              <label for="second_prize">Second Prize Amount</label>
+              <input type="number" id="second_prize" name="second_prize" placeholder="Enter second prize amount"
+                value="<?= htmlspecialchars($competitionDetails['second_prize'] ?? 0) ?>" required min="0"
+                step="0.01" />
+              <div id="second_prize_error" class="error-message"></div>
+            </div>
+
+            <div class="form-group">
+              <label for="third_prize">Third Prize Amount</label>
+              <input type="number" id="third_prize" name="third_prize" placeholder="Enter third prize amount"
+                value="<?= htmlspecialchars($competitionDetails['third_prize'] ?? 0) ?>" required min="0" step="0.01" />
+              <div id="third_prize_error" class="error-message"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>Competition Dates</h3>
+
+          <div class="dates-grid">
+            <div class="form-group">
+              <label for="start_date">Start Date</label>
+              <input type="date" id="start_date" name="start_date"
+                value="<?= htmlspecialchars($competitionDetails['start_date']) ?>" required />
+              <div id="start_date_error" class="error-message"></div>
+            </div>
+
+            <div class="form-group">
+              <label for="end_date">End Date</label>
+              <input type="date" id="end_date" name="end_date"
+                value="<?= htmlspecialchars($competitionDetails['end_date']) ?>" required />
+              <div id="end_date_error" class="error-message"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>Competition Image</h3>
+
+          <div class="custom-file-input">
+            <div class="file-upload">
+              <p>Update competition image (Optional)</p>
+              <p><small>JPG or PNG, 2MB max</small></p>
+              <label for="competition_image" class="file-upload-label">Choose File</label>
+              <input type="file" id="competition_image" name="competition_image" accept="image/jpeg,image/png"
+                onchange="updateFileName(this)" />
+            </div>
+            <div id="file-name" class="file-name">No file chosen</div>
+          </div>
+        </div>
+
+        <hr class="horizontal-divider">
+
+        <div class="button-group">
+          <button type="button" class="cancel-btn"
+            onclick="location.href='/Free-Write/public/Competition/'">Cancel</button>
+          <button type="submit" class="submit-btn">Save Changes</button>
+        </div>
+
+        <button type="button" id="DeleteCompetition" class="delete-btn">Delete Competition</button>
+      </form>
     </div>
   </main>
 
-  <?php
-  require_once "../app/views/layout/footer.php";
-  ?>
+  <div class="deleteOverlay-container">
+    <div class="deleteOverlay">
+      <h2>Delete Competition</h2>
+      <p>Are you sure you want to delete this competition? This action cannot be undone.</p>
+
+      <form action="/Free-Write/public/Competition/deleteCompetition" method="POST">
+        <input type="hidden" name="compID" value="<?= htmlspecialchars($competitionDetails['competitionID']) ?>">
+
+        <div class="form-group">
+          <label for="compID-label">Competition ID</label>
+          <input type="text" id="compID-label" disabled
+            value="<?= htmlspecialchars($competitionDetails['competitionID']) ?>">
+        </div>
+
+        <div class="form-group">
+          <label for="title-label">Competition Name</label>
+          <input id="title-label" type="text" disabled value="<?= htmlspecialchars($competitionDetails['title']) ?>">
+        </div>
+
+        <div class="deleteOverlay-buttons">
+          <button type="button" id="cancelDelete">Cancel</button>
+          <button type="submit" id="deleteCompetition_Agree">Yes, Delete</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <?php require_once "../app/views/layout/footer.php"; ?>
 
   <script>
     function countWords(str) {
       return str.trim().split(/\s+/).filter(word => word.length > 0).length;
+    }
+
+    function updateFileName(input) {
+      const fileNameDisplay = document.getElementById('file-name');
+      if (input.files && input.files[0]) {
+        fileNameDisplay.textContent = input.files[0].name;
+      } else {
+        fileNameDisplay.textContent = 'No file chosen';
+      }
     }
 
     function validateForm() {

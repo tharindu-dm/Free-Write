@@ -1,7 +1,6 @@
 .container {
   background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
   padding: 20px;
   width: 85vw;
 }
@@ -131,9 +130,20 @@ tr:nth-child(even) {
   opacity: 0.8;
 }
 
+.user-details-table{
+  margin-top: 30px;
+  border: #ffd700 solid 1px;
+  background-color: rgba(255, 215, 0, 0.05);
+  padding: 20px;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 1rem auto 1rem auto;
+}
+
 .user-details-form {
   margin-top: 30px;
-  background-color: #fff;
+  border: #ffd700 solid 1px;
+  background-color: rgba(255, 215, 0, 0.05);
   padding: 20px;
   border-radius: 1rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);

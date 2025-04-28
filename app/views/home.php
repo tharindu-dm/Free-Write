@@ -19,8 +19,8 @@
                 and connect with fellow creatives.</p>
             <div class="cta-buttons">
                 <a href="/Free-Write/public/Browse"><button class="browse-btn">Browse Stories</button></a>
-                <a href="/Free-Write/public/#"><button class="start-writing-btn">Start Writing</button></a>
-                <a href="/Free-Write/public/#"><button class="share-designs-btn">Share Designs</button></a>
+                <a href="/Free-Write/public/Login"><button class="start-writing-btn">Start Writing</button></a>
+                <a href="/Free-Write/public/Login"><button class="share-designs-btn">Share Designs</button></a>
             </div>
         </section>
 
@@ -71,56 +71,64 @@
             </div>
         </section>
 
-        <section class="cta">
-            <h2>Ready to unleash your creativity?</h2>
-            <a href="/Free-Write/public/Login"><button class="join-btn">Join Free Write</button></a>
-        </section>
+        <?php
+        if (
+            !isset($_SESSION['user_id']) // guest user or
+            || (isset($_SESSION['user_premium']) && $_SESSION['user_premium'] != 1) //non premium user AND
+            && (isset($_SESSION['user_type']) && $_SESSION['user_type'] != 'pub' && $_SESSION['user_type'] != 'inst' && $_SESSION['user_type'] != 'courier')//not pub and not inst
+        ):
+            ?>
+            <section class="cta">
+                <h2>Ready to unleash your creativity?</h2>
+                <a href="/Free-Write/public/Login"><button class="join-btn">Join Free Write</button></a>
+            </section>
 
-        <section id="price-plans" class="pricing">
-            <div class="plan">
-                <h3>Free Plan</h3>
-                <p class="price">LKR.&nbsp;0 <span>per month</span></p>
-                <a href="/Free-Write/public/Login"><button class="get-started-btn">Get Started</button></a>
-                <ul>
-                    <li>Access to all stories</li>
-                    <li>Create Spin-offs</li>
-                    <li>Purchase Content</li>
-                </ul>
-            </div>
-            <div class="plan premium">
-                <h3>Premium Reader</h3>
-                <p class="price">LKR.&nbsp;899 <span>per month</span></p>
-                <a href="/Free-Write/public/Payment/Premium?type=reader"><button class="upgrade-btn">Upgrade
-                        Now</button></a>
-                <ul>
-                    <li>10% Discount on virtual book/chapters</li>
-                    <li>Ad-free experience</li>
-                    <li>Premium contests</li>
-                </ul>
-            </div>
-            <div class="plan premium">
-                <h3>Premium Writer</h3>
-                <p class="price">LKR.&nbsp;1,199 <span>per month</span></p>
-                <a href="/Free-Write/public/Payment/Premium?type=writer"><button class="upgrade-btn">Upgrade
-                        Now</button></a>
-                <ul>
-                    <li>Ad-free experience</li>
-                    <li>Create contests</li>
-                    <li>Boost books</li>
-                    <li>24 hr support</li>
-                </ul>
-            </div>
-            <div class="plan premium">
-                <h3>Institution</h3>
-                <p class="price">LKR.&nbsp;4,999 <span>per month</span></p>
-                <a href="/Free-Write/public/Institute/Register"><button class="upgrade-btn">Request Now</button></a>
-                <ul>
-                    <li>Access to all public stories</li>
-                    <li>Ad-free experience</li>
-                    <li>Customizable restictions on displayed content</li>
-                </ul>
-            </div>
-        </section>
+            <section id="price-plans" class="pricing">
+                <div class="plan">
+                    <h3>Free Plan</h3>
+                    <p class="price">LKR.&nbsp;0 <span>per month</span></p>
+                    <a href="/Free-Write/public/Login"><button class="get-started-btn">Get Started</button></a>
+                    <ul>
+                        <li>Access to all stories</li>
+                        <li>Create Spin-offs</li>
+                        <li>Purchase Content</li>
+                    </ul>
+                </div>
+                <div class="plan premium">
+                    <h3>Premium Reader</h3>
+                    <p class="price">LKR.&nbsp;899 <span>per month</span></p>
+                    <a href="/Free-Write/public/Payment/Premium?type=reader"><button class="upgrade-btn">Upgrade
+                            Now</button></a>
+                    <ul>
+                        <li>10% Discount on virtual book/chapters</li>
+                        <li>Ad-free experience</li>
+                        <li>Premium contests</li>
+                    </ul>
+                </div>
+                <div class="plan premium">
+                    <h3>Premium Writer</h3>
+                    <p class="price">LKR.&nbsp;1,199 <span>per month</span></p>
+                    <a href="/Free-Write/public/Payment/Premium?type=writer"><button class="upgrade-btn">Upgrade
+                            Now</button></a>
+                    <ul>
+                        <li>Ad-free experience</li>
+                        <li>Create contests</li>
+                        <li>Boost books</li>
+                        <li>24 hr support</li>
+                    </ul>
+                </div>
+                <div class="plan premium">
+                    <h3>Institution</h3>
+                    <p class="price">LKR.&nbsp;4,999 <span>per month</span></p>
+                    <a href="/Free-Write/public/Institute/Register"><button class="upgrade-btn">Request Now</button></a>
+                    <ul>
+                        <li>Access to all public stories</li>
+                        <li>Ad-free experience</li>
+                        <li>Customizable restictions on displayed content</li>
+                    </ul>
+                </div>
+            </section>
+        <?php endif; ?>
     </main>
 
     <?php

@@ -6,14 +6,19 @@ class DesignerCompetitionController extends Controller
     public function index()
     {
         $submissionModel = new DesignSubmissions();
+        $userDetailsModel = new UserDetails();
 
         // Fetch competitions the user has joined
         $joinedCompetitions = $submissionModel->getJoinedCompetitions($_SESSION['user_id']);
+
+        //Fetch user details
+        $userDetails = $userDetailsModel->first(['user' => $_SESSION['user_id']]);
 
         // Debug the joined competitions
         error_log("Joined Competitions for View: " . json_encode($joinedCompetitions));
 
         $data = [
+            'userDetails' => $userDetails,
             'joinedCompetitions' => $joinedCompetitions
         ];
 

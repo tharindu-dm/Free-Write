@@ -3,7 +3,7 @@
 
 <body>
     <div>
-        <button id="covdesDashboard" class="extra-btn-dashboard">Visit Conver Designer Dashboard</button>
+        <button id="covdesDashboard" class="extra-btn-dashboard">Visit Cover Designer Dashboard</button>
     </div>
 
     <script>

@@ -1,8 +1,9 @@
 .notification-page {
   padding: 2rem;
   max-width: 800px;
-  height: 100vh;
+  height: 70vh;
   margin: auto;
+  overflow-y: scroll;
 }
 
 .notification-page h1 {

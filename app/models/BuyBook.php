@@ -5,7 +5,8 @@ class BuyBook
     use Model; // Use the Model trait
 
     protected $table = 'BuyBook'; //when using the Model trait, this table name ise used 
-
+    protected $dateTimeColumn = 'purchaseDateTime';
+    
     public function getBoughtBooks($uid)
     {
         $sql = "SELECT b.[title], c.[name]as covimage, CONCAT(ud.[FirstName],'',ud.[LastName]) AS author FROM BuyBook bb 

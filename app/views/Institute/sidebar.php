@@ -109,7 +109,7 @@ $activeClass = function($path) use ($currentPath) {
         <div class="menu-item <?= $activeClass('/Institute/ManageUser') ?>">
             <a href="/Free-Write/public/Institute/ManageUser">User Management</a>
         </div>
-        <div class="menu-item <?= $activeClass('/Institute/Settings') ?>">
+        <div class="menu-item <?= $activeClass('/Institute/Setting') ?>">
             <a href="/Free-Write/public/Institute/Setting">Settings</a>
         </div>
     </nav>

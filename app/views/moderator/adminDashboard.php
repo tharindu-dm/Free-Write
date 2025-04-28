@@ -12,7 +12,7 @@
 <body>
 
     <?php require_once "../app/views/layout/headerSelector.php";
-    //show($data);
+    
     ?>
 
     <main>
@@ -107,6 +107,33 @@
                     </div>
                 </form>
             </div>
+
+            <div class="publish-form">
+                <div class="form-title">
+                    <h2>Generate Statistics Report</h2>
+                </div>
+
+                <hr style="margin-bottom: 1rem; border:0.1rem solid #ffd700; " />
+
+                <form action="/Free-Write/public/Mod/GenerateReport" method="post">
+                    <div class="form-content">
+                        <div class="date-inputs">
+                            <div>
+                                <label for="startDate">From:</label>
+                                <input required type="date" id="startDate" name="startDate">
+                            </div>
+                            <div>
+                                <label for="endDate">To:</label>
+                                <input required type="date" id="endDate" name="endDate">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gen-stat-report-btn">
+                        <button type="submit">Generate Report</button>
+                    </div>
+                </form>
+            </div>
         </section>
     </main>
 
@@ -172,6 +199,54 @@
         });
     </script>
 
+    <!--GENERATE REPORT-->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const startDateInput = document.querySelector('input[name="startDate"]');
+            const endDateInput = document.querySelector('input[name="endDate"]');
+
+            // Function to update the minimum date for the end date input
+            function updateEndDateMin() {
+                if (startDateInput.value) {
+                    // Get the start date and add one day
+                    const startDate = new Date(startDateInput.value);
+                    const nextDay = new Date(startDate);
+                    nextDay.setDate(startDate.getDate() + 1);
+
+                    // Format the date as YYYY-MM-DD for the min attribute
+                    const minEndDate = nextDay.toISOString().split('T')[0];
+
+                    // Set the minimum date for the end date input
+                    endDateInput.min = minEndDate;
+
+                    // If the current end date is before the new min date, clear it
+                    if (endDateInput.value && new Date(endDateInput.value) <= startDate) {
+                        endDateInput.value = '';
+                    }
+                }
+            }
+
+            // Update end date constraints when the start date changes
+            startDateInput.addEventListener('change', updateEndDateMin);
+
+            // Initialize with current values if such available
+            updateEndDateMin();
+
+            // validating the form on submit
+            const form = document.querySelector('.publish-form form');
+            form.addEventListener('submit', function (event) {
+                if (startDateInput.value && endDateInput.value) {
+                    const startDate = new Date(startDateInput.value);
+                    const endDate = new Date(endDateInput.value);
+
+                    if (endDate <= startDate) {
+                        event.preventDefault();
+                        alert('End date must be at least one day after start date.');
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

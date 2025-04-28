@@ -11,7 +11,7 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    //show($data);
+    
     ?>
 
     <main>
@@ -54,37 +54,42 @@
                         Users</button></a>
                 <a href="/Free-Write/public/Mod/Search?filter=pub"><button class="tab">Publisher Users</button></a>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>UserID</th>
-                        <th>Email</th>
-                        <th>User Type</th>
-                        <th>Premium</th>
-                        <th>Activated</th>
-                        <th>Login Attempts</th>
-                        <th>Select User</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($data['users'] as $user): ?>
+
+            <div class="user-details-table">
+                <table>
+                    <thead>
                         <tr>
-                            <td><?= $user['userID'] ?></td>
-                            <td><?= $user['email'] ?></td>
-                            <td><?= $user['userType'] ?></td>
-                            <td><?= $user['isPremium'] ?></td>
-                            <td><?= $user['isActivated'] ?></td>
-                            <td><?= $user['loginAttempt'] ?></td>
-                            <td>
-                                <a
-                                    href="/Free-Write/public/Mod/Search?filter=id&user=<?= htmlspecialchars($user['userID']) ?>">
-                                    <button class="table-select-user-btn">Select User</button>
-                                </a>
-                            </td>
+                            <th>UserID</th>
+                            <th>Email</th>
+                            <th>User Type</th>
+                            <th>Premium</th>
+                            <th>Activated</th>
+                            <th>Login Attempts</th>
+                            <th>Select User</th>
                         </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($data['users'] as $user): ?>
+                            <tr>
+                                <td><?= $user['userID'] ?></td>
+                                <td><?= $user['email'] ?></td>
+                                <td><?= $user['userType'] ?></td>
+                                <td><?= $user['isPremium'] ?></td>
+                                <td><?= $user['isActivated'] ?></td>
+                                <td><?= $user['loginAttempt'] ?></td>
+                                <td>
+                                    <a
+                                        href="/Free-Write/public/Mod/Search?filter=id&user=<?= htmlspecialchars($user['userID']) ?>">
+                                        <button class="table-select-user-btn">Select User</button>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+
+            <hr style="margin-bottom: 1rem; border: 0.1rem solid #ffd700;" />
 
             <!-- User details form -->
             <div class="user-details-form">

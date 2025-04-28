@@ -57,9 +57,10 @@ section {
 }
 
 .competition-card {
-  background-color: var(--card-background);
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: rgb(255, 215, 0, 0.05);
+  border-radius: 1rem;
+  border: #ffd700 1px solid;
+  padding: 0.5rem 1rem;
   overflow: hidden;
   transition: transform 0.3s ease;
 }

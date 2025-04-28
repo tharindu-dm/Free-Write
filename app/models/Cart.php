@@ -42,4 +42,13 @@ class Cart
         
         return !empty($result);
     }
+
+    public function getCartItems($uid){
+        $query = "SELECT c.*, b.title as bookTitle
+                  FROM [Cart] c
+                  JOIN [PublisherBooks] b ON c.bookID = b.isbnID
+                  WHERE c.userID = $uid AND c.status = 'active'";
+
+        return $this->query($query);
+    }
 }

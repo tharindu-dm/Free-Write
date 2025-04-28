@@ -4,8 +4,18 @@ class HomeController extends Controller
 {
     public function index()
     {
-        //echo "this is the Home Controller\n";
-        //$this->checkLoggedUser();
+        // Start the session if it's not already started
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if (!isset($_SESSION['user_id'])) {
+            $advertisement = new Advertisement();
+            $ad = $advertisement->first(['status' => 'active']);
+
+            ($ad) ? $_SESSION['user_ads'] = $ad['adImage'] : null;
+        }
+
         $this->view("home"); //calling the view function in /includes/Controller.php to view the homepage
     }
 
@@ -45,7 +55,12 @@ class HomeController extends Controller
             return;
         }
 
-        $feedback->insert(['isRead' => 0, 'email' => $contact, 'content' => $message]);
+        $feedback->insert([
+            'isRead' => 0,
+            'email' => $contact,
+            'content' => $message,
+            'sentDateTime' => date('Y-m-d H:i:s')
+        ]);
 
         header('Location: /Free-Write/public');
         exit;

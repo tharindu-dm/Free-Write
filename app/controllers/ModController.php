@@ -679,4 +679,109 @@ class ModController extends Controller
             $this->view('moderator/modAddMod', ['users' => $data]);
         }
     }
+
+    //Generate stat Report
+    public function GenerateReport()
+    {
+        $data = [];
+
+        $startDate = $_POST['startDate'] ?? null;
+        $endDate = $_POST['endDate'] ?? null;
+        $today = date('Y-m-d');
+
+        if ($endDate !== null && strtotime($endDate) > time()) {
+            $endDate = $today;
+        }
+
+        //initializing the models
+        $user = new User();
+
+        $feedback = new Feedback();
+        $report = new Report();
+
+        $buybook = new BuyBook();
+        $buychapter = new BuyChapter();
+
+        $book = new Book();
+        $spinoff = new Spinoff();
+        $coverImage = new CoverImage();
+        $competition = new Competition();
+        
+        $UserSubscription = new UserSubscription();
+
+
+        //getting the data
+        $userTypeCounts = $user->getUserTypeCounts();
+        $INRANGE_feedbacks = $feedback->getDetailsInDateRange($startDate, $endDate);
+        $INRANGE_reports = $report->getDetailsInDateRange($startDate, $endDate);
+
+        $INRANGE_buybooks = $buybook->getDetailsInDateRange($startDate, $endDate);
+        $INRANGE_buychapters = $buychapter->getDetailsInDateRange($startDate, $endDate);
+
+        $INRANGE_book = $book->getDetailsInDateRange($startDate, $endDate);
+        $INRANGE_spinoff = $spinoff->getDetailsInDateRange($startDate, $endDate);
+        $INRANGE_coverImage = $coverImage->getDetailsInDateRange($startDate, $endDate);
+        $INRANGE_competition = $competition->getDetailsInDateRange($startDate, $endDate);
+
+        // Process feedback data
+        $feedbackCount = count($INRANGE_feedbacks);
+
+        // Process reports data and organize by status
+        $totalReports = count($INRANGE_reports);
+        $handledReports = 0;
+        $escalatedReports = 0;
+
+        foreach ($INRANGE_reports as $report) {
+            if ($report['status'] === 'handled') {
+                $handledReports++;
+            } elseif ($report['status'] === 'escalated') {
+                $escalatedReports++;
+            }
+        }
+
+        // Process sales data - calculate totals from the 'price' column
+        $totalBookSales = 0;
+        foreach ($INRANGE_buybooks as $purchase) {
+            $totalBookSales += $purchase['price'];
+        }
+
+        $totalChapterSales = 0;
+        foreach ($INRANGE_buychapters as $purchase) {
+            $totalChapterSales += $purchase['price'];
+        }
+
+        //subsctipyion sales:
+        $total_subs = $UserSubscription->getMonthlySubscriptionSummary($startDate, $endDate);
+
+        // Count content creation items
+        $booksCreated = count($INRANGE_book);
+        $spinoffsCreated = count($INRANGE_spinoff);
+        $coversCreated = count($INRANGE_coverImage);
+        $competitionsCreated = count($INRANGE_competition);
+
+        //get book views and view per book
+        $totalviews = $book->totalViewsAndAverage();
+
+        $data = [
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'today' => $today,
+            'userTypeCounts' => $userTypeCounts,
+            'feedbackCount' => $feedbackCount,
+            'totalReports' => $totalReports,
+            'handledReports' => $handledReports,
+            'escalatedReports' => $escalatedReports,
+            'totalBookSales' => $totalBookSales,
+            'totalChapterSales' => $totalChapterSales,
+            'totalSubs' => $total_subs,
+            'booksCreated' => $booksCreated,
+            'spinoffsCreated' => $spinoffsCreated,
+            'coversCreated' => $coversCreated,
+            'competitionsCreated' => $competitionsCreated,
+            'totalViewDetails' => $totalviews,
+
+        ];
+
+        $this->view('moderator/adminGenerateReport', $data);
+    }
 }
