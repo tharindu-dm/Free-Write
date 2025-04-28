@@ -1,0 +1,268 @@
+
+        /* Main Quote Section */
+        .quote-section {
+            margin: 80px auto;
+            width: 100%;
+            max-width: 900px;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            padding: 40px 50px;
+            border-radius: 1.5rem;
+            background: rgba(255, 215, 0, 0.08);
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        .quote-section::before {
+            content: '"';
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            font-size: 120px;
+            font-family: Georgia, serif;
+            color: rgba(255, 215, 0, 0.2);
+            line-height: 0.6;
+        }
+        .quote-input:focus {
+            outline: none;
+        }
+
+        .quote-input {
+            width: 100%;
+            min-height: 150px;
+            padding: 0.5rem;
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            line-height: 1.6;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .quote-section h2 {
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .quote-section .text-editor {
+            font-size: 24px;
+            font-style: italic;
+            line-height: 1.6;
+            margin: 30px auto;
+            max-width: 80%;
+            color: #444;
+            font-family: Georgia, 'Times New Roman', serif;
+        }
+
+        .space_between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        .select-quote-input {
+            padding: 0.8rem 1rem;
+            border-radius: 1rem;
+            background: rgba(255, 215, 0, 0.05);
+            border: #ffd700 solid 1px;
+            font-size: 1rem;
+            width: 100%;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .select-quote-input:focus {
+            outline: none;
+            border-color: #e6c200;
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+        }
+
+        .quote-container {
+            border-radius: 1rem;
+            background: rgba(255, 215, 0, 0.05);
+            border: #ffd700 solid 1px;
+            padding: 1rem;
+            position: relative;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .quote-container:focus-within {
+            border-color: #e6c200;
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+        }
+
+        .space_between h3 {
+            font-size: 1.2rem;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        .right-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .edit-btn,
+        .delete-btn {
+            padding: 10px 24px;
+            width: 100px;
+            border-radius: 2rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .edit-btn {
+            background-color: #ffd700;
+            color: #000;
+        }
+
+        .edit-btn:hover {
+            background-color: #000;
+            color: #ffd700;
+            transform: translateY(-2px);
+        }
+
+        .cancel-btn {
+            background-color: #f0f0f0;
+            color: #555;
+        }
+
+        .cancel-btn:hover {
+            background-color: #ddd;
+            color: #333;
+        }
+
+        .delete-btn {
+            background-color: white;
+            color: #dc3545;
+            border: 1px solid #dc3545;
+        }
+
+        .delete-btn:hover {
+            background-color: #dc3545;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Delete Overlay Styling */
+        .deleteOverlay-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .deleteOverlay {
+            background-color: white;
+            padding: 30px;
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .deleteOverlay h2 {
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .quote-section {
+                padding: 30px 25px;
+                margin: 40px auto;
+            }
+
+            .quote-section::before {
+                font-size: 80px;
+                top: 30px;
+                left: 25px;
+            }
+
+            .quote-section .text-editor {
+                font-size: 20px;
+                max-width: 95%;
+            }
+
+            .space_between {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .button-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .right-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .edit-btn,
+            .delete-btn {
+                padding: 10px 20px;
+                width: 45%;
+            }
+        }
+        /* General Style for Select Dropdown */
+select {
+    width: 50%;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    color: #333;
+    appearance: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  /* Focused State for Select Dropdown */
+  select:focus {
+    border-color: #ffcc00;
+    outline: none;
+    background-color: #fff;
+  }
+  
+  /* Custom Dropdown Arrow */
+  select::-ms-expand {
+    display: none; /* Remove the default dropdown arrow in IE */
+  }
+  
+  select {
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"%3E%3Cpath fill="none" stroke="%23333" stroke-width="1.5" d="M12 5l-4 4-4-4" /%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+  }
+  
+  /* Hover State for Select Dropdown */
+  select:hover {
+    border-color: #e6b800;
+  }

@@ -44,6 +44,7 @@
             <!-- Books Section -->
 
             <div class="books-section" id="books">
+                <div class="space_between">
                 <?php if (isset($_SESSION['user_id']) && ($userDetails['user'] == $_SESSION['user_id'])): ?>
                     <h2>My Books</h2>
                 <?php endif; ?>
@@ -54,6 +55,7 @@
                         <a href="/Free-Write/public/Writer/New" class="button-new">+ New</a>
                     </div>
                 <?php endif; ?>
+                </div>
 
                 <!-- Books List for author-->
                 <?php if (isset($_SESSION['user_id']) && ($userDetails['user'] == $_SESSION['user_id'])): ?>

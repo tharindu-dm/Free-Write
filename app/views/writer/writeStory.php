@@ -31,8 +31,9 @@
 
             <!-- Chapter Name -->
             <div class="text-editor">
-                <textarea id="story-editor-chapter" name="story-editor-chapter" maxlength="45"
+                <textarea id="story-editor-chapter" name="story-editor-chapter"
                     placeholder="Chapter Name"><?= htmlspecialchars('Chapter ' . $chapterCount) ?></textarea>
+                    <small id="title-warning" style="color: red; display: none;">Maximum 45 characters allowed.</small>
 
             </div>
 

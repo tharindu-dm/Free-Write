@@ -24,15 +24,17 @@
                     <div class="book-info">
                         <div class="input-group">
                             <label for="title">Title</label>
-                            <input type="text" id="title" name="title" maxlength="45"
+                            <input type="text" id="title" name="title"
                                 placeholder="Enter a title for your story"
                                 value="<?= htmlspecialchars($book['title']); ?>" required>
+                                <small id="title-warning" style="color: red; display: none;">Maximum 45 characters allowed.</small>
                         </div>
 
                         <div class="input-group">
                             <label for="Synopsis">Synopsis</label>
-                            <textarea id="Synopsis" name="Synopsis" maxlength="255" placeholder="Enter a synopsis"
+                            <textarea id="Synopsis" name="Synopsis" placeholder="Enter a synopsis"
                                 required><?= htmlspecialchars($book['Synopsis']); ?></textarea>
+                                <small id="synopsis-warning" style="color: red; display: none;">Maximum 255 characters allowed.</small>
                         </div>
 
                         <div class="input-group">
