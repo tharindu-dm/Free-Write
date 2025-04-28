@@ -41,18 +41,27 @@ class InstituteController extends Controller
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $institute_table = new Institution();
             $userID = $_SESSION['user_id'];
+            $name = $_POST['name'];
+            $username = $_POST['username'];
+            $
 
             // Find the institution where the creator is the current user
             $instDetails = $institute_table->first(['creator' => $userID]);
             if ($instDetails) {
                 $id = $instDetails['institutionID'];
 
-                //check exsisting name
-                // $existingInst = $institute_table->first(['creator' =>  $userID]);
-                // if ($existingInst && $existingInst['institutionID'] != $id) {
-                //     header('Location: /Free-Write/public/Institute/Setting?error=Username+already+exists');
-                //     exit;
-                // }
+                // Check if the username is already taken by another institution
+                $query = "SELECT * FROM Institution WHERE username = :username AND institutionID != :id";
+                $existingInst = $institute_table->query($query, [
+                    'username' => $username,
+                    'id' => $id
+                ]);
+
+                if ($existingInst) {
+                    // Username already exists for another institution
+                    header('Location: /Free-Write/public/Institute/Setting?error=2');
+                    exit;
+                }
 
                 // Check if username ends with @inst.fw
                 if (!str_ends_with($_POST['username'], '@inst.fw')) {
@@ -71,8 +80,8 @@ class InstituteController extends Controller
                 }
 
                 $data = [
-                    'name' => $_POST['name'],
-                    'username' => $_POST['username'],
+                    $name,
+                    $username,  
                 ];
 
                 $result = $institute_table->updateInstitution($id, $data);
@@ -228,7 +237,7 @@ class InstituteController extends Controller
         $firstName = $_POST['user_firstName'];
         $lastName = $_POST['user_lastName'];
 
-        $query = "SELECT * FROM User WHERE email = :email AND userID != :userID LIMIT 1";
+        $query = "SELECT TOP 1 * FROM [User] WHERE email = :email AND userID != :userID";
         $result = $user_table->query($query, ['email' => $username, 'userID' => $userID]);
 
         if ($result) {
@@ -263,7 +272,7 @@ class InstituteController extends Controller
             $user_table = new User();
 
             // Find user by email but exclude the current user
-            $query = "SELECT * FROM user WHERE email = :email AND userID != :userID LIMIT 1";
+            $query = "SELECT TOP 1 * FROM [User] WHERE email = :email AND userID != :userID";
             $result = $user_table->query($query, ['email' => $email, 'userID' => $userID]);
 
             if ($result) {

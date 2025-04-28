@@ -16,7 +16,6 @@
     <div class="inst-container">
         <!-- Sidebar Navigation -->
         <?php include_once "../app/views/Institute/sidebar.php"; ?>
-
         <!-- Main Content -->
         <main class="inst-main-content">
             <h1>Manage Users</h1>
@@ -59,18 +58,6 @@
                 </table>
             </div>
 
-            <!-- Pagination -->
-            <div class="inst-pagination">
-                <button class="inst-prev-btn">&lt;</button>
-                <div class="inst-page-numbers">
-                    <span class="inst-page-number active">1</span>
-                    <span class="inst-page-number">2</span>
-                    <span class="inst-page-number">3</span>
-                    <span class="inst-page-number">4</span>
-                    <span class="inst-page-number">5</span>
-                </div>
-                <button class="inst-next-btn">&gt;</button>
-            </div>
 
             <!-- New User Button
             <button class="inst-new-user-btn">New User</button> -->
@@ -157,10 +144,14 @@
             <h4 id="user-header-delete">User:</h4>
 
             <form id="deleteUserForm" action="/Free-Write/public/Institute/deleteUser" method="POST">
-
                 <input type="input" disabled id="user_delete">
+                
+                <!-- Add this new field for the user's name -->
+                <label for="user_name_delete">Name:</label>
+                <input type="input" disabled id="user_name_delete">
+                
                 <input type="hidden" name="userID" id="user_delete_post">
-
+                
                 <div class="list-add-actionBtns">
                     <button id="cancel-delete-button" type="button" class="add-list-cancel-button">
                         Cancel
@@ -174,5 +165,5 @@
 
     <script src="\Free-Write\public\js\Institute\InstituteManageUser.js"></script>
 </body>
-
+<input type="hidden" name="name" id="user_delete_post">
 </html>
