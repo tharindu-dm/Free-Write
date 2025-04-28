@@ -29,10 +29,11 @@
             <div class="nav-right-side-container">
                 <div class="action-button-container">
                     <?php
-                    if (isset($_SESSION['user_type']) && ($_SESSION['user_type'] == 'reader' || $_SESSION['user_type'] == 'writer' ||
-                    $_SESSION['user_type'] == 'covdes')): ?>
+                    if (
+                        isset($_SESSION['user_type']) && ($_SESSION['user_type'] == 'reader' || $_SESSION['user_type'] == 'writer' ||
+                            $_SESSION['user_type'] == 'covdes')
+                    ): ?>
                         <div class="action-button">
-
                             <a class="nav-link" href="/Free-Write/public/Designer/New">
                                 <div class="sign-in-btn"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                         viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -46,7 +47,7 @@
                     <?php endif; ?>
 
                     <div class="action-button">
-                        <form action="/Free-Write/public/Writer/DashboardNew" method="post">
+                        <a href="/Free-Write/public/Writer/DashboardNew">
                             <div class="sign-in-btn">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -56,7 +57,7 @@
 
                                 <button type="submit">&nbsp;Write </button>
                             </div>
-                        </form>
+                        </a>
                     </div>
 
                     <div class="premium-notification-container">
@@ -160,37 +161,6 @@
             </div>
         </nav>
     </header>
-
-
-    <!--SCRIPTS 
-    <script>
-        // Function to fetch and update notification count
-        function updateNotificationCount() {
-            fetch('/Free-Write/public/fetch_notifications.php')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
-                    return response.text(); // Get raw text first
-                })
-                .then(text => {
-                    console.log('Raw response:', text); // Log raw response for debugging
-                    const data = JSON.parse(text); // Parse it as JSON
-                    const badge = document.getElementById('notification-badge');
-                    if (badge) {
-                        badge.textContent = data.unread_count;
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching notifications:', error);
-                    console.log('Raw response causing error:', text); // Log raw text if defined
-                });
-        }
-
-        // Initial call
-        updateNotificationCount();
-        setInterval(updateNotificationCount, 5000);
-    </script>-->
 
     <script src="/Free-Write/public/js/notification.js"></script>
 </body>

@@ -6,252 +6,252 @@
     <title>Freewrite - Courier Dashboard</title>
     <style>
         :root {
-            --primary-color: #ffd700;
-            --background-light: #f4f4f4;
-            --text-dark: #333;
-            --border-color: #e0e0e0;
-            --yellow-highlight: #ffd700;
-            --button-yellow: #ffd700;
-            --section-border: #ffd700;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
-
-        body {
-            background-color: white;
-            color: var(--text-dark);
+            --gold: #ffd700;
+            --black: #1a1a1a;
+            --white: #ffffff;
+            --gray: #e0e0e0;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --gold-light: rgba(255, 215, 0, 0.05);
         }
 
         .dashboard {
             display: flex;
-            height: calc(100vh - 60px);
+            height: 70vh;
+            background: var(--white);
         }
 
         .sidebar {
             width: 250px;
-            background-color: white;
-            border-right: 1px solid var(--border-color);
-            padding: 20px;
+            background: var(--white);
+            border-right: 1px solid var(--gray);
+            padding: 1.5rem;
         }
 
         .sidebar-menu {
             list-style: none;
-            margin-top: 20px;
+            margin-top: 1.5rem;
         }
 
         .sidebar-menu li {
-            margin-bottom: 15px;
+            margin-bottom: 0.75rem;
         }
 
         .sidebar-menu a,
         .user-nav-button {
             text-decoration: none;
-            color: var(--text-dark);
+            color: var(--black);
             display: flex;
             align-items: center;
-            padding: 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+            padding: 0.75rem;
+            border-radius: 1rem;
+            transition: all 0.3s ease;
             background: none;
             border: none;
             width: 100%;
             text-align: left;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 1rem;
+            font-weight: 500;
         }
 
         .sidebar-menu a:hover,
         .sidebar-menu a.active,
         .user-nav-button:hover,
         .user-nav-button.active {
-            background-color: var(--yellow-highlight);
-            color: var(--text-dark);
-            font-weight: bold;
+            background: var(--gold-light);
+            color: var(--black);
+            border: var(--gold) solid 1px;
+            font-weight: 600;
         }
 
         .main-content {
             flex-grow: 1;
-            padding: 20px;
+            padding: 2rem;
             overflow-y: auto;
+            background: var(--gold-light);
         }
 
         .section-title {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--section-border);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--gold);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--black);
         }
 
-        /* Enhanced Delivery Card Styles */
         .delivery-card {
-            background-color: white;
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
+            background: var(--white);
+            border: var(--gold) solid 1px;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
             display: grid;
             grid-template-columns: 1fr auto;
             align-items: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 12px var(--shadow);
+            transition: all 0.3s ease;
         }
 
         .delivery-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
-            border-color: var(--yellow-highlight);
-        }
-
-        .delivery-details {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
+            box-shadow: 0 8px 20px var(--shadow);
+            background: var(--gold-light);
         }
 
         .delivery-details h3 {
-            font-size: 1.2em;
+            font-size: 1.25rem;
             font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 5px;
+            color: var(--black);
+            margin-bottom: 0.5rem;
         }
 
         .delivery-details p {
-            font-size: 0.9em;
-            color: #555;
-            line-height: 1.5;
+            font-size: 0.875rem;
+            color: var(--black);
+            line-height: 1.6;
+            opacity: 0.8;
         }
 
         .delivery-actions {
             display: flex;
-            gap: 10px;
+            gap: 0.75rem;
             align-items: center;
         }
 
         .delivery-actions button {
-            padding: 10px 20px;
+            padding: 0.75rem 1.5rem;
             border: none;
-            border-radius: 8px;
+            border-radius: 1rem;
             cursor: pointer;
-            font-size: 0.9em;
-            font-weight: 500;
-            transition: background-color 0.3s, transform 0.2s;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
         }
 
         .btn-accept {
-            background-color: var(--button-yellow);
-            color: var(--text-dark);
-            font-weight: 600;
+            background: var(--gold);
+            color: var(--black);
         }
 
         .btn-accept:hover {
-            background-color: #e6c200;
+            background: #e6c200;
             transform: translateY(-2px);
         }
 
-
-        /* Updated Status Badge Styles */
         .status-badge {
             display: inline-block;
-            padding: 5px 10px;
-            border-radius: 16px;
-            font-size: 0.8em;
+            padding: 0.5rem 1rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
             font-weight: 600;
             text-transform: capitalize;
-            background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
-            color: var(--text-dark);
+            background: var(--gray);
+            color: var(--black);
             max-width: 150px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-            margin-top: 5px;
+            margin-top: 0.5rem;
         }
 
         .status-pending {
-            background: linear-gradient(135deg, #ffd54f, #ffca28);
-            color: var(--text-dark);
+            background: var(--gold);
+            color: var(--black);
         }
 
         .status-processing {
-            background: linear-gradient(135deg, #2196f3, #1976d2);
-            color: white;
+            background: var(--gray);
+            color: var(--black);
         }
 
         .status-shipped {
-            background: linear-gradient(135deg, #ff9800, #f57c00);
-            color: white;
+            background: var(--gold-light);
+            border: var(--gold) solid 1px;
+            color: var(--black);
         }
 
         .status-completed {
-            background: linear-gradient(135deg, #4caf50, #388e3c);
-            color: white;
+            background: var(--white);
+            border: var(--gold) solid 1px;
+            color: var(--black);
         }
 
         .stats-container {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         .stat-card {
-            background-color: white;
-            border-radius: 8px;
-            padding: 20px;
-            flex: 1;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background: var(--white);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            background: var(--gold-light);
         }
 
         .stat-card h3 {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 10px;
+            font-size: 0.875rem;
+            color: var(--black);
+            margin-bottom: 0.75rem;
+            opacity: 0.7;
         }
 
         .stat-card .stat-value {
-            font-size: 32px;
-            font-weight: bold;
-            color: var(--text-dark);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--black);
         }
 
         .stat-card.highlighted {
-            border-left: 4px solid var(--yellow-highlight);
+            border-left: 4px solid var(--gold);
         }
 
         .search-container {
             display: flex;
-            margin-bottom: 20px;
+            margin-bottom: 1.5rem;
         }
 
         .search-container input {
             flex-grow: 1;
-            padding: 10px;
-            border: 1px solid var(--border-color);
-            border-radius: 5px 0 0 5px;
+            padding: 0.75rem;
+            border: var(--gold) solid 1px;
+            border-radius: 1rem 0 0 1rem;
+            background: var(--white);
+            font-size: 0.875rem;
         }
 
         .search-container button {
-            padding: 10px 20px;
-            background-color: var(--button-yellow);
+            padding: 0.75rem 1.5rem;
+            background: var(--gold);
             border: none;
-            border-radius: 0 5px 5px 0;
-            color: var(--text-dark);
-            font-weight: bold;
+            border-radius: 0 1rem 1rem 0;
+            color: var(--black);
+            font-weight: 600;
             cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-container button:hover {
+            background: #e6c200;
         }
 
         .header-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
-            background-color: white;
-            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 1.5rem;
+            background: var(--white);
+            border-bottom: 1px solid var(--gray);
         }
 
         .user-profile {
@@ -260,63 +260,67 @@
         }
 
         .user-profile img {
-            width: 40px;
-            height: 40px;
+            width: 2.5rem;
+            height: 2.5rem;
             border-radius: 50%;
-            margin-right: 10px;
+            margin-right: 0.75rem;
+            border: var(--gold) solid 1px;
         }
 
         .courier-profile {
             display: flex;
             align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid var(--border-color);
-            margin-bottom: 15px;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--gray);
+            margin-bottom: 1rem;
         }
 
         .courier-profile-img {
-            width: 60px;
-            height: 60px;
+            width: 3.5rem;
+            height: 3.5rem;
             border-radius: 50%;
-            margin-right: 15px;
+            margin-right: 1rem;
             object-fit: cover;
+            border: var(--gold) solid 1px;
         }
 
         .courier-profile-info h3 {
-            font-size: 18px;
-            margin-bottom: 5px;
+            font-size: 1.125rem;
+            margin-bottom: 0.25rem;
+            color: var(--black);
         }
 
         .courier-profile-info p {
-            font-size: 14px;
-            color: #666;
+            font-size: 0.875rem;
+            color: var(--black);
+            opacity: 0.7;
         }
 
         .edit-profile-btn {
-            background-color: var(--button-yellow);
-            color: var(--text-dark);
-            font-weight: bold;
-            padding: 6px 12px;
+            background: var(--gold);
+            color: var(--black);
+            font-weight: 600;
+            padding: 0.5rem 1rem;
             border: none;
-            border-radius: 5px;
+            border-radius: 1rem;
             cursor: pointer;
-            margin-top: 10px;
-            font-size: 12px;
-            transition: background-color 0.3s;
+            margin-top: 0.75rem;
+            font-size: 0.75rem;
+            transition: all 0.3s ease;
         }
 
         .edit-profile-btn:hover {
-            background-color: #e6c200;
+            background: #e6c200;
         }
 
         .page-title {
-            border-bottom: 2px solid var(--yellow-highlight);
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-            font-size: 24px;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 0.75rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            color: var(--black);
         }
 
-        /* New styles for view sections */
         .view-section {
             display: none;
         }
@@ -326,30 +330,28 @@
         }
 
         .delivery-message {
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border-left: 4px solid var(--yellow-highlight);
+            background: var(--gold-light);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--gold);
         }
 
         .delivery-message h3 {
-            margin-bottom: 10px;
-            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+            color: var(--black);
+            font-size: 1.25rem;
         }
 
         .no-deliveries {
             text-align: center;
-            padding: 30px;
-            margin: 20px 0;
-            background-color: #fff9e6;
-            border: 2px dashed var(--yellow-highlight);
-            border-radius: 10px;
-        }
-
-        .no-deliveries p {
-            font-size: 20px;
-            color: #555;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            background: var(--gold-light);
+            border: var(--gold) solid 1px;
+            border-radius: 1rem;
+            font-size: 1.25rem;
+            color: var(--black);
             font-weight: 500;
         }
     </style>
@@ -357,19 +359,10 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    //show($data);
     ?>
-    
+
     <div class="dashboard">
         <div class="sidebar">
-            <div class="courier-profile">
-                <img src="/api/placeholder/60/60" alt="Courier Profile" class="courier-profile-img">
-                <div class="courier-profile-info">
-                    <h3>Courier jathu</h3>
-                    <p>Sri Lanka</p>
-                    <button class="edit-profile-btn">Edit Profile</button>
-                </div>
-            </div>
             <ul class="sidebar-menu">
                 <li><button class="user-nav-button active" data-view="dashboard">Dashboard</button></li>
                 <li><button class="user-nav-button" data-view="new-deliveries">New Deliveries</button></li>
@@ -779,6 +772,8 @@
 
         </div>
     </div>
+
+    <?php require_once "../app/views/layout/footer.php"; ?>
 
     <script>
         document.querySelectorAll('.user-nav-button').forEach(button => {

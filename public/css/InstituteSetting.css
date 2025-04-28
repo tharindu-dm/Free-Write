@@ -4,25 +4,12 @@
     --border-color: #E5E5E5;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    color: var(--text-color);
-    background: #f9f9f9;
-    line-height: 1.6;
-}
-
 .container {
     display: flex;
     min-height: 100vh;
 }
 
-/* Main Content Styles */
+
 .main-content {
     flex: 1;
     padding: 2rem;

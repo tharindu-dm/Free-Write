@@ -61,4 +61,19 @@ class CoverImage
 
         return $this->query($query);
     }
+
+    public function getCoversByName($name)
+    {
+        $query = "SELECT ci.covID, 
+        ci.[name], 
+        ci.license, 
+        ci.[description], 
+        ci.artist,
+        CONCAT(u.[firstName], ' ', u.[lastName]) AS [creator] 
+        FROM {$this->table} ci
+        JOIN [dbo].[UserDetails] u ON ci.[artist] = u.[user] 
+         WHERE artist IS NOT NULL AND [name] LIKE '%$name%' ORDER BY covID DESC";
+
+        return $this->query($query);
+    }
 }

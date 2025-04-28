@@ -10,19 +10,15 @@ class BrowseController extends Controller
     public function loadBrowsePage()
     {
         $book = new Book();
-        //$advertisement = new Advertisement();
 
         $FWObooks = $book->getFWOBooks();
         $paidBooks = $book->getPaidBooks();
         $freeBooks = $book->getFreeBooks();
 
-        //    $activeAd = $advertisement->first(['status' => 'active', 'advertisementType'=>'sidebar']);
-
         $this->view('OpenUser/browse', [
             'freewriteOriginals' => $FWObooks,
             'paidBooks' => $paidBooks,
             'freeBooks' => $freeBooks,
-            //   'ads'=> $activeAd
         ]);
     }
     public function search()
@@ -38,12 +34,17 @@ class BrowseController extends Controller
                 break;
             case 'covdes':
             case 'writer':
+            case 'pub':
                 $users = new UserDetails();
                 $searchResult = $users->getUserDetailsByName($item, $searchType);
                 break;
             case 'spinoff':
                 $spinoff = new Spinoff();
                 $searchResult = $spinoff->getSpinoffByName($item);
+                break;
+            case 'covers':
+                $coverImages = new CoverImage();
+                $searchResult = $coverImages->getCoversByName($item);
                 break;
             case 'book':
             default:

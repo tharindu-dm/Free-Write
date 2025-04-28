@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Freewrite - Explore and Share Incredible Stories</title>
     <link rel="stylesheet" href="/Free-Write/public/css/writer.css">
+    <link rel="stylesheet" href="/Free-Write/public/css/writerquotes.css">
 </head>
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    //show($data);
+    
     ?>
 
     <main>
@@ -73,6 +74,7 @@
                                         <?php
                                         // Split the quote into an array of words
                                         $words = explode(' ', $quote['quote']);
+
                                         // Get the first 7 words
                                         $firstSevenWords = implode(' ', array_slice($words, 0, 7));
 
@@ -91,7 +93,7 @@
                 <?php endif; ?>
             </section>
 
-        </div> <!-- End of Dashboard -->
+        </div>
 
     </main>
 

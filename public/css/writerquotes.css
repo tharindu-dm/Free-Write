@@ -1,0 +1,131 @@
+/* Quotes Section Styles */
+.quotes-section {
+  padding: 2rem;
+  border-radius: 1rem;
+  background: none;
+  position: relative;
+}
+
+.quotes-section h2 {
+  margin-top: 0;
+  margin-bottom: 2rem;
+  color: black;
+  font-size: 1.8rem;
+  border-bottom: 2px solid #ffd700;
+  padding-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.button-new {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 2rem;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  border: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.quote-item {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.quote-item li {
+  border-radius: 1rem;
+  background: white;
+  border: #ffd700 solid 1px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.quote-item li:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.quote-link {
+  display: block;
+  padding: 1.5rem;
+  text-decoration: none;
+  height: 100%;
+}
+
+.quote-link p {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  font-style: italic;
+  position: relative;
+}
+
+.quote-link small {
+  display: block;
+  margin-top: 1rem;
+  font-style: normal;
+  color: #666;
+}
+
+/* No quotes section */
+.no-requests {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #888;
+}
+
+.no-requests svg {
+  color: #ffd700;
+  opacity: 0.6;
+  margin-bottom: 1rem;
+}
+
+.no-requests h2 {
+  margin: 0;
+  font-weight: normal;
+  border-bottom: none;
+}
+
+.book-btn {
+  display: inline-block;
+  background-color: #ffd700;
+  color: var(--black);
+  padding: 0.8rem 1.5rem;
+  border-radius: 2rem;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+}
+
+.book-btn:hover {
+  background-color: #e6c200;
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .quote-item {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-info {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .button-new {
+    position: relative;
+    top: 0;
+    right: 0;
+    display: block;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+}
