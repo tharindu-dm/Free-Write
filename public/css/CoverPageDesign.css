@@ -1,116 +1,299 @@
-/* Updated CoverPageDesign.css */
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f9f9f9;
+:root {
+  --gold: #ffd700;
+  --gold-light: rgba(255, 215, 0, 0.05);
+  --gold-medium: rgba(255, 215, 0, 0.2);
+  --orange: #c47c15;
+  --dark: #1c160c;
+  --cream: #fcfaf5;
+  --white: #ffffff;
+  --red: #dc3545;
+  --gray: #6c757d;
+  --light-gray: #f8f9fa;
 }
 
 main {
-  padding: 20px;
+  padding: 2rem;
 }
 
 .product-container {
-  display: flex;
   max-width: 1200px;
-  margin: 50px auto;
-  padding: 20px;
-  background-color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  margin: 2rem auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  background-color: var(--white);
+  border-radius: 1rem;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  border: 1px solid var(--gold);
+  position: relative;
 }
 
 .product-image {
-  flex: 0 0 400px;
+  grid-column: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: var(--gold-light);
+  border-radius: 1rem;
+  border: 1px solid var(--gold);
+  padding: 1.5rem;
+  overflow: hidden;
 }
 
 .product-image img {
   max-width: 100%;
-  border-radius: 8px;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.product-image img:hover {
+  transform: scale(1.02);
 }
 
 .product-details {
-  margin-left: 30px;
-  flex: 1;
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
 }
 
 .product-details h1 {
-  font-size: 2rem;
-  margin-bottom: 10px;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 1rem;
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.product-details h1:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 80px;
+  height: 0.2rem;
+  background-color: var(--gold);
 }
 
 .product-description {
-  font-size: 1rem;
-  color: #333;
-  line-height: 1.6;
-  margin-bottom: 30px;
+  font-size: 1.1rem;
+  color: #444;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  flex-grow: 1;
+}
+
+.designer-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background-color: var(--gold-light);
+  border-radius: 0.5rem;
+}
+
+.designer-info .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--gold);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  margin-right: 1rem;
+}
+
+.designer-info .details {
+  flex: 1;
+}
+
+.designer-info .name {
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.designer-info .created-date {
+  font-size: 0.875rem;
+  color: var(--gray);
 }
 
 .action-buttons {
   display: flex;
-  gap: 10px;
-  margin-top: 20px;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.action-buttons a {
+  text-decoration: none;
+}
+
+.edit-button,
+.delete-button {
+  padding: 0.8rem 1.5rem;
+  min-width: 120px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
 }
 
 .edit-button {
-  background-color: #ffd700;
-  color: #000;
-  width: 80px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: all 0.3s ease;
+  background-color: var(--gold);
+  color: var(--dark);
 }
 
 .edit-button:hover {
-  background-color: #000;
-  color: #ffd700;
+  background-color: var(--dark);
+  color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .delete-button {
-  background-color: #fff;
-  color: #dc3545;
-  width: 80px;
-  border: 1px solid #dc3545;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 50px;
-  font-size: 1rem;
-  transition: all 0.3s ease;
+  background-color: transparent;
+  color: var(--red);
+  border: 1px solid var(--red);
 }
 
 .delete-button:hover {
-  background-color: #dc3545;
-  color: #fff;
+  background-color: var(--red);
+  color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Rating display */
 .rating-container {
-  margin-top: 20px;
-  text-align: center;
-  background-color: #f8f9fa;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
+  grid-column: 1 / -1;
+  padding: 1.5rem;
+  background-color: var(--gold-light);
+  border-radius: 1rem;
+  border: 1px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 2rem;
 }
 
 .rating-container h3 {
-  font-size: 1.2rem;
-  margin-bottom: 5px;
+  font-size: 1.3rem;
+  color: var(--orange);
+  margin-bottom: 0.5rem;
 }
 
 .rating-value {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: bold;
-  color: #ffd700;
+  color: var(--orange);
+  display: flex;
+  align-items: center;
+}
+
+.rating-stars {
+  display: flex;
+  margin-left: 1rem;
+}
+
+.star {
+  color: var(--gold);
+  font-size: 1.5rem;
+  margin-right: 0.25rem;
 }
 
 .rating-count {
-  color: #666;
-  margin-top: 5px;
+  color: var(--gray);
+  font-size: 1.1rem;
+  margin-top: 0.5rem;
+}
+
+.rating-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 200px;
+}
+
+.rating-row {
+  display: flex;
+  align-items: center;
+}
+
+.rating-label {
+  min-width: 30px;
+  text-align: right;
+  margin-right: 0.5rem;
+}
+
+.rating-bar-bg {
+  flex-grow: 1;
+  height: 8px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+}
+
+.rating-bar-fill {
+  height: 100%;
+  background-color: var(--gold);
+  border-radius: 4px;
+}
+
+.rating-percent {
+  min-width: 40px;
+  text-align: right;
+  font-size: 0.875rem;
+  color: var(--gray);
+}
+
+.horizontal-divider {
+  margin: 2rem 0;
+  border: 0.1rem solid var(--gold);
+  border-radius: 0.05rem;
+}
+
+@media (max-width: 900px) {
+  .product-container {
+    grid-template-columns: 1fr;
+  }
+
+  .product-image,
+  .product-details {
+    grid-column: 1;
+  }
+
+  .rating-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .rating-breakdown {
+    margin-top: 1.5rem;
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  main {
+    padding: 1rem;
+  }
+
+  .product-container {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .edit-button,
+  .delete-button {
+    width: 100%;
+  }
 }

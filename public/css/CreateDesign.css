@@ -1,14 +1,15 @@
+/* Main container */
 main {
   max-width: 800px;
   margin: 2rem auto;
   padding: 2rem;
-  background-color: #fff;
+  background-color: rgba(255, 215, 0, 0.05);
   border-radius: 1rem;
-
-  background: rgba(255, 215, 0, 0.05);
-  border: #ffd700 solid 1px;
+  border: #ffd700 1px solid;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Form heading */
 h1 {
   color: #333;
   margin-bottom: 1.5rem;
@@ -18,24 +19,18 @@ h1 {
   font-weight: 700;
 }
 
+/* Form groups */
 .form-group {
   margin-bottom: 2rem;
 }
 
-.action-btn {
-  display: flex;
-  gap: 0.5rem;
-  justify-content: center;
-  align-items: center;
+.form-group-highlight {
+  border-left: 4px solid #ffd700;
+  padding-left: 1rem;
+  margin-left: -1rem;
 }
 
-.form-group button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 50%;
-}
-
+/* Labels */
 label {
   display: block;
   margin-bottom: 0.5rem;
@@ -44,6 +39,7 @@ label {
   font-size: 1.1rem;
 }
 
+/* Input fields */
 input[type="text"],
 input[type="number"],
 textarea {
@@ -68,6 +64,7 @@ textarea {
   resize: vertical;
 }
 
+/* File upload area */
 .upload-area {
   background-color: #f9f9f9;
   padding: 3rem 2rem;
@@ -83,89 +80,14 @@ textarea {
   background-color: rgba(255, 215, 0, 0.1);
 }
 
+/* File input styling */
 #coverImage {
   display: block;
   width: 100%;
   padding: 1rem 0;
 }
 
-.button-group {
-  display: flex;
-  gap: 1.5rem;
-  margin-top: 2.5rem;
-}
-
-#create-btn {
-  background-color: #ffd700;
-  color: #000;
-  border: none;
-  padding: 1.2rem 2rem;
-  font-size: 1.2rem;
-  border-radius: 2rem;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  flex: 1;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  min-width: 150px;
-}
-
-#create-btn:hover {
-  background-color: #000;
-  color: #ffd700;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-.cancel-btn {
-  background-color: #f0f0f0;
-  color: #555;
-  border: none;
-  padding: 1.2rem 2rem;
-  font-size: 1.2rem;
-  font-weight: 600;
-  border-radius: 2rem;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-align: center;
-  flex: 1;
-  display: inline-block;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  min-width: 150px;
-}
-
-.cancel-btn:hover {
-  background-color: #555;
-  color: #fff;
-  transform: translateY(-2px);
-}
-
-/* Preview image */
-.image-preview {
-  max-width: 350px;
-  margin: 2rem auto;
-  border-radius: 0.8rem;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  display: none;
-  border: 3px solid #ffd700;
-}
-
-.image-preview img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* Form field highlight */
-.form-group-highlight {
-  border-left: 4px solid #ffd700;
-  padding-left: 1rem;
-  margin-left: -1rem;
-}
-
-/* Custom File Input Styling */
+/* Custom file input */
 .file-input-container {
   position: relative;
   display: flex;
@@ -212,6 +134,7 @@ textarea {
   color: #555;
 }
 
+/* File preview */
 .file-preview-container {
   padding: 1rem;
   background-color: #f9f9f9;
@@ -236,6 +159,89 @@ textarea {
   font-weight: 500;
 }
 
+/* Image preview */
+.image-preview {
+  max-width: 350px;
+  margin: 2rem auto;
+  border-radius: 0.8rem;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  display: none;
+  border: 3px solid #ffd700;
+}
+
+.image-preview img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Button styles */
+.button-group {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+#create-btn {
+  background-color: #ffd700;
+  color: #000;
+  border: none;
+  padding: 1.2rem 2rem;
+  font-size: 1.2rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  flex: 1;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  min-width: 150px;
+}
+
+#create-btn:hover {
+  background-color: #000;
+  color: #ffd700;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.cancel-button {
+  background-color: #f0f0f0;
+  color: #555;
+  border: none;
+  padding: 1.2rem 2rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 2rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  flex: 1;
+  display: inline-block;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  min-width: 150px;
+}
+
+.cancel-button:hover {
+  background-color: #555;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.action-btn {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Gold divider */
+.gold-divider {
+  margin: 1.5rem 0;
+  border: 0.1rem solid #ffd700;
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
   main {
@@ -248,7 +254,7 @@ textarea {
   }
 
   #create-btn,
-  .cancel-btn {
+  .cancel-button {
     width: 100%;
     padding: 1rem;
   }

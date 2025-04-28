@@ -43,7 +43,6 @@ class InstituteController extends Controller
             $userID = $_SESSION['user_id'];
             $name = $_POST['name'];
             $username = $_POST['username'];
-            $
 
             // Find the institution where the creator is the current user
             $instDetails = $institute_table->first(['creator' => $userID]);

@@ -84,12 +84,12 @@
 }
 
 .card {
-  background-color: #fff;
+  background-color: rgb(255, 215, 0, 0.05);
   padding: 1.5rem;
   border-radius: 8px;
   box-shadow: var(--shadow);
   transition: all 0.3s ease;
-  border: 1px solid #eee;
+  border: 1px solid #ffd700;
   position: relative;
   overflow: hidden;
 }
@@ -118,7 +118,6 @@
 /* Feature Section */
 .feature-section {
   display: flex;
-  gap: 2rem;
   background-color: #fff;
   padding: 2rem;
   border-radius: 8px;
@@ -135,22 +134,19 @@
 
 .feature-image {
   flex: 1;
-  background-color: #f0f0f0;
+  background-color: none;
   border-radius: 8px;
   min-height: 300px;
   background-size: cover;
   background-position: center;
   transition: all 0.3s ease;
-  box-shadow: var(--shadow);
-}
-
-.feature-image:hover {
-  box-shadow: var(--shadow-hover);
+  padding: 0;
+  margin: 0;
 }
 
 .feature-content {
   flex: 2;
-  padding: 1rem;
+  padding: 1rem 0;
 }
 
 .feature-content h2 {

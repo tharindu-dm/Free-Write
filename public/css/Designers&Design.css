@@ -190,6 +190,10 @@ body {
 }
 
 .cover-page-design {
+  background: rgb(255, 215, 0, 0.05);
+  border: #ffd700 1px solid;
+  border-radius: 1rem;
+  padding: 1rem;
   text-align: center;
 }
 
@@ -199,9 +203,11 @@ body {
 }
 
 .cover-page-design img {
-  max-width: 100%;
-  height: auto;
-  margin-bottom: 1rem;
+  width: 300px;
+  height: 500px;
+  object-fit: cover;
+  border-radius: 1rem;
+  margin-bottom: 10px;
 }
 
 .cover-page-design h3 {

@@ -107,7 +107,7 @@ main {
 /* Design Grid */
 .design-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
   padding: 1rem 0;
 }
@@ -169,7 +169,6 @@ main {
   color: #ffd700;
 }
 
-/* Collection Items */
 .collections-section {
   display: flex;
   justify-content: center;
@@ -178,6 +177,7 @@ main {
   padding: 1rem 0;
   margin: 0 auto;
   max-width: 1000px;
+  flex-wrap: wrap;
 }
 
 .collection-item {
@@ -187,6 +187,10 @@ main {
   border: #ffd700 solid 1px;
   border-radius: 0.8rem;
   padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .collection-item h3 {

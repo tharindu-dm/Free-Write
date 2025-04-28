@@ -42,7 +42,7 @@
                                     <th>Competition Name</th>
                                     <th>Submission Title</th>
                                     <th>Status</th>
-                                    <th>Actions</th>
+                                    <th colspan="2">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -53,8 +53,6 @@
                                         <td><?= htmlspecialchars($comp['status']) ?></td>
                                         <td>
                                             <div class="competition-actions">
-                                                <a href="/Free-Write/public/DesignerCompetition/viewCompetitionAfterSubmission/<?= htmlspecialchars($comp['submissionID']) ?>" 
-                                                   class="view-button">View</a>
                                                 <a href="/Free-Write/public/DesignerCompetition/editSubmission/<?= htmlspecialchars($comp['submissionID']) ?>" 
                                                    class="edit-button">Edit</a>
                                                 <a href="/Free-Write/public/DesignerCompetition/deleteSubmission/<?= htmlspecialchars($comp['submissionID']) ?>" 

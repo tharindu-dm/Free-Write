@@ -241,13 +241,6 @@
 
                 <h3>Description:</h3>
                 <p class="description"><?= htmlspecialchars($design['description']) ?></p>
-
-                <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] != $design['artist']): ?>
-                    <div class="button-group">
-                        <button class="btn btn-secondary">Contact Designer</button>
-                        <button class="btn btn-primary">Purchase License</button>
-                    </div>
-                <?php endif; ?>
             </div>
         </div>
 
