@@ -149,6 +149,13 @@ class DesignerController extends Controller
             if (isset($_FILES['coverImage']) && $_FILES['coverImage']['error'] == UPLOAD_ERR_OK) {
                 $file = $_FILES['coverImage'];
                 $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
+                $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+                $allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif'];
+
+                if (!in_array($fileExtension, $allowedExtensions) || !in_array(mime_content_type($file['tmp_name']), $allowedMimeTypes)) {
+                    die("Invalid file type. Only JPG, PNG, and GIF files are allowed.");
+                }
+
                 $dateTime = date('Y-m-d_H-i-s');
                 $newFileName = "COVER_" . $designer_id . "_" . $dateTime . "." . $fileExtension;
                 $targetDirectory = "../app/images/coverDesign/";
@@ -237,6 +244,13 @@ class DesignerController extends Controller
             if (!empty($_FILES['coverImage']['name'])) {
                 $file = $_FILES['coverImage'];
                 $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
+                $allowedExtensions = ['jpeg', 'png', 'gif'];
+                $allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif'];
+
+                if (!in_array($fileExtension, $allowedExtensions) || !in_array(mime_content_type($file['tmp_name']), $allowedMimeTypes)) {
+                    die("Invalid file type. Only JPG, PNG, and GIF files are allowed.");
+                }
+
                 $newFileName = "COVER_" . $id . "_" . time() . "." . $fileExtension;
                 $targetDirectory = "../app/images/coverDesign/";
 

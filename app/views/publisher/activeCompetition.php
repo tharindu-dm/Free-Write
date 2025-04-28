@@ -9,6 +9,7 @@
   <style>
     .content {
       max-width: 1600px;
+      height: 78vh;
       margin: 2rem auto;
       padding: 0 2rem;
     }
@@ -219,9 +220,11 @@
             d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z">
           </path>
         </svg>
-        <input type="text" placeholder="Search for competitions">
+        <input type="text" id="competition-search-input" placeholder="Search for competitions">
+
       </div>
-      <button class="new-competition-button">New Competition</button>
+      <button class="new-competition-button" type="button">New Competition</button>
+
     </div>
 
     <div class="tabs">
@@ -247,7 +250,8 @@
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="competitions-table-body">
+
           <?php if (!empty($data['activeCompetition_details'])): ?>
 
             <?php foreach ($data['activeCompetition_details'] as $activeCompetition_details): ?>
@@ -290,6 +294,53 @@
   <?php
   require_once "../app/views/layout/footer.php";
   ?>
+   <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const searchInput = document.getElementById('competition-search-input');
+      const tableBody = document.getElementById('competitions-table-body');
+      const originalTableContent = tableBody.innerHTML;
+
+      searchInput.addEventListener('keyup', function () {
+        const searchTerm = this.value.toLowerCase();
+
+        if (!searchTerm.trim()) {
+          tableBody.innerHTML = originalTableContent;
+          return;
+        }
+
+        const rows = tableBody.querySelectorAll('tr');
+        let matchFound = false;
+        let newTableContent = '';
+
+        rows.forEach(function (row) {
+          const title = row.querySelector('td:first-child a')?.textContent?.trim().toLowerCase() || '';
+          const category = row.querySelector('td:nth-child(5)')?.textContent?.trim().toLowerCase() || '';
+          const prize = row.querySelector('td:nth-child(6)')?.textContent?.trim().toLowerCase() || '';
+
+          if (title.includes(searchTerm) || category.includes(searchTerm) || prize.includes(searchTerm)) {
+            newTableContent += row.outerHTML;
+            matchFound = true;
+          }
+        });
+
+        if (matchFound) {
+          tableBody.innerHTML = newTableContent;
+        } else {
+          tableBody.innerHTML = `
+          <tr>
+            <td colspan="8" class="no-results">No competitions found matching "${searchTerm}"</td>
+          </tr>
+        `;
+        }
+      });
+    });
+  
+  document.querySelectorAll('form').forEach(form => {
+    form.addEventListener('submit', e => e.preventDefault());
+  });
+
+
+  </script>
 </body>
 
 </html>
