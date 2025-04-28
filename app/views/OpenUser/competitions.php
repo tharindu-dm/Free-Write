@@ -19,19 +19,6 @@
                 <h1>Writing Competitions
                     <hr style="margin-bottom: 1rem; border:0.1rem solid #ffd700; " />
                 </h1>
-                <!-- <div class="filter-section">
-                <select>
-                    <option>All Genres</option>
-                    <option>Fiction</option>
-                    <option>Non-Fiction</option>
-                    <option>Poetry</option>
-                </select>
-                <select>
-                    <option>Sort by: Newest</option>
-                    <option>Most Popular</option>
-                    <option>Ending Soon</option>
-                </select>
-                 </div>-->
             </div>
 
             <div class="competitions-grid">
@@ -64,20 +51,6 @@
                 <h1>Cover Designer Competitions
                     <hr style="margin-bottom: 1rem; border:0.1rem solid #ffd700; " />
                 </h1>
-
-                <!-- <div class="filter-section">
-                <select>
-                    <option>All Genres</option>
-                    <option>Fiction</option>
-                    <option>Non-Fiction</option>
-                    <option>Poetry</option>
-                </select>
-                <select>
-                    <option>Sort by: Newest</option>
-                    <option>Most Popular</option>
-                    <option>Ending Soon</option>
-                </select>
-                   </div>-->
             </div>
             <div class="competitions-grid">
                 <?php if (!empty($covdes)): ?>

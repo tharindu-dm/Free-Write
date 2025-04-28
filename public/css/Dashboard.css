@@ -73,7 +73,6 @@ main {
 
 /* Designs Section */
 .designs {
-  
   background: rgba(255, 215, 0, 0.05);
   border: #ffd700 solid 1px;
   padding: 1.5rem;
@@ -173,8 +172,8 @@ main {
 /* Collection Items */
 .collections-section {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: center;
   gap: 1.5rem;
   padding: 1rem 0;
   margin: 0 auto;
@@ -182,6 +181,8 @@ main {
 }
 
 .collection-item {
+  height: 400px;
+  width: 300px;
   background: rgba(255, 215, 0, 0.05);
   border: #ffd700 solid 1px;
   border-radius: 0.8rem;

@@ -161,14 +161,12 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    
     ?>
 
     <main>
         <section class="publishers-section">
             <h1>Publishers</h1>
             <div class="publisher-search">
-                <input type="text" placeholder="Search publisher...">
                 <?php if ($userType === 'reader'): ?>
                     <a href="/Free-Write/public/Publisher/regPage"><button>Become A Publisher</button></a>
                 <?php endif; ?>
@@ -184,7 +182,7 @@
 
                             <a
                                 href="/Free-Write/public/Publisher/Profile/<?= htmlspecialchars($books[0]['publisherID'] ?? '') ?>">
-                                <img src="/Free-Write/app/images/profile/profile-image.jpg"
+                                <img src="/Free-Write/app/images/profile/<?= $books[0]['profileImage'] ? $books[0]['profileImage'] : 'profile-image.jpg' ?>"
                                     alt="<?= htmlspecialchars($publisherName) ?>"> </a>
                             <a
                                 href="/Free-Write/public/Publisher/Profile/<?= htmlspecialchars($books[0]['publisherID'] ?? '') ?>">

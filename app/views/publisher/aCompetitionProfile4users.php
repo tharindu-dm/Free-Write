@@ -56,16 +56,17 @@
         }
 
         .card {
-            background-color: white;
-            border-radius: 12px;
+            background-color:rgb(255, 215, 0, 0.05);
+            border-radius: 1rem;
+            border: var(--primary-color) 1px solid;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 30px;
             margin-bottom: 20px;
         }
 
         .section-title {
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--primary-color);
+            color: #ffbb00;
+            border-bottom: 2px solid #ffbb00;
             padding-bottom: 10px;
             margin-bottom: 20px;
             font-weight: 600;
@@ -211,16 +212,16 @@
             <div class="prize-list">
                 <div class="prize-item">
                     <h4>🥇 First Place</h4>
-                    <p>LKR <?= htmlspecialchars($details['first_prize'] ?? 0) ?></p>
+                    <p>$ <?= htmlspecialchars($details['first_prize'] ?? 0) ?></p>
                 </div>
                <?php if ($details['type'] == 'writer'): ?>
                 <div class="prize-item">
                     <h4>🥈 Second Place</h4>
-                    <p>LKR <?= htmlspecialchars($details['second_prize'] ?? 0) ?></p>
+                    <p>$ <?= htmlspecialchars($details['second_prize'] ?? 0) ?></p>
                 </div>
                 <div class="prize-item">
                     <h4>🥉 Third Place</h4>
-                    <p>LKR <?= htmlspecialchars($details['third_prize'] ?? 0) ?></p>
+                    <p>$ <?= htmlspecialchars($details['third_prize'] ?? 0) ?></p>
                 </div>
                 <?php endif; ?> 
             </div>

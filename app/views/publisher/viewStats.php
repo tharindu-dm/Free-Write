@@ -611,7 +611,7 @@
                             <div class="prize-info">
                                 <span class="prize-label">Prize:</span>
                                 <span
-                                    class="prize-value">LKR<?php echo htmlspecialchars($competition['second_prize'] ?? 'N/A'); ?></span>
+                                    class="prize-value">$<?php echo htmlspecialchars($competition['second_prize'] ?? 'N/A'); ?></span>
                             </div>
                         <?php endif; ?>
                     </div>
@@ -630,7 +630,7 @@
                             <div class="prize-info">
                                 <span class="prize-label">Prize:</span>
                                 <span
-                                    class="prize-value">LKR<?php echo htmlspecialchars($competition['third_prize'] ?? 'N/A'); ?></span>
+                                    class="prize-value">$<?php echo htmlspecialchars($competition['third_prize'] ?? 'N/A'); ?></span>
                             </div>
                         <?php else: ?>
                             <p class="not-announced">Select third winner</p>
@@ -653,7 +653,7 @@
                             <div class="prize-info">
                                 <span class="prize-label">Prize:</span>
                                 <span
-                                    class="prize-value">LKR<?php echo htmlspecialchars($competition['third_prize'] ?? 'N/A'); ?></span>
+                                    class="prize-value">$<?php echo htmlspecialchars($competition['third_prize'] ?? 'N/A'); ?></span>
                             </div>
                         <?php endif; ?>
                     </div>
