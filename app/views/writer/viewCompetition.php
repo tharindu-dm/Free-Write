@@ -33,7 +33,7 @@
           <?php if ($competition['status'] === 'ended'): ?>
             <div class="date-info ended">Competition Ended</div>
           <?php else: ?>
-            <div class="date-info active">End Date: <?= date('F j, Y', strtotime($competition['end_date'])); ?></div>
+            <div class="date-info active">Status: <?= ($competition['status']); ?></div>
           <?php endif; ?>
         </div>
 
@@ -49,8 +49,10 @@
 
       <!-- Centered Buttons -->
       <div class="button-container">
-        <button type="button" class="edit-btn cancel-btn"
+      <div class="right-buttons">
+        <button type="button" class="edit-btn"
           onclick="window.location.href='/Free-Write/public/Writer/Competitions/'">Back</button>
+      </div>
         <div class="right-buttons">
           <button class="edit-btn"
             onclick="window.location.href='/Free-Write/public/Writer/editCompetition/<?= htmlspecialchars($competition['competitionID']); ?>'">Edit</button>

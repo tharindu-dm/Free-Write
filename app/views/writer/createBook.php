@@ -24,22 +24,19 @@
                 <p>Bring your imagination to life ✨create a book that leaves a mark on readers everywhere.</p>
                 <div class="book-form">
 
-                    <!-- Book Details Section -->
                     <div class="book-info">
                         <div class="input-group">
                             <label for="title">Title</label>
-
-                            <input type="text" maxlength="45" rows="7" id="title" name="title"
-                                placeholder="Enter a title for your story" required>
+                            <input type="text" id="title" name="title" placeholder="Enter a title for your story" required>
+                            <small id="title-warning" style="color: red; display: none;">Maximum 45 characters allowed.</small>
                         </div>
 
                         <div class="input-group">
                             <label for="synopsis">Synopsis</label>
-
-                            <textarea id="Synopsis" maxlength="255" name="Synopsis" placeholder="Enter a Synopsis"
-                                required></textarea>
-
+                            <textarea id="Synopsis" name="Synopsis" placeholder="Enter a Synopsis" required></textarea>
+                            <small id="synopsis-warning" style="color: red; display: none;">Maximum 255 characters allowed.</small>
                         </div>
+
 
                         <div class="input-group">
                             <label for="genre">Genre</label>

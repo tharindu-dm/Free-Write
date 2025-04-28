@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Writing Section - Free Write</title>
     <link rel="stylesheet" href="/Free-Write/public/css/writer.css">
+    <script src="/Free-Write/public/js/writer/createChapter.js"></script>
 </head>
 
 <body>
@@ -33,8 +34,9 @@
 
             <!-- Chapter Name -->
             <div class="text-editor">
-                <textarea id="story-editor-chapter" name="story-editor-chapter" maxlength="45"
+                <textarea id="story-editor-chapter" name="story-editor-chapter"
                     placeholder="Chapter Name"><?= htmlspecialchars($chapter['ChapterTitle'] ?? 'Untitled') ?></textarea>
+                    <small id="title-warning" style="color: red; display: none;">Maximum 45 characters allowed.</small>
             </div>
 
             <!-- Story Editor -->
@@ -67,6 +69,7 @@
 
             <?php if (isset($chapter['chapterID'])): ?>
                 <input type="hidden" name="chapterID" value="<?= $chapter['chapterID'] ?>">
+               
             <?php endif; ?>
     </form>
     <!-- Delete Overlay -->
