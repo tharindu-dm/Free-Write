@@ -29,10 +29,11 @@
             <div class="nav-right-side-container">
                 <div class="action-button-container">
                     <?php
-                    if (isset($_SESSION['user_type']) && ($_SESSION['user_type'] == 'reader' || $_SESSION['user_type'] == 'writer')): ?>
+                    if (isset($_SESSION['user_type']) && ($_SESSION['user_type'] == 'reader' || $_SESSION['user_type'] == 'writer' ||
+                    $_SESSION['user_type'] == 'covdes')): ?>
                         <div class="action-button">
 
-                            <a class="nav-link" href="/Free-Write/public/User/uploadFirstDesign">
+                            <a class="nav-link" href="/Free-Write/public/Designer/New">
                                 <div class="sign-in-btn"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                         viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                         <path stroke-linecap="round" stroke-linejoin="round"

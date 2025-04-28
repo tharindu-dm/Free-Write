@@ -26,7 +26,7 @@
 
             <div class="product-layout">
                 <div class="product-image">
-                    <img src="/Free-Write/public/images/spinoff.jpg"
+                    <img src="/Free-Write/public/images/spinoff.png"
                         alt="Cover Image of <?= htmlspecialchars($content[0]['title']); ?>">
                     <div class="other-details">
                         <h3>Other Details</h3>
@@ -123,6 +123,8 @@
             <div class="overlay-container">
                 <div class="overlay-content">
                     <h2>Edit Spinoff</h2>
+
+                    <hr style="margin-bottom: 1rem; border:0.1rem solid #ffd700; " />
 
                     <div class="overlay-buttons">
                         <form action="/Free-Write/public/Spinoff/editSpinoff" method="POST" id="editSpinoffForm">

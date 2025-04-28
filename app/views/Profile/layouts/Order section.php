@@ -58,7 +58,7 @@
     }
 
     .table-responsive {
-        overflow-x: auto;
+        overflow-x: 100vh;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         border-radius: 8px;
     }

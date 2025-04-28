@@ -41,11 +41,11 @@
                 <!-- Book card -->
                 <a href="/Free-Write/public/book/Overview/<?= htmlspecialchars($book['bookID']) ?>">
                     <div class="book-card">
-                        <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg') ?>"
+                        <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.png') ?>"
                             alt="Book Cover" class="book-cover">
                         <div class="book-info">
                             <h3 class="book-title"><?= htmlspecialchars($book['title'] ?? 'Untitled') ?></h3>
-                            <p class="book-author">By <?= htmlspecialchars($book['author'] ?? 'sampleCover.jpg') ?></p>
+                            <p class="book-author">By <?= htmlspecialchars($book['author'] ?? 'sampleCover.png') ?></p>
                             <!--<div class="book-meta">
                             <div class="book-rating">
                                 <span class="star">★</span>

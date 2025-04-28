@@ -101,7 +101,7 @@
         }
 
         .stars {
-            color: #FFD052;
+            color: #ffd700;
             font-size: 1.2rem;
         }
 
@@ -178,7 +178,7 @@
         }
 
         .resButton {
-            background-color: #FFD052;
+            background-color: #ffd700;
             color: #1e293b;
         }
 
@@ -188,12 +188,12 @@
         }
 
         .buyButton {
-            background-color: #8C805E;
+            background-color: #666;
             color: white;
         }
 
         .buyButton:hover {
-            background-color: #7A6F50;
+            background-color: #000;
             transform: translateY(-2px);
         }
 
@@ -246,7 +246,7 @@
 
         #continueShoppingBtn {
             padding: 12px 20px;
-            background-color: #8C805E;
+            background-color: #666;
             color: white;
             border: none;
             border-radius: 8px;
@@ -256,7 +256,7 @@
 
         #viewCartBtn {
             padding: 12px 20px;
-            background-color: #FFD052;
+            background-color: #ffd700;
             color: #1e293b;
             border: none;
             border-radius: 8px;
@@ -268,6 +268,14 @@
         #viewCartBtn:hover {
             transform: translateY(-2px);
             transition: transform 0.3s ease;
+        }
+
+        .buy-action-btns{
+            display: flex;
+            flex: 1;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
         }
 
         /* Responsive design */
@@ -332,7 +340,7 @@
     <?php require_once "../app/views/layout/headerSelector.php";
     //show($data);
     ?>
-    
+
     <div class="book-container">
         <div class="book-image">
             <img src="/Free-Write/app/images/coverDesign/<?= !empty($bookDetails['coverImage']) ? htmlspecialchars($bookDetails['coverImage']) : 'sampleCover.jpg' ?>"
@@ -374,45 +382,46 @@
                     </div>
                 </div>
                 <?php if (!empty($_SESSION['user_type'])): ?>
-                    <?php if($_SESSION['user_type'] !== 'pub'  ): ?>
-                    <div class="quantity-selector" style="margin-bottom: 20px;">
-                    <label for="quantity"><strong>Quantity;</strong></label>   
-                    <select for="quantity" id="quantity"
-                        style="padding: 8px; margin-left:10px; border-radius:8px; border:1px solid #ddd;">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    </select>
-                    </div>
+                    <?php if ($_SESSION['user_type'] !== 'pub'): ?>
+                        <div class="quantity-selector" style="margin-bottom: 20px;">
+                            <label for="quantity"><strong>Quantity;</strong></label>
+                            <select for="quantity" id="quantity"
+                                style="padding: 8px; margin-left:10px; border-radius:8px; border:1px solid #ddd;">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
                     <?php endif; ?>
                 <?php endif; ?>
 
             </div>
-            <?php if ( !empty($_SESSION['user_type'])): ?>
-                <?php if($_SESSION['user_type'] !== 'pub'  ): ?>
-                <form action="/Free-Write/public/Cart/addToCart" method="POST">
-                    <input type="hidden" name="isbnID" value="<?= htmlspecialchars($bookDetails['isbnID']) ?>">
+            <div  class="buy-action-btns">
+                <?php if (!empty($_SESSION['user_type'])): ?>
+                    <?php if ($_SESSION['user_type'] !== 'pub'): ?>
+                        <form action="/Free-Write/public/Cart/addToCart" method="POST">
+                            <input type="hidden" name="isbnID" value="<?= htmlspecialchars($bookDetails['isbnID']) ?>">
 
-                    <input type="hidden" name="price" value="<?= htmlspecialchars($bookDetails['prize']) ?>">
-                    <input type="hidden" name="quantity" id="cart-quantity">
-                    <?php if (!empty($cartItems)): ?>
-                        <button type="submit" class="resButton" disabled>Item already added to Cart</button>
-                    <?php else: ?>
-                        <button type="submit" class="resButton">Add to Cart</button>
+                            <input type="hidden" name="price" value="<?= htmlspecialchars($bookDetails['prize']) ?>">
+                            <input type="hidden" name="quantity" id="cart-quantity">
+                            <?php if (!empty($cartItems)): ?>
+                                <button type="submit" class="resButton" disabled>Item already added to Cart</button>
+                            <?php else: ?>
+                                <button type="submit" class="resButton">Add to Cart</button>
+                            <?php endif; ?>
+                        </form>
+
+                        <a href="/Free-Write/public/Publisher/paymentPage/<?= htmlspecialchars($bookDetails['isbnID']) ?>">
+
+                            <button class="buyButton"
+                                onclick="window.location.href=this.parentElement.href + '?quantity=' + document.getElementById('quantity').value; return false;">Buy
+                                Now</button>
+                        </a>
                     <?php endif; ?>
-                </form>
-
-                <a href="/Free-Write/public/Publisher/paymentPage/<?= htmlspecialchars($bookDetails['isbnID']) ?>">
-
-                    <button class="buyButton"
-                        onclick="window.location.href=this.parentElement.href + '?quantity=' + document.getElementById('quantity').value; return false;">Buy
-                        Now</button>
-                </a>
                 <?php endif; ?>
-            <?php endif; ?>
-
+            </div>
         </div>
     </div>
 

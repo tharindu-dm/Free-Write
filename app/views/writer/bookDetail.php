@@ -17,7 +17,7 @@
         <div class="container">
             <div class="product-layout">
                 <div class="product-image">
-                    <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book[0]['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                    <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book[0]['cover_image'] ?? 'sampleCover.png'); ?>"
                         alt="Cover Image of <?= htmlspecialchars($book[0]['title']); ?>">
                     <div class="author-details">
                         <p><?= $book[0]['price'] === null ? 'Free' : 'LKR. ' . number_format($book[0]['price'], 2); ?>

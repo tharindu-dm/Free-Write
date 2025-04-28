@@ -24,7 +24,7 @@
                 <?php if ($book['price'] === NULL): ?>
                     <div class="input-group">
                         <label for="price">Price(LKR):</label>
-                        <input type="number" min="0" id="price" name="price" placeholder="Free">
+                        <input type="number" min="0" step="0.01" id="price" name="price" placeholder="Free">
                     </div>
                 <?php endif; ?>
             </div>

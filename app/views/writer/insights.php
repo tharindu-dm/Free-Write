@@ -44,7 +44,7 @@
                     <a href="/Free-Write/public/writer/Overview/<?= htmlspecialchars($MostViewed[0]['bookID']); ?>">
                         <!-- Top Book -->
                         <div class="featured-book-card">
-                            <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($MostViewed[0]['coverImage'] ?? 'sampleCover.jpg'); ?>"
+                            <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($MostViewed[0]['coverImage'] ?? 'sampleCover.png'); ?>"
                                 alt="Cover Image of <?= htmlspecialchars($MostViewed[0]['title']); ?>">
                             <div>
                                 <h3><?= htmlspecialchars($MostViewed[0]['title']) ?></h3><br>
@@ -93,7 +93,7 @@
                             <a href="/Free-Write/public/writer/Overview/<?= htmlspecialchars($book['bookID']); ?>">
                                 <div class="book-card">
                                     <img
-                                        src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['coverImage'] ?? 'sampleCover.jpg'); ?>">
+                                        src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['coverImage'] ?? 'sampleCover.png'); ?>">
                                     <h4>
                                         <?= strlen($book['title']) > 20 ? htmlspecialchars(substr($book['title'], 0, 17)) . '...' : htmlspecialchars($book['title']); ?>
                                     </h4>
@@ -102,7 +102,7 @@
                             </a>
                         <?php endforeach; else: ?>
                         <div class="book-card">
-                            <img src="../app/images/coverDesign/sampleCover.jpg">
+                            <img src="../app/images/coverDesign/sampleCover.png">
                             <h3 class="book-card-title">No Books Available</h3>
                         </div>
                     <?php endif; ?>
@@ -120,7 +120,7 @@
                                 break; // Only show 5 books
                             ?><a href="/Free-Write/public/writer/Overview/<?= htmlspecialchars($book['bookID']); ?>">
                                 <div class="book-card">
-                                    <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['coverImage'] ?? 'sampleCover.jpg'); ?>"
+                                    <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['coverImage'] ?? 'sampleCover.png'); ?>"
                                         alt="Cover Image of <?= htmlspecialchars($book['title']); ?>">
                                     <h4>
                                         <?= strlen($book['title']) > 20 ? htmlspecialchars(substr($book['title'], 0, 17)) . '...' : htmlspecialchars($book['title']); ?>

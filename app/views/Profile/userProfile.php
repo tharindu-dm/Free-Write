@@ -192,7 +192,7 @@
                         </div>
                     </div>
                     <div class="user-type-redirect-btn-container">
-                        <?php if (!isset($_SESSION['user_id']) || (isset($_GET['user']) && $_GET['user'] != $_SESSION['user_id'])): ?>
+                        <?php if (!isset($_SESSION['user_id']) || (isset($_GET['user']) && $_GET['user'] != $_SESSION['user_id'] && $userAccount['userType'] === 'writer')): ?>
                             <div class="writer-dashboard-btn">
 
                                 <a
@@ -204,7 +204,7 @@
                         <?php if (!isset($_SESSION['user_id']) || (isset($_GET['user']) && $_GET['user'] != $_SESSION['user_id'])): ?>
                             <div class="writer-dashboard-btn">
 
-                                <a href="#">
+                                <a href="/Free-Write/public/Designer/publicProfile/<?= htmlspecialchars($userAccount['userID']) ?>">
                                     <button>Covers</button>
                                 </a>
                             </div>
@@ -230,24 +230,24 @@
                     }
                     ?>
 
-                    <div class="extra-profile-buttons">
+                    <!-- <div class="extra-profile-buttons">
                         <?php
-                        if (!isset($_GET['user'])) {
-                            switch ($userType) {
-                                case 'writer':
-                                    require_once "../app/views/Profile/Components/writerComponent.php";
-                                    break;
-                                case 'covdes':
-                                    require_once "../app/views/Profile/Components/covdesComponent.php";
-                                    break;
-                                case 'wricov':
-                                    require_once "../app/views/Profile/Components/writerComponent.php";
-                                    require_once "../app/views/Profile/Components/covdesComponent.php";
-                                    break;
-                            }
-                        }
+                        // if (!isset($_GET['user'])) {
+                        //     switch ($userType) {
+                        //         case 'writer':
+                        //             require_once "../app/views/Profile/Components/writerComponent.php";
+                        //             break;
+                        //         case 'covdes':
+                        //             require_once "../app/views/Profile/Components/covdesComponent.php";
+                        //             break;
+                        //         case 'wricov':
+                        //             require_once "../app/views/Profile/Components/writerComponent.php";
+                        //             require_once "../app/views/Profile/Components/covdesComponent.php";
+                        //             break;
+                        //     }
+                        // }
                         ?>
-                    </div>
+                    </div> -->
 
                     <div class="statistics-container">
                         <!-- Book Lists Section -->

@@ -85,7 +85,7 @@
                     </div>
                     <!-- Right: Cover Image -->
                     <div class="book-cover">
-                        <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.jpg'); ?>"
+                        <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.png'); ?>"
                             alt="Cover Image of <?= htmlspecialchars($book['title']); ?>">
 
                     </div>
