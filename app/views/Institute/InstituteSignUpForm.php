@@ -53,7 +53,7 @@
             </div>
 
             <div class="form-actions">
-                <a href="/login" class="login-link">Return to Login</a>
+                <a href="/Free-Write/public/login" class="login-link">Return to Login</a>
                 <button type="submit" class="btn btn-submit">Sign Up</button>
             </div>
         </form>

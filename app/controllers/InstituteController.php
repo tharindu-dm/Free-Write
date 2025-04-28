@@ -131,24 +131,37 @@ class InstituteController extends Controller
     public function signup()
     {
         $institution_table = new Institution();
-        echo "<script>alert('now in signup funct')</script>";
+
         $name = $_POST['institutionName'];
         $username = $_POST['username'] . "@inst.fw";
         $password = $_POST['password'];
+        $password = password_hash($password, PASSWORD_DEFAULT);
+
         $subStartDate = date("Y-m-d H:i:s");
-        //$subEndDate = nope
-        //subplan is fixed
         $creator = $_SESSION['user_id'];
 
-        //add a new institution with its own login and pw
-        $institution_table->insert(['name' => $name, 'username' => $username, 'password' => $password, 'subStartDate' => $subStartDate, 'subPlan' => 4, 'creator' => $creator]);
+        $type = "institute";
+        $orderDetails = [
+            'Item' => 'Institution Subscription',
+            'subID' => 4,
+            'Quantity' => 1,
+            'Price' => 4999,
+            'Total' => 4999,
+        ];
 
-        $user = new User(); //updating the user as a creator of an institution
-        $user->update($creator, ['userType' => 'inst'], 'userID');
+        $instDetails = [
+            'name' => $name,
+            'username' => $username,
+            'password' => $password,
+            'subStartDate' => $subStartDate,
+            'creator' => $creator
+        ];
 
-        //end session
-        session_destroy();
-        header('Location: /Free-Write/public/Login');
+        $this->view('paymentPage', [
+            'type' => $type,
+            'orderInfo' => $orderDetails,
+            'instDetails' => $instDetails
+        ]);
     }
 
     /**
@@ -216,9 +229,9 @@ class InstituteController extends Controller
         $lastName = $_POST['user_lastName'];
 
         $query = "SELECT * FROM User WHERE email = :email AND userID != :userID LIMIT 1";
-        $result = $user_table->query($query, ['email'=>$username, 'userID'=>$userID]);
+        $result = $user_table->query($query, ['email' => $username, 'userID' => $userID]);
 
-        if($result){
+        if ($result) {
             die("Error: This email is already taken by another user.");
         }
 
@@ -236,7 +249,7 @@ class InstituteController extends Controller
         $userModel = new User();
         $userModelData = $userModel->first(['userID' => $userID]);
 
-        $userModel->update($userID,['isActivated' => 9,'password' => "", 'email' => $userModelData['email']."-deleted"], 'userID');
+        $userModel->update($userID, ['isActivated' => 9, 'password' => "", 'email' => $userModelData['email'] . "-deleted"], 'userID');
 
         header('Location: /Free-Write/public/Institute/ManageUser');
     }
