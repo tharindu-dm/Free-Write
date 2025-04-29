@@ -65,8 +65,8 @@
                                     <div class="competition-card">
                                         <p>
                                             <strong><?= htmlspecialchars($competition['title']); ?></strong><br>
-                                            <small>Prize: <?= htmlspecialchars($competition['first_prize']); ?> | End Date:
-                                                <?= htmlspecialchars($competition['end_date']); ?></small>
+                                            <small>Prize: <?= htmlspecialchars($competition['first_prize']); ?> | Status:
+                                                <?= htmlspecialchars(ucfirst($competition['status'])); ?></small>
                                         </p>
                                     </div>
                                 </a>

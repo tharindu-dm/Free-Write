@@ -236,6 +236,10 @@ class InstituteController extends Controller
         $firstName = $_POST['user_firstName'];
         $lastName = $_POST['user_lastName'];
 
+        if(strlen($username) > 20){
+            die("Error: username is too long (maximum 20 characters)");
+        }
+
         $query = "SELECT TOP 1 * FROM [User] WHERE email = :email AND userID != :userID";
         $result = $user_table->query($query, ['email' => $username, 'userID' => $userID]);
 
@@ -252,6 +256,9 @@ class InstituteController extends Controller
 
     public function deleteUser()
     {
+        If($_SESSION['REQUEST_METHOD'] != "POST"){
+            die("Invalid request method");
+        }
         $userID = $_POST['userID'];
 
         $userModel = new User();

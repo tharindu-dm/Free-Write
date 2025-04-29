@@ -561,7 +561,11 @@ class WriterController extends Controller
         $competitionID = $submissionDetails['competitionID'];
         $competitioinDetails = $competitioin->first(['competitionID'=> $competitionID]);
 
-        $this->view('writer/viewSubmission', ['submission' => $submissionDetails, 'competition' => $competitioinDetails]);
+        $user = new UserDetails();
+        $userDetails = $user->first(['user'=> $submissionDetails['userID']]);
+        $userName = $userDetails['firstName'] . ' ' . $userDetails['lastName'];
+
+        $this->view('writer/viewSubmission', ['submission' => $submissionDetails, 'competition' => $competitioinDetails, 'userName' => $userName]);
     }
 
     public function win($submissionID = 0)

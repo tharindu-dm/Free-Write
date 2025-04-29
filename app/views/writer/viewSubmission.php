@@ -239,7 +239,7 @@
             </div>
 
             <div class="requested-by">
-                <h4>Submitted By: <strong><?= htmlspecialchars($submission['userID']); ?></strong></h4>
+                <h4>Submitted By: <strong><?= htmlspecialchars($userName); ?></strong></h4>
                 <button class="book-btn"
                     onclick="window.location.href='/Free-Write/public/User/Profile?user=<?= htmlspecialchars($submission['userID']); ?>'">
                     View Designer Profile
@@ -260,6 +260,9 @@
                     </button>
                 <?php elseif ($submission['status'] === 'rejected'): ?>
                     <button class="sub-btn rejected">Rejected</button>
+                <?php elseif ($competition['status'] === 'ended'): ?>
+                    <!-- Competition has ended but no winner selected yet -->
+                    <button class="sub-btn ended">Competition Ended</button>
                 <?php else: ?>
                     <div class="right-buttons">
                         <button class="edit-btn"
@@ -268,6 +271,7 @@
                         </button>
                     </div>
                 <?php endif; ?>
+
             </div>
         </div>
     </main>

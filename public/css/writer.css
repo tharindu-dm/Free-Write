@@ -1631,10 +1631,6 @@ label {
   margin-bottom: 0.5rem;
 }
 
-.quotes-section a{
-  left: 10rem;
-}
-
 /* Responsive Adjustments */
 @media (max-width: 768px) {
   .dashboard nav {

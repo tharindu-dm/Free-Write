@@ -274,11 +274,66 @@ class CompetitionController extends Controller
             exit;
         }
 
-        $this->view('publisher/viewStats', [
-            'compID' => $compID,
-            'competition' => $competitionDetails,
-            'entryData' => $entriesData
-        ]);
+        $userTable = new UserDetails();
+       
+$firstName = "No Winner";
+$secondName = "No Winner";
+$thirdName = "No Winner";
+
+
+if (!empty($competitionDetails['first_place_winner'])) {
+    $firstUser = $userTable->first(['user'=> $competitionDetails['first_place_winner']]);
+    
+    
+    if (!empty($firstUser) && !empty($firstUser['firstName'])) {
+        $firstName = $firstUser['firstName'];
+        
+      
+        if (!empty($firstUser['lastName'])) {
+            $firstName .= ' ' . $firstUser['lastName'];
+        }
+    }
+}
+
+
+if (!empty($competitionDetails['second_place_winner'])) {
+    $secondUser = $userTable->first(['user'=> $competitionDetails['second_place_winner']]);
+    
+    
+    if (!empty($secondUser) && !empty($secondUser['firstName'])) {
+        $secondName = $secondUser['firstName'];
+        
+        
+        if (!empty($secondUser['lastName'])) {
+            $secondName .= ' ' . $secondUser['lastName'];
+        }
+    }
+}
+
+
+if (!empty($competitionDetails['third_place_winner'])) {
+    $thirdUser = $userTable->first(['user'=> $competitionDetails['third_place_winner']]);
+    
+   
+    if (!empty($thirdUser) && !empty($thirdUser['firstName'])) {
+        $thirdName = $thirdUser['firstName'];
+        
+       
+        if (!empty($thirdUser['lastName'])) {
+            $thirdName .= ' ' . $thirdUser['lastName'];
+        }
+    }
+}
+
+
+$this->view('publisher/viewStats', [
+    'compID' => $compID,
+    'competition' => $competitionDetails,
+    'entryData' => $entriesData,
+    'firstName' => $firstName,
+    'secondName' => $secondName,
+    'thirdName' => $thirdName,
+]);
     }
 
     public function Test()

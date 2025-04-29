@@ -19,6 +19,7 @@ class DesignSubmissions
                     ds.title AS submissionTitle,
                     ds.status,
                     ds.competitionID,
+                    c.status AS compStatus,
                     ds.submissionID,
                     ds.covID,
                     ds.created_at

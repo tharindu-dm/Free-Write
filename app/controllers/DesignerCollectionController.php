@@ -125,7 +125,7 @@ class DesignerCollectionController extends Controller
             $collectionDetails->delete($collectionID, 'collectionID');
 
             // Redirect to dashboard after deletion
-            header('Location: /Free-Write/public/DesignerCollection/dashboard');
+            header('Location: /Free-Write/public/Designer/dashboard');
             exit;
         }
     }

@@ -289,14 +289,12 @@ class PaymentController extends Controller
         $start_date = $_POST['start_date'];
         $end_date = $_POST['end_date'];
         $contact_email = $_POST['contact_email'];
-        $advertisement_table = new Advertisement;
-        if (isset($_POST['adID'])) {
 
-            // $advertisement_table->insert($renewedData); 
+        if (isset($_POST['adID']) && !empty($_POST['adID'])) {
+            $advertisement_table = new Advertisement;
             $advertisement_table->delete($_POST['adID'], 'adID');
         }
 
-        // Handle image upload
         $adImage = $_POST['adImage'];
 
         $advertisement_table = new Advertisement;
@@ -330,24 +328,29 @@ class PaymentController extends Controller
 
         //
         // Log the POST data for debugging
-    error_log(print_r($_POST, true));
+        error_log(print_r($_POST, true));
 
-    $name = $_POST['name'] ?? null;
-    $username = $_POST['username'] ?? null;
-    $password = $_POST['password'] ?? null;
-    $subStartDate = $_POST['subStartDate'] ?? null;
-    $creator = $_POST['creator'] ?? null;
+        $name = $_POST['name'] ?? null;
+        $username = $_POST['username'] ?? null;
+        $password = $_POST['password'] ?? null;
+        $subStartDate = $_POST['subStartDate'] ?? null;
+        $creator = $_POST['creator'] ?? null;
 
-    // Log which fields are missing
-    $missing_fields = [];
-    if (empty($name)) $missing_fields[] = 'name';
-    if (empty($username)) $missing_fields[] = 'username';
-    if (empty($password)) $missing_fields[] = 'password';
-    if (empty($subStartDate)) $missing_fields[] = 'subStartDate';
-    if (empty($creator)) $missing_fields[] = 'creator';
-    if (!empty($missing_fields)) {
-        error_log("Missing fields: " . implode(", ", $missing_fields));
-    }
+        // Log which fields are missing
+        $missing_fields = [];
+        if (empty($name))
+            $missing_fields[] = 'name';
+        if (empty($username))
+            $missing_fields[] = 'username';
+        if (empty($password))
+            $missing_fields[] = 'password';
+        if (empty($subStartDate))
+            $missing_fields[] = 'subStartDate';
+        if (empty($creator))
+            $missing_fields[] = 'creator';
+        if (!empty($missing_fields)) {
+            error_log("Missing fields: " . implode(", ", $missing_fields));
+        }
         //
 
         if (($name != null) && ($username != null) && ($password != null) && ($subStartDate != null) && ($creator != null)) {

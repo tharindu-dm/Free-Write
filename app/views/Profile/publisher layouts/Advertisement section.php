@@ -29,7 +29,7 @@
                                         <a
                                             href="/Free-Write/public/Publisher/applyingAdvertisement/<?= htmlspecialchars($ad['adID']) ?>"><button
                                                 class="edit-btn">
-                                                <i class="fas fa-edit"></i> Edit
+                                                <i class="fas fa-edit"></i> Renew
                                             </button></a>
                                     <?php endif; ?>
                                     <?php if ($ad['status'] === 'active' || $ad['status'] === 'pending'): ?>

@@ -181,8 +181,9 @@ class DesignerCompetitionController extends Controller
         unset($_SESSION['competitionID']);
     }
 
-    public function deleteSubmission($submissionID)
+    public function deleteSubmission()
     {
+        $submissionID = splitURL()[2];
         $submissionModel = new DesignSubmissions();
 
         //fetch the submission details to get the image name

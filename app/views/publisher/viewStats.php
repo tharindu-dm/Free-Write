@@ -538,7 +538,7 @@
                         <div class="winner-badge">1st Place</div>
                         <div class="winner-details">
                             <?php if (isset($competition['first_place_winner'])): ?>
-                                <h3><?php echo htmlspecialchars($competition['first_place_winner'] ?? 'Not Announced Yet'); ?>
+                                <h3><?php echo htmlspecialchars($firstName ?? 'Not Announced Yet'); ?>
                                 </h3>
                                 <p class="entry-title">
                                     <?php echo htmlspecialchars($competition['first_place_entry_title'] ?? ''); ?>
@@ -580,7 +580,7 @@
                         <div class="winner-badge">2nd Place</div>
                         <div class="winner-details">
                             <?php if (isset($competition['second_place_winner'])): ?>
-                                <h3><?php echo htmlspecialchars($competition['second_place_winner'] ?? 'Not Announced Yet'); ?>
+                                <h3><?php echo htmlspecialchars($secondName ?? 'Not Announced Yet'); ?>
                                 </h3>
                                 <p class="entry-title">
                                     <?php echo htmlspecialchars($competition['second_place_entry_title'] ?? ''); ?>
@@ -622,7 +622,7 @@
                         <div class="winner-badge">3rd Place</div>
                         <div class="winner-details">
                             <?php if (isset($competition['third_place_winner'])): ?>
-                                <h3><?php echo htmlspecialchars($competition['third_place_winner'] ?? 'Not Announced Yet'); ?>
+                                <h3><?php echo htmlspecialchars($thirdName ?? 'Not Announced Yet'); ?>
                                 </h3>
                                 <p class="entry-title">
                                     <?php echo htmlspecialchars($competition['third_place_entry_title'] ?? ''); ?>
@@ -659,7 +659,9 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary" id="announce-winners-btn">Announce Winners</button>
+                <?php if($firstName=='No Winner'): ?>
+                <button type="submit" class="btn btn-primary" id="announce-winners-btn" disable>Announce Winners</button>
+                <?php endif; ?>
                 <?php if ($competition['status'] === 'ended'): ?>
                     <p class="announcement-message">You cant select winners before competition finish</p>
                 <?php endif; ?>
@@ -679,7 +681,7 @@
                             <th>Submission Date</th>
                             <th>Status</th>
                             <th>Actions</th>
-                            <th>Review</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -698,7 +700,7 @@
                                     <a href="/Free-Write/public/Book/Overview/<?= htmlspecialchars($entryData['bookID'] ?? '') ?>"
                                         class="view-btn">View Book</a>
                                 </td>
-                                <td><button>Reviewed</button></td>
+                                
                             </tr>
                         <?php else: ?>
                             <!-- Multiple entries display -->
@@ -716,14 +718,7 @@
                                         <a href="/Free-Write/public/Book/Overview/<?= htmlspecialchars($entry['bookID'] ?? '') ?>"
                                             class="view-btn">View Book</a>
                                     </td>
-                                    <?php if ($entry['status'] === 'submitted'): ?>
-                                        <td>
-                                            <a href="/Free-Write/public/Competition/updatestatus/<?= htmlspecialchars($entry['entryID']) ?>"
-                                                class="reviewed-btn">
-                                                ✅ Reviewed
-                                            </a>
-                                        </td>
-                                    <?php endif; ?>
+                                  
 
 
                                 </tr>
@@ -782,7 +777,7 @@
                 const competitionStatus = '<?php echo strtolower($competition['status']); ?>';
 
                 // Enable button only if all selections are made and no duplicates
-                announceBtn.disabled = !allSelected || hasDuplicate || competitionStatus !== 'completed';
+                announceBtn.disabled = !allSelected || hasDuplicate || competitionStatus !== 'completed' ;
 
             }
 

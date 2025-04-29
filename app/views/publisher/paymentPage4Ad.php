@@ -77,7 +77,7 @@
                         <input type="hidden" name="end_date" value="<?= htmlspecialchars($adDetails['endDate'] ?? '') ?>">
                         <input type="hidden" name="contact_email" value="<?= htmlspecialchars($adDetails['contactEmail'] ?? '') ?>">
                         <input type="hidden" name="adImage" value="<?= htmlspecialchars($adDetails['adImage'] ?? '') ?>">
-                        <input type="hidden" name="adID" value="<?= htmlspecialchars($adID ?? '') ?>">
+                        <input type="hidden" name="adID" value="<?= htmlspecialchars($data['adId'] ?? '') ?>">
 
                         <div id="cardValidation"></div>
                         <button type="submit">Pay Now</button>

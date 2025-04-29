@@ -50,7 +50,12 @@
                                     <tr>
                                         <td><?= htmlspecialchars($comp['competitionName']) ?></td>
                                         <td><?= htmlspecialchars($comp['submissionTitle']) ?></td>
-                                        <td><?= htmlspecialchars($comp['status']) ?></td>
+                                        <?php if ($comp['compStatus'] == 'ended'): ?>
+                                            <td>Ended</td>
+                                        <?php else: ?>
+                                            <td><?= htmlspecialchars(ucfirst($comp['status'])) ?></td>
+                                        <?php endif; ?>
+
                                         <td>
                                             <div class="competition-actions">
                                                 <a href="/Free-Write/public/DesignerCompetition/editSubmission/<?= htmlspecialchars($comp['submissionID']) ?>" 

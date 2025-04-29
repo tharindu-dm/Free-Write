@@ -251,7 +251,7 @@
 
                     <button type="submit" class="submit-btn">Submit Advertisement</button>
                     <button type="button" class="cancel-btn"
-                        onclick="location.href='/Free-Write/public/Advertisement/'">Cancel</button>
+                        onclick="location.href='/Free-Write/public/user/Profile'">Cancel</button>
                 </form>
             </div>
         <?php else: ?>
@@ -291,7 +291,7 @@
 
                     <button type="submit" class="submit-btn">Submit Advertisement</button>
                     <button type="button" class="cancel-btn"
-                        onclick="location.href='/Free-Write/public/Advertisement/'">Cancel</button>
+                        onclick="location.href='/Free-Write/public/user/Profile'">Cancel</button>
                 </form>
             </div>
         <?php endif; ?>
