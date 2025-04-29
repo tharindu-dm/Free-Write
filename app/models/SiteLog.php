@@ -2,9 +2,9 @@
 
 class SiteLog
 {
-    use Model; // Use the Model trait
+    use Model; 
 
-    protected $table = 'SiteLog'; //when using the Model trait, this table name ise used 
+    protected $table = 'SiteLog';  
 
     public function todayLogs()
     {
@@ -29,7 +29,6 @@ class SiteLog
 
         $query .= " CAST([occurrence] AS DATE) = '" . $date . "'";
 
-        //show($query);
         return $this->query( $query);
     }
 }

@@ -1,5 +1,5 @@
 <?php
-require_once "../app/controllers/UserController.php"; //since this "navigation bar" contain login button
+require_once "../app/controllers/UserController.php";
 ?>
 
 <!DOCTYPE html>

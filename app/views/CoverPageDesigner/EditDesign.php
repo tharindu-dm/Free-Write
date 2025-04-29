@@ -18,21 +18,18 @@
         <form id="create-design-form" method="POST" enctype="multipart/form-data"
             action="<?= isset($design) ? "/Free-Write/public/Designer/edit/{$design['covID']}" : "/Free-Write/public/Designer/createCover" ?>">
 
-            <!-- Title -->
             <div class="form-group form-group-highlight">
                 <label for="title">Title <span style="color:red">*</span></label>
                 <input type="text" id="title" name="title" placeholder="Enter a title for your design"
                     value="<?= htmlspecialchars($design['name'] ?? '') ?>" required>
             </div>
 
-            <!-- Optional: Description -->
             <div class="form-group">
                 <label for="description">Description (optional)</label>
                 <textarea id="description" name="description" placeholder="Describe your design"
                     rows="4"><?= htmlspecialchars($design['description'] ?? '') ?></textarea>
             </div>
 
-            <!-- Cover Image File Input -->
             <div class="form-group">
                 <label for="coverImage">Cover Image <span
                         style="color:red"><?= isset($design) ? '(Leave blank to keep current image)' : '*' ?></span></label>
@@ -45,7 +42,6 @@
                     </div>
                 </div>
 
-                <!-- Image Preview Area -->
                 <div class="image-preview">
                     <img id="preview-img" src="#" alt="Preview">
                 </div>
@@ -58,10 +54,8 @@
                 <?php endif; ?>
             </div>
 
-            <!-- Hidden input to send logged-in designer's ID -->
             <input type="hidden" name="designer_id" value="<?= $_SESSION['user_id'] ?? '' ?>">
 
-            <!-- Submit and Cancel Buttons -->
             <div class="button-group">
                 <button type="submit" id="create-btn"><?= isset($design) ? 'Save Changes' : 'Create Design' ?></button>
                 <?php if (isset($design)): ?>

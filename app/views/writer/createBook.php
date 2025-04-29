@@ -10,10 +10,9 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    
+
     ?>
 
-    <!-- Main Content -->
     <main>
         <div class="book-section">
 
@@ -27,14 +26,18 @@
                     <div class="book-info">
                         <div class="input-group">
                             <label for="title">Title</label>
-                            <input type="text" id="title" name="title" placeholder="Enter a title for your story" required maxlength="50">
-                            <small id="title-warning" style="color: red; display: none;">Maximum 45 characters allowed.</small>
+                            <input type="text" id="title" name="title" placeholder="Enter a title for your story"
+                                required maxlength="50">
+                            <small id="title-warning" style="color: red; display: none;">Maximum 45 characters
+                                allowed.</small>
                         </div>
 
                         <div class="input-group">
                             <label for="synopsis">Synopsis</label>
-                            <textarea id="Synopsis" name="Synopsis" placeholder="Enter a Synopsis" required maxlength="300"></textarea>
-                            <small id="synopsis-warning" style="color: red; display: none;">Maximum 255 characters allowed.</small>
+                            <textarea id="Synopsis" name="Synopsis" placeholder="Enter a Synopsis" required
+                                maxlength="300"></textarea>
+                            <small id="synopsis-warning" style="color: red; display: none;">Maximum 255 characters
+                                allowed.</small>
                         </div>
 
 
@@ -80,7 +83,6 @@
 
 
                     </div>
-                    <!-- Right: Cover Image -->
                     <div class="book-cover">
                         <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.png'); ?>"
                             alt="Cover Image of <?= htmlspecialchars($book['title']); ?>">
@@ -88,7 +90,6 @@
                     </div>
                 </div>
 
-                <!-- Buttons -->
                 <div class="right-buttons">
                     <button type="button" class="edit-btn cancel-btn" onclick="window.history.back();">Back</button>
                     <button type="submit" class="create-btn">Create</button>
@@ -97,9 +98,7 @@
 
     </main>
 
-    <!-- Footer -->
     <?php
-    // Including the footer
     require_once "../app/views/layout/footer.php";
     ?>
 

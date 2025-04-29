@@ -11,7 +11,7 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    
+
     ?>
 
     <main>
@@ -48,7 +48,6 @@
                                 <td>
                                     <?php
                                     $modResponse = $feedback['isRead'] ?? '';
-                                    // Display truncated version in the table
                                     echo ($modResponse) ? 'Read' : 'Unread';
                                     ?>
                                     <span style="display:none;"><?= htmlspecialchars($modResponse) ?></span>
@@ -113,10 +112,8 @@
 
             for (let item of navItems) {
                 item.addEventListener('click', function () {
-                    // Get the href from data-href attribute
                     const href = this.getAttribute('data-href');
 
-                    // Redirect to the specified URL
                     if (href) {
                         window.location.href = href;
                     }

@@ -73,7 +73,6 @@
                 <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($design['license']) ?>"
                   alt="<?= htmlspecialchars($design['name']) ?>">
                 <h3><?= htmlspecialchars($design['name']) ?></h3>
-                <!-- <p>Rating: <?//= isset($design['rating']) ? number_format($design['rating'], 2) : '0.00' ?></p> -->
               </a>
             </div>
           <?php endforeach; ?>

@@ -153,7 +153,6 @@
             border-radius: 4px;
         }
 
-        /* Style for form inputs when editing */
         .book-info.editing .editable-input {
             width: 100%;
             padding: 5px;
@@ -162,7 +161,6 @@
             font-size: 14px;
         }
 
-        /* Hide text elements when editing, show inputs */
         .book-info.editing .editable-text {
             display: none;
         }
@@ -244,7 +242,6 @@
                             <p>
                                 By <span
                                     class="editable editable-text"><?= htmlspecialchars($bookDetails['author_name'] ?? 'Unknown', ENT_QUOTES, 'UTF-8') ?></span>
-                                <!-- Author is already in the header, so no need for a separate input here -->
                             </p>
                         </div>
                         <div class="column">
@@ -283,9 +280,6 @@
     </div>
 
     <script>
-        // Store original values to revert on cancel
-
-
         let originalValues = {};
 
         function toggleEditMode() {
@@ -329,7 +323,6 @@
             }
         }
 
-        // Handle form submission
         document.getElementById('book-details-form').addEventListener('submit', function (event) {
             event.preventDefault();
             const formData = new FormData(this);

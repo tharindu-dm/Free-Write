@@ -8,24 +8,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (profileEditBtn && overlay) {
     profileEditBtn.addEventListener("click", (e) => {
-      e.preventDefault(); // Prevent the default action
+      e.preventDefault();
 
       overlay.style.display = overlay.style.display != "flex" ? "flex" : "none";
     });
 
-    // Close the overlay when the cancel/discard button is clicked
     cancelOverlayBtn.addEventListener("click", (e) => {
-      e.preventDefault(); // Prevent the default action
+      e.preventDefault();
 
       overlay.style.display = "none";
     });
     cancelBtn.addEventListener("click", (e) => {
-      e.preventDefault(); // Prevent the default action
+      e.preventDefault();
 
       overlay.style.display = "none";
     });
 
-    /* Edit profile front-end validation */
 
     editForm.addEventListener("submit", (e) => {
       function validateAge() {
@@ -50,9 +48,8 @@ document.addEventListener("DOMContentLoaded", () => {
         return true;
       }
 
-      // Validation
       if (!validateAge()) {
-        e.preventDefault(); // Prevent form submission
+        e.preventDefault();
         return;
       }
 
@@ -60,37 +57,34 @@ document.addEventListener("DOMContentLoaded", () => {
       const lastName = document.getElementById("lastName");
       const nameRegex = /^[A-Za-z\s]+$/;
 
-      //Full name format check
       if (!nameRegex.test(firstName.value.trim())) {
         alert("First name can only contain letters and spaces");
         firstName.focus();
-        e.preventDefault(); // Prevent form submission
+        e.preventDefault();
         return;
       }
 
       if (!nameRegex.test(lastName.value.trim())) {
         alert("Last name can only contain letters and spaces");
         lastName.focus();
-        e.preventDefault(); // Prevent form submission
+        e.preventDefault();
         return;
       }
 
-      //bio length check
       const bio = document.getElementById("bio");
       if (bio.value.trim().length > 255) {
         alert("Bio cannot exceed 255 characters");
         bio.focus();
-        e.preventDefault(); // Prevent form submission
+        e.preventDefault();
         return;
       }
 
-      //email validation
       const email = document.getElementById("email");
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email.value.trim())) {
         alert("Please enter a valid email address");
         email.focus();
-        e.preventDefault(); // Prevent form submission
+        e.preventDefault();
         return;
       }
     });

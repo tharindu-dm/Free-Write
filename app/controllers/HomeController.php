@@ -4,7 +4,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // Start the session if it's not already started
+
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
@@ -16,7 +16,7 @@ class HomeController extends Controller
             ($ad) ? $_SESSION['user_ads'] = $ad['adImage'] : null;
         }
 
-        $this->view("home"); //calling the view function in /includes/Controller.php to view the homepage
+        $this->view("home");
     }
 
     public function About()
@@ -41,14 +41,14 @@ class HomeController extends Controller
 
     public function SendFeedback()
     {
-        //validation and checking:
+
         $feedback = new Feedback();
 
         $content = $_POST['feedback'] ?? '';
         $contact = $_POST['contact'] ?? 'not provided';
         $recommendation = $_POST['recommend'] ?? '';
 
-        //VALIDATIONS
+
         $message = "-body: " . $content . " -Recommendation:" . $recommendation . "";
 
         if (strlen($message) > 600) {

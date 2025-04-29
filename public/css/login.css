@@ -51,7 +51,6 @@
   color: #000;
 }
 
-/*FORM SECTIONS*/
 .two-forms-container {
   min-height: max-content;
 }
@@ -134,7 +133,6 @@ button {
   color: #333;
 }
 
-/*Login failed Styles*/
 .overlay {
   display: none;
   position: fixed;
@@ -203,7 +201,6 @@ button {
   color: #333;
 }
 
-/* login faield Animation */
 .overlay.show {
   display: flex;
   animation: fadeIn 0.3s ease-in-out;

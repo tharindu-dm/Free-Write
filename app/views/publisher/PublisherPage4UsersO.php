@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Publishers UI</title>
     <style>
-        /* Publishers Section */
         .publishers-section {
             max-width: 1200px;
             margin: 0 auto;

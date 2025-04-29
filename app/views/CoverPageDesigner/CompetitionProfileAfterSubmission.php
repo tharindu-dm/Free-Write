@@ -1,4 +1,4 @@
-<!-- filepath: c:\xampp\htdocs\Free-Write\app\views\publisher\CompetitionProfileAfterSubmission.php -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -74,13 +74,11 @@
         </div>
 
         <div class="actions">
-            <!-- Edit Submission Button -->
             <form action="/Free-Write/public/DesignerCompetition/editSubmission" method="GET">
                 <input type="hidden" name="submissionID" value="<?= htmlspecialchars($submission['submissionID']) ?>">
                 <button type="submit" class="edit-btn">Edit Submission</button>
             </form>
 
-            <!-- Delete Submission Button -->
             <form action="/Free-Write/public/DesignerCompetition/deleteSubmission" method="POST" onsubmit="return confirm('Are you sure you want to delete this submission?');">
                 <input type="hidden" name="submissionID" value="<?= htmlspecialchars($submission['submissionID']) ?>">
                 <button type="submit" class="delete-btn">Delete Submission</button>

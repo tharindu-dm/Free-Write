@@ -14,7 +14,6 @@
         <?php require_once "../app/views/CoverPageDesigner/sidebar.php"; ?>
 
         <section class="main-content">
-            <!-- profile section -->
             <section class="user-profile">
                 <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>"
                     alt="Profile Picture" class="profile-picture">
@@ -27,7 +26,6 @@
                 <a href="#" class="active">Competitions</a>
             </nav>
 
-            <!-- Competition Content Section -->
             <section class="competitions">
                 <div class="competitions-header">
                     <h2>Your Joined Competitions</h2>

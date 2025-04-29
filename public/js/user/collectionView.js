@@ -1,22 +1,16 @@
-// Modal functionality
 document.addEventListener("DOMContentLoaded", function () {
-  // Get modal elements
   const editModal = document.getElementById("editModal");
   const deleteModal = document.getElementById("deleteModal");
 
-  // Get buttons
   const editBtn = document.querySelector(".btn-edit");
   const deleteBtn = document.querySelector(".btn-delete");
   const cancelBtns = document.querySelectorAll(".btn-cancel");
 
-  // Make sure we have the current collection ID
   const collectionID = document.querySelector(
     'input[name="collectionID"]'
   ).value;
 
-  // Open edit modal
   editBtn.addEventListener("click", function () {
-    // Ensure the form has the collection ID
     const editForm = editModal.querySelector("form");
     if (!editForm.querySelector('input[name="id"]')) {
       const idInput = document.createElement("input");
@@ -26,7 +20,6 @@ document.addEventListener("DOMContentLoaded", function () {
       editForm.appendChild(idInput);
     }
 
-    // Set the correct status option as selected
     const currentStatus = document
       .querySelector(".collection-status")
       .classList.contains("public")
@@ -43,21 +36,18 @@ document.addEventListener("DOMContentLoaded", function () {
     editModal.style.display = "flex";
   });
 
-  // Open delete modal
   deleteBtn.addEventListener("click", function () {
     deleteModal.style.display = "flex";
   });
 
-  // Close modals when clicking cancel buttons
   cancelBtns.forEach((btn) => {
     btn.addEventListener("click", function (e) {
-      e.preventDefault(); // Prevent form submission
+      e.preventDefault();
       editModal.style.display = "none";
       deleteModal.style.display = "none";
     });
   });
 
-  // Close modals when clicking outside
   window.addEventListener("click", function (event) {
     if (event.target === editModal) {
       editModal.style.display = "none";
@@ -67,7 +57,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Form validation
   const editForm = document.querySelector("#editModal form");
   editForm.addEventListener("submit", function (event) {
     const titleInput = document.getElementById("collectionTitle");
@@ -76,10 +65,8 @@ document.addEventListener("DOMContentLoaded", function () {
       alert("Collection title cannot be empty");
       titleInput.focus();
     }
-    // Form will submit normally if validation passes
   });
 
-  // Confirm delete action
   const deleteForm = document.querySelector("#deleteModal form");
   deleteForm.addEventListener("submit", function (event) {
     if (
@@ -89,6 +76,5 @@ document.addEventListener("DOMContentLoaded", function () {
     ) {
       event.preventDefault();
     }
-    // Form will submit normally if confirmed
   });
 });

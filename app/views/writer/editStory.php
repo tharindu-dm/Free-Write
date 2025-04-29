@@ -11,13 +11,11 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    
+
     ?>
 
-    <!-- Writing Section -->
     <form action="/Free-Write/public/Writer/UpdateChapter" method="POST" enctype="multipart/form-data">
         <main class="writing-section">
-            <!-- Title -->
             <div class="space_between">
                 <h1 class="story-title">
                     <?php
@@ -32,14 +30,12 @@
                 <?php endif; ?>
             </div>
 
-            <!-- Chapter Name -->
             <div class="text-editor">
                 <textarea id="story-editor-chapter" name="story-editor-chapter"
                     placeholder="Chapter Name"><?= htmlspecialchars($chapter['ChapterTitle'] ?? 'Untitled') ?></textarea>
-                    <small id="title-warning" style="color: red; display: none;">Maximum 45 characters allowed.</small>
+                <small id="title-warning" style="color: red; display: none;">Maximum 45 characters allowed.</small>
             </div>
 
-            <!-- Story Editor -->
             <div class="text-editor">
                 <textarea id="story-editor" name="story-editor"
                     placeholder="Type your text..."><?= htmlspecialchars($chapter['ChapterContent'] ?? '') ?></textarea>
@@ -51,7 +47,6 @@
             </div>
 
 
-            <!-- Action Buttons -->
 
 
             <div class="button-container">
@@ -69,10 +64,9 @@
 
             <?php if (isset($chapter['chapterID'])): ?>
                 <input type="hidden" name="chapterID" value="<?= $chapter['chapterID'] ?>">
-               
+
             <?php endif; ?>
     </form>
-    <!-- Delete Overlay -->
     <div class="deleteOverlay-container">
         <div class="deleteOverlay">
             <h2>Are you sure you want to delete this Chapter?</h2>
@@ -89,7 +83,6 @@
                 </main>
             </form>
 
-            <!-- Footer -->
             <?php
             require_once "../app/views/layout/footer.php";
             ?>
@@ -104,13 +97,11 @@
                         return;
                     }
 
-                    // Show delete confirmation
                     deleteCompBtn.addEventListener("click", (e) => {
                         e.preventDefault();
                         deleteOverlay.style.display = "flex";
                     });
 
-                    // Hide delete confirmation
                     cancelDeleteBtn.addEventListener("click", (e) => {
                         e.preventDefault();
                         deleteOverlay.style.display = "none";

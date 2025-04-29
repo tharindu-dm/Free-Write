@@ -7,13 +7,6 @@
     <title>Free Write - <?= htmlspecialchars($design['name']) ?></title>
     <link rel="stylesheet" href="/Free-Write/public/css/ViewCoverPage.css">
     <style>
-        /* Enhanced Cover Page View Styles */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f9f9f9;
-            color: #333;
-            line-height: 1.6;
-        }
 
         main {
             max-width: 1200px;
@@ -199,7 +192,6 @@
             color: #333;
         }
 
-        /* Responsive adjustments */
         @media (max-width: 768px) {
             .cover-page-container {
                 flex-direction: column;
@@ -278,7 +270,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const stars = document.querySelectorAll('.star');
             const covIDInput = document.getElementById('covID');
-            if (!stars.length || !covIDInput) return; // Only run if stars exist
+            if (!stars.length || !covIDInput) return; 
 
             const covID = covIDInput.value;
             let selectedRating = 0;
@@ -305,13 +297,13 @@
                                 document.getElementById(`average-rating-${covID}`).innerHTML =
                                     `<strong>Average Rating:</strong> ${parseFloat(data.newAverageRating).toFixed(1)}/5.0`;
 
-                                // Add a success notification
+                                
                                 const notification = document.createElement('div');
                                 notification.textContent = 'Rating submitted successfully!';
                                 notification.style.cssText = 'position:fixed; top:20px; right:20px; background:#d4edda; color:#155724; padding:1rem; border-radius:0.5rem; box-shadow:0 4px 10px rgba(0,0,0,0.2); z-index:1000;';
                                 document.body.appendChild(notification);
 
-                                // Remove notification after 3 seconds
+                                
                                 setTimeout(() => {
                                     notification.style.opacity = '0';
                                     notification.style.transition = 'opacity 0.5s ease';

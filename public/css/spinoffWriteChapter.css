@@ -114,7 +114,6 @@ textarea {
 }
 
 
-/** OVERLAY STYLES **/
 .delete_spinoff_chapter_overlay,
 .discard_spinoff_chapter_overlay
 {  
@@ -179,7 +178,6 @@ textarea {
   background-color: #d0d0d0;
 }
 
-/* To show the overlay, add these classes */
 .overlay-container.active {
   display: flex;
 }

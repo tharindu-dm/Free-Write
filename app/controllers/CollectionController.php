@@ -16,7 +16,6 @@ class CollectionController extends Controller
         $collectionData = $collection->first(['collectionID' => $collectionID]);
         $books = $collectionBook->getBooksInCollection($collectionID);
 
-        //checking privacy
         if ($collectionData['isPublic'] == '0') {
             if (!isset($_SESSION['user_id']) || $collectionData['user'] != $_SESSION['user_id']) {
                 $this->view('error');
@@ -52,7 +51,7 @@ class CollectionController extends Controller
         $description = $_POST['collectionDescription'] ?? null;
         $isPublic = $_POST['collectionStatus'] ?? null;
 
-        if (strlen($title) > 45 || strlen($description) > 255) { //checking for max length - if exceeded, redirect back to collection
+        if (strlen($title) > 45 || strlen($description) > 255) { 
             header('Location: /Free-Write/public/Collection/viewCollection/' . $collectionID);
             return;
         }

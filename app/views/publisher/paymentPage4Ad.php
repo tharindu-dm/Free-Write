@@ -60,18 +60,13 @@
                         <div class="exp-cvv-container">
                             <select required name="expMonth" id="expMonth">
                                 <option value="">Month</option>
-                                <!-- Months will be populated dynamically using JS -->
                             </select>
                             <select required name="expYear" id="expYear">
                                 <option value="">Year</option>
-                                <!-- Years will be populated dynamically using JS upto 10 years form now-->
                             </select>
                             <input type="password" required name="cvv" id="cvv" placeholder="CVV" maxlength="4">
                         </div>
-
-                        <!-- <label for="saveCard" style="display: flex; align-items: center;">
-                            <input type="checkbox" name="saveCard" value="yes">&nbsp;Save Card for future payments
-                        </label>-->
+                        
                         <input type="hidden" name="advertisementType" value="<?= htmlspecialchars($adDetails['advertisementType'] ?? '') ?>">
                         <input type="hidden" name="start_date" value="<?= htmlspecialchars($adDetails['startDate'] ?? '') ?>">
                         <input type="hidden" name="end_date" value="<?= htmlspecialchars($adDetails['endDate'] ?? '') ?>">

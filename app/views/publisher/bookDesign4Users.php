@@ -7,23 +7,6 @@
     <title>bookDesignForUsers</title>
 
     <style>
-        /* Reset and base styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: #F5F0E5;
-            font-family: 'Inter', Arial, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            line-height: 1.6;
-        }
-
-        /* Container styles */
         .book-container {
             display: flex;
             gap: 60px;
@@ -36,7 +19,7 @@
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
         }
 
-        /* Book image styles */
+
         .book-image {
             flex: 0 0 400px;
             position: sticky;
@@ -58,7 +41,7 @@
             transform: scale(1.02);
         }
 
-        /* Book info styles */
+
         .book-info {
             flex: 1;
             max-width: 800px;
@@ -77,7 +60,7 @@
             margin-bottom: 24px;
         }
 
-        /* Price and rating section */
+
         .price-rating {
             display: flex;
             align-items: center;
@@ -110,7 +93,7 @@
             font-size: 0.95rem;
         }
 
-        /* Availability badge */
+
         .availability-badge {
             display: inline-block;
             background-color: #22c55e;
@@ -122,7 +105,7 @@
             margin: 16px 0;
         }
 
-        /* Details section */
+
         .details {
             margin: 40px 0;
             background-color: #f8fafc;
@@ -164,7 +147,7 @@
             margin-bottom: 8px;
         }
 
-        /* Button styles */
+
         .resButton,
         .buyButton {
             padding: 16px 48px;
@@ -197,7 +180,7 @@
             transform: translateY(-2px);
         }
 
-        /* Popup styles */
+
         .popup-container {
             display: none;
             position: fixed;
@@ -278,7 +261,7 @@
             align-items: center;
         }
 
-        /* Responsive design */
+
         @media (max-width: 1200px) {
             .book-container {
                 width: 95%;
@@ -438,10 +421,8 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Set initial value
             document.getElementById('cart-quantity').value = document.getElementById('quantity').value;
 
-            // Update hidden input when quantity changes
             document.getElementById('quantity').addEventListener('change', function () {
                 document.getElementById('cart-quantity').value = this.value;
             });

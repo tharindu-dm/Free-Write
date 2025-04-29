@@ -2,9 +2,9 @@
 
 class BuyBook
 {
-    use Model; // Use the Model trait
+    use Model; 
 
-    protected $table = 'BuyBook'; //when using the Model trait, this table name ise used 
+    protected $table = 'BuyBook'; 
     protected $dateTimeColumn = 'purchaseDateTime';
     
     public function getBoughtBooks($uid)

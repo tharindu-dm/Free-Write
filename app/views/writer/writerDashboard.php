@@ -16,7 +16,6 @@
 
     <main>
         <div class="dashboard">
-            <!-- Profile Section -->
             <div class="profile-section">
                 <div class="profile-image">
                     <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>"
@@ -38,10 +37,8 @@
                 <?php endif; ?>
             </div>
 
-            <!-- Navigation for Writer Options -->
             <?php require_once "../app/views/writer/writerNav.php"; ?>
 
-            <!-- Books Section -->
 
             <div class="books-section" id="books">
                 <div class="space_between">
@@ -49,7 +46,6 @@
                         <h2 style="border-bottom: #ffd700 2px solid;">My Books</h2>
                     <?php endif; ?>
 
-                    <!-- Button to Add New Book -->
                     <?php if (isset($_SESSION['user_id']) && ($userDetails['user'] == $_SESSION['user_id'])): ?>
                         <div>
                             <a href="/Free-Write/public/Writer/New" class="button-new">+ New</a>
@@ -57,7 +53,6 @@
                     <?php endif; ?>
                 </div>
 
-                <!-- Books List for author-->
                 <?php if (isset($_SESSION['user_id']) && ($userDetails['user'] == $_SESSION['user_id'])): ?>
                     <div class="books-grid">
                         <?php if (!empty($MyBooks) && is_array($MyBooks)): ?>
@@ -89,7 +84,6 @@
                     </div>
                 <?php else: ?>
 
-                    <!-- Most Viewed Books Section -->
                     <div>
                         <h2 class="section-title">Most Viewed</h2>
                         <div class="books-grid">
@@ -121,7 +115,6 @@
                         </div>
                     </div>
 
-                    <!-- Rated Section -->
                     <div>
                         <h2 class="section-title">Highest Rated</h2>
                         <div class="books-grid">
@@ -129,8 +122,9 @@
                             if (!empty($Rated) && is_array($Rated)):
                                 foreach ($Rated as $index => $book):
                                     if ($index >= 5)
-                                        break; // Only show 5 books
-                                    ?><a href="/Free-Write/public/Book/Overview/<?= htmlspecialchars($book['bookID']); ?>">
+                                        break;
+                                    ?><a
+                                        href="/Free-Write/public/Book/Overview/<?= htmlspecialchars($book['bookID']); ?>">
                                         <div class="book-card">
                                             <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['coverImage'] ?? 'sampleCover.png'); ?>"
                                                 alt="Cover Image of <?= htmlspecialchars($book['title']); ?>">
@@ -166,9 +160,7 @@
         </div>
     </main>
 
-    <!-- Footer Section -->
     <?php
-    // Including the footer
     require_once "../app/views/layout/footer.php";
     ?>
 

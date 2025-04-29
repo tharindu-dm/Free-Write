@@ -63,7 +63,7 @@ class SpinoffController extends Controller
 
     public function ChapEdit()
     {
-        //get spinoff content and the new writing page view values should be setted $spinoffID = $_GET['spinoff'];
+
         $chapID = splitURL()[2];
         $Chapter = new Chapter();
         $spinoff = new Spinoff();
@@ -80,7 +80,7 @@ class SpinoffController extends Controller
 
     public function deleteChap()
     {
-        //delete the chapter
+
         $Chapter = new Chapter();
         $spinoffChapter = new SpinoffChapter();
 
@@ -145,7 +145,7 @@ class SpinoffController extends Controller
     }
 
     public function Chapter($chapterID = 0)
-    { //read the spinoff chapter
+    {
 
         $URL = splitURL();
 
@@ -153,7 +153,7 @@ class SpinoffController extends Controller
             $this->view('error');
         }
         if ($chapterID < 1 || !is_numeric($chapterID))
-            $chapterID = $URL[2]; //get the chapter id from the url
+            $chapterID = $URL[2];
 
         $chapter = new Chapter();
         $spinoffchap = new SpinoffChapter();
@@ -180,11 +180,11 @@ class SpinoffController extends Controller
 
     public function deleteSpinoff()
     {
-        //remove spinoff chapters from spinoffchapters, comments then chapters, then spinoff
+
 
         $spinoffChapter = new SpinoffChapter();
-        //$spinoffComment = new Comment(); -handled by trigger
-        //$Chapter = new Chapter(); -handled by trigger
+
+
         $spinoff = new Spinoff();
 
         $spinoffID = $_POST['spinoffID'];

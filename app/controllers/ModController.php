@@ -3,7 +3,7 @@ class ModController extends Controller
 {
     public function index()
     {
-        //echo "this is the Mod Controller\n";
+
         $this->checkLoggedUser();
         header('location: /Free-Write/public/Mod/Dashboard');
     }
@@ -32,7 +32,7 @@ class ModController extends Controller
 
         if (!empty($whereParams) && empty($_GET['logdate'])) {
             $logs = $modlog->where($whereParams);
-            //show($whereParams);
+
         }
 
         if (!empty($_GET['logdate'])) {
@@ -61,7 +61,7 @@ class ModController extends Controller
         $this->checkLoggedUser();
         $notification = new Notification();
 
-        // Validate subject length (max 45 characters)
+
         $subject = trim($_POST['subject'] ?? '');
         if (strlen($subject) > 45) {
             die("Error: Subject must be 45 characters or less.");
@@ -70,25 +70,25 @@ class ModController extends Controller
         $description = trim($_POST['description'] ?? '');
         $datetime = date('Y-m-d H:i:s');
 
-        // Ensure roles are received properly
+
         if (!isset($_POST['roles']) || !is_array($_POST['roles'])) {
             die("Error: No roles selected.");
         }
 
         $roles = $_POST['roles'];
 
-        // Allowed roles
+
         $validRoles = ['mod', 'reader', 'writer', 'covdes', 'inst', 'pub', 'courier'];
 
-        // Validate roles and filter out invalid ones
+
         $filteredRoles = array_intersect($roles, $validRoles);
 
-        // If both writer & covdes exist, ensure wricov is added
+
         if (in_array('writer', $filteredRoles) && in_array('covdes', $filteredRoles)) {
             $filteredRoles[] = 'wricov';
         }
 
-        // Convert array to comma-separated string
+
         $userTypes = implode(',', array_unique($filteredRoles));
 
         if (empty($userTypes)) {
@@ -102,12 +102,12 @@ class ModController extends Controller
             'userTypes' => $userTypes
         ];
 
-        // Insert into database
+
         $notification->insert($notify_data);
 
         header('location: /Free-Write/public/Mod/Dashboard');
 
-        // Relevant users will be notified by a database trigger
+
     }
 
     public function siteLogs()
@@ -126,7 +126,7 @@ class ModController extends Controller
 
         if (!empty($whereParams) && empty($_GET['logdate'])) {
             $logs = $sitelog->where($whereParams);
-            //show($whereParams);
+
         }
 
         if (!empty($_GET['logdate'])) {
@@ -141,7 +141,7 @@ class ModController extends Controller
         $this->view('moderator/adminSiteLogs', $logs);
     }
 
-    //USER MANAGEMENT
+
     public function Users()
     {
         $this->checkLoggedUser();
@@ -151,7 +151,7 @@ class ModController extends Controller
         $this->view('moderator/modUserManagement', ['users' => $users]);
     }
 
-    //user management search
+
     public function Search()
     {
         $this->checkLoggedUser();
@@ -167,17 +167,17 @@ class ModController extends Controller
             header('location: /Free-Write/public/Mod/Users');
         }
 
-        // Check if the search input is set in POST or GET
+
         $input = '';
         if (isset($_POST['searchInput'])) {
             $input = $_POST['searchInput'];
         } else if (isset($_GET['user'])) {
             $input = $_GET['user'];
         } else {
-            //header('location: /Free-Write/public/Mod/Users');
+
         }
 
-        // Validate the input
+
         switch ($criteria) {
             case 'id':
                 $data = $user->WHERE(['userID' => $input]);
@@ -194,7 +194,7 @@ class ModController extends Controller
             case 'normal':
                 $data = $user->WHERE(['isPremium' => 0]);
                 break;
-            // by user type
+
             case 'reader':
                 $data = $user->WHERE(['userType' => "reader"]);
                 break;
@@ -226,15 +226,15 @@ class ModController extends Controller
     public function DeleteUser()
     {
         $this->checkLoggedUser();
-        // First verify the delete confirmation was typed correctly
+
         if (!isset($_POST['deleteConfirmText']) || $_POST['deleteConfirmText'] !== "DELETE THIS USER") {
-            // Redirect back with error if confirmation text is wrong
+
             $_SESSION['error'] = 'Delete confirmation text was incorrect';
             header('location: /Free-Write/public/Mod/Users');
             exit();
         }
 
-        // Check if userId exists in POST
+
         if (!isset($_POST['userId'])) {
             $_SESSION['error'] = 'No user ID provided';
             header('location: /Free-Write/public/Mod/Users');
@@ -243,26 +243,26 @@ class ModController extends Controller
 
         $userId = $_POST['userId'];
 
-        // Initialize models
+
         $user = new User();
         $userDetails = new UserDetails();
 
         $userTableData = $user->first(['userID' => $userId]);
 
         try {
-            // Perform deletions
+
             $user->update($userId, ['isActivated' => 9, 'password' => "", 'email' => $userTableData['email'] . "-deleted"], 'userID');
             $userDetails->delete($userId, 'user');
 
-            // Log the moderation action
+
             $modlog = new ModLog();
             $ModLogActivity = sprintf(
                 'Mod: %s deleted USER: %s (Email: %s)',
                 $_SESSION['user_name'],
                 $userId,
-                $userData['email'] ?? 'unknown'  // Include email in log if available
+                $userData['email'] ?? 'unknown'
 
-                //sprintf is used to format the string with the variables
+
             );
 
             $modlog->insert([
@@ -283,12 +283,12 @@ class ModController extends Controller
     public function UpdateUser()
     {
         $this->checkLoggedUser();
-        // UpdateUser 
+
         $user = new User();
         $userDetails = new UserDetails();
 
-        // Validations
-        if (!isset($_POST['userId'])) {  // User ID
+
+        if (!isset($_POST['userId'])) {
             $_SESSION['error'] = 'No user ID provided';
             header('location: /Free-Write/public/Mod/Users');
             exit();
@@ -296,61 +296,61 @@ class ModController extends Controller
 
         $userId = $_POST['userId'];
 
-        if (!isset($_POST['userType'])) { // User Type
+        if (!isset($_POST['userType'])) {
             $_SESSION['error'] = 'No user type provided';
             header('location: /Free-Write/public/Mod/Users');
             exit();
         }
 
-        if (!isset($_POST['loginAttempts'])) { // Login Attempts
+        if (!isset($_POST['loginAttempts'])) {
             $_SESSION['error'] = 'No login attempts provided';
             header('location: /Free-Write/public/Mod/Users');
             exit();
         }
 
-        if (!isset($_POST['premium'])) { // Premium
+        if (!isset($_POST['premium'])) {
             $_SESSION['error'] = 'No premium status provided';
             header('location: /Free-Write/public/Mod/Users');
             exit();
         }
 
-        if (!isset($_POST['activated'])) { // Activated
+        if (!isset($_POST['activated'])) {
             $_SESSION['error'] = 'No activation status provided';
             header('location: /Free-Write/public/Mod/Users');
             exit();
         }
 
-        if (!isset($_POST['firstName'])) { // First Name
+        if (!isset($_POST['firstName'])) {
             $_SESSION['error'] = 'No first name provided';
             header('location: /Free-Write/public/Mod/Users');
             exit();
         }
 
-        if (!isset($_POST['lastName'])) { // Last Name
+        if (!isset($_POST['lastName'])) {
             $_SESSION['error'] = 'No last name provided';
             header('location: /Free-Write/public/Mod/Users');
             exit();
         }
 
-        if (!isset($_POST['country'])) { // Country
+        if (!isset($_POST['country'])) {
             $_SESSION['error'] = 'No country provided';
             header('location: /Free-Write/public/Mod/Users');
             exit();
         }
 
-        if (!isset($_POST['dob'])) { // Date of Birth
+        if (!isset($_POST['dob'])) {
             $_SESSION['error'] = 'No date of birth provided';
             header('location: /Free-Write/public/Mod/Users');
             exit();
         }
 
-        if (!isset($_POST['bio'])) { // Bio
+        if (!isset($_POST['bio'])) {
             $_SESSION['error'] = 'No bio provided';
             header('location: /Free-Write/public/Mod/Users');
             exit();
         }
 
-        // Length validations
+
         if (strlen($_POST['firstName']) > 45) {
             $_SESSION['error'] = 'First name exceeds maximum length of 45 characters';
             header('location: /Free-Write/public/Mod/Users');
@@ -375,7 +375,7 @@ class ModController extends Controller
             exit();
         }
 
-        // Update user details in the database
+
         try {
             $user->update($userId, [
                 'userType' => $_POST['userType'],
@@ -393,13 +393,13 @@ class ModController extends Controller
                 'bio' => $_POST['bio']
             ], 'user');
 
-            // Log the moderation action
+
             $modlog = new ModLog();
             $ModLogActivity = sprintf(
                 'Mod: %s updated USER: %s (Email: %s)',
                 $_SESSION['user_name'],
                 $userId,
-                $_POST['email'] ?? 'unknown'  // Include email in log if available
+                $_POST['email'] ?? 'unknown'
             );
 
             $modlog->insert([
@@ -417,22 +417,22 @@ class ModController extends Controller
         exit();
     }
 
-    //INSTIUTION MANAGEMENT
+
     public function Institutes()
     {
         $this->checkLoggedUser();
         $userTable = new User();
         $insts = $userTable->where(['userType' => 'inst']);
 
-        //query details
+
         $this->view('moderator/modInstituteManagement', ['insts' => $insts]);
     }
 
-    //REPORT HANDLING
+
     public function Reports()
     {
         $this->checkLoggedUser();
-        //query details
+
         $reportTable = new Report();
         $reports = null;
 
@@ -440,7 +440,7 @@ class ModController extends Controller
             $reports = $reportTable->where(['status' => 'Pending']);
             $unfinishedReports = $reportTable->where(['status' => 'Unfinished']);
 
-            // Merge the two arrays
+
             $reports = array_merge($reports, $unfinishedReports);
         } elseif (isset($_GET['filter']) && $_GET['filter'] == 'handled') {
             $reports = $reportTable->where(['status' => 'Handled']);
@@ -456,10 +456,10 @@ class ModController extends Controller
     public function HandleReport()
     {
         $this->checkLoggedUser();
-        error_log("Handling report"); // Add server-side logging
+        error_log("Handling report");
         echo "<script>console.log('Handling report - Function reached');</script>";
 
-        // Debug POST data
+
         error_log("POST data: " . print_r($_POST, true));
 
         if (!isset($_POST['reportID'], $_POST['reportstatus'], $_POST['newstatus'], $_POST['modResponse'])) {
@@ -476,7 +476,7 @@ class ModController extends Controller
         $reportStatus = $_POST['newstatus'];
         $modResponse = $_POST['modResponse'];
 
-        //validations
+
         if (($reportStatus == 'handled' || $reportStatus == 'Escalated') && $modResponse == '') {
             echo "<script>console.log(Please provide a response to the report)</script>";
             return;
@@ -487,10 +487,10 @@ class ModController extends Controller
             return;
         }
 
-        //update report
+
         $reportTable->update($reportID, ['status' => $reportStatus, 'modResponse' => $modResponse, 'handler' => $_SESSION['user_id']], 'reportID');
 
-        //moglog update
+
         $modlog = new ModLog();
         $ModLogActivity = 'Accessed REPORT: ' . $reportID . ' status changed from: ' . $reportOldStatus . ' to: ' . $reportStatus;
 
@@ -500,11 +500,11 @@ class ModController extends Controller
         exit();
     }
 
-    //Feedback HANDLING
+
     public function Feedbacks()
     {
         $this->checkLoggedUser();
-        //query details
+
         $feedbackTable = new Feedback();
         $feedbacks = null;
 
@@ -512,7 +512,7 @@ class ModController extends Controller
             $feedbacks = $feedbackTable->where(['status' => 'Pending']);
             $unfinishedfeedbacks = $feedbackTable->where(['status' => 'Unfinished']);
 
-            // Merge the two arrays
+
             $feedbacks = array_merge($feedbacks, $unfinishedfeedbacks);
         } elseif (isset($_GET['filter']) && $_GET['filter'] == 'unread') {
             $feedbacks = $feedbackTable->where(['status' => 'unread']);
@@ -546,8 +546,8 @@ class ModController extends Controller
         exit();
     }
 
-    //COURIER DETAILS
-    public function AddCourier()//visit page
+
+    public function AddCourier()
     {
 
         $userTable = new User();
@@ -556,7 +556,7 @@ class ModController extends Controller
         $this->view('moderator/modAddCourier', ['users' => $users]);
     }
 
-    //courier management search
+
     public function CouSearch()
     {
         $this->checkLoggedUser();
@@ -567,7 +567,7 @@ class ModController extends Controller
         if (isset($_GET['filter'])) {
             $criteria = $_GET['filter'];
 
-            //if criteria is a number then make it ID
+
             if (is_int((int) $criteria)) {
                 $criteria = 'id';
 
@@ -578,17 +578,17 @@ class ModController extends Controller
             header('location: /Free-Write/public/Mod/AddCourier');
         }
 
-        // Check if the search input is set in POST or GET
+
         $input = '';
         if (isset($_POST['searchInput'])) {
             $input = $_POST['searchInput'];
         } else if (isset($_GET['filter'])) {
             $input = $_GET['filter'];
         } else {
-            //header('location: /Free-Write/public/Mod/AddCourier');
+
         }
 
-        // Validate the input
+
         switch ($criteria) {
             case 'id':
                 $data = $user->WHERE(['userID' => $input]);
@@ -611,8 +611,8 @@ class ModController extends Controller
         }
     }
 
-    //MOD DETAILS (ADMIN ONLY)
-    public function AddMod()//visit page
+
+    public function AddMod()
     {
 
         if (isset($_SESSION['user_type']) && $_SESSION['user_type'] != 'admin') {
@@ -626,7 +626,7 @@ class ModController extends Controller
         $this->view('moderator/modAddMod', ['users' => $users]);
     }
 
-    //Mod management search
+
     public function ModSearch()
     {
         $this->checkLoggedUser();
@@ -637,7 +637,7 @@ class ModController extends Controller
         if (isset($_GET['filter'])) {
             $criteria = $_GET['filter'];
 
-            //if criteria is a number then make it ID
+
             if (is_int((int) $criteria)) {
                 $criteria = 'id';
             }
@@ -647,17 +647,17 @@ class ModController extends Controller
             header('location: /Free-Write/public/Mod/AddMod');
         }
 
-        // Check if the search input is set in POST or GET
+
         $input = '';
         if (isset($_POST['searchInput'])) {
             $input = $_POST['searchInput'];
         } else if (isset($_GET['filter'])) {
             $input = $_GET['filter'];
         } else {
-            //header('location: /Free-Write/public/Mod/AddMod');
+
         }
 
-        // Validate the input
+
         switch ($criteria) {
             case 'id':
                 $data = $user->WHERE(['userID' => $input]);
@@ -680,7 +680,7 @@ class ModController extends Controller
         }
     }
 
-    //Generate stat Report
+
     public function GenerateReport()
     {
         $data = [];
@@ -693,7 +693,7 @@ class ModController extends Controller
             $endDate = $today;
         }
 
-        //initializing the models
+
         $user = new User();
 
         $feedback = new Feedback();
@@ -706,11 +706,11 @@ class ModController extends Controller
         $spinoff = new Spinoff();
         $coverImage = new CoverImage();
         $competition = new Competition();
-        
+
         $UserSubscription = new UserSubscription();
 
 
-        //getting the data
+
         $userTypeCounts = $user->getUserTypeCounts();
         $INRANGE_feedbacks = $feedback->getDetailsInDateRange($startDate, $endDate);
         $INRANGE_reports = $report->getDetailsInDateRange($startDate, $endDate);
@@ -723,10 +723,10 @@ class ModController extends Controller
         $INRANGE_coverImage = $coverImage->getDetailsInDateRange($startDate, $endDate);
         $INRANGE_competition = $competition->getDetailsInDateRange($startDate, $endDate);
 
-        // Process feedback data
+
         $feedbackCount = count($INRANGE_feedbacks);
 
-        // Process reports data and organize by status
+
         $totalReports = count($INRANGE_reports);
         $handledReports = 0;
         $escalatedReports = 0;
@@ -739,7 +739,7 @@ class ModController extends Controller
             }
         }
 
-        // Process sales data - calculate totals from the 'price' column
+
         $totalBookSales = 0;
         foreach ($INRANGE_buybooks as $purchase) {
             $totalBookSales += $purchase['price'];
@@ -750,16 +750,16 @@ class ModController extends Controller
             $totalChapterSales += $purchase['price'];
         }
 
-        //subsctipyion sales:
+
         $total_subs = $UserSubscription->getMonthlySubscriptionSummary($startDate, $endDate);
 
-        // Count content creation items
+
         $booksCreated = count($INRANGE_book);
         $spinoffsCreated = count($INRANGE_spinoff);
         $coversCreated = count($INRANGE_coverImage);
         $competitionsCreated = count($INRANGE_competition);
 
-        //get book views and view per book
+
         $totalviews = $book->totalViewsAndAverage();
 
         $data = [

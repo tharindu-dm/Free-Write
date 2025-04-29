@@ -97,7 +97,7 @@
 
         input[name="shipping_address"] {
             height: 80px;
-            /* Make shipping address input larger */
+            
             padding-top: 8px;
         }
 
@@ -143,7 +143,7 @@
             font-weight: bold;
         }
 
-        /* Payment Success Modal Styles */
+        
         .payment-success-modal {
             display: none;
             position: fixed;
@@ -241,7 +241,6 @@
                     Secure payment for the best user experience.
                 </p>
                 <form action="/Free-Write/public/Order/addOrder4Pub" method="POST" id="payment-form">
-                    <!-- Shipping Details Section -->
                     <div class="shipping-details">
                         <h2>Shipping Information</h2>
                         <input type="text" required name="shipping_address" form="payment-form"
@@ -301,43 +300,26 @@
             </div>
         </div>
     </main>
-    <!-- Payment Success Modal -->
-    <!-- <div class="payment-success-modal" id="paymentSuccessModal">
-        <div class="modal-content">
-            <div class="success-icon">✓</div>
-            <h2 class="modal-title">Payment Successful!</h2>
-            <p class="modal-message">Your order has been placed successfully. Thank you for your purchase!</p>
-            <button class="modal-button" id="continueShoppingBtn">Discover More Literary Treasures</button>
-        </div>
-    </div> -->
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const paymentForm = document.getElementById('payment-form');
             const paymentSuccessModal = document.getElementById('paymentSuccessModal');
             const continueShoppingBtn = document.getElementById('continueShoppingBtn');
 
-            // Handle form submission
             paymentForm.addEventListener('submit', function (e) {
-                e.preventDefault(); // Prevent the default form submission
+                e.preventDefault();
 
-                // Simulate payment processing (you would normally submit the form to the server)
                 setTimeout(function () {
-                    // Show success modal
                     paymentSuccessModal.style.display = 'flex';
 
-                    // Submit the form in the background
                     const formData = new FormData(paymentForm);
                     fetch(paymentForm.action, {
                         method: 'POST',
                         body: formData
                     });
-                }, 1000); // Simulate a 1-second processing time
+                }, 1000);
             });
-
-            // Handle continue shopping button click
-            // continueShoppingBtn.addEventListener('click', function () {
-            //     window.location.href = '/Free-Write/public/publisher/';
-            // });
         });
     </script>
 

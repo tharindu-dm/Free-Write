@@ -108,7 +108,6 @@
       text-align: left;
       border-bottom: 1px solid #FFD700;
       min-width: 100px;
-      /* Added to prevent content wrapping */
     }
 
     .order-table th {
@@ -145,7 +144,6 @@
       box-shadow: none;
     }
 
-    /* Statistics Styles */
     .stats-container {
       max-width: 1200px;
       width: 90%;
@@ -243,13 +241,13 @@
       padding: 8px;
     }
 
-    /* Active stat card */
+    
     .stat-card.active {
       border: 2px solid #c47c15;
       background-color: #FCFAF5;
     }
 
-    /* Order views */
+    
     .order-view {
       display: none;
     }
@@ -258,7 +256,7 @@
       display: block;
     }
 
-    /* Status Badge Styles */
+    
     .status-badge {
       display: inline-block;
       padding: 5px 10px;
@@ -295,7 +293,7 @@
       color: white;
     }
 
-    /* Empty state styling */
+    
     .empty-state {
       text-align: center;
       padding: 2rem;
@@ -359,17 +357,8 @@
 
 <body>
   <?php require_once "../app/views/layout/headerSelector.php";
-  //show($data);
   ?>
 
-  <!-- Statistics Header with View Button -->
-  <!-- <div class="stats-header">
-    <h2 style="color: #1C160C; font-size: 1.5rem; font-weight: 600;">Statistics Overview</h2>
-    <a href="/Free-Write/public/Order/viewStats" class="view-stats-button" aria-label="View detailed statistics">View
-      Statistics</a>
-  </div> -->
-
-  <!-- Statistics Cards -->
   <div class="stats-container">
     <div class="stats-grid">
       <div class="stat-card active" data-view="all-orders">
@@ -444,9 +433,7 @@
     </div>
   </div>
 
-  <!-- Main Content -->
   <main class="main-content">
-    <!-- All Orders View -->
     <div id="all-orders" class="order-view active">
       <h1>All Orders</h1>
       <div class="order-search-container">
@@ -516,7 +503,6 @@
       </table>
     </div>
 
-    <!-- New Orders View -->
     <div id="new-orders" class="order-view">
       <h1>New Orders</h1>
       <div class="order-search-container">
@@ -565,11 +551,6 @@
                       <select name="courier" class="courier-select" required aria-label="Select a courier for the order">
                         <option value="">Select Courier</option>
                         <option value="systemCourier">System Courier</option>
-                        <!-- <optgroup label="My Own Couriers">
-                          <option value="local1">Local Delivery Service</option>
-                          <option value="personal">Personal Delivery</option>
-                          <option value="custom">Custom Courier</option>
-                        </optgroup> -->
                       </select>
                   </td>
                   <td>
@@ -593,7 +574,6 @@
       </table>
     </div>
 
-    <!-- In Preparation Orders View -->
     <div id="processing-orders" class="order-view">
       <h1>In Preparation Orders</h1>
       <div class="order-search-container">
@@ -651,7 +631,6 @@
       </table>
     </div>
 
-    <!-- Out for Delivery Orders View -->
     <div id="shipped-orders" class="order-view">
       <h1>Out for Delivery Orders</h1>
       <div class="order-search-container">
@@ -709,7 +688,6 @@
       </table>
     </div>
 
-    <!-- Completed Orders View -->
     <div id="completed-orders" class="order-view">
       <h1>Completed Orders</h1>
       <div class="order-search-container">
@@ -769,19 +747,19 @@
   </main>
 
   <script>
-    // Stat Card View Switching
+
     document.querySelectorAll('.stat-card').forEach(card => {
       card.addEventListener('click', function () {
-        // Hide all views
+
         document.querySelectorAll('.order-view').forEach(view => {
           view.classList.remove('active');
         });
 
-        // Show the clicked view
+
         const viewId = this.getAttribute('data-view');
         document.getElementById(viewId).classList.add('active');
 
-        // Update the active class for the stat card
+
         document.querySelectorAll('.stat-card').forEach(c => {
           c.classList.remove('active');
         });
@@ -789,7 +767,7 @@
       });
     });
 
-    // Form Validation for Proceed Button
+
     document.querySelectorAll('.proceed-form').forEach(form => {
       const select = form.querySelector('.courier-select');
       const button = form.querySelector('.order-action-button');
@@ -799,7 +777,7 @@
       });
     });
 
-    // Search Functionality
+
     document.querySelectorAll('.order-search-bar input').forEach(searchInput => {
       searchInput.addEventListener('input', function () {
         const searchTerm = this.value.toLowerCase();

@@ -3,21 +3,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const fileInput = document.getElementById("PlaceImage");
 
   dropZone.addEventListener("dragover", (event) => {
-    event.preventDefault(); // Prevent default behavior (Prevent file from being opened)
-    dropZone.classList.add("drag-over"); // Add class for visual feedback
+    event.preventDefault();
+    dropZone.classList.add("drag-over");
   });
 
   dropZone.addEventListener("dragleave", () => {
-    dropZone.classList.remove("drag-over"); // Remove class when dragging leaves
+    dropZone.classList.remove("drag-over");
   });
 
   dropZone.addEventListener("drop", (event) => {
-    event.preventDefault(); // Prevent default behavior
-    dropZone.classList.remove("drag-over"); // Remove class on drop
+    event.preventDefault();
+    dropZone.classList.remove("drag-over");
 
-    const files = event.dataTransfer.files; // Get dropped files
+    const files = event.dataTransfer.files;
     if (files.length > 0) {
-      fileInput.files = files; // Assign files to the input element
+      fileInput.files = files;
     }
   });
 });

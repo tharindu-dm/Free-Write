@@ -13,7 +13,6 @@
     require_once "../app/views/layout/headerSelector.php";
     ?>
 
-    <!-- Main Content -->
     <main>
         <section class="submission-section">
             <h2 class="section-header">Competition Submissions</h2>
@@ -49,7 +48,6 @@
                 </div>
             <?php endif; ?>
 
-            <!-- Centered Buttons -->
             <div class="button-container">
                 <button type="button"
                     onclick="window.location.href='/Free-Write/public/Writer/ViewCompetition/<?= htmlspecialchars($cID); ?>'">
@@ -59,7 +57,6 @@
         </section>
     </main>
 
-    <!-- Footer -->
     <?php
     require_once "../app/views/layout/footer.php";
     ?>

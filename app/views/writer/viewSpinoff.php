@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Spinoff - Free Write</title>
     <style>
-        
         .spinoff-view {
             max-width: 1000px;
             margin: 2rem auto;
@@ -110,7 +109,6 @@
             gap: 1rem;
         }
 
-        /* Button Styles */
         .book-btn,
         .edit-btn,
         .delete-btn {
@@ -167,7 +165,6 @@
             background-color: #7f8c8d;
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
             .spinoff-content {
                 flex-direction: column;
@@ -207,7 +204,6 @@
     require_once "../app/views/layout/header-user.php";
     ?>
 
-    <!-- Main Content -->
     <main class="spinoff-view">
         <div class="spinoff-details">
             <h1><?php echo htmlspecialchars($spinoff['title']); ?></h1>
@@ -242,12 +238,10 @@
             </div>
 
             <div class="button-container">
-                <!-- Left side: Back button -->
                 <button type="button" class="edit-btn cancel-btn" onclick="window.history.back();">
                     Back to Spinoffs
                 </button>
 
-                <!-- Right side: Accept and Reject buttons -->
                 <?php if ($spinoff['isAcknowledge'] == 0): ?>
                     <div class="right-buttons">
                         <button class="edit-btn"
@@ -271,7 +265,6 @@
         </div>
     </main>
 
-    <!-- Footer -->
     <?php
     require_once "../app/views/layout/footer.php";
     ?>

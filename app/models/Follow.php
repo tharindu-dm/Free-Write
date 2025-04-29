@@ -2,19 +2,19 @@
 
 class Follow
 {
-    use Model; // Use the Model trait
+    use Model;
 
-    protected $table = 'Follow'; //when using the Model trait, this table name ise used 
+    protected $table = 'Follow';
 
     public function getFollowCount($uid)
     {
         $query = "SELECT COUNT(*) as count FROM Follow WHERE FollowedID = $uid";
-        $resultSet = $this->query($query); //get the number of followers
+        $resultSet = $this->query($query);
 
         $result['followers'] = isset($resultSet[0]['count']) ? $resultSet[0]['count'] : 0;
 
         $query = "SELECT COUNT(*) as count FROM Follow WHERE FollowerID = $uid";
-        $resultSet = $this->query($query); //get the number of people the user is following
+        $resultSet = $this->query($query);
 
         $result['following'] = isset($resultSet[0]['count']) ? $resultSet[0]['count'] : 0;
 
@@ -23,11 +23,11 @@ class Follow
 
     public function getUserDetails($data)
     {
-        // Get the first (and only) key from the input array
+
         $key = key($data);
         $value = $data[$key];
 
-        // get the appropriate column based on the key
+
         $columnName = ($key === 'FollowerID') ? 'f.[FollowerID]' : 'f.[FollowedID]';
         $joinColumn = ($key === 'FollowerID') ? 'f.[FollowedID]' : 'f.[FollowerID]';
         $query = "SELECT 

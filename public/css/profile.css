@@ -70,7 +70,6 @@ main {
   align-items: center;
 }
 
-/*profile visitor view*/
 .writer-dashboard-btn {
   flex: 1;
   padding: 0.5rem 1rem;
@@ -90,7 +89,6 @@ main {
   align-items: center;
 }
 
-/* Follower stats */
 .follower-stats {
   display: flex;
   justify-content: center;
@@ -113,7 +111,7 @@ main {
   color: var(--black);
 
   width: 100%;
-  padding: 0.5rem 1rem; /* 1rem top and bottom, 1rem left and right*/
+  padding: 0.5rem 1rem;
   margin-bottom: 1rem;
   border-radius: 0.5rem;
   border: none;
@@ -124,7 +122,6 @@ main {
   background-color: rgba(255, 215, 0, 0.8);
 }
 
-/* Edit profile button */
 .user-profile-actions {
   text-align: center;
   margin-bottom: 15px;
@@ -144,7 +141,6 @@ main {
   background-color: rgba(159, 136, 3, 0.8);
 }
 
-/* report profile button */
 .report-profile-btn {
   display: flex;
   gap: 0.5rem;
@@ -165,8 +161,6 @@ main {
   background-color: #555;
 }
 
-/* User profile Statistics */
-/* Main Container */
 .statistics-container {
   display: flex;
   justify-content: center;
@@ -177,7 +171,6 @@ main {
   background-color: white;
 }
 
-/* Book List Card */
 .my-book-list {
   flex: 1;
   min-width: 20rem;
@@ -194,7 +187,6 @@ main {
   color: #333;
 }
 
-/* Progress Bar */
 .book-progress-bar {
   display: flex;
   height: 8px;
@@ -211,21 +203,20 @@ main {
 
 .book-progress-reading {
   background-color: #ffd700;
-} /* Primary Gold */
+}
 .book-progress-completed {
   background-color: #4a90e2;
-} /* Blue */
+}
 .book-progress-onhold {
   background-color: #f5a623;
-} /* Orange */
+}
 .book-progress-dropped {
   background-color: #d0021b;
-} /* Red */
+}
 .book-progress-planned {
   background-color: #9b9b9b;
-} /* Gray */
+}
 
-/* Book List Items */
 .book-list-item {
   display: flex;
   justify-content: space-between;
@@ -254,7 +245,6 @@ main {
   color: #ffd700;
 }
 
-/* Genre Section */
 .genre-section-container {
   display: flex;
   flex-direction: column;
@@ -271,14 +261,12 @@ main {
   display: flex;
 }
 
-/* Chart Container */
 .chart-container {
   width: 100%;
   max-width: 300px;
   margin: auto;
 }
 
-/* Genre List */
 .genre-list-container {
   margin-top: 1.5rem;
 }
@@ -305,7 +293,6 @@ main {
   flex-shrink: 0;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .statistics-container {
     flex-direction: column;
@@ -316,7 +303,6 @@ main {
   }
 }
 
-/*BOOK COLLECTION SYTLES*/
 .my-book-collections {
   margin-top: 30px;
 }
@@ -467,7 +453,6 @@ h2 {
   padding-bottom: 10px;
 }
 
-/* EDIT PROFILE OVERLAY */
 .close-overlay-button button {
   display: flex;
   justify-content: flex-end;
@@ -490,15 +475,15 @@ h2 {
 
 .edit-profile {
   display: none;
-  position: fixed; /* Make it fixed to the viewport */
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100vw; /* Full width of the viewport */
-  height: 100vh; /* Full height of the viewport */
-  background: rgba(0, 0, 0, 0.6); /* Adjust the opacity of the background */
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
 
-  justify-content: center; /* Center the form horizontally */
-  align-items: center; /* Center the form vertically */
+  justify-content: center;
+  align-items: center;
   z-index: 1;
 }
 
@@ -526,7 +511,6 @@ h2 {
   width: 100%;
 }
 
-/* for better ux hinting aboutfile upload */
 .edit-profile-item input[type="file"]::file-selector-button {
   background-color: #ffd700;
   color: #000;
@@ -542,22 +526,22 @@ h2 {
 }
 
 .drop-zone {
-  border: 2px dashed #ddd; /* Dashed border */
+  border: 2px dashed #ddd;
   border-radius: 4px;
   padding: 2rem;
   text-align: center;
-  background-color: #f9f9f9; /* Light background */
-  cursor: pointer; /* Change cursor to pointer */
+  background-color: #f9f9f9;
+  cursor: pointer;
   transition: background-color 0.2s;
 }
 
 .drop-zone:hover {
-  background-color: #f0f0f0; /* Change background on hover */
+  background-color: #f0f0f0;
 }
 
 .drop-zone.drag-over {
-  border-color: #ffd700; /* Change border color when dragging over */
-  background-color: #fff; /* Change background when dragging over */
+  border-color: #ffd700;
+  background-color: #fff;
 }
 
 .edit-name {
@@ -602,7 +586,6 @@ h2 {
   background-color: #e6c200;
 }
 
-/* Danger Zone Styling */
 .horizontal-divider {
   margin: 3rem 0;
   border: none;
@@ -662,7 +645,6 @@ h2 {
   background-color: #333;
 }
 
-/*SPINOFF SECTION*/
 .spinoff-container {
   max-height: 50rem;
   overflow-y: auto;
@@ -747,7 +729,6 @@ h2 {
   color: #2e7d32;
 }
 
-/*MY FOLLOWERS STYLES*/
 .follower-container {
   display: block;
 }

@@ -86,10 +86,8 @@
 
             for (let item of navItems) {
                 item.addEventListener('click', function () {
-                    // Get the href from data-href attribute
                     const href = this.getAttribute('data-href');
 
-                    // Redirect to the specified URL
                     if (href) {
                         window.location.href = href;
                     }

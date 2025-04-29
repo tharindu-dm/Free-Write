@@ -2,9 +2,9 @@
 
 class Quote
 {
-    use Model; // Use the Model trait for database interaction
+    use Model; 
 
-    protected $table = 'Quote'; // Specify the table name
+    protected $table = 'Quote';
 
     public function addQuote($chapter, $quote)
     {
@@ -53,9 +53,9 @@ class Quote
         $result = $this->query($query, $params);
 
         if ($result) {
-            return $result[0]; // Return the first result if found
+            return $result[0]; 
         } else {
-            return null; // No results found
+            return null; 
         }
     }
 

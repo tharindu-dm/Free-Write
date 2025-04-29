@@ -51,7 +51,6 @@ button {
   border-radius: 0.5rem !important;
 }
 
-/** OVERLAY STYLES **/
 .delete_spinoff_chapter_overlay,
 .edit_spinoff_chapter_overlay {
   display: none;
@@ -136,7 +135,6 @@ button {
   background-color: #d0d0d0;
 }
 
-/* To show the overlay, add these classes */
 .overlay-container.active {
   display: flex;
 }

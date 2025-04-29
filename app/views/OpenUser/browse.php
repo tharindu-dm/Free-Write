@@ -10,21 +10,20 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    
+
     ?>
 
-    <!-- Page Title -->
     <div id="title">
         <h1>Browse Masterpieces</h1>
     </div>
 
     <div class="browse-main-container">
-        <!-- Ad image -->
+
         <?php include "../app/views/layout/advertisement.php"; ?>
 
         <main>
             <section class="browse-body-section">
-                <!-- Search Bar Section -->
+
                 <section class="search-section">
                     <form action="/Free-Write/public/Browse/search" method="GET">
                         <div class="search-container">
@@ -51,10 +50,9 @@
                     </form>
                 </section>
 
-                <!-- Book Categories -->
+
                 <?php foreach ($data as $categoryVar => $books): ?>
                     <?php
-                    // Convert camelCase to Title Case for section title
                     $sectionTitle = ucwords(preg_replace('/([a-z])([A-Z])/', '$1 $2', $categoryVar));
                     ?>
                     <section class="book-category">
@@ -85,7 +83,7 @@
             </section>
         </main>
 
-        <!-- Ad image -->
+
         <?php include "../app/views/layout/advertisement.php"; ?>
     </div>
 

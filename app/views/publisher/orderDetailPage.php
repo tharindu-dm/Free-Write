@@ -159,7 +159,6 @@
             <h2>Customer Details</h2>
             <p><strong>Name:</strong> John Doe</p>
             <p><strong>Email:</strong><?= htmlspecialchars($customerMainDetails['email']) ?></p>
-            <!-- <p><strong>Phone:</strong> (555) 123-4567</p> -->
         </section>
 
         <section class="order-section">
@@ -179,11 +178,6 @@
                 <p><?= htmlspecialchars($courierDetails['country']) ?></p>
 
             </div>
-            <!-- <div class="courier-option">
-                <h4>Standard Delivery</h4>
-                <p>5-7 business days</p>
-                <p>$3.99</p>
-            </div> -->
         </section>
         <section class="order-section">
             <h2>Order Timeline</h2>

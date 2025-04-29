@@ -13,11 +13,9 @@
   require_once "../app/views/layout/header-user.php";
   ?>
 
-  <!-- Main Content -->
   <main class="competition-section">
     <div class="competition-info">
       <div class="form-layout">
-        <!-- Left Column -->
         <div class="left-column">
           <h1 class="competition-title"><?= htmlspecialchars($competition['title']); ?></h1>
           <hr style="margin-bottom: 1rem; border:0.1rem solid #ffd700;" />
@@ -37,7 +35,6 @@
           <?php endif; ?>
         </div>
 
-        <!-- Right Column (Cover Image) -->
         <div class="right-column">
           <div class="coverComp">
             <img src="/Free-Write/app/images/competition/coverComp.png" alt="Competition Cover">
@@ -47,12 +44,11 @@
 
       <hr style="margin: 1.5rem 0; border:0.1rem solid #ffd700;" />
 
-      <!-- Centered Buttons -->
       <div class="button-container">
-      <div class="right-buttons">
-        <button type="button" class="edit-btn"
-          onclick="window.location.href='/Free-Write/public/Writer/Competitions/'">Back</button>
-      </div>
+        <div class="right-buttons">
+          <button type="button" class="edit-btn"
+            onclick="window.location.href='/Free-Write/public/Writer/Competitions/'">Back</button>
+        </div>
         <div class="right-buttons">
           <button class="edit-btn"
             onclick="window.location.href='/Free-Write/public/Writer/editCompetition/<?= htmlspecialchars($competition['competitionID']); ?>'">Edit</button>
@@ -64,7 +60,6 @@
       </div>
     </div>
 
-    <!-- Delete Confirmation Overlay -->
     <div class="deleteOverlay-container">
       <div class="deleteOverlay">
         <h2>Are you sure you want to delete this Competition?</h2>
@@ -82,7 +77,6 @@
   </main>
 
   <script>
-    // JavaScript to handle delete overlay
     document.addEventListener('DOMContentLoaded', function () {
       const deleteBtn = document.getElementById('delete-details');
       const cancelDelete = document.getElementById('cancelDelete');
@@ -98,7 +92,6 @@
     });
   </script>
 
-  <!-- Footer -->
   <?php
   require_once "../app/views/layout/footer.php";
   ?>

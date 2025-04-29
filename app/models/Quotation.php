@@ -2,9 +2,9 @@
 
 class Quotation
 {
-    use Model; // Use the Model trait
+    use Model; 
 
-    protected $table = 'Quotation'; //when using the Model trait, this table name ise used 
+    protected $table = 'Quotation';  
 
     public function getQuotaByID($qID)
     {
@@ -21,9 +21,9 @@ class Quotation
         $result = $this->query($query, $params);
 
         if ($result) {
-            return $result[0]; // Return the first result if found
+            return $result[0]; 
         } else {
-            return null; // No results found
+            return null; 
         }
     }
 
@@ -44,9 +44,9 @@ class Quotation
         $result = $this->query($query, $params);
 
         if ($result) {
-            return $result[0]; // Return the first result if found
+            return $result[0]; 
         } else {
-            return null; // No results found
+            return null; 
         }
     }
 

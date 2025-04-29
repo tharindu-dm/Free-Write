@@ -23,10 +23,6 @@
                 <div>Moderator: <?= htmlspecialchars($_SESSION['user_name']) ?></div>
             </div>
 
-            <!--<div class="search-bar">
-                <input type="text" placeholder="Search reports...">
-            </div>-->
-
             <div class="tabs">
                 <a href="/Free-Write/public/Mod/Reports"><button class="tab">All Reports</button></a>
                 <a href="/Free-Write/public/Mod/Reports?filter=unhandled"><button class="tab">Unhandled</button></a>
@@ -61,7 +57,6 @@
                                 <td>
                                     <?php
                                     $modResponse = $report['modResponse'] ?? '';
-                                    // Display truncated version in the table
                                     echo ($modResponse) ? 'Available' : 'None';
                                     ?>
                                     <span style="display:none;"><?= htmlspecialchars($modResponse) ?></span>
@@ -144,10 +139,8 @@
 
             for (let item of navItems) {
                 item.addEventListener('click', function () {
-                    // Get the href from data-href attribute
                     const href = this.getAttribute('data-href');
 
-                    // Redirect to the specified URL
                     if (href) {
                         window.location.href = href;
                     }

@@ -16,23 +16,22 @@
     <div class="chart">
       <svg viewBox="0 0 1000 200" preserveAspectRatio="none">
         <?php
-        // Generate dynamic SVG path based on participants data
+
         if (!empty($stats['participants'])) {
           $points = [];
           $maxValue = max($stats['participants']);
           $minValue = min($stats['participants']);
           $range = $maxValue - $minValue;
-          $range = $range > 0 ? $range : 1; // Avoid division by zero
-        
+          $range = $range > 0 ? $range : 1;
+
           foreach ($stats['participants'] as $index => $value) {
             $x = ($index / (count($stats['participants']) - 1)) * 1000;
-            $y = 200 - (($value - $minValue) / $range) * 150 - 25; // Scale to fit chart
+            $y = 200 - (($value - $minValue) / $range) * 150 - 25;
             $points[] = "$x,$y";
           }
 
           echo '<path class="line" d="M' . implode(' L', $points) . '" />';
         } else {
-          // Default path if no data
           echo '<path class="line" d="M0,100 Q250,50 500,150 T1000,100" />';
         }
         ?>
@@ -62,23 +61,22 @@
   <div class="chart">
     <svg viewBox="0 0 1000 200" preserveAspectRatio="none">
       <?php
-      // Generate dynamic SVG path based on submissions data
+
       if (!empty($stats['submissions'])) {
         $points = [];
         $maxValue = max($stats['submissions']);
         $minValue = min($stats['submissions']);
         $range = $maxValue - $minValue;
-        $range = $range > 0 ? $range : 1; // Avoid division by zero
-      
+        $range = $range > 0 ? $range : 1;
+
         foreach ($stats['submissions'] as $index => $value) {
           $x = ($index / (count($stats['submissions']) - 1)) * 1000;
-          $y = 200 - (($value - $minValue) / $range) * 150 - 25; // Scale to fit chart
+          $y = 200 - (($value - $minValue) / $range) * 150 - 25;
           $points[] = "$x,$y";
         }
 
         echo '<path class="line" d="M' . implode(' L', $points) . '" />';
       } else {
-        // Default path if no data
         echo '<path class="line" d="M0,100 Q250,50 500,150 T1000,100" />';
       }
       ?>
@@ -90,8 +88,6 @@
     <?php endforeach; ?>
   </div>
 </div>
-
-<!-- Additional statistics sections can be added here -->
 
 <div class="download-all-container">
   <button class="download-all-btn">
@@ -110,21 +106,6 @@
 require_once "../app/views/layout/footer.php";
 ?>
 
-<!-- <script>
-    // Add JavaScript for download functionality if needed
-    document.querySelectorAll('.download-btn').forEach(button => {
-      button.addEventListener('click', function() {
-        const chartTitle = this.closest('.chart-header').querySelector('.chart-title').textContent;
-        alert('Downloading ' + chartTitle + ' as PDF...');
-        // Implement actual download functionality
-      });
-    });
-    
-    document.querySelector('.download-all-btn').addEventListener('click', function() {
-      alert('Downloading all statistics...');
-      // Implement actual download functionality
-    });
-  </script> -->
 </body>
 
 </html>

@@ -2,7 +2,7 @@
 
 class PaymentController extends Controller
 {
-    public function loggedUserExists()//check user exsitstance
+    public function loggedUserExists()
     {
         if (isset($_SESSION['user_id']))
             return true;
@@ -15,7 +15,7 @@ class PaymentController extends Controller
         $this->view('publisher/order');
     }
 
-    //buying a paid book
+
     public function Book()
     {
         if (!$this->loggedUserExists())
@@ -51,18 +51,18 @@ class PaymentController extends Controller
         $userID = $_SESSION['user_id'];
         $bookID = $_POST['itemID'];
 
-        //if ($_POST['saveCard'] == 'yes') {
-        //    $card = new CardDetails();
-        //    $cardData = [
-        //        "user" => $userID,
-        //        "card_number" => $_POST['cardNumber'],
-        //        "type" => $_POST['cardType'],
-        //        "host" => $_POST['cardHost'],
-        //        "exp_month" => $_POST['expMonth'],
-        //        "exp_year" => $_POST['expYear'],
-        //    ];
-        //    $card->insert($cardData);
-        //}
+
+
+
+
+
+
+
+
+
+
+
+
 
         $price = $_POST['totalPrice'];
         $buybook = new BuyBook();
@@ -97,7 +97,7 @@ class PaymentController extends Controller
         header('location:/Free-Write/public/Book/Overview/' . $bookID);
     }
 
-    public function Chapter()//buying a paid chapter
+    public function Chapter()
     {
         if (!$this->loggedUserExists())
             header('location:/Free-Write/public/Login');
@@ -131,7 +131,7 @@ class PaymentController extends Controller
     }
 
     public function Premium()
-    { //premium account
+    {
         if (!$this->loggedUserExists())
             header('location:/Free-Write/public/Login');
 
@@ -173,7 +173,7 @@ class PaymentController extends Controller
         }
     }
 
-    private function makePremium()//enabling the isPremium
+    private function makePremium()
     {
         if (!$this->loggedUserExists())
             header('location:/Free-Write/public/Login');
@@ -186,7 +186,7 @@ class PaymentController extends Controller
         header('location:/Free-Write/public/User/Profile');
     }
 
-    public function buy_premium_user()//subscribing to the tier
+    public function buy_premium_user()
     {
         if (!$this->loggedUserExists())
             header('location:/Free-Write/public/Login');
@@ -220,7 +220,7 @@ class PaymentController extends Controller
 
         $donation->insert(['writer' => $writer, 'user' => $user, 'amount' => $amount, 'date' => $date]);
 
-        //send notification also
+
         $notification = new Notification();
         $userNotification = new UserNotification();
 
@@ -240,7 +240,7 @@ class PaymentController extends Controller
             'isRead' => 0
         ]);
 
-        //redirect back to user profile
+
         header('/Free-Write/public/User/Profile?user=' . $writer);
         return;
     }
@@ -292,11 +292,11 @@ class PaymentController extends Controller
         $advertisement_table = new Advertisement;
         if (isset($_POST['adID'])) {
 
-            // $advertisement_table->insert($renewedData); 
+
             $advertisement_table->delete($_POST['adID'], 'adID');
         }
 
-        // Handle image upload
+
         $adImage = $_POST['adImage'];
 
         $advertisement_table = new Advertisement;
@@ -328,35 +328,40 @@ class PaymentController extends Controller
         $date = date("Y-m-d H:i:s");
         $notiData = [];
 
-        //
-        // Log the POST data for debugging
-    error_log(print_r($_POST, true));
 
-    $name = $_POST['name'] ?? null;
-    $username = $_POST['username'] ?? null;
-    $password = $_POST['password'] ?? null;
-    $subStartDate = $_POST['subStartDate'] ?? null;
-    $creator = $_POST['creator'] ?? null;
 
-    // Log which fields are missing
-    $missing_fields = [];
-    if (empty($name)) $missing_fields[] = 'name';
-    if (empty($username)) $missing_fields[] = 'username';
-    if (empty($password)) $missing_fields[] = 'password';
-    if (empty($subStartDate)) $missing_fields[] = 'subStartDate';
-    if (empty($creator)) $missing_fields[] = 'creator';
-    if (!empty($missing_fields)) {
-        error_log("Missing fields: " . implode(", ", $missing_fields));
-    }
-        //
+        error_log(print_r($_POST, true));
+
+        $name = $_POST['name'] ?? null;
+        $username = $_POST['username'] ?? null;
+        $password = $_POST['password'] ?? null;
+        $subStartDate = $_POST['subStartDate'] ?? null;
+        $creator = $_POST['creator'] ?? null;
+
+
+        $missing_fields = [];
+        if (empty($name))
+            $missing_fields[] = 'name';
+        if (empty($username))
+            $missing_fields[] = 'username';
+        if (empty($password))
+            $missing_fields[] = 'password';
+        if (empty($subStartDate))
+            $missing_fields[] = 'subStartDate';
+        if (empty($creator))
+            $missing_fields[] = 'creator';
+        if (!empty($missing_fields)) {
+            error_log("Missing fields: " . implode(", ", $missing_fields));
+        }
+
 
         if (($name != null) && ($username != null) && ($password != null) && ($subStartDate != null) && ($creator != null)) {
             $institution_table = new Institution();
 
-            //add a new institution with its own login and pw
+
             $institution_table->insert(['name' => $name, 'username' => $username, 'password' => $password, 'subStartDate' => $subStartDate, 'subPlan' => 4, 'creator' => $creator]);
 
-            $user = new User(); //updating the user as a creator of an institution
+            $user = new User();
             $user->update($creator, ['isPremium' => 1], 'userID');
 
             $notiData = [

@@ -27,9 +27,7 @@
         <a href="/Free-Write/public/Writer/New" class="button-new">+ Create a Story</a>
     </main>
 
-    <!-- Footer Section -->
     <?php
-    // Including the footer
     require_once "../app/views/layout/footer.php";
     ?>
 

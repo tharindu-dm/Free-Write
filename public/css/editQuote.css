@@ -23,7 +23,6 @@
     font-weight: normal;
 }
 
-/* Form Styles */
 .quote-form {
     display: flex;
     flex-direction: column;
@@ -124,7 +123,6 @@
     background-color: #e6c200;
 }
 
-/* Warning Message Style */
 .char-warning {
     color: #d9534f;
     font-size: 0.85rem;
@@ -132,7 +130,7 @@
     display: none;
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
     .quote-section {
         padding: 1.5rem;

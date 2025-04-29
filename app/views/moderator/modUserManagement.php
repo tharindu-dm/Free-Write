@@ -11,7 +11,7 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    
+
     ?>
 
     <main>
@@ -26,7 +26,6 @@
                 </div>
             </div>
 
-            <!-- Search Bar -->
             <div class="search-bar">
                 <form action="/Free-Write/public/Mod/Search" method="post" id="searchForm">
                     <select id="searchCriteria" name="searchCriteria" required>
@@ -91,11 +90,9 @@
 
             <hr style="margin-bottom: 1rem; border: 0.1rem solid #ffd700;" />
 
-            <!-- User details form -->
             <div class="user-details-form">
                 <h3>User Details</h3>
                 <form id="userDetailsForm">
-                    <!-- Row 1: User ID and Email -->
                     <div class="form-row">
                         <div class="form-group">
                             <label for="userId">User ID</label>
@@ -115,7 +112,6 @@
                         </div>
                     </div>
 
-                    <!-- Row 2: Log attempts and User Type -->
                     <div class="form-row">
 
                         <div class="form-group">
@@ -143,7 +139,6 @@
                         </div>
                     </div>
 
-                    <!-- Row 3: Premium and Activated -->
                     <div class="form-row">
                         <div class="form-group">
                             <label for="premium">Premium</label>
@@ -165,7 +160,6 @@
                         </div>
                     </div>
 
-                    <!-- Row 4: First last Name -->
                     <div class="form-row">
                         <div class="form-group">
                             <label for="firstName">First Name</label>
@@ -185,7 +179,6 @@
                         </div>
                     </div>
 
-                    <!-- Row 5: dob log Country -->
                     <div class="form-row">
                         <div class="form-group">
                             <label for="country">Country</label>
@@ -199,7 +192,7 @@
                             <label for="dob">Date of Birth</label>
                             <input type="date" id="dob" name="dob" <?php
                             if (isset($userDetails) && !empty($userDetails[0]['dob'])) {
-                                // Convert the date to the format YYYY-MM-DD if it's not already in that format
+                                
                                 $dob = date('Y-m-d', strtotime($userDetails[0]['dob']));
                                 echo 'value="' . htmlspecialchars($dob) . '"';
                             }
@@ -207,7 +200,6 @@
                         </div>
                     </div>
 
-                    <!-- Row 6: last log and Registration Date -->
                     <div class="form-row">
                         <div class="form-group">
                             <label for="lastLogin">Last Login Date</label>
@@ -227,7 +219,6 @@
                         </div>
                     </div>
 
-                    <!-- Row 7: Bio -->
                     <div class="form-row">
                         <div class="form-group full-width">
                             <label for="bio">Bio</label>
@@ -243,7 +234,7 @@
                     <?php
                     if (isset($userDetails)): ?>
                         <div class="special-btns">
-                            <?php if ($users[0]['isActivated'] != 9): //if the user already deleted then no need to ?>
+                            <?php if ($users[0]['isActivated'] != 9): ?>
                                 <button id="mod-delete-user">Delete User</button>
                             <?php endif; ?>
                             <button id="mod-update-user">Update User</button>
@@ -255,8 +246,6 @@
 
     </main>
 
-    <!-- Overlays -->
-    <!-- Update Preview Modal -->
     <div id="updatePreviewModal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
@@ -269,7 +258,6 @@
             </div>
             <form id="updateModalForm" method="POST" action="/Free-Write/public/Mod/UpdateUser">
                 <div class="preview-form">
-                    <!-- The form will be cloned here using js-->
                 </div>
                 <div class="modal-buttons">
                     <button type="button" class="cancel-button" onclick="closeUpdateModal()">Cancel</button>
@@ -279,7 +267,6 @@
         </div>
     </div>
 
-    <!-- Delete Confirmation Modal -->
     <div id="deleteConfirmModal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
@@ -338,10 +325,10 @@
 
             for (let item of navItems) {
                 item.addEventListener('click', function () {
-                    // Get the href from data-href attribute
+                    
                     const href = this.getAttribute('data-href');
 
-                    // Redirect to the specified URL
+                    
                     if (href) {
                         window.location.href = href;
                     }

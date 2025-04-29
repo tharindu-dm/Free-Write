@@ -6,12 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Free Write - Review Courier Application</title>
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #f5f5f5;
-    }
-
     .content {
       width: 95%;
       margin: 1.5rem auto;
@@ -251,7 +245,6 @@
       background-color: #FCFAF5;
     }
 
-    /* Enhanced Responsive Design */
     @media (min-width: 1921px) {
       .content {
         width: 90%;
@@ -323,9 +316,9 @@
 
 <body>
   <?php require_once "../app/views/layout/headerSelector.php";
-  
+
   ?>
-  
+
   <div class="content">
     <div class="header">
       <h1>Application Review</h1>
@@ -334,7 +327,6 @@
 
     <div class="grid-container">
       <div class="main-content">
-        <!-- Personal Information -->
         <div class="section-card">
           <div class="section-header">
             <h2>Personal Information</h2>
@@ -365,7 +357,6 @@
           </div>
         </div>
 
-        <!-- Documents -->
         <div class="section-card">
           <div class="section-header">
             <h2>Documents</h2>
@@ -404,7 +395,6 @@
           </div>
         </div>
 
-        <!-- Service Area -->
         <div class="section-card">
           <div class="section-header">
             <h2>Service Area Coverage</h2>
@@ -427,7 +417,6 @@
         </div>
       </div>
 
-      <!-- Decision Box -->
       <div class="decision-box">
         <div class="section-card">
           <div class="section-header">

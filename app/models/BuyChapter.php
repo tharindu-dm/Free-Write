@@ -2,9 +2,9 @@
 
 class BuyChapter
 {
-    use Model; // Use the Model trait
+    use Model; 
 
-    protected $table = 'BuyChapter'; //when using the Model trait, this table name ise used 
+    protected $table = 'BuyChapter';  
     protected $dateTimeColumn = 'purchaseDateTime';
 
     public function ChapPurchaseStatus($chapterID)

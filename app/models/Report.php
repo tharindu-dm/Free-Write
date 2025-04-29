@@ -2,9 +2,9 @@
 
 class Report
 {
-  use Model; // Use the Model trait
+  use Model; 
 
-  protected $table = 'Report'; //when using the Model trait, this table name ise used 
+  protected $table = 'Report';  
   protected $dateTimeColumn = 'submitTime';
   
   public function getAllReports($limit, $offset)

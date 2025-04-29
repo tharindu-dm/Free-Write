@@ -1,6 +1,6 @@
 .container {
   background-color: white;
-  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+
   padding: 20px;
   width: 85vw;
 }
@@ -49,7 +49,6 @@
   opacity: 0.8;
 }
 
-/* Tabs styles */
 .tabs {
   display: flex;
   margin-bottom: 20px;
@@ -68,8 +67,6 @@
   background-color: #ffd700;
   color: black;
 }
-
-/* Table styles */
 
 table {
   width: 100%;
@@ -107,7 +104,6 @@ tr:nth-child(even) {
   margin-top: 20px;
 }
 
-
 .special-btns button {
   margin: 0 5px;
   padding: 8px 12px;
@@ -117,20 +113,19 @@ tr:nth-child(even) {
   cursor: pointer;
 }
 
-#mod-delete-user{
+#mod-delete-user {
   background-color: #dc3545;
 }
 
-#mod-update-user{
+#mod-update-user {
   background-color: #000;
 }
-
 
 .special-btns button:hover {
   opacity: 0.8;
 }
 
-.user-details-table{
+.user-details-table {
   margin-top: 30px;
   border: #ffd700 solid 1px;
   background-color: rgba(255, 215, 0, 0.05);
@@ -157,11 +152,11 @@ tr:nth-child(even) {
 }
 
 .user-details-form .form-group {
-  flex: 1; /* Makes the element grow to fill the available space */
+  flex: 1;
 }
 
 .user-details-form .form-group.full-width {
-  flex: 0 0 100%; /* Prevents the element from shrinking */
+  flex: 0 0 100%;
 }
 
 .user-details-form input,
@@ -185,8 +180,6 @@ tr:nth-child(even) {
   margin-bottom: 5px;
 }
 
-
-/*OVERLAYS*/
 .modal-overlay {
   display: none;
   position: fixed;

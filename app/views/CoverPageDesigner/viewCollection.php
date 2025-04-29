@@ -1,4 +1,3 @@
-<!-- filepath: c:\xampp\htdocs\Free-Write\app\views\CoverPageDesigner\viewCollection.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,14 +6,6 @@
     <title>View Collection</title>
     <link rel="stylesheet" href="/Free-Write/public/css/Dashboard.css">
     <style>
-    /* General Styles */
-    body {
-        background-color: #F5F0E5;
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 20px;
-    }
-
     .dashboard-container {
         max-width: 1200px;
         margin: 0 auto;
@@ -40,7 +31,6 @@
         text-decoration: underline;
     }
 
-    /* Collection Details */
     .collection-details {
         background: #fff;
         border-radius: 12px;
@@ -62,7 +52,6 @@
         color: gray;
     }
 
-    /* Add Design Section */
     .add-design-section {
         background: #fafafa;
         border-radius: 12px;
@@ -106,7 +95,6 @@
         background-color: #E0B94A;
     }
 
-    /* Designs Section */
     .designs-section {
         margin-top: 20px;
     }
@@ -184,7 +172,6 @@
                 <p>Visibility: <?= $collection['isPublic'] ? 'Public' : 'Private' ?></p>
             </div>
 
-            <!-- Add Design to Collection -->
             <div class="add-design-section">
                 <h3>Add Design to Collection</h3>
                 <form action="/Free-Write/public/DesignerCollection/addDesignToCollection" method="POST">
@@ -204,7 +191,6 @@
             </form>
             </div>
 
-            <!-- Designs in this Collection -->
             <div class="designs-section">
                 <h3>Designs in this Collection</h3>
                 <?php if (!empty($designs)) : ?>

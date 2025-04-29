@@ -1,248 +1,224 @@
-<style>
-    :root {
-    --black: #ffffff;
-    --brown: #ffcc00;
-    --cream:rgb(0, 0, 0);
-    --pink:rgb(0, 0, 0);
-    --grey:rgb(0, 0, 0);
-    --card-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    --card-hover-transform: translateY(-5px);
-    --transition: all 0.3s ease;
-
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
-}
-
-body {
-    background-color: var(--black);
-    color: var(--grey);
+:root {
+  --black: #ffffff;
+  --brown: #ffcc00;
+  --cream: rgb(0, 0, 0);
+  --pink: rgb(0, 0, 0);
+  --grey: rgb(0, 0, 0);
+  --card-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  --card-hover-transform: translateY(-5px);
+  --transition: all 0.3s ease;
 }
 
 main {
-    padding: 2rem;
+  padding: 2rem;
 }
 
 .dashboard {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    max-width: 1400px;
-    margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-/* Featured Section - First Row */
 .featured-section {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    margin-bottom: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
 }
 
-/* Most Viewed Book Card */
 .featured-book-card {
-    display: flex;
-    background: #ffcc00;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: var(--card-shadow);
-    transition: var(--transition);
-    height: 320px;
-    border: 1px solid rgba(132, 94, 82, 0.3);
+  display: flex;
+  background: #ffcc00;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  transition: var(--transition);
+  height: 320px;
+  border: 1px solid rgba(132, 94, 82, 0.3);
 }
 
 .featured-book-card:hover {
-    transform: var(--card-hover-transform);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-    border-color: var(--cream);
+  transform: var(--card-hover-transform);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  border-color: var(--cream);
 }
 
 .featured-book-cover {
-    width: 40%;
-    height: 100%;
-    overflow: hidden;
+  width: 40%;
+  height: 100%;
+  overflow: hidden;
 }
 
 .featured-book-cover img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: var(--transition);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition);
 }
 
 .featured-book-card:hover .featured-book-cover img {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 .featured-book-details {
-    width: 60%;
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  width: 60%;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .featured-book-details h3 {
-    font-size: 1.8rem;
-    margin-bottom: 0.5rem;
-    color: var(--cream);
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: var(--cream);
 }
-
 
 .featured-book-stats {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 1rem;
-    color: var(--pink);
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  color: var(--pink);
 }
 
-/* Quotes Card */
 .quotes-card {
-    background: rgba(255, 233, 224, 0.78);
-    border-radius: 10px;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    box-shadow: var(--card-shadow);
-    transition: var(--transition);
-    position: relative;
-    overflow: hidden;
-    height: 320px;
-    border: 1px solid rgba(247, 197, 176, 0.2);
+  background: rgba(255, 233, 224, 0.78);
+  border-radius: 10px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: var(--card-shadow);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  height: 320px;
+  border: 1px solid rgba(247, 197, 176, 0.2);
 }
 
 .quotes-card::before {
-    content: '"';
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    font-size: 6rem;
-    color: rgba(245, 188, 185, 0.2);
-    font-family: Georgia, serif;
+  content: '"';
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 6rem;
+  color: rgba(245, 188, 185, 0.2);
+  font-family: Georgia, serif;
 }
 
 .quotes-card:hover {
-    transform: var(--card-hover-transform);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-    border-color: var(--pink);
+  transform: var(--card-hover-transform);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  border-color: var(--pink);
 }
 
 .content {
-    font-size: 1.4rem;
-    line-height: 1.6;
-    font-style: italic;
-    margin-bottom: 1.5rem;
-    position: relative;
-    z-index: 1;
-    color: var(--grey);
+  font-size: 1.4rem;
+  line-height: 1.6;
+  font-style: italic;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+  color: var(--grey);
 }
 
 .quote-book {
-    font-size: 1rem;
-    color: var(--pink);
-    align-self: flex-end;
-    position: relative;
-    z-index: 1;
+  font-size: 1rem;
+  color: var(--pink);
+  align-self: flex-end;
+  position: relative;
+  z-index: 1;
 }
 
-/* Books Grid */
 .section-title {
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
-    position: relative;
-    padding-left: 1rem;
-    color: var(--cream);
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-left: 1rem;
+  color: var(--cream);
 }
 
 .section-title::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 4px;
-    background: var(--brown);
-    border-radius: 2px;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: var(--brown);
+  border-radius: 2px;
 }
 
 .books-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 2rem;
-    margin-bottom: 3rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
 }
 
 .book-card {
-    background: #ffcc00;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: var(--card-shadow);
-    transition: var(--transition);
-    height: 340px;
-    position: relative;
-    border: 1px solid rgba(132, 94, 82, 0.2);
+  background: #ffcc00;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  transition: var(--transition);
+  height: 340px;
+  position: relative;
+  border: 1px solid rgba(132, 94, 82, 0.2);
 }
 
 .book-card:hover {
-    transform: var(--card-hover-transform);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-    border-color: var(--cream);
+  transform: var(--card-hover-transform);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  border-color: var(--cream);
 }
 
 .book-card-cover {
-    height: 260px;
-    width: 100%;
-    overflow: hidden;
+  height: 260px;
+  width: 100%;
+  overflow: hidden;
 }
 
 .book-card-cover img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: var(--transition);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition);
 }
 
 .book-card:hover .book-card-cover img {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .book-card-details {
-    padding: 1rem;
+  padding: 1rem;
 }
 
 .book-card-title {
-    font-size: 1.1rem;
-    margin-bottom: 0.3rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: var(--cream);
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--cream);
 }
 
 .book-card-stats {
-    font-size: 0.9rem;
-    color: var(--pink);
-    display: flex;
-    justify-content: space-between;
+  font-size: 0.9rem;
+  color: var(--pink);
+  display: flex;
+  justify-content: space-between;
 }
 
-
 .book-card:hover .book-card-overlay {
-    transform: translateY(0);
+  transform: translateY(0);
 }
 
 .read-more-btn {
-    color: var(--cream);
-    font-size: 0.9rem;
-    cursor: pointer;
-    display: inline-block;
+  color: var(--cream);
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: inline-block;
 }
-
-/* Quote Slide Animation */
-
-    </style>

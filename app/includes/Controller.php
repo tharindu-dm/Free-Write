@@ -2,7 +2,7 @@
 
 class Controller
 {
-    public function view($name, $data = []) //to load the view file dynamically
+    public function view($name, $data = [])
     {
         $filename = "../app/views/";
         $filename .= $name . ".php";

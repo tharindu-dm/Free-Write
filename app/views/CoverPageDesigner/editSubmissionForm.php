@@ -1,4 +1,3 @@
-<!-- filepath: c:\xampp\htdocs\Free-Write\app\views\CoverPageDesigner\editSubmissionForm.php -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,15 +5,6 @@
     <meta charset="UTF-8">
     <title>Edit Submission</title>
     <style>
-        /* General Styles */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: rgb(247, 243, 193);
-            color: #1C160C;
-            margin: 0;
-            padding: 0;
-        }
-
         main {
             max-width: 800px;
             margin: 2rem auto;

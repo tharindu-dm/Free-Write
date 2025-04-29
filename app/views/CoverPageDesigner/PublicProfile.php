@@ -7,14 +7,14 @@
     <title><?= htmlspecialchars($designerDetails['firstName'] . ' ' . $designerDetails['lastName']) ?>'s Profile</title>
     <link rel="stylesheet" href="/Free-Write/public/css/PublicProfile.css">
     <style>
-        /* Main Layout */
+        
         main {
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
         }
 
-        /* Designer Profile Section */
+        
         .designer-profile {
             background-color: #FFFFFF;
             padding: 2rem;
@@ -55,7 +55,7 @@
             color: #FFD052;
         }
 
-        /* Follow/Unfollow Buttons */
+        
         .designer-profile button {
             padding: 0.8rem 2rem;
             background-color: #FFD052;
@@ -74,7 +74,7 @@
             background-color: #E0B94A;
         }
 
-        /* Designs Section */
+        
         .designer-designs {
             margin-bottom: 2rem;
         }
@@ -117,7 +117,7 @@
             text-align: center;
         }
 
-        /* Collections Section */
+        
         .collections {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -147,7 +147,7 @@
             line-height: 1.4;
         }
 
-        /* Responsive Design */
+        
         @media (max-width: 768px) {
             main {
                 padding: 1rem;
@@ -171,13 +171,13 @@
             }
         }
 
-        /* Links */
+        
         a {
             text-decoration: none;
             color: inherit;
         }
 
-        /* Error Messages */
+        
         .designs p, 
         .collections p {
             text-align: center;

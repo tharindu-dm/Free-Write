@@ -5,27 +5,23 @@ document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("chapter-form");
 
   if (chapterContent) {
-    chapterContent.style.height = 'auto'; // Reset for proper calculation
-    chapterContent.style.height = chapterContent.scrollHeight + 'px'; // Set height based on content
-    
+    chapterContent.style.height = "auto";
+    chapterContent.style.height = chapterContent.scrollHeight + "px";
+
     const content = chapterContent.value;
     const wordCount = content.trim().split(/\s+/).length;
     wordCountDisplay.textContent = `${wordCount}/3000 words`;
   }
 
-  // Function to auto-expand the textarea
   chapterContent.addEventListener("input", function () {
-    // Reset the height to auto to recalculate
     chapterContent.style.height = "auto";
-    // Set the height based on the scrollHeight
+
     chapterContent.style.height = chapterContent.scrollHeight + "px";
 
-    // Update the word count
     const content = chapterContent.value;
     const wordCount = content.trim().split(/\s+/).length;
     wordCountDisplay.textContent = `${wordCount}/3000 words`;
 
-    // Word count validation
     if (wordCount > 3000) {
       wordCountError.style.display = "block";
       chapterContent.style.borderColor = "#ff6c6c";
@@ -35,7 +31,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Form submission validation
   form.addEventListener("submit", function (e) {
     const content = chapterContent.value;
     const wordCount = content.trim().split(/\s+/).length;

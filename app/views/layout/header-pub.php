@@ -57,7 +57,7 @@ require_once "../app/controllers/UserController.php"; //since this "navigation b
                                     <?= htmlspecialchars(sizeof(getUnreadNotifications($_SESSION['user_id']))) ?>
                                 </span>
                             </button>
-                            <!-- Notification Overlay -->
+
                             <div id="notification-overlay" class="notification-overlay">
                                 <div class="overlay-header">
                                     <h3>Notifications</h3>
@@ -94,36 +94,6 @@ require_once "../app/controllers/UserController.php"; //since this "navigation b
             </div>
         </nav>
     </header>
-
-    <!--SCRIPTS 
-    <script>
-        // Function to fetch and update notification count
-        function updateNotificationCount() {
-            fetch('/Free-Write/public/fetch_notifications.php')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
-                    return response.text(); // Get raw text first
-                })
-                .then(text => {
-                    console.log('Raw response:', text); // Log raw response for debugging
-                    const data = JSON.parse(text); // Parse it as JSON
-                    const badge = document.getElementById('notification-badge');
-                    if (badge) {
-                        badge.textContent = data.unread_count;
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching notifications:', error);
-                    console.log('Raw response causing error:', text); // Log raw text if defined
-                });
-        }
-
-        // Initial call
-        updateNotificationCount();
-        setInterval(updateNotificationCount, 5000);
-    </script>-->
 
     <script src="/Free-Write/public/js/notification.js"></script>
 </body>

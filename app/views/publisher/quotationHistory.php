@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quotation History</title>
     <style>
-        /* Base Styles */
+        
         body {
             font-family: 'Arial', sans-serif;
             background-color: #FCFAF5;
@@ -15,7 +15,7 @@
             margin: 0;
         }
 
-        /* Quotation Container */
+        
         .message-container {
             display: flex;
             max-width: 1600px;
@@ -27,28 +27,6 @@
             height: 1000px;
         }
 
-        /* Chat List */
-        /* .chat-list {
-            width: 250px;
-            background: #fff;
-            border-right: 1px solid #ccc;
-        }
-
-        .chat-list-header {
-            background: #FFD052;
-            color: #1C160C;
-            padding: 10px;
-            font-weight: bold;
-            text-align: center;
-        } */
-
-        /* .chat-user {
-            padding: 15px;
-            border-bottom: 1px solid #eee;
-            cursor: pointer;
-        } */
-
-        /* Chat Area */
         .chat-area {
             flex: 1;
             display: flex;
@@ -71,7 +49,7 @@
             background: #f9f9f9;
         }
 
-        /* Message Styling */
+        
         .message {
             padding: 1rem;
             margin-bottom: 1rem;
@@ -113,7 +91,7 @@
             line-height: 1.5;
         }
 
-        /* Message Actions */
+        
         .message-actions {
             display: flex;
             gap: 8px;
@@ -137,7 +115,7 @@
             color: #1C160C;
         }
 
-        /* Edit Form */
+        
         .edit-form {
             margin-top: 1rem;
         }
@@ -184,7 +162,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        /* Reply Form */
+        
         .reply-form {
             padding: 10px;
             border-top: 1px solid #eee;
@@ -226,7 +204,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        /* Responsive Design */
+        
         @media (max-width: 768px) {
             .message-container {
                 flex-direction: column;
@@ -288,10 +266,6 @@
                                 <?= htmlspecialchars($message['timestamp']); ?>
 
                                 <?php if ($message['sender_type'] == 'publisher'): ?>
-                                    <!-- <div class="message-actions">
-                                        <button class="edit-btn" data-message-index="<?= $index; ?>">Edit</button>
-                                        <button onclick="confirmDelete(<?= $index; ?>)">Delete</button>
-                                    </div> -->
                                 <?php endif; ?>
                             </div>
                             <div class="message-content" id="message-content-<?= $index; ?>">
@@ -335,7 +309,7 @@
     </div>
 
     <script>
-        // Edit message functionality
+
         document.querySelectorAll('.edit-btn').forEach(button => {
             button.addEventListener('click', function () {
                 const messageIndex = this.getAttribute('data-message-index');
@@ -344,7 +318,7 @@
             });
         });
 
-        // Cancel edit
+
         document.querySelectorAll('.cancel-edit-btn').forEach(button => {
             button.addEventListener('click', function () {
                 const messageIndex = this.getAttribute('data-message-index');
@@ -353,7 +327,7 @@
             });
         });
 
-        // Delete message confirmation
+
         function confirmDelete(index) {
             if (confirm('Are you sure you want to delete this message?')) {
                 console.log("Deleting message at index: " + index);

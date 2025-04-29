@@ -5,14 +5,12 @@
     <meta charset="UTF-8">
     <title>Edit Collection</title>
     <style>
-        /* Dashboard container */
         .dashboard-container {
             max-width: 1200px;
             margin: 2rem auto;
             padding: 0 1rem;
         }
 
-        /* Main content section */
         .main-content {
             background-color: rgb(255, 215, 0, 0.05);
             border-radius: 1rem;
@@ -21,7 +19,6 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        /* Section heading */
         .main-content h2 {
             color: #333;
             margin-top: 0;
@@ -41,7 +38,6 @@
             background-color: #ffd700;
         }
 
-        /* Form styling */
         form {
             display: flex;
             flex-direction: column;
@@ -82,7 +78,6 @@
             resize: vertical;
         }
 
-        /* Button styling */
         .btn {
             padding: 0.75rem 1.5rem;
             border: none;
@@ -116,14 +111,12 @@
             background-color: #eaeaea;
         }
 
-        /* Button container */
         .button-group {
             display: flex;
             gap: 1rem;
             margin-top: 1rem;
         }
 
-        /* Custom horizontal rule */
         .gold-divider {
             margin: 1.5rem 0;
             border: 0.1rem solid #ffd700;

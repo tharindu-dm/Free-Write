@@ -1,4 +1,3 @@
-<!-- Advertisement Section -->
 <div id="advertisements" class="view-section">
     <h2>My Advertisement Site</h2>
     <div class="advertisement-container">
@@ -11,7 +10,7 @@
                         <th>End Date</th>
                         <th>Contact Email</th>
                         <th>Status</th>
-                        <th>Actions</th> <!-- New column for Edit, Save, Cancel, and Delete buttons -->
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,7 +60,6 @@
     </div>
 </div>
 
-<!-- Delete Confirmation Overlay -->
 <div class="deleteOverlay-container">
     <div class="deleteOverlay">
         <h2>You will not get refund for this.

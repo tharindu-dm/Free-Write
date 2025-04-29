@@ -2,9 +2,9 @@
 
 class Chapter
 {
-    use Model; // Use the Model trait
+    use Model; 
 
-    protected $table = 'Chapter'; //when using the Model trait, this table name ise used
+    protected $table = 'Chapter'; 
 
     public function getChapterByID($chapterID)
     {
@@ -31,7 +31,7 @@ class Chapter
                     FROM [dbo].[Comment] c
                     JOIN [dbo].[UserDetails] u ON c.[user] = u.[user]
                     WHERE c.[chapter] = $chapterID
-                    ORDER BY c.[dateAdded] DESC;"; //latest date first
+                    ORDER BY c.[dateAdded] DESC;"; 
 
         $title_author = $this->query($title_author_query);
         $chapter_comments = $this->query($comments_query);
@@ -59,7 +59,7 @@ class Chapter
                     FROM [dbo].[Comment] c
                     JOIN [dbo].[UserDetails] u ON c.[user] = u.[user]
                     WHERE c.[chapter] = $chapterID
-                    ORDER BY c.[dateAdded] DESC;"; //latest date first
+                    ORDER BY c.[dateAdded] DESC;"; 
 
         $title_author = $this->query($title_author_query);
         $chapter_comments = $this->query($comments_query);
@@ -69,13 +69,13 @@ class Chapter
 
     public function getChaptersByBookID($bookID)
     {
-        // Prepare the SQL query to select chapters for the given book
+        
         $query = "SELECT c.chapterID, c.title
                   FROM Chapter c
                   JOIN BookChapter bc ON bc.chapter = c.chapterID
                   WHERE bc.book = :bookID";
     
-        // Execute the query and return the results
+        
         return $this->query($query, ['bookID' => $bookID]);
     }
     

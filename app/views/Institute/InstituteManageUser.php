@@ -10,17 +10,14 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    
+
     ?>
 
     <div class="inst-container">
-        <!-- Sidebar Navigation -->
         <?php include_once "../app/views/Institute/sidebar.php"; ?>
-        <!-- Main Content -->
         <main class="inst-main-content">
             <h1>Manage Users</h1>
-            
-            <!-- Users Table -->
+
             <div class="inst-table-container">
                 <table id="usersTable">
                     <thead>
@@ -58,14 +55,8 @@
                 </table>
             </div>
 
-
-            <!-- New User Button
-            <button class="inst-new-user-btn">New User</button> -->
-
-            <!-- Button to Open Popup -->
             <button id="openPopupBtn" class="inst-open-popup-btn">Add New User</button>
 
-            <!-- Popup Window -->
             <?php if (isset($_SESSION['add_user_error'])): ?>
                 <div id="addUserError" class="inst-error-message">
                     <?= htmlspecialchars($_SESSION['add_user_error']) ?>
@@ -108,7 +99,6 @@
         </main>
     </div>
 
-    <!-- Edit User -->
     <div class="update-to-list">
         <div class="list-container">
             <h3>Edit User</h3>
@@ -137,7 +127,6 @@
         </div>
     </div>
 
-    <!-- Delete User -->
     <div class="delete-from-list">
         <div class="list-container">
             <h3 style="color:crimson;">You are about to delete a user!</h3>
@@ -145,13 +134,12 @@
 
             <form id="deleteUserForm" action="/Free-Write/public/Institute/deleteUser" method="POST">
                 <input type="input" disabled id="user_delete">
-                
-                <!-- Add this new field for the user's name -->
+
                 <label for="user_name_delete">Name:</label>
                 <input type="input" disabled id="user_name_delete">
-                
+
                 <input type="hidden" name="userID" id="user_delete_post">
-                
+
                 <div class="list-add-actionBtns">
                     <button id="cancel-delete-button" type="button" class="add-list-cancel-button">
                         Cancel
@@ -166,4 +154,5 @@
     <script src="\Free-Write\public\js\Institute\InstituteManageUser.js"></script>
 </body>
 <input type="hidden" name="name" id="user_delete_post">
+
 </html>

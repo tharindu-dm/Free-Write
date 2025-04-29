@@ -351,7 +351,6 @@
                                             </td>
                                             <td>
                                                 <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $review['user']): ?>
-                                                    <!-- Show delete button if the logged-in user matches the review user -->
                                                     <form action="/Free-Write/public/Book/deleteReview" method="POST">
                                                         <input type="hidden" name="reviewID" value="<?= $review['reviewID']; ?>">
                                                         <input type="hidden" name="bookID" value="<?= $book[0]['bookID']; ?>">
@@ -366,7 +365,6 @@
                         <?php else: ?>
                             <p>Be the first to write a review</p>
                         <?php endif; ?>
-
                     </div>
                 </div>
             </div>
@@ -397,11 +395,9 @@
 
     <script src="/Free-Write/public/js/Book/bookOverview.js"></script>
     <script>
-        // Get the button and popup elements
         const writeQuotationBtn = document.getElementById('write-quotation');
         const quotationPopup = document.getElementById('quotation-popup');
 
-        // Add click event to the button
         if (writeQuotationBtn) {
             writeQuotationBtn.addEventListener('click', function () {
                 quotationPopup.style.display = 'block';

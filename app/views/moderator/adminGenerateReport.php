@@ -9,7 +9,7 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    //show($data)
+
     ?>
 
     <main>
@@ -22,7 +22,6 @@
             </div>
 
             <div class="stats-grid">
-                <!-- Users Statistics Section -->
                 <div class="stats-card">
                     <h2>User Statistics</h2>
                     <div class="stat-item">
@@ -59,7 +58,6 @@
                     </div>
                 </div>
 
-                <!-- Content Creation Section -->
                 <div class="stats-card">
                     <h2>Content Creation</h2>
                     <div class="stat-item">
@@ -80,7 +78,6 @@
                     </div>
                 </div>
 
-                <!-- Engagement Statistics Section -->
                 <div class="stats-card">
                     <h2>Engagement Statistics</h2>
                     <div class="stat-item">
@@ -93,7 +90,6 @@
                     </div>
                 </div>
 
-                <!-- Feedback & Reports Section -->
                 <div class="stats-card">
                     <h2>Feedback & Reports</h2>
                     <div class="stat-item">
@@ -114,7 +110,6 @@
                     </div>
                 </div>
 
-                <!-- Sales Data Section -->
                 <div class="stats-card">
                     <h2>Revenue Summary</h2>
                     <div class="stat-item">
@@ -159,16 +154,16 @@
 
     <script>
         document.getElementById('download-pdf').addEventListener('click', function () {
-            // Hiding the download button before printing
+
             this.style.display = 'none';
 
-            // Set print title
+
             document.title = 'Freewrite Statistics Report - ' + document.getElementById('generation-date').textContent;
 
-            // Print the document
+
             window.print();
 
-            // Show the button again after printing dialog is closed
+
             setTimeout(() => {
                 this.style.display = 'inline-block';
             }, 1000);

@@ -5,7 +5,6 @@ class Competition
     protected $table = 'Competition';
     protected $dateTimeColumn = 'start_date';
 
-    // Update competition statuses based on dates
     public function updateCompetitionStatus()
     {
 
@@ -19,12 +18,6 @@ class Competition
 
     }
 
-    /*public function updateCompetitionStatus()
-    {
-        $query = "UPDATE competition SET status = 'ended' WHERE end_date < GETDATE()";
-        return $this->query($query);
-    }
-    */
     public function getCompetitionByWriterID($writerID)
     {
         $query = "SELECT * FROM Competition WHERE publisherID = :writerID";
@@ -39,8 +32,6 @@ class Competition
         return $this->query($query, $params);
     }
 
-    //nalan addition
-    // Fetch all competitions
     public function findAll()
     {
 
@@ -48,32 +39,12 @@ class Competition
 
     }
 
-    // Fetch competitions by status
     public function findByStatus($status)
     {
 
         return $this->query("SELECT * FROM $this->table WHERE status = ?", [$status]);
 
     }
-
-    //public function where($conditions)
-    //{
-    //
-    //$query = "SELECT * FROM {$this->table} WHERE ";
-    //$params = [];
-    //
-    //foreach ($conditions as $key => $value) {
-    //
-    //$query .= "{$key} = :{$key} AND ";
-    //$params[":{$key}"] = $value;
-    //
-    //}
-    //
-    //$query = rtrim($query, ' AND ');
-    //
-    //return $this->query($query, $params)->fetchAll(PDO::FETCH_OBJ);
-    //
-    //}
 
     public function getAllCompetitions()
     {

@@ -1,25 +1,18 @@
 <?php
 
 trait Model
-{//traits are better than classes since they do not need to be instantiated
-
-    use Database; //using the Database trait
-    //sql specifiers
-    //protected $limit = 10;
-    //protected $offset = 0;
+{
+    use Database;
     protected $orderBy = "desc";
 
-
-    //dyamically creating and executing sql queries based on the model(in /app/models) used 
-
-    public function findAll() //return multiple rows
+    public function findAll()
     {
         $query = "select * from [$this->table] order by [" . lcfirst($this->table) . "ID]" . " $this->orderBy;";
 
         return $this->query($query);
     }
 
-    public function where($data, $data_not = []) //return multiple rows
+    public function where($data, $data_not = [])
     {
         $keys = array_keys($data);
         $keys_not = array_keys($data_not);
@@ -34,15 +27,15 @@ trait Model
         }
 
         $query = substr_replace($query, '', strrpos($query, ' AND ['), strlen(' AND ['));
-        //$query .= " order by " . lcfirst($this->table) . "ID" . " $this->orderBy";// offset $this->offset";
+
 
         $data = array_merge($data, $data_not);
 
-        //show($query);
+
         return $this->query($query, $data);
     }
 
-    public function first($data, $data_not = []) //return 1 row
+    public function first($data, $data_not = [])
     {
         $keys = array_keys($data);
         $keys_not = array_keys($data_not);
@@ -57,10 +50,6 @@ trait Model
         }
 
         $query = substr_replace($query, '', strrpos($query, ' AND ['), strlen(' AND ['));
-
-        //$query .= " limit $this->limit offset $this->offset";
-
-        //echo "\n Query: " . $query . "\n"; // <<<<<<<<<<<<<<<<<<<<<<
 
         $data = array_merge($data, $data_not);
         $result = $this->query($query, $data);
@@ -72,23 +61,23 @@ trait Model
         }
     }
 
-    public function insert($data) //insert data into the table
+    public function insert($data)
     {
         $keys = array_keys($data);
 
-        // Enclose keys in brackets to handle reserved keywords
+
         $bracketedKeys = array_map(function ($key) {
             return "[" . $key . "]";
         }, $keys);
 
-        // Build the query
+
         $query = "INSERT INTO [{$this->table}] (" . implode(",", $bracketedKeys) . ") VALUES (:" . implode(",:", $keys) . ")";
 
-        //show($query);
+
         return $this->query($query, $data);
     }
 
-    public function update($id, $data, $id_column = 'id') //update data in the table
+    public function update($id, $data, $id_column = 'id')
     {
         $keys = array_keys($data);
         $query = "UPDATE [{$this->table}] set ";
@@ -100,7 +89,7 @@ trait Model
         $query = rtrim($query, ', ');
         $query .= " WHERE [{$id_column}] = $id";
 
-        //show($query);
+
 
         if ($this->query($query, $data)) {
             return true;
@@ -108,7 +97,7 @@ trait Model
         return false;
     }
 
-    public function delete($id, $id_column = 'id') //delete data from the table
+    public function delete($id, $id_column = 'id')
     {
         $data[$id_column] = $id;
         $query = "DELETE FROM [{$this->table}] WHERE $id_column = :$id_column";

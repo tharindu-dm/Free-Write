@@ -1,4 +1,3 @@
-<!-- My Quotation chat -->
 <div id="quotations" class="view-section">
     <h2>My Quotation chat </h2>
     <style>
@@ -121,18 +120,15 @@
                 <?php endforeach; ?>
             </div>
 
-            <!-- Chat area -->
             <div class="chat-area">
                 <div class="chat-header" id="chatTitle">
                     Select a writer
                 </div>
 
                 <div class="chat-messages" id="chatMessages">
-                    <!-- Messages will be inserted here -->
                     <p class="empty-message">Select a conversation to view messages</p>
                 </div>
 
-                <!-- Reply form -->
                 <div class="reply-form" id="replyForm" style="display: none;">
                     <form action="/Free-Write/public/Publisher/sendQuotationChat" method="post" id="quotationReplyForm">
                         <input type="hidden" name="writer_id" id="replyWriterId" value="">
@@ -149,7 +145,7 @@
         </div>
 
         <script>
-            // Store all quotation data from PHP
+
             const quotationData = <?= json_encode($quotationData) ?>;
 
             function showChat(index) {
@@ -164,13 +160,13 @@
                 messagesContainer.innerHTML = "";
                 chatTitle.innerText = quotationData[index].writerName;
 
-                // Update reply form with current writer and book IDs
+
                 replyWriterId.value = quotationData[index].writerId;
                 replyBookId.value = quotationData[index].bookId;
                 replyPublisherId.value = quotationData[index].publisherId;
                 replyForm.style.display = "block";
 
-                // Display messages
+
                 if (quotationData[index].messages && quotationData[index].messages.length > 0) {
                     quotationData[index].messages.forEach(msg => {
                         const div = document.createElement("div");
@@ -190,7 +186,7 @@
                         contentDiv.textContent = msg.text;
                         div.appendChild(contentDiv);
 
-                        // Align writer messages to the right
+
                         if (msg.sender_type === "publisher") {
                             div.style.marginLeft = "auto";
                         }
@@ -198,14 +194,14 @@
                         messagesContainer.appendChild(div);
                     });
 
-                    // Scroll to bottom
+
                     messagesContainer.scrollTop = messagesContainer.scrollHeight;
                 } else {
                     messagesContainer.innerHTML = "<p class='empty-message'>No messages yet</p>";
                 }
             }
 
-            // Load first writer by default if available
+
             if (quotationData.length > 0) {
                 showChat(0);
             }

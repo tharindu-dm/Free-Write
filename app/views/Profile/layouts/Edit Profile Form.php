@@ -1,4 +1,3 @@
-<!-- Edit profile form --------------------------------------- -->
 <div class="edit-profile">
     <div class="close-overlay-button">
         <button id="cancelOverlayBtn" aria-label="Close">

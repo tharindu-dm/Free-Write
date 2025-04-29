@@ -57,7 +57,8 @@
                                         <?= htmlspecialchars(sizeof(getUnreadNotifications($_SESSION['user_id']))) ?>
                                     </span>
                                 </button>
-                                <!-- Notification Overlay -->
+                                
+                                
                                 <div id="notification-overlay" class="notification-overlay">
                                     <div class="overlay-header">
                                         <h3>Notifications</h3>

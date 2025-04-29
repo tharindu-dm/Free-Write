@@ -10,13 +10,10 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    
     ?>
 
-    <!-- Writing Section -->
     <form action="/Free-Write/public/Writer/saveChapter" method="POST" enctype="multipart/form-data">
         <main class="writing-section">
-            <!-- Title -->
             <div class="space_between">
                 <h1 class="story-title">
                     <?php echo htmlspecialchars($book['title']); ?>
@@ -29,22 +26,19 @@
                 <?php endif; ?>
             </div>
 
-            <!-- Chapter Name -->
             <div class="text-editor">
-                <textarea id="story-editor-chapter" name="story-editor-chapter"
-                    placeholder="Chapter Name" maxlength="50"><?= htmlspecialchars('Chapter ' . $chapterCount) ?></textarea>
-                    <small id="title-warning" style="color: red; display: none;">Maximum 45 characters allowed.</small>
+                <textarea id="story-editor-chapter" name="story-editor-chapter" placeholder="Chapter Name"
+                    maxlength="50"><?= htmlspecialchars('Chapter ' . $chapterCount) ?></textarea>
+                <small id="title-warning" style="color: red; display: none;">Maximum 45 characters allowed.</small>
 
             </div>
 
-            <!-- Story Editor -->
             <div class="text-editor">
                 <textarea id="story-editor" name="story-editor" placeholder="Type your text..."></textarea>
             </div>
 
 
 
-            <!-- Action Buttons -->
             <div class="action-buttons">
                 <button type="button" class="save-btn" onclick="window.history.back();">Cancel</button>
                 <button type="submit" class="save-btn">Save</button>
@@ -60,7 +54,6 @@
         </main>
     </form>
 
-    <!-- Footer -->
     <?php
     require_once "../app/views/layout/footer.php";
     ?>

@@ -8,7 +8,6 @@ class DesignSubmissions
 
     public function createSubmission($data)
     {
-        // Insert the submission data into the database
         return $this->insert($data);
     }
 

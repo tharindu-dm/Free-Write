@@ -2,9 +2,9 @@
 
 class Collection
 {
-    use Model; // Use the Model trait
+    use Model; 
 
-    protected $table = 'Collection'; //when using the Model trait, this table name ise used 
+    protected $table = 'Collection';  
 
     public function getUserCollections($uid)
     {

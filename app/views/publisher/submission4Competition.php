@@ -130,7 +130,7 @@
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            /* Ensure modal is above header */
+
         }
 
         .modal-content {
@@ -140,9 +140,9 @@
             max-width: 600px;
             width: 90%;
             max-height: 80vh;
-            /* Limit modal height */
+
             overflow-y: auto;
-            /* Enable scrolling */
+
         }
 
         .close-modal {
@@ -155,11 +155,11 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             gap: 20px;
-            /* Increase gap for better spacing */
+
             max-height: 60vh;
             overflow-y: auto;
             padding: 10px;
-            /* Add padding for breathing room */
+
         }
 
         .book-preview-item {
@@ -170,9 +170,9 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            /* Ensure content is spaced evenly */
+
             height: 220px;
-            /* Fixed height for consistency */
+
         }
 
         .book-preview-item img {
@@ -188,7 +188,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-            /* Prevent text wrapping for titles */
+
         }
 
         .select-book-btn {
@@ -206,7 +206,7 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    
+
     ?>
 
     <main class="container">
@@ -294,7 +294,7 @@
     ?>
 
     <script>
-        // Form validation and submission
+
         const form = document.getElementById('submission-form');
         form.addEventListener('submit', function (e) {
             e.preventDefault();
@@ -339,12 +339,12 @@
 
         });
 
-        // Cancel button
+
         document.getElementById('cancel-submission').addEventListener('click', function () {
             window.location.href = '/Free-Write/public/Competition/';
         });
 
-        // Book preview modal
+
         const viewBooksBtn = document.getElementById('view-books-btn');
         const bookPreviewModal = document.getElementById('book-preview-modal');
         const closeModal = document.querySelector('.close-modal');

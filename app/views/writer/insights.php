@@ -10,12 +10,11 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    
+
     ?>
 
     <main>
         <div class="dashboard">
-            <!-- Profile Section -->
             <div class="profile-section">
                 <div class="profile-image">
                     <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>"
@@ -35,14 +34,11 @@
                 <?php endif; ?>
             </div>
 
-            <!-- Writer Navigation -->
             <?php require_once "../app/views/writer/writerNav.php"; ?>
 
-            <!-- Featured Section -->
             <div class="featured-section">
                 <?php if (!empty($MostViewed) && is_array($MostViewed)): ?>
                     <a href="/Free-Write/public/writer/Overview/<?= htmlspecialchars($MostViewed[0]['bookID']); ?>">
-                        <!-- Top Book -->
                         <div class="featured-book-card">
                             <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($MostViewed[0]['coverImage'] ?? 'sampleCover.png'); ?>"
                                 alt="Cover Image of <?= htmlspecialchars($MostViewed[0]['title']); ?>">
@@ -57,7 +53,6 @@
                     </a>
 
 
-                    <!-- Bar Chart -->
                     <div class="chart-container">
                         <?php
                         $maxViews = max(array_column($MostViewed, 'views'));
@@ -77,7 +72,6 @@
                 <?php endif; ?>
             </div>
 
-            <!-- Most Viewed Books Section -->
             <div>
                 <h2 class="section-title">Most Viewed</h2>
                 <div class="books-grid">
@@ -109,7 +103,6 @@
                 </div>
             </div>
 
-            <!-- Rated Section -->
             <div>
                 <h2 class="section-title">Highest Rated</h2>
                 <div class="books-grid">
@@ -117,7 +110,7 @@
                     if (!empty($Rated) && is_array($Rated)):
                         foreach ($Rated as $index => $book):
                             if ($index >= 5)
-                                break; // Only show 5 books
+                                break;
                             ?><a href="/Free-Write/public/writer/Overview/<?= htmlspecialchars($book['bookID']); ?>">
                                 <div class="book-card">
                                     <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['coverImage'] ?? 'sampleCover.png'); ?>"
@@ -136,7 +129,7 @@
                                     </p>
                                 </div>
                             </a>
-                        <?php
+                            <?php
                         endforeach;
                     else:
                         ?>
@@ -154,7 +147,6 @@
         </div>
     </main>
 
-    <!-- Footer -->
     <?php require_once "../app/views/layout/footer.php"; ?>
     <script src="../public/js/home.js"></script>
 </body>

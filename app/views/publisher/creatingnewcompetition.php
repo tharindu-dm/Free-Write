@@ -264,12 +264,12 @@
         endDate: document.getElementById('end_date_error')
       };
 
-      // Reset all error messages
+      
       Object.values(errorMessages).forEach(elem => {
         if (elem) elem.style.display = 'none';
       });
 
-      // Competition Name Validation
+      
       const title = document.getElementById('title').value;
       if (/\d/.test(title)) {
         errorMessages.title.textContent = 'Competition name cannot contain numbers';
@@ -277,7 +277,7 @@
         isValid = false;
       }
 
-      // Category Validation
+      
       const category = document.getElementById('category').value;
       if (/\d/.test(category)) {
         errorMessages.category.textContent = 'Category cannot contain numbers';
@@ -285,7 +285,7 @@
         isValid = false;
       }
 
-      // Description Validation
+      
       const description = document.getElementById('description').value;
       const descriptionWordCount = countWords(description);
       if (descriptionWordCount < 5) {
@@ -298,7 +298,7 @@
         isValid = false;
       }
 
-      // Rules Validation
+      
       const rules = document.getElementById('rules').value;
       const rulesWordCount = countWords(rules);
       if (rulesWordCount < 5) {
@@ -311,7 +311,7 @@
         isValid = false;
       }
 
-      // Prize Validation
+      
       const firstPrize = parseFloat(document.getElementById('first_prize').value);
       const secondPrize = parseFloat(document.getElementById('second_prize').value);
       const thirdPrize = parseFloat(document.getElementById('third_prize').value);
@@ -326,7 +326,7 @@
         isValid = false;
       }
 
-      // Date Validations
+      
       const startDate = new Date(document.getElementById('start_date').value);
       const endDate = new Date(document.getElementById('end_date').value);
       const today = new Date();
@@ -347,7 +347,7 @@
       return isValid;
     }
 
-    // Real-time validation for text inputs
+    
     document.getElementById('title').addEventListener('input', function () {
       const errorElem = document.getElementById('title_error');
       if (/\d/.test(this.value)) {
@@ -396,7 +396,7 @@
       }
     });
 
-    // Real-time validation for prize inputs
+    
     function validatePrizes() {
       const firstPrize = parseFloat(document.getElementById('first_prize').value);
       const secondPrize = parseFloat(document.getElementById('second_prize').value);
@@ -418,12 +418,12 @@
     document.getElementById('second_prize').addEventListener('input', validatePrizes);
     document.getElementById('third_prize').addEventListener('input', validatePrizes);
 
-    // Set minimum date for start date (today)
+    
     const today = new Date();
     const todayFormatted = today.toISOString().split('T')[0];
     document.getElementById('start_date').setAttribute('min', todayFormatted);
 
-    // Update minimum date for end date when start date changes
+    
     document.getElementById('start_date').addEventListener('change', function () {
       const startDate = new Date(this.value);
       const minEndDate = new Date(startDate);

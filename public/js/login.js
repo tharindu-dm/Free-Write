@@ -1,10 +1,8 @@
-// Global variables
 let loginAttempts = 0;
 const maxAttempts = 3;
 let timeoutActive = false;
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Form switching functionality
   document.getElementById("sign-up-btn").addEventListener("click", function () {
     swapSignup("signup");
   });
@@ -13,7 +11,6 @@ document.addEventListener("DOMContentLoaded", function () {
     swapSignup("login");
   });
 
-  // Form elements
   const loginForm = document.getElementById("login-form");
   const registerForm = document.getElementById("register-form");
   const logEmail = document.getElementById("log-email");
@@ -21,17 +18,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const passwordLogin = document.getElementById("log-password");
   const passwordReg = document.getElementById("passwordReg");
   const confpass = document.getElementById("confpass");
-
-  // Validation functions
-  // function hashPassword(password) {
-  //   let hash = 0;
-  //   for (let i = 0; i < password.length; i++) {
-  //     const char = password.charCodeAt(i);
-  //     hash = (hash << 5) - hash + char;
-  //     hash = hash & hash;
-  //   }
-  //   return Math.abs(hash).toString(36);
-  // }
 
   function checkpwMatch() {
     if (passwordReg.value !== confpass.value) {
@@ -51,7 +37,6 @@ document.addEventListener("DOMContentLoaded", function () {
     return passwordRegEx.test(password);
   }
 
-  // Input validation event listeners
   logEmail.addEventListener("change", function () {
     this.style.borderColor = validateEmail(this.value) ? "" : "red";
   });
@@ -71,7 +56,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   confpass.addEventListener("change", checkpwMatch);
 
-  // Register form submission
   registerForm.addEventListener("submit", function (e) {
     e.preventDefault();
     if (
@@ -79,12 +63,10 @@ document.addEventListener("DOMContentLoaded", function () {
       validateEmail(emailReg.value) &&
       checkPassStrength(passwordReg.value)
     ) {
-      // passwordReg.value = hashPassword(passwordReg.value);
       this.submit();
     }
   });
 
-  // Login form submission
   loginForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
@@ -94,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    const hashedPassword = passwordLogin.value; //hashPassword(passwordLogin.value);
+    const hashedPassword = passwordLogin.value;
     const formData = new FormData(this);
     formData.set("log-password", hashedPassword);
 
@@ -134,7 +116,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// Form switching function
 function swapSignup(forwardTo) {
   if (forwardTo == "signup") {
     document.getElementById("login-form-div").style.display = "none";
@@ -145,7 +126,6 @@ function swapSignup(forwardTo) {
   }
 }
 
-// Overlay functions
 function showLoginError(message) {
   if (!timeoutActive) {
     loginAttempts++;
@@ -204,7 +184,6 @@ function closeOverlay(overlayId) {
   }
 }
 
-// Cleanup function
 function cleanup() {
   if (window.countdownTimer) {
     clearInterval(window.countdownTimer);

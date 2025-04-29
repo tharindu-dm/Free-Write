@@ -15,22 +15,18 @@
     ?>
 
     <main>
-        <!--method="POST" and enctype required for file upload -->
         <form id="create-design-form" method="POST" enctype="multipart/form-data"
             action="/Free-Write/public/Designer/createCover">
-            <!-- Title -->
             <div class="form-group">
                 <label for="title">Title <span style="color:red">*</span></label>
                 <input type="text" id="title" name="title" placeholder="Enter a title for your design" required>
             </div>
 
-            <!-- Optional: Description -->
             <div class="form-group">
                 <label for="description">Description (optional)</label>
                 <textarea id="description" name="description" rows="4"></textarea>
             </div>
 
-            <!-- Cover Image File Input -->
             <div class="form-group">
                 <label for="coverImage">Cover Image <span style="color:red">*</span></label>
                 <div class="file-input-container">
@@ -46,10 +42,8 @@
                 </div>
             </div>
 
-            <!-- Hidden input to send logged-in designer's ID -->
             <input type="hidden" name="designer_id" value="<?= $_SESSION['user_id'] ?? '' ?>">
 
-            <!-- Submit -->
             <div class="form-group action-btn">
                 <a href="/Free-Write/public/Designer/Dashboard" ><button class="cancel-btn">Cancel</button></a>
                 <button type="submit" id="create-btn">Create</button>
@@ -71,11 +65,9 @@
 
             fileInput.addEventListener('change', function (e) {
                 if (this.files && this.files[0]) {
-                    // Display file name
                     const fileName = this.files[0].name;
                     fileNameDisplay.textContent = fileName;
 
-                    // Preview image
                     const reader = new FileReader();
 
                     reader.onload = function (e) {

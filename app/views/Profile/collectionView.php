@@ -10,7 +10,7 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    
+
     ?>
 
     <main>
@@ -38,7 +38,6 @@
 
         <div class="books-grid">
             <?php foreach ($books as $book): ?>
-                <!-- Book card -->
                 <a href="/Free-Write/public/book/Overview/<?= htmlspecialchars($book['bookID']) ?>">
                     <div class="book-card">
                         <img src="/Free-Write/app/images/coverDesign/<?= htmlspecialchars($book['cover_image'] ?? 'sampleCover.png') ?>"
@@ -46,13 +45,7 @@
                         <div class="book-info">
                             <h3 class="book-title"><?= htmlspecialchars($book['title'] ?? 'Untitled') ?></h3>
                             <p class="book-author">By <?= htmlspecialchars($book['author'] ?? 'sampleCover.png') ?></p>
-                            <!--<div class="book-meta">
-                            <div class="book-rating">
-                                <span class="star">★</span>
-                                4.7
-                            </div>
-                            <div class="book-chapters">23 chapters</div>
-                        </div>-->
+
                         </div>
                     </div>
                 </a>
@@ -65,7 +58,7 @@
     <?php
     require_once "../app/views/layout/footer.php";
     ?>
-    <!-- Edit Collection Modal -->
+
     <div id="editModal" class="modal-overlay">
         <div class="modal">
             <div class="modal-header">
@@ -99,7 +92,6 @@
         </div>
     </div>
 
-    <!-- Delete Collection Modal -->
     <div id="deleteModal" class="modal-overlay">
         <div class="modal">
             <div class="modal-header">

@@ -11,12 +11,11 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    
+
     ?>
 
     <main>
         <div class="dashboard">
-            <!-- Profile Section -->
             <div class="profile-section">
                 <div class="profile-image">
                     <img src="/Free-Write/app/images/profile/<?= htmlspecialchars($userDetails['profileImage'] ?? 'profile-image.jpg') ?>"
@@ -36,10 +35,8 @@
                 <?php endif; ?>
             </div>
 
-            <!-- Navigation for Writer Options -->
             <?php require_once "../app/views/writer/writerNav.php"; ?>
 
-            <!-- Quotes Section -->
             <section class="quotes-section">
                 <?php if (isset($_SESSION['user_id']) && ($userDetails['user'] == $_SESSION['user_id'])): ?>
                     <h2>My Quotes</h2>
@@ -64,7 +61,6 @@
                         <a href="/Free-Write/public/Writer/NewQuote" class="button-new">+ New</a>
                     <?php endif; ?>
 
-                    <!-- Quotes List -->
                     <ul class="quote-item">
                         <?php foreach ($quotes as $quote): ?>
                             <li>
@@ -72,13 +68,10 @@
                                     class="quote-link">
                                     <p>
                                         <?php
-                                        // Split the quote into an array of words
                                         $words = explode(' ', $quote['quote']);
 
-                                        // Get the first 7 words
                                         $firstSevenWords = implode(' ', array_slice($words, 0, 7));
 
-                                        // Display the first 7 words
                                         echo htmlspecialchars($firstSevenWords);
                                         ?>...
                                         <br>
@@ -97,7 +90,6 @@
 
     </main>
 
-    <!-- Footer Section -->
     <?php require_once "../app/views/layout/footer.php"; ?>
 
     <script src="../public/js/home.js"></script>
