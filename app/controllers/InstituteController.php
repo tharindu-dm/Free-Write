@@ -236,6 +236,10 @@ class InstituteController extends Controller
         $firstName = $_POST['user_firstName'];
         $lastName = $_POST['user_lastName'];
 
+        if (strlen($username) > 20) {
+            die("Error: Username is too long (maximum 20 characters).");
+        }
+
         $query = "SELECT TOP 1 * FROM [User] WHERE email = :email AND userID != :userID";
         $result = $user_table->query($query, ['email' => $username, 'userID' => $userID]);
 
@@ -250,8 +254,11 @@ class InstituteController extends Controller
         header('Location: /Free-Write/public/Institute/ManageUser');
     }
 
-    public function deleteUser()
+    public function deleteUser() 
     {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            die("Invalid request method");
+        }
         $userID = $_POST['userID'];
 
         $userModel = new User();
