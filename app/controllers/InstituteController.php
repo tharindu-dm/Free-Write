@@ -10,8 +10,8 @@ class InstituteController extends Controller
     public function Dashboard()
     {
         $institute_table = new Institution();
-        $instDetails = $institute_table->first(['creator' => $_SESSION['user_id']]);
-        $this->view('Institute/InstituteDashboard', ['instDetails' => $instDetails]);
+        $instDetails = $institute_table->first(['institutionID' => $_SESSION['user_id']]);
+        $this->view('Institute/InstituteDashboard');
     }
 
     public function Library()
@@ -24,7 +24,7 @@ class InstituteController extends Controller
         $institute_table = new Institution();
         $userID = $_SESSION['user_id'];
 
-        $instDetails = $institute_table->first(['creator' => $userID]);
+        $instDetails = $institute_table->first(['institutionID' => $userID]);
 
         $success = $_GET['success'] ?? null;
         $error = $_GET['error'] ?? null;
@@ -40,14 +40,14 @@ class InstituteController extends Controller
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $institute_table = new Institution();
-            $userID = $_SESSION['user_id'];
+            //$instID = $_SESSION['user_id'];
             $name = $_POST['name'];
             $username = $_POST['username'];
 
             // Find the institution where the creator is the current user
-            $instDetails = $institute_table->first(['creator' => $userID]);
-            if ($instDetails) {
-                $id = $instDetails['institutionID'];
+            //$instDetails = $institute_table->first(['institutionID' => $instID]);
+            if (isset($_SESSION['user_id'])) {
+                $id = $_SESSION['user_id'];
 
                 // Check if the username is already taken by another institution
                 $query = "SELECT * FROM Institution WHERE username = :username AND institutionID != :id";
@@ -79,8 +79,8 @@ class InstituteController extends Controller
                 }
 
                 $data = [
-                    $name,
-                    $username,  
+                    'name'=>$name,
+                    'username'=>$username,
                 ];
 
                 $result = $institute_table->updateInstitution($id, $data);
@@ -103,7 +103,7 @@ class InstituteController extends Controller
 
         $institute_table = new Institution();
         $user_table = new User();
-        $instDetails = $institute_table->first(['creator' => $_SESSION['user_id']]); // to get institute name
+        $instDetails = $institute_table->first(['institutionID' => $_SESSION['user_id']]); // to get institute name
 
         if (!$instDetails) {
             // Handle the case where no institution is found

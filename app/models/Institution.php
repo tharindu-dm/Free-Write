@@ -22,19 +22,19 @@ class Institution
     public function updateInstitution($id, $data)
     {
         // Updates an institution's details by ID
-        return $this->update($id, $data, 'institutionId');
+        return $this->update($id, $data, 'institutionID');
     }
 
     public function deleteInstitution($id)
     {
         // Deletes an institution from the database by ID
-        return $this->delete($id, 'institutionId');
+        return $this->delete($id, 'institutionID');
     }
 
     public function findInstitutionById($id)
     {
         // Retrieves a specific institution by ID
-        return $this->first(['institutionId' => $id]);
+        return $this->first(['institutionID' => $id]);
     }
 }
 

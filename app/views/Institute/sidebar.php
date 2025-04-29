@@ -1,6 +1,6 @@
 <?php
 $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$activeClass = function($path) use ($currentPath) {
+$activeClass = function ($path) use ($currentPath) {
     return str_contains($currentPath, $path) ? 'active' : '';
 };
 ?>
@@ -99,7 +99,7 @@ $activeClass = function($path) use ($currentPath) {
     <div class="institution-info">
         <div class="institution-icon"></div>
         <div>
-            <h3><?= htmlspecialchars($instDetails['name'] ?? 'Institution Name') ?></h3>
+            <h3><?= htmlspecialchars($_SESSION['user_name'] ?? 'Institution Name') ?></h3>
         </div>
     </div>
     <nav class="menu">
