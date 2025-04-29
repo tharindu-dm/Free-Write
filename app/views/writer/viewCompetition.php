@@ -31,7 +31,7 @@
           <?php if ($competition['status'] === 'ended'): ?>
             <div class="date-info ended">Competition Ended</div>
           <?php else: ?>
-            <div class="date-info active">Status: <?= ($competition['status']); ?></div>
+            <div class="date-info active">Status: <?= ucfirst($competition['status']); ?></div>
           <?php endif; ?>
         </div>
 

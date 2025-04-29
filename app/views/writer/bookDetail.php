@@ -77,22 +77,17 @@
                                     <?php if ($book[0]['price'] === null): ?>
                                         <th>Price (LKR)</th>
                                     <?php endif; ?>
-                                    <th>Action</th>
                                 </tr>
                                 <?php foreach ($chapters as $chap): ?>
                                     <tr>
-                                        <td><a href="/Free-Write/public/book/Chapter/<?= htmlspecialchars($chap['chapterID']); ?>">
+                                        <td><a href="/Free-Write/public/Writer/editChapter/<?= htmlspecialchars($chap['chapterID']); ?>">
                                                 <?= htmlspecialchars($chap['title']); ?></a>
                                         </td>
                                         <td><?= htmlspecialchars($chap['lastUpdated']); ?></td>
                                         <?php if ($book[0]['price'] === null): ?>
                                             <td><?= $chap['price'] === null ? 'FREE' : htmlspecialchars($chap['price']); ?></td>
                                         <?php endif; ?>
-                                        <td>
-                                            <a href="/Free-Write/public/Writer/editChapter/<?= htmlspecialchars($chap['chapterID']); ?>"
-                                                class="edit-btn">Edit</a>
-
-                                        </td>
+                                        
                                     </tr>
                                 <?php endforeach; ?>
                             </table>

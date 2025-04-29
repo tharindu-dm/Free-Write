@@ -128,6 +128,7 @@ main {
   border-radius: 4px;
   font-size: 0.75rem;
   width: 200px;
+  margin-top: 10px;
 }
 
 .book-cover input[type="file"]::file-selector-button {
@@ -1577,9 +1578,6 @@ label {
   margin-bottom: 0.5rem;
 }
 
-.quotes-section a {
-  left: 10rem;
-}
 
 @media (max-width: 768px) {
   .dashboard nav {

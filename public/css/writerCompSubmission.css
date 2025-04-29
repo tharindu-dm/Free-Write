@@ -1,5 +1,6 @@
 .submission-section {
   max-width: 1200px;
+  min-height: 650px;
   margin: 2rem auto;
   padding: 1.5rem;
   border-radius: 1rem;

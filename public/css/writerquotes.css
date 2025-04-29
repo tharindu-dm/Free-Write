@@ -18,6 +18,7 @@
 .button-new {
   position: absolute;
   top: 2rem;
+  width: fit-content;
   right: 2rem;
   padding: 0.6rem 1.2rem;
   border-radius: 2rem;
