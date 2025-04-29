@@ -11,7 +11,7 @@ class InstituteController extends Controller
     {
         $institute_table = new Institution();
         $instDetails = $institute_table->first(['institutionID' => $_SESSION['user_id']]);
-        $this->view('Institute/InstituteDashboard');
+        $this->view('Institute/InstituteDashboard', ['instDetails'=> $instDetails]);
     }
 
     public function Library()
@@ -256,9 +256,6 @@ class InstituteController extends Controller
 
     public function deleteUser()
     {
-        If($_SESSION['REQUEST_METHOD'] != "POST"){
-            die("Invalid request method");
-        }
         $userID = $_POST['userID'];
 
         $userModel = new User();

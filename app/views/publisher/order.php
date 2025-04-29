@@ -9,7 +9,6 @@
   <style>
     .main-content {
       max-width: 1200px;
-      height: 55vh;
       width: 90%;
       margin: 2rem auto;
       padding: 2rem;

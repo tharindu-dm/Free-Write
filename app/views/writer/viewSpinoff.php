@@ -221,7 +221,7 @@
                     <div class="space_between">
                         <h4>From Original: <?= htmlspecialchars($spinoff['fromBook']); ?></h4>
                         <button class="book-btn"
-                            onclick="window.location.href='/Free-Write/public/writer/Overview/<?= htmlspecialchars($spinoff['bookID']); ?>'">
+                            onclick="window.location.href='/Free-Write/public/Book/Overview/<?= htmlspecialchars($spinoff['bookID']); ?>'">
                             View Original Book
                         </button>
                     </div>

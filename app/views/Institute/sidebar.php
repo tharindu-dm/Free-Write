@@ -99,7 +99,7 @@ $activeClass = function ($path) use ($currentPath) {
     <div class="institution-info">
         <div class="institution-icon"></div>
         <div>
-            <h3><?= htmlspecialchars($_SESSION['user_name'] ?? 'Institution Name') ?></h3>
+            <h3><?= htmlspecialchars($instDetails['name'] ?? 'Institution Name') ?></h3>
         </div>
     </div>
     <nav class="menu">

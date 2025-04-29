@@ -144,7 +144,7 @@
             <h4 id="user-header-delete">User:</h4>
 
             <form id="deleteUserForm" action="/Free-Write/public/Institute/deleteUser" method="POST">
-                <input type="input" disabled id="user_delete">
+                <input type="input" disabled id="user_delete" name="user_delete">
                 
                 <!-- Add this new field for the user's name -->
                 <label for="user_name_delete">Name:</label>
