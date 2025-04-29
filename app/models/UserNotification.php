@@ -27,7 +27,8 @@ class UserNotification
               un.*, 
               n.subject, 
               n.message, 
-              n.sentDate 
+              n.sentDate,
+              n.importance 
               FROM [UserNotification] un
               JOIN [Notification] n ON un.[notification] = n.[notificationID]
               WHERE un.[user] = $userID

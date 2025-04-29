@@ -99,13 +99,22 @@
                             <?php if ($_SESSION['user_type'] == 'admin'): ?>
                                 <label><input type="checkbox" name="roles[]" value="mod">&nbsp; Moderators</label>
                             <?php endif; ?>
+
+                            <div class="radio-btn-group">
+                                <label for="importance">Important</label>
+                                <input type="radio" name="importance" required value="important">
+                                
+                                <label for="importance">Normal</label>
+                                <input type="radio" name="importance" required value="normal">
+                            </div>
                         </div>
                     </div>
-                    <div class="button-group">
-                        <button type="reset" class="clear-btn">Clear</button>
-                        <button type="submit" class="publish-btn">Announce</button>
-                    </div>
-                </form>
+            </div>
+            <div class="button-group">
+                <button type="reset" class="clear-btn">Clear</button>
+                <button type="submit" class="publish-btn">Announce</button>
+            </div>
+            </form>
             </div>
 
             <div class="publish-form">

@@ -346,7 +346,26 @@ class UserController extends Controller
             $userNotification = new UserNotification();
             $allNotifications = $userNotification->getAllNotifications($_SESSION['user_id']);
 
-            $this->view('Profile/MyNotifications', ['notifications' => $allNotifications]);
+            $notiCounts = count($allNotifications);
+
+            $importanceCount['important'] = 0;
+            $importanceCount['normal'] = 0;
+
+            foreach ($allNotifications as $notification) {
+
+                if ($notification['importance'] == 'important')
+                    $importanceCount['important']++;
+                if ($notification['importance'] == 'normal')
+                    $importanceCount['normal']++;
+            }
+            $this->view(
+                'Profile/MyNotifications',
+                [
+                    'notifications' => $allNotifications,
+                    'notifyCounts' => $notiCounts,
+                    'importanceCounts'=> $importanceCount
+                ]
+            );
         } else {
             header('Location: /Free-Write/public/User/Login');
             exit;

@@ -13,6 +13,14 @@
   margin-bottom: 1.5rem;
 }
 
+.notification-counts{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
 .notifications {
   display: flex;
   flex-direction: column;
@@ -30,6 +38,19 @@
 .notification.unread {
   background-color: #fff8dc;
 }
+
+.importance-notify {
+  background-color: #c0c0c0;
+  border-radius: 2rem;
+  flex: 1;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.important-noti h2{
+  color: red !important;
+}
+
 
 .notification-header {
   display: flex;

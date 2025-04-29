@@ -83,6 +83,7 @@ class ModController extends Controller
 
         $filteredRoles = array_intersect($roles, $validRoles);
 
+        $importance = $_POST['importance'];
 
         if (in_array('writer', $filteredRoles) && in_array('covdes', $filteredRoles)) {
             $filteredRoles[] = 'wricov';
@@ -99,15 +100,14 @@ class ModController extends Controller
             'subject' => $subject,
             'message' => $description,
             'sentDate' => $datetime,
-            'userTypes' => $userTypes
+            'userTypes' => $userTypes,
+            'importance' => $importance,
         ];
 
 
         $notification->insert($notify_data);
 
         header('location: /Free-Write/public/Mod/Dashboard');
-
-
     }
 
     public function siteLogs()

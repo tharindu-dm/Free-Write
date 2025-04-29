@@ -10,19 +10,33 @@
 
 <body>
     <?php require_once "../app/views/layout/headerSelector.php";
-    
+
     ?>
 
 
     <main class="notification-page">
-        <h1>My Notifications</h1>
+        <div class="notfication-title">
+            <h1>My Notifications</h1>
+            <div class="notification-counts">
+                <div class="importance-notify" style="background-color:#ffd700;">Total: <?= $data['notifyCounts'] ?>
+                </div>
+                <div class="importance-notify" style="background-color:red;">Important:
+                    <?= $importanceCounts['important'] ?>
+                </div>
+                <div class="importance-notify">Normal: <?= $importanceCounts['normal'] ?> </div>
+            </div>
+        </div>
+
         <section class="notifications">
 
             <?php if (isset($notifications)): ?>
                 <?php foreach ($notifications as $notification): ?>
-                    <div class="notification <?= $notification['isRead'] ? 'read' : 'unread' ?>">
+                    <div
+                        class="notification <?= $notification['isRead'] ? 'read' : 'unread' ?> <?= $notification['importance'] == 'important' ? 'important-noti' : 'normal-noti' ?>">
                         <div class="notification-header">
-                            <h2 class="subject"><?= htmlspecialchars($notification['subject']) ?></h2>
+                            <h2 class="subject">
+                                <?= ($notification['importance'] == 'important') ? '(IMPORTANT)' : '' ?>        <?= $notification['subject'] ?>
+                            </h2>
                             <span class="sent-date">Sent: <?= htmlspecialchars($notification['sentDate']) ?></span>
                         </div>
                         <p class="message">
